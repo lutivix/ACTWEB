@@ -1,0 +1,714 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ACTWEB.master.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.ACTWEB"  %>
+
+
+<%@ Register assembly = "ProudMonkey.Common.Controls" namespace = "ProudMonkey.Common.Controls" tagprefix = "cc1"%> 
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
+<!DOCTYPE html>
+<%--<html lang="pt-br" class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">--%>
+<html lang="pt-br">
+
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ACTWEB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" type="text/css" href="/js/extensions/FixedHeader/css/dataTables.fixedHeader.css" />
+    <link rel="stylesheet" type="text/css" href="/fonts/fontawesome-webfont.ttf" />
+    <link rel="stylesheet" type="text/css" href="/fonts/FontAwesome.eot" />
+
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables_themeroller.css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery-ui-timepicker-addon.css" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    
+    <script type="text/javascript" src="/js/mascara.js"></script>
+    <script type="text/javascript" src="/js/myFunction.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dialog.js"></script>
+    
+    <script type="text/javascript" src="/js/pro.js"></script>
+    <script type="text/javascript" src="/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="/js/extensions/FixedHeader/js/dataTables.fixedHeader.js"></script>
+    <script type="text/javascript" src="/js/jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui-timepicker-addon.js"></script>
+  
+
+    <link rel="grupo vli" href="logo-vli.ico">
+
+    <script type="text/javascript">
+        var myclose = false;
+
+        function ConfirmClose() {
+            if (event.clientY < 0) {
+                event.returnValue = 'You have closed the browser. Do you want to logout from your application?';
+                setTimeout('myclose=false', 10);
+                myclose = true;
+            }
+        }
+        function relogio() {
+            var data = new Date();
+            var horas = data.getHours();
+            var minutos = data.getMinutes();
+            var segundos = data.getSeconds();
+
+            if (horas < 10) horas = "0" + horas;
+            if (minutos < 10) minutos = "0" + minutos;
+            if (segundos < 10) segundos = "0" + segundos;
+
+            document.getElementById("relogio").innerHTML = horas + ":" + minutos + ":" + segundos;
+        }
+
+        window.setInterval("relogio()", 1000);
+    </script>
+</head>
+<body onbeforeunload="ConfirmClose()" <%--onunload="HandleOnClose()"--%>>
+    <form id="Form1" runat="server">
+        <asp:ToolkitScriptManager  ID ="ToolkitScriptManager1"  runat ="server" />
+        <div style="height: 100%; width: 100%">
+            <div class="navigation-bar">
+                <div class="navigation-bar-left">
+                    <button type="button" class="btn btn-default menu-lateral" title="Menu">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <span class="logo"></span>
+                </div>
+                <div class="navigation-bar-right">
+                    <a href="#" class="user" title="admin"></a>
+                    <button type="button" class="btn btn-danger logout" title="Logout">
+                        <i class="fa fa-sign-out"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="title-bar">
+                <div class="title-bar-banner">
+                    <div class="banner"></div>
+                    <div class="logo"></div>
+                </div>
+                <div class="title-bar-top">
+                    <span class="top-bar-time"><i class="fa fa-calendar"></i>
+                        <asp:Label ID="LabelDataAtual" runat="server"></asp:Label>
+                    </span>
+                    <div class="top-bar-before"></div>
+                    <div class="top-bar">
+                        <input id="linha-comando" class="linha-comando" placeholder="Linha de Comando" onkeypress="">
+                    </div>
+                    <div class="top-bar-user">
+                        <i class="fa fa-user"></i>
+                        <asp:Label ID="lblUsuarioLogado" runat="server" />
+                        <div class="dropdown user-options">
+                            <a data-toggle="dropdown" href="#"><i class="fa fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <span class="user-group">
+                                    <asp:Label runat="server" ID="lblPerfilUsuarioLogado" ToolTip="Perfil do usuário." /></span>
+                                <span class="user-group">
+                                    <asp:Label runat="server" ID="lblQtdeAcessos" ToolTip="Acessos nos últimos 30 dias." /></span>
+                                <li>
+                                    <asp:LinkButton runat="server" ID="lnkDadosdoUsuario" OnClick="lnkDadosdoUsuario_Click">
+                                        <i class="fa fa-key"></i>
+                                        <span class="menu-item-label" title="Dados Usario">Dados do usuario</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li>
+                                    <asp:LinkButton runat="server" ID="lnkAlteraSenha" OnClick="lnkAlteraSenha_Click" ToolTip="Altera a senha do usuário logado.">
+                                        <i class="fa fa-key"></i><span class="menu-item-label">Alterar Senha</span>
+                                    </asp:LinkButton>
+                                </li>
+
+                                <li><a href="#" onclick="javascript:window.open('/Sobre.aspx', '', 'width=550, height=530, resizable=not top=00 scrollbars=yes')"><i class="fa fa-question"></i>Sobre</a></li>
+
+                                <li><a href="/Login.aspx"><i class="fa fa-power-off"></i>Logoff</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="top-bar-after">
+                        <div id="relogio" style="width: 210px; padding-left: 60px; margin-top: 20px;  font-size: 2.5em; font-weight: 300; color: white; text-shadow: black 0.1em 0.0em 0.1em;"></div>
+                    </div>
+                    <div style="width: 100%; margin-top: 57px;  text-shadow: black 0.1em 0.0em 0.1em; color: yellow;  padding: 6px;">
+                        <MARQUEE HEIGHT=30 WIDTH=100% DIRECTION=LEFT SCROLLAMOUNT=8><asp:Label runat="server" ID="lblDisplay"  Font-Size="2em"  /></MARQUEE>
+                    </div>
+                    
+                </div>
+                
+                <div class="title-bar-bottom">
+                    
+                </div>
+            </div>
+            <div class="side-menu">
+                <div class="menu" id="menu">
+                    <ul>
+                        <li>
+                            <a href="/" title="Página Inicial">
+                                <span class="menu-item-icon menu-icon-inicio"></span>
+                                <span class="menu-item-label" title="Página Inicial">Página Inicial</span>
+                            </a>
+                        </li>
+                        <%----------------------  DADOS DE APOIO  ----------------------%>
+                        <li class="" id="mnDadosApoio" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_dadosapoio" title="Dados de Apoio">
+                                <span class="menu-item-icon menu-icon-apoio"></span>
+                                <span class="menu-item-label" title="Dados de Apoio">Dados de Apoio <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_dadosapoio">
+                            <ul class="submenu">
+                                <li class="" id="sub_dadosapoio_abreviar" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkAbreviar" OnClick="lnkAbreviar_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
+                                        <span class="menu-item-label" title="Consulta Abreviaturas">Abreviaturas</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_dadosapoio_banners" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkBanners" OnClick="lnkBanners_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
+                                        <span class="menu-item-label" title="Informações OBC">Banners</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_dadosapoio_importa_corredores" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkCorredores" OnClick="lnkCorredores_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
+                                        <span class="menu-item-label" title="Plus">Corredores</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_dadosapoio_display" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkDisplay" OnClick="lnkDisplay_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
+                                        <span class="menu-item-label" title="Cadastro de Display">Display</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_dadosapoio_downloads" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkDownloads" OnClick="lnkDownloads_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
+                                        <span class="menu-item-label" title="Cadastro de Downloads">Downloads</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_dadosapoio_logs" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkLogs" OnClick="lnkLogs_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
+                                        <span class="menu-item-label" title="Cadastro de Metas PCTM">Logs</span>
+                                    </asp:LinkButton>
+                                </li>
+
+                                <li class="" id="sub_dadosapoio_meta_pctm" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkMeta_PCTM" OnClick="lnkMeta_PCTM_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
+                                        <span class="menu-item-label" title="Cadastro de Metas PCTM">Metas PCTM</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_dadosapoio_perfis" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkPerfis" OnClick="lnkPerfis_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
+                                        <span class="menu-item-label" title="Perfis">Perfis</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_dadosapoio_plus" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkPlus" OnClick="lnkPlus_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
+                                        <span class="menu-item-label" title="Plus">Plus</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <%----------------------  GOP  ----------------------%>
+                        <li class="" id="mnSavi" runat="server">
+                            <asp:LinkButton runat="server" ID="lnkGOP" OnClick="lnkGOP_Click">
+                                <span class="menu-item-icon menu-icon-gop"></span>
+                                <span class="menu-item-label" title="GOP">GOP</span>
+                            </asp:LinkButton>
+                        </li>
+
+                        <%----------------------  GRÁFICO DE TRENS  ----------------------%>
+                        <li class="" id="mnGraficoTrens" runat="server">
+                            <asp:LinkButton runat="server" ID="lnkEgraph" OnClick="lnkEgraph_Click">
+                                <span class="menu-item-icon menu-icon-egraph"></span>
+                                <span class="menu-item-label" title="e-graph">Gráfico de Trens</span>
+                            </asp:LinkButton>
+                        </li>
+
+                        <%----------------------  INDICADORES  ----------------------%>
+                        <li class="" id="mnIndicadores" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_indicadores " title="Indicadores">
+                                <span class="menu-item-icon menu-icon-indicadores"></span>
+                                <span class="menu-item-label" title="Indicadores">Indicadores <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_indicadores">
+                            <ul class="submenu">
+                                <li class="" id="sub_indicadores_fcanalf" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkProjetosFcaNaLf" OnClick="lnkProjetosFcaNaLf_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-pie-chart"></i></span> 
+                                        <span class="menu-item-label" title="FCA na LF">FCA na LF</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_indicadores_fcanafca" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkProjetosFcaNaFca" OnClick="lnkProjetosFcaNaFca_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-pie-chart"></i></span> 
+                                        <span class="menu-item-label" title="FCA na FCA">FCA na FCA</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_indicadores_projetosfca" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkTodosProjetos" OnClick="lnkTodosProjetos_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-pie-chart"></i></span>                                         
+                                        <span class="menu-item-label" title="Projetos FCA">Projetos FCA</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <%----------------------  LOCOMOTIVAS  ----------------------%>
+                        <li class="" id="mnLocomotivas" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_locomotivas" title="Locomotivas">
+                                <span class="menu-item-icon menu-icon-locomotiva"></span>
+                                <span class="menu-item-label" title="Locomotivas">Locomotivas <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_locomotivas">
+                            <ul class="submenu">
+                                <li class="" id="sub_locomotivas_trocaloco" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkLocomotivas" OnClick="lnkLocomotivas_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-subway"></i></span>
+                                        <span class="menu-item-label" title="Trocaloco">Trocaloco</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_locomotivas_importaOBC" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkImportaOBC" OnClick="lnkImportaOBC_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-subway"></i></span>                                        
+                                        <span class="menu-item-label" title="Consulta OBC">Importa OBC</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <%----------------------  MACROS  ----------------------%>
+                        <li class="" id="mnMacros" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_macros" title="Macros">
+                                <span class="menu-item-icon menu-icon-macro"></span>
+                                <span class="menu-item-label" title="Macros">Macros <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_macros">
+                            <ul class="submenu">
+                                <li class="" id="sub_macros_consulta" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkMacroConsultar" OnClick="lnkMacroConsultar_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-search"></i></span>
+                                        <span class="menu-item-label" title="Macros">Consultar</span>
+                                    </asp:LinkButton>
+                                </li>
+
+                                <li class="" id="sub_macros_macro50" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkMacro50" OnClick="lnkMacro50_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-envelope"></i></span>
+                                        <span class="menu-item-label" title="Macro 50">Macro 50</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_macros_macro61" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkMacro61" OnClick="lnkMacro61_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-envelope"></i></span>
+                                        <span class="menu-item-label" title="Macro 61">Macro 61</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_macros_macro200" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkMacro200" OnClick="lnkMacro200_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-envelope"></i></span>
+                                        <span class="menu-item-label" title="Macro 200">Macro 200</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_macros_macrofrota" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkMacroFrota" OnClick="lnkMacroFrota_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-envelope"></i></span>
+                                        <span class="menu-item-label" title="Macro pra Frota">Frota</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <%----------------------  METAFRAME  ----------------------%>
+<%--                        <li class="" id="mnMetaframe" runat="server">
+                            <asp:LinkButton runat="server" ID="lnkMetaframe" OnClick="lnkMetaframe_Click">
+                                <span class="menu-item-icon menu-icon-metaframe"></span>
+                                <span class="menu-item-label" title="Metaframe">Metaframe</span>
+                            </asp:LinkButton>
+                        </li>--%>
+
+                        <%----------------------  PAINEIS  ----------------------%>
+                        <li class="" id="mnPainel" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_painel" title="Paineis">
+                                <span class="menu-item-icon menu-icon-chaves"></span>
+                                <span class="menu-item-label" title="Paineis">Paineis <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_painel">
+                            <ul class="submenu">
+                                <li id="submenu_itemCCO" runat="server">
+                                    <a data-toggle="collapse" data-parent="#menu" title="Painel CCO" style="cursor: default;">
+                                        <span class="menu-item-icon"><i class="fa fa-external-link"></i></span>
+                                        <span class="menu-item-label" title="CCO">CCO</span>
+                                    </a>
+                                </li>
+                                <ul class="submenusub">
+                                    <li class="" id="sub_cco" runat="server">
+                                        <asp:LinkButton runat="server" ID="lnkPainelCCO" OnClick="lnkPainelCCO_Click">
+                                                <span class="menu-item-icon"><i class="fa fa-external-link"></i></span>
+                                                <span class="menu-item-label" title="Painel Baixada">Painel CCO</span>
+                                        </asp:LinkButton>
+                                    </li>
+                                    <li class="" id="sub_baixada" runat="server">
+                                        <asp:LinkButton runat="server" ID="lnkPainelBaixada" OnClick="lnkPainelBaixada_Click">
+                                                <span class="menu-item-icon"><i class="fa fa-external-link"></i></span>
+                                                <span class="menu-item-label" title="Painel Baixada">Painel Baixada</span>
+                                        </asp:LinkButton>
+                                    </li>
+                                </ul>
+                                <li id="submenusub_itemCTD" runat="server">
+                                    <a data-toggle="collapse" data-parent="#menu" title="Painel" style="cursor: default;">
+                                        <span class="menu-item-icon"><i class="fa fa-link"></i></span>
+                                        <span class="menu-item-label" title="CTD">CTD</span>
+                                    </a>
+                                </li>
+                                <ul class="submenusub">
+                                    <li class="" id="sub_araguariboavista" runat="server">
+                                        <asp:LinkButton runat="server" ID="lnkAraguariBoavista" OnClick="lnkAraguariBoavista_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-link"></i></span>
+                                        <span class="menu-item-label" title="Araguari - Boa Vista">Araguari - Boa Vista</span>
+                                        </asp:LinkButton>
+                                    </li>
+                                    <li class="" id="sub_barramansagarcas" runat="server">
+                                        <asp:LinkButton runat="server" ID="lnkBarraMansaGarcas" OnClick="lnkBarraMansaGarcas_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-link"></i></span>                                        
+                                        <span class="menu-item-label" title="Marra Mansa - Garças de Minas">Barra Mansa - Garças </span>
+                                        </asp:LinkButton>
+                                    </li>
+                                    <li class="" id="sub_eldoradoaraguari" runat="server">
+                                        <asp:LinkButton runat="server" ID="lnkEldoradoAraguari" OnClick="lnkEldoradoAraguari_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-link"></i></span>                                        
+                                        <span class="menu-item-label" title="Eldorado - Araguari">Eldorado - Araguari</span>
+                                        </asp:LinkButton>
+                                    </li>
+                                    <li class="" id="sub_carneiromontesclaros" runat="server">
+                                        <asp:LinkButton runat="server" ID="lnkCarneiroMontesClaros" OnClick="lnkCarneiroMontesClaros_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-link"></i></span>                                        
+                                        <span class="menu-item-label" title="General Carneiro - Montes Claros"> Gen. Carneiro - Montes Claros </span>
+                                        </asp:LinkButton>
+                                    </li>
+                                </ul>
+                                <li id="submenusub_itemCAT" runat="server">
+                                    <a data-toggle="collapse" data-parent="#menu" title="CAT" style="cursor: default;">
+                                        <span class="menu-item-icon"><i class="fa fa-wrench"></i></span>
+                                        <span class="menu-item-label" title="CTD">CAT</span>
+                                    </a>
+                                </li>
+                                <ul class="submenusub">
+                                    <li class="" id="sub_cat" runat="server">
+                                        <asp:LinkButton runat="server" ID="lnkCat" OnClick="lnkCat_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-wrench"></i></span>
+                                        <span class="menu-item-label" title="Painel CAT">Painel CAT</span>
+                                        </asp:LinkButton>
+                                    </li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <%----------------------  RADIOS  ----------------------%>
+                        <li class="" id="mnControleRadios" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_controleradios" title="Consulta VMA">
+                                <span class="menu-item-icon menu-icon-radio"></span>
+                                <span class="menu-item-label" title="Controle de Rádios">Rádios <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_controleradios">
+                            <ul class="submenu">
+                                <li class="" id="sub_controleradios_consulta" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkConsultaRadios" OnClick="lnkConsultaRadios_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-search"></i></span>
+                                        <span class="menu-item-label" title="Consulta">Consulta</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+                        <%----------------------  RELATÓRIOS  ----------------------%>
+                        <li class="" id="mnRelatorios" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_relatorios" title="Relatórios">
+                                <span class="menu-item-icon menu-icon-relatorio"></span>
+                                <span class="menu-item-label">Relatórios <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_relatorios">
+                            <ul class="submenu">
+                                <li class="" id="sub_relatorio_CCO" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkRelatorioCCO" OnClick="lnkRelatorioCCO_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-print"></i></span>
+                                        <span class="menu-item-label" title="Relatório CCO">CCO</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_relatorio_MACROS" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkRelatorioMACROS" OnClick="lnkRelatorioMACROS_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-print"></i></span>
+                                        <span class="menu-item-label" title="Relatório VMA">Macro 50</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_relatorio_PCTM" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkPCTM" OnClick="lnkPCTM_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-print"></i></span>
+                                        <span class="menu-item-label" title="Relatório PCTM">PCTM</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <%----------------------  RESTRIÇÕES  ----------------------%>
+                        <li class="" id="mnRestricoes" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_restricoes" title="Restrições">
+                                <span class="menu-item-icon menu-icon-restricao"></span>
+                                <span class="menu-item-label">Restrições <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_restricoes">
+                            <ul class="submenu">
+                                <li class="" id="sub_restricao" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkRestricoes" OnClick="lnkRestricoes_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-ban"></i></span> 
+                                        <span class="menu-item-label" title="Restrições">Restrições</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_interdicoes" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkInterdicoes" OnClick="lnkInterdicoes_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-ban"></i></span> 
+                                        <span class="menu-item-label" title="Restrições">Solicitações de LDL</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <%----------------------  SISTEMA  ----------------------%>
+                        <li class="" id="mnSistema" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_sistema" title="Restrições">
+                                <span class="menu-item-icon menu-icon-restricao"></span>
+                                <span class="menu-item-label">Sistema <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_sistema">
+                            <ul class="submenu">
+                                <li class="" id="sub_sistema_menus" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkMenus" OnClick="lnkMenus_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
+                                        <span class="menu-item-label" title="Menus">Menus</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_sistema_submenus" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkSubmenus" OnClick="lnkSubmenus_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
+                                        <span class="menu-item-label" title="Submenus">Submenus</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <%----------------------  TELECOMANDADAS  ----------------------%>
+                        <li class="" id="mnTelecomandadas" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_telecomandadas" title="P7ACD">
+                                <span class="menu-item-icon menu-icon-telecomandadas"></span>
+                                <span class="menu-item-label" title="Telecomandadas">Telecomandadas <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_telecomandadas">
+                            <ul class="submenu">
+                                <li class="" id="sub_alarmes" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkAlarmes" OnClick="lnkAlarmes_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-eye"></i></span> 
+                                        <span class="menu-item-label" title="Alarmes">Alarmes</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_relatorio" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkRelatorioP7" OnClick="lnkRelatorioP7_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-eye"></i></span> 
+                                        <span class="menu-item-label" title="Relatórios">Relatorios</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <%----------------------  THP  ----------------------%>
+                        <li class="" id="mnTHP" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_thp " title="THP">
+                                <span class="menu-item-icon menu-icon-thp"></span>
+                                <span class="menu-item-label" title="THP">THP <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_thp">
+                            <ul class="submenu">
+                                <li class="" id="sub_thp_consultar" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkTHP" OnClick="lnkTHP_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-connectdevelop"></i></span> 
+                                        <span class="menu-item-label" title="Consultar THP">Consultar</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_thp_AlocacaoProgramada" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkAlocacaoProgramada" OnClick="lnkAlocacaoProgramada_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-connectdevelop"></i></span>
+                                        <span class="menu-item-label" title="Consulta">Alocações Programadas</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_thp_GiroLocomotivas" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkGirloLocomotivas" OnClick="lnkGirloLocomotivas_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-connectdevelop"></i></span>
+                                        <span class="menu-item-label" title="Consulta">Giro de Locomotivas</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_thp_THP_Relatorios" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkTHP_Relatorios" OnClick="lnkTHP_Relatorios_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-connectdevelop"></i></span>
+                                        <span class="menu-item-label" title="THP Relatórios">THP Relatórios</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_thp_parada_confirmacao" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkTempoParadaConfirmacao" OnClick="lnkTempoParadaConfirmacao_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-connectdevelop"></i></span> 
+                                        <span class="menu-item-label" title="Tempo de Parada/Confirmação">Tempo de Parada/Confirmação</span>
+                                    </asp:LinkButton>
+                                </li>
+
+
+
+
+
+                            </ul>
+                        </div>
+
+
+                        <%----------------------  TERMOMETROS  ----------------------%>
+                        <li class="" id="mnTermometros" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_termometros" title="Termômetros">
+                                <span class="menu-item-icon menu-icon-termometro"></span>
+                                <span class="menu-item-label" title="Termômetros">Termômetros <i class="fa fa-caret-down"></i></span>
+                            </a>
+
+                        </li>
+                        <div class="collapse" id="sub_termometros">
+                            <ul class="submenu">
+                                <li class="" id="sub_termometros_consultar" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkTermometrosConsultar" OnClick="lnkTermometrosConsultar_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-search"></i></span> 
+                                        <span class="menu-item-label" title="Termômetros">Consultar</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_termometros_relatorio" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkTermometrosRelatorio" OnClick="lnkTermometrosRelatorio_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-print"></i></span> 
+                                        <span class="menu-item-label" title="Termômetros">Relatórios</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <%----------------------  TRENS  ----------------------%>
+                        <li class="" id="mnTrens" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_trens" title="Termômetros">
+                                <span class="menu-item-icon menu-icon-trens"></span>
+                                <span class="menu-item-label" title="Trens">Trens <i class="fa fa-caret-down"></i></span>
+                            </a>
+
+                        </li>
+                        <div class="collapse" id="sub_trens">
+                            <ul class="submenu">
+                                <li class="" id="sub_trens_ult_localizacao" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkUltLocalizacao" OnClick="lnkUltLocalizacao_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-search"></i></span> 
+                                        <span class="menu-item-label" title="Ultima Localização">Ultima Localização</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                        <%----------------------  USUÁRIOS  ----------------------%>
+                        <li class="" id="mnUsuarios" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_usuarios" title="Usuários">
+                                <span class="menu-item-icon menu-icon-usuario"></span>
+                                <span class="menu-item-label" title="Usuários">Usuários <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_usuarios">
+                            <ul class="submenu">
+                                <li class="" id="sub_consultarusuariosWeb" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkUsuariosACT" OnClick="lnkUsuariosACT_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-search"></i></span>
+                                        <span class="menu-item-label" title="Usuários Web">Usuários ACT</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_consultarusuarios" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkUsuarios" OnClick="lnkUsuarios_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-search"></i></span>
+                                        <span class="menu-item-label" title="Usuários Web">Usuários Web</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_acessos" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkAcessos" OnClick="lnkAcessos_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-link"></i></span>
+                                        <span class="menu-item-label" title="Acessos">Acessos</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_estatisticas" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkEstatisticas" OnClick="lnkEstatisticas_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-signal"></i></span>
+                                        <span class="menu-item-label" title="Estatísticas">Estatísticas</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <%----------------------  VMA  ----------------------%>
+                        <li class="" id="mnConsultaVMA" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_vma" title="Consulta VMA">
+                                <span class="menu-item-icon menu-icon-vma"></span>
+                                <span class="menu-item-label" title="Consulta VMA">VMA <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_vma">
+                            <ul class="submenu">
+                                <li class="" id="sub_consultaVMA_consulta" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkConsultaVMA" OnClick="lnkConsultaVMA_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-search"></i></span>
+                                        <span class="menu-item-label" title="Consulta">Consulta</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_relatorio_VMA" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkRelarorioVMA" OnClick="lnkRelarorioVMA_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-print"></i></span>
+                                        <span class="menu-item-label" title="Relatório VMA">Relatórios VMA</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+                    </ul>
+                </div>
+                <div class="main-content">
+                    <div class="content">
+                        <div class="content-body">
+                            <div class="container-fluid">
+                                <div class="content-form">
+                                    <div class="page-header content-header">
+                                        <h3>
+                                            <asp:ContentPlaceHolder ID="ContentPageTitle" runat="server"></asp:ContentPlaceHolder>
+                                        </h3>
+                                    </div>
+                                    <asp:ContentPlaceHolder ID="ContentMain" runat="server"></asp:ContentPlaceHolder>
+                                </div>
+                                <div class="footer-lf">
+                                    <span>desenvolvido por </span>
+                                    <a href="http://lfsistemas.net.br/" target="_blank" class="lfslogo"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

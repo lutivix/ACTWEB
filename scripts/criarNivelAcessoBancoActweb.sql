@@ -1,0 +1,27 @@
+CREATE TABLE NIVEL_ACESSO
+(
+  ID             INTEGER                        NOT NULL,
+  NOME           VARCHAR2(55 BYTE)              NOT NULL,
+  ATIVO          CHAR(1 BYTE),
+  DATACRIACAO    DATE,
+  DATAALTERACAO  DATE
+)
+TABLESPACE ACTWEB
+PCTUSED    40
+PCTFREE    10
+INITRANS   1
+MAXTRANS   255
+STORAGE    (
+            INITIAL          64K
+            MINEXTENTS       1
+            MAXEXTENTS       2147483645
+            PCTINCREASE      0
+            FREELISTS        1
+            FREELIST GROUPS  1
+            BUFFER_POOL      DEFAULT
+           )
+LOGGING 
+NOCOMPRESS 
+NOCACHE
+NOPARALLEL
+MONITORING;

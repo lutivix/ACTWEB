@@ -1,0 +1,26 @@
+select * from logs order by log_data_hora desc;
+
+drop table logs;
+drop sequence actweb.logs_id;
+
+CREATE TABLE LOGS
+(
+  LOG_ID             NUMBER                 NOT NULL, 
+  LOG_DATA_HORA      DATE                   NOT NULL,
+  LOG_MATRICULA      VARCHAR2(12 BYTE)      NOT NULL,
+  LOG_MODULO         VARCHAR2(50 BYTE)      NULL,
+  LOG_IDENT_LDA      VARCHAR2(12 BYTE)      NULL,
+  LOG_IDENT_ENV      VARCHAR2(12 BYTE)      NULL,
+  LOG_TEXTO          VARCHAR2(4000 BYTE)    NULL,
+  LOG_OPERACAO       VARCHAR2(1 BYTE)       NOT NULL
+);
+
+ALTER TABLE LOGS ADD ( CONSTRAINT PK_LOGS PRIMARY KEY (LOG_ID) );
+
+CREATE SEQUENCE ACTWEB.LOGS_ID
+  START WITH 1
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1
+  NOCYCLE
+  CACHE 20
+  NOORDER;

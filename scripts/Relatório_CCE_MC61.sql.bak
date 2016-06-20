@@ -1,0 +1,1 @@
+select * from mensagens_enviadas where me_mac_num in (61) and me_msg_time >= to_date('01/11/2015 00:00:00', 'dd/mm/yyyy hh24:mi:ss') and me_msg_time <= to_date('30/11/2015 23:59:59', 'dd/mm/yyyy hh24:mi:ss');

@@ -1,0 +1,63 @@
+D:\Projeto ACTWEB\trunk\LFSistemas.VLI.ACTWeb - Dener\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Controllers.dll
+D:\Projeto ACTWEB\trunk\LFSistemas.VLI.ACTWeb - Dener\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Controllers.pdb
+D:\Projeto ACTWEB\trunk\LFSistemas.VLI.ACTWeb - Dener\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.DataAccessObjects.dll
+D:\Projeto ACTWEB\trunk\LFSistemas.VLI.ACTWeb - Dener\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Entities.dll
+D:\Projeto ACTWEB\trunk\LFSistemas.VLI.ACTWeb - Dener\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb
+D:\Projeto ACTWEB\trunk\LFSistemas.VLI.ACTWeb - Dener\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Entities.pdb
+D:\Projeto ACTWEB\trunk\LFSistemas.VLI.ACTWeb - Dener\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.csprojResolveAssemblyReference.cache
+D:\Projeto ACTWEB\trunk\LFSistemas.VLI.ACTWeb - Dener\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.dll
+D:\Projeto ACTWEB\trunk\LFSistemas.VLI.ACTWeb - Dener\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.pdb
+E:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Controllers.dll
+E:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Controllers.pdb
+E:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.DataAccessObjects.dll
+E:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Entities.dll
+E:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb
+E:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Entities.pdb
+E:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.csprojResolveAssemblyReference.cache
+E:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.dll
+E:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.pdb
+D:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Controllers.dll
+D:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Controllers.pdb
+D:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.DataAccessObjects.dll
+D:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Entities.dll
+D:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb
+D:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Entities.pdb
+D:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.csprojResolveAssemblyReference.cache
+D:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.dll
+D:\Projetos\FCAACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.pdb
+D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Controllers.dll
+D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Controllers.pdb
+D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.DataAccessObjects.dll
+D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Entities.dll
+D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb
+D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Entities.pdb
+D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.csprojResolveAssemblyReference.cache
+D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.dll
+D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.pdb
+C:\Users\DEV\Desktop\Projetos\ACTWEB_DEV\Abranches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Controllers.dll
+C:\Users\DEV\Desktop\Projetos\ACTWEB_DEV\Abranches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Controllers.pdb
+C:\Users\DEV\Desktop\Projetos\ACTWEB_DEV\Abranches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.DataAccessObjects.dll
+C:\Users\DEV\Desktop\Projetos\ACTWEB_DEV\Abranches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Entities.dll
+C:\Users\DEV\Desktop\Projetos\ACTWEB_DEV\Abranches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb
+C:\Users\DEV\Desktop\Projetos\ACTWEB_DEV\Abranches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Entities.pdb
+C:\Users\DEV\Desktop\Projetos\ACTWEB_DEV\Abranches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.csprojResolveAssemblyReference.cache
+C:\Users\DEV\Desktop\Projetos\ACTWEB_DEV\Abranches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.dll
+C:\Users\DEV\Desktop\Projetos\ACTWEB_DEV\Abranches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.pdb
+C:\Users\DEV\Desktop\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Controllers.dll
+C:\Users\DEV\Desktop\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Controllers.pdb
+C:\Users\DEV\Desktop\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.DataAccessObjects.dll
+C:\Users\DEV\Desktop\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Entities.dll
+C:\Users\DEV\Desktop\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb
+C:\Users\DEV\Desktop\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Entities.pdb
+C:\Users\DEV\Desktop\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.csprojResolveAssemblyReference.cache
+C:\Users\DEV\Desktop\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.dll
+C:\Users\DEV\Desktop\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.pdb
+E:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.csprojResolveAssemblyReference.cache
+E:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Controllers.dll
+E:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Controllers.pdb
+E:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.DataAccessObjects.dll
+E:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Entities.dll
+E:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb
+E:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Debug\LFSistemas.VLI.ACTWeb.Entities.pdb
+E:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.dll
+E:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Debug\LFSistemas.VLI.ACTWeb.Controllers.pdb
