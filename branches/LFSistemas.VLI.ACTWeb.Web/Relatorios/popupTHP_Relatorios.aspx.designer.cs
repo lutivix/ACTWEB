@@ -85,15 +85,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios {
         protected global::System.Web.UI.WebControls.Label lblUsuarioMaleta;
         
         /// <summary>
-        /// dvPeriodo1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvPeriodo1;
-        
-        /// <summary>
         /// txtFiltroDataDe control.
         /// </summary>
         /// <remarks>
@@ -227,24 +218,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList cblMotivos;
-        
-        /// <summary>
-        /// chkColunas control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkColunas;
-        
-        /// <summary>
-        /// cblColunas control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList cblColunas;
         
         /// <summary>
         /// txtFiltroOS control.

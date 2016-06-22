@@ -67,5 +67,16 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ObterRelatorioTHPConsolidadoPorFiltro(filtro);
         }
+        
+        /// <summary>
+        /// Obtem tempo total de parada por trem caso haja mais de uma parada.
+        /// </summary>
+        /// <param name="Trem_id">Filtros de pesquisa no banco</param>
+        /// <returns>Retorna um valor double referente ao tempo total de parada</returns>
+        public double ObterTempoTotalParadaTrem(double Trem_id, double Sb_ID)
+        {
+            return dao.ObterTempoTotalParadaTrem(Trem_id, Sb_ID);
+        }
+
     }
 }

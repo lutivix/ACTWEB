@@ -29,7 +29,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
                     query.Append(@"SELECT * FROM (
-                                    SELECT  T.TM_ID_TRM AS TREM_ID, T.TM_COD_OF AS OS, T.TM_PRF_ACT AS PREFIXO, EV_NOM_MAC AS LOCAL, M.MOT_NOME AS MOTIVO, COD_MOTIVO, COD_MOT_DESPACHADOR, ID_POSTO, DT_INI_PARADA, NC.NM_COR_NOME AS CORREDOR, G.GRU_NOME AS GRUPO, TP.ID_TREM_ACT AS ID_TREM, ROW_NUMBER() OVER (PARTITION BY TM_COD_OF ORDER BY TM_COD_OF ) as LINHA
+                                    SELECT  T.TM_ID_TRM AS TREM_ID, T.TM_COD_OF AS OS, T.TM_PRF_ACT AS PREFIXO, EV_NOM_MAC AS LOCAL, M.MOT_NOME AS MOTIVO, COD_MOTIVO, COD_MOT_DESPACHADOR, ID_POSTO, DT_INI_PARADA, NC.NM_COR_NOME AS CORREDOR, G.GRU_NOME AS GRUPO, TP.ID_TREM_ACT AS ID_TREM, ROW_NUMBER() OVER (PARTITION BY TM_COD_OF ORDER BY TM_COD_OF ) as LINHA, TP.ID_SB
                                         FROM  ACTPP.OCUPACOES_VIGENTES OV, ACTPP.UNL_TRENS_PARADOS TP, ACTPP.TRENS T,  ACTPP.ELEM_VIA EV, MOTIVO_PARADA M, GRUPOS G, ACTPP.NOME_CORREDOR NC
                                             WHERE OV.TM_ID_TRM = T.TM_ID_TRM 
                                                 AND TP.ID_TREM_ACT = T.TM_ID_TRM
@@ -49,7 +49,10 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 AND NOT T.TM_PRF_ACT LIKE 'S%' 
                                                 AND NOT T.TM_PRF_ACT LIKE 'H%' 
                                                 AND NOT T.TM_PRF_ACT LIKE 'L%' 
-                                                AND NOT T.TM_PRF_ACT LIKE 'V%')
+                                                AND NOT T.TM_PRF_ACT LIKE 'V%'
+                                                /*MEDIDA PROVISÓRIA PARA NÃO EXIBIR OS CÓDIGOS 9 E 46 E CORREDOR BAIXADA*/
+                                                AND COD_MOTIVO NOT IN (9, 46)
+                                                AND NC.NM_COR_NOME NOT IN ('Baixada'))
                                                 WHERE LINHA = 1 
                                         ORDER BY  DT_INI_PARADA");
 
@@ -113,7 +116,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
                     query.Append(@"SELECT * FROM (
-                                    SELECT  T.TM_ID_TRM AS TREM_ID, T.TM_COD_OF AS OS, T.TM_PRF_ACT AS PREFIXO, EV_NOM_MAC AS LOCAL, M.MOT_NOME AS MOTIVO, COD_MOTIVO, COD_MOT_DESPACHADOR, ID_POSTO, DT_INI_PARADA, NC.NM_COR_NOME AS CORREDOR, G.GRU_NOME AS GRUPO, TP.ID_TREM_ACT AS ID_TREM, ROW_NUMBER() OVER (PARTITION BY TM_COD_OF ORDER BY TM_COD_OF ) as LINHA
+                                    SELECT  T.TM_ID_TRM AS TREM_ID, T.TM_COD_OF AS OS, T.TM_PRF_ACT AS PREFIXO, EV_NOM_MAC AS LOCAL, M.MOT_NOME AS MOTIVO, COD_MOTIVO, COD_MOT_DESPACHADOR, ID_POSTO, DT_INI_PARADA, NC.NM_COR_NOME AS CORREDOR, G.GRU_NOME AS GRUPO, TP.ID_TREM_ACT AS ID_TREM, ROW_NUMBER() OVER (PARTITION BY TM_COD_OF ORDER BY TM_COD_OF ) as LINHA, TP.ID_SB
                                         FROM  ACTPP.OCUPACOES_VIGENTES OV, ACTPP.UNL_TRENS_PARADOS TP, ACTPP.TRENS T,  ACTPP.ELEM_VIA EV, MOTIVO_PARADA M, GRUPOS G, ACTPP.NOME_CORREDOR NC
                                             WHERE OV.TM_ID_TRM = T.TM_ID_TRM 
                                                 AND TP.ID_TREM_ACT = T.TM_ID_TRM
@@ -131,7 +134,10 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 AND NOT T.TM_PRF_ACT LIKE 'H%' 
                                                 AND NOT T.TM_PRF_ACT LIKE 'L%' 
                                                 AND NOT T.TM_PRF_ACT LIKE 'V%'
-                                                AND T.TM_ID_TRM = ${TM_ID_TRM})
+                                                AND T.TM_ID_TRM = ${TM_ID_TRM}
+                                                /*MEDIDA PROVISÓRIA PARA NÃO EXIBIR OS CÓDIGOS 9 E 46 E CORREDOR BAIXADA*/
+                                                AND COD_MOTIVO NOT IN (9, 46)
+                                                AND NC.NM_COR_NOME NOT IN ('Baixada'))
                                                 WHERE LINHA = 1 
                                         ORDER BY  DT_INI_PARADA");
 
@@ -316,6 +322,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           ${FILTRO_SB}
                                           ${FILTRO_GRUPO}
                                           ${FILTRO_MOTIVO}
+                                          AND ANA.TTC_PFX_TRM LIKE 'C950'
                                         ORDER BY TREM_ID, APURACAO DESC,  SB");
                     }
                     //-- TEM: CORREDOR -- NÃO: ROTA E SUBROTA
@@ -935,6 +942,78 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return itens;
         }
 
+        /// <summary>
+        /// Obtem tempo total de parada por trem caso haja mais de uma parada.
+        /// </summary>
+        /// <param name="Trem_id">Filtros de pesquisa no banco</param>
+        /// <returns>Retorna um valor double referente ao tempo total de parada</returns>
+        public double ObterTempoTotalParadaTrem(double Trem_id, double Sb_ID)
+        { 
+             #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var item = new THP();
+            double tempoParada = 0;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA VMA POR SB ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT SUM (NVL(SOMATOTAL,0)) /1440
+                                     FROM (SELECT NVL(SUM(UNL.DT_FIM_PARADA - UNL.DT_INI_PARADA),0) * 60 * 24 AS SOMATOTAL
+                                             FROM ACTPP.UNL_TRENS_PARADOS UNL
+                                            WHERE UNL.DT_FIM_PARADA IS NOT NULL
+                                              AND UNL.ID_SB = ${ID_SB}
+                                              AND ID_TREM_ACT = ${TM_ID_TRM}
+                                           UNION ALL
+                                           SELECT (SYSDATE - DT_INI_PARADA) * 60 * 24
+                                             FROM (  SELECT DT_INI_PARADA
+                                                       FROM ACTPP.UNL_TRENS_PARADOS UNL
+                                                      WHERE UNL.ID_SB = ${ID_SB}
+                                                           AND ID_TREM_ACT = ${TM_ID_TRM}
+                                                           AND DT_FIM_PARADA IS NULL
+                                                  ORDER BY DT_INI_PARADA)
+                                            WHERE ROWNUM = 1)");
+                        
+
+                    query.Replace("${TM_ID_TRM}", string.Format("{0}", Trem_id));
+                    query.Replace("${ID_SB}", string.Format("{0}", Sb_ID));
+
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            tempoParada = double.Parse(reader.GetValue(0).ToString());
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, null, "THP", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return tempoParada;
+
+            
+        }
+
 
         private THP PreencherPropriedades(OleDbDataReader reader)
         {
@@ -947,18 +1026,26 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(2)) item.Prefixo = reader.GetString(2);
                 if (!reader.IsDBNull(3)) item.Local = reader.GetString(3);
                 if (!reader.IsDBNull(4)) item.Motivo = reader.GetString(4);
+                if (!reader.IsDBNull(13)) item.Sb_ID = reader.GetDouble(13);
                 if (!reader.IsDBNull(8))
                 {
                     var tempo = DateTime.Now - reader.GetDateTime(8);
+                    var tempoTotal = TimeSpan.FromDays( new THPDAO().ObterTempoTotalParadaTrem(item.Trem_ID, item.Sb_ID));
+                  
+
 
                     item.Tempo = string.Format("{0} dia(s) {1}:{2}:{3}", tempo.Days, tempo.Hours < 10 ? "0" + tempo.Hours.ToString() : tempo.Hours.ToString(), tempo.Minutes < 10 ? "0" + tempo.Minutes.ToString() : tempo.Minutes.ToString(), tempo.Seconds < 10 ? "0" + tempo.Seconds.ToString() : tempo.Seconds.ToString());
-                    item.Intervalo = tempo;
+                    item.TempoTotal = string.Format("{0} dia(s) {1}:{2}:{3}", tempo.Days, tempoTotal.Hours < 10 ? "0" + tempoTotal.Hours.ToString() : tempoTotal.Hours.ToString(), tempoTotal.Minutes < 10 ? "0" + tempoTotal.Minutes.ToString() : tempoTotal.Minutes.ToString(), tempoTotal.Seconds < 10 ? "0" + tempoTotal.Seconds.ToString() : tempoTotal.Seconds.ToString());
+
+                    item.Intervalo = tempoTotal;
+
+                    //item.TempoTotal = tempoTotal;
 
                     item.Cor = "branco";
 
-                    if (tempo > TimeSpan.FromMinutes(30)) item.Cor = "azul";
-                    if (tempo > TimeSpan.FromMinutes(90)) item.Cor = "amarelo";
-                    if (tempo > TimeSpan.FromMinutes(180)) item.Cor = "vermelho";
+                    if (tempoTotal > TimeSpan.FromMinutes(30)) item.Cor = "azul";
+                    if (tempoTotal > TimeSpan.FromMinutes(90)) item.Cor = "amarelo";
+                    if (tempoTotal > TimeSpan.FromMinutes(180)) item.Cor = "vermelho";
                 }
                 if (!reader.IsDBNull(6))
                 {

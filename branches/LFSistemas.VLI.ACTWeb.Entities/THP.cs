@@ -17,6 +17,8 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Prefixo { get; set; }
         public string Local { get; set; }
         public string Tempo { get; set; }
+        public double Sb_ID { get; set; }
+        public string TempoTotal { get; set; }
         public string Codigo { get; set; }
         public string Motivo { get; set; }
         public string Cor { get; set; }

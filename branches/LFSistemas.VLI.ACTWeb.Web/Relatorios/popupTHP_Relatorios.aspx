@@ -113,7 +113,7 @@
             }
 
             function Get_Selected_Value() {
-                var ControlRef = document.getElementById('<%= cblColunas.ClientID %>');
+               <%-- var ControlRef = document.getElementById('<%= cblColunas.ClientID %>');--%>
                 var CheckBoxListArray = ControlRef.getElementsByTagName('input');
                 var spanArray = ControlRef.getElementsByTagName('span');
                 var conta = 0;
@@ -354,26 +354,34 @@
                         <div id="filtros">
                             <table style="width: 100%; padding-left: 1em; padding-right: 1em;">
                                 <tr>
-                                    <td style="width: 13.4%; padding-top: 1em;">
+                                    <td style="width: 20%;" colspan="2">
+                                        <table style="width: 100%;">
+                                            <tr>
+                                                <td style="width: 40%">
+                                                    <label for="De">De:</label>
+                                                    <asp:TextBox runat="server" ID="txtFiltroDataDe" CssClass="form-control" Width="95%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" onkeypress="return PermiteSomenteNumeros(event);" />
+                                                </td>
+                                                <td style="width: 40%">
+                                                    <label for="Ate">Até:</label>
+                                                    <asp:TextBox runat="server" ID="txtFiltroDataAte" CssClass="form-control" Width="95%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" onkeypress="return PermiteSomenteNumeros(event);" />
+                                                </td>
+                                                <td style="width: 20%; padding-top: 1em;">
+                                                    <label for="Inicio">Classe:</label>
+                                                    <asp:TextBox runat="server" ID="txtFiltroClasse" CssClass="form-control" Width="95%" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <%--                                    <td style="width: 13.4%; padding-top: 1em;">
                                         <div runat="server" id="dvPeriodo1" visible="true">
                                             <table>
                                                 <tr>
-                                                    <td style="width: 50%">
-                                                        <label for="De">De:</label>
-                                                        <asp:TextBox runat="server" ID="txtFiltroDataDe" CssClass="form-control" Width="95%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" onkeypress="return PermiteSomenteNumeros(event);" />
-                                                    </td>
-                                                    <td style="width: 50%">
-                                                        <label for="Ate">Até:</label>
-                                                        <asp:TextBox runat="server" ID="txtFiltroDataAte" CssClass="form-control" Width="95%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" onkeypress="return PermiteSomenteNumeros(event);" />
-                                                    </td>
+
                                                 </tr>
                                             </table>
                                         </div>
-                                    </td>
-                                    <td style="width: 6.6%; padding-top: 1em;">
-                                        <label for="Inicio">Classe:</label>
-                                        <asp:TextBox runat="server" ID="txtFiltroClasse" CssClass="form-control" Width="95%" />
-                                    </td>
+                                    </td>--%>
+
                                     <td style="width: 10%; padding-top: 1em;" rowspan="3">
                                         <label for="matricula">Corredores:</label>
                                         <asp:CheckBox runat="server" ID="chkCorredores" OnClick="selectAllCorredores(this)" ToolTip="Seleciona Todos" OnCheckedChanged="chkCorredores_CheckedChanged" AutoPostBack="true" />
@@ -428,7 +436,7 @@
                                             </asp:Panel>
                                         </div>
                                     </td>
-                                    <td style="width: 10%; padding-top: 1em;" rowspan="3">
+                                    <%--<td style="width: 10%; padding-top: 1em;" rowspan="3">
                                         <div id="dvColunas">
                                             <label for="matricula">Colunas:</label>
                                             <asp:CheckBox runat="server" ID="chkColunas" ToolTip="Seleciona Todos" />
@@ -450,21 +458,21 @@
                                                 </asp:CheckBoxList>
                                             </asp:Panel>
                                         </div>
-                                    </td>
+                                    </td>--%>
                                 </tr>
                                 <tr>
                                     <td style="width: 20%;" colspan="2">
                                         <table style="width: 100%;">
                                             <tr>
-                                                <td style="width: 33%; padding-top: 1em;">
+                                                <td style="width: 40%; padding-top: 1em;">
                                                     <label for="Fim">OS:</label>
                                                     <asp:TextBox runat="server" ID="txtFiltroOS" CssClass="form-control" Width="95%" />
                                                 </td>
-                                                <td style="width: 33%; padding-top: 1em;" colspan="1">
+                                                <td style="width: 40%; padding-top: 1em;" colspan="1">
                                                     <label for="Inicio">Prefixo:</label>
                                                     <asp:TextBox runat="server" ID="txtFiltroPrefixo" CssClass="form-control" Width="95%" />
                                                 </td>
-                                                <td style="width: 33%; padding-top: 1em;" colspan="1">
+                                                <td style="width: 20%; padding-top: 1em;" colspan="1">
                                                     <label for="Inicio">SB:</label>
                                                     <asp:TextBox runat="server" ID="txtFiltroSB" CssClass="form-control" Width="95%" />
                                                 </td>
@@ -476,13 +484,13 @@
                                     <td style="width: 20%;" colspan="2">
                                         <table style="width: 100%;">
                                             <tr>
-                                                <td style="width: 33%; padding-top: 1em;">
+                                                <td style="width: 40%; padding-top: 1em;">
                                                     <asp:RadioButton runat="server" ID="rbAnalitica" Text="Analítica" TextAlign="Right" Width="95%" CssClass="form-control" GroupName="gmTHP" Checked="true" OnCheckedChanged="rbAnalitica_CheckedChanged" AutoPostBack="true" />
                                                 </td>
-                                                <td style="width: 33%; padding-top: 1em;" colspan="1">
+                                                <td style="width: 40%; padding-top: 1em;" colspan="1">
                                                     <asp:RadioButton runat="server" ID="rbConsolidada" Text="Consolidada" TextAlign="Right" Width="95%" CssClass="form-control" GroupName="gmTHP" OnCheckedChanged="rbConsolidada_CheckedChanged" AutoPostBack="true" />
                                                 </td>
-                                                <td style="width: 33%; padding-top: 1em;" colspan="1"></td>
+                                                <td style="width: 20%; padding-top: 1em;" colspan="1"></td>
                                             </tr>
                                         </table>
                                     </td>
@@ -589,11 +597,13 @@
                                                     <td id="td_11" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); vertical-align: middle; visibility: <%# Eval("Coluna_THP") %>;">
                                                         <table style="width: 100%">
                                                             <tr>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# Eval("THP_Meta") %> minuto(s)">
-                                                                    <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("THP_Meta").ToString()))) %>
+
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# Eval("THP_Meta") %> minuto(s)">
+                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("THP_Meta").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("THP_Meta").ToString()))) : "" %>' />
                                                                 </td>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# Eval("THP_Real") %> minuto(s)">
-                                                                    <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("THP_Real").ToString()))) %>
+
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# Eval("THP_Real") %> minuto(s)">
+                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("THP_Real").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("THP_Real").ToString()))) : "" %>' />
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -601,38 +611,54 @@
                                                     <td id="td_12" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); vertical-align: middle; visibility: <%# Eval("Coluna_TTP") %>;">
                                                         <table style="width: 100%">
                                                             <tr>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# Eval("TTP_Meta") %> minuto(s)">
-                                                                    <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("TTP_Meta").ToString()))) %>
+
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# Eval("TTP_Meta") %> minuto(s)">
+                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TTP_Meta").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("TTP_Meta").ToString()))) : "" %>' />
                                                                 </td>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# Eval("TTP_Real") %> minuto(s)">
-                                                                    <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("TTP_Real").ToString()))) %>
+
+
+
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# Eval("TTP_Real") %> minuto(s)">
+                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TTP_Real").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("TTP_Real").ToString()))) : "" %>' />
                                                                 </td>
+
                                                             </tr>
                                                         </table>
                                                     </td>
                                                     <td id="td_13" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); vertical-align: middle; visibility: <%# Eval("Coluna_THM") %>;">
                                                         <table style="width: 100%">
                                                             <tr>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# Eval("THM_Meta") %> minuto(s)">
-                                                                    <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("THM_Meta").ToString()))) %>
+
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# Eval("THM_Meta") %> minuto(s)">
+                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("THM_Meta").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("THM_Meta").ToString()))) : "" %>' />
                                                                 </td>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# Eval("THM_Real") %> minuto(s)">
-                                                                    <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("THM_Real").ToString()))) %>
+
+
+
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# Eval("THM_Real") %> minuto(s)">
+                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("THM_Real").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("THM_Real").ToString()))) : "" %>' />
                                                                 </td>
+
                                                             </tr>
                                                         </table>
                                                     </td>
-                                                    <td id="td_14" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); text-align: right; vertical-align: middle; visibility: <%# Eval("Coluna_Duracao_THP") %>; visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="<%# Eval("Duracao_THP") %> minuto(s)"> <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("Duracao_THP").ToString()))) %> </td>
-                                                    <td id="td_15" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); text-align: right; vertical-align: middle; visibility: <%# Eval("Coluna_Duracao_TTP") %>; visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="<%# Eval("Duracao_TTP") %> minuto(s)"> <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("Duracao_TTP").ToString()))) %> </td>
-                                                    <td id="td_16" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); text-align: right; vertical-align: middle; visibility: <%# Eval("Coluna_Duracao_THM") %>; visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="<%# Eval("Duracao_THM") %> minuto(s)"> <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("Duracao_THM").ToString()))) %> </td>
+                                                    <td id="td_14" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); text-align: right; vertical-align: middle; visibility: <%# Eval("Coluna_Duracao_THP") %>; visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="<%# Eval("Duracao_THP") %> minuto(s)">
+                                                        <asp:Label runat="server" Text='<%# double.Parse(Eval("Duracao_THP").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("Duracao_THP").ToString()))) : "" %>' /></td>
+                                                    
+                                                    <td id="td_15" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); text-align: right; vertical-align: middle; visibility: <%# Eval("Coluna_Duracao_TTP") %>; visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="<%# Eval("Duracao_TTP") %> minuto(s)">
+                                                        <asp:Label runat="server" Text='<%# double.Parse(Eval("Duracao_TTP").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("Duracao_TTP").ToString()))) : "" %>' /></td>
+                                                    
+                                                    <td id="td_16" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); text-align: right; vertical-align: middle; visibility: <%# Eval("Coluna_Duracao_THM") %>; visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="<%# Eval("Duracao_THM") %> minuto(s)">
+                                                        <asp:Label runat="server" Text='<%# double.Parse(Eval("Duracao_THM").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("Duracao_THM").ToString()))) : "" %>' /></td>
+                                                    
                                                     <td id="td_17" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; text-align: right; vertical-align: middle; visibility: <%# Eval("Coluna_TTT") %>; visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>">
                                                         <table style="width: 100%">
                                                             <tr>
-                                                                <td style="width: 33%; border: 0px;  text-align: right;" title="<%# Eval("Total_M" )%> minuto(s)">
-                                                                    <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("Total_M").ToString()))) %>
+                                                                <td style="width: 33%; border: 0px; text-align: right;" title="<%# Eval("Total_M" )%> minuto(s)">
+                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("Total_M").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("Total_M").ToString()))) : "" %>' />
                                                                 </td>
-                                                                <td style="width: 33%; border: 0px;  text-align: right;" title="<%# Eval("Total_R") %> minuto(s)">
-                                                                    <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("Total_R").ToString()))) %>
+                                                                <td style="width: 33%; border: 0px; text-align: right;" title="<%# Eval("Total_R") %> minuto(s)">
+                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("Total_R").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("Total_R").ToString()))) : "" %>' />
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -719,8 +745,8 @@
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td style="width: 50%; border: 0px; font-size: 12pt; background-color: rgb(55, 119, 0); color: white;"> Meta </td>
-                                                                        <td style="width: 50%; border: 0px; font-size: 12pt; background-color: rgb(55, 119, 0); color: white;"> Real </td>
+                                                                        <td style="width: 50%; border: 0px; font-size: 12pt; background-color: rgb(55, 119, 0); color: white;">Meta </td>
+                                                                        <td style="width: 50%; border: 0px; font-size: 12pt; background-color: rgb(55, 119, 0); color: white;">Real </td>
                                                                     </tr>
                                                                 </table>
                                                             </th>
@@ -732,8 +758,8 @@
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td style="width: 50%; border: 0px; font-size: 12pt; background-color: rgb(55, 119, 0); color: white;"> Meta </td>
-                                                                        <td style="width: 50%; border: 0px; font-size: 12pt; background-color: rgb(55, 119, 0); color: white;"> Real </td>
+                                                                        <td style="width: 50%; border: 0px; font-size: 12pt; background-color: rgb(55, 119, 0); color: white;">Meta </td>
+                                                                        <td style="width: 50%; border: 0px; font-size: 12pt; background-color: rgb(55, 119, 0); color: white;">Real </td>
                                                                     </tr>
                                                                 </table>
                                                             </th>
@@ -745,8 +771,8 @@
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td style="width: 50%; border: 0px; font-size: 12pt; background-color: rgb(55, 119, 0); color: white;"> Meta </td>
-                                                                        <td style="width: 50%; border: 0px; font-size: 12pt; background-color: rgb(55, 119, 0); color: white;"> Real </td>
+                                                                        <td style="width: 50%; border: 0px; font-size: 12pt; background-color: rgb(55, 119, 0); color: white;">Meta </td>
+                                                                        <td style="width: 50%; border: 0px; font-size: 12pt; background-color: rgb(55, 119, 0); color: white;">Real </td>
                                                                     </tr>
                                                                 </table>
                                                             </th>
@@ -758,8 +784,8 @@
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td style="width: 33%; border: 0px; font-size: 12pt; background-color: rgb(55, 119, 0); color: white;"> Meta </td>
-                                                                        <td style="width: 33%; border: 0px; font-size: 12pt; background-color: rgb(55, 119, 0); color: white;"> Real </td>
+                                                                        <td style="width: 33%; border: 0px; font-size: 12pt; background-color: rgb(55, 119, 0); color: white;">Meta </td>
+                                                                        <td style="width: 33%; border: 0px; font-size: 12pt; background-color: rgb(55, 119, 0); color: white;">Real </td>
                                                                     </tr>
                                                                 </table>
                                                             </th>
@@ -777,10 +803,10 @@
                                                     <td style="width: 06%; height: 20px; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); vertical-align: middle;">
                                                         <table style="width: 100%">
                                                             <tr>
-                                                                  <td style="width: 50%; border: 0px;  text-align: right;" title="<%# string.Format("{0:0,0}", Eval("THP_Meta")) %> minuto(s)">
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# string.Format("{0:0,0}", Eval("THP_Meta")) %> minuto(s)">
                                                                     <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("THP_Meta").ToString()))) %>
                                                                 </td>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# string.Format("{0:0,0}", Eval("THP_Real")) %> minuto(s)">
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# string.Format("{0:0,0}", Eval("THP_Real")) %> minuto(s)">
                                                                     <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("THP_Real").ToString()))) %>
                                                                 </td>
                                                             </tr>
@@ -789,10 +815,10 @@
                                                     <td style="width: 06%; height: 20px; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); vertical-align: middle;">
                                                         <table style="width: 100%">
                                                             <tr>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# string.Format("{0:0,0}", Eval("TTP_Meta")) %> minuto(s)">
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# string.Format("{0:0,0}", Eval("TTP_Meta")) %> minuto(s)">
                                                                     <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("TTP_Meta").ToString()))) %>
                                                                 </td>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# string.Format("{0:0,0}", Eval("TTP_Real")) %> minuto(s)">
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# string.Format("{0:0,0}", Eval("TTP_Real")) %> minuto(s)">
                                                                     <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("TTP_Real").ToString()))) %>
                                                                 </td>
                                                             </tr>
@@ -801,10 +827,10 @@
                                                     <td style="width: 06%; height: 20px; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); vertical-align: middle;">
                                                         <table style="width: 100%">
                                                             <tr>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# string.Format("{0:0,0}", Eval("THM_Meta")) %> minuto(s)">
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# string.Format("{0:0,0}", Eval("THM_Meta")) %> minuto(s)">
                                                                     <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("THM_Meta").ToString()))) %>
                                                                 </td>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# string.Format("{0:0,0}", Eval("THM_Real")) %> minuto(s)">
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# string.Format("{0:0,0}", Eval("THM_Real")) %> minuto(s)">
                                                                     <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("THM_Real").ToString()))) %>
                                                                 </td>
                                                             </tr>
@@ -813,10 +839,10 @@
                                                     <td style="width: 06%; height: 20px; text-align: center; padding-left: 05px; padding-right: 05px; vertical-align: middle;">
                                                         <table style="width: 100%">
                                                             <tr>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# string.Format("{0:0,0}", Eval("Total_M")) %>">
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# string.Format("{0:0,0}", Eval("Total_M")) %>">
                                                                     <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("Total_M").ToString()))) %>
                                                                 </td>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# string.Format("{0:0,0}", Eval("Total_R")) %>">
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# string.Format("{0:0,0}", Eval("Total_R")) %>">
                                                                     <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("Total_R").ToString()))) %>
                                                                 </td>
                                                             </tr>
@@ -846,10 +872,10 @@
                                                     <td style="width: 06%; height: 20px; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); vertical-align: middle;">
                                                         <table style="width: 100%">
                                                             <tr>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# string.Format("{0:0,0}", Eval("TTP_Meta")) %> minuto(s)">
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# string.Format("{0:0,0}", Eval("TTP_Meta")) %> minuto(s)">
                                                                     <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("TTP_Meta").ToString()))) %>
                                                                 </td>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# string.Format("{0:0,0}", Eval("TTP_Real")) %> minuto(s)">
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# string.Format("{0:0,0}", Eval("TTP_Real")) %> minuto(s)">
                                                                     <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("TTP_Real").ToString()))) %>
                                                                 </td>
                                                             </tr>
@@ -858,10 +884,10 @@
                                                     <td style="width: 06%; height: 20px; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); vertical-align: middle;">
                                                         <table style="width: 100%">
                                                             <tr>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# string.Format("{0:0,0}", Eval("THM_Meta")) %> minuto(s)">
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# string.Format("{0:0,0}", Eval("THM_Meta")) %> minuto(s)">
                                                                     <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("THM_Meta").ToString()))) %>
                                                                 </td>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# string.Format("{0:0,0}", Eval("THM_Real")) %> minuto(s)">
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# string.Format("{0:0,0}", Eval("THM_Real")) %> minuto(s)">
                                                                     <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("THM_Real").ToString()))) %>
                                                                 </td>
                                                             </tr>
@@ -870,10 +896,10 @@
                                                     <td style="width: 06%; height: 20px; text-align: center; padding-left: 05px; padding-right: 05px; vertical-align: middle;">
                                                         <table style="width: 100%">
                                                             <tr>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# string.Format("{0:0,0}", Eval("Total_M")) %> minuto(s)">
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# string.Format("{0:0,0}", Eval("Total_M")) %> minuto(s)">
                                                                     <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("Total_M").ToString()))) %>
                                                                 </td>
-                                                                <td style="width: 50%; border: 0px;  text-align: right;" title="<%# string.Format("{0:0,0}", Eval("Total_R")) %> minuto(s)">
+                                                                <td style="width: 50%; border: 0px; text-align: right;" title="<%# string.Format("{0:0,0}", Eval("Total_R")) %> minuto(s)">
                                                                     <%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("Total_R").ToString()))) %>
                                                                 </td>
                                                             </tr>

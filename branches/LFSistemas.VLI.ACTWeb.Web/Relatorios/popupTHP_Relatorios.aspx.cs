@@ -959,412 +959,412 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
             else
                 Pesquisar_Consolida(null, Navigation.None);
         }
-        protected void cblColunas_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int conta = 0;
-            var auxColunas = new List<string>();
-            if (cblColunas.Items.Count > 0)
-            {
-                for (int i = 0; i < cblColunas.Items.Count; i++)
-                {
-                    if (cblColunas.Items[i].Selected)
-                    {
-                        conta++;
-                        for (int j = 0; j < Uteis.itensRelatorioTHPAnalitica.Count; j++)
-                        {
-                            if (cblColunas.Items[i].Value == "Data") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Data = "visible"; }
-                            if (cblColunas.Items[i].Value == "Corredor") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Corredor = "visible"; }
-                            if (cblColunas.Items[i].Value == "Rota") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Rota = "visible"; }
-                            if (cblColunas.Items[i].Value == "SubRota") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_SubRota = "visible"; }
-                            if (cblColunas.Items[i].Value == "Classe") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Classe = "visible"; }
-                            if (cblColunas.Items[i].Value == "OS") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_OS = "visible"; }
-                            if (cblColunas.Items[i].Value == "Prefixo") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Prefixo = "visible"; }
-                            if (cblColunas.Items[i].Value == "Grupo") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Grupo = "visible"; }
-                            if (cblColunas.Items[i].Value == "Motivo") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Motivo = "visible"; }
-                            if (cblColunas.Items[i].Value == "SB") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_SB = "visible"; }
-                            if (cblColunas.Items[i].Value == "THP") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_THP = "visible"; }
-                            if (cblColunas.Items[i].Value == "TTP") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_TTP = "visible"; }
-                            if (cblColunas.Items[i].Value == "THM") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_THM = "visible"; }
-                            if (cblColunas.Items[i].Value == "Duracao_THP") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Duracao_THP = "visible"; }
-                            if (cblColunas.Items[i].Value == "Duracao_TTP") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Duracao_TTP = "visible"; }
-                            if (cblColunas.Items[i].Value == "Duracao_THM") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Duracao_THM = "visible"; }
-                            if (cblColunas.Items[i].Value == "TTT") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_TTT = "visible"; }
-                        }
-                    }
-                    else
-                    {
-                        for (int j = 0; j < Uteis.itensRelatorioTHPAnalitica.Count; j++)
-                        {
-                            if (cblColunas.Items[i].Value == "Data") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Data = "hidden"; }
-                            if (cblColunas.Items[i].Value == "Corredor") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Corredor = "hidden"; }
-                            if (cblColunas.Items[i].Value == "Rota") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Rota = "hidden"; }
-                            if (cblColunas.Items[i].Value == "SubRota") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_SubRota = "hidden"; }
-                            if (cblColunas.Items[i].Value == "Classe") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Classe = "hidden"; }
-                            if (cblColunas.Items[i].Value == "OS") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_OS = "hidden"; }
-                            if (cblColunas.Items[i].Value == "Prefixo") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Prefixo = "hidden"; }
-                            if (cblColunas.Items[i].Value == "Grupo") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Grupo = "hidden"; }
-                            if (cblColunas.Items[i].Value == "Motivo") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Motivo = "hidden"; }
-                            if (cblColunas.Items[i].Value == "SB") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_SB = "hidden"; }
-                            if (cblColunas.Items[i].Value == "THP") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_THP = "hidden"; }
-                            if (cblColunas.Items[i].Value == "TTP") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_TTP = "hidden"; }
-                            if (cblColunas.Items[i].Value == "THM") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_THM = "hidden"; }
-                            if (cblColunas.Items[i].Value == "Duracao_THP") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Duracao_THP = "hidden"; }
-                            if (cblColunas.Items[i].Value == "Duracao_TTP") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Duracao_TTP = "hidden"; }
-                            if (cblColunas.Items[i].Value == "Duracao_THM") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Duracao_THM = "hidden"; }
-                            if (cblColunas.Items[i].Value == "TTT") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_TTT = "hidden"; }
-                        }
-                    }
-                }
-            }
+        //protected void cblColunas_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    int conta = 0;
+        //    var auxColunas = new List<string>();
+        //    if (cblColunas.Items.Count > 0)
+        //    {
+        //        for (int i = 0; i < cblColunas.Items.Count; i++)
+        //        {
+        //            if (cblColunas.Items[i].Selected)
+        //            {
+        //                conta++;
+        //                for (int j = 0; j < Uteis.itensRelatorioTHPAnalitica.Count; j++)
+        //                {
+        //                    if (cblColunas.Items[i].Value == "Data") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Data = "visible"; }
+        //                    if (cblColunas.Items[i].Value == "Corredor") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Corredor = "visible"; }
+        //                    if (cblColunas.Items[i].Value == "Rota") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Rota = "visible"; }
+        //                    if (cblColunas.Items[i].Value == "SubRota") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_SubRota = "visible"; }
+        //                    if (cblColunas.Items[i].Value == "Classe") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Classe = "visible"; }
+        //                    if (cblColunas.Items[i].Value == "OS") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_OS = "visible"; }
+        //                    if (cblColunas.Items[i].Value == "Prefixo") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Prefixo = "visible"; }
+        //                    if (cblColunas.Items[i].Value == "Grupo") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Grupo = "visible"; }
+        //                    if (cblColunas.Items[i].Value == "Motivo") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Motivo = "visible"; }
+        //                    if (cblColunas.Items[i].Value == "SB") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_SB = "visible"; }
+        //                    if (cblColunas.Items[i].Value == "THP") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_THP = "visible"; }
+        //                    if (cblColunas.Items[i].Value == "TTP") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_TTP = "visible"; }
+        //                    if (cblColunas.Items[i].Value == "THM") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_THM = "visible"; }
+        //                    if (cblColunas.Items[i].Value == "Duracao_THP") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Duracao_THP = "visible"; }
+        //                    if (cblColunas.Items[i].Value == "Duracao_TTP") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Duracao_TTP = "visible"; }
+        //                    if (cblColunas.Items[i].Value == "Duracao_THM") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Duracao_THM = "visible"; }
+        //                    if (cblColunas.Items[i].Value == "TTT") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_TTT = "visible"; }
+        //                }
+        //            }
+        //            else
+        //            {
+        //                for (int j = 0; j < Uteis.itensRelatorioTHPAnalitica.Count; j++)
+        //                {
+        //                    if (cblColunas.Items[i].Value == "Data") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Data = "hidden"; }
+        //                    if (cblColunas.Items[i].Value == "Corredor") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Corredor = "hidden"; }
+        //                    if (cblColunas.Items[i].Value == "Rota") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Rota = "hidden"; }
+        //                    if (cblColunas.Items[i].Value == "SubRota") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_SubRota = "hidden"; }
+        //                    if (cblColunas.Items[i].Value == "Classe") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Classe = "hidden"; }
+        //                    if (cblColunas.Items[i].Value == "OS") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_OS = "hidden"; }
+        //                    if (cblColunas.Items[i].Value == "Prefixo") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Prefixo = "hidden"; }
+        //                    if (cblColunas.Items[i].Value == "Grupo") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Grupo = "hidden"; }
+        //                    if (cblColunas.Items[i].Value == "Motivo") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Motivo = "hidden"; }
+        //                    if (cblColunas.Items[i].Value == "SB") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_SB = "hidden"; }
+        //                    if (cblColunas.Items[i].Value == "THP") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_THP = "hidden"; }
+        //                    if (cblColunas.Items[i].Value == "TTP") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_TTP = "hidden"; }
+        //                    if (cblColunas.Items[i].Value == "THM") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_THM = "hidden"; }
+        //                    if (cblColunas.Items[i].Value == "Duracao_THP") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Duracao_THP = "hidden"; }
+        //                    if (cblColunas.Items[i].Value == "Duracao_TTP") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Duracao_TTP = "hidden"; }
+        //                    if (cblColunas.Items[i].Value == "Duracao_THM") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_Duracao_THM = "hidden"; }
+        //                    if (cblColunas.Items[i].Value == "TTT") { Uteis.itensRelatorioTHPAnalitica[j].Coluna_TTT = "hidden"; }
+        //                }
+        //            }
+        //        }
+        //    }
 
-            if (conta > 0)
-            {
+        //    if (conta > 0)
+        //    {
 
-                //if (conta == 17)
-                //{
-                //    dv_01.Attributes.Add("style", "width: 5.88%;");
-                //    dv_02.Attributes.Add("style", "width: 5.88%;");
-                //    dv_03.Attributes.Add("style", "width: 5.88%;");
-                //    dv_04.Attributes.Add("style", "width: 5.88%;");
-                //    dv_05.Attributes.Add("style", "width: 5.88%;");
-                //    dv_06.Attributes.Add("style", "width: 5.88%;");
-                //    dv_07.Attributes.Add("style", "width: 5.88%;");
-                //    dv_08.Attributes.Add("style", "width: 5.88%;");
-                //    dv_09.Attributes.Add("style", "width: 5.88%;");
-                //    dv_10.Attributes.Add("style", "width: 5.88%;");
-                //    dv_11.Attributes.Add("style", "width: 5.88%;");
-                //    dv_12.Attributes.Add("style", "width: 5.88%;");
-                //    dv_13.Attributes.Add("style", "width: 5.88%;");
-                //    dv_14.Attributes.Add("style", "width: 5.88%;");
-                //    dv_15.Attributes.Add("style", "width: 5.88%;");
-                //    dv_16.Attributes.Add("style", "width: 5.88%;");
-                //    dv_17.Attributes.Add("style", "width: 5.88%;");
-                //}
-                //if (conta == 16) 
-                //{
-                //    dv_01.Attributes.Add("style", "width: 6.25%;");
-                //    dv_02.Attributes.Add("style", "width: 6.25%;");
-                //    dv_03.Attributes.Add("style", "width: 6.25%;");
-                //    dv_04.Attributes.Add("style", "width: 6.25%;");
-                //    dv_05.Attributes.Add("style", "width: 6.25%;");
-                //    dv_06.Attributes.Add("style", "width: 6.25%;");
-                //    dv_07.Attributes.Add("style", "width: 6.25%;");
-                //    dv_08.Attributes.Add("style", "width: 6.25%;");
-                //    dv_09.Attributes.Add("style", "width: 6.25%;");
-                //    dv_10.Attributes.Add("style", "width: 6.25%;");
-                //    dv_11.Attributes.Add("style", "width: 6.25%;");
-                //    dv_12.Attributes.Add("style", "width: 6.25%;");
-                //    dv_13.Attributes.Add("style", "width: 6.25%;");
-                //    dv_14.Attributes.Add("style", "width: 6.25%;");
-                //    dv_15.Attributes.Add("style", "width: 6.25%;");
-                //    dv_16.Attributes.Add("style", "width: 6.25%;");
-                //    dv_17.Attributes.Add("style", "width: 6.25%;");
-                //}
-                //if (conta == 15) 
-                //{
-                //    dv_01.Attributes.Add("style", "width: 6.66%;");
-                //    dv_02.Attributes.Add("style", "width: 6.66%;");
-                //    dv_03.Attributes.Add("style", "width: 6.66%;");
-                //    dv_04.Attributes.Add("style", "width: 6.66%;");
-                //    dv_05.Attributes.Add("style", "width: 6.66%;");
-                //    dv_06.Attributes.Add("style", "width: 6.66%;");
-                //    dv_07.Attributes.Add("style", "width: 6.66%;");
-                //    dv_08.Attributes.Add("style", "width: 6.66%;");
-                //    dv_09.Attributes.Add("style", "width: 6.66%;");
-                //    dv_10.Attributes.Add("style", "width: 6.66%;");
-                //    dv_11.Attributes.Add("style", "width: 6.66%;");
-                //    dv_12.Attributes.Add("style", "width: 6.66%;");
-                //    dv_13.Attributes.Add("style", "width: 6.66%;");
-                //    dv_14.Attributes.Add("style", "width: 6.66%;");
-                //    dv_15.Attributes.Add("style", "width: 6.66%;");
-                //    dv_16.Attributes.Add("style", "width: 6.66%;");
-                //    dv_17.Attributes.Add("style", "width: 6.66%;");
-                //}
-                //if (conta == 14) 
-                //{
-                //    dv_01.Attributes.Add("style", "width: 7.14%;");
-                //    dv_02.Attributes.Add("style", "width: 7.14%;");
-                //    dv_03.Attributes.Add("style", "width: 7.14%;");
-                //    dv_04.Attributes.Add("style", "width: 7.14%;");
-                //    dv_05.Attributes.Add("style", "width: 7.14%;");
-                //    dv_06.Attributes.Add("style", "width: 7.14%;");
-                //    dv_07.Attributes.Add("style", "width: 7.14%;");
-                //    dv_08.Attributes.Add("style", "width: 7.14%;");
-                //    dv_09.Attributes.Add("style", "width: 7.14%;");
-                //    dv_10.Attributes.Add("style", "width: 7.14%;");
-                //    dv_11.Attributes.Add("style", "width: 7.14%;");
-                //    dv_12.Attributes.Add("style", "width: 7.14%;");
-                //    dv_13.Attributes.Add("style", "width: 7.14%;");
-                //    dv_14.Attributes.Add("style", "width: 7.14%;");
-                //    dv_15.Attributes.Add("style", "width: 7.14%;");
-                //    dv_16.Attributes.Add("style", "width: 7.14%;");
-                //    dv_17.Attributes.Add("style", "width: 7.14%;");
-                //}
-                //if (conta == 13) 
-                //{
-                //    dv_01.Attributes.Add("style", "width: 7.69%;");
-                //    dv_02.Attributes.Add("style", "width: 7.69%;");
-                //    dv_03.Attributes.Add("style", "width: 7.69%;");
-                //    dv_04.Attributes.Add("style", "width: 7.69%;");
-                //    dv_05.Attributes.Add("style", "width: 7.69%;");
-                //    dv_06.Attributes.Add("style", "width: 7.69%;");
-                //    dv_07.Attributes.Add("style", "width: 7.69%;");
-                //    dv_08.Attributes.Add("style", "width: 7.69%;");
-                //    dv_09.Attributes.Add("style", "width: 7.69%;");
-                //    dv_10.Attributes.Add("style", "width: 7.69%;");
-                //    dv_11.Attributes.Add("style", "width: 7.69%;");
-                //    dv_12.Attributes.Add("style", "width: 7.69%;");
-                //    dv_13.Attributes.Add("style", "width: 7.69%;");
-                //    dv_14.Attributes.Add("style", "width: 7.69%;");
-                //    dv_15.Attributes.Add("style", "width: 7.69%;");
-                //    dv_16.Attributes.Add("style", "width: 7.69%;");
-                //    dv_17.Attributes.Add("style", "width: 7.69%;");
-                //}
-                //if (conta == 12) 
-                //{
-                //    dv_01.Attributes.Add("style", "width: 8.33%;");
-                //    dv_02.Attributes.Add("style", "width: 8.33%;");
-                //    dv_03.Attributes.Add("style", "width: 8.33%;");
-                //    dv_04.Attributes.Add("style", "width: 8.33%;");
-                //    dv_05.Attributes.Add("style", "width: 8.33%;");
-                //    dv_06.Attributes.Add("style", "width: 8.33%;");
-                //    dv_07.Attributes.Add("style", "width: 8.33%;");
-                //    dv_08.Attributes.Add("style", "width: 8.33%;");
-                //    dv_09.Attributes.Add("style", "width: 8.33%;");
-                //    dv_10.Attributes.Add("style", "width: 8.33%;");
-                //    dv_11.Attributes.Add("style", "width: 8.33%;");
-                //    dv_12.Attributes.Add("style", "width: 8.33%;");
-                //    dv_13.Attributes.Add("style", "width: 8.33%;");
-                //    dv_14.Attributes.Add("style", "width: 8.33%;");
-                //    dv_15.Attributes.Add("style", "width: 8.33%;");
-                //    dv_16.Attributes.Add("style", "width: 8.33%;");
-                //    dv_17.Attributes.Add("style", "width: 8.33%;");
-                //}
-                //if (conta == 11) 
-                //{
-                //    dv_01.Attributes.Add("style", "width: 9.09%;");
-                //    dv_02.Attributes.Add("style", "width: 9.09%;");
-                //    dv_03.Attributes.Add("style", "width: 9.09%;");
-                //    dv_04.Attributes.Add("style", "width: 9.09%;");
-                //    dv_05.Attributes.Add("style", "width: 9.09%;");
-                //    dv_06.Attributes.Add("style", "width: 9.09%;");
-                //    dv_07.Attributes.Add("style", "width: 9.09%;");
-                //    dv_08.Attributes.Add("style", "width: 9.09%;");
-                //    dv_09.Attributes.Add("style", "width: 9.09%;");
-                //    dv_10.Attributes.Add("style", "width: 9.09%;");
-                //    dv_11.Attributes.Add("style", "width: 9.09%;");
-                //    dv_12.Attributes.Add("style", "width: 9.09%;");
-                //    dv_13.Attributes.Add("style", "width: 9.09%;");
-                //    dv_14.Attributes.Add("style", "width: 9.09%;");
-                //    dv_15.Attributes.Add("style", "width: 9.09%;");
-                //    dv_16.Attributes.Add("style", "width: 9.09%;");
-                //    dv_17.Attributes.Add("style", "width: 9.09%;");
-                //}
-                //if (conta == 10) 
-                //{
-                //    dv_01.Attributes.Add("style", "width: 10.00%;");
-                //    dv_02.Attributes.Add("style", "width: 10.00%;");
-                //    dv_03.Attributes.Add("style", "width: 10.00%;");
-                //    dv_04.Attributes.Add("style", "width: 10.00%;");
-                //    dv_05.Attributes.Add("style", "width: 10.00%;");
-                //    dv_06.Attributes.Add("style", "width: 10.00%;");
-                //    dv_07.Attributes.Add("style", "width: 10.00%;");
-                //    dv_08.Attributes.Add("style", "width: 10.00%;");
-                //    dv_09.Attributes.Add("style", "width: 10.00%;");
-                //    dv_10.Attributes.Add("style", "width: 10.00%;");
-                //    dv_11.Attributes.Add("style", "width: 10.00%;");
-                //    dv_12.Attributes.Add("style", "width: 10.00%;");
-                //    dv_13.Attributes.Add("style", "width: 10.00%;");
-                //    dv_14.Attributes.Add("style", "width: 10.00%;");
-                //    dv_15.Attributes.Add("style", "width: 10.00%;");
-                //    dv_16.Attributes.Add("style", "width: 10.00%;");
-                //    dv_17.Attributes.Add("style", "width: 10.00%;");
-                //}
-                //if (conta == 09) 
-                //{
-                //    dv_01.Attributes.Add("style", "width: 11.11%;");
-                //    dv_02.Attributes.Add("style", "width: 11.11%;");
-                //    dv_03.Attributes.Add("style", "width: 11.11%;");
-                //    dv_04.Attributes.Add("style", "width: 11.11%;");
-                //    dv_05.Attributes.Add("style", "width: 11.11%;");
-                //    dv_06.Attributes.Add("style", "width: 11.11%;");
-                //    dv_07.Attributes.Add("style", "width: 11.11%;");
-                //    dv_08.Attributes.Add("style", "width: 11.11%;");
-                //    dv_09.Attributes.Add("style", "width: 11.11%;");
-                //    dv_10.Attributes.Add("style", "width: 11.11%;");
-                //    dv_11.Attributes.Add("style", "width: 11.11%;");
-                //    dv_12.Attributes.Add("style", "width: 11.11%;");
-                //    dv_13.Attributes.Add("style", "width: 11.11%;");
-                //    dv_14.Attributes.Add("style", "width: 11.11%;");
-                //    dv_15.Attributes.Add("style", "width: 11.11%;");
-                //    dv_16.Attributes.Add("style", "width: 11.11%;");
-                //    dv_17.Attributes.Add("style", "width: 11.11%;");
-                //}
-                //if (conta == 08) 
-                //{
-                //    dv_01.Attributes.Add("style", "width: 12.50%;");
-                //    dv_02.Attributes.Add("style", "width: 12.50%;");
-                //    dv_03.Attributes.Add("style", "width: 12.50%;");
-                //    dv_04.Attributes.Add("style", "width: 12.50%;");
-                //    dv_05.Attributes.Add("style", "width: 12.50%;");
-                //    dv_06.Attributes.Add("style", "width: 12.50%;");
-                //    dv_07.Attributes.Add("style", "width: 12.50%;");
-                //    dv_08.Attributes.Add("style", "width: 12.50%;");
-                //    dv_09.Attributes.Add("style", "width: 12.50%;");
-                //    dv_10.Attributes.Add("style", "width: 12.50%;");
-                //    dv_11.Attributes.Add("style", "width: 12.50%;");
-                //    dv_12.Attributes.Add("style", "width: 12.50%;");
-                //    dv_13.Attributes.Add("style", "width: 12.50%;");
-                //    dv_14.Attributes.Add("style", "width: 12.50%;");
-                //    dv_15.Attributes.Add("style", "width: 12.50%;");
-                //    dv_16.Attributes.Add("style", "width: 12.50%;");
-                //    dv_17.Attributes.Add("style", "width: 12.50%;");
-                //}
-                //if (conta == 07) 
-                //{
-                //    dv_01.Attributes.Add("style", "width: 14.28%;");
-                //    dv_02.Attributes.Add("style", "width: 14.28%;");
-                //    dv_03.Attributes.Add("style", "width: 14.28%;");
-                //    dv_04.Attributes.Add("style", "width: 14.28%;");
-                //    dv_05.Attributes.Add("style", "width: 14.28%;");
-                //    dv_06.Attributes.Add("style", "width: 14.28%;");
-                //    dv_07.Attributes.Add("style", "width: 14.28%;");
-                //    dv_08.Attributes.Add("style", "width: 14.28%;");
-                //    dv_09.Attributes.Add("style", "width: 14.28%;");
-                //    dv_10.Attributes.Add("style", "width: 14.28%;");
-                //    dv_11.Attributes.Add("style", "width: 14.28%;");
-                //    dv_12.Attributes.Add("style", "width: 14.28%;");
-                //    dv_13.Attributes.Add("style", "width: 14.28%;");
-                //    dv_14.Attributes.Add("style", "width: 14.28%;");
-                //    dv_15.Attributes.Add("style", "width: 14.28%;");
-                //    dv_16.Attributes.Add("style", "width: 14.28%;");
-                //    dv_17.Attributes.Add("style", "width: 14.28%;");
-                //}
-                //if (conta == 06) 
-                //{
-                //    dv_01.Attributes.Add("style", "width: 16.66%;");
-                //    dv_02.Attributes.Add("style", "width: 16.66%;");
-                //    dv_03.Attributes.Add("style", "width: 16.66%;");
-                //    dv_04.Attributes.Add("style", "width: 16.66%;");
-                //    dv_05.Attributes.Add("style", "width: 16.66%;");
-                //    dv_06.Attributes.Add("style", "width: 16.66%;");
-                //    dv_07.Attributes.Add("style", "width: 16.66%;");
-                //    dv_08.Attributes.Add("style", "width: 16.66%;");
-                //    dv_09.Attributes.Add("style", "width: 16.66%;");
-                //    dv_10.Attributes.Add("style", "width: 16.66%;");
-                //    dv_11.Attributes.Add("style", "width: 16.66%;");
-                //    dv_12.Attributes.Add("style", "width: 16.66%;");
-                //    dv_13.Attributes.Add("style", "width: 16.66%;");
-                //    dv_14.Attributes.Add("style", "width: 16.66%;");
-                //    dv_15.Attributes.Add("style", "width: 16.66%;");
-                //    dv_16.Attributes.Add("style", "width: 16.66%;");
-                //    dv_17.Attributes.Add("style", "width: 16.66%;");
-                //}
-                //if (conta == 05) 
-                //{
-                //    dv_01.Attributes.Add("style", "width: 20.00%;");
-                //    dv_02.Attributes.Add("style", "width: 20.00%;");
-                //    dv_03.Attributes.Add("style", "width: 20.00%;");
-                //    dv_04.Attributes.Add("style", "width: 20.00%;");
-                //    dv_05.Attributes.Add("style", "width: 20.00%;");
-                //    dv_06.Attributes.Add("style", "width: 20.00%;");
-                //    dv_07.Attributes.Add("style", "width: 20.00%;");
-                //    dv_08.Attributes.Add("style", "width: 20.00%;");
-                //    dv_09.Attributes.Add("style", "width: 20.00%;");
-                //    dv_10.Attributes.Add("style", "width: 20.00%;");
-                //    dv_11.Attributes.Add("style", "width: 20.00%;");
-                //    dv_12.Attributes.Add("style", "width: 20.00%;");
-                //    dv_13.Attributes.Add("style", "width: 20.00%;");
-                //    dv_14.Attributes.Add("style", "width: 20.00%;");
-                //    dv_15.Attributes.Add("style", "width: 20.00%;");
-                //    dv_16.Attributes.Add("style", "width: 20.00%;");
-                //    dv_17.Attributes.Add("style", "width: 20.00%;");
-                //}
-                //if (conta == 04)
-                //{
-                //    dv_01.Attributes.Add("style", "width: 25.00%;");
-                //    dv_02.Attributes.Add("style", "width: 25.00%;");
-                //    dv_03.Attributes.Add("style", "width: 25.00%;");
-                //    dv_04.Attributes.Add("style", "width: 25.00%;");
-                //    dv_05.Attributes.Add("style", "width: 25.00%;");
-                //    dv_06.Attributes.Add("style", "width: 25.00%;");
-                //    dv_07.Attributes.Add("style", "width: 25.00%;");
-                //    dv_08.Attributes.Add("style", "width: 25.00%;");
-                //    dv_09.Attributes.Add("style", "width: 25.00%;");
-                //    dv_10.Attributes.Add("style", "width: 25.00%;");
-                //    dv_11.Attributes.Add("style", "width: 25.00%;");
-                //    dv_12.Attributes.Add("style", "width: 25.00%;");
-                //    dv_13.Attributes.Add("style", "width: 25.00%;");
-                //    dv_14.Attributes.Add("style", "width: 25.00%;");
-                //    dv_15.Attributes.Add("style", "width: 25.00%;");
-                //    dv_16.Attributes.Add("style", "width: 25.00%;");
-                //    dv_17.Attributes.Add("style", "width: 25.00%;");
-                //}
-                //if (conta == 03)
-                //{
-                //    dv_01.Attributes.Add("style", "width: 33.33%;");
-                //    dv_02.Attributes.Add("style", "width: 33.33%;");
-                //    dv_03.Attributes.Add("style", "width: 33.33%;");
-                //    dv_04.Attributes.Add("style", "width: 33.33%;");
-                //    dv_05.Attributes.Add("style", "width: 33.33%;");
-                //    dv_06.Attributes.Add("style", "width: 33.33%;");
-                //    dv_07.Attributes.Add("style", "width: 33.33%;");
-                //    dv_08.Attributes.Add("style", "width: 33.33%;");
-                //    dv_09.Attributes.Add("style", "width: 33.33%;");
-                //    dv_10.Attributes.Add("style", "width: 33.33%;");
-                //    dv_11.Attributes.Add("style", "width: 33.33%;");
-                //    dv_12.Attributes.Add("style", "width: 33.33%;");
-                //    dv_13.Attributes.Add("style", "width: 33.33%;");
-                //    dv_14.Attributes.Add("style", "width: 33.33%;");
-                //    dv_15.Attributes.Add("style", "width: 33.33%;");
-                //    dv_16.Attributes.Add("style", "width: 33.33%;");
-                //    dv_17.Attributes.Add("style", "width: 33.33%;");
-                //}
-                //if (conta == 02)
-                //{
-                //    dv_01.Attributes.Add("style", "width: 50.00%;");
-                //    dv_02.Attributes.Add("style", "width: 50.00%;");
-                //    dv_03.Attributes.Add("style", "width: 50.00%;");
-                //    dv_04.Attributes.Add("style", "width: 50.00%;");
-                //    dv_05.Attributes.Add("style", "width: 50.00%;");
-                //    dv_06.Attributes.Add("style", "width: 50.00%;");
-                //    dv_07.Attributes.Add("style", "width: 50.00%;");
-                //    dv_08.Attributes.Add("style", "width: 50.00%;");
-                //    dv_09.Attributes.Add("style", "width: 50.00%;");
-                //    dv_10.Attributes.Add("style", "width: 50.00%;");
-                //    dv_11.Attributes.Add("style", "width: 50.00%;");
-                //    dv_12.Attributes.Add("style", "width: 50.00%;");
-                //    dv_13.Attributes.Add("style", "width: 50.00%;");
-                //    dv_14.Attributes.Add("style", "width: 50.00%;");
-                //    dv_15.Attributes.Add("style", "width: 50.00%;");
-                //    dv_16.Attributes.Add("style", "width: 50.00%;");
-                //    dv_17.Attributes.Add("style", "width: 50.00%;");
-                //}
-                //if (conta == 01)
-                //{
-                //    dv_01.Attributes.Add("style", "width: 100.00%;");
-                //    dv_02.Attributes.Add("style", "width: 100.00%;");
-                //    dv_03.Attributes.Add("style", "width: 100.00%;");
-                //    dv_04.Attributes.Add("style", "width: 100.00%;");
-                //    dv_05.Attributes.Add("style", "width: 100.00%;");
-                //    dv_06.Attributes.Add("style", "width: 100.00%;");
-                //    dv_07.Attributes.Add("style", "width: 100.00%;");
-                //    dv_08.Attributes.Add("style", "width: 100.00%;");
-                //    dv_09.Attributes.Add("style", "width: 100.00%;");
-                //    dv_10.Attributes.Add("style", "width: 100.00%;");
-                //    dv_11.Attributes.Add("style", "width: 100.00%;");
-                //    dv_12.Attributes.Add("style", "width: 100.00%;");
-                //    dv_13.Attributes.Add("style", "width: 100.00%;");
-                //    dv_14.Attributes.Add("style", "width: 100.00%;");
-                //    dv_15.Attributes.Add("style", "width: 100.00%;");
-                //    dv_16.Attributes.Add("style", "width: 100.00%;");
-                //    dv_17.Attributes.Add("style", "width: 100.00%;");
-                //}
-            }
+        //        //if (conta == 17)
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 5.88%;");
+        //        //    dv_02.Attributes.Add("style", "width: 5.88%;");
+        //        //    dv_03.Attributes.Add("style", "width: 5.88%;");
+        //        //    dv_04.Attributes.Add("style", "width: 5.88%;");
+        //        //    dv_05.Attributes.Add("style", "width: 5.88%;");
+        //        //    dv_06.Attributes.Add("style", "width: 5.88%;");
+        //        //    dv_07.Attributes.Add("style", "width: 5.88%;");
+        //        //    dv_08.Attributes.Add("style", "width: 5.88%;");
+        //        //    dv_09.Attributes.Add("style", "width: 5.88%;");
+        //        //    dv_10.Attributes.Add("style", "width: 5.88%;");
+        //        //    dv_11.Attributes.Add("style", "width: 5.88%;");
+        //        //    dv_12.Attributes.Add("style", "width: 5.88%;");
+        //        //    dv_13.Attributes.Add("style", "width: 5.88%;");
+        //        //    dv_14.Attributes.Add("style", "width: 5.88%;");
+        //        //    dv_15.Attributes.Add("style", "width: 5.88%;");
+        //        //    dv_16.Attributes.Add("style", "width: 5.88%;");
+        //        //    dv_17.Attributes.Add("style", "width: 5.88%;");
+        //        //}
+        //        //if (conta == 16) 
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 6.25%;");
+        //        //    dv_02.Attributes.Add("style", "width: 6.25%;");
+        //        //    dv_03.Attributes.Add("style", "width: 6.25%;");
+        //        //    dv_04.Attributes.Add("style", "width: 6.25%;");
+        //        //    dv_05.Attributes.Add("style", "width: 6.25%;");
+        //        //    dv_06.Attributes.Add("style", "width: 6.25%;");
+        //        //    dv_07.Attributes.Add("style", "width: 6.25%;");
+        //        //    dv_08.Attributes.Add("style", "width: 6.25%;");
+        //        //    dv_09.Attributes.Add("style", "width: 6.25%;");
+        //        //    dv_10.Attributes.Add("style", "width: 6.25%;");
+        //        //    dv_11.Attributes.Add("style", "width: 6.25%;");
+        //        //    dv_12.Attributes.Add("style", "width: 6.25%;");
+        //        //    dv_13.Attributes.Add("style", "width: 6.25%;");
+        //        //    dv_14.Attributes.Add("style", "width: 6.25%;");
+        //        //    dv_15.Attributes.Add("style", "width: 6.25%;");
+        //        //    dv_16.Attributes.Add("style", "width: 6.25%;");
+        //        //    dv_17.Attributes.Add("style", "width: 6.25%;");
+        //        //}
+        //        //if (conta == 15) 
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 6.66%;");
+        //        //    dv_02.Attributes.Add("style", "width: 6.66%;");
+        //        //    dv_03.Attributes.Add("style", "width: 6.66%;");
+        //        //    dv_04.Attributes.Add("style", "width: 6.66%;");
+        //        //    dv_05.Attributes.Add("style", "width: 6.66%;");
+        //        //    dv_06.Attributes.Add("style", "width: 6.66%;");
+        //        //    dv_07.Attributes.Add("style", "width: 6.66%;");
+        //        //    dv_08.Attributes.Add("style", "width: 6.66%;");
+        //        //    dv_09.Attributes.Add("style", "width: 6.66%;");
+        //        //    dv_10.Attributes.Add("style", "width: 6.66%;");
+        //        //    dv_11.Attributes.Add("style", "width: 6.66%;");
+        //        //    dv_12.Attributes.Add("style", "width: 6.66%;");
+        //        //    dv_13.Attributes.Add("style", "width: 6.66%;");
+        //        //    dv_14.Attributes.Add("style", "width: 6.66%;");
+        //        //    dv_15.Attributes.Add("style", "width: 6.66%;");
+        //        //    dv_16.Attributes.Add("style", "width: 6.66%;");
+        //        //    dv_17.Attributes.Add("style", "width: 6.66%;");
+        //        //}
+        //        //if (conta == 14) 
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 7.14%;");
+        //        //    dv_02.Attributes.Add("style", "width: 7.14%;");
+        //        //    dv_03.Attributes.Add("style", "width: 7.14%;");
+        //        //    dv_04.Attributes.Add("style", "width: 7.14%;");
+        //        //    dv_05.Attributes.Add("style", "width: 7.14%;");
+        //        //    dv_06.Attributes.Add("style", "width: 7.14%;");
+        //        //    dv_07.Attributes.Add("style", "width: 7.14%;");
+        //        //    dv_08.Attributes.Add("style", "width: 7.14%;");
+        //        //    dv_09.Attributes.Add("style", "width: 7.14%;");
+        //        //    dv_10.Attributes.Add("style", "width: 7.14%;");
+        //        //    dv_11.Attributes.Add("style", "width: 7.14%;");
+        //        //    dv_12.Attributes.Add("style", "width: 7.14%;");
+        //        //    dv_13.Attributes.Add("style", "width: 7.14%;");
+        //        //    dv_14.Attributes.Add("style", "width: 7.14%;");
+        //        //    dv_15.Attributes.Add("style", "width: 7.14%;");
+        //        //    dv_16.Attributes.Add("style", "width: 7.14%;");
+        //        //    dv_17.Attributes.Add("style", "width: 7.14%;");
+        //        //}
+        //        //if (conta == 13) 
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 7.69%;");
+        //        //    dv_02.Attributes.Add("style", "width: 7.69%;");
+        //        //    dv_03.Attributes.Add("style", "width: 7.69%;");
+        //        //    dv_04.Attributes.Add("style", "width: 7.69%;");
+        //        //    dv_05.Attributes.Add("style", "width: 7.69%;");
+        //        //    dv_06.Attributes.Add("style", "width: 7.69%;");
+        //        //    dv_07.Attributes.Add("style", "width: 7.69%;");
+        //        //    dv_08.Attributes.Add("style", "width: 7.69%;");
+        //        //    dv_09.Attributes.Add("style", "width: 7.69%;");
+        //        //    dv_10.Attributes.Add("style", "width: 7.69%;");
+        //        //    dv_11.Attributes.Add("style", "width: 7.69%;");
+        //        //    dv_12.Attributes.Add("style", "width: 7.69%;");
+        //        //    dv_13.Attributes.Add("style", "width: 7.69%;");
+        //        //    dv_14.Attributes.Add("style", "width: 7.69%;");
+        //        //    dv_15.Attributes.Add("style", "width: 7.69%;");
+        //        //    dv_16.Attributes.Add("style", "width: 7.69%;");
+        //        //    dv_17.Attributes.Add("style", "width: 7.69%;");
+        //        //}
+        //        //if (conta == 12) 
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 8.33%;");
+        //        //    dv_02.Attributes.Add("style", "width: 8.33%;");
+        //        //    dv_03.Attributes.Add("style", "width: 8.33%;");
+        //        //    dv_04.Attributes.Add("style", "width: 8.33%;");
+        //        //    dv_05.Attributes.Add("style", "width: 8.33%;");
+        //        //    dv_06.Attributes.Add("style", "width: 8.33%;");
+        //        //    dv_07.Attributes.Add("style", "width: 8.33%;");
+        //        //    dv_08.Attributes.Add("style", "width: 8.33%;");
+        //        //    dv_09.Attributes.Add("style", "width: 8.33%;");
+        //        //    dv_10.Attributes.Add("style", "width: 8.33%;");
+        //        //    dv_11.Attributes.Add("style", "width: 8.33%;");
+        //        //    dv_12.Attributes.Add("style", "width: 8.33%;");
+        //        //    dv_13.Attributes.Add("style", "width: 8.33%;");
+        //        //    dv_14.Attributes.Add("style", "width: 8.33%;");
+        //        //    dv_15.Attributes.Add("style", "width: 8.33%;");
+        //        //    dv_16.Attributes.Add("style", "width: 8.33%;");
+        //        //    dv_17.Attributes.Add("style", "width: 8.33%;");
+        //        //}
+        //        //if (conta == 11) 
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 9.09%;");
+        //        //    dv_02.Attributes.Add("style", "width: 9.09%;");
+        //        //    dv_03.Attributes.Add("style", "width: 9.09%;");
+        //        //    dv_04.Attributes.Add("style", "width: 9.09%;");
+        //        //    dv_05.Attributes.Add("style", "width: 9.09%;");
+        //        //    dv_06.Attributes.Add("style", "width: 9.09%;");
+        //        //    dv_07.Attributes.Add("style", "width: 9.09%;");
+        //        //    dv_08.Attributes.Add("style", "width: 9.09%;");
+        //        //    dv_09.Attributes.Add("style", "width: 9.09%;");
+        //        //    dv_10.Attributes.Add("style", "width: 9.09%;");
+        //        //    dv_11.Attributes.Add("style", "width: 9.09%;");
+        //        //    dv_12.Attributes.Add("style", "width: 9.09%;");
+        //        //    dv_13.Attributes.Add("style", "width: 9.09%;");
+        //        //    dv_14.Attributes.Add("style", "width: 9.09%;");
+        //        //    dv_15.Attributes.Add("style", "width: 9.09%;");
+        //        //    dv_16.Attributes.Add("style", "width: 9.09%;");
+        //        //    dv_17.Attributes.Add("style", "width: 9.09%;");
+        //        //}
+        //        //if (conta == 10) 
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 10.00%;");
+        //        //    dv_02.Attributes.Add("style", "width: 10.00%;");
+        //        //    dv_03.Attributes.Add("style", "width: 10.00%;");
+        //        //    dv_04.Attributes.Add("style", "width: 10.00%;");
+        //        //    dv_05.Attributes.Add("style", "width: 10.00%;");
+        //        //    dv_06.Attributes.Add("style", "width: 10.00%;");
+        //        //    dv_07.Attributes.Add("style", "width: 10.00%;");
+        //        //    dv_08.Attributes.Add("style", "width: 10.00%;");
+        //        //    dv_09.Attributes.Add("style", "width: 10.00%;");
+        //        //    dv_10.Attributes.Add("style", "width: 10.00%;");
+        //        //    dv_11.Attributes.Add("style", "width: 10.00%;");
+        //        //    dv_12.Attributes.Add("style", "width: 10.00%;");
+        //        //    dv_13.Attributes.Add("style", "width: 10.00%;");
+        //        //    dv_14.Attributes.Add("style", "width: 10.00%;");
+        //        //    dv_15.Attributes.Add("style", "width: 10.00%;");
+        //        //    dv_16.Attributes.Add("style", "width: 10.00%;");
+        //        //    dv_17.Attributes.Add("style", "width: 10.00%;");
+        //        //}
+        //        //if (conta == 09) 
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 11.11%;");
+        //        //    dv_02.Attributes.Add("style", "width: 11.11%;");
+        //        //    dv_03.Attributes.Add("style", "width: 11.11%;");
+        //        //    dv_04.Attributes.Add("style", "width: 11.11%;");
+        //        //    dv_05.Attributes.Add("style", "width: 11.11%;");
+        //        //    dv_06.Attributes.Add("style", "width: 11.11%;");
+        //        //    dv_07.Attributes.Add("style", "width: 11.11%;");
+        //        //    dv_08.Attributes.Add("style", "width: 11.11%;");
+        //        //    dv_09.Attributes.Add("style", "width: 11.11%;");
+        //        //    dv_10.Attributes.Add("style", "width: 11.11%;");
+        //        //    dv_11.Attributes.Add("style", "width: 11.11%;");
+        //        //    dv_12.Attributes.Add("style", "width: 11.11%;");
+        //        //    dv_13.Attributes.Add("style", "width: 11.11%;");
+        //        //    dv_14.Attributes.Add("style", "width: 11.11%;");
+        //        //    dv_15.Attributes.Add("style", "width: 11.11%;");
+        //        //    dv_16.Attributes.Add("style", "width: 11.11%;");
+        //        //    dv_17.Attributes.Add("style", "width: 11.11%;");
+        //        //}
+        //        //if (conta == 08) 
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 12.50%;");
+        //        //    dv_02.Attributes.Add("style", "width: 12.50%;");
+        //        //    dv_03.Attributes.Add("style", "width: 12.50%;");
+        //        //    dv_04.Attributes.Add("style", "width: 12.50%;");
+        //        //    dv_05.Attributes.Add("style", "width: 12.50%;");
+        //        //    dv_06.Attributes.Add("style", "width: 12.50%;");
+        //        //    dv_07.Attributes.Add("style", "width: 12.50%;");
+        //        //    dv_08.Attributes.Add("style", "width: 12.50%;");
+        //        //    dv_09.Attributes.Add("style", "width: 12.50%;");
+        //        //    dv_10.Attributes.Add("style", "width: 12.50%;");
+        //        //    dv_11.Attributes.Add("style", "width: 12.50%;");
+        //        //    dv_12.Attributes.Add("style", "width: 12.50%;");
+        //        //    dv_13.Attributes.Add("style", "width: 12.50%;");
+        //        //    dv_14.Attributes.Add("style", "width: 12.50%;");
+        //        //    dv_15.Attributes.Add("style", "width: 12.50%;");
+        //        //    dv_16.Attributes.Add("style", "width: 12.50%;");
+        //        //    dv_17.Attributes.Add("style", "width: 12.50%;");
+        //        //}
+        //        //if (conta == 07) 
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 14.28%;");
+        //        //    dv_02.Attributes.Add("style", "width: 14.28%;");
+        //        //    dv_03.Attributes.Add("style", "width: 14.28%;");
+        //        //    dv_04.Attributes.Add("style", "width: 14.28%;");
+        //        //    dv_05.Attributes.Add("style", "width: 14.28%;");
+        //        //    dv_06.Attributes.Add("style", "width: 14.28%;");
+        //        //    dv_07.Attributes.Add("style", "width: 14.28%;");
+        //        //    dv_08.Attributes.Add("style", "width: 14.28%;");
+        //        //    dv_09.Attributes.Add("style", "width: 14.28%;");
+        //        //    dv_10.Attributes.Add("style", "width: 14.28%;");
+        //        //    dv_11.Attributes.Add("style", "width: 14.28%;");
+        //        //    dv_12.Attributes.Add("style", "width: 14.28%;");
+        //        //    dv_13.Attributes.Add("style", "width: 14.28%;");
+        //        //    dv_14.Attributes.Add("style", "width: 14.28%;");
+        //        //    dv_15.Attributes.Add("style", "width: 14.28%;");
+        //        //    dv_16.Attributes.Add("style", "width: 14.28%;");
+        //        //    dv_17.Attributes.Add("style", "width: 14.28%;");
+        //        //}
+        //        //if (conta == 06) 
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 16.66%;");
+        //        //    dv_02.Attributes.Add("style", "width: 16.66%;");
+        //        //    dv_03.Attributes.Add("style", "width: 16.66%;");
+        //        //    dv_04.Attributes.Add("style", "width: 16.66%;");
+        //        //    dv_05.Attributes.Add("style", "width: 16.66%;");
+        //        //    dv_06.Attributes.Add("style", "width: 16.66%;");
+        //        //    dv_07.Attributes.Add("style", "width: 16.66%;");
+        //        //    dv_08.Attributes.Add("style", "width: 16.66%;");
+        //        //    dv_09.Attributes.Add("style", "width: 16.66%;");
+        //        //    dv_10.Attributes.Add("style", "width: 16.66%;");
+        //        //    dv_11.Attributes.Add("style", "width: 16.66%;");
+        //        //    dv_12.Attributes.Add("style", "width: 16.66%;");
+        //        //    dv_13.Attributes.Add("style", "width: 16.66%;");
+        //        //    dv_14.Attributes.Add("style", "width: 16.66%;");
+        //        //    dv_15.Attributes.Add("style", "width: 16.66%;");
+        //        //    dv_16.Attributes.Add("style", "width: 16.66%;");
+        //        //    dv_17.Attributes.Add("style", "width: 16.66%;");
+        //        //}
+        //        //if (conta == 05) 
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 20.00%;");
+        //        //    dv_02.Attributes.Add("style", "width: 20.00%;");
+        //        //    dv_03.Attributes.Add("style", "width: 20.00%;");
+        //        //    dv_04.Attributes.Add("style", "width: 20.00%;");
+        //        //    dv_05.Attributes.Add("style", "width: 20.00%;");
+        //        //    dv_06.Attributes.Add("style", "width: 20.00%;");
+        //        //    dv_07.Attributes.Add("style", "width: 20.00%;");
+        //        //    dv_08.Attributes.Add("style", "width: 20.00%;");
+        //        //    dv_09.Attributes.Add("style", "width: 20.00%;");
+        //        //    dv_10.Attributes.Add("style", "width: 20.00%;");
+        //        //    dv_11.Attributes.Add("style", "width: 20.00%;");
+        //        //    dv_12.Attributes.Add("style", "width: 20.00%;");
+        //        //    dv_13.Attributes.Add("style", "width: 20.00%;");
+        //        //    dv_14.Attributes.Add("style", "width: 20.00%;");
+        //        //    dv_15.Attributes.Add("style", "width: 20.00%;");
+        //        //    dv_16.Attributes.Add("style", "width: 20.00%;");
+        //        //    dv_17.Attributes.Add("style", "width: 20.00%;");
+        //        //}
+        //        //if (conta == 04)
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 25.00%;");
+        //        //    dv_02.Attributes.Add("style", "width: 25.00%;");
+        //        //    dv_03.Attributes.Add("style", "width: 25.00%;");
+        //        //    dv_04.Attributes.Add("style", "width: 25.00%;");
+        //        //    dv_05.Attributes.Add("style", "width: 25.00%;");
+        //        //    dv_06.Attributes.Add("style", "width: 25.00%;");
+        //        //    dv_07.Attributes.Add("style", "width: 25.00%;");
+        //        //    dv_08.Attributes.Add("style", "width: 25.00%;");
+        //        //    dv_09.Attributes.Add("style", "width: 25.00%;");
+        //        //    dv_10.Attributes.Add("style", "width: 25.00%;");
+        //        //    dv_11.Attributes.Add("style", "width: 25.00%;");
+        //        //    dv_12.Attributes.Add("style", "width: 25.00%;");
+        //        //    dv_13.Attributes.Add("style", "width: 25.00%;");
+        //        //    dv_14.Attributes.Add("style", "width: 25.00%;");
+        //        //    dv_15.Attributes.Add("style", "width: 25.00%;");
+        //        //    dv_16.Attributes.Add("style", "width: 25.00%;");
+        //        //    dv_17.Attributes.Add("style", "width: 25.00%;");
+        //        //}
+        //        //if (conta == 03)
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 33.33%;");
+        //        //    dv_02.Attributes.Add("style", "width: 33.33%;");
+        //        //    dv_03.Attributes.Add("style", "width: 33.33%;");
+        //        //    dv_04.Attributes.Add("style", "width: 33.33%;");
+        //        //    dv_05.Attributes.Add("style", "width: 33.33%;");
+        //        //    dv_06.Attributes.Add("style", "width: 33.33%;");
+        //        //    dv_07.Attributes.Add("style", "width: 33.33%;");
+        //        //    dv_08.Attributes.Add("style", "width: 33.33%;");
+        //        //    dv_09.Attributes.Add("style", "width: 33.33%;");
+        //        //    dv_10.Attributes.Add("style", "width: 33.33%;");
+        //        //    dv_11.Attributes.Add("style", "width: 33.33%;");
+        //        //    dv_12.Attributes.Add("style", "width: 33.33%;");
+        //        //    dv_13.Attributes.Add("style", "width: 33.33%;");
+        //        //    dv_14.Attributes.Add("style", "width: 33.33%;");
+        //        //    dv_15.Attributes.Add("style", "width: 33.33%;");
+        //        //    dv_16.Attributes.Add("style", "width: 33.33%;");
+        //        //    dv_17.Attributes.Add("style", "width: 33.33%;");
+        //        //}
+        //        //if (conta == 02)
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 50.00%;");
+        //        //    dv_02.Attributes.Add("style", "width: 50.00%;");
+        //        //    dv_03.Attributes.Add("style", "width: 50.00%;");
+        //        //    dv_04.Attributes.Add("style", "width: 50.00%;");
+        //        //    dv_05.Attributes.Add("style", "width: 50.00%;");
+        //        //    dv_06.Attributes.Add("style", "width: 50.00%;");
+        //        //    dv_07.Attributes.Add("style", "width: 50.00%;");
+        //        //    dv_08.Attributes.Add("style", "width: 50.00%;");
+        //        //    dv_09.Attributes.Add("style", "width: 50.00%;");
+        //        //    dv_10.Attributes.Add("style", "width: 50.00%;");
+        //        //    dv_11.Attributes.Add("style", "width: 50.00%;");
+        //        //    dv_12.Attributes.Add("style", "width: 50.00%;");
+        //        //    dv_13.Attributes.Add("style", "width: 50.00%;");
+        //        //    dv_14.Attributes.Add("style", "width: 50.00%;");
+        //        //    dv_15.Attributes.Add("style", "width: 50.00%;");
+        //        //    dv_16.Attributes.Add("style", "width: 50.00%;");
+        //        //    dv_17.Attributes.Add("style", "width: 50.00%;");
+        //        //}
+        //        //if (conta == 01)
+        //        //{
+        //        //    dv_01.Attributes.Add("style", "width: 100.00%;");
+        //        //    dv_02.Attributes.Add("style", "width: 100.00%;");
+        //        //    dv_03.Attributes.Add("style", "width: 100.00%;");
+        //        //    dv_04.Attributes.Add("style", "width: 100.00%;");
+        //        //    dv_05.Attributes.Add("style", "width: 100.00%;");
+        //        //    dv_06.Attributes.Add("style", "width: 100.00%;");
+        //        //    dv_07.Attributes.Add("style", "width: 100.00%;");
+        //        //    dv_08.Attributes.Add("style", "width: 100.00%;");
+        //        //    dv_09.Attributes.Add("style", "width: 100.00%;");
+        //        //    dv_10.Attributes.Add("style", "width: 100.00%;");
+        //        //    dv_11.Attributes.Add("style", "width: 100.00%;");
+        //        //    dv_12.Attributes.Add("style", "width: 100.00%;");
+        //        //    dv_13.Attributes.Add("style", "width: 100.00%;");
+        //        //    dv_14.Attributes.Add("style", "width: 100.00%;");
+        //        //    dv_15.Attributes.Add("style", "width: 100.00%;");
+        //        //    dv_16.Attributes.Add("style", "width: 100.00%;");
+        //        //    dv_17.Attributes.Add("style", "width: 100.00%;");
+        //        //}
+        //    }
 
-            RepeaterItensAnalitica.DataSource = Uteis.itensRelatorioTHPAnalitica;
-            RepeaterItensAnalitica.DataBind();
-        }
+        //    RepeaterItensAnalitica.DataSource = Uteis.itensRelatorioTHPAnalitica;
+        //    RepeaterItensAnalitica.DataBind();
+        //}
 
 
 
@@ -2866,6 +2866,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
             {
                 GC.Collect();
             }
+        }
+
+        protected void RepeaterItensAnalitica_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+
         }
     }
 }

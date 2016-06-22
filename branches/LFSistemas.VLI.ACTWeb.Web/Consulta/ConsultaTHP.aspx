@@ -180,6 +180,8 @@
                                                         <asp:LinkButton runat="server" ID="lnkLocal" Text="Local" /></th>
                                                     <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                         <asp:LinkButton runat="server" ID="lnkTempo" Text="Tempo" /></th>
+                                                    <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <asp:LinkButton runat="server" ID="lnkTempoTotal" Text="Tempo Total" /></th>
                                                     <th style="width: 30%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                         <asp:LinkButton runat="server" ID="lnkMotivo" Text="Motivo" /></th>
                                                     <th style="width: 15%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
@@ -200,6 +202,8 @@
                                             <td style="width: 05%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Prefixo") %>"><%# Eval("Prefixo")%></td>
                                             <td style="width: 05%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Local") %>"><%# Eval("Local")%></td>
                                             <td style="width: 10%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Tempo") %>"><%# Eval("Tempo")%></td>
+                                            <td style="width: 10%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("TempoTotal") %>"><%# Eval("TempoTotal")%></td>
+                                            <%--<td style="width: 10%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("TempoTotal") %>"><%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("TempoTotal").ToString()))) %></td>--%>
                                             <td style="width: 30%; height: 20px; font-size: 1.2em; text-align: left; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Motivo")%>"><%# Eval("Motivo")%></td>
                                             <td style="width: 15%; height: 20px; font-size: 1.2em; text-align: left; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Corredor") %>"><%# Eval("Corredor")%> </td>
                                             <td style="width: 15%; height: 20px; font-size: 1.2em; text-align: left; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Grupo") %>"><%# Eval("Grupo")%></td>

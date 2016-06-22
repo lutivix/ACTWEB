@@ -276,7 +276,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                         itens = itens.OrderByDescending(o => o.Corredor).ToList();
                         break;
                     default:
-                        itens = itens.OrderByDescending(o => o.Tempo).ToList();
+                        itens = itens.OrderByDescending(o => o.TempoTotal).ToList();
                         break;
                 }
 
