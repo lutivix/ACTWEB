@@ -1,9 +1,0 @@
-D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Release\LFSistemas.VLI.ACTWeb.Controllers.dll
-D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Release\LFSistemas.VLI.ACTWeb.Controllers.pdb
-D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Release\LFSistemas.VLI.ACTWeb.DataAccessObjects.dll
-D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Release\LFSistemas.VLI.ACTWeb.Entities.dll
-D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Release\LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb
-D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\bin\Release\LFSistemas.VLI.ACTWeb.Entities.pdb
-D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Release\LFSistemas.VLI.ACTWeb.Controllers.csprojResolveAssemblyReference.cache
-D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Release\LFSistemas.VLI.ACTWeb.Controllers.dll
-D:\Projetos\ACTWEB_DEV\branches\LFSistemas.VLI.ACTWeb.Controllers\obj\Release\LFSistemas.VLI.ACTWeb.Controllers.pdb
