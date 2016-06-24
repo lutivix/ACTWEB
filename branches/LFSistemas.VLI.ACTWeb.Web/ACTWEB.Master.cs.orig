@@ -589,8 +589,12 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnUsuarios.Visible = mnRestricoes.Visible = sub_macros_macro50.Visible = mnIndicadores.Visible =  sub_relatorio_CCO.Visible =
                 sub_interdicoes.Visible = sub_macros_macro200.Visible = mnDadosApoio.Visible = sub_dadosapoio_abreviar.Visible = sub_dadosapoio_downloads.Visible =
                 sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible =
+<<<<<<< Updated upstream
                 mnRelatorios.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = sub_baixada.Visible = mnSistema.Visible =
                 sub_thp_THP_Relatorios.Visible = false;
+=======
+                mnRelatorios.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = sub_baixada.Visible = mnSistema.Visible = sub_thp_THP_Relatorios.Visible = false;
+>>>>>>> Stashed changes
             }
             if (usuario.Perfil_ID == "5") // Perfil: INSPETOR - INSP
             {
@@ -600,7 +604,11 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnRestricoes.Visible = mnIndicadores.Visible = sub_macros_macro50.Visible = sub_macros_macro61.Visible = sub_relatorio_CCO.Visible = 
                 sub_interdicoes.Visible = lnkImportaOBC.Visible = mnDadosApoio.Visible = sub_dadosapoio_abreviar.Visible = sub_dadosapoio_downloads.Visible =
                 sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible =
+<<<<<<< Updated upstream
                 mnUsuarios.Visible = mnRelatorios.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = sub_baixada.Visible = mnSistema.Visible =
+=======
+                mnUsuarios.Visible = mnRelatorios.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = sub_baixada.Visible = mnSistema.Visible = 
+>>>>>>> Stashed changes
                 sub_thp_THP_Relatorios.Visible = false;
             }
             if (usuario.Perfil_ID == "6") // Perfil: OPERADOR DE VIA PERMANENTE - OP VP
@@ -670,7 +678,11 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnUsuarios.Visible = sub_locomotivas_trocaloco.Visible = sub_macros_macro50.Visible = sub_macros_macro200.Visible = mnRestricoes.Visible =
                 mnIndicadores.Visible = sub_interdicoes.Visible = lnkImportaOBC.Visible = mnDadosApoio.Visible = sub_dadosapoio_abreviar.Visible =
                 sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible =
+<<<<<<< Updated upstream
                 sub_dadosapoio_logs.Visible = mnLocomotivas.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible =
+=======
+                sub_dadosapoio_logs.Visible = mnLocomotivas.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = 
+>>>>>>> Stashed changes
                 sub_thp_THP_Relatorios.Visible = false;
             }
             if (usuario.Perfil_ID == "12") // Perfil: OPERADOR VITORIA MINAS - OP VM
@@ -723,11 +735,5 @@ namespace LFSistemas.VLI.ACTWeb.Web
         }
 
         #endregion
-
-        
-
-
-       
-
     }
 }
