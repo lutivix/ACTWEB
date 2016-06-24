@@ -18,7 +18,7 @@
                         <p>
                             <i class="fa fa-quote-left fa-3x pull-left fa-border imagem-inicio"></i>
                             
-                            <div style="font-weight: bold; font-size: 1.5em; color: red;">A versão do software do OBC mudou!<br />A versão atual agora é a 3,27.</div>
+                            <div style="font-weight: bold; font-size: 1.5em; color: red;">A versão do software do OBC mudou!<br />A versão atual agora é a 3,30.</div>
                         </p>
                         <p>
                         <br />Para atualizar seu pendrive, faça o download do OBC.zip clicando na setinha ao lado do item 'Versão Oficial + Arquivo GR'.<br /><br />Abrir o OBC.zip e extrair os arquivos 'CBU.rtb' e 'GR.crp'.<br />Copiar estes dois arquivos substituindo os antigos no pendrive.<br /><br />Lembrando que o pendrive deverá estar com o arquivo 'Login.crp' para que o OBC o reconheça.
