@@ -103,13 +103,13 @@ namespace LFSistemas.VLI.ACTWeb.Web {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mnDadosApoio;
         
         /// <summary>
-        /// sub_dadosapoio_abreviar control.
+        /// sub_dadosapoio_abreviaturas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub_dadosapoio_abreviar;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub_dadosapoio_abreviaturas;
         
         /// <summary>
         /// lnkAbreviar control.
@@ -265,13 +265,13 @@ namespace LFSistemas.VLI.ACTWeb.Web {
         protected global::System.Web.UI.WebControls.LinkButton lnkPlus;
         
         /// <summary>
-        /// mnSavi control.
+        /// mnGOP control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mnSavi;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mnGOP;
         
         /// <summary>
         /// lnkGOP control.
@@ -670,13 +670,13 @@ namespace LFSistemas.VLI.ACTWeb.Web {
         protected global::System.Web.UI.WebControls.LinkButton lnkCat;
         
         /// <summary>
-        /// mnControleRadios control.
+        /// mnRadios control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mnControleRadios;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mnRadios;
         
         /// <summary>
         /// sub_controleradios_consulta control.
@@ -922,42 +922,6 @@ namespace LFSistemas.VLI.ACTWeb.Web {
         protected global::System.Web.UI.WebControls.LinkButton lnkTHP;
         
         /// <summary>
-        /// sub_thp_AlocacaoProgramada control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub_thp_AlocacaoProgramada;
-        
-        /// <summary>
-        /// lnkAlocacaoProgramada control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkAlocacaoProgramada;
-        
-        /// <summary>
-        /// sub_thp_GiroLocomotivas control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub_thp_GiroLocomotivas;
-        
-        /// <summary>
-        /// lnkGirloLocomotivas control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkGirloLocomotivas;
-        
-        /// <summary>
         /// sub_thp_THP_Relatorios control.
         /// </summary>
         /// <remarks>
@@ -1147,13 +1111,13 @@ namespace LFSistemas.VLI.ACTWeb.Web {
         protected global::System.Web.UI.WebControls.LinkButton lnkEstatisticas;
         
         /// <summary>
-        /// mnConsultaVMA control.
+        /// mnVMA control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mnConsultaVMA;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mnVMA;
         
         /// <summary>
         /// sub_consultaVMA_consulta control.

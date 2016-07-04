@@ -157,7 +157,7 @@
                         </li>
                         <div class="collapse" id="sub_dadosapoio">
                             <ul class="submenu">
-                                <li class="" id="sub_dadosapoio_abreviar" runat="server">
+                                <li class="" id="sub_dadosapoio_abreviaturas" runat="server">
                                     <asp:LinkButton runat="server" ID="lnkAbreviar" OnClick="lnkAbreviar_Click">
                                         <span class="menu-item-icon"><i class="fa fa-book"></i></span>
                                         <span class="menu-item-label" title="Consulta Abreviaturas">Abreviaturas</span>
@@ -216,7 +216,7 @@
                         </div>
 
                         <%----------------------  GOP  ----------------------%>
-                        <li class="" id="mnSavi" runat="server">
+                        <li class="" id="mnGOP" runat="server">
                             <asp:LinkButton runat="server" ID="lnkGOP" OnClick="lnkGOP_Click">
                                 <span class="menu-item-icon menu-icon-gop"></span>
                                 <span class="menu-item-label" title="GOP">GOP</span>
@@ -414,7 +414,7 @@
                             </ul>
                         </div>
                         <%----------------------  RADIOS  ----------------------%>
-                        <li class="" id="mnControleRadios" runat="server">
+                        <li class="" id="mnRadios" runat="server">
                             <a data-toggle="collapse" data-parent="#menu" href="#sub_controleradios" title="Consulta VMA">
                                 <span class="menu-item-icon menu-icon-radio"></span>
                                 <span class="menu-item-label" title="Controle de Rádios">Rádios <i class="fa fa-caret-down"></i></span>
@@ -547,7 +547,7 @@
                                         <span class="menu-item-label" title="Consultar THP">Consultar</span>
                                     </asp:LinkButton>
                                 </li>
-                                <li class="" id="sub_thp_AlocacaoProgramada" runat="server">
+<%--                                <li class="" id="sub_thp_AlocacaoProgramada" runat="server">
                                     <asp:LinkButton runat="server" ID="lnkAlocacaoProgramada" OnClick="lnkAlocacaoProgramada_Click">
                                         <span class="menu-item-icon"><i class="fa fa-connectdevelop"></i></span>
                                         <span class="menu-item-label" title="Consulta">Alocações Programadas</span>
@@ -558,7 +558,7 @@
                                         <span class="menu-item-icon"><i class="fa fa-connectdevelop"></i></span>
                                         <span class="menu-item-label" title="Consulta">Giro de Locomotivas</span>
                                     </asp:LinkButton>
-                                </li>
+                                </li>--%>
                                 <li class="" id="sub_thp_THP_Relatorios" runat="server">
                                     <asp:LinkButton runat="server" ID="lnkTHP_Relatorios" OnClick="lnkTHP_Relatorios_Click">
                                         <span class="menu-item-icon"><i class="fa fa-connectdevelop"></i></span>
@@ -571,11 +571,6 @@
                                         <span class="menu-item-label" title="Tempo de Parada/Confirmação">Tempo de Parada/Confirmação</span>
                                     </asp:LinkButton>
                                 </li>
-
-
-
-
-
                             </ul>
                         </div>
 
@@ -662,7 +657,7 @@
                         </div>
 
                         <%----------------------  VMA  ----------------------%>
-                        <li class="" id="mnConsultaVMA" runat="server">
+                        <li class="" id="mnVMA" runat="server">
                             <a data-toggle="collapse" data-parent="#menu" href="#sub_vma" title="Consulta VMA">
                                 <span class="menu-item-icon menu-icon-vma"></span>
                                 <span class="menu-item-label" title="Consulta VMA">VMA <i class="fa fa-caret-down"></i></span>

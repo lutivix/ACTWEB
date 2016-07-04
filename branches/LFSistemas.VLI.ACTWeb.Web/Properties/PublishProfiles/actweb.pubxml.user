@@ -15,7 +15,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="ACTWEB.Master">
-      <publishTime>06/22/2016 11:46:06</publishTime>
+      <publishTime>06/27/2016 11:39:16</publishTime>
     </File>
     <File Include="Ajuda/Erro.aspx">
       <publishTime>06/22/2016 11:25:20</publishTime>
@@ -177,10 +177,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:45:35</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>06/23/2016 20:00:07</publishTime>
+      <publishTime>06/27/2016 11:48:21</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
-      <publishTime>06/23/2016 20:00:07</publishTime>
+      <publishTime>06/27/2016 11:48:21</publishTime>
     </File>
     <File Include="bin/Microsoft.Data.Edm.dll">
       <publishTime>04/12/2013 20:25:45</publishTime>
@@ -498,7 +498,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="Default.aspx">
-      <publishTime>06/22/2016 11:25:20</publishTime>
+      <publishTime>06/24/2016 14:52:45</publishTime>
     </File>
     <File Include="Desenvolvimento.aspx">
       <publishTime>06/22/2016 11:25:20</publishTime>
