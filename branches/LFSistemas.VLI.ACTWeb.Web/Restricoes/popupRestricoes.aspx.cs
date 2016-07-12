@@ -758,12 +758,22 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         //Verificar se foi selecionado
                         if (chkRestricao.Checked)
                         {
+
                             string[] item = HiddenField1.Value.Split(':');
 
-                            if (item[2] != "038")
+                            if (item[4] != "038")
                             {
-                                DLLSendRRE(int.Parse(item[0]), usuario);
-                                LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Restrições", null, item[0].ToString(), "Foi enviado " + item[0].ToString() + " para avaliação de exclusão.", Uteis.OPERACAO.Removeu.ToString());
+                                if (item[0] == "C")
+                                {
+                                    DLLSendRRE(int.Parse(item[1]), usuario);
+                                    LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Restrições", null, item[1].ToString(), "Foi enviado " + item[1].ToString() + " para avaliação de exclusão.", Uteis.OPERACAO.Removeu.ToString());
+                                }
+                                if (item[0] == "P")
+                                {
+                                    DLLSendRRE(int.Parse(item[2]), usuario);
+                                    LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Restrições", null, item[1].ToString(), "Foi enviado " + item[1].ToString() + " para avaliação de exclusão.", Uteis.OPERACAO.Removeu.ToString());
+                                }
+                                
                                 contador++;
                             }
                             else

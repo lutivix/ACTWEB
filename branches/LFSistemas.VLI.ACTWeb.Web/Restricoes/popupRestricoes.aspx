@@ -589,11 +589,11 @@
                                             <tr style="font-size: 9px; margin-top: 15px;" class="situacao-<%# Eval("Situacao")%>">
                                                 <td style="width: 2%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" visible='<%# Eval("Tipo_Restricao").ToString() != "038" ? true : false %>'>
                                                     <div>
-                                                        <asp:HiddenField ID="HiddenField1" Value='<%# Eval("RestricaoID") +":"+ Eval("Secao_Elemento") +":"+ Eval("Tipo_Restricao") %>' runat="server" />
+                                                        <asp:HiddenField ID="HiddenField1" Value='<%# Eval("P_C") +":"+ Eval("CirculacaoID") +":"+  Eval("ProgramadaID") +":"+ Eval("Secao_Elemento") +":"+ Eval("Tipo_Restricao") %>' runat="server" />
                                                         <asp:CheckBox runat="server" ID="chkRestricao" ToolTip="Seleciona a restrição atual." />
                                                     </div>
                                                 </td>
-                                                <td style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("RestricaoID")%>"><%# Eval("RestricaoID")%> </td>
+                                                <td style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("CirculacaoID")%>"><%# Eval("CirculacaoID")%> </td>
                                                 <td style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Tipo_Restricao")%>"><%# Eval("Tipo_Restricao")%> </td>
                                                 <td style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("SubTipo_VR")%>"><%# Eval("SubTipo_VR")%> </td>
                                                 <td style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Secao_Elemento")%>"><%# Eval("Secao_Elemento")%> </td>
@@ -604,7 +604,7 @@
                                                 <td style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Km_Final")%>"><%# Eval ("Km_Final")%></td>
                                                 <td style="width: 50%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Observacao")%>"><%# Eval ("Observacao")%></td>
                                                 <td style="width: 2%; text-align: center;">
-                                                    <asp:LinkButton ID="lnkEdite" runat="server" OnClick="lnkEdite_Click" CommandArgument='<%# Eval("RestricaoID") +":"+ Eval("Situacao") %>' ToolTip="Exibe os dados da restrição selecionada no formulário acima."><i class="fa fa-search-plus"></i></asp:LinkButton>
+                                                    <asp:LinkButton ID="lnkEdite" runat="server" OnClick="lnkEdite_Click" CommandArgument='<%# Eval("CirculacaoID") +":"+ Eval("Situacao") %>' ToolTip="Exibe os dados da restrição selecionada no formulário acima."><i class="fa fa-search-plus"></i></asp:LinkButton>
                                                 </td>
                                             </tr>
                                         </ItemTemplate>
