@@ -101,21 +101,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             string matricula = btn.CommandArgument;
             Response.Redirect("/Cadastro/UsuarioACT.aspx?matricula=" + Uteis.Criptografar(matricula.ToLower(), "a#3G6**@") + "&flag=consulta&lu=" + Uteis.Criptografar(ViewState["ulNome"].ToString().ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ViewState["uMatricula"].ToString().ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ViewState["uPerfil"].ToString().ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ViewState["ulMaleta"].ToString().ToLower(), "a#3G6**@"));
         }
-        protected void lnkNome_Click(object sender, EventArgs e)
-        {
-            var ordenacao = ViewState["ordenacao"].ToString();
 
-            if (ordenacao == "ASC")
-            {
-                ViewState["ordenacao"] = "DESC";
-                Pesquisar("NOME " + ViewState["ordenacao"].ToString(), Navigation.None);
-            }
-            else
-            {
-                ViewState["ordenacao"] = "ASC";
-                Pesquisar("NOME " + ViewState["ordenacao"].ToString(), Navigation.None);
-            }
-        }
         protected void lnkMatricula_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
@@ -131,20 +117,24 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 Pesquisar("MATRICULA " + ViewState["ordenacao"].ToString(), Navigation.None);
             }
         }
-        protected void lnkPerfil_Click(object sender, EventArgs e)
+        protected void lnkNome_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
 
             if (ordenacao == "ASC")
             {
                 ViewState["ordenacao"] = "DESC";
-                Pesquisar("ABREVIADO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                Pesquisar("NOME " + ViewState["ordenacao"].ToString(), Navigation.None);
             }
             else
             {
                 ViewState["ordenacao"] = "ASC";
-                Pesquisar("ABREVIADO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                Pesquisar("NOME " + ViewState["ordenacao"].ToString(), Navigation.None);
             }
+        }
+        protected void lnkPerfil_Click(object sender, EventArgs e)
+        {
+
         }
         protected void lnkEmail_Click(object sender, EventArgs e)
         {
@@ -207,6 +197,52 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             }
         }
 
+        protected void lnkCPF_Click(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("CPF " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("CPF " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+        protected void lnkLDL_Click(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("LDL " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("LDL " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+        protected void lnkPerfil_Click1(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("ABREVIADO " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("ABREVIADO " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+
 
         protected void lnkPaginaAnterior_Click(object sender, EventArgs e)
         {
@@ -247,7 +283,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
             itens = usuarioController.ObterTodos(new UsuariosACT()
             {
-                //Perfil_ID = ddlPerfis.SelectedItem.Value != "Selecione!" ? ddlPerfis.SelectedItem.Value : string.Empty,
                 Matricula = txtMatricula.Text.Length > 0 ? txtMatricula.Text.Trim() : string.Empty,
                 Nome = txtNome.Text
             });
@@ -274,17 +309,17 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     case "CPF DESC":
                         itens = itens.OrderByDescending(o => o.CPF).ToList();
                         break;
-                    case "PERMITE LDL ASC":
-                        itens = itens.OrderBy(o => o.Permite_LDL).ToList();
+                    case "LDL ASC":
+                        itens = itens.OrderBy(o => o.LDL).ToList();
                         break;
-                    case "PERMITE LDL DESC":
-                        itens = itens.OrderByDescending(o => o.Permite_LDL).ToList();
+                    case "LDL DESC":
+                        itens = itens.OrderByDescending(o => o.LDL).ToList();
                         break;
-                    case "TIPO OPERADOR ASC":
-                        itens = itens.OrderBy(o => o.Tipo_Operador_ID).ToList();
+                    case "PERFIL ASC":
+                        itens = itens.OrderBy(o => o.Perfil).ToList();
                         break;
-                    case "TIPO OPERADOR DESC":
-                        itens = itens.OrderByDescending(o => o.Tipo_Operador_ID).ToList();
+                    case "PERFIL DESC":
+                        itens = itens.OrderByDescending(o => o.Perfil).ToList();
                         break;
                     default:
                         itens = itens.OrderBy(o => o.Nome).ToList();
@@ -347,6 +382,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
 
         #endregion
+
 
         #region [ MÉTODOS DE ACESSO A DADOS ]
 

@@ -47,9 +47,9 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ComboBoxPerfis();
         }
 
-        public List<ComboBox>ComboBoxTipoOperadores()
+        public List<ComboBox> ComboBoxPerfisACT()
         {
-            return dao.ComboBoxTipoOperador();
+            return dao.ComboBoxPerfisACT();
         }
 
         public List<ComboBox> ComboBoxPostoTrabalho()

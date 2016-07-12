@@ -68,17 +68,17 @@
     <div class="row">
         <div class="form-group col-sm-12">
             <label for="nome">Nome:</label>
-            <asp:TextBox runat="server" ID="txtNome" CssClass="form-control" />
+            <asp:TextBox runat="server" ID="txtNome" CssClass="form-control" MaxLength="70" />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-6">
             <label for="matricula">Matrícula:</label>
-            <asp:TextBox runat="server" ID="txtMatricula" CssClass="form-control" />
+            <asp:TextBox runat="server" ID="txtMatricula" CssClass="form-control" MaxLength="30" />
         </div>
         <div class="form-group col-sm-6">
             <label for="senha">Senha:</label>
-            <asp:TextBox runat="server" ID="txtSenha" CssClass="form-control" TextMode="Password" />
+            <asp:TextBox runat="server" ID="txtSenha" CssClass="form-control" TextMode="Password" MaxLength="70" />
         </div>
     </div>
     <div class="row">
@@ -88,13 +88,13 @@
         </div>
         <div class="form-group col-sm-6">
             <label for="maleta">Maleta:</label>
-            <asp:TextBox runat="server" ID="txtMaleta" CssClass="form-control" onkeypress="return PermiteSomenteNumeros(event);" />
+            <asp:TextBox runat="server" ID="txtMaleta" CssClass="form-control" onkeypress="return PermiteSomenteNumeros(event);" MaxLength="5" />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-12">
             <label for="email">E-mail:</label>
-            <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" onblur="validateEmail(this);" />
+            <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" onblur="validateEmail(this);" MaxLength="70" />
         </div>
     </div>
     <div class="row">
@@ -104,7 +104,6 @@
         </div>
     </div>
     <div class="row">
-        <%--<span class="informativo pull-left"><span class="field-required">*</span> Campo obrigatório.</span>--%>
         <asp:Button ID="ButtonSalvar" type="button" CssClass="btn btn-success" runat="server" Text="Salvar" OnClick="ButtonSalvar_Click" OnClientClick="javascript:return validaFormulario();" />
         <asp:Button ID="ButtonCancelar" type="button" CssClass="btn btn-primary" runat="server" Text="Cancelar" OnClick="ButtonCancelar_Click" />
         <asp:Button ID="btnExcluir" type="button" CssClass="btn btn-danger" runat="server" Text="Excluir" OnClick="btnExcluir_Click" Visible="false" />

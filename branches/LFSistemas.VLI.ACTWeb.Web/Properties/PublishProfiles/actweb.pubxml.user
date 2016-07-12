@@ -159,28 +159,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>06/22/2016 11:44:37</publishTime>
+      <publishTime>07/12/2016 14:38:23</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
-      <publishTime>06/22/2016 11:44:37</publishTime>
+      <publishTime>07/12/2016 14:38:23</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>06/22/2016 11:45:36</publishTime>
+      <publishTime>07/12/2016 15:13:23</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
-      <publishTime>06/22/2016 11:45:35</publishTime>
+      <publishTime>07/12/2016 15:13:23</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>06/22/2016 11:45:35</publishTime>
+      <publishTime>07/12/2016 15:13:22</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
-      <publishTime>06/22/2016 11:45:35</publishTime>
+      <publishTime>07/12/2016 15:13:22</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>06/27/2016 11:48:21</publishTime>
+      <publishTime>07/12/2016 15:13:24</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
-      <publishTime>06/27/2016 11:48:21</publishTime>
+      <publishTime>07/12/2016 15:13:24</publishTime>
     </File>
     <File Include="bin/Microsoft.Data.Edm.dll">
       <publishTime>04/12/2013 20:25:45</publishTime>
@@ -309,10 +309,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="Cadastro/Usuario.aspx">
-      <publishTime>06/22/2016 11:25:20</publishTime>
+      <publishTime>07/12/2016 14:03:28</publishTime>
     </File>
     <File Include="Cadastro/UsuarioACT.aspx">
-      <publishTime>06/22/2016 11:25:20</publishTime>
+      <publishTime>07/12/2016 15:07:25</publishTime>
     </File>
     <File Include="cc3260.dll">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -438,7 +438,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="Consulta/UsuarioACT.aspx">
-      <publishTime>06/22/2016 11:25:20</publishTime>
+      <publishTime>07/12/2016 13:50:00</publishTime>
     </File>
     <File Include="Criptografar.aspx">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -1437,7 +1437,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:21</publishTime>
     </File>
     <File Include="js/mascara.js">
-      <publishTime>06/22/2016 11:25:21</publishTime>
+      <publishTime>07/12/2016 15:03:46</publishTime>
     </File>
     <File Include="js/myFunction.js">
       <publishTime>06/22/2016 11:25:21</publishTime>
@@ -1605,7 +1605,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/23/2016 20:00:08</publishTime>
+      <publishTime>07/12/2016 15:13:37</publishTime>
     </File>
   </ItemGroup>
 </Project>

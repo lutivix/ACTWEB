@@ -35,26 +35,26 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA OS USUÁRIOS ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT OP.OP_ID_OP,
-                                          OP.OP_MAT,
-                                          OP.OP_NM,
-                                          OP.OP_SENHA,
-                                          OP.OP_DT_SENHA,
-                                          DECODE ( SUBSTR(UPPER(OP.OP_PERMITE_LDL), 1, 1),'S', 'S','N') AS OP_PERMITE_LDL, 
-                                          TOP.TO_DSC_OP,
-                                          OP.OP_CPF,
-                                          TOP.TO_ID_OP
+                    query.Append(@"SELECT OP.OP_ID_OP AS ID,
+                                      OP.OP_MAT AS MATRICULA,
+                                      OP.OP_NM AS NOME,
+                                      OP.OP_SENHA AS SENHA,
+                                      OP.OP_DT_SENHA AS CADASTRO,
+                                      DECODE ( SUBSTR(UPPER(OP.OP_PERMITE_LDL), 1, 1),'S', 'S','N') AS LDL, 
+                                      TOP.TO_DSC_OP AS PERFIL,
+                                      OP.OP_CPF AS CPF,
+                                      TOP.TO_ID_OP AS PERFIL_ID
                                      FROM actpp.OPERADORES OP,
                                           actpp.TIPO_OPERADOR TOP
                                     WHERE TOP.TO_ID_OP = OP.TO_ID_OP
-                                          ${TIPO}
+                                          ${PERFIL}
                                           ${MATRICULA}
                                           ${NOME}");
 
-                    if (!string.IsNullOrEmpty(filtro.Tipo_Operador_Desc))
-                        query.Replace("${TIPO}", string.Format(" AND UPPER(TOP.TO_DSC_OP) LIKE '%{0}%'", filtro.Tipo_Operador_Desc.ToUpper()));
+                    if (!string.IsNullOrEmpty(filtro.Perfil))
+                        query.Replace("${PERFIL}", string.Format(" AND UPPER(TOP.TO_DSC_OP) LIKE '%{0}%'", filtro.Perfil.ToUpper()));
                     else
-                        query.Replace("${TIPO}", string.Format(" "));
+                        query.Replace("${PERFIL}", string.Format(" "));
 
                     if (!string.IsNullOrEmpty(filtro.Matricula ))
                         query.Replace("${MATRICULA}", string.Format(" AND UPPER(OP.OP_MAT) LIKE '%{0}%'", filtro.Matricula.ToUpper()));
@@ -473,13 +473,6 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA USUÁRIOS PELO LOGIN ]
 
                     var command = connection.CreateCommand();
-//                    query.Append(@"SELECT U.ID, U.NOME, U.MATRICULA, U.SENHA, U.NIVEL, P.PER_ABREVIADO, U.MALETA, U.ATIVO_SN 
-//                                    FROM USUARIOS U, PERFIS P 
-//                                        WHERE U.NIVEL = P.PER_ID_PER 
-//                                          AND UPPER(MATRICULA) = ${MATRICULA} 
-//                                          AND UPPER(SENHA) = ${SENHA}");
-
-
                     query.Append(@"SELECT OP.OP_ID_OP,
                                           OP.OP_MAT,
                                           OP.OP_NM,
@@ -578,6 +571,117 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return obtertotal;
         }
 
+
+        /// <summary>
+        /// Obtem um usuário do sistema ACT pelo CPF
+        /// </summary>
+        /// <param name="cpf">CPF do usuário a ser pesquisado</param>
+        /// <returns>Retorna "true" se existir o CPF cadastrado no sistema, caso contrário, retorna "false". </returns>
+        public bool ObterUsuarioACTporCPF(string cpf)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            bool Retorno = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA TOTAL DE ACESSOS ]
+
+                    var command = connection.CreateCommand();
+                    query.Append(@"SELECT OP_ID_OP AS ID, OP_MAT AS MATRICULA, OP_NM AS NOME, OP_SENHA AS SENHA, OP_DT_SENHA AS CADASTRO, OP_PERMITE_LDL AS LDL, TO_ID_OP AS PERFIL_ID, OP_CPF AS CPF FROM ACTPP.OPERADORES WHERE OP_CPF = ${OP_CPF}");
+
+                    #endregion
+
+                    #region [ PARÂMETROS ]
+
+                    query.Replace("${OP_CPF}", string.Format("'{0}'", cpf));
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NO CONTADOR ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            Retorno = true;
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return Retorno;
+        }
+
+        /// <summary>
+        /// Obtem um usuário do sistema ACT pela Matrícula
+        /// </summary>
+        /// <param name="matricula">Matrícula do usuário a ser pesquisado</param>
+        /// <returns>Retorna "true" se existir a Matrícula cadastrada no sistema, caso contrário, retorna "false". </returns>
+        public bool ObterUsuarioACTporMatricula(string matricula)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            bool Retorno = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA TOTAL DE ACESSOS ]
+
+                    var command = connection.CreateCommand();
+                    query.Append(@"SELECT OP_ID_OP AS ID, OP_MAT AS MATRICULA, OP_NM AS NOME, OP_SENHA AS SENHA, OP_DT_SENHA AS CADASTRO, OP_PERMITE_LDL AS LDL, TO_ID_OP AS PERFIL_ID, OP_CPF AS CPF FROM ACTPP.OPERADORES WHERE UPPER(OP_MAT) = ${OP_MAT}");
+
+                    #endregion
+
+                    #region [ PARÂMETROS ]
+
+                    query.Replace("${OP_MAT}", string.Format("'{0}'", matricula.ToUpper()));
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NO CONTADOR ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            Retorno = true;
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return Retorno;
+        }
+
         #endregion
 
         #region [ MÉTODOS DE APOIO ]
@@ -610,13 +714,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.ID= reader.GetDouble(0);
+                if (!reader.IsDBNull(0)) item.Usuario_ID= reader.GetDouble(0).ToString();
                 if (!reader.IsDBNull(1)) item.Matricula = reader.GetString(1);
                 if (!reader.IsDBNull(2)) item.Nome = reader.GetString(2);
                 if (!reader.IsDBNull(3)) item.Senha = Uteis.Descriptografar(reader.GetString(6), "a#3G6**@").ToUpper();
-                if (!reader.IsDBNull(4)) item.Data_Senha = reader.GetDateTime(4);
-                if (!reader.IsDBNull(5)) item.Permite_LDL = reader.GetString(5);
-                if (!reader.IsDBNull(6)) item.Tipo_Operador_Desc= reader.GetString(6);
+                if (!reader.IsDBNull(4)) item.Cadastro = reader.GetDateTime(4);
+                if (!reader.IsDBNull(5)) item.LDL = reader.GetString(5);
+                if (!reader.IsDBNull(6)) item.Perfil= reader.GetString(6);
                 if (!reader.IsDBNull(7)) item.CPF = reader.GetString(7);
             }
             catch (Exception ex)
@@ -641,14 +745,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.ID = reader.GetDouble(0);
+                if (!reader.IsDBNull(0)) item.Usuario_ID = reader.GetDouble(0).ToString();
                 if (!reader.IsDBNull(1)) item.Matricula = reader.GetString(1);
                 if (!reader.IsDBNull(2)) item.Nome = reader.GetString(2);
                 if (!reader.IsDBNull(3)) item.Senha = Uteis.Criptografar(reader.GetString(6), "a#3G6**@").ToUpper();
-                if (!reader.IsDBNull(4)) item.Data_Senha = reader.GetDateTime(4);
-                if (!reader.IsDBNull(5)) item.Permite_LDL = reader.GetString(5);
-                if (!reader.IsDBNull(6)) item.Tipo_Operador_Desc = reader.GetString(6);
+                if (!reader.IsDBNull(4)) item.Cadastro = reader.GetDateTime(4);
+                if (!reader.IsDBNull(5)) item.LDL = reader.GetString(5);
+                if (!reader.IsDBNull(6)) item.Perfil = reader.GetString(6);
                 if (!reader.IsDBNull(7)) item.CPF = reader.GetString(7);
+                if (!reader.IsDBNull(8)) item.Prefil_ID = reader.GetDouble(8).ToString();
             }
             catch (Exception ex)
             {
@@ -671,16 +776,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.ID = reader.GetDouble(0);
+                if (!reader.IsDBNull(0)) item.Usuario_ID = reader.GetDouble(0).ToString();
                 if (!reader.IsDBNull(1)) item.Matricula = reader.GetString(1);
                 if (!reader.IsDBNull(2)) item.Nome = reader.GetString(2);
-                //if (!reader.IsDBNull(3)) item.Senha = Uteis.Criptografar(reader.GetString(3), "a#3G6**@").ToUpper();
                 if (!reader.IsDBNull(3)) item.Senha = reader.GetString(3);
-                if (!reader.IsDBNull(4)) item.Data_Senha = reader.GetDateTime(4);
-                if (!reader.IsDBNull(5)) item.Permite_LDL = reader.GetString(5);
-                if (!reader.IsDBNull(6)) item.Tipo_Operador_Desc= reader.GetString(6);
+                if (!reader.IsDBNull(4)) item.Cadastro = reader.GetDateTime(4);
+                if (!reader.IsDBNull(5)) item.LDL = reader.GetString(5);
+                if (!reader.IsDBNull(6)) item.Perfil= reader.GetString(6);
                 if (!reader.IsDBNull(7)) item.CPF = reader.GetString(7);
-                if (!reader.IsDBNull(8)) item.Tipo_Operador_ID = reader.GetDouble(8);
+                if (!reader.IsDBNull(8)) item.Prefil_ID = reader.GetDouble(8).ToString();
                 
             }
             catch (Exception ex)
@@ -730,13 +834,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var itens = new UsuariosACT();
 
-            if (!reader.IsDBNull(0)) itens.ID = reader.GetDouble(0);
+            if (!reader.IsDBNull(0)) itens.Usuario_ID = reader.GetDouble(0).ToString();
             if (!reader.IsDBNull(1)) itens.Matricula = reader.GetString(1);
             if (!reader.IsDBNull(2)) itens.Nome = reader.GetString(2);
             if (!reader.IsDBNull(3)) itens.Senha = reader.GetString(6);
-            if (!reader.IsDBNull(4)) itens.Data_Senha = reader.GetDateTime(4);
-            if (!reader.IsDBNull(5)) itens.Permite_LDL = reader.GetString(5);
-            if (!reader.IsDBNull(6)) itens.Tipo_Operador_Desc = reader.GetString(6);
+            if (!reader.IsDBNull(4)) itens.Cadastro = reader.GetDateTime(4);
+            if (!reader.IsDBNull(5)) itens.LDL = reader.GetString(5);
+            if (!reader.IsDBNull(6)) itens.Perfil = reader.GetString(6);
             if (!reader.IsDBNull(7)) itens.CPF = reader.GetString(7);
 
             return itens;
@@ -815,13 +919,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ PARÂMETRO ]
 
-                    //query.Replace("${ID}", string.Format("{0}", "ID_USUARIOS.NEXTVAL"));
                     query.Replace("${MATRICULA}", string.Format("'{0}'", usuario.Matricula));
                     query.Replace("${NOME}", string.Format("'{0}'", usuario.Nome));
-                    //query.Replace("${DATA_SENHA}", string.Format("'{0}'", "SYSDATE"));
                     query.Replace("${SENHA}", string.Format("'{0}'", usuario.Senha));
-                    query.Replace("${PERMITE_LDL}", string.Format("'{0}'", usuario.Permite_LDL));
-                    query.Replace("${TIPO_OPERADOR}", string.Format("{0}", usuario.Tipo_Operador_ID));
+                    query.Replace("${PERMITE_LDL}", string.Format("'{0}'", usuario.LDL));
+                    query.Replace("${TIPO_OPERADOR}", string.Format("{0}", usuario.Prefil_ID));
                     query.Replace("${CPF}", string.Format("'{0}'", usuario.CPF));
 
                      
@@ -832,7 +934,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     command.CommandText = query.ToString();
                     command.ExecuteNonQuery();
 
-                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " - Tipo Operador: " + usuario.Tipo_Operador_ID + " - CPF: " + usuario.CPF + " - Permite LDL: " + usuario.Permite_LDL, Uteis.OPERACAO.Inseriu.ToString());
+                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " - Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Permite LDL: " + usuario.LDL, Uteis.OPERACAO.Inseriu.ToString());
 
                     #endregion
                 }
@@ -874,12 +976,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ PARÂMETRO ]
 
-                    query.Replace("${ID}", string.Format("'{0}'", usuario.ID));
+                    query.Replace("${ID}", string.Format("{0}", usuario.Usuario_ID));
                     query.Replace("${MATRICULA}", string.Format("'{0}'", usuario.Matricula));
                     query.Replace("${NOME}", string.Format("'{0}'", usuario.Nome));
                     query.Replace("${SENHA}", string.Format("'{0}'", usuario.Senha));
-                    query.Replace("${PERMITE_LDL}", string.Format("'{0}'", usuario.Permite_LDL));
-                    query.Replace("${TIPO_OPERADOR}", string.Format("{0}", usuario.Tipo_Operador_ID));
+                    query.Replace("${PERMITE_LDL}", string.Format("'{0}'", usuario.LDL));
+                    query.Replace("${TIPO_OPERADOR}", string.Format("{0}", usuario.Prefil_ID));
                     query.Replace("${CPF}", string.Format("'{0}'", usuario.CPF));
 
                     #endregion
@@ -889,7 +991,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     command.CommandText = query.ToString();
                     command.ExecuteNonQuery();
 
-                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", usuario.ID.ToString(), null, "Usuário: " + usuario.Nome + " - Tipo Operador: " + usuario.Tipo_Operador_ID + " - CPF: " + usuario.CPF, Uteis.OPERACAO.Atualizou.ToString());
+                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", usuario.Usuario_ID.ToString(), null, "Usuário: " + usuario.Nome + " - Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF, Uteis.OPERACAO.Atualizou.ToString());
 
                     #endregion
                 }

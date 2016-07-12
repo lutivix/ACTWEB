@@ -43,26 +43,12 @@
                 if (item.length > 0) item += ":<%=txtSenhaACT.ClientID%>"; else item += "<%=txtSenhaACT.ClientID%>";
                 retorno = false;
             }
-            if (document.getElementById("<%=ddlTipoOperador.ClientID%>").value == 'Selecione!' || document.getElementById("<%=ddlTipoOperador.ClientID%>").value == ''){
+            if (document.getElementById("<%=ddlPerfil.ClientID%>").value == 'Selecione!' || document.getElementById("<%=ddlPerfil.ClientID%>").value == ''){
                 msg += " o tipo do operador. \n";
-                if (item.length > 0) item += ":<%=ddlTipoOperador.ClientID%>"; else item += "<%=ddlTipoOperador.ClientID%>";
+                if (item.length > 0) item += ":<%=ddlPerfil.ClientID%>"; else item += "<%=ddlPerfil.ClientID%>";
                 retorno = false;
             }
-<%--            if (document.getElementById("<%=txtCPFACT.ClientID%>").value == ''){
-                msg += " o cpf do usuário. \n";
-                if (item.length > 0) item += ":<%=txtCPFACT.ClientID%>"; else item += "<%=txtCPFACT.ClientID%>";
-                retorno = false;
-            }--%>
-<%--            if (document.getElementById("<%=txtEmailACT.ClientID%>").value == ''){
-                msg += " o e-mail do usuário. \n";
-                if (item.length > 0) item += ":<%=txtEmailACT.ClientID%>"; else item += "<%=txtEmailACT.ClientID%>";
-                retorno = false;
-            }--%>
-<%--            if (document.getElementById("<%=ddlTipoOperador.ClientID%>").value == 'Selecione' || document.getElementById("<%=ddlTipoOperador.ClientID%>").value == '') {
-                msg += " o tipo de operador do usuário. \n";
-                if (item.length > 0) item += ":<%=ddlTipoOperador.ClientID%>"; else item += "<%=ddlTipoOperador.ClientID%>";
-                retorno = false;
-            }--%>
+
             if (retorno == false){
                 BootstrapDialog.show({ title: 'ATENÇÃO!', message: msg });
 
@@ -79,47 +65,36 @@
     <div class="row">
         <div class="form-group col-sm-12">
             <label for="nome">Nome:</label>
-            <asp:TextBox runat="server" ID="txtNomeACT" CssClass="form-control" />
+            <asp:TextBox runat="server" ID="txtNomeACT" CssClass="form-control" MaxLength="30" />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-6">
             <label for="matricula">Matrícula:</label>
-            <asp:TextBox runat="server" ID="txtMatriculaACT" CssClass="form-control" />
+            <asp:TextBox runat="server" ID="txtMatriculaACT" CssClass="form-control" MaxLength="10" OnTextChanged="txtMatriculaACT_TextChanged" AutoPostBack="true" />
         </div>
-    </div>
-    <div class="row">
         <div class="form-group col-sm-6">
             <label for="senha">Senha:</label>
-            <asp:TextBox runat="server" ID="txtSenhaACT" CssClass="form-control" TextMode="Password" />
+            <asp:TextBox runat="server" ID="txtSenhaACT" CssClass="form-control" TextMode="Password" MaxLength="8" />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-6">
             <label for="cpf">CPF:</label>
-            <asp:TextBox runat="server" ID="txtCPFACT" CssClass="form-control" />
-        </div>    
-    </div>
-<%--    <div class="row">
-        <div class="form-group col-sm-12">
-            <label for="email">E-mail:</label>
-            <asp:TextBox runat="server" ID="txtEmailACT" CssClass="form-control" onblur="validateEmail(this);" />
+            <asp:TextBox runat="server" ID="txtCPFACT" CssClass="form-control" OnTextChanged="txtCPFACT_TextChanged" onkeypress="return PermiteSomenteNumeros(event);" MaxLength="11" AutoPostBack="true" />
         </div>
-    </div>--%>
-    <div class="row">
         <div class="form-group col-sm-1">
             <label for="permiteldl">Permite LDL:</label><br />
             <asp:CheckBox runat="server" ID="chkPermiteLDLACT" CssClass="form-control" Checked="true" Width="120px" />
-        </div>
+        </div>            
     </div>
     <div class="row">
         <div class="form-group col-sm-6">
-            <label for="nivel">Tipo Operador:</label>
-            <asp:DropDownList ID="ddlTipoOperador" runat="server" CssClass="form-control" DataTextField="Nome" DataValueField="Id" />
+            <label for="nivel">Perfil:</label>
+            <asp:DropDownList ID="ddlPerfil" runat="server" CssClass="form-control" DataTextField="Nome" DataValueField="Id" />
         </div>
     </div>
-    <div class="row">
-        <%--<span class="informativo pull-left"><span class="field-required">*</span> Campo obrigatório.</span>--%>
+    <div class="row" style="margin-left: 02px;">
         <asp:Button ID="ButtonSalvar" type="button" CssClass="btn btn-success" runat="server" Text="Salvar" OnClick="ButtonSalvar_Click" OnClientClick="javascript:return validaFormulario();" />
         <asp:Button ID="ButtonCancelar" type="button" CssClass="btn btn-primary" runat="server" Text="Cancelar" OnClick="ButtonCancelar_Click" />
         <asp:Button ID="btnExcluir" type="button" CssClass="btn btn-danger" runat="server" Text="Excluir" OnClick="btnExcluir_Click" Visible="false" />

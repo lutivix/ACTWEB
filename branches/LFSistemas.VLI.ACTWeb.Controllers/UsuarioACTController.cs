@@ -93,6 +93,26 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ObterTotalAcessos();
         }
 
+        /// <summary>
+        /// Obtem um usuário do sistema ACT pelo CPF
+        /// </summary>
+        /// <param name="cpf">CPF do usuário a ser pesquisado</param>
+        /// <returns>Retorna "true" se existir o CPF cadastrado no sistema, caso contrário, retorna "false". </returns>
+        public bool ObterUsuarioACTporCPF(string cpf)
+        {
+            return dao.ObterUsuarioACTporCPF(cpf);
+        }
+
+        /// <summary>
+        /// Obtem um usuário do sistema ACT pela Matrícula
+        /// </summary>
+        /// <param name="matricula">Matrícula do usuário a ser pesquisado</param>
+        /// <returns>Retorna "true" se existir a Matrícula cadastrada no sistema, caso contrário, retorna "false". </returns>
+        public bool ObterUsuarioACTporMatricula(string matricula)
+        {
+            return dao.ObterUsuarioACTporMatricula(matricula);
+        }
+
         #endregion
 
         #region [ MÉTODOS DE CRUD ]

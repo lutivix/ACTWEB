@@ -13,17 +13,17 @@ namespace LFSistemas.VLI.ACTWeb.Entities
     {
         #region [ PROPRIEDADES ]
 
-        public double ID { get; set; }
+        public string Usuario_ID { get; set; }
         public string Matricula { get; set; }
         public string Nome { get; set; }
         public string Senha{ get; set; }
-        public DateTime Data_Senha { get; set; }
-        public string Permite_LDL { get; set; }
-        public double Tipo_Operador_ID { get; set; }
-        public string Tipo_Operador_Desc { get; set; }
+        public DateTime Cadastro { get; set; }
+        public string LDL { get; set; }
+        public string Prefil_ID { get; set; }
+        public string Perfil { get; set; }
         public string CPF { get; set; }
-        public DateTime DataCriacao { get; set; }
-        public object Email { get; set; }
+
+
         #endregion
 
     }

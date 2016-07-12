@@ -37,7 +37,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
             if (!Page.IsPostBack)
             {
-                
+
                 lblUsuarioLogado.Text = ulNome.Length > 12 ? ulNome.Substring(0, 12).ToUpper() : ulNome;
                 lblUsuarioMatricula.Text = ulMatricula;
                 lblUsuarioPerfil.Text = ulTipoOperador;
@@ -60,16 +60,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
         {
             var usuarioController = new UsuarioACTController();
             var usuario = usuarioController.ObterPorMatricula(matricula);
-             
+
             txtNomeACT.Text = usuario.Nome.Trim();
             txtMatriculaACT.Text = usuario.Matricula.Trim().ToUpper();
             txtSenhaACT.Attributes.Add("value", usuario.Senha);
-            ddlTipoOperador.SelectedValue = usuario.Tipo_Operador_ID.ToString();
+            ddlPerfil.SelectedValue = usuario.Prefil_ID.ToString();
             txtCPFACT.Text = usuario.CPF != null ? usuario.CPF.Trim() : string.Empty;
-            //txtCPFACT.Text = usuario.CPF.Trim();
-            chkPermiteLDLACT.Checked = usuario.Permite_LDL == "S" ? true : false;
+            chkPermiteLDLACT.Checked = usuario.LDL == "S" ? true : false;
             txtMatriculaACT.Enabled = false;
-            //txtEmail.Text = usuario.Email != null ? usuario.Email.Trim() : string.Empty;
 
         }
 
@@ -79,32 +77,23 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
         protected void ButtonSalvar_Click(object sender, EventArgs e)
         {
+
             var usuario = new Entities.UsuariosACT();
 
             var usuarioController = new UsuarioACTController();
-            //double nivelAcessoSelecionado = double.Parse(ddlPerfil.SelectedValue);
 
-            //if (nivelAcessoSelecionado == 1 || nivelAcessoSelecionado == 3)
-            //    nivelAcessoSelecionado = 7000;
-            //else
-            //    nivelAcessoSelecionado = txtMaleta.Text != string.Empty ? Convert.ToDouble(txtMaleta.Text) : 0;
-
-            usuario.Nome = txtNomeACT.Text.ToUpper().Trim();
-            usuario.Matricula = txtMatriculaACT.Text.ToUpper().Trim();
-            //usuario.Senha = Uteis.Criptografar(txtSenhaACT.Text.ToUpper().Trim(), "a#3G6**@").ToString();
-            usuario.Senha = txtSenhaACT.Text.ToUpper().ToString();
+            usuario.Nome = txtNomeACT.Text.Trim();
+            usuario.Matricula = txtMatriculaACT.Text.Trim();
+            usuario.Senha = txtSenhaACT.Text.ToString();
             usuario.CPF = txtCPFACT.Text.Trim();
-            //usuario.Email = txtEmailACT.Text.Trim();
-            usuario.Permite_LDL = chkPermiteLDLACT.Checked ? "S" : "N";
-            usuario.Tipo_Operador_ID = ddlTipoOperador.SelectedIndex;
-
-
-
+            usuario.LDL = chkPermiteLDLACT.Checked ? "S" : "N";
+            usuario.Prefil_ID = ddlPerfil.SelectedItem.Value.ToString();
 
             if (Matricula == "NOVO")
             {
-                var dados = usuarioController.ObterPorMatricula(usuario.Matricula);
-                if (dados == null)
+                var existeCPF = new UsuarioACTController().ObterUsuarioACTporCPF(txtCPFACT.Text);
+                var existeMatricula = new UsuarioACTController().ObterUsuarioACTporMatricula(txtMatriculaACT.Text);
+                if (!existeCPF && !existeMatricula)
                 {
                     if (usuarioController.Inserir(usuario, ulMatricula))
                     {
@@ -114,11 +103,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                     }
                 }
                 else
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Matrícula já está cadastrada!' });", true);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Já existe um usuário cadastrado no banco de dados com o CPF/Matrícula informado.' });", true);
             }
             else
             {
-                usuario.ID = usuarioController.ObterPorMatricula(Matricula).ID;
+                usuario.Usuario_ID = usuarioController.ObterPorMatricula(Matricula).Usuario_ID;
                 if (usuarioController.Atualizar(usuario, ulMatricula))
                 {
                     limparCampos();
@@ -148,31 +137,36 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             }
         }
 
+        protected void txtCPFACT_TextChanged(object sender, EventArgs e)
+        {
+            var existe = new UsuarioACTController().ObterUsuarioACTporCPF(txtCPFACT.Text);
+            if (existe)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Já existe um usuário cadastrado no banco de dados com o CPF: " + txtCPFACT.Text.Trim() + "' });", true);
+            }
+        }
+
+        protected void txtMatriculaACT_TextChanged(object sender, EventArgs e)
+        {
+            var existe = new UsuarioACTController().ObterUsuarioACTporMatricula(txtMatriculaACT.Text);
+            if (existe)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Já existe um usuário cadastrado no banco de dados com a Matrícula: " + txtMatriculaACT.Text.Trim() + "' });", true);
+            }
+        }
+
         #endregion
-
-        //protected void CarregarPerfis()
-        //{
-        //    var pesquisa = new ComboBoxController();
-
-
-        //    ddlPerfil.DataValueField = "Id";
-        //    ddlPerfil.DataTextField = "Descricao";
-        //    ddlPerfil.DataSource = pesquisa.ComboBoxPerfis();
-        //    ddlPerfil.DataBind();
-        //    ddlPerfil.Items.Insert(0, "Selecione!");
-        //    ddlPerfil.SelectedIndex = 0;
-        //}
 
         protected void CarregarTipoOperadores()
         {
             var pesquisa = new ComboBoxController();
 
-            ddlTipoOperador.DataValueField = "Id";
-            ddlTipoOperador.DataTextField = "Descricao";
-            ddlTipoOperador.DataSource = pesquisa.ComboBoxTipoOperadores();
-            ddlTipoOperador.DataBind();
-            ddlTipoOperador.Items.Insert(0, "Selecione!");
-            ddlTipoOperador.SelectedIndex = 0;
+            ddlPerfil.DataValueField = "Id";
+            ddlPerfil.DataTextField = "Descricao";
+            ddlPerfil.DataSource = pesquisa.ComboBoxPerfisACT();
+            ddlPerfil.DataBind();
+            ddlPerfil.Items.Insert(0, "Selecione!");
+            ddlPerfil.SelectedIndex = 0;
         }
 
         #region [ MÉTODOS DE APOIO ]
@@ -182,9 +176,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             txtNomeACT.Text = string.Empty;
             txtMatriculaACT.Text = string.Empty;
             txtSenhaACT.Text = string.Empty;
-             
-             
-            //txtEmailACT.Text = string.Empty;
         }
         protected bool Excluir(string matricula, string usuarioLogado)
         {
@@ -231,16 +222,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             }
         }
 
-        protected void ddlPermiteLDL_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        //private void CarregaDados(string Matricula)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         #endregion
+
     }
 }

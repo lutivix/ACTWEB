@@ -434,7 +434,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return itens.ToList();
         }
 
-        public List<ComboBox> ComboBoxTipoOperador()
+        public List<ComboBox> ComboBoxPerfisACT()
         {
 
             #region [ PROPRIEDADES ]
@@ -452,7 +452,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TO_ID_OP AS ID, TO_DSC_OP AS ABREVIADO FROM ACTPP.TIPO_OPERADOR ORDER BY TO_ID_OP");
+                    query.Append(@"SELECT TO_ID_OP AS ID, TO_DSC_OP AS DESCRICAO FROM ACTPP.TIPO_OPERADOR ORDER BY DESCRICAO");
 
                     #endregion
 
