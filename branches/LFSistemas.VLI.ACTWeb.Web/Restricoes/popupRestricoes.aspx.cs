@@ -69,7 +69,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             public fixed char responsavel[20];    // [TAMRESPONSAVEL]
             public ulong idconfirmacao;
         };
-		
+
         /// <summary>
         /// Envia mensagem para fila do MQ para Criar Resrtrições
         /// </summary>
@@ -87,29 +87,29 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         /// <param name="prmConfirmacao">[ int ]: - Identificador da confirmação</param>
         /// <param name="prmMatricula">[ char ]: - Matrícula do usuário logado </param>
         /// <param name="prmTpUser">[ char ]: - Tipo de Usuário, neste caso [ W = Web ]</param>
-		[DllImport(@"DLLMQWeb.dll")]
-        static extern void DLLSendCRA(int     prmSecao,
-                                      int     prmDuracao,
-                                      int     prmTipo,
-                                      int     prmSubtipo,
-                                      int     prmVelocidade,
-                                      double  prmKMInicio,
-                                      double  prmKKMFim,
-                                      char[]  prmOBS,
-                                      double  prmVigenciaInicial,
-                                      double  prmVigenciaFinal,
-                                      char[]  prmResponsavel,
-                                      int     prmConfirmacao,
-                                      char[]  prmMatricula,
-                                      char    prmTpUser);
+        [DllImport(@"DLLMQWeb.dll")]
+        static extern void DLLSendCRA(int prmSecao,
+                                      int prmDuracao,
+                                      int prmTipo,
+                                      int prmSubtipo,
+                                      int prmVelocidade,
+                                      double prmKMInicio,
+                                      double prmKKMFim,
+                                      char[] prmOBS,
+                                      double prmVigenciaInicial,
+                                      double prmVigenciaFinal,
+                                      char[] prmResponsavel,
+                                      int prmConfirmacao,
+                                      char[] prmMatricula,
+                                      char prmTpUser);
 
-       
-		/// <summary>
+
+        /// <summary>
         /// Envia mensagem para fila do MQ para Remover Resrtrições
-		/// </summary>
+        /// </summary>
         /// <param name="prmIDRestricao">[ int ]: - Identificador da Restrição</param>
         /// <param name="prmMatricula">[ char ]: - Matrícula do usuário logado</param>
-		[DllImport(@"DLLMQWeb.dll")]
+        [DllImport(@"DLLMQWeb.dll")]
         static extern void DLLSendRRE(int prmIDRestricao, char[] prmMatricula);
 
         string verificaKmInicio { get; set; }
@@ -276,7 +276,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             }
             else
             {
-                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0,2) == "VR" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0,2) == "IF")
+                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF")
                 {
                     ddlDadosSecoes.Enabled =
                         ddlDadosTipoRestricao.Enabled =
@@ -330,7 +330,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             if (txtDadosKm_Final.Text != string.Empty && ddlDadosSecoes.SelectedItem.Value != "0")
                 verificaKmFinal = restricaoController.VerificaKM(double.Parse(txtDadosKm_Final.Text), double.Parse(ddlDadosSecoes.SelectedItem.Value));
 
-            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0,2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0,2) == "VR")
+            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
             {
                 string dataInicial = txtDadosDataInicial.Text.Trim();
                 string dataFinal = txtDadosDataFinal.Text.Trim();
@@ -528,10 +528,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             if (tipo.Count() > 1)
             {
-                if (tipo[1] == "P")
-                    id = double.Parse(tipo[0].ToString()) +1;
-                else
-                    id = double.Parse(tipo[0].ToString());
+                //if (tipo[0] == "C")
+                //    id = double.Parse(tipo[1].ToString());
+                //else
+                id = double.Parse(tipo[1].ToString());
             }
 
             var restricaoController = new RestricaoController();
@@ -563,7 +563,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 {
                     txtDadosDuracao.Enabled = txtDadosVelocidade.Enabled = false;
                     ddlDadosSubTipoVR.Enabled = txtDadosDataInicial.Enabled = txtDadosHoraInicial.Enabled =
-                        txtDadosDataFinal.Enabled = txtDadosHoraFinal.Enabled = txtDadosResponsavel.Enabled = true;
+                    txtDadosDataFinal.Enabled = txtDadosHoraFinal.Enabled = txtDadosResponsavel.Enabled = true;
                     txtDadosDataInicial.Text = dados.Data_Inicial != null ? dados.Data_Inicial.Value.ToString().Substring(0, 10) : string.Empty;
                     txtDadosHoraInicial.Text = dados.Data_Inicial != null ? dados.Data_Inicial.Value.ToString().Substring(11, 8) : string.Empty;
                     txtDadosDataFinal.Text = dados.Data_Final != null ? dados.Data_Final.Value.ToString().Substring(0, 10) : string.Empty;
@@ -587,7 +587,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 }
 
             }
-        }       
+        }
 
         #endregion
 
@@ -612,7 +612,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 rr.Tipo_Restricao = ddlDadosTipoRestricao.SelectedItem.Value != "0" ? ddlDadosTipoRestricao.SelectedItem.Text : string.Empty;
                 rr.Tipo_RestricaoID = ddlDadosTipoRestricao.SelectedItem.Value != "0" ? double.Parse(ddlDadosTipoRestricao.SelectedItem.Value) : 0;
 
-                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0,2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0,2) == "VR")
+                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
                 {
                     string dataInicial = txtDadosDataInicial.Text.Trim();
                     string dataFinal = txtDadosDataFinal.Text.Trim();
@@ -629,7 +629,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 }
 
                 rr.SubTipo_VR = ddlDadosSubTipoVR.SelectedItem.Text != "Selecione" ? ddlDadosSubTipoVR.SelectedItem.Text.Substring(0, 2) : string.Empty;
-                rr.SubTipo_VRID = ddlDadosSubTipoVR.SelectedItem.Value != "0" ?  double.Parse(ddlDadosSubTipoVR.SelectedItem.Value) : 0;
+                rr.SubTipo_VRID = ddlDadosSubTipoVR.SelectedItem.Value != "0" ? double.Parse(ddlDadosSubTipoVR.SelectedItem.Value) : 0;
                 rr.Responsavel = txtDadosResponsavel.Text.Length > 0 ? Uteis.RetirarAcentosCaracteresEspeciais(txtDadosResponsavel.Text) : string.Empty;
 
                 rr.Km_Inicial = txtDadosKm_Inicio.Text != string.Empty ? decimal.Parse(txtDadosKm_Inicio.Text) : 0;
@@ -650,7 +650,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                 for (int i = 0; i <= 35; i++)
                 {
-                    if ( i < rr.Observacao.Length)
+                    if (i < rr.Observacao.Length)
                         obs[i] = rr.Observacao[i];
                     else
                         obs[i] = char.MinValue;
@@ -706,7 +706,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                 LogDAO.GravaLogBanco(dataHoraEnvio, lblUsuarioMatricula.Text, "Restrições", null, IdConfirmacao.ToString(), "Restrição criada com sucesso. SB: " + rr.Secao_Elemento + " - TR: " + rr.Tipo_Restricao + " - STR: " + rr.SubTipo_VR + " - DTI: " + DateTime.FromOADate(DataIni) + " - DTF: " + DateTime.FromOADate(DataFim) + " - KMI: " + rr.Km_Inicial + " - KMF: " + rr.Km_Final + " - RESP: " + rr.Responsavel + " - OBS: " + rr.Observacao, Uteis.OPERACAO.Criou.ToString());
                             else
                                 LogDAO.GravaLogBanco(dataHoraEnvio, lblUsuarioMatricula.Text, "Restrições", null, IdConfirmacao.ToString(), "Restrição criada com sucesso. SB: " + rr.Secao_Elemento + " - TR: " + rr.Tipo_Restricao + " - STR: " + rr.SubTipo_VR + " - KMI: " + rr.Km_Inicial + " - KMF: " + rr.Km_Final + " - RESP: " + rr.Responsavel + " - OBS: " + rr.Observacao, Uteis.OPERACAO.Solicitou.ToString());
-                        }   
+                        }
                         else
                             msg = "A Restrição não pode ser criada.";
                     }
@@ -773,7 +773,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                     DLLSendRRE(int.Parse(item[2]), usuario);
                                     LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Restrições", null, item[1].ToString(), "Foi enviado " + item[1].ToString() + " para avaliação de exclusão.", Uteis.OPERACAO.Removeu.ToString());
                                 }
-                                
+
                                 contador++;
                             }
                             else
@@ -861,7 +861,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtDadosHoraFinal.Text = txtDadosKm_Inicio.Text =
                 txtDadosKm_Final.Text = txtDadosVelocidade.Text =
                 txtDadosResponsavel.Text = txtDadosObs.Text =
-                lblMensagem.Text = txtFiltroKm_Inicial.Text = 
+                lblMensagem.Text = txtFiltroKm_Inicial.Text =
                 txtFiltroKm_Final.Text = txtFiltroObs.Text =
                 txtFiltroNumeroRestricao.Text = string.Empty;
 
@@ -884,7 +884,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             var NovaData = DataAtual.AddHours(8);
             var NovaHora = NovaData.ToShortTimeString();
 
-            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0,2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0,2) == "VR")
+            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
             {
                 txtDadosDataInicial.Text = DataAtual.ToShortDateString();
                 txtDadosHoraInicial.Text = HoraAtual;
@@ -892,9 +892,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             }
             else
             {
-                txtDadosDataInicial.Text = 
-                txtDadosHoraInicial.Text = 
-                txtDadosDataFinal.Text = 
+                txtDadosDataInicial.Text =
+                txtDadosHoraInicial.Text =
+                txtDadosDataFinal.Text =
                 txtDadosHoraFinal.Text = string.Empty;
             }
             ddlDadosTipoRestricao.Focus();
@@ -920,7 +920,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             return Retorno;
         }
-        
+
         #endregion
 
         #region [ MÉTODOS DE ACESSO A DADOS ]
@@ -940,11 +940,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             var _subTipo = ulPerfil == "OP ELE" ? "EE" : ddlDadosSubTipoVR.SelectedItem.Value != "0" ? ddlDadosSubTipoVR.SelectedItem.Value : null;
             var _sb = ddlFiltroSB.SelectedItem.Value != string.Empty ? ddlFiltroSB.SelectedItem.Value : null;
             var _obs = txtFiltroObs.Text != string.Empty ? txtFiltroObs.Text : null;
-            
+
 
             var restricaoController = new RestricaoController();
 
-            
+
             var dados = restricaoController.ObterListaRestricoes(new Entities.FiltroRestricao()
             {
                 RestricaoID = _RestricaoID,
@@ -955,7 +955,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 Tipo_Restricao = _perfil,
                 Subtipo_VR = _subTipo
             });
-            
+
 
             return dados;
         }
@@ -964,7 +964,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         protected void txtDadosDataFinal_TextChanged(object sender, EventArgs e)
         {
 
-            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0,2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0,2) == "VR")
+            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
             {
                 string dataInicial = txtDadosDataInicial.Text.Trim();
                 string dataFinal = txtDadosDataFinal.Text.Trim();

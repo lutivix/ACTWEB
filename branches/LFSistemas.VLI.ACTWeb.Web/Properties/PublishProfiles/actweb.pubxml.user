@@ -159,28 +159,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>07/12/2016 18:14:46</publishTime>
+      <publishTime>07/13/2016 08:45:12</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
-      <publishTime>07/12/2016 18:14:46</publishTime>
+      <publishTime>07/13/2016 08:45:12</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>07/12/2016 18:14:54</publishTime>
+      <publishTime>07/13/2016 08:45:21</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
-      <publishTime>07/12/2016 18:14:54</publishTime>
+      <publishTime>07/13/2016 08:45:21</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>07/12/2016 18:14:54</publishTime>
+      <publishTime>07/13/2016 08:45:21</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
-      <publishTime>07/12/2016 18:14:54</publishTime>
+      <publishTime>07/13/2016 08:45:21</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>07/12/2016 18:14:56</publishTime>
+      <publishTime>07/13/2016 08:45:24</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
-      <publishTime>07/12/2016 18:14:56</publishTime>
+      <publishTime>07/13/2016 08:45:24</publishTime>
     </File>
     <File Include="bin/Microsoft.Data.Edm.dll">
       <publishTime>04/12/2013 20:25:45</publishTime>
@@ -1587,7 +1587,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="Restricoes/popupRestricoes.aspx">
-      <publishTime>07/12/2016 17:43:19</publishTime>
+      <publishTime>07/13/2016 08:23:04</publishTime>
     </File>
     <File Include="slide/slide01.png">
       <publishTime>02/07/2015 14:49:54</publishTime>
@@ -1605,7 +1605,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/12/2016 18:15:08</publishTime>
+      <publishTime>07/13/2016 08:48:04</publishTime>
     </File>
   </ItemGroup>
 </Project>

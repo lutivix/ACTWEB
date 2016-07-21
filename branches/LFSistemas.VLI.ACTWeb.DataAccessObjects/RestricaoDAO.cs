@@ -320,26 +320,48 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@" select * from ( SELECT A.RP_ID_RP as RestricaoID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
+//                    query.Append(@" select * from ( SELECT A.RP_ID_RP as RestricaoID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
+//                                                        A.RP_DT_INI as Data_inicial, 
+//                                                        A.RP_DT_FIM as Data_final, A.RP_VEL_RP as Velocidade, A.RP_KM_INI as Km_inicial, A.RP_KM_FIM as Km_final, 
+//                                                        A.RP_OBS as Obs, A.RP_ST_RP as Situacao, A.RP_RESP as resp 
+//                                                        FROM ACTPP.RESTRICOES_PROGRAMADAS A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B
+//                                                        WHERE A.TR_ID_TP = B.TR_ID_TP AND A.EV_ID_ELM = C.EV_ID_ELM AND A.RP_ST_RP = 'P' AND A.TR_ID_TP <> 1
+//                                                            ${RP_ID_RP}
+//                                                    UNION 
+//                                                    SELECT A.RC_ID_RC as RestricaoID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
+//                                                        A.RC_DT_INI_PRV as Data_inicial, 
+//                                                        A.RC_DT_FIM_PRV as Data_final, A.RC_VEL_MAX as Velocidade, A.RC_KM_INI as Km_inicial, A.RC_KM_FIM as Km_final, 
+//                                                        A.RC_OBS as Obs, A.RC_ST as Situacao, A.RC_RESPONSAVEL as resp 
+//                                                        FROM ACTPP.RESTRICOES_CIRCULACAO A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B 
+//                                                        WHERE A.TR_ID_TP = B.TR_ID_TP AND A.EV_ID_ELM = C.EV_ID_ELM AND A.RC_ST = 'E' AND A.TR_ID_TP <> 1
+//                                                            ${RC_ID_RC})
+//                                        order by Situacao, Data_inicial desc, Secao_Elemento");
+
+                    query.Append(@" select * from ( SELECT 'P', A.RP_ID_RP AS PROGRAMADA_ID, A.RC_ID_RCO as CIRCULACAO_ID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
                                                         A.RP_DT_INI as Data_inicial, 
                                                         A.RP_DT_FIM as Data_final, A.RP_VEL_RP as Velocidade, A.RP_KM_INI as Km_inicial, A.RP_KM_FIM as Km_final, 
                                                         A.RP_OBS as Obs, A.RP_ST_RP as Situacao, A.RP_RESP as resp 
                                                         FROM ACTPP.RESTRICOES_PROGRAMADAS A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B
-                                                        WHERE A.TR_ID_TP = B.TR_ID_TP AND A.EV_ID_ELM = C.EV_ID_ELM AND A.RP_ST_RP = 'P' AND A.TR_ID_TP <> 1
-                                                            ${RP_ID_RP}
+                                                        WHERE A.TR_ID_TP = B.TR_ID_TP 
+                                                          AND A.EV_ID_ELM = C.EV_ID_ELM 
+                                                          AND A.RP_ST_RP = 'P' 
+                                                          AND A.TR_ID_TP > 1
+                                                          ${RP_ID_RP}
                                                     UNION 
-                                                    SELECT A.RC_ID_RC as RestricaoID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
+                                                    SELECT 'C', 0 AS PROGRAMADA_ID, A.RC_ID_RC AS CIRCULACAO_ID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
                                                         A.RC_DT_INI_PRV as Data_inicial, 
                                                         A.RC_DT_FIM_PRV as Data_final, A.RC_VEL_MAX as Velocidade, A.RC_KM_INI as Km_inicial, A.RC_KM_FIM as Km_final, 
                                                         A.RC_OBS as Obs, A.RC_ST as Situacao, A.RC_RESPONSAVEL as resp 
                                                         FROM ACTPP.RESTRICOES_CIRCULACAO A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B 
-                                                        WHERE A.TR_ID_TP = B.TR_ID_TP AND A.EV_ID_ELM = C.EV_ID_ELM AND A.RC_ST = 'E' AND A.TR_ID_TP <> 1
-                                                            ${RC_ID_RC})
+                                                        WHERE A.TR_ID_TP = B.TR_ID_TP 
+                                                          AND A.EV_ID_ELM = C.EV_ID_ELM 
+                                                          AND A.RC_ST = 'E' 
+                                                          AND A.TR_ID_TP > 1
+                                                          ${RC_ID_RC})
                                         order by Situacao, Data_inicial desc, Secao_Elemento");
 
-                    query.Replace("${RP_ID_RP}", string.Format(" AND RP_ID_RP = {0}", ID));
-                    query.Replace("${RC_ID_RC}", string.Format(" AND RC_ID_RC = {0}", ID));
-
+                    query.Replace("${RP_ID_RP}", string.Format("AND A.RC_ID_RCO IN ({0})", ID));
+                    query.Replace("${RC_ID_RC}", string.Format("AND A.RC_ID_RC IN ({0})", ID));
                     
 
                     #endregion

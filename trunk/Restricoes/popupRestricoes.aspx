@@ -604,7 +604,7 @@
                                                 <td style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Km_Final")%>"><%# Eval ("Km_Final")%></td>
                                                 <td style="width: 50%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Observacao")%>"><%# Eval ("Observacao")%></td>
                                                 <td style="width: 2%; text-align: center;">
-                                                    <asp:LinkButton ID="lnkEdite" runat="server" OnClick="lnkEdite_Click" CommandArgument='<%# Eval("CirculacaoID") +":"+ Eval("Situacao") %>' ToolTip="Exibe os dados da restrição selecionada no formulário acima."><i class="fa fa-search-plus"></i></asp:LinkButton>
+                                                    <asp:LinkButton ID="lnkEdite" runat="server" OnClick="lnkEdite_Click" CommandArgument='<%# Eval("P_C") +":"+ Eval("CirculacaoID") +":"+ Eval("Situacao") %>' ToolTip="Exibe os dados da restrição selecionada no formulário acima."><i class="fa fa-search-plus"></i></asp:LinkButton>
                                                 </td>
                                             </tr>
                                         </ItemTemplate>
