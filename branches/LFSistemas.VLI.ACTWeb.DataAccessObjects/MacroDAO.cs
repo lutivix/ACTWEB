@@ -265,7 +265,6 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             ${R_CodOS}
                                             ${R_Expre}
                                             ${R_Corre}
-                                            AND (MENSAGENS_RECEBIDAS.MR_MC_NUM <> 4)
                                     UNION
                                         SELECT 'E' AS R_E, DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS Horário, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS MR_TEXT, ME_MCT_ADDR, MENSAGENS_ENVIADAS.ME_MSG_NUM, ME_CORREDOR, ME_NOME_SB, ME_KM, ME_CONFIRM_TIME AS TRATADO, ME_LAND_MARK 
                                         FROM ACTPP.MENSAGENS_ENVIADAS, ACTPP.MCTS 
