@@ -99,6 +99,7 @@
     <Content Include="Cadastro\Usuario.aspx" />
     <Content Include="Cadastro\UsuarioACT.aspx" />
     <Content Include="Consulta\Abas\THP.ascx" />
+    <Content Include="Consulta\ConsultaAlarmesParadas.aspx" />
     <Content Include="Consulta\ConsultaAlarmesTelecomandadas.aspx" />
     <Content Include="Consulta\ConsultaBanners.aspx" />
     <Content Include="Consulta\ConsultaDisplay.aspx" />
@@ -518,6 +519,13 @@
     </Compile>
     <Compile Include="Consulta\Abas\THP.ascx.designer.cs">
       <DependentUpon>THP.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Consulta\ConsultaAlarmesParadas.aspx.cs">
+      <DependentUpon>ConsultaAlarmesParadas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consulta\ConsultaAlarmesParadas.aspx.designer.cs">
+      <DependentUpon>ConsultaAlarmesParadas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Consulta\ConsultaAlarmesTelecomandadas.aspx.cs">
       <DependentUpon>ConsultaAlarmesTelecomandadas.aspx</DependentUpon>

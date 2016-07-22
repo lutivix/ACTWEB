@@ -27,6 +27,12 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ObterAlarmesTelecomandadas(filtro, origem);
         }
 
+        public List<AlarmesTelecomandadas> ObterAlarmesPosicionamento(AlarmesTelecomandadas filtro)
+        {
+            return dao.ObterAlarmesPosicionamento(filtro);
+        }
+
         #endregion
+ 
     }
 }

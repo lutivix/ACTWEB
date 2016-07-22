@@ -34,6 +34,10 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ComboBoxCorredores();
         }
+        public List<ComboBox> ComboBoxCorredoresACTPP()
+        {
+            return dao.ComboBoxCorredoresACTPP();
+        }
         public List<ComboBox> ComboBoxSituacaoControleRadios()
         {
             return dao.ComboBoxSituacaoControleRadios();
