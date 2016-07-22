@@ -347,6 +347,16 @@
     <Content Include="js\main.js" />
     <Content Include="js\mascara.js" />
     <Content Include="js\pro.js" />
+    <Content Include="Libs\AjaxControlToolkit.dll" />
+    <Content Include="Libs\ASPSlider.dll" />
+    <Content Include="Libs\CollectionPager.dll" />
+    <Content Include="Libs\DLLMQWeb.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libs\GMaps.dll" />
+    <Content Include="Libs\Microsoft.AspNet.SignalR.Core.dll" />
+    <Content Include="Libs\Microsoft.AspNet.SignalR.SystemWeb.dll" />
+    <Content Include="Libs\ProudMonkey.Common.Controls.dll" />
     <Content Include="Locomotivas\popupLocomotivas.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="logo-vli.ico" />

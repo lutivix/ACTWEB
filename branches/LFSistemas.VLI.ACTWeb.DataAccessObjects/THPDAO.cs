@@ -322,7 +322,6 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           ${FILTRO_SB}
                                           ${FILTRO_GRUPO}
                                           ${FILTRO_MOTIVO}
-                                          AND ANA.TTC_PFX_TRM LIKE 'C950'
                                         ORDER BY TREM_ID, APURACAO DESC,  SB");
                     }
                     //-- TEM: CORREDOR -- NÃO: ROTA E SUBROTA
