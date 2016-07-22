@@ -44,6 +44,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 lblUsuarioPerfil.Text = ulPerfil.ToUpper();
                 lblUsuarioMaleta.Text = ulMaleta.ToUpper();
 
+                txtDataInicio.Text = DateTime.Now.AddDays(-1).ToShortDateString();
+                txtDataFim.Text = DateTime.Now.ToShortDateString();
+
                 CarregaCombos(null);
                 Pesquisar(null);
             }
