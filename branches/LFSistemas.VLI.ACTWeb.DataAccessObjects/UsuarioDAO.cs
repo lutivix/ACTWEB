@@ -647,9 +647,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(4)) item.CodigoMaleta = reader.GetDouble(4);
                 if (!reader.IsDBNull(5)) item.Email = reader.GetString(5);
                 if (!reader.IsDBNull(6)) item.Senha = Uteis.Descriptografar(reader.GetString(6), "a#3G6**@").ToUpper();
-                if (!reader.IsDBNull(7)) item.Qtde_MC61 = reader.GetDouble(7);
+                if (!reader.IsDBNull(7)) item.Qtde_MC61 = double.Parse(reader.GetValue(7).ToString());
                 if (!reader.IsDBNull(8)) item.Perfil_Abreviado = reader.GetString(8);
-                //if (!reader.IsDBNull(8)) item.Qtde_MC61 = double.Parse(reader.GetValue(8).ToString());
             }
             catch (Exception ex)
             {
@@ -768,7 +767,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(4)) itens.Perfil_ID = reader.GetDouble(4).ToString();
             if (!reader.IsDBNull(5)) itens.Perfil_Abreviado = reader.GetString(5);
             if (!reader.IsDBNull(6)) itens.CodigoMaleta = reader.GetDouble(6);
-            if (!reader.IsDBNull(7)) itens.Qtde_MC61 = reader.GetDouble(7);
+            if (!reader.IsDBNull(7)) itens.Qtde_MC61 = double.Parse(reader.GetValue(7).ToString());
             if (!reader.IsDBNull(8)) itens.Ativo_SN = reader.GetString(8);
 
             return itens;
