@@ -15,7 +15,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="ACTWEB.Master">
-      <publishTime>06/27/2016 11:39:16</publishTime>
+      <publishTime>07/26/2016 14:39:53</publishTime>
     </File>
     <File Include="Ajuda/Erro.aspx">
       <publishTime>06/22/2016 11:25:20</publishTime>
@@ -108,7 +108,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/GMaps.dll">
-      <publishTime>06/22/2016 11:25:22</publishTime>
+      <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="bin/he/AjaxControlToolkit.resources.dll">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -159,28 +159,31 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>07/13/2016 08:45:12</publishTime>
+      <publishTime>07/26/2016 15:37:05</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
-      <publishTime>07/13/2016 08:45:12</publishTime>
+      <publishTime>07/26/2016 15:37:05</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>07/13/2016 08:45:21</publishTime>
+      <publishTime>07/26/2016 15:37:20</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
-      <publishTime>07/13/2016 08:45:21</publishTime>
+      <publishTime>07/26/2016 15:37:20</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>07/13/2016 08:45:21</publishTime>
+      <publishTime>07/26/2016 15:37:20</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
-      <publishTime>07/13/2016 08:45:21</publishTime>
+      <publishTime>07/26/2016 15:37:20</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>07/13/2016 08:45:24</publishTime>
+      <publishTime>07/26/2016 15:37:22</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
-      <publishTime>07/13/2016 08:45:24</publishTime>
+      <publishTime>07/26/2016 15:37:22</publishTime>
+    </File>
+    <File Include="bin/Libs/DLLMQWeb.dll">
+      <publishTime>02/25/2016 17:15:27</publishTime>
     </File>
     <File Include="bin/Microsoft.Data.Edm.dll">
       <publishTime>04/12/2013 20:25:45</publishTime>
@@ -329,6 +332,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Consulta/Consulta OBC.aspx">
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
+    <File Include="Consulta/ConsultaAlarmesParadas.aspx">
+      <publishTime>07/22/2016 14:51:53</publishTime>
+    </File>
     <File Include="Consulta/ConsultaAlarmesTelecomandadas.aspx">
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
@@ -465,7 +471,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="css/main.css">
-      <publishTime>06/22/2016 11:25:20</publishTime>
+      <publishTime>07/26/2016 14:38:42</publishTime>
     </File>
     <File Include="css/processando.css">
       <publishTime>06/22/2016 11:25:20</publishTime>
@@ -1445,6 +1451,30 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="js/pro.js">
       <publishTime>06/22/2016 11:25:21</publishTime>
     </File>
+    <File Include="Libs/AjaxControlToolkit.dll">
+      <publishTime>06/22/2016 11:25:20</publishTime>
+    </File>
+    <File Include="Libs/ASPSlider.dll">
+      <publishTime>06/22/2016 11:25:20</publishTime>
+    </File>
+    <File Include="Libs/CollectionPager.dll">
+      <publishTime>06/22/2016 11:25:20</publishTime>
+    </File>
+    <File Include="Libs/DLLMQWeb.dll">
+      <publishTime>02/25/2016 17:15:27</publishTime>
+    </File>
+    <File Include="Libs/GMaps.dll">
+      <publishTime>06/22/2016 11:25:20</publishTime>
+    </File>
+    <File Include="Libs/Microsoft.AspNet.SignalR.Core.dll">
+      <publishTime>06/22/2016 11:25:20</publishTime>
+    </File>
+    <File Include="Libs/Microsoft.AspNet.SignalR.SystemWeb.dll">
+      <publishTime>06/22/2016 11:25:20</publishTime>
+    </File>
+    <File Include="Libs/ProudMonkey.Common.Controls.dll">
+      <publishTime>06/22/2016 11:25:20</publishTime>
+    </File>
     <File Include="Locomotivas/Locomotivas.aspx">
       <publishTime>05/02/2015 13:22:10</publishTime>
     </File>
@@ -1566,7 +1596,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="Relatorios/popupTHP_Relatorios.aspx">
-      <publishTime>06/22/2016 11:32:42</publishTime>
+      <publishTime>07/26/2016 15:35:13</publishTime>
     </File>
     <File Include="Relatorios/RelatorioAlarmesTelecomandadas.aspx">
       <publishTime>06/22/2016 11:25:20</publishTime>
@@ -1605,7 +1635,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/13/2016 08:48:04</publishTime>
+      <publishTime>07/26/2016 15:37:29</publishTime>
     </File>
   </ItemGroup>
 </Project>

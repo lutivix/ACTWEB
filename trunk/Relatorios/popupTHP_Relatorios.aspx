@@ -372,15 +372,6 @@
                                             </tr>
                                         </table>
                                     </td>
-                                    <%--                                    <td style="width: 13.4%; padding-top: 1em;">
-                                        <div runat="server" id="dvPeriodo1" visible="true">
-                                            <table>
-                                                <tr>
-
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </td>--%>
 
                                     <td style="width: 10%; padding-top: 1em;" rowspan="3">
                                         <label for="matricula">Corredores:</label>

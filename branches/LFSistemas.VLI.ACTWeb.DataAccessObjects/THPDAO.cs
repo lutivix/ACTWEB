@@ -310,22 +310,23 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     // -- NÃO: CORREDOR, ROTA E SUBROTA
                     if (string.IsNullOrEmpty(filtro.Corredor_ID) && string.IsNullOrEmpty(filtro.Rota_ID) && string.IsNullOrEmpty(filtro.SubRota_ID))
                     {
-                        query.Append(@"SELECT 'R/S' AS TIPO, ANA.TTA_ID_TTA AS ID, ANA.TTA_DT_APUR AS APURACAO, 0 AS CORREDOR_ID, '' AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, ANA.ID_TREM AS TREM_ID, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE,
+                        query.Append(@"SELECT 'Ñ' AS TIPO, ANA.TTA_ID_TTA AS ID, ANA.TTA_DT_APUR AS APURACAO, 0 AS CORREDOR_ID, '' AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, ANA.ID_TREM AS TREM_ID, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE,
                                         ANA.TTC_NUM_OS AS OS, ANA.TTC_PFX_TRM AS PREFIXO, 0 AS GRUPO_ID, '' AS GRUPO, ANA.TTA_COD_MOT AS MOTIVO_ID, '' AS MOTIVO, '' AS JUSTIFICATIVA, ELE.EV_NOM_MAC AS SB, ANA.TTA_THP_PLN AS THP_META,
                                         ANA.TTA_THP_RLZ AS THP_REAL, ANA.TTA_TTP_PLN AS TTP_META, ANA.TTA_TTP_RLZ AS TTP_REAL, ANA.TTA_THM_PLN AS THM_META, ANA.TTA_THM_RLZ AS THM_REAL, ANA.TTA_TTT_PLN AS TTT_META, ANA.TTA_TTT_RLZ AS TTT_REAL, ANA.TTA_DT_REG AS DATA
                                         FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE
                                         WHERE ANA.EV_ID_ELM    = ELE.EV_ID_ELM
-                                          ${FILTRO_PERIODO}
                                           ${FILTRO_CLASSE}
                                           ${FILTRO_OS}
                                           ${FILTRO_PREFIXO}
                                           ${FILTRO_SB}
                                           ${FILTRO_GRUPO}
                                           ${FILTRO_MOTIVO}
+                                          ${FILTRO_PERIODO}
                                         ORDER BY TREM_ID, APURACAO DESC,  SB");
                     }
-                    //-- TEM: CORREDOR -- NÃO: ROTA E SUBROTA
-                    else if (!string.IsNullOrEmpty(filtro.Corredor_ID) && string.IsNullOrEmpty(filtro.Rota_ID) && string.IsNullOrEmpty(filtro.SubRota_ID))
+
+                    // -- TEM: CORREDOR -- NÃO: ROTA E SUBROTA
+                    if (!string.IsNullOrEmpty(filtro.Corredor_ID) && string.IsNullOrEmpty(filtro.Rota_ID) && string.IsNullOrEmpty(filtro.SubRota_ID))
                     {
                         query.Append(@"SELECT 'C' AS TIPO, ANA.TTA_ID_TTA AS ID, ANA.TTA_DT_APUR AS APURACAO, COR.TTC_ID_COR AS CORREDOR_ID, COR.TTC_NM_COR AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, ANA.ID_TREM AS TREM_ID, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE,
                                         ANA.TTC_NUM_OS AS OS, ANA.TTC_PFX_TRM AS PREFIXO, 0 AS GRUPO_ID, '' AS GRUPO, ANA.TTA_COD_MOT AS MOTIVO_ID, '' AS MOTIVO, '' AS JUSTIFICATIVA, ELE.EV_NOM_MAC AS SB, ANA.TTA_THP_PLN AS THP_META,
@@ -333,7 +334,6 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR
                                         WHERE ANA.EV_ID_ELM = ELE.EV_ID_ELM
                                           AND ELE.NM_COR_ID = COR.TTC_ID_COR
-                                          ${FILTRO_PERIODO}
                                           ${FILTRO_CORREDOR}
                                           ${FILTRO_CLASSE}
                                           ${FILTRO_OS}
@@ -341,20 +341,20 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           ${FILTRO_SB}
                                           ${FILTRO_GRUPO}
                                           ${FILTRO_MOTIVO}
+                                          ${FILTRO_PERIODO}
                                         ORDER BY TREM_ID, APURACAO DESC,  SB");
                     }
-                    //-- TEM: CORREDOR E ROTA -- NÃO: SUBROTA
-                    else if ((!string.IsNullOrEmpty(filtro.Corredor_ID) && !string.IsNullOrEmpty(filtro.Rota_ID)) && string.IsNullOrEmpty(filtro.SubRota_ID))
+                    //-- TEM: ROTA -- NÃO: SUBROTA
+                    else if (!string.IsNullOrEmpty(filtro.Rota_ID) && string.IsNullOrEmpty(filtro.SubRota_ID))
                     {
-                        query.Append(@"SELECT 'R' AS TIPO, ANA.TTA_ID_TTA AS ID, ANA.TTA_DT_APUR AS APURACAO, COR.TTC_ID_COR AS CORREDOR_ID, COR.TTC_NM_COR AS CORREDOR, RTA.TTR_ID_RTA AS ROTA_ID, RTA.TTR_NM_RTA AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, ANA.ID_TREM AS TREM_ID, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE,
+                        query.Append(@"SELECT 'R' AS TIPO, ANA.TTA_ID_TTA AS ID, ANA.TTA_DT_APUR AS APURACAO, COR.TTC_ID_COR AS CORREDOR_ID, COR.TTC_NM_COR AS CORREDOR, RTA1.TTR_ID_RTA AS ROTA_ID, RTA1.TTR_NM_RTA AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, ANA.ID_TREM AS TREM_ID, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE,
                                         ANA.TTC_NUM_OS AS OS, ANA.TTC_PFX_TRM AS PREFIXO, 0 AS GRUPO_ID, '' AS GRUPO, ANA.TTA_COD_MOT AS MOTIVO_ID, '' AS MOTIVO, '' AS JUSTIFICATIVA, ELE.EV_NOM_MAC AS SB, ANA.TTA_THP_PLN AS THP_META,
                                         ANA.TTA_THP_RLZ AS THP_REAL, ANA.TTA_TTP_PLN AS TTP_META, ANA.TTA_TTP_RLZ AS TTP_REAL, ANA.TTA_THM_PLN AS THM_META, ANA.TTA_THM_RLZ AS THM_REAL, ANA.TTA_TTT_PLN AS TTT_META, ANA.TTA_TTT_RLZ AS TTT_REAL, ANA.TTA_DT_REG AS DATA
-                                        FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR, ACTPP.TT_ROTA_AOP RAOP, ACTPP.TT_ROTA RTA
-                                        WHERE ANA.EV_ID_ELM   = ELE.EV_ID_ELM
-                                          AND ELE.NM_COR_ID   = COR.TTC_ID_COR
-                                          AND RAOP.TTR_ID_ELM = ANA.EV_ID_ELM
-                                          AND RAOP.TTR_ID_RTA = RTA.TTR_ID_RTA
-                                          ${FILTRO_PERIODO}
+                                        FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR, actpp.tt_rota_aop RTA2, actpp.tt_rota RTA1
+                                        WHERE ANA.EV_ID_ELM     = RTA2.TTR_ID_ELM
+                                          AND RTA2.TTR_ID_RTA   = RTA1.TTR_ID_RTA
+                                          AND RTA1.TTR_ID_TRC   = COR.TTC_ID_COR
+                                          AND ANA.EV_ID_ELM     = ELE.EV_ID_ELM
                                           ${FILTRO_CORREDOR}
                                           ${FILTRO_ROTA}
                                           ${FILTRO_CLASSE}
@@ -363,19 +363,23 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           ${FILTRO_SB}
                                           ${FILTRO_GRUPO}
                                           ${FILTRO_MOTIVO}
+                                          ${FILTRO_PERIODO}
                                         ORDER BY TREM_ID, APURACAO DESC,  SB");
                     }
-                    // -- TEM: CORREDOR E SUBROTA -- NÃO: ROTA
-                    else if ((!string.IsNullOrEmpty(filtro.Corredor_ID) && !string.IsNullOrEmpty(filtro.SubRota_ID)) && string.IsNullOrEmpty(filtro.Rota_ID))
+                    //-- TEM: SUBROTA -- NÃO: ROTA
+                    else if (!string.IsNullOrEmpty(filtro.SubRota_ID) && string.IsNullOrEmpty(filtro.Rota_ID))
                     {
-                        query.Append(@"SELECT 'S' AS TIPO, ANA.TTA_ID_TTA AS ID, ANA.TTA_DT_APUR AS APURACAO, COR.TTC_ID_COR AS CORREDOR_ID, COR.TTC_NM_COR AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, SUB.TTS_ID_SUB AS SUBROTA_ID, SUB.TTS_NM_SUB AS SUBROTA, ANA.ID_TREM AS TREM_ID, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE,
+                        query.Append(@"SELECT 'R/S' AS TIPO, ANA.TTA_ID_TTA AS ID, ANA.TTA_DT_APUR AS APURACAO, COR.TTC_ID_COR AS CORREDOR_ID, COR.TTC_NM_COR AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, SUB1.TTS_ID_SUB AS SUBROTA_ID, SUB1.TTS_NM_SUB AS SUBROTA, ANA.ID_TREM AS TREM_ID, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE,
                                         ANA.TTC_NUM_OS AS OS, ANA.TTC_PFX_TRM AS PREFIXO, 0 AS GRUPO_ID, '' AS GRUPO, ANA.TTA_COD_MOT AS MOTIVO_ID, '' AS MOTIVO, '' AS JUSTIFICATIVA, ELE.EV_NOM_MAC AS SB, ANA.TTA_THP_PLN AS THP_META,
                                         ANA.TTA_THP_RLZ AS THP_REAL, ANA.TTA_TTP_PLN AS TTP_META, ANA.TTA_TTP_RLZ AS TTP_REAL, ANA.TTA_THM_PLN AS THM_META, ANA.TTA_THM_RLZ AS THM_REAL, ANA.TTA_TTT_PLN AS TTT_META, ANA.TTA_TTT_RLZ AS TTT_REAL, ANA.TTA_DT_REG AS DATA
-                                        FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR, ACTPP.TT_SUBROTA_AOP SAOP, ACTPP.TT_SUBROTA SUB
-                                        WHERE ANA.EV_ID_ELM  = ELE.EV_ID_ELM
-                                          AND ELE.NM_COR_ID  = COR.TTC_ID_COR
-                                          AND SAOP.TTS_ID_ELM = ANA.EV_ID_ELM
-                                          AND SAOP.TTS_ID_SUB = SUB.TTS_ID_SUB
+                                        FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR, ACTPP.TT_ROTA_AOP RTA2, ACTPP.TT_ROTA RTA1, ACTPP.TT_SUBROTA SUB1, ACTPP.TT_SUBROTA_AOP SUB2
+                                        WHERE ANA.EV_ID_ELM     = RTA2.TTR_ID_ELM
+                                          AND RTA2.TTR_ID_RTA  = RTA1.TTR_ID_RTA
+                                          AND RTA1.TTR_ID_TRC = COR.TTC_ID_COR
+                                          AND ANA.EV_ID_ELM     = ELE.EV_ID_ELM
+                                          AND ANA.EV_ID_ELM     = SUB2.TTS_ID_ELM
+                                          AND SUB2.TTS_ID_SUB   = SUB1.TTS_ID_SUB
+                                          AND SUB1.TTR_ID_RTA   = RTA1.TTR_ID_RTA
                                           ${FILTRO_PERIODO}
                                           ${FILTRO_CORREDOR}
                                           ${FILTRO_SUBROTA}
@@ -387,20 +391,19 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           ${FILTRO_MOTIVO}
                                         ORDER BY TREM_ID, APURACAO DESC,  SB");
                     }
-                    // -- TEM: CORREDOR, ROTA E SUBROTA
-                    else
+                    //-- TEM: SUBROTA -- TEM: ROTA
+                    else if (!string.IsNullOrEmpty(filtro.Rota_ID) && !string.IsNullOrEmpty(filtro.SubRota_ID))
                     {
-                        query.Append(@"SELECT 'R/S' AS TIPO, ANA.TTA_ID_TTA AS ID, ANA.TTA_DT_APUR AS APURACAO, COR.TTC_ID_COR AS CORREDOR_ID, COR.TTC_NM_COR AS CORREDOR, RTA.TTR_ID_RTA AS ROTA_ID, RTA.TTR_NM_RTA AS ROTA, SUB.TTS_ID_SUB AS SUBROTA_ID, SUB.TTS_NM_SUB AS SUBROTA, ANA.ID_TREM AS TREM_ID, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE,
+                        query.Append(@"SELECT 'R/S' AS TIPO, ANA.TTA_ID_TTA AS ID, ANA.TTA_DT_APUR AS APURACAO, COR.TTC_ID_COR AS CORREDOR_ID, COR.TTC_NM_COR AS CORREDOR, RTA1.TTR_ID_RTA AS ROTA_ID, RTA1.TTR_NM_RTA AS ROTA, SUB1.TTS_ID_SUB AS SUBROTA_ID, SUB1.TTS_NM_SUB AS SUBROTA, ANA.ID_TREM AS TREM_ID, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE,
                                         ANA.TTC_NUM_OS AS OS, ANA.TTC_PFX_TRM AS PREFIXO, 0 AS GRUPO_ID, '' AS GRUPO, ANA.TTA_COD_MOT AS MOTIVO_ID, '' AS MOTIVO, '' AS JUSTIFICATIVA, ELE.EV_NOM_MAC AS SB, ANA.TTA_THP_PLN AS THP_META,
                                         ANA.TTA_THP_RLZ AS THP_REAL, ANA.TTA_TTP_PLN AS TTP_META, ANA.TTA_TTP_RLZ AS TTP_REAL, ANA.TTA_THM_PLN AS THM_META, ANA.TTA_THM_RLZ AS THM_REAL, ANA.TTA_TTT_PLN AS TTT_META, ANA.TTA_TTT_RLZ AS TTT_REAL, ANA.TTA_DT_REG AS DATA
-                                        FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR, ACTPP.TT_ROTA_AOP RAOP, ACTPP.TT_ROTA RTA, ACTPP.TT_SUBROTA_AOP SAOP, ACTPP.TT_SUBROTA SUB
-                                        WHERE ANA.EV_ID_ELM   = ELE.EV_ID_ELM
-                                          AND ELE.NM_COR_ID   = COR.TTC_ID_COR
-                                          AND RAOP.TTR_ID_ELM = ANA.EV_ID_ELM
-                                          AND RAOP.TTR_ID_RTA = RTA.TTR_ID_RTA
-                                          AND SAOP.TTS_ID_ELM = ANA.EV_ID_ELM
-                                          AND SAOP.TTS_ID_SUB = SUB.TTS_ID_SUB                                          
-                                          ${FILTRO_PERIODO}
+                                        FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR, ACTPP.TT_ROTA_AOP RTA2, ACTPP.TT_ROTA RTA1, ACTPP.TT_SUBROTA SUB1,ACTPP.TT_SUBROTA_AOP SUB2
+                                        WHERE ANA.EV_ID_ELM     = ELE.EV_ID_ELM
+                                          AND ANA.EV_ID_ELM     = RTA2.TTR_ID_ELM
+                                          AND RTA2.TTR_ID_RTA   = RTA1.TTR_ID_RTA
+                                          AND ANA.EV_ID_ELM     = SUB2.TTS_ID_ELM
+                                          AND SUB2.TTS_ID_AOP   = SUB1.TTS_ID_SUB
+                                          AND RTA1.TTR_ID_TRC   = COR.TTC_ID_COR
                                           ${FILTRO_CORREDOR}
                                           ${FILTRO_ROTA}
                                           ${FILTRO_SUBROTA}
@@ -410,14 +413,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           ${FILTRO_SB}
                                           ${FILTRO_GRUPO}
                                           ${FILTRO_MOTIVO}
-                                         ORDER BY TREM_ID, APURACAO DESC,  SB");
-
+                                          ${FILTRO_PERIODO}
+                                        ORDER BY TREM_ID, APURACAO DESC,  SB");
                     }
-
-                    if (!string.IsNullOrEmpty(filtro.Data_Ini.ToString()) && !string.IsNullOrEmpty(filtro.Data_Fim.ToString()))
-                        query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_APUR BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_Ini, filtro.Data_Fim));
-                    else
-                        query.Replace("${FILTRO_PERIODO}", string.Format(""));
 
                     if (!string.IsNullOrEmpty(filtro.Classe))
                         query.Replace("${FILTRO_CLASSE}", string.Format("AND SUBSTR(TRIM(UPPER(ANA.TTC_PFX_TRM)), 0, 1) IN ({0})", filtro.Classe.ToUpper()));
@@ -435,23 +433,17 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${FILTRO_PREFIXO}", string.Format(" "));
 
                     if (!string.IsNullOrEmpty(filtro.Corredor_ID.ToString()))
-                        query.Replace("${FILTRO_CORREDOR}", string.Format("AND COR.TTC_ID_COR IN ({0})", filtro.Corredor_ID));
+                        query.Replace("${FILTRO_CORREDOR}", string.Format("AND COR.TTC_ID_COR         IN ({0})", filtro.Corredor_ID));
                     else
                         query.Replace("${FILTRO_CORREDOR}", string.Format(""));
 
-                    if (!string.IsNullOrEmpty(filtro.Trecho_ID.ToString()))
-                        query.Replace("${FILTRO_TRECHO}", string.Format("AND TRC.TTT_ID_TRC IN ({0})", filtro.Trecho_ID));
-                    else
-                        query.Replace("${FILTRO_TRECHO}", string.Format(""));
-
-
                     if (!string.IsNullOrEmpty(filtro.Rota_ID.ToString()))
-                        query.Replace("${FILTRO_ROTA}", string.Format("AND RTA.TTR_ID_RTA IN ({0})", filtro.Rota_ID));
+                        query.Replace("${FILTRO_ROTA}", string.Format("AND RTA2.TTR_ID_RTA       IN ({0})", filtro.Rota_ID));
                     else
                         query.Replace("${FILTRO_ROTA}", string.Format(""));
 
                     if (!string.IsNullOrEmpty(filtro.SubRota_ID.ToString()))
-                        query.Replace("${FILTRO_SUBROTA}", string.Format("AND SUB.TTS_ID_SUB IN ({0})", filtro.SubRota_ID));
+                        query.Replace("${FILTRO_SUBROTA}", string.Format("AND SUB1.TTS_ID_SUB        IN ({0})", filtro.SubRota_ID));
                     else
                         query.Replace("${FILTRO_SUBROTA}", string.Format(""));
 
@@ -470,6 +462,10 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     else
                         query.Replace("${FILTRO_MOTIVO}", string.Format(" "));
 
+                    if (!string.IsNullOrEmpty(filtro.Data_Ini.ToString()) && !string.IsNullOrEmpty(filtro.Data_Fim.ToString()))
+                        query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_APUR BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_Ini, filtro.Data_Fim));
+                    else
+                        query.Replace("${FILTRO_PERIODO}", string.Format(""));
 
                     #endregion
 

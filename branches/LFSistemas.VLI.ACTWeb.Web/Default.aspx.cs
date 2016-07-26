@@ -9,6 +9,7 @@ using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
 
 namespace LFSistemas.VLI.ACTWeb.Web
 {
@@ -116,15 +117,21 @@ namespace LFSistemas.VLI.ACTWeb.Web
 
             var item = pesquisar.ObterDownloadsPorId(ID);
 
+            if (File.Exists(MapPath("/download/" + item.Arquivo)))
+            {
 
-            string caminhoArquivo = (sender as LinkButton).CommandArgument;
-            Response.ContentType = ContentType;
-            Response.AppendHeader("Content-Disposition", "attachment; filename=" + item.Arquivo);
-            Response.WriteFile(MapPath("/download/" + item.Arquivo));
+                string caminhoArquivo = (sender as LinkButton).CommandArgument;
+                Response.ContentType = ContentType;
+                Response.AppendHeader("Content-Disposition", "attachment; filename=" + item.Arquivo);
+                Response.WriteFile(MapPath("/download/" + item.Arquivo));
 
-            LogDAO.GravaLogBanco(DateTime.Now, Usuario.Matricula, "Downloads", null, null, "Usuário: " + Usuario.Nome + ", efetuou download de " + item.Descricao, Uteis.OPERACAO.Baixou.ToString());
-            Response.End();
-
+                LogDAO.GravaLogBanco(DateTime.Now, Usuario.Matricula, "Downloads", null, null, "Usuário: " + Usuario.Nome + ", efetuou download de " + item.Descricao, Uteis.OPERACAO.Baixou.ToString());
+                Response.End();
+            }
+            else
+            {
+                Response.Write("<script>alert('O arquivo não está no servidor! Gentileza entrar em contato: plantao@grtechbr.com.br '); </script>");
+            }
         }
 
 

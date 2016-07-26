@@ -697,11 +697,11 @@
                                     </div>
                                     <asp:ContentPlaceHolder ID="ContentMain" runat="server"></asp:ContentPlaceHolder>
                                 </div>
-                                <div class="footer-lf">
-                                    <span>desenvolvido por </span>
-                                    <a href="http://lfsistemas.net.br/" target="_blank" class="lfslogo"></a>
-                                </div>
                             </div>
+                        </div>
+                        <div class="footer-lf" style="padding-right: 10px;">
+                            <span>desenvolvido por </span>
+                            <a href="http://lfsistemas.net.br/" target="_blank" class="lfslogo"></a>
                         </div>
                     </div>
                 </div>
