@@ -958,13 +958,22 @@ namespace LFSistemas.VLI.ACTWeb.Web {
         protected global::System.Web.UI.WebControls.LinkButton lnkTempoParadaConfirmacao;
         
         /// <summary>
-        /// sub_thp_alarmes_posicionamento control.
+        /// mnAlarmes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub_thp_alarmes_posicionamento;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mnAlarmes;
+        
+        /// <summary>
+        /// sub_alarmes_alarmes_posicionamento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub_alarmes_alarmes_posicionamento;
         
         /// <summary>
         /// lnkParadaPosicionamento control.

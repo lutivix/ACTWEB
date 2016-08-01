@@ -23,6 +23,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string PostoTrabalho { get; set; }
         public string DataInicial { get; set; }
         public string DataFinal { get; set; }
+        public string TextoAlarme { get; set; }
 
         //public string TTR { get; set; }
         //public string AlarmeVigente { get; set; }

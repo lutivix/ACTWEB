@@ -151,7 +151,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ FILTRA ALARMES TELECOMANDADAS ]
 
-                    query.Append(@"      SELECT ES_ID_EFE AS ESTACAO, 
+                           query.Append(@" SELECT ES_ID_EFE AS ESTACAO, 
                                                 AL_DT_INI AS DATA_INICIAL, 
                                                 AL_DT_REC AS DATA_RECONHECIMENTO,
                                                 AL_DT_TER AS DATA_FINAL,  
@@ -162,7 +162,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                     WHEN AL_DT_TER IS NULL AND AL_DT_REC IS NULL THEN 'vermelho'
                                                     WHEN AL_DT_TER IS NULL THEN 'amarelo'
                                                     ELSE 'branco'
-                                                END AS COR
+                                                END AS COR,
+                                                'O Trem ' || SUBSTR(AL_PARAM,0, INSTR(AL_PARAM,'_',1,1)-1) ||
+                                                ' não efetuou comunicação nos últimos '
+                                                || SUBSTR(AL_PARAM,INSTR(AL_PARAM,'_',1,1) + 1, INSTR(AL_PARAM,'_',1,2) - INSTR(AL_PARAM,'_',1,1)-1) ||
+                                                ' Minutos. Último posicionamento em '
+                                                ||  SUBSTR(AL_PARAM,INSTR(AL_PARAM,'_',1,2) + 1, INSTR(AL_PARAM,'_',1,3) - INSTR(AL_PARAM,'_',1,2)-1) ||
+                                                ' , Referência: '
+                                                ||SUBSTR(AL_PARAM,INSTR(AL_PARAM,'_',1,3)+1)
+                                                 as MSG_ALARME
                                            FROM ACTPP.ALARMES AA, 
                                                 ACTPP.TIPOS_ALARMES TA, 
                                                 ACTPP.ESTACOES ES,
@@ -174,7 +182,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 ${CORREDOR}
                                                 ${ESTACAO}
                                                 ${TREM}
-                                                ${PERIODO}");
+                                                ${PERIODO}
+                                                ORDER BY AL_DT_INI DESC");
 
                     if (!string.IsNullOrEmpty(filtro.Trem))
                         query.Replace("${TREM}", string.Format("AND SUBSTR(AL_PARAM,0, INSTR(AL_PARAM,'_',1,1)-1) LIKE UPPER({0}) )", filtro.Trem));
@@ -286,6 +295,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(5)) item.Local = reader.GetString(5);
                 if (!reader.IsDBNull(6)) item.Trem = reader.GetString(6);
                 if (!reader.IsDBNull(7)) item.Cor = reader.GetString(7);
+                if (!reader.IsDBNull(8)) item.Descricao = reader.GetString(8); 
                 return item;
         }
     }
