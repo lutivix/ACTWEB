@@ -570,8 +570,21 @@
                                         <span class="menu-item-icon"><i class="fa fa-connectdevelop"></i></span> 
                                         <span class="menu-item-label" title="Tempo de Parada/Confirmação">Tempo de Parada/Confirmação</span>
                                     </asp:LinkButton>
-                                </li>
-                                <li class="" id="sub_thp_alarmes_posicionamento" runat="server">
+                                </li> 
+                            </ul>
+                        </div>
+
+                        
+                        <li class="" id="mnAlarmes" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_alarmes " title="Alarmes">
+                                <span class="menu-item-icon menu-icon-thp"></span>
+                                <span class="menu-item-label" title="Alarmes">Alarmes <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+
+                        <div class="collapse" id="sub_alarmes">
+                            <ul class="submenu">
+                                <li class="" id="sub_alarmes_alarmes_posicionamento" runat="server">
                                     <asp:LinkButton runat="server" ID="lnkParadaPosicionamento" OnClick="lnkParadaPosicionamento_Click">
                                         <span class="menu-item-icon"><i class="fa fa-connectdevelop"></i></span> 
                                         <span class="menu-item-label" title="Alarme trens parados ACT">Alarme trens parados ACT</span>
@@ -579,6 +592,12 @@
                                 </li>
                             </ul>
                         </div>
+
+
+                         
+
+
+
                         <%----------------------  TERMOMETROS  ----------------------%>
                         <li class="" id="mnTermometros" runat="server">
                             <a data-toggle="collapse" data-parent="#menu" href="#sub_termometros" title="Termômetros">
