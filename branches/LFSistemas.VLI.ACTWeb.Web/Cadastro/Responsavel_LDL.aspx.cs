@@ -54,7 +54,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
                 }
                 else
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não foi possível inserir o responsável no banco, entre em contato no plantao.bh@aqs.com.br' });", true);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não foi possível inserir o responsável no banco, entre em contato no plantao@grtechbr.com.br' });", true);
             }
             else
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'O responsável com a matrícula " + txtMatricula.Text + ", já está cadastrado.' });", true);

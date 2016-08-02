@@ -557,7 +557,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnRestricoes.Visible = mnIndicadores.Visible = mnGOP.Visible = mnVMA.Visible = mnTelecomandadas.Visible = sub_relatorio_CCO.Visible =
                 submenusub_itemCAT.Visible = lnkImportaOBC.Visible = mnDadosApoio.Visible = sub_interdicoes.Visible =  sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible =
                 sub_relatorio_VMA.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnRadios.Visible =
-                sub_dadosapoio_plus.Visible = sub_macros_macrofrota.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = sub_thp_parada_confirmacao.Visible = sub_relatorio_MACROS.Visible = true;
+                sub_dadosapoio_plus.Visible = sub_macros_macrofrota.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = sub_thp_parada_confirmacao.Visible = true;
 
                 sub_baixada.Visible = mnSistema.Visible =  false;
                 //sub_relatorio_MACROS.Visible =  false;
@@ -632,13 +632,13 @@ namespace LFSistemas.VLI.ACTWeb.Web
             if (usuario.Perfil_ID == "8") // Perfil: CENTRO DE CONTROLE DE EMERGÊNCIA - CCE
             {
                 sub_macros_consulta.Visible = sub_macros_macro61.Visible = sub_consultaVMA_consulta.Visible = mnPainel.Visible =
-                mnTermometros.Visible = submenusub_itemCAT.Visible = sub_relatorio_VMA.Visible = mnGOP.Visible = sub_relatorio_MACROS.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = sub_thp_parada_confirmacao.Visible =
+                mnTermometros.Visible = submenusub_itemCAT.Visible = sub_relatorio_VMA.Visible = mnGOP.Visible =  mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = sub_thp_parada_confirmacao.Visible =
                 mnRadios.Visible = true;
 
                 sub_locomotivas_trocaloco.Visible = sub_restricao.Visible = sub_interdicoes.Visible = sub_macros_macro50.Visible = sub_macros_macro200.Visible =
                 sub_alarmes.Visible = sub_relatorio.Visible = mnRestricoes.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible = lnkImportaOBC.Visible =
                 mnDadosApoio.Visible = mnUsuarios.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_dadosapoio_meta_pctm.Visible =
-                sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible =  mnLocomotivas.Visible = mnTelecomandadas.Visible =
+                sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnLocomotivas.Visible = mnTelecomandadas.Visible = sub_relatorio_MACROS.Visible =
                 sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = sub_baixada.Visible = mnSistema.Visible = false;
             }
             if (usuario.Perfil_ID == "9") // Perfil: PROGRAMAÇÃO E CONTROLE DE MANUTENÇÃO - PCM
@@ -724,13 +724,5 @@ namespace LFSistemas.VLI.ACTWeb.Web
         }
 
         #endregion
-
-        
-
-        
-
-
-       
-
     }
 }

@@ -155,7 +155,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     FROM ACTPP.MENSAGENS_RECEBIDAS MR, ACTPP.MCTS MC, ACTPP.MSG_PF PF 
                                     WHERE MC.MCT_ID_MCT = MR.MR_MCT_ADDR 
                                       AND PF.MFP_ID_MSG = MR.MR_GRMN 
-                                      AND MR.MR_MSG_TIME > SYSDATE - 9 
+                                      AND MR.MR_MSG_TIME > SYSDATE - 1 
                                       AND MR.MR_MC_NUM = 50 
                                       AND SUBSTR(MR.MR_TEXT,2,4) = '7000' 
                                       ${CORREDOR}
@@ -163,7 +163,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                 SELECT 'E' AS R_E, ME.ME_GFMN AS ID, ME.ME_MSG_TIME AS Horário, MC.MCT_NOM_MCT AS Loco, ME.ME_MAC_NUM AS Macro, ME.ME_TEXT AS Mensagem, SUBSTR(ME.ME_TEXT, 1, 760) AS Texto, ME.ME_MCT_ADDR AS MCT, ME.ME_PRF_ACT AS Trem, ME.ME_COD_OF AS CodOS, 'T' AS Leitura, 0 AS Leitura_ID, ME.ME_CORREDOR 
                                     FROM ACTPP.MENSAGENS_ENVIADAS ME, ACTPP.MCTS MC 
                                     WHERE MC.MCT_ID_MCT = ME.ME_MCT_ADDR 
-                                      AND ME.ME_MSG_TIME > SYSDATE - 9 
+                                      AND ME.ME_MSG_TIME > SYSDATE - 1 
                                       AND ME.ME_MAC_NUM = 50 
                                       AND SUBSTR(ME.ME_TEXT,2,4) = '7000'");
                     }

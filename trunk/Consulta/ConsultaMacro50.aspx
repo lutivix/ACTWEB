@@ -71,7 +71,7 @@
 <body onkeydown="tecla()">
 
     <form id="form1" runat="server">
-        <asp:Timer ID="Temporizador" runat="server" OnTick="Temporizador_Tick" Interval="50000" />
+        <asp:Timer ID="Temporizador" runat="server" OnTick="Temporizador_Tick" Interval="60000" />
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <style>
             .tipo-E {
