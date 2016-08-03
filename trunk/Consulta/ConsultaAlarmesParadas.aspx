@@ -10,7 +10,7 @@
                 <div class="alert alert-success">
                     <h2>
                         <asp:Image runat="server" ImageUrl="/img/thp-b.png" />
-                        <asp:Label ID="Label1" runat="server" Text="Alarmes de trens parados sem justificativa" Font-Size="20px" Style="color: rgb(0, 100, 0);" /></h2>
+                        <asp:Label ID="Label1" runat="server" Text="Trens Parados" Font-Size="20px" Style="color: rgb(0, 100, 0);" /></h2>
                 </div>
             </td>
             <td style="width: 1%; text-align: left;"></td>
@@ -174,17 +174,19 @@
                                                 <tr>
                                                      
                                                     <th style="width: 5%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"> 
-                                                        <asp:LinkButton runat="server" ID="lnkEstacao" Text="Estação" /></th>
+                                                        <asp:LinkButton runat="server" ID="lnkEstacao" Text="Est." /></th>
                                                     <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                         <asp:LinkButton runat="server" ID="lnkDataInicial" Text="Data Inicial" /></th>
                                                     <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                        <asp:LinkButton runat="server" ID="lnkDataReconhecimento" Text="Data Reconhecimento" /></th>                                                    
+                                                        <asp:LinkButton runat="server" ID="lnkDataReconhecimento" Text="Data Recon." /></th>                                                    
                                                     <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                         <asp:LinkButton runat="server" ID="lnkDataFinal" Text="Data Final" /></th>
                                                     <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                         <asp:LinkButton runat="server" ID="lnkCorredor" Text="Corredor" /></th>                                                    
                                                     <th style="width: 5%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                         <asp:LinkButton runat="server" ID="lnkTrem" Text="Trem" /></th>
+                                                    <th style="width: 5%; text-align: left; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <asp:LinkButton runat="server" ID="lnkDescricao" Text="Descrição" /></th>
                                                     <th style="width: 5%; text-align: center; font-size: 12pt;"></th>
                                                 </tr>
                                             </thead>
@@ -192,12 +194,13 @@
                                     </HeaderTemplate>
                                     <ItemTemplate>
                                         <tr class="status-<%# Eval("Cor") %>">
-                                            <td style="width: 5%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Estacao") %>"><%# Eval("Estacao")%></td>
+                                            <td style="width: 5%; height: 20px; font-size: 1.2em; text-align: left; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Estacao") %>"><%# Eval("Estacao")%></td>
                                             <td style="width: 10%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("DataInicial") %>"><%# Eval("DataInicial")%></td>
                                             <td style="width: 10%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("DataReconhecimento") %>"><%# Eval("DataReconhecimento")%></td>
                                             <td style="width: 10%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("DataFinal") %>"><%# Eval("DataFinal")%></td>
                                             <td style="width: 10%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Corredor") %>"><%# Eval("Corredor")%></td>
                                             <td style="width: 5%; height: 20px; font-size: 1.2em; text-align: left; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Trem")%>"><%# Eval("Trem")%></td>
+                                            <td style="width: 50%; height: 20px; font-size: 1.2em; text-align: left; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Descricao")%>"><%# Eval("Descricao")%></td>
                                             <td class="pisca-<%# Eval("Cor") %>" style="width: 5%; text-align: left; vertical-align: middle; height: 15px;"></td>
                                         </tr>
                                     </ItemTemplate>

@@ -10,7 +10,7 @@
                 <div class="alert alert-success">
                     <h2>
                         <asp:Image runat="server" ImageUrl="/img/thp-b.png" />
-                        <asp:Label ID="Label1" runat="server" Text="Alarmes de Trem sem comunicação" Font-Size="20px" Style="color: rgb(0, 100, 0);" /></h2>
+                        <asp:Label ID="Label1" runat="server" Text="Trens Parados" Font-Size="20px" Style="color: rgb(0, 100, 0);" /></h2>
                 </div>
             </td>
             <td style="width: 1%; text-align: left;"></td>
