@@ -46,7 +46,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
                 lblUsuarioPerfil.Text = Uteis.Descriptografar(Request.QueryString["pu"].ToString(), "a#3G6**@").ToUpper();
                 lblUsuarioMaleta.Text = Uteis.Descriptografar(Request.QueryString["mm"].ToString(), "a#3G6**@").ToUpper();
 
-                if (tag_leitura != "R")
+                if (tag_leitura != "R" && tag_leitura != "T")
                 {
                     Leu(tipo, identificador_tag_lda, identificador_lda.ToString(), horario, texto, lblUsuarioMatricula.Text);
                     lnkResponder.Visible = true;

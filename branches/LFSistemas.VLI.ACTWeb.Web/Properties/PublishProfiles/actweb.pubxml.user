@@ -165,22 +165,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/27/2016 11:06:42</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>08/02/2016 08:23:25</publishTime>
+      <publishTime>08/04/2016 08:26:31</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
-      <publishTime>08/02/2016 08:23:25</publishTime>
+      <publishTime>08/04/2016 08:26:31</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>08/02/2016 08:23:24</publishTime>
+      <publishTime>08/04/2016 08:26:30</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
-      <publishTime>08/02/2016 08:23:24</publishTime>
+      <publishTime>08/04/2016 08:26:30</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>08/03/2016 09:19:20</publishTime>
+      <publishTime>08/04/2016 10:11:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
-      <publishTime>08/03/2016 09:19:20</publishTime>
+      <publishTime>08/04/2016 10:11:55</publishTime>
     </File>
     <File Include="bin/Libs/DLLMQWeb.dll">
       <publishTime>02/25/2016 17:15:27</publishTime>
@@ -1635,7 +1635,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/02/2016 08:23:30</publishTime>
+      <publishTime>08/04/2016 10:11:56</publishTime>
     </File>
   </ItemGroup>
 </Project>
