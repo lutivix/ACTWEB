@@ -73,7 +73,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         protected void lnkLimpar_Click(object sender, EventArgs e)
         {
             clbCorredor.ClearSelection();
-            txtLocomotivas.Text = string.Empty;
+            txtLocomotivas.Text = Locos = string.Empty;
             txtLocomotivas.Focus();
             Pesquisar(null, Navigation.None);
         }

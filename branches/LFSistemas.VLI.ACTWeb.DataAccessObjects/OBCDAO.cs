@@ -169,7 +169,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${MCT_NOM_MCT}", string.Format(" "));
 
                     if (corredor != string.Empty)
-                        query.Replace("${OBC_CORREDOR}", string.Format(" AND IOBC.OBC_CORREDOR IN ({0})", corredor.ToUpper()));
+                        query.Replace("${OBC_CORREDOR}", string.Format(" AND UPPER(IOBC.OBC_CORREDOR) IN ({0})", corredor.ToUpper()));
                     else
                         query.Replace("${OBC_CORREDOR}", string.Format(" "));
 
