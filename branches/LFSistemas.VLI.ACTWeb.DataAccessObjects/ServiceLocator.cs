@@ -62,6 +62,23 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return connection;
         }
 
+        public static OleDbConnection ObterConexaoACTPP()
+        {
+            var connection = new OleDbConnection();
+            try
+            {
+                connection.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionStringACTPP"].ConnectionString;
+                connection.Open();
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Conexão", ex.Message.Trim() + " - Não foi possivel abrir a conexão com banco de dados, tente novamente mais tarde");
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message + " - Não foi possivel abrir a conexão com banco de dados, tente novamente mais tarde");
+            }
+
+            return connection;
+        }
         #endregion
     }
 }

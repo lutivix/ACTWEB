@@ -87,7 +87,10 @@
     <Compile Include="ComboBoxController.cs" />
     <Compile Include="IDController.cs" />
     <Compile Include="ImportacaoController.cs" />
+    <Compile Include="MaquinistasController.cs" />
+    <Compile Include="MetaTempoController.cs" />
     <Compile Include="PerfisController.cs" />
+    <Compile Include="QuadroTracaoController.cs" />
     <Compile Include="RadiosController.cs" />
     <Compile Include="CorredoresController.cs" />
     <Compile Include="DisplayController.cs" />
@@ -107,6 +110,7 @@
     <Compile Include="ResponsavelController.cs" />
     <Compile Include="RestricaoController.cs" />
     <Compile Include="RotasController.cs" />
+    <Compile Include="TempoConfiabController.cs" />
     <Compile Include="TempoParadaConfirmacao.cs" />
     <Compile Include="TermometroController.cs" />
     <Compile Include="THPController.cs" />

@@ -9681,6 +9681,10 @@ button:focus {
                 background-image: url(../img/user-b.png) !important;
             }
 
+            .list-group .list-group-item .item-icon.menu-icon-pgof {
+                background-image: url(../img/pgof-b.png) !important;
+            }
+
             .list-group .list-group-item .item-icon.menu-icon-relatorio {
                 background-image: url(../img/relatorio-b.png) !important;
             }
@@ -9898,6 +9902,10 @@ button:focus {
             background-image: url(../img/user-b.png) !important;
         }
 
+        .side-menu .menu li.sub-selected .menu-icon-pgof, .side-menu .menu li:active .menu-icon-pgof, .side-menu .menu li:focus .menu-icon-pgof, .side-menu .menu li:hover .menu-icon-pgof {
+            background-image: url(../img/pgof-b.png) !important;
+        }
+
         .side-menu .menu li.sub-selected .menu-icon-termometro, .side-menu .menu li:active .menu-icon-termometro, .side-menu .menu li:focus .menu-icon-termometro, .side-menu .menu li:hover .menu-icon-termometro {
             background-image: url(../img/termometro-b.png) !important;
         }
@@ -9995,6 +10003,10 @@ button:focus {
 
         .side-menu .menu li.selected .menu-icon-usuario {
             background-image: url(../img/user-b.png) !important;
+        }
+
+        .side-menu .menu li.selected .menu-icon-pgof {
+            background-image: url(../img/pgof-b.png) !important;
         }
 
         .side-menu .menu li.selected .menu-icon-termometro {
@@ -10098,6 +10110,10 @@ button:focus {
 
     .side-menu .menu li a .menu-item-icon.menu-icon-usuario {
         background-image: url(../img/user-a.png);
+    }
+
+    .side-menu .menu li a .menu-item-icon.menu-icon-pgof {
+        background-image: url(../img/pgof-a.png);
     }
 
     .side-menu .menu li a .menu-item-icon.menu-icon-termometro {

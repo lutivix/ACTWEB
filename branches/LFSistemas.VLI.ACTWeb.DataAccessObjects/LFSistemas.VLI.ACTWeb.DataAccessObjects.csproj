@@ -90,7 +90,10 @@
     <Compile Include="ComboBoxDAO.cs" />
     <Compile Include="IDDAO.cs" />
     <Compile Include="ImportacaoDAO.cs" />
+    <Compile Include="MaquinistasDAO.cs" />
+    <Compile Include="MetaTempoDAO.cs" />
     <Compile Include="PerfisDAO.cs" />
+    <Compile Include="QuadroTracaoDAO.cs" />
     <Compile Include="RadiosDAO.cs" />
     <Compile Include="CorredoresDAO.cs" />
     <Compile Include="DisplayDAO.cs" />
@@ -114,6 +117,7 @@
     <Compile Include="RotasDAO.cs" />
     <Compile Include="SequenceDAO.cs" />
     <Compile Include="ServiceLocator.cs" />
+    <Compile Include="TempoConfiabDAO.cs" />
     <Compile Include="TempoParadaConfirmacaoDAO.cs" />
     <Compile Include="TermometroDAO.cs" />
     <Compile Include="THPDAO.cs" />

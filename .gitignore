@@ -54,3 +54,7 @@ D:\Projetos\GIT\ACTWEB_DEV.git\trunk\
 trunk/bin/DLLMQWeb.dll
 trunkLogSistema.log
 trunk/Web.config
+Icon
+obj
+bin
+trunk
