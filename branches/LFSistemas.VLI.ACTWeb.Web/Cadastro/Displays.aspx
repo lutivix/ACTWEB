@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ACTWEB.Master" AutoEventWireup="true" CodeBehind="Displays.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.Cadastro.Displays" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPageTitle" runat="server">
     <table class="nav-justified">
         <tr>
@@ -61,7 +63,7 @@
             document.forms[0].appendChild(confirm_value);
         }
 
-        $(function () {
+<%--        $(function () {
             $("#<%= txtData.ClientID %>").datepicker({
                 showOn: "button",
                 showButtonPanel: true,
@@ -86,7 +88,7 @@
                 showMonthAfterYear: false,
                 yearSuffix: ''
             });
-        });
+        });--%>
 
     </script>
     <div class="row">
@@ -100,6 +102,7 @@
                     <td style="width: 90%">
                         <label for="nome">Data para Ativação:</label>
                         <asp:TextBox runat="server" ID="txtData" CssClass="form-control" onKeyUp="formatar(this, '##/##/####')" onkeypress="return PermiteSomenteNumeros(event);" />
+                        <asp:CalendarExtender runat="server" ID="cetxtData" TargetControlID="txtData" />
                     </td>
                 </tr>
                 <tr>

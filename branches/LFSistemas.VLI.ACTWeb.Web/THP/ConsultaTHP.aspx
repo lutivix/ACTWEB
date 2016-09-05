@@ -1,9 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ACTWEB.Master" AutoEventWireup="true" CodeBehind="ConsultaTHP.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.Consulta.ConsultaTHP" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ACTWEB.Master" AutoEventWireup="true" CodeBehind="ConsultaTHP.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.THP.ConsultaTHP" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="Abas/THP.ascx" TagName="Dados" TagPrefix="ucAbas" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPageTitle" runat="server">
+<asp:Content ContentPlaceHolderID="ContentPageTitle" runat="server">
     <table class="nav-justified">
         <tr>
             <td style="width: 79%; text-align: left;">
@@ -27,7 +27,7 @@
         </tr>
     </table>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentMain" runat="server">
+<asp:Content ContentPlaceHolderID="ContentMain" runat="server">
     <asp:Timer ID="Temporizador" runat="server" OnTick="Temporizador_Tick" Interval="60000" />
     <script type="text/javascript">
         $(document).keydown(function (e) {

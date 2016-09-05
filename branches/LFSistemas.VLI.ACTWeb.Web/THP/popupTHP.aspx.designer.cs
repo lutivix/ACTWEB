@@ -7,126 +7,108 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LFSistemas.VLI.ACTWeb.Web.Cadastro {
+namespace LFSistemas.VLI.ACTWeb.Web.THP {
     
     
-    public partial class Displays {
+    public partial class popupTHP {
         
         /// <summary>
-        /// lblTitulo control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTitulo;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// lblUsuarioMatricula control.
+        /// Temporizador control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuarioMatricula;
+        protected global::System.Web.UI.Timer Temporizador;
         
         /// <summary>
-        /// lblUsuarioLogado control.
+        /// ToolkitScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuarioLogado;
+        protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
         
         /// <summary>
-        /// lblUsuarioPerfil control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuarioPerfil;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// lblUsuarioMaleta control.
+        /// Label2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuarioMaleta;
+        protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// txtMensagem control.
+        /// Label3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMensagem;
+        protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
-        /// txtData control.
+        /// Label4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtData;
+        protected global::System.Web.UI.WebControls.Label Label4;
         
         /// <summary>
-        /// cetxtData control.
+        /// upRegistros control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender cetxtData;
+        protected global::System.Web.UI.UpdatePanel upRegistros;
         
         /// <summary>
-        /// chkAtivo control.
+        /// RepeaterItens control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkAtivo;
+        protected global::System.Web.UI.WebControls.Repeater RepeaterItens;
         
         /// <summary>
-        /// lblDisplayID control.
+        /// lblTotal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDisplayID;
+        protected global::System.Web.UI.WebControls.Label lblTotal;
         
         /// <summary>
-        /// lnkSalvar control.
+        /// UpdateProgress1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkSalvar;
-        
-        /// <summary>
-        /// lnkCancelar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkCancelar;
-        
-        /// <summary>
-        /// lnkExcluir control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkExcluir;
+        protected global::System.Web.UI.UpdateProgress UpdateProgress1;
     }
 }

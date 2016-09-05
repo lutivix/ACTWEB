@@ -355,7 +355,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                                 "   sOptions = sOptions + ', width=' + (screen.availWidth - 10).toString(); " +
                                 "   sOptions = sOptions + ', height=' + (screen.availHeight - 122).toString(); " +
                                 "   sOptions = sOptions + ', screenX=0, screenY=0, left=0, top=0'; " +
-                                "   wOpen = window.open('/Relatorios/popupTHP_Relatorios.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); " +
+                                "   wOpen = window.open('/THP/popupTHP_Relatorios.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); " +
                                 "   wOpen.focus(); " +
                                 "   wOpen.moveTo( 0, 0 ); " +
                                 "   wOpen.resizeTo( screen.availWidth, screen.availHeight ); " +
@@ -427,7 +427,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
 
             protected void lnkTHP_Click(object sender, EventArgs e)
             {
-                Response.Redirect("/Consulta/ConsultaTHP.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
+                Response.Redirect("/THP/ConsultaTHP.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
             }
             protected void lnkAlocacaoProgramada_Click(object sender, EventArgs e)
             {
@@ -476,19 +476,20 @@ namespace LFSistemas.VLI.ACTWeb.Web
             }
 
             protected void lnkTempoParadaConfirmacao_Click(object sender, EventArgs e)
-           
             {
-                Response.Write("<script> " +
-                                "   var wOpen; " +
-                                "   sOptions = 'status=no, menubar=no, scrollbars=yes, resizable=yes, toolbar=no'; " +
-                                "   sOptions = sOptions + ', width=' + (screen.availWidth - 10).toString(); " +
-                                "   sOptions = sOptions + ', height=' + (screen.availHeight - 122).toString(); " +
-                                "   sOptions = sOptions + ', screenX=0, screenY=0, left=0, top=0'; " +
-                                "   wOpen = window.open('/Consulta/popupTempoParadaConfirmacao.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); " +
-                                "   wOpen.focus(); " +
-                                "   wOpen.moveTo( 0, 0 ); " +
-                                "   wOpen.resizeTo( screen.availWidth, screen.availHeight ); " +
-                                "</script>");
+                //Response.Write("<script> " +
+                //                "   var wOpen; " +
+                //                "   sOptions = 'status=no, menubar=no, scrollbars=yes, resizable=yes, toolbar=no'; " +
+                //                "   sOptions = sOptions + ', width=' + (screen.availWidth - 10).toString(); " +
+                //                "   sOptions = sOptions + ', height=' + (screen.availHeight - 122).toString(); " +
+                //                "   sOptions = sOptions + ', screenX=0, screenY=0, left=0, top=0'; " +
+                //                "   wOpen = window.open('/THP/popupTempoParadaConfirmacao.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); " +
+                //                "   wOpen.focus(); " +
+                //                "   wOpen.moveTo( 0, 0 ); " +
+                //                "   wOpen.resizeTo( screen.availWidth, screen.availHeight ); " +
+                //                "</script>");
+
+                Response.Redirect("/THP/ConsultaTHP_Confirmacao.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
             }
 
             #endregion
@@ -612,7 +613,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnTelecomandadas.Visible = mnGOP.Visible = submenusub_itemCAT.Visible = sub_relatorio_VMA.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = sub_thp_parada_confirmacao.Visible = mnRadios.Visible =  true;
 
                 mnUsuarios.Visible = sub_locomotivas_trocaloco.Visible = sub_macros_macro50.Visible = sub_macros_macro200.Visible = mnIndicadores.Visible =
-                sub_relatorio_CCO.Visible = sub_interdicoes.Visible = mnTelecomandadas.Visible = lnkImportaOBC.Visible = mnDadosApoio.Visible = 
+                sub_relatorio_CCO.Visible = sub_interdicoes.Visible = lnkImportaOBC.Visible = mnDadosApoio.Visible = 
                 sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible =
                 sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible =  mnRelatorios.Visible = mnLocomotivas.Visible =
                 sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = sub_baixada.Visible = mnSistema.Visible = false;
@@ -631,14 +632,14 @@ namespace LFSistemas.VLI.ACTWeb.Web
             }
             if (usuario.Perfil_ID == "8") // Perfil: CENTRO DE CONTROLE DE EMERGÊNCIA - CCE
             {
-                sub_macros_consulta.Visible = sub_macros_macro61.Visible = sub_consultaVMA_consulta.Visible = mnPainel.Visible =
+                sub_macros_consulta.Visible = sub_macros_macro61.Visible = sub_consultaVMA_consulta.Visible = mnPainel.Visible = mnTelecomandadas.Visible =
                 mnTermometros.Visible = submenusub_itemCAT.Visible = sub_relatorio_VMA.Visible = mnGOP.Visible =  mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = sub_thp_parada_confirmacao.Visible =
                 mnRadios.Visible = true;
 
                 sub_locomotivas_trocaloco.Visible = sub_restricao.Visible = sub_interdicoes.Visible = sub_macros_macro50.Visible = sub_macros_macro200.Visible =
                 sub_alarmes.Visible = sub_relatorio.Visible = mnRestricoes.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible = lnkImportaOBC.Visible =
                 mnDadosApoio.Visible = mnUsuarios.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_dadosapoio_meta_pctm.Visible =
-                sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnLocomotivas.Visible = mnTelecomandadas.Visible = sub_relatorio_MACROS.Visible =
+                sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnLocomotivas.Visible = sub_relatorio_MACROS.Visible =
                 sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = sub_baixada.Visible = mnSistema.Visible = false;
             }
             if (usuario.Perfil_ID == "9") // Perfil: PROGRAMAÇÃO E CONTROLE DE MANUTENÇÃO - PCM

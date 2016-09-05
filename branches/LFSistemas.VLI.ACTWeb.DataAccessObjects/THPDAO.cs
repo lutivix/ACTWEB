@@ -11,12 +11,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
     public class THPDAO
     {
-        public List<THP> ObterPorFiltro(THP filtro)
+        public List<TremHoraParado> ObterPorFiltro(TremHoraParado filtro)
         {
             #region [ PROPRIEDADES ]
 
             StringBuilder query = new StringBuilder();
-            var itens = new List<THP>(); 
+            var itens = new List<TremHoraParado>(); 
 
             #endregion
 
@@ -98,12 +98,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return itens;
         }
 
-        public THP ObterPorID(double Trem_id)
+        public TremHoraParado ObterPorID(double Trem_id)
         {
             #region [ PROPRIEDADES ]
 
             StringBuilder query = new StringBuilder();
-            var item = new THP();
+            var item = new TremHoraParado();
 
             #endregion
 
@@ -453,12 +453,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${FILTRO_SB}", string.Format(" "));
 
                     if (!string.IsNullOrEmpty(filtro.Grupo_ID.ToString()))
-                        query.Replace("${FILTRO_GRUPO}", string.Format("AND ANA.TTA_COD_MOT IN (SELECT DISTINCT MOT.MOT_ID_MOT FROM MOTIVO_PARADA MOT WHERE MOT.GRU_ID_GRU IN ({0}))", filtro.Grupo_ID));
+                        query.Replace("${FILTRO_GRUPO}", string.Format("AND SELECT DISTINCT MOT.MOT_AUTO_TRAC FROM MOTIVO_PARADA MOT WHERE MOT.GRU_ID_GRU IN ({0}))", filtro.Grupo_ID));
                     else
                         query.Replace("${FILTRO_GRUPO}", string.Format(" "));
 
                     if (!string.IsNullOrEmpty(filtro.Motivo_ID.ToString()))
-                        query.Replace("${FILTRO_MOTIVO}", string.Format("AND ANA.TTA_COD_MOT IN (SELECT DISTINCT MOT.MOT_ID_MOT FROM MOTIVO_PARADA MOT WHERE MOT.MOT_ID_MOT IN ({0}))", filtro.Motivo_ID));
+                        query.Replace("${FILTRO_MOTIVO}", string.Format("SELECT DISTINCT MOT.MOT_AUTO_TRAC FROM MOTIVO_PARADA MOT WHERE MOT.MOT_AUTO_TRAC IN ({0}))", filtro.Motivo_ID));
                     else
                         query.Replace("${FILTRO_MOTIVO}", string.Format(" "));
 
@@ -947,7 +947,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
              #region [ PROPRIEDADES ]
 
             StringBuilder query = new StringBuilder();
-            var item = new THP();
+            var item = new TremHoraParado();
             double tempoParada = 0;
 
             #endregion
@@ -1010,9 +1010,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         }
 
 
-        private THP PreencherPropriedades(OleDbDataReader reader)
+        private TremHoraParado PreencherPropriedades(OleDbDataReader reader)
         {
-            var item = new THP();
+            var item = new TremHoraParado();
 
             try
             {

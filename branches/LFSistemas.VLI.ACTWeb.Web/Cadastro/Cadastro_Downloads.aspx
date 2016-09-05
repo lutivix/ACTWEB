@@ -84,8 +84,8 @@
     <table style="width: 100%">
         <tr>
             <td style="width: 100%; padding: 5px;" colspan="4">
-                <label for="nome">&nbsp;Upload:</label>
-                <asp:Label runat="server" ID="lblDownlodasID" Visible="true" />
+                <label for="nome">&nbsp;Upload: - Lembrando que o arquivo não pode ultrapassar 50MB.</label>
+                <asp:Label runat="server" ID="lblDownlodasID" Visible="false" />
                 <asp:FileUpload ID="fupArquivo" runat="server" AllowMultiple="false" BorderStyle="None" CssClass="form-control" onchange="myFunction()" />
             </td>
         </tr>

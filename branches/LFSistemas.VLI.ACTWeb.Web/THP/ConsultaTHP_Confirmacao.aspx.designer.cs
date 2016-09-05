@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
+namespace LFSistemas.VLI.ACTWeb.Web.THP {
     
     
-    public partial class popupTempoParadaConfirmacao {
+    public partial class ConsultaTHP_Confirmacao {
         
         /// <summary>
         /// Label1 control.
@@ -76,15 +76,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         protected global::System.Web.UI.WebControls.TextBox txtDataInicial;
         
         /// <summary>
-        /// cetxtDataInicial control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender cetxtDataInicial;
-        
-        /// <summary>
         /// txtHoraInicial control.
         /// </summary>
         /// <remarks>
@@ -101,15 +92,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDataFinal;
-        
-        /// <summary>
-        /// cettxtDataFinal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender cettxtDataFinal;
         
         /// <summary>
         /// txtHoraFinal control.

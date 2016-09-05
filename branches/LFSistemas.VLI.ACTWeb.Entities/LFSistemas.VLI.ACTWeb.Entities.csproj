@@ -129,6 +129,9 @@
     <Compile Include="Relatorio_THP.cs" />
     <Compile Include="Relatorio_PCTM.cs" />
     <Compile Include="Relatorio_Termometros.cs" />
+    <Compile Include="Rel_THP.cs" />
+    <Compile Include="Rel_THP_Filtro.cs" />
+    <Compile Include="Rel_THP_Itens.cs" />
     <Compile Include="Rota.cs" />
     <Compile Include="Situacao_Radios.cs" />
     <Compile Include="Slide.cs" />
@@ -155,6 +158,7 @@
     <Compile Include="Tipo_Situacao.cs" />
     <Compile Include="Trem.cs" />
     <Compile Include="EnviarMacro.cs" />
+    <Compile Include="TremHoraParado.cs" />
     <Compile Include="TremOline.cs" />
     <Compile Include="UltimasAtividades.cs" />
     <Compile Include="Ultima_Posicao.cs" />

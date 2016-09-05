@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ACTWEB.Master" AutoEventWireup="true" CodeBehind="ConsultaDisplay.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.Consulta.ConsultaDisplay" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPageTitle" runat="server">
     <table class="nav-justified">
         <tr>
@@ -25,7 +27,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentMain" runat="server">
     <script type="text/javascript">
-        $(function () {
+<%--        $(function () {
             $("#<%= txtDataInicio.ClientID %>").datepicker({
                 showOn: "button",
                 showButtonPanel: true,
@@ -50,7 +52,7 @@
                 showMonthAfterYear: false,
                 yearSuffix: ''
             });
-        });
+        });--%>
 
         $(document).keydown(function (e) {
             if (e.which == 120) {
@@ -109,6 +111,7 @@
                         </td>
                         <td style="width: 10%;">&nbsp;<label for="matricula">Data Inicial:</label>
                             <asp:TextBox runat="server" ID="txtDataInicio" CssClass="form-control" Width="98%" MaxLength="10" onKeyUp="formatar(this, '##/##/####')" onkeypress="return PermiteSomenteNumeros(event);" />
+                            <asp:CalendarExtender runat="server" ID="cetxtDataInicio" TargetControlID="txtDataInicio" />
                         </td>
                     </tr>
                     <tr>

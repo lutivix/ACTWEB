@@ -1,4 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="popupTHP.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.Consulta.popupTHP" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="popupTHP.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.THP.popupTHP" %>
+
+<!DOCTYPE html>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 

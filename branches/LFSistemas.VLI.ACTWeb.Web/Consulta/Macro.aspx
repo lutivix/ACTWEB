@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ACTWEB.Master" AutoEventWireup="true" CodeBehind="Macro.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.Consulta.Macro" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPageTitle" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentMain" runat="server">
@@ -59,7 +61,7 @@
         }
     </style>
     <script type="text/javascript">
-        $(function () {
+<%--        $(function () {
             $("#<%= txtDataInicio.ClientID %>").datepicker({
                 buttonText: "Data inicial",
                 showOn: "button",
@@ -103,7 +105,7 @@
                 currentText: 'Agora',
                 closeText: 'Fechar',
             });
-        });
+        });--%>
 
         $(document).keydown(function (e) {
             if (e.which == 120) {
@@ -176,6 +178,7 @@
                                         <td style="width: 170px;">
                                             <label for="data_inicio">Data:</label>
                                             <asp:TextBox ID="txtDataInicio" runat="server" Width="160" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
+                                            <asp:CalendarExtender runat="server" ID="cetxtDataInicio" TargetControlID="txtDataInicio" />
                                         </td>
                                         <td style="width: 170px;">
                                             <label for="hora_inicio">Hora:</label>

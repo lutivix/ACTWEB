@@ -8,8 +8,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text;
 using System.IO;
-//using Excel = Microsoft.Office.Interop.Excel;
-//using Excel = OfficeOpenXml; 
 using System.Drawing;
 
 namespace LFSistemas.VLI.ACTWeb.Web.Relatorios

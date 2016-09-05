@@ -69,7 +69,7 @@
 </head>
 <body onbeforeunload="ConfirmClose()" <%--onunload="HandleOnClose()"--%>>
     <form id="Form1" runat="server">
-        <asp:ToolkitScriptManager  ID ="ToolkitScriptManager1"  runat ="server" />
+        <asp:ToolkitScriptManager  ID ="ToolkitScriptManager1"  runat ="server" EnableScriptGlobalization="true" />
         <div style="height: 100%; width: 100%">
             <div class="navigation-bar">
                 <div class="navigation-bar-left">

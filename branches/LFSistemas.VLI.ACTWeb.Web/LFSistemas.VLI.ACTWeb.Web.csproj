@@ -402,6 +402,11 @@
     <Content Include="Restricoes\popupRestricoes.aspx" />
     <Content Include="Sobre.aspx" />
     <Content Include="Teste.aspx" />
+    <Content Include="THP\Abas\THP.ascx" />
+    <Content Include="THP\ConsultaTHP.aspx" />
+    <Content Include="THP\ConsultaTHP_Confirmacao.aspx" />
+    <Content Include="THP\popupTHP.aspx" />
+    <Content Include="THP\popupTHP_Relatorios.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1071,6 +1076,41 @@
     </Compile>
     <Compile Include="Teste.aspx.designer.cs">
       <DependentUpon>Teste.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="THP\Abas\THP.ascx.cs">
+      <DependentUpon>THP.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="THP\Abas\THP.ascx.designer.cs">
+      <DependentUpon>THP.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="THP\ConsultaTHP.aspx.cs">
+      <DependentUpon>ConsultaTHP.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="THP\ConsultaTHP.aspx.designer.cs">
+      <DependentUpon>ConsultaTHP.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="THP\ConsultaTHP_Confirmacao.aspx.cs">
+      <DependentUpon>ConsultaTHP_Confirmacao.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="THP\ConsultaTHP_Confirmacao.aspx.designer.cs">
+      <DependentUpon>ConsultaTHP_Confirmacao.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="THP\popupTHP.aspx.cs">
+      <DependentUpon>popupTHP.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="THP\popupTHP.aspx.designer.cs">
+      <DependentUpon>popupTHP.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="THP\popupTHP_Relatorios.aspx.cs">
+      <DependentUpon>popupTHP_Relatorios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="THP\popupTHP_Relatorios.aspx.designer.cs">
+      <DependentUpon>popupTHP_Relatorios.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

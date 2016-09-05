@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
+namespace LFSistemas.VLI.ACTWeb.Web.THP {
     
     
-    public partial class popupTempoParadaConfirmacao {
+    public partial class ConsultaTHP {
         
         /// <summary>
         /// Label1 control.
@@ -58,112 +58,85 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         protected global::System.Web.UI.WebControls.Label lblUsuarioMaleta;
         
         /// <summary>
-        /// ldltexto control.
+        /// Temporizador control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ldltexto;
+        protected global::System.Web.UI.Timer Temporizador;
         
         /// <summary>
-        /// txtDataInicial control.
+        /// pnlFiltros control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDataInicial;
+        protected global::System.Web.UI.WebControls.Panel pnlFiltros;
         
         /// <summary>
-        /// cetxtDataInicial control.
+        /// txtFiltroMotivo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender cetxtDataInicial;
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroMotivo;
         
         /// <summary>
-        /// txtHoraInicial control.
+        /// cblCorredor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHoraInicial;
+        protected global::System.Web.UI.WebControls.CheckBoxList cblCorredor;
         
         /// <summary>
-        /// txtDataFinal control.
+        /// cblGrupos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDataFinal;
+        protected global::System.Web.UI.WebControls.CheckBoxList cblGrupos;
         
         /// <summary>
-        /// cettxtDataFinal control.
+        /// lnkPesquisar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender cettxtDataFinal;
+        protected global::System.Web.UI.WebControls.LinkButton lnkPesquisar;
         
         /// <summary>
-        /// txtHoraFinal control.
+        /// lnkLimpar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHoraFinal;
+        protected global::System.Web.UI.WebControls.LinkButton lnkLimpar;
         
         /// <summary>
-        /// txtPrefixo control.
+        /// tabAbas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPrefixo;
+        protected global::AjaxControlToolkit.TabContainer tabAbas;
         
         /// <summary>
-        /// ddlPostoTrabalho control.
+        /// tpPesquisa control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPostoTrabalho;
-        
-        /// <summary>
-        /// lnkFiltroPesquisar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkFiltroPesquisar;
-        
-        /// <summary>
-        /// lnkFiltroAtualiza control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkFiltroAtualiza;
-        
-        /// <summary>
-        /// upRegistros control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upRegistros;
+        protected global::AjaxControlToolkit.TabPanel tpPesquisa;
         
         /// <summary>
         /// RepeaterItens control.
@@ -175,60 +148,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         protected global::System.Web.UI.WebControls.Repeater RepeaterItens;
         
         /// <summary>
-        /// lblCurrentPage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCurrentPage;
-        
-        /// <summary>
-        /// lnkPrimeiraPagina control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkPrimeiraPagina;
-        
-        /// <summary>
-        /// lnkPaginaAnterior control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkPaginaAnterior;
-        
-        /// <summary>
-        /// ddlPageSize control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPageSize;
-        
-        /// <summary>
-        /// lnkProximaPagina control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkProximaPagina;
-        
-        /// <summary>
-        /// lnkUltimaPagina control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkUltimaPagina;
-        
-        /// <summary>
         /// lblTotal control.
         /// </summary>
         /// <remarks>
@@ -238,12 +157,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         protected global::System.Web.UI.WebControls.Label lblTotal;
         
         /// <summary>
-        /// UpdateProgress1 control.
+        /// tpAcao control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdateProgress UpdateProgress1;
+        protected global::AjaxControlToolkit.TabPanel tpAcao;
+        
+        /// <summary>
+        /// abaDados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::LFSistemas.VLI.ACTWeb.Web.THP.Abas.THP abaDados;
     }
 }

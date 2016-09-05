@@ -42,8 +42,6 @@
         <script type="text/javascript">
             $(document).keydown(function (e) {
                 if (e.which == 120) {
-<%--                $('<%=lnkPesquisar.ClientID %>').click();
-                document.getElementById('<%=lnkPesquisar.ClientID %>').click();--%>
                     e.preventDefault();
                 }
             });
@@ -575,10 +573,10 @@
                                             <ItemTemplate>
 
                                                 <tr style="background-color: #fff;">
-                                                    <td id="td_01" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("Coluna_Data") %>;" title="<%# Eval("Apuracao").ToString().Substring(0,10) %>"><%# Eval("Apuracao").ToString().Substring(0,10) %></td>
-                                                    <td id="td_02" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("Coluna_Corredor") %>;" title="<%# Eval("Corredor") %>"><%# Eval("Corredor")%></td>
-                                                    <td id="td_03" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("Coluna_Rota") %>;" title="<%# Eval("Rota") %>"><%# Eval("Rota") %></td>
-                                                    <td id="td_04" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("Coluna_SubRota") %>;" title="<%# Eval("SubRota") %>"><%# Eval("SubRota") %></td>
+                                                    <td id="td_01" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("Coluna_Data") %>;"      title="<%# Eval("Apuracao").ToString().Substring(0,10) %>"><%# Eval("Apuracao").ToString().Substring(0,10) %></td>
+                                                    <td id="td_02" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("Coluna_Corredor") %>;"  title="<%# Eval("Corredor") %>"><%# Eval("Corredor")%></td>
+                                                    <td id="td_03" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("Coluna_Rota") %>;"      title="<%# Eval("Rota") %>"><%# Eval("Rota") %></td>
+                                                    <td id="td_04" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("Coluna_SubRota") %>;"   title="<%# Eval("SubRota") %>"><%# Eval("SubRota") %></td>
                                                     <td id="td_05" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); vertical-align: middle; visibility: <%# Eval("Coluna_Classe") %>;" title="<%# Eval("Classe") %>"><%# Eval("Classe")%></td>
                                                     <td id="td_06" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); vertical-align: middle; visibility: <%# Eval("Coluna_OS") %>;" title="<%# Eval("OS") %>"><%# Eval("OS")%></td>
                                                     <td id="td_07" style="width: 05.00%; text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); vertical-align: middle; visibility: <%# Eval("Coluna_Prefixo") %>;" title="<%# Eval("Prefixo") %>"><%# Eval("Prefixo") %></td>

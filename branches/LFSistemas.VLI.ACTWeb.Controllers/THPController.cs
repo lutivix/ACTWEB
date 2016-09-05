@@ -15,12 +15,12 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         THPDAO dao = new THPDAO();
 
         #endregion
-        public List<THP> ObterPorFiltro(THP filtro)
+        public List<TremHoraParado> ObterPorFiltro(TremHoraParado filtro)
         {
             return dao.ObterPorFiltro(filtro);
         }
 
-        public THP ObterPorID(double Trem_ID)
+        public TremHoraParado ObterPorID(double Trem_ID)
         {
             return dao.ObterPorID(Trem_ID);
         }

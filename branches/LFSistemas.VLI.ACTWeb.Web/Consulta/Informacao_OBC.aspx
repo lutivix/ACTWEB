@@ -96,10 +96,10 @@
                         <label for="data_fim">Corredor:</label>
                         <asp:CheckBoxList runat="server" ID="clbCorredor" Rows="5" CssClass="form-control" SelectionMode="Multiple" Width="160" Height="105">
                             <asp:ListItem Text="&nbsp;&nbsp;Centro Leste" Value="Centro Leste" />
+                            <asp:ListItem Text="&nbsp;&nbsp;Centro Norte" Value="Centro Norte" />
                             <asp:ListItem Text="&nbsp;&nbsp;Centro Sudeste" Value="Centro Sudeste" />
                             <asp:ListItem Text="&nbsp;&nbsp;Minas Bahia" Value="Minas Bahia" />
                             <asp:ListItem Text="&nbsp;&nbsp;Minas Rio" Value="Minas Rio" />
-                            <asp:ListItem Text="&nbsp;&nbsp;Norte Sul" Value="Norte Sul" />
                         </asp:CheckBoxList>
                     </td>
                     <td style="width: 01%; vertical-align: bottom;" rowspan="2"></td>

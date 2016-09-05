@@ -103,6 +103,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         protected global::System.Web.UI.WebControls.TextBox txtDataInicio;
         
         /// <summary>
+        /// cetxtDataInicio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender cetxtDataInicio;
+        
+        /// <summary>
         /// txtDataFim control.
         /// </summary>
         /// <remarks>
@@ -110,6 +119,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDataFim;
+        
+        /// <summary>
+        /// cetxtDataFim control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender cetxtDataFim;
         
         /// <summary>
         /// lnkPesquisar control.

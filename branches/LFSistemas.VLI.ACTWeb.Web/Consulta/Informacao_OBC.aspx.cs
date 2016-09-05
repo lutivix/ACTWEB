@@ -332,7 +332,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     aux.Add(string.Format("'{0}'", "Centro Sudeste"));
                     aux.Add(string.Format("'{0}'", "Minas Bahia"));
                     aux.Add(string.Format("'{0}'", "Minas Rio"));
-                    aux.Add(string.Format("'{0}'", "Norte Sul"));
+                    aux.Add(string.Format("'{0}'", "Centro Norte"));
                 }
             }
             corredor = string.Join(",", aux);

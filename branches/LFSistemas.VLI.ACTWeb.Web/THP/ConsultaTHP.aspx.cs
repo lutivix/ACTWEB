@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace LFSistemas.VLI.ACTWeb.Web.Consulta
+namespace LFSistemas.VLI.ACTWeb.Web.THP
 {
     public partial class ConsultaTHP : System.Web.UI.Page
     {
@@ -26,7 +26,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
         protected override void OnInit(EventArgs e)
         {
-            abaDados.Voltar += new Abas.THP.VoltarEventHandler(Voltar);
+            //abaDados.Voltar +=  new Abas.THP.VoltarEventHandler(Voltar);
+            
 
             base.OnInit(e);
         }
@@ -50,7 +51,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 lblUsuarioMatricula.Text = ulMatricula.ToUpper();
                 lblUsuarioPerfil.Text = ulPerfil.ToUpper();
                 lblUsuarioMaleta.Text = ulMaleta.ToUpper();
-                
+
                 CarregaCombos();
                 Pesquisar(null);
             }
@@ -306,6 +307,5 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         }
 
         #endregion
-
     }
 }

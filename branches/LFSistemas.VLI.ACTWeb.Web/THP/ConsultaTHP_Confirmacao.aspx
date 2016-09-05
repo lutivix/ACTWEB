@@ -1,6 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ACTWEB.Master" AutoEventWireup="true" CodeBehind="popupTempoParadaConfirmacao.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.Consulta.popupTempoParadaConfirmacao" %>
-
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ACTWEB.Master" AutoEventWireup="true" CodeBehind="ConsultaTHP_Confirmacao.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.THP.ConsultaTHP_Confirmacao" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPageTitle" runat="server">
     <table class="nav-justified">
@@ -48,7 +46,7 @@
     </style>
     <script type="text/javascript">
         $(function () {
-           <%-- $("#<%= txtDataInicial.ClientID %>").datepicker({
+            $("#<%= txtDataInicial.ClientID %>").datepicker({
                 buttonText: "Data inicial",
                 showOn: "button",
                 showButtonPanel: true,
@@ -97,7 +95,7 @@
                 isRTL: false,
                 showMonthAfterYear: false,
                 yearSuffix: ''
-            });--%>
+            });
             $('#<%= txtHoraInicial.ClientID %>').timepicker({
                 buttonText: "Hora inicial",
                 buttonImage: '../img/time.png',
@@ -150,7 +148,6 @@
                     <tr>
                         <td style="width: 10%;">&nbsp;<label for="matricula">Data Inicial:</label>
                             <asp:TextBox runat="server" ID="txtDataInicial" CssClass="form-control" Width="98%" MaxLength="10" onKeyUp="formatar(this, '##/##/####')" onkeypress="return PermiteSomenteNumeros(event);" />
-                            <asp:CalendarExtender runat="server" ID="cetxtDataInicial" TargetControlID="txtDataInicial" />
                         </td>
                         <td style="width: 07%;">&nbsp;<label for="matricula">Hora Inicial:</label>
                             <asp:TextBox runat="server" ID="txtHoraInicial" CssClass="form-control" Width="98%" MaxLength="05" onKeyUp="formatar(this, '##:##')" onkeypress="return PermiteSomenteNumeros(event);" />
@@ -158,7 +155,6 @@
                         <td style="width: 01%;"></td>
                         <td style="width: 10%;">&nbsp;<label for="matricula">Data Final:</label>
                             <asp:TextBox runat="server" ID="txtDataFinal" CssClass="form-control" Width="98%" MaxLength="10" onKeyUp="formatar(this, '##/##/####')" onkeypress="return PermiteSomenteNumeros(event);" />
-                            <asp:CalendarExtender runat="server" ID="cettxtDataFinal" TargetControlID="txtDataFinal" />
                         </td>
                         <td style="width: 07%;">&nbsp;<label for="matricula">Hora Final:</label>
                             <asp:TextBox runat="server" ID="txtHoraFinal" CssClass="form-control" Width="98%" MaxLength="05" onKeyUp="formatar(this, '##:##')" onkeypress="return PermiteSomenteNumeros(event);" />

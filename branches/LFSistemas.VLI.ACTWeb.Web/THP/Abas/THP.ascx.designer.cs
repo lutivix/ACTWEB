@@ -7,100 +7,154 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LFSistemas.VLI.ACTWeb.Web.Cadastro {
+namespace LFSistemas.VLI.ACTWeb.Web.THP.Abas {
     
     
-    public partial class Displays {
+    public partial class THP {
         
         /// <summary>
-        /// lblTitulo control.
+        /// rdMotivo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTitulo;
+        protected global::System.Web.UI.WebControls.RadioButton rdMotivo;
         
         /// <summary>
-        /// lblUsuarioMatricula control.
+        /// rdParada control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuarioMatricula;
+        protected global::System.Web.UI.WebControls.RadioButton rdParada;
         
         /// <summary>
-        /// lblUsuarioLogado control.
+        /// txtDadosID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuarioLogado;
+        protected global::System.Web.UI.WebControls.TextBox txtDadosID;
         
         /// <summary>
-        /// lblUsuarioPerfil control.
+        /// lblSenhaUsuario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuarioPerfil;
+        protected global::System.Web.UI.WebControls.Label lblSenhaUsuario;
         
         /// <summary>
-        /// lblUsuarioMaleta control.
+        /// txtDadosTrem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuarioMaleta;
+        protected global::System.Web.UI.WebControls.TextBox txtDadosTrem;
         
         /// <summary>
-        /// txtMensagem control.
+        /// txtDadosTempo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMensagem;
+        protected global::System.Web.UI.WebControls.TextBox txtDadosTempo;
         
         /// <summary>
-        /// txtData control.
+        /// txtDadosLocal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtData;
+        protected global::System.Web.UI.WebControls.TextBox txtDadosLocal;
         
         /// <summary>
-        /// cetxtData control.
+        /// txtDadosGrupo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender cetxtData;
+        protected global::System.Web.UI.WebControls.TextBox txtDadosGrupo;
         
         /// <summary>
-        /// chkAtivo control.
+        /// txtDadosCorredor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkAtivo;
+        protected global::System.Web.UI.WebControls.TextBox txtDadosCorredor;
         
         /// <summary>
-        /// lblDisplayID control.
+        /// lblDadosCodigoMotivo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDisplayID;
+        protected global::System.Web.UI.WebControls.Label lblDadosCodigoMotivo;
+        
+        /// <summary>
+        /// txtDadosMotivo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDadosMotivo;
+        
+        /// <summary>
+        /// dvMotivo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvMotivo;
+        
+        /// <summary>
+        /// ddlMotivoNovo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlMotivoNovo;
+        
+        /// <summary>
+        /// txtMotivoSenha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMotivoSenha;
+        
+        /// <summary>
+        /// dvParada control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvParada;
+        
+        /// <summary>
+        /// txtParadaSenha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtParadaSenha;
         
         /// <summary>
         /// lnkSalvar control.
@@ -112,21 +166,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro {
         protected global::System.Web.UI.WebControls.LinkButton lnkSalvar;
         
         /// <summary>
-        /// lnkCancelar control.
+        /// lnkCalncelar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkCancelar;
-        
-        /// <summary>
-        /// lnkExcluir control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkExcluir;
+        protected global::System.Web.UI.WebControls.LinkButton lnkCalncelar;
     }
 }

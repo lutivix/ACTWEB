@@ -1745,7 +1745,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT MOT_ID_MOT AS ID, MOT_NOME AS DESCRICAO FROM MOTIVO_PARADA ${MOT_ID_MOT} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT MOT_AUTO_TRAC AS ID, MOT_NOME AS DESCRICAO FROM MOTIVO_PARADA ${MOT_ID_MOT} ORDER BY DESCRICAO");
 
 
                     if (!string.IsNullOrEmpty(motivo_id))

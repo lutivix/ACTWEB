@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace LFSistemas.VLI.ACTWeb.Web.Consulta
+namespace LFSistemas.VLI.ACTWeb.Web.THP
 {
     public partial class popupTHP : System.Web.UI.Page
     {

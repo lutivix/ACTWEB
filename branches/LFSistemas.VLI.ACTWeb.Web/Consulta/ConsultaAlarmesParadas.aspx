@@ -143,10 +143,12 @@
                                     <td style="width: 50%;">
                                         <label for="data_inicio">Data Início:</label>
                                         <asp:TextBox ID="txtDataInicio" runat="server" CssClass="form-control" MaxLength="10" onblur="validaData(this,this.value)" onkeypress="return PermiteSomenteNumeros(event);" onKeyUp="formatar(this, '##/##/####')" Width="98%" />
+                                        <asp:CalendarExtender runat="server" ID="cetxtDataInicio" TargetControlID="txtDataInicio" />
                                     </td>
                                     <td style="width: 50%;">
                                         <label for="data_fim">Data Fim:</label>
                                         <asp:TextBox ID="txtDataFim" runat="server" CssClass="form-control" MaxLength="10" onblur="validaData(this,this.value)" onkeypress="return PermiteSomenteNumeros(event);" onKeyUp="formatar(this, '##/##/####')" Width="98%" />
+                                        <asp:CalendarExtender runat="server" ID="cetxtDataFim" TargetControlID="txtDataFim" />
                                     </td>
                                 </tr>
                             </table>
