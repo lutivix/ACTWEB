@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ACTWEB.Master" AutoEventWireup="true" CodeBehind="ConsultaMaquinistas.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.Consulta.ConsultaMaquinistas" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="Abas/Maquinista.ascx" TagName="Dados" TagPrefix="ucAbas" %>
 
@@ -27,7 +28,6 @@
     </table>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentMain" runat="server">
-    <asp:Timer ID="Temporizador" runat="server"  Interval="60000" />
     <script type="text/javascript">
         $(document).keydown(function (e) {
             if (e.which == 120) {
@@ -107,7 +107,29 @@
         .ajax__tab_xp .ajax__tab_header .ajax__tab_tab {
             height: 21px !important;
         }
+
+        .Processando {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            position: absolute;
+            background-color: whitesmoke;
+            filter: alpha(opacity=80);
+            opacity: 0.8;
+        }
+
+        .Texto_Processando {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -50px;
+            margin-left: -50px;
+        }
     </style>
+    <asp:UpdatePanel runat="server" ID="upConsulta">
+        <ContentTemplate>
     <div class="well well-sm">
         <div class="page-header sub-content-header">
             <%--<h2>Filtros de Pesquisa</h2>--%>
@@ -152,7 +174,6 @@
             </asp:Panel>
         </div>
     </div>
-
     <div class="row" style="margin: 0.3%;">
         <asp:TabContainer runat="server" ID="tabAbas" ActiveTabIndex="0" BorderStyle="None" BorderWidth="0">
             <asp:TabPanel runat="server" ID="tpPesquisa" >
@@ -202,13 +223,49 @@
                                 <hr style="color: rgb(0, 72, 89); padding: 0px 5px 0px 5px;" />
                             </td>
                         </tr>
-                        <tr>
-                            <td style="text-align: left;">
-                                <br />
-                                <asp:Label runat="server" Text="Registros: " Font-Bold="true" Font-Size="12" Style="color: rgb(153, 153, 153);" />
-                                <asp:Label runat="server" ID="lblTotal" Font-Bold="true" Font-Size="12" Style="color: rgb(0, 72, 89);" />
-                            </td>
-                        </tr>
+                                <tr>
+                                    <td>
+                                        <table style="padding-top: 10px;">
+                                            <tr>
+                                                <td>
+                                                    <asp:Label ID="lblCurrentPage" runat="server"></asp:Label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <asp:LinkButton ID="lnkPrimeiraPagina" runat="server" OnClick="lnkPrimeiraPagina_Click" ToolTip="Primeira página"><i class="fa fa-fast-backward"></i></asp:LinkButton>
+                                                    &nbsp; 
+                                    <asp:LinkButton ID="lnkPaginaAnterior" runat="server" OnClick="lnkPaginaAnterior_Click" ToolTip="Página anterior"><i class="fa fa-backward"></i></asp:LinkButton>&nbsp;
+                                    &nbsp; Itens por página: &nbsp;
+                                    <asp:DropDownList ID="ddlPageSize" runat="server" AutoPostBack="true" Width="80" CssClass="form-control-single" OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
+                                        <asp:ListItem Text="10" Value="10" />
+                                        <asp:ListItem Text="20" Value="20" />
+                                        <asp:ListItem Text="30" Value="30" Selected="True" />
+                                        <asp:ListItem Text="40" Value="40" />
+                                        <asp:ListItem Text="50" Value="50" />
+                                        <asp:ListItem Text="100" Value="100" />
+                                        <asp:ListItem Text="200" Value="200" />
+                                        <asp:ListItem Text="300" Value="300" />
+                                        <asp:ListItem Text="400" Value="400" />
+                                        <asp:ListItem Text="500" Value="500" />
+                                        <asp:ListItem Text="1000" Value="1000" />
+                                    </asp:DropDownList>
+                                                    &nbsp;
+                                    <asp:LinkButton ID="lnkProximaPagina" runat="server" OnClick="lnkProximaPagina_Click" ToolTip="Próxima página"><i class="fa fa-forward"></i></asp:LinkButton>
+                                                    &nbsp; 
+                                    <asp:LinkButton ID="lnkUltimaPagina" runat="server" OnClick="lnkUltimaPagina_Click" ToolTip="Última página"><i class="fa fa-fast-forward"></i></asp:LinkButton>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="14" style="text-align: left;">
+                                        <hr style="color: rgb(0, 72, 89); padding: 0px 5px 0px 5px;" />
+                                        <asp:Label runat="server" Text="Registros: " Font-Bold="true" Font-Size="12" Style="color: rgb(153, 153, 153);" />
+                                        <asp:Label runat="server" ID="lblTotal" Font-Bold="true" Font-Size="12" Style="color: rgb(0, 72, 89);" />
+                                    </td>
+                                </tr>
                     </table>
                 </ContentTemplate>
             </asp:TabPanel>
@@ -222,6 +279,23 @@
             </asp:TabPanel>
         </asp:TabContainer>
     </div>
-
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    <asp:UpdateProgress runat="server" AssociatedUpdatePanelID="upConsulta">
+        <ProgressTemplate>
+            <div class="Processando">
+                <table class="Texto_Processando">
+                    <tr>
+                        <td>
+                            <asp:Image runat="server" ImageUrl="~/img/process.gif" Width="50" />
+                        </td>
+                        <td>
+                            <asp:Label runat="server" Text="Processando..." />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </ProgressTemplate>
+    </asp:UpdateProgress>
 </asp:Content>
 

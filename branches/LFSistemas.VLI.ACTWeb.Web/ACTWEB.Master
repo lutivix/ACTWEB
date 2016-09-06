@@ -638,7 +638,7 @@
 
 
                         <%----------------------  PGOF  ----------------------%>
-                        <li class="" id="Li1" runat="server">
+                        <li class="" id="mnPgof" runat="server">
                             <a data-toggle="collapse" data-parent="#menu" href="#sub_pgof" title="PGOF">
                                 <span class="menu-item-icon menu-icon-thp"></span>
                                 <span class="menu-item-label" title="PGOF">PGOF <i class="fa fa-caret-down"></i></span>

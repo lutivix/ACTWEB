@@ -1057,13 +1057,13 @@ namespace LFSistemas.VLI.ACTWeb.Web {
         protected global::System.Web.UI.WebControls.LinkButton lnkUltLocalizacao;
         
         /// <summary>
-        /// Li1 control.
+        /// mnPgof control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mnPgof;
         
         /// <summary>
         /// Li2 control.

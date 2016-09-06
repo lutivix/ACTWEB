@@ -444,7 +444,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                using (var connection = ServiceLocator.ObterConexaoACTPP())
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
                 {
                     #region [ FILTRA AS RESTRIÇÕES ]
 
@@ -452,11 +452,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     if (Corredor != "")
                     {
-                        query.Append(@"select es_id_efe as id, (es_id_efe || ' - ' || es_dsc_efe) as decricao from estacoes where nm_cor_id in (" + Corredor + ") order by es_dsc_efe");
+                        query.Append(@"select es_id_efe as id, (es_id_efe || ' - ' || es_dsc_efe) as decricao from actpp.estacoes where nm_cor_id in (" + Corredor + ") order by es_dsc_efe");
                     }
                     else
                     {
-                        query.Append(@"select es_id_efe as id, (es_id_efe || ' - ' || es_dsc_efe) as decricao from estacoes where nm_cor_id is null order by es_dsc_efe");
+                        query.Append(@"select es_id_efe as id, (es_id_efe || ' - ' || es_dsc_efe) as decricao from actpp.estacoes where nm_cor_id is null order by es_dsc_efe");
                     }
                     
 

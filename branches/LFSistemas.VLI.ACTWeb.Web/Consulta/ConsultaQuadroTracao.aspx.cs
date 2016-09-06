@@ -23,6 +23,32 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         public string grupos { get; set; }
         public string TiposLoco { get; set; }
 
+        public int NowViewing
+        {
+            get
+            {
+                object obj = ViewState["_NowViewing"];
+                if (obj == null)
+                    return 0;
+                else
+                    return (int)obj;
+            }
+            set
+            {
+                this.ViewState["_NowViewing"] = value;
+            }
+        }
+        public enum Navigation
+        {
+            None,
+            Primeira,
+            Proxima,
+            Anterior,
+            Ultima,
+            Pager,
+            Sorting
+        }
+
         #endregion
 
         #region [ EVENTOS DE PÁGINA ]
@@ -55,7 +81,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 lblUsuarioMaleta.Text = ulMaleta.ToUpper();
 
                 CarregaCombos();
-                Pesquisar(null);
+                Pesquisar(null, Navigation.None);
             }
         }
 
@@ -63,16 +89,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
         protected void lnkPesquisar_Click(object sender, EventArgs e)
         {
-            Pesquisar(null);
+            Pesquisar(null, Navigation.None);
         }
-
-
-
         protected void lnkLoadLocalidades_Click(object sender, EventArgs e)
         {
             CarregaCombos();
         }
-
         protected void cblCorredores_SelectedIndexChanged(object sender, EventArgs e)
         {
             var auxCorredor = new List<string>();
@@ -107,16 +129,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             }
 
         }
-
-
         protected void lnkLimpar_Click(object sender, EventArgs e)
         {
             //txtFiltroMotivo.Text = string.Empty;
             cblCorredor.ClearSelection();
             cblGrupos.ClearSelection();
-            Pesquisar(null);
+            Pesquisar(null, Navigation.None);
         }
-
         protected void lnkExportar_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
@@ -189,10 +208,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             Response.Write(sb.ToString());
             Response.End();
         }
-
-
-
-
         protected void lnkAcao_Click(object sender, EventArgs e)
         {
             if (lblUsuarioPerfil.Text == "SUP" || lblUsuarioPerfil.Text == "ADM")
@@ -209,6 +224,36 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             else
                 Response.Write("<script>alert('Usuário não tem permissão para acessar esta opção, se necessário comunique ao Supervisor do CCO.'); </script>");
         }
+        protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Pesquisar(null, Navigation.None);
+        }
+
+        protected void lnkPaginaAnterior_Click(object sender, EventArgs e)
+        {
+            //Fill repeater for Previous event
+            Pesquisar(null, Navigation.Anterior);
+        }
+        protected void lnkProximaPagina_Click(object sender, EventArgs e)
+        {
+            //Fill repeater for Next event
+            Pesquisar(null, Navigation.Proxima);
+        }
+        protected void lnkPrimeiraPagina_Click(object sender, EventArgs e)
+        {
+            //Fill repeater for First event
+            Pesquisar(null, Navigation.Primeira);
+        }
+        protected void lnkUltimaPagina_Click(object sender, EventArgs e)
+        {
+            //Fill repeater for Last event
+            Pesquisar(null, Navigation.Ultima);
+        }
+        protected void rptUsers_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            ViewState["SortExpression"] = e.CommandName;
+            Pesquisar(null, Navigation.Anterior);
+        }
 
         #endregion
 
@@ -222,14 +267,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             tpAcao.Enabled = false;
             tpPesquisa.Enabled = true;
             pnlFiltros.Enabled = true;
-            Pesquisar(null);
+            Pesquisar(null, Navigation.None);
         }
 
         #endregion
 
         #region [ MÉTODOS DE APOIO ]
 
-        protected void Pesquisar(string ordenacao)
+        protected void Pesquisar(string ordenacao, Navigation navigation)
         {
             var pesquisar = new QuadroTracaoController();
 
@@ -280,8 +325,90 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             if (itens.Count > 0)
             {
 
+                //switch (ordenacao)
+                //{
+                //    case "TREM ASC":
+                //        itens = itens.OrderBy(o => o.Trem).ToList();
+                //        break;
+                //    case "TREM DESC":
+                //        itens = itens.OrderByDescending(o => o.Trem).ToList();
+                //        break;
+                //    case "LOCO ASC":
+                //        itens = itens.OrderBy(o => o.Loco).ToList();
+                //        break;
+                //    case "LOCO DESC":
+                //        itens = itens.OrderByDescending(o => o.Loco).ToList();
+                //        break;
+                //    case "TIPO ASC":
+                //        itens = itens.OrderBy(o => o.Tipo_Loco).ToList();
+                //        break;
+                //    case "TIPO DESC":
+                //        itens = itens.OrderByDescending(o => o.Tipo_Loco).ToList();
+                //        break;
+                //    case "SITUACAO ASC":
+                //        itens = itens.OrderBy(o => o.Situacao).ToList();
+                //        break;
+                //    case "SITUACAO DESC":
+                //        itens = itens.OrderByDescending(o => o.Situacao).ToList();
+                //        break;
+                //    case "CORREDOR ASC":
+                //        itens = itens.OrderBy(o => o.Corredor).ToList();
+                //        break;
+                //    case "CORREDOR DESC":
+                //        itens = itens.OrderByDescending(o => o.Corredor).ToList();
+                //        break;
+                //    case "Atualizacao ASC":
+                //        itens = itens.OrderBy(o => o.Atualizacao).ToList();
+                //        break;
+                //    case "Atualizacao DESC":
+                //        itens = itens.OrderByDescending(o => o.Atualizacao).ToList();
+                //        break;
+                //    case "ATIVO ASC":
+                //        itens = itens.OrderBy(o => o.Ativo_SN).ToList();
+                //        break;
+                //    case "ATIVO DESC":
+                //        itens = itens.OrderByDescending(o => o.Ativo_SN).ToList();
+                //        break;
+                //    default:
+                //        itens = itens.OrderBy(o => o.Loco).ToList();
+                //        break;
+                //}
 
-                RepeaterItens.DataSource = itens;
+                PagedDataSource objPds = new PagedDataSource();
+                objPds.DataSource = itens;
+                objPds.AllowPaging = true;
+                objPds.PageSize = int.Parse(ddlPageSize.SelectedValue);
+
+                switch (navigation)
+                {
+                    case Navigation.Proxima:
+                        NowViewing++;
+                        break;
+                    case Navigation.Anterior:
+                        NowViewing--;
+                        break;
+                    case Navigation.Ultima:
+                        NowViewing = objPds.PageCount - 1;
+                        break;
+                    case Navigation.Pager:
+                        if (int.Parse(ddlPageSize.SelectedValue) >= objPds.PageCount)
+                            NowViewing = objPds.PageCount - 1;
+                        break;
+                    case Navigation.Sorting:
+                        break;
+                    default:
+                        NowViewing = 0;
+                        break;
+                }
+
+                objPds.CurrentPageIndex = NowViewing;
+                lblCurrentPage.Text = "Página: " + (NowViewing + 1).ToString() + " de " + objPds.PageCount.ToString();
+                lnkPaginaAnterior.Enabled = !objPds.IsFirstPage;
+                lnkProximaPagina.Enabled = !objPds.IsLastPage;
+                lnkPrimeiraPagina.Enabled = !objPds.IsFirstPage;
+                lnkUltimaPagina.Enabled = !objPds.IsLastPage;
+
+                RepeaterItens.DataSource = objPds;
                 RepeaterItens.DataBind();
             }
             else
@@ -320,12 +447,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             cblTiposLoco.DataTextField = "Descricao";
             cblTiposLoco.DataSource = combo.ComboBoxTipoLocomotivas();
             cblTiposLoco.DataBind();
-        }
-
-
-        protected void Temporizador_Tick(object sender, EventArgs e)
-        {
-            Pesquisar(null);
         }
 
         #endregion
