@@ -108,7 +108,6 @@
         }
 
         function Get_Selected_Value() {
-               <%-- var ControlRef = document.getElementById('<%= cblColunas.ClientID %>');--%>
             var CheckBoxListArray = ControlRef.getElementsByTagName('input');
             var spanArray = ControlRef.getElementsByTagName('span');
             var conta = 0;
@@ -209,8 +208,6 @@
 
             if (conta < 1) conta = 1;
             if (conta > 17) conta = 17;
-
-            //document.getElementById('thTitulo').colSpan = conta;
         }
 
         function verificar(nome, quantidade) {
@@ -284,23 +281,24 @@
             var filtro_grupos_id        = '';
             var filtro_motivos_id       = '';
 
-
-            var today = new Date();
             var data = new Date();
-            data.setDate(today.getDate() + 29);
-
+            data.setDate(data.getDate() + 29);
             var ddd = data.getDate();
             var mmm = data.getMonth();
             var yyy = data.getFullYear();
 
-            if (ddd < 10) {
-                ddd = '0' + ddd
-            }
-            if (mmm < 10) {
-                mmm = '0' + mmm
-            }
+            if (ddd < 10) { ddd = '0' + ddd }
+            if (mmm < 10) { mmm = '0' + mmm }
+            var agoraDe = ddd + "/" + mmm + "/" + yyy;
 
-            var agora = ddd + "/" + mmm + "/" + yyy;
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth();
+            var yy = today.getFullYear();
+
+            if (dd < 10) { dd = '0' + dd }
+            if (mm < 10) { mm = '0' + mm }
+            var agoraAte = dd + "/" + mm + "/" + yy;
 
             var dataDe = $("#txtFiltroDataDe").val().split("/");
             var dataAte = $("#txtFiltroDataAte").val().split("/");
@@ -326,8 +324,6 @@
             });
 
 
-
-
             if (filtro_classe           == ''
                 && filtro_os            == ''
                 && filtro_prefixo       == ''
@@ -340,14 +336,12 @@
 
                 if (intervalo > 3) {
                     alert("Para filtrar um intervalo de dadas maior que 2 dias, é obrigatório selecionar pelo menos 1 filtro na pesquisa!");
-                    $('#txtFiltroDataDe').val(agora);
                     $('#txtFiltroDataDe').focus();
                 }
             }
             else {
                 if (intervalo > 30) {
                     alert("O intervalo entre as datas não pode ser superior a 30 dias!");
-                    $('#txtFiltroDataDe').val(agora);
                     $('#txtFiltroDataDe').focus();
                 }
             }
