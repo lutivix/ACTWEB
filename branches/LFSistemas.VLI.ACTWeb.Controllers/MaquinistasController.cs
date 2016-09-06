@@ -32,5 +32,10 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         }
 
 
+        public bool Exclui(int Maquinista_ID, string usuarioLogado)
+        {
+            return dao.Exclui(Maquinista_ID, usuarioLogado);
+        }
+
     }
 }

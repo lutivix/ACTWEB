@@ -394,6 +394,7 @@
     <Content Include="Relatorios\Macros.aspx" />
     <Content Include="Relatorios\popupTHP_Relatorios.aspx" />
     <Content Include="Relatorios\RelatorioAlarmesTelecomandadas.aspx" />
+    <Content Include="Relatorios\RelatoriosPGOF.aspx" />
     <Content Include="Relatorios\VMA.aspx" />
     <Content Include="Restricoes\popupLDL.aspx" />
     <Content Include="Restricoes\popupRelatorioRestricoesTemperatura.aspx" />
@@ -1085,6 +1086,13 @@
     </Compile>
     <Compile Include="Relatorios\RelatorioAlarmesTelecomandadas.aspx.designer.cs">
       <DependentUpon>RelatorioAlarmesTelecomandadas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Relatorios\RelatoriosPGOF.aspx.cs">
+      <DependentUpon>RelatoriosPGOF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Relatorios\RelatoriosPGOF.aspx.designer.cs">
+      <DependentUpon>RelatoriosPGOF.aspx</DependentUpon>
     </Compile>
     <Compile Include="Relatorios\VMA.aspx.cs">
       <DependentUpon>VMA.aspx</DependentUpon>

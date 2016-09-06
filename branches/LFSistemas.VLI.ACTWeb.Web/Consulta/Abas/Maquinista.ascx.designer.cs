@@ -65,5 +65,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Abas {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkCalncelar;
+        
+        /// <summary>
+        /// lnkExcluir control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkExcluir;
     }
 }

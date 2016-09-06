@@ -79,6 +79,7 @@
                     <div>
                         <asp:LinkButton runat="server" ID="lnkSalvar" CssClass="btn btn-success" Text="Salvar" OnClientClick="javascript:return validaFormulario();" OnClick="lnkSalvar_Click" ><i class="fa fa-floppy-o"></i>&nbsp;Salvar</asp:LinkButton>
                         <asp:LinkButton runat="server" ID="lnkCalncelar" CssClass="btn btn-info" Text="Cancelar" OnClick="lnkCalncelar_Click" ToolTip="Cancela a operação."><i class="fa fa-sign-out"></i>&nbsp;Cancelar</asp:LinkButton>
+                        <asp:LinkButton runat="server" ID="lnkExcluir" CssClass="btn btn-danger" ToolTip="Apaga o registro do banco." OnClientClick="javascript:return validaFormulario();" OnClick="lnkExcluir_Click" ><i class="fa fa-minus-circle"></i>&nbsp;Excluir</asp:LinkButton>
                     </div>
                 </td>
             </tr>

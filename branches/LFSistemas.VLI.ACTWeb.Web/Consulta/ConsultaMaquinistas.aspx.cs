@@ -94,6 +94,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             cblGrupos.DataSource = combo.ComboBoxLocalidades(corredores);
             cblGrupos.DataBind();
 
+            if (cblGrupos.Items.Count > 0)
+            {
+                for (int i = 0; i < cblGrupos.Items.Count; i++)
+                {
+                    cblGrupos.Items[i].Selected = true;
+
+                }
+
+            }
+
         }
 
 

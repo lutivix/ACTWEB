@@ -163,10 +163,67 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     if (reader == 1)
                     {
                         LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Maquinista", null, Maquinista_ID.ToString(), "As informações do Maquinista " + Maquinista_ID.ToString() + " foi Alterada", Uteis.OPERACAO.Atualizou.ToString());
+                       
+                    }
+
+                    Retorno = true;
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                //LogDAO.GravaLogSistema(DateTime.Now, null, "Maquinista", ex.Message.Trim());
+                //if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                //throw new Exception(ex.Message);
+            }
+
+            return Retorno;
+        }
+
+
+        public bool Exclui(int Maquinista_ID, string usuarioLogado)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            bool Retorno = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA  ]
+
+                    var command = connection.CreateCommand();
+
+                    if (Maquinista_ID > 0)
+                    {
+
+                        // ID_MAQUINISTA, DS_NOME_MAQUIN, ID_MATR_MAQUIN, ID_EST_SEDE 
+                        query.Append(@"DELETE MAQUINISTAS WHERE ID_MAQUINISTA = ${ID_MAQ} ");
+
+                        query.Replace("${ID_MAQ}", string.Format("{0}", Maquinista_ID));
+
+
+
+                        #region [GRAVA NO BANCO ]
+
+
+                        command.CommandText = query.ToString();
+                        var reader = command.ExecuteNonQuery();
+                        LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Maquinista", null, Maquinista_ID.ToString(), "Maquinista " + Maquinista_ID.ToString() + " foi excluido", Uteis.OPERACAO.Atualizou.ToString());
+
                         Retorno = true;
+
+                        #endregion
                     }
 
                     #endregion
+
+
                 }
             }
             catch (Exception ex)

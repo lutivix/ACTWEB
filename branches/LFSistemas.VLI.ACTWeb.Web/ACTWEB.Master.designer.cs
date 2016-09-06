@@ -1111,6 +1111,24 @@ namespace LFSistemas.VLI.ACTWeb.Web {
         protected global::System.Web.UI.WebControls.LinkButton LinkButton4;
         
         /// <summary>
+        /// Li6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li6;
+        
+        /// <summary>
+        /// LinkButton5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton5;
+        
+        /// <summary>
         /// mnUsuarios control.
         /// </summary>
         /// <remarks>

@@ -653,7 +653,12 @@
                                         <span class="menu-item-label" title="Tempo Confiab.)">Tempo Confiab.</span>
                                     </asp:LinkButton>
                                 </li>
-
+                                <li class="" id="Li6" runat="server">
+                                    <asp:LinkButton runat="server" ID="LinkButton5" OnClick="lnkRelatoriosPGOF_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-print"></i></span>
+                                        <span class="menu-item-label" title="Relatórios)">Relatórios</span>
+                                    </asp:LinkButton>
+                                </li>
                             </ul>
                         </div>
 

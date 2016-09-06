@@ -67,12 +67,28 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Abas
             var acao = new MaquinistasController();
             int id = int.Parse(txtid.Text);
 
-            if (
-                acao.AtualizaDados(txtMatricula.Text, txtNome.Text, txtSede.Text, id, Usuario.Matricula))
-            {
+            acao.AtualizaDados(txtMatricula.Text, txtNome.Text, txtSede.Text, id, Usuario.Matricula);
+            if (id > 0) {
                 Response.Write("<script>alert('Alterada as informações do Maquinista: " + txtNome.Text + " por " + Usuario.Matricula + " - " + Usuario.Perfil_Abreviado + "'); </script>");
-                Voltar.Invoke();
+            } else  {
+                Response.Write("<script>alert('Maquinista: " + txtNome.Text + " Incluído com sucesso por " + Usuario.Matricula + " - " + Usuario.Perfil_Abreviado + "'); </script>");
             }
+            
+            Voltar.Invoke();
+
+        }
+
+
+        protected void lnkExcluir_Click(object sender, EventArgs e)
+        {
+            //if (bool.Parse(Request.Form["confirm_value"]))
+            //{
+            var acao = new MaquinistasController();
+            int id = int.Parse(txtid.Text);
+
+            acao.Exclui(id, Usuario.Matricula);
+            Response.Write("<script>alert('Maquinista: " + txtNome.Text + " Excluído com sucesso por " + Usuario.Matricula + " - " + Usuario.Perfil_Abreviado + "'); </script>");
+            Voltar.Invoke();
 
         }
 
