@@ -122,6 +122,40 @@ namespace LFSistemas.VLI.ACTWeb.Web
             {
                 Response.Redirect("/DadosApoio/Consultar_Perfis.aspx");
             }
+
+            protected void lnkMaquinistas_Click(object sender, EventArgs e)
+            {
+                //Response.Redirect("/Cadastro/Cadastro_Maquinistas.aspx");
+                Response.Redirect("/Consulta/ConsultaMaquinistas.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
+
+            }
+
+            protected void lnkRelatoriosPGOF_Click(object sender, EventArgs e)
+            {
+                Response.Redirect("/Relatorios/RelatoriosPGOF.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
+            }
+
+            protected void lnkMetaTempo_Click(object sender, EventArgs e)
+            {
+                //Response.Redirect("/Cadastro/Cadastro_MetaTempo.aspx");
+                Response.Redirect("/Consulta/ConsultaMetaTempo.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
+
+            }
+
+            protected void lnkQuadroTracao_Click(object sender, EventArgs e)
+            {
+                //Response.Redirect("/Cadastro/Cadastro_QuadroTracao.aspx");
+                Response.Redirect("/Consulta/ConsultaQuadroTracao.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
+
+            }
+
+            protected void lnkTempoConfiab_Click(object sender, EventArgs e)
+            {
+                //Response.Redirect("/Cadastro/Cadastro_TempoConfiab.aspx");
+                Response.Redirect("/Consulta/ConsultaTempoConfiab.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
+
+            }
+
             protected void lnkPlus_Click(object sender, EventArgs e)
             {
                 Response.Redirect("~/Plus.aspx");

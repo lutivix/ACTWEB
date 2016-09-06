@@ -269,7 +269,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT COR_ID_COR, COR_DESCRICAO FROM CORREDORES WHERE COR_ATIVO_SN = 'S' ORDER BY COR_DESCRICAO");
+                    query.Append(@"select es_id_efe as id, es_dsc_efe as descricao from estacoes order by es_dsc_efe");
 
                     #endregion
 
@@ -432,6 +432,61 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return itens.ToList();
         }
+
+        public List<ComboBox> ComboBoxLocalidades(string Corredor)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var itens = new List<ComboBox>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTPP())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    if (Corredor != "")
+                    {
+                        query.Append(@"select es_id_efe as id, (es_id_efe || ' - ' || es_dsc_efe) as decricao from estacoes where nm_cor_id in (" + Corredor + ") order by es_dsc_efe");
+                    }
+                    else
+                    {
+                        query.Append(@"select es_id_efe as id, (es_id_efe || ' - ' || es_dsc_efe) as decricao from estacoes where nm_cor_id is null order by es_dsc_efe");
+                    }
+                    
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var item = PreencherPropriedadesComboBox(reader);
+                            itens.Add(item);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Combo Interdição Filtro Seção", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return itens.ToList();
+        }
+
         public List<ComboBox> ComboBoxPerfis()
         {
             

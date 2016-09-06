@@ -89,15 +89,22 @@
     <Content Include="Cadastro\Cadastro_Banners.aspx" />
     <Content Include="Cadastro\Cadastro_Downloads.aspx" />
     <Content Include="Cadastro\Cadastro_GiroLocomotivas.aspx" />
+    <Content Include="Cadastro\Cadastro_Maquinistas.aspx" />
     <Content Include="Cadastro\Cadastro_MetaPCTM.aspx" />
+    <Content Include="Cadastro\Cadastro_MetaTempo.aspx" />
     <Content Include="Cadastro\Cadastro_OBC.aspx" />
+    <Content Include="Cadastro\Cadastro_QuadroTracao.aspx" />
     <Content Include="Cadastro\Cadastro_Radios.aspx" />
+    <Content Include="Cadastro\Cadastro_TempoConfiab.aspx" />
     <Content Include="Cadastro\Displays.aspx" />
     <Content Include="Cadastro\Importa_Corredores.aspx" />
     <Content Include="Cadastro\Importa_OBC.aspx" />
     <Content Include="Cadastro\Responsavel_LDL.aspx" />
     <Content Include="Cadastro\Usuario.aspx" />
     <Content Include="Cadastro\UsuarioACT.aspx" />
+    <Content Include="Consulta\Abas\Maquinista.ascx" />
+    <Content Include="Consulta\Abas\MetaTempo.ascx" />
+    <Content Include="Consulta\Abas\QuadroTracao.ascx" />
     <Content Include="Consulta\Abas\THP.ascx" />
     <Content Include="Consulta\ConsultaAlarmesParadas.aspx" />
     <Content Include="Consulta\ConsultaAlarmesTelecomandadas.aspx" />
@@ -105,12 +112,16 @@
     <Content Include="Consulta\ConsultaDisplay.aspx" />
     <Content Include="Consulta\ConsultaDownloads.aspx" />
     <Content Include="Consulta\ConsultaMacro50.aspx" />
+    <Content Include="Consulta\ConsultaMaquinistas.aspx" />
+    <Content Include="Consulta\ConsultaMetaTempo.aspx" />
     <Content Include="Consulta\ConsultaOBC.aspx" />
+    <Content Include="Consulta\ConsultaQuadroTracao.aspx" />
     <Content Include="Consulta\ConsultaRadios.aspx" />
     <Content Include="Consulta\ConsultarAlocacaoProgramada.aspx" />
     <Content Include="Consulta\ConsultarGiroLocomotivas.aspx" />
     <Content Include="Consulta\ConsultarMetaPCTM.aspx" />
     <Content Include="Consulta\Consultar_TrensOnline.aspx" />
+    <Content Include="Consulta\ConsultaTempoConfiab.aspx" />
     <Content Include="Consulta\ConsultaTermometros.aspx" />
     <Content Include="Consulta\ConsultaTHP.aspx" />
     <Content Include="Consulta\ConsultaVMA.aspx" />
@@ -394,6 +405,7 @@
     <Content Include="Relatorios\Macros.aspx" />
     <Content Include="Relatorios\popupTHP_Relatorios.aspx" />
     <Content Include="Relatorios\RelatorioAlarmesTelecomandadas.aspx" />
+    <Content Include="Relatorios\RelatoriosPGOF.aspx" />
     <Content Include="Relatorios\VMA.aspx" />
     <Content Include="Restricoes\popupLDL.aspx" />
     <Content Include="Restricoes\popupRelatorioRestricoesTemperatura.aspx" />
@@ -455,12 +467,26 @@
     <Compile Include="Cadastro\Cadastro_GiroLocomotivas.aspx.designer.cs">
       <DependentUpon>Cadastro_GiroLocomotivas.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Cadastro\Cadastro_Maquinistas.aspx.cs">
+      <DependentUpon>Cadastro_Maquinistas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cadastro\Cadastro_Maquinistas.aspx.designer.cs">
+      <DependentUpon>Cadastro_Maquinistas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Cadastro\Cadastro_MetaPCTM.aspx.cs">
       <DependentUpon>Cadastro_MetaPCTM.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cadastro\Cadastro_MetaPCTM.aspx.designer.cs">
       <DependentUpon>Cadastro_MetaPCTM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\Cadastro_MetaTempo.aspx.cs">
+      <DependentUpon>Cadastro_MetaTempo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cadastro\Cadastro_MetaTempo.aspx.designer.cs">
+      <DependentUpon>Cadastro_MetaTempo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cadastro\Cadastro_OBC.aspx.cs">
       <DependentUpon>Cadastro_OBC.aspx</DependentUpon>
@@ -469,12 +495,26 @@
     <Compile Include="Cadastro\Cadastro_OBC.aspx.designer.cs">
       <DependentUpon>Cadastro_OBC.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Cadastro\Cadastro_QuadroTracao.aspx.cs">
+      <DependentUpon>Cadastro_QuadroTracao.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cadastro\Cadastro_QuadroTracao.aspx.designer.cs">
+      <DependentUpon>Cadastro_QuadroTracao.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Cadastro\Cadastro_Radios.aspx.cs">
       <DependentUpon>Cadastro_Radios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cadastro\Cadastro_Radios.aspx.designer.cs">
       <DependentUpon>Cadastro_Radios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\Cadastro_TempoConfiab.aspx.cs">
+      <DependentUpon>Cadastro_TempoConfiab.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cadastro\Cadastro_TempoConfiab.aspx.designer.cs">
+      <DependentUpon>Cadastro_TempoConfiab.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cadastro\Displays.aspx.cs">
       <DependentUpon>Displays.aspx</DependentUpon>
@@ -517,6 +557,27 @@
     </Compile>
     <Compile Include="Cadastro\UsuarioACT.aspx.designer.cs">
       <DependentUpon>UsuarioACT.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Consulta\Abas\Maquinista.ascx.cs">
+      <DependentUpon>Maquinista.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consulta\Abas\Maquinista.ascx.designer.cs">
+      <DependentUpon>Maquinista.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Consulta\Abas\MetaTempo.ascx.cs">
+      <DependentUpon>MetaTempo.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consulta\Abas\MetaTempo.ascx.designer.cs">
+      <DependentUpon>MetaTempo.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Consulta\Abas\QuadroTracao.ascx.cs">
+      <DependentUpon>QuadroTracao.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consulta\Abas\QuadroTracao.ascx.designer.cs">
+      <DependentUpon>QuadroTracao.ascx</DependentUpon>
     </Compile>
     <Compile Include="Consulta\Abas\THP.ascx.cs">
       <DependentUpon>THP.ascx</DependentUpon>
@@ -567,12 +628,33 @@
     <Compile Include="Consulta\ConsultaMacro50.aspx.designer.cs">
       <DependentUpon>ConsultaMacro50.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Consulta\ConsultaMaquinistas.aspx.cs">
+      <DependentUpon>ConsultaMaquinistas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consulta\ConsultaMaquinistas.aspx.designer.cs">
+      <DependentUpon>ConsultaMaquinistas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Consulta\ConsultaMetaTempo.aspx.cs">
+      <DependentUpon>ConsultaMetaTempo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consulta\ConsultaMetaTempo.aspx.designer.cs">
+      <DependentUpon>ConsultaMetaTempo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Consulta\ConsultaOBC.aspx.cs">
       <DependentUpon>ConsultaOBC.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Consulta\ConsultaOBC.aspx.designer.cs">
       <DependentUpon>ConsultaOBC.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Consulta\ConsultaQuadroTracao.aspx.cs">
+      <DependentUpon>ConsultaQuadroTracao.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consulta\ConsultaQuadroTracao.aspx.designer.cs">
+      <DependentUpon>ConsultaQuadroTracao.aspx</DependentUpon>
     </Compile>
     <Compile Include="Consulta\ConsultaRadios.aspx.cs">
       <DependentUpon>ConsultaRadios.aspx</DependentUpon>
@@ -608,6 +690,13 @@
     </Compile>
     <Compile Include="Consulta\Consultar_TrensOnline.aspx.designer.cs">
       <DependentUpon>Consultar_TrensOnline.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Consulta\ConsultaTempoConfiab.aspx.cs">
+      <DependentUpon>ConsultaTempoConfiab.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consulta\ConsultaTempoConfiab.aspx.designer.cs">
+      <DependentUpon>ConsultaTempoConfiab.aspx</DependentUpon>
     </Compile>
     <Compile Include="Consulta\ConsultaTermometros.aspx.cs">
       <DependentUpon>ConsultaTermometros.aspx</DependentUpon>
@@ -1020,6 +1109,13 @@
     </Compile>
     <Compile Include="Relatorios\RelatorioAlarmesTelecomandadas.aspx.designer.cs">
       <DependentUpon>RelatorioAlarmesTelecomandadas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Relatorios\RelatoriosPGOF.aspx.cs">
+      <DependentUpon>RelatoriosPGOF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Relatorios\RelatoriosPGOF.aspx.designer.cs">
+      <DependentUpon>RelatoriosPGOF.aspx</DependentUpon>
     </Compile>
     <Compile Include="Relatorios\VMA.aspx.cs">
       <DependentUpon>VMA.aspx</DependentUpon>

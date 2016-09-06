@@ -46,6 +46,13 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ComboBoxTipoLocomotivas();
         }
+
+        public List<ComboBox> ComboBoxLocalidades(string Corredor)
+        {
+            return dao.ComboBoxLocalidades(Corredor);
+        }
+
+
         public List<ComboBox> ComboBoxPerfis()
         {
             return dao.ComboBoxPerfis();

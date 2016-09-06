@@ -94,10 +94,14 @@
     <Compile Include="ComboInterdicao_Secao.cs" />
     <Compile Include="ComboRestricao_Secao.cs" />
     <Compile Include="Importa_Corredor.cs" />
+    <Compile Include="LocomotivasCorredor.cs" />
+    <Compile Include="Maquinista.cs" />
+    <Compile Include="MetaTempo.cs" />
     <Compile Include="Proj_Corredor.cs" />
     <Compile Include="Proj_Localidade.cs" />
     <Compile Include="MacroPraFrota.cs" />
     <Compile Include="Perfil.cs" />
+    <Compile Include="QuadroTracao.cs" />
     <Compile Include="Radios.cs" />
     <Compile Include="Conversas.cs" />
     <Compile Include="Coordenadas.cs" />
@@ -126,6 +130,7 @@
     <Compile Include="Meta_PCTM.cs" />
     <Compile Include="PCTM.cs" />
     <Compile Include="QuemMaisAcessa.cs" />
+    <Compile Include="RelatoriosPGOF.cs" />
     <Compile Include="Relatorio_THP.cs" />
     <Compile Include="Relatorio_PCTM.cs" />
     <Compile Include="Relatorio_Termometros.cs" />
@@ -135,6 +140,7 @@
     <Compile Include="Rota.cs" />
     <Compile Include="Situacao_Radios.cs" />
     <Compile Include="Slide.cs" />
+    <Compile Include="TempoConfiab.cs" />
     <Compile Include="TempoParadaConfirmacao.cs" />
     <Compile Include="THP.cs" />
     <Compile Include="TipoOperador.cs" />
