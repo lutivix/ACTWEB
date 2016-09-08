@@ -646,32 +646,32 @@
                         </li>
                         <div class="collapse" id="sub_pgof">
                             <ul class="submenu">
-                                <li class="" id="Li2" runat="server">
-                                    <asp:LinkButton runat="server" ID="LinkButton1" OnClick="lnkQuadroTracao_Click">
+                                <li class="" id="sub_pgof_QuadroTracao" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkQuadroTracao" OnClick="lnkQuadroTracao_Click">
                                         <span class="menu-item-icon"><i class="fa fa-book"></i></span>
                                         <span class="menu-item-label" title="Quadro Tração">Quadro Tração</span>
                                     </asp:LinkButton>
                                 </li>
-                                <li class="" id="Li3" runat="server">
-                                    <asp:LinkButton runat="server" ID="LinkButton2" OnClick="lnkMetaTempo_Click">
+                                <li class="" id="sub_pgof_MetaTemp" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkMetaTemp" OnClick="lnkMetaTempo_Click">
                                         <span class="menu-item-icon"><i class="fa fa-book"></i></span>
                                         <span class="menu-item-label" title="Meta Tempo">Meta Tempo</span>
                                     </asp:LinkButton>
                                 </li>
-                                <li class="" id="Li4" runat="server">
-                                    <asp:LinkButton runat="server" ID="LinkButton3" OnClick="lnkMaquinistas_Click">
+                                <li class="" id="sub_pgof_Maquinistas" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkMaquinistas" OnClick="lnkMaquinistas_Click">
                                         <span class="menu-item-icon"><i class="fa fa-book"></i></span>
                                         <span class="menu-item-label" title="Maquinistas">Maquinistas</span>
                                     </asp:LinkButton>
                                 </li>
-                                <li class="" id="Li5" runat="server">
-                                    <asp:LinkButton runat="server" ID="LinkButton4" OnClick="lnkTempoConfiab_Click">
+                                <li class="" id="sub_pgof_TempoConfiab" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkTempoConfiab" OnClick="lnkTempoConfiab_Click">
                                         <span class="menu-item-icon"><i class="fa fa-book"></i></span>
                                         <span class="menu-item-label" title="Tempo Confiab.)">Tempo Confiab.</span>
                                     </asp:LinkButton>
                                 </li>
-                                <li class="" id="Li6" runat="server">
-                                    <asp:LinkButton runat="server" ID="LinkButton5" OnClick="lnkRelatoriosPGOF_Click">
+                                <li class="" id="sub_pgof_RelatoriosPGOF" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkRelatoriosPGOF" OnClick="lnkRelatoriosPGOF_Click">
                                         <span class="menu-item-icon"><i class="fa fa-print"></i></span>
                                         <span class="menu-item-label" title="Relatórios)">Relatórios</span>
                                     </asp:LinkButton>

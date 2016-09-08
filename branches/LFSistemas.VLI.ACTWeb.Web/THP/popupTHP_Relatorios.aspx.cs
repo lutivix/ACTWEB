@@ -1214,10 +1214,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                     AVG_TTT_Real += dados[i].AVG_TTT_Real;
                 }
 
-                lblAVG_THP_Real.Text = AVG_THP_Real != 0 ? TimeSpan.FromSeconds(AVG_THP_Real).ToString() : string.Empty;
-                lblAVG_TTP_Real.Text = AVG_TTP_Real != 0 ? TimeSpan.FromSeconds(AVG_TTP_Real).ToString() : string.Empty;
-                lblAVG_THM_Real.Text = AVG_THM_Real != 0 ? TimeSpan.FromSeconds(AVG_THM_Real).ToString() : string.Empty;
-                lblAVG_TTT_Real.Text = AVG_TTT_Real != 0 ? TimeSpan.FromSeconds(AVG_TTT_Real).ToString() : string.Empty;
+                lblAVG_THP_Real.Text = AVG_THP_Real != 0 ? TimeSpan.FromSeconds(AVG_THP_Real / dados.Count).ToString(@"dd\.hh\:mm\:ss") : string.Empty;
+                lblAVG_TTP_Real.Text = AVG_TTP_Real != 0 ? TimeSpan.FromSeconds(AVG_TTP_Real / dados.Count).ToString(@"dd\.hh\:mm\:ss") : string.Empty;
+                lblAVG_THM_Real.Text = AVG_THM_Real != 0 ? TimeSpan.FromSeconds(AVG_THM_Real / dados.Count).ToString(@"dd\.hh\:mm\:ss") : string.Empty;
+                lblAVG_TTT_Real.Text = AVG_TTT_Real != 0 ? TimeSpan.FromSeconds(AVG_TTT_Real / dados.Count).ToString(@"dd\.hh\:mm\:ss") : string.Empty;
             }
             else
             {

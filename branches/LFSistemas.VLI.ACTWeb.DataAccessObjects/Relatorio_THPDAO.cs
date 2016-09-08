@@ -83,8 +83,6 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
                                         ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
                                         ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
-                                        ANA.TTA_DT_INI_EVE  AS DATA_INI_EVENTO,
-                                        ANA.TTA_DT_FIM_EVE  AS DATA_FIM_EVENTO,
                                         COUNT(*) AS QTDE
                                     FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR
                                     WHERE ANA.EV_ID_ELM     = ELE.EV_ID_ELM
@@ -120,8 +118,6 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
                                         ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
                                         ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
-                                        ANA.TTA_DT_INI_EVE  AS DATA_INI_EVENTO,
-                                        ANA.TTA_DT_FIM_EVE  AS DATA_FIM_EVENTO,
                                         COUNT(*) AS QTDE
                                     FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR, ACTPP.TT_ROTA_AOP RTA2, ACTPP.TT_ROTA RTA1, ACTPP.TT_SUBROTA SUB1, ACTPP.TT_SUBROTA_AOP SUB2
                                     WHERE ANA.EV_ID_ELM     = RTA2.TTR_ID_ELM

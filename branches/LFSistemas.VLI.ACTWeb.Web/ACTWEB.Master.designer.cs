@@ -1066,94 +1066,94 @@ namespace LFSistemas.VLI.ACTWeb.Web {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mnPgof;
         
         /// <summary>
-        /// Li2 control.
+        /// sub_pgof_QuadroTracao control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li2;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub_pgof_QuadroTracao;
         
         /// <summary>
-        /// LinkButton1 control.
+        /// lnkQuadroTracao control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.LinkButton lnkQuadroTracao;
         
         /// <summary>
-        /// Li3 control.
+        /// sub_pgof_MetaTemp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li3;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub_pgof_MetaTemp;
         
         /// <summary>
-        /// LinkButton2 control.
+        /// lnkMetaTemp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton2;
+        protected global::System.Web.UI.WebControls.LinkButton lnkMetaTemp;
         
         /// <summary>
-        /// Li4 control.
+        /// sub_pgof_Maquinistas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li4;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub_pgof_Maquinistas;
         
         /// <summary>
-        /// LinkButton3 control.
+        /// lnkMaquinistas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton3;
+        protected global::System.Web.UI.WebControls.LinkButton lnkMaquinistas;
         
         /// <summary>
-        /// Li5 control.
+        /// sub_pgof_TempoConfiab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li5;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub_pgof_TempoConfiab;
         
         /// <summary>
-        /// LinkButton4 control.
+        /// lnkTempoConfiab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton4;
+        protected global::System.Web.UI.WebControls.LinkButton lnkTempoConfiab;
         
         /// <summary>
-        /// Li6 control.
+        /// sub_pgof_RelatoriosPGOF control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li6;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub_pgof_RelatoriosPGOF;
         
         /// <summary>
-        /// LinkButton5 control.
+        /// lnkRelatoriosPGOF control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton5;
+        protected global::System.Web.UI.WebControls.LinkButton lnkRelatoriosPGOF;
         
         /// <summary>
         /// mnUsuarios control.
