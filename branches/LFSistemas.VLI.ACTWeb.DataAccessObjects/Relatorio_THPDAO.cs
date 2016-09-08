@@ -36,7 +36,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     if (string.IsNullOrEmpty(filtro.Corredor_ID) && string.IsNullOrEmpty(filtro.Rota_ID) && string.IsNullOrEmpty(filtro.SubRota_ID))
                     {
-                        query.Append(@"SELECT SUBSTR(ANA.TTA_DT_APUR,0, 10) AS DATA, '' AS CORREDOR_ID , '' AS CORREDOR, '' AS ROTA_ID, '' AS ROTA, '' AS SUBROTA_ID, '' AS SUBROTA, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE, ANA.TTC_NUM_OS AS OS, ANA.TTC_PFX_TRM AS PREFIXO, '' AS GRUPO_ID, '' AS GRUPO, ANA.TTA_COD_MOT AS MOTIVO_ID, '' AS MOTIVO, '' AS SB, '' AS HORA_INI, '' AS HORA_FIM,
+                        query.Append(@"SELECT SUBSTR(ANA.TTA_DT_APUR,0, 10) AS DATA, '' AS CORREDOR_ID , '' AS CORREDOR, '' AS ROTA_ID, '' AS ROTA, '' AS SUBROTA_ID, '' AS SUBROTA, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE, ANA.TTC_NUM_OS AS OS, ANA.TTC_PFX_TRM AS PREFIXO, '' AS GRUPO_ID, '' AS GRUPO, '' AS MOTIVO_ID, '' AS MOTIVO, '' AS SB, '' AS HORA_INI, '' AS HORA_FIM,
                                         SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
                                         SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
                                         SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
@@ -60,7 +60,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     ${FILTRO_GRUPO}
                                     ${FILTRO_MOTIVO}
                                     ${FILTRO_PERIODO}      
-                                    GROUP BY SUBSTR(ANA.TTA_DT_APUR,0, 10), ANA.TTC_PFX_TRM, ANA.TTC_NUM_OS, ANA.TTA_COD_MOT
+                                    GROUP BY SUBSTR(ANA.TTA_DT_APUR,0, 10), ANA.TTC_PFX_TRM, ANA.TTC_NUM_OS
                                     ORDER BY DATA DESC, PREFIXO");
                     }
 
@@ -70,7 +70,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     if (!string.IsNullOrEmpty(filtro.Corredor_ID) && string.IsNullOrEmpty(filtro.Rota_ID) && string.IsNullOrEmpty(filtro.SubRota_ID))
                     {
-                        query.Append(@"SELECT SUBSTR(ANA.TTA_DT_APUR,0, 10) AS DATA, COR.TTC_ID_COR AS CORREDOR_ID , COR.TTC_NM_COR AS CORREDOR, '' AS ROTA_ID, '' AS ROTA, '' AS SUBROTA_ID, '' AS SUBROTA, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE, ANA.TTC_NUM_OS AS OS, ANA.TTC_PFX_TRM AS PREFIXO, '' AS GRUPO_ID, '' AS GRUPO, ANA.TTA_COD_MOT AS MOTIVO_ID, '' AS MOTIVO, '' AS SB, '' AS HORA_INI, '' AS HORA_FIM,
+                        query.Append(@"SELECT SUBSTR(ANA.TTA_DT_APUR,0, 10) AS DATA, COR.TTC_ID_COR AS CORREDOR_ID , COR.TTC_NM_COR AS CORREDOR, '' AS ROTA_ID, '' AS ROTA, '' AS SUBROTA_ID, '' AS SUBROTA, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE, ANA.TTC_NUM_OS AS OS, ANA.TTC_PFX_TRM AS PREFIXO, '' AS GRUPO_ID, '' AS GRUPO, '' AS MOTIVO_ID, '' AS MOTIVO, '' AS SB, '' AS HORA_INI, '' AS HORA_FIM,
                                         SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
                                         SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
                                         SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
@@ -96,7 +96,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                       ${FILTRO_GRUPO}
                                       ${FILTRO_MOTIVO}
                                       ${FILTRO_PERIODO}
-                                    GROUP BY SUBSTR(ANA.TTA_DT_APUR,0, 10), COR.TTC_ID_COR, COR.TTC_NM_COR, ANA.TTC_PFX_TRM, ANA.TTC_NUM_OS, ANA.TTA_COD_MOT
+                                    GROUP BY SUBSTR(ANA.TTA_DT_APUR,0, 10), COR.TTC_ID_COR, COR.TTC_NM_COR, ANA.TTC_PFX_TRM, ANA.TTC_NUM_OS
                                     ORDER BY DATA DESC, PREFIXO");
                     }
                     #endregion
@@ -105,7 +105,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     else if (!string.IsNullOrEmpty(filtro.Rota_ID) || !string.IsNullOrEmpty(filtro.SubRota_ID))
                     {
-                        query.Append(@"SELECT SUBSTR(ANA.TTA_DT_APUR,0, 10) AS DATA, COR.TTC_ID_COR AS CORREDOR_ID, COR.TTC_NM_COR AS CORREDOR, RTA1.TTR_ID_RTA AS ROTA_ID, RTA1.TTR_NM_RTA AS ROTA, SUB1.TTS_ID_SUB AS SUBROTA_ID, SUB1.TTS_NM_SUB AS SUBROTA, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE, ANA.TTC_NUM_OS AS OS, ANA.TTC_PFX_TRM AS PREFIXO, '' AS GRUPO_ID, '' AS GRUPO, ANA.TTA_COD_MOT AS MOTIVO_ID, '' AS MOTIVO, '' AS SB, '' AS HORA_INI, '' AS HORA_FIM,
+                        query.Append(@"SELECT SUBSTR(ANA.TTA_DT_APUR,0, 10) AS DATA, COR.TTC_ID_COR AS CORREDOR_ID, COR.TTC_NM_COR AS CORREDOR, RTA1.TTR_ID_RTA AS ROTA_ID, RTA1.TTR_NM_RTA AS ROTA, SUB1.TTS_ID_SUB AS SUBROTA_ID, SUB1.TTS_NM_SUB AS SUBROTA, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE, ANA.TTC_NUM_OS AS OS, ANA.TTC_PFX_TRM AS PREFIXO, '' AS GRUPO_ID, '' AS GRUPO, '' AS MOTIVO_ID, '' AS MOTIVO, '' AS SB, '' AS HORA_INI, '' AS HORA_FIM,
                                         SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
                                         SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
                                         SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
@@ -138,7 +138,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                       ${FILTRO_GRUPO}
                                       ${FILTRO_MOTIVO}
                                       ${FILTRO_PERIODO}          
-                                    GROUP BY SUBSTR(ANA.TTA_DT_APUR,0, 10), COR.TTC_ID_COR, COR.TTC_NM_COR, RTA1.TTR_ID_RTA, RTA1.TTR_NM_RTA, SUB1.TTS_ID_SUB, SUB1.TTS_NM_SUB, ANA.TTC_PFX_TRM, ANA.TTC_NUM_OS, ANA.TTA_COD_MOT
+                                    GROUP BY SUBSTR(ANA.TTA_DT_APUR,0, 10), COR.TTC_ID_COR, COR.TTC_NM_COR, RTA1.TTR_ID_RTA, RTA1.TTR_NM_RTA, SUB1.TTS_ID_SUB, SUB1.TTS_NM_SUB, ANA.TTC_PFX_TRM, ANA.TTC_NUM_OS
                                     ORDER BY DATA DESC, PREFIXO");
                     }
                     #endregion
