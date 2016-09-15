@@ -280,7 +280,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                         itens = itens.OrderByDescending(o => o.TempoTotal).ToList();
                         break;
                 }
-
+                
                 RepeaterItens.DataSource = itens;
                 RepeaterItens.DataBind();
             }

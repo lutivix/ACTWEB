@@ -23,5 +23,6 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Motivo { get; set; }
         public string Cor { get; set; }
         public TimeSpan Intervalo { get; set; }
+        public string Parada_Incons { get; set; }
     }
 }
