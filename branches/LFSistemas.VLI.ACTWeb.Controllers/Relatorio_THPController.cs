@@ -28,6 +28,15 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ObterRelatorioTHPPorFiltro(filtro);
         }
 
+                /// <summary>
+        /// Obtem a quantidade de registros para o relatório de THP
+        /// </summary>
+        /// <param name="filtro">Filtro de pesquisa no banco</param>
+        /// <returns>Retorna a quantidade de registros conforme filtro de pesquisa.</returns>
+        public double ObterQTDERegistrosRelatorioTHPPorFiltro(Rel_THP_Filtro filtro)
+        {
+            return dao.ObterQTDERegistrosRelatorioTHPPorFiltro(filtro);
+        }
         #endregion
     }
 }

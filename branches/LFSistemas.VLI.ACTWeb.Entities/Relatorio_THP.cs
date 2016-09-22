@@ -46,9 +46,6 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public double TTT_Meta { get; set; }
         public double TTT_Real { get; set; }
         
-        public double Total_M { get; set; }
-        public double Total_R { get; set; }
-        public double Total_P { get; set; }
 
         public int zRowspan { get; set; }
         public string zVisible { get; set; }

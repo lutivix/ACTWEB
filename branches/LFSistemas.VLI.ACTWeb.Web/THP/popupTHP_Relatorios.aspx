@@ -42,7 +42,6 @@
                 e.preventDefault();
             }
         });
-
         function selectAllCorredores(invoker) {
             var divControll = document.getElementById('dvCorredores');
             var inputElements = divControll.getElementsByTagName('input');
@@ -53,7 +52,6 @@
                 }
             }
         }
-
         function selectAllTrechos(invoker) {
             var divControll = document.getElementById('dvTrechos');
             var inputElements = divControll.getElementsByTagName('input');
@@ -64,7 +62,6 @@
                 }
             }
         }
-
         function selectAllRotas(invoker) {
             var divControll = document.getElementById('dvRotas');
             var inputElements = divControll.getElementsByTagName('input');
@@ -75,7 +72,6 @@
                 }
             }
         }
-
         function selectAllSubRotas(invoker) {
             var divControll = document.getElementById('dvSubRotas');
             var inputElements = divControll.getElementsByTagName('input');
@@ -106,7 +102,6 @@
                 }
             }
         }
-
         function Get_Selected_Value() {
             var CheckBoxListArray = ControlRef.getElementsByTagName('input');
             var spanArray = ControlRef.getElementsByTagName('span');
@@ -209,7 +204,6 @@
             if (conta < 1) conta = 1;
             if (conta > 17) conta = 17;
         }
-
         function verificar(nome, quantidade) {
             saida = "Os checkboxes checados são:";
             // itera baseado na quantidade de elementos
@@ -224,14 +218,11 @@
             // mostra a saída
             alert(saida);
         }
-
-
         function toTop() {
             $('html, body').animate({
                 scrollTop: 0
             }, 1000, 'linear');
         }
-
         function tecla() {
             if (window.event.keyCode == 27) {
                 this.window.close();
@@ -245,7 +236,6 @@
                 collapsible: true
             });
         });
-
         $(document).ready(function () {
             var prm = Sys.WebForms.PageRequestManager.getInstance();
             prm.add_initializeRequest(InitializeRequest);
@@ -256,7 +246,6 @@
                 collapsible: true,
             });
         });
-
         function InitializeRequest(sender, args) {
         }
 
@@ -270,19 +259,19 @@
 
         function checkData(sender, args) {
 
-            var filtro_classe           = $('#txtFiltroClasse').val();
-            var filtro_os               = $('#txtFiltroOS').val();
-            var filtro_prefixo          = $('#txtFiltroPrefixo').val();
-            var filtro_sb               = $('#txtFiltroSB').val();
-            var filtro_corredores_id    = '';
-            var filtro_trechos_id       = '';
-            var filtro_rotas_id         = '';
-            var filtro_subrotas_id      = '';
-            var filtro_grupos_id        = '';
-            var filtro_motivos_id       = '';
+            var filtro_classe = $('#txtFiltroClasse').val();
+            var filtro_os = $('#txtFiltroOS').val();
+            var filtro_prefixo = $('#txtFiltroPrefixo').val();
+            var filtro_sb = $('#txtFiltroSB').val();
+            var filtro_corredores_id = '';
+            var filtro_trechos_id = '';
+            var filtro_rotas_id = '';
+            var filtro_subrotas_id = '';
+            var filtro_grupos_id = '';
+            var filtro_motivos_id = '';
 
             var data = new Date();
-            data.setDate(data.getDate() + 29);
+            //data.setDate(data.getDate() + 29);
             var ddd = data.getDate();
             var mmm = data.getMonth();
             var yyy = data.getFullYear();
@@ -302,8 +291,8 @@
 
             var dataDe = $("#txtFiltroDataDe").val().split("/");
             var dataAte = $("#txtFiltroDataAte").val().split("/");
-            var data1 = new Date(dataDe[2] + "/" + dataDe[1] + "/" + dataDe[0]);
-            var data2 = new Date(dataAte[2] + "/" + dataAte[1] + "/" + dataAte[0]);
+            var data1 = new Date(dataDe[2] + "/" + dataDe[1] + "/" + dataDe[0] + " 00:00:00");
+            var data2 = new Date(dataAte[2] + "/" + dataAte[1] + "/" + dataAte[0] + " 00:00:00");
 
             var intervalo = Math.abs((data2 - data1) / (1000 * 60 * 60 * 24));
 
@@ -323,28 +312,11 @@
                 filtro_motivos_id += $(this).val();
             });
 
-
-            if (filtro_classe           == ''
-                && filtro_os            == ''
-                && filtro_prefixo       == ''
-                && filtro_sb            == ''
-                && filtro_corredores_id == ''
-                && filtro_rotas_id      == ''
-                && filtro_subrotas_id   == ''
-                && filtro_grupos_id     == ''
-                && filtro_motivos_id    == '') {
-
-                if (intervalo > 3) {
-                    alert("Para filtrar um intervalo de dadas maior que 2 dias, é obrigatório selecionar pelo menos 1 filtro na pesquisa!");
-                    $('#txtFiltroDataDe').focus();
-                }
+            if (intervalo > 30) {
+                alert("O intervalo entre as datas não pode ser superior a 30 dias!");
+                $('#txtFiltroDataDe').focus();
             }
-            else {
-                if (intervalo > 30) {
-                    alert("O intervalo entre as datas não pode ser superior a 30 dias!");
-                    $('#txtFiltroDataDe').focus();
-                }
-            }
+
         }
 
         $(document).keydown(function (e) {
@@ -358,8 +330,13 @@
                 document.getElementById('lnkPesquisar').click();
             }
         });
+        function thp_regras() {
+            window.open('../Ajuda/THP_Regras.aspx', '_blank', 'status=no, toolbar=no, scrollbars=no, resizable=no, location=no, width=800, height=200, menubar=no');
+        }
+
 
     </script>
+
     <style>
         .status-branco {
             color: rgb(000, 000, 000); /* Preto */
@@ -440,11 +417,42 @@
             border-top: 1px solid rgb(0, 72, 89);
             border-right: 1px solid rgb(0, 72, 89);
         }
+
+        .prb-P {
+            color: rgb(000, 000, 000);
+        }
+        .prb-R {
+            color: rgb(255, 000, 000);
+        }
+        .prb-B {
+            color: rgb(000, 000, 255);
+        }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" AsyncPostBackTimeout="36000" EnableScriptGlobalization="true" />
+        <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" AsyncPostBackTimeout="9999999" EnableScriptGlobalization="true" />
+        <script type="text/javascript">
+            var prm = Sys.WebForms.PageRequestManager.getInstance();
+            prm.add_initializeRequest(InitializeRequest);
+
+
+            function showProgress() {
+                var updateProgress = $('#UpdateProgressFiltro');
+                updateProgress.attr("style", "display: block");
+            }
+
+            function InitializeRequest(sender, args) {
+                if (prm.get_isInAsyncPostBack()) {
+                    args.set_cancel(true);
+                }
+            }
+            function AbortPostBack() {
+                if (prm.get_isInAsyncPostBack()) {
+                    prm.abortPostBack();
+                }
+            }
+        </script>
         <div style="margin: 20px;">
             <table class="nav-justified">
                 <tr>
@@ -452,7 +460,7 @@
                         <div class="alert alert-success">
                             <h2>
                                 <asp:Image runat="server" ImageUrl="/img/thp-b.png" />
-                                <asp:Label ID="Label1" runat="server" Text="Consulta de THP" Font-Size="20px" Style="color: rgb(0, 100, 0);" /></h2>
+                                <asp:Label ID="Label1" runat="server" Text="Relatório THP" Font-Size="20px" Style="color: rgb(0, 100, 0);" /></h2>
                         </div>
                     </td>
                     <td style="width: 1%; text-align: left;"></td>
@@ -472,132 +480,161 @@
                 <div class="page-header sub-content-header">
                     <%--<h2>Filtros de Pesquisa</h2>--%>
                     <a id="link1" data-toggle="collapse" title="Filtros" data-parent="#macros" href="macros#filtros" style="margin-left: 3px; font-size: 15px" accesskey="F9"><b>Filtros</b> <i class="fa fa-search"></i></a>
+                    <br />
+                    <asp:Label runat="server" Text="Consulte as regras para um resultado mais rápido, o descumprimento das regras pode não retornar resultados." Font-Size="9" />
                 </div>
                 <div id="filtros">
+                    <br />
                     <asp:UpdatePanel runat="server" ID="upFiltro">
+                        <Triggers>
+                            <asp:PostBackTrigger ControlID="lnkGeraExcel" />
+                        </Triggers>
                         <ContentTemplate>
                             <table style="width: 100%; padding-left: 1em; padding-right: 1em;">
                                 <tr>
-                                    <td style="width: 20%;" colspan="2">
-                                        <table style="width: 100%;">
-                                            <tr>
-                                                <td style="width: 40%">
-                                                    <label for="De">De:</label>
-                                                    <asp:TextBox runat="server" ID="txtFiltroDataDe" CssClass="form-control" Width="95%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" onkeypress="return PermiteSomenteNumeros(event);" />
-                                                    <asp:CalendarExtender runat="server" ID="ceFiltroDataDe" TargetControlID="txtFiltroDataDe" OnClientDateSelectionChanged="checkData" />
-                                                </td>
-                                                <td style="width: 40%">
-                                                    <label for="Ate">Até:</label>
-                                                    <asp:TextBox runat="server" ID="txtFiltroDataAte" CssClass="form-control" Width="95%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" onkeypress="return PermiteSomenteNumeros(event);" />
-                                                    <asp:CalendarExtender runat="server" ID="ceFiltroDataAte" TargetControlID="txtFiltroDataAte" OnClientDateSelectionChanged="checkData" />
-                                                </td>
-                                                <td style="width: 20%; padding-top: 1em;">
-                                                    <label for="Inicio">Classe:</label>
-                                                    <asp:TextBox runat="server" ID="txtFiltroClasse" CssClass="form-control" Width="95%" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td style="width: 10%; padding-top: 1em;" rowspan="3">
-                                        <label for="matricula">Corredores:</label>
-                                        <asp:CheckBox runat="server" ID="chkCorredores" OnClick="selectAllCorredores(this)" ToolTip="Seleciona Todos" OnCheckedChanged="chkCorredores_CheckedChanged" AutoPostBack="true" />
-                                        <div id="dvCorredores">
-                                            <asp:Panel runat="server" Width="95%" Height="140" ScrollBars="Vertical" CssClass="form-control">
-                                                <asp:CheckBoxList runat="server" ID="cblCorredores" SelectionMode="Multiple" OnSelectedIndexChanged="cblCorredores_SelectedIndexChanged" AutoPostBack="true" />
-                                            </asp:Panel>
-                                        </div>
-                                    </td>
-                                    <td style="width: 13%; padding-top: 1em;" rowspan="3" hidden="hidden">
-                                        <label for="matricula">Trechos:</label>
-                                        <asp:CheckBox runat="server" ID="chkTrechos" OnClick="selectAllTrechos(this)" ToolTip="Seleciona Todos" OnCheckedChanged="chkTrechos_CheckedChanged" AutoPostBack="true" />
-                                        <div id="dvTrechos">
-                                            <asp:Panel runat="server" Width="95%" Height="140" ScrollBars="Vertical" CssClass="form-control">
-                                                <asp:CheckBoxList runat="server" ID="cblTrechos" SelectionMode="Multiple" OnSelectedIndexChanged="cblTrechos_SelectedIndexChanged" AutoPostBack="true" />
-                                            </asp:Panel>
-                                        </div>
-                                    </td>
-                                    <td style="width: 10%; padding-top: 1em;" rowspan="3">
-                                        <label for="matricula">Rotas:</label>
-                                        <asp:CheckBox runat="server" ID="chkRotas" OnClick="selectAllRotas(this)" ToolTip="Seleciona Todos" OnCheckedChanged="chkRotas_CheckedChanged" AutoPostBack="true" />
-                                        <div id="dvRotas">
-                                            <asp:Panel runat="server" Width="95%" Height="140" ScrollBars="Vertical" CssClass="form-control">
-                                                <asp:CheckBoxList runat="server" ID="cblRotas" SelectionMode="Multiple" OnSelectedIndexChanged="cblRotas_SelectedIndexChanged" AutoPostBack="true" />
-                                            </asp:Panel>
-                                        </div>
-                                    </td>
-                                    <td style="width: 10%; padding-top: 1em;" rowspan="3">
-                                        <label for="matricula">SubRotas</label>
-                                        <asp:CheckBox runat="server" ID="chkSubRotas" OnClick="selectAllSubRotas(this)" ToolTip="Seleciona Todos" OnCheckedChanged="chkSubRotas_CheckedChanged" AutoPostBack="true" />
-                                        <div id="dvSubRotas">
-                                            <asp:Panel runat="server" Width="95%" Height="140" ScrollBars="Vertical" CssClass="form-control">
-                                                <asp:CheckBoxList runat="server" ID="cblSubRotas" SelectionMode="Multiple" OnSelectedIndexChanged="cblSubRotas_SelectedIndexChanged" AutoPostBack="true" />
-                                            </asp:Panel>
-                                        </div>
-                                    </td>
-                                    <td style="width: 13%; padding-top: 1em;" rowspan="3">
-                                        <label for="matricula">Grupos:</label>
-                                        <asp:CheckBox runat="server" ID="chkGrupos" OnClick="selectAllGrupos(this)" ToolTip="Seleciona Todos" OnCheckedChanged="chkGrupos_CheckedChanged" AutoPostBack="true" />
-                                        <div id="dvGrupos">
-                                            <asp:Panel runat="server" Width="95%" Height="140" ScrollBars="Vertical" CssClass="form-control">
-                                                <asp:CheckBoxList runat="server" ID="cblGrupos" SelectionMode="Multiple" OnSelectedIndexChanged="cblGrupos_SelectedIndexChanged" AutoPostBack="true" />
-                                            </asp:Panel>
-                                        </div>
-                                    </td>
-                                    <td style="width: 20%; padding-top: 1em;" rowspan="3">
-                                        <div id="dvMotivos">
-                                            <label for="matricula">Motivos:</label>
-                                            <asp:CheckBox runat="server" ID="chkMotivos" OnClick="selectAllMotivos(this)" ToolTip="Seleciona Todos" OnCheckedChanged="chkMotivos_CheckedChanged" AutoPostBack="true" />
-                                            <asp:Panel runat="server" Width="95%" Height="140" ScrollBars="Vertical" CssClass="form-control">
-                                                <asp:CheckBoxList runat="server" ID="cblMotivos" SelectionMode="Multiple" OnSelectedIndexChanged="cblMotivos_SelectedIndexChanged" AutoPostBack="true" />
-                                            </asp:Panel>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 20%;" colspan="2">
-                                        <table style="width: 100%;">
-                                            <tr>
-                                                <td style="width: 40%; padding-top: 1em;">
-                                                    <label for="Fim">OS:</label>
-                                                    <asp:TextBox runat="server" ID="txtFiltroOS" CssClass="form-control" Width="95%" />
-                                                </td>
-                                                <td style="width: 40%; padding-top: 1em;" colspan="1">
-                                                    <label for="Inicio">Prefixo:</label>
-                                                    <asp:TextBox runat="server" ID="txtFiltroPrefixo" CssClass="form-control" Width="95%" />
-                                                </td>
-                                                <td style="width: 20%; padding-top: 1em;" colspan="1">
-                                                    <label for="Inicio">SB:</label>
-                                                    <asp:TextBox runat="server" ID="txtFiltroSB" CssClass="form-control" Width="95%" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table style="width: 44.5%; padding-top: 1em; vertical-align: bottom;">
-                                <tr>
-                                    <td style="width: 50%; padding-top: 1em; vertical-align: bottom;">
-                                        <label for="Inicio"></label>
+                                    <td style="width: 30%">
+                                        <asp:Panel runat="server" ToolTip="Filtros: Grupo 1" CssClass="well-sm" Height="220px" BackColor="#eeeeee">
+                                            <table style="width: 100%">
+                                                <tr>
+                                                    <td style="width: 20%;">
+                                                        <table style="width: 100%;">
+                                                            <tr>
+                                                                <td>GRUPO 1</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 40%">
+                                                                    <label for="De">De:</label>
+                                                                    <asp:TextBox runat="server" ID="txtFiltroDataDe" CssClass="form-control" Width="95%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" onkeypress="return PermiteSomenteNumeros(event);" />
+                                                                    <asp:CalendarExtender runat="server" ID="ceFiltroDataDe" TargetControlID="txtFiltroDataDe" OnClientDateSelectionChanged="checkData" />
+                                                                </td>
+                                                                <td style="width: 40%">
+                                                                    <label for="Ate">Até:</label>
+                                                                    <asp:TextBox runat="server" ID="txtFiltroDataAte" CssClass="form-control" Width="95%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" onkeypress="return PermiteSomenteNumeros(event);" />
+                                                                    <asp:CalendarExtender runat="server" ID="ceFiltroDataAte" TargetControlID="txtFiltroDataAte" Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkData" />
+                                                                </td>
+                                                                <td style="width: 20%; padding-top: 1em;">
+                                                                    <label for="Inicio">Classe:</label>
+                                                                    <asp:TextBox runat="server" ID="txtFiltroClasse" CssClass="form-control" Width="95%" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 20%;">
+                                                        <table style="width: 100%;">
+                                                            <tr>
+                                                                <td style="width: 40%; padding-top: 1em;">
+                                                                    <label for="Fim">OS:</label>
+                                                                    <asp:TextBox runat="server" ID="txtFiltroOS" CssClass="form-control" Width="95%" />
+                                                                </td>
+                                                                <td style="width: 40%; padding-top: 1em;" colspan="1">
+                                                                    <label for="Inicio">Prefixo:</label>
+                                                                    <asp:TextBox runat="server" ID="txtFiltroPrefixo" CssClass="form-control" Width="95%" />
+                                                                </td>
+                                                                <td style="width: 20%; padding-top: 1em;" colspan="1">
+                                                                    <label for="Inicio">SB:</label>
+                                                                    <asp:TextBox runat="server" ID="txtFiltroSB" CssClass="form-control" Width="95%" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 50%; padding-top: 1em; vertical-align: bottom; text-align: center;">
+                                                        <label for="Inicio"></label>
 
-                                        <asp:LinkButton runat="server" ID="lnkPesquisar" CssClass="btn btn-success" OnClick="lnkPesquisar_Click" ToolTip="Busca as informações do banco de dados." Width="32%"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
-                                        <asp:LinkButton runat="server" ID="lnkLimpar" CssClass="btn btn-info" OnClick="lnkLimpar_Click" ToolTip="Limpa os filtros de pesquisa." Width="31.5%"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
-                                        <asp:LinkButton runat="server" ID="lnkFiltrar" CssClass="btn btn-success" ToolTip="Filtra as informações" Width="32%" Visible="false"><i class="fa fa-search"></i>&nbsp;Filtrar</asp:LinkButton>
-                                        <asp:LinkButton runat="server" ID="lnkGeraExcel" CssClass="btn btn-default" OnClick="lnkGeraExcel_Click" ToolTip="Gera arquivo Excel" Width="31.5%"><i class="fa fa-plus"></i>&nbsp;Excel</asp:LinkButton>
+                                                        <asp:LinkButton runat="server" ID="lnkPesquisar" CssClass="btn btn-success" OnClick="lnkPesquisar_Click" ToolTip="Busca as informações do banco de dados." Width="24%"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
+                                                        <asp:LinkButton runat="server" ID="lnkLimpar" CssClass="btn btn-info" OnClick="lnkLimpar_Click" ToolTip="Limpa os filtros de pesquisa." Width="24%"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
+                                                        <asp:LinkButton runat="server" ID="lnkGeraExcel" CssClass="btn btn-default" OnClick="lnkGeraExcel_Click" ToolTip="Gera arquivo Excel" Width="24%"><i class="fa fa-plus"></i>&nbsp;Excel</asp:LinkButton>
+                                                        <asp:LinkButton runat="server" ID="lnkRegras" CssClass="btn btn-default" Width="24%" OnClientClick="thp_regras();"><i class="fa fa-question" aria-hidden="true"></i>&nbsp;Regras</asp:LinkButton>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </asp:Panel>
+                                    </td>
+                                    <td style="width: 01%;"></td>
+                                    <td style="width: 69%">
+                                        <asp:Panel runat="server" ToolTip="Filtros: Grupo 2" CssClass="well-sm" Height="220px" BackColor="#eeeeee">
+                                            <table style="width: 100%; padding-left: 1em; padding-right: 1em;">
+                                                <tr>
+                                                    <td>GRUPO 2</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 10%; padding-top: 1em;" rowspan="3">
+                                                        <label for="matricula">Corredores:</label>
+                                                        <asp:CheckBox runat="server" ID="chkCorredores" OnClick="selectAllCorredores(this)" ToolTip="Seleciona Todos" OnCheckedChanged="chkCorredores_CheckedChanged" AutoPostBack="true" />
+                                                        <div id="dvCorredores">
+                                                            <asp:Panel runat="server" Width="95%" Height="140" ScrollBars="Vertical" CssClass="form-control">
+                                                                <asp:CheckBoxList runat="server" ID="cblCorredores" SelectionMode="Multiple" OnSelectedIndexChanged="cblCorredores_SelectedIndexChanged" AutoPostBack="true" />
+                                                            </asp:Panel>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width: 13%; padding-top: 1em;" rowspan="3" hidden="hidden">
+                                                        <label for="matricula">Trechos:</label>
+                                                        <asp:CheckBox runat="server" ID="chkTrechos" OnClick="selectAllTrechos(this)" ToolTip="Seleciona Todos" OnCheckedChanged="chkTrechos_CheckedChanged" AutoPostBack="true" />
+                                                        <div id="dvTrechos">
+                                                            <asp:Panel runat="server" Width="95%" Height="140" ScrollBars="Vertical" CssClass="form-control">
+                                                                <asp:CheckBoxList runat="server" ID="cblTrechos" SelectionMode="Multiple" OnSelectedIndexChanged="cblTrechos_SelectedIndexChanged" AutoPostBack="true" />
+                                                            </asp:Panel>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width: 10%; padding-top: 1em;" rowspan="3">
+                                                        <label for="matricula">Rotas:</label>
+                                                        <asp:CheckBox runat="server" ID="chkRotas" OnClick="selectAllRotas(this)" ToolTip="Seleciona Todos" OnCheckedChanged="chkRotas_CheckedChanged" AutoPostBack="true" />
+                                                        <div id="dvRotas">
+                                                            <asp:Panel runat="server" Width="95%" Height="140" ScrollBars="Vertical" CssClass="form-control">
+                                                                <asp:CheckBoxList runat="server" ID="cblRotas" SelectionMode="Multiple" OnSelectedIndexChanged="cblRotas_SelectedIndexChanged" AutoPostBack="true" />
+                                                            </asp:Panel>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width: 10%; padding-top: 1em;" rowspan="3">
+                                                        <label for="matricula">SubRotas</label>
+                                                        <asp:CheckBox runat="server" ID="chkSubRotas" OnClick="selectAllSubRotas(this)" ToolTip="Seleciona Todos" OnCheckedChanged="chkSubRotas_CheckedChanged" AutoPostBack="true" />
+                                                        <div id="dvSubRotas">
+                                                            <asp:Panel runat="server" Width="95%" Height="140" ScrollBars="Vertical" CssClass="form-control">
+                                                                <asp:CheckBoxList runat="server" ID="cblSubRotas" SelectionMode="Multiple" OnSelectedIndexChanged="cblSubRotas_SelectedIndexChanged" AutoPostBack="true" />
+                                                            </asp:Panel>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width: 13%; padding-top: 1em;" rowspan="3">
+                                                        <label for="matricula">Grupos:</label>
+                                                        <asp:CheckBox runat="server" ID="chkGrupos" OnClick="selectAllGrupos(this)" ToolTip="Seleciona Todos" OnCheckedChanged="chkGrupos_CheckedChanged" AutoPostBack="true" />
+                                                        <div id="dvGrupos">
+                                                            <asp:Panel runat="server" Width="95%" Height="140" ScrollBars="Vertical" CssClass="form-control">
+                                                                <asp:CheckBoxList runat="server" ID="cblGrupos" SelectionMode="Multiple" OnSelectedIndexChanged="cblGrupos_SelectedIndexChanged" AutoPostBack="true" />
+                                                            </asp:Panel>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width: 20%; padding-top: 1em;" rowspan="3">
+                                                        <div id="dvMotivos">
+                                                            <label for="matricula">Motivos:</label>
+                                                            <asp:CheckBox runat="server" ID="chkMotivos" OnClick="selectAllMotivos(this)" ToolTip="Seleciona Todos" OnCheckedChanged="chkMotivos_CheckedChanged" AutoPostBack="true" />
+                                                            <asp:Panel runat="server" Width="95%" Height="140" ScrollBars="Vertical" CssClass="form-control">
+                                                                <asp:CheckBoxList runat="server" ID="cblMotivos" SelectionMode="Multiple" OnSelectedIndexChanged="cblMotivos_SelectedIndexChanged" AutoPostBack="true" />
+                                                            </asp:Panel>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </asp:Panel>
                                     </td>
                                 </tr>
                             </table>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-                    <asp:UpdateProgress runat="server" AssociatedUpdatePanelID="upFiltro">
+                    <asp:UpdateProgress ID="UpdateProgressFiltro" runat="server" AssociatedUpdatePanelID="upFiltro">
                         <ProgressTemplate>
-                            <div class="Processando">
+                            <div id="dvProcessando" class="Processando">
                                 <table class="Texto_Processando">
                                     <tr>
-                                        <td>
+                                        <td style="text-align: center;">
                                             <asp:Image runat="server" ImageUrl="~/img/process.gif" Width="50" />
                                         </td>
-                                        <td>
-                                            <asp:Label runat="server" Text="Processando..." />
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">Processando...
                                         </td>
                                     </tr>
                                 </table>
@@ -605,32 +642,36 @@
                         </ProgressTemplate>
                     </asp:UpdateProgress>
                 </div>
-                <asp:UpdatePanel runat="server" ID="upDados" ValidateRequestMode="Enabled" RenderMode="Block" UpdateMode="Always">
+
+                <asp:UpdatePanel runat="server" ID="upDados">
                     <ContentTemplate>
                         <div runat="server" id="dvDados" class="row" style="margin-left: 1%; margin-right: 1%; margin-bottom: 1%;">
+                            <table style="width: 44.5%; padding-top: 1em; vertical-align: bottom;">
+                            </table>
                             <div style="margin-top: 20px;">
                                 <table style="width: 1800px; font-size: 0.8em;">
                                     <tr>
                                         <td>
+                                            <%--CABEÇALHO DO REPITER DE FORA--%>
                                             <table style="margin: 0; padding: 0;">
                                                 <tr>
-                                                    <td style="width: 091px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Data</td>
-                                                    <td style="width: 122px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Corredor</td>
-                                                    <td style="width: 122px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Rota</td>
-                                                    <td style="width: 122px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">SubRota</td>
-                                                    <td style="width: 071px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Classe</td>
-                                                    <td style="width: 091px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">OS</td>
-                                                    <td style="width: 081px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Prefixo</td>
-                                                    <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Grupo</td>
-                                                    <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Motivo</td>
-                                                    <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">SB</td>
-                                                    <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Hr Início</td>
-                                                    <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Hr Final</td>
-                                                    <td style="width: 130px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">
+                                                    <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Periodo</td>
+                                                    <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Corredor</td>
+                                                    <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Rota</td>
+                                                    <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">SubRota</td>
+                                                    <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Classe</td>
+                                                    <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">OS</td>
+                                                    <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Prefixo</td>
+                                                    <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Grupo</td>
+                                                    <td style="width: 220px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Motivo</td>
+                                                    <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">SB</td>
+                                                    <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 255, 255); vertical-align: bottom;">Hr Início</td>
+                                                    <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Hr Final</td>
+                                                    <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">
                                                         <%--THP (min)--%>
                                                         <table style="width: 100%">
                                                             <tr>
-                                                                <td style="border: 0px; color: white;" colspan="2">THP (min)</td>
+                                                                <td style="border: 0px; color: white;" colspan="2">THP </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 50%; border: 0px; color: white;">Meta</td>
@@ -638,11 +679,11 @@
                                                             </tr>
                                                         </table>
                                                     </td>
-                                                    <td style="width: 130px; height: 25px; background-color: rgb(0, 72, 89); color: white; font-size: 1.5em; text-align: center; border-right: 1px solid rgb(250, 250, 250);">
+                                                    <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; font-size: 1.5em; text-align: center; border-right: 1px solid rgb(255, 255, 255);">
                                                         <%--TTP (min)--%>
                                                         <table style="width: 100%">
                                                             <tr>
-                                                                <td style="border: 0px; color: white;" colspan="2">TTP (min)</td>
+                                                                <td style="border: 0px; color: white;" colspan="2">TTP </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 50%; border: 0px; color: white;">Meta</td>
@@ -650,11 +691,11 @@
                                                             </tr>
                                                         </table>
                                                     </td>
-                                                    <td style="width: 130px; height: 25px; background-color: rgb(0, 72, 89); color: white; font-size: 1.5em; text-align: center; border-right: 1px solid rgb(250, 250, 250);">
+                                                    <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; font-size: 1.5em; text-align: center; border-right: 1px solid rgb(255, 255, 255);">
                                                         <%--THM (min)--%>
                                                         <table style="width: 100%">
                                                             <tr>
-                                                                <td style="border: 0px; color: white;" colspan="2">THM (min)</td>
+                                                                <td style="border: 0px; color: white;" colspan="2">THM </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 50%; border: 0px; color: white;">Meta</td>
@@ -662,11 +703,11 @@
                                                             </tr>
                                                         </table>
                                                     </td>
-                                                    <td style="width: 130px; height: 25px; background-color: rgb(0, 72, 89); color: white; font-size: 1.5em; text-align: center;">
+                                                    <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; font-size: 1.5em; text-align: center;">
                                                         <%--TTT (min)--%>
                                                         <table style="width: 100%">
                                                             <tr>
-                                                                <td style="border: 0px; color: white;" colspan="2">TTT (min)</td>
+                                                                <td style="border: 0px; color: white;" colspan="2">TTT </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 50%; border: 0px; color: white;">Meta</td>
@@ -674,7 +715,7 @@
                                                             </tr>
                                                         </table>
                                                     </td>
-                                                    <td style="width: 020px; height: 25px; background-color: rgb(255, 255, 255); color: white; font-size: 1.5em; text-align: center;"></td>
+                                                    <td style="width: 017px; height: 25px; background-color: rgb(255, 255, 255); color: white; font-size: 1.5em; text-align: center;"></td>
                                                 </tr>
                                             </table>
                                             <asp:Panel runat="server" ID="pnlRepiter" ScrollBars="Vertical" Style="scrollbar-arrow-color: white; scrollbar-face-color: gray; scrollbar-arrow-color: rgb(0, 72, 89);">
@@ -683,285 +724,230 @@
                                                         <HeaderTemplate>
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
+                                                            <%--LINHAS DE CABEÇALHO DO REPITER COM TOTALIZADOR - ABRE E FECHA--%>
                                                             <table style="margin: 0; padding: 0;">
-                                                                <tr>
-                                                                    <td style="width: 091px; border-right: 1px solid rgb(210, 210, 210); text-align: center;" title="<%# Eval("Data") %>"><%# Eval("Data").ToString().Substring(0, 10) %> </td>
-                                                                    <td style="width: 122px; border-right: 1px solid rgb(210, 210, 210); text-align: center;" title="<%# Eval("Corredor") %>"><%# Eval("Corredor")%> </td>
-                                                                    <td style="width: 122px; border-right: 1px solid rgb(210, 210, 210); text-align: center;" title="<%# Eval("Rota") %>"><%# Eval("Rota") %> </td>
-                                                                    <td style="width: 122px; border-right: 1px solid rgb(210, 210, 210); text-align: center;" title="<%# Eval("SubRota") %>"><%# Eval("SubRota") %> </td>
-                                                                    <td style="width: 071px; border-right: 1px solid rgb(210, 210, 210); text-align: center;" title="<%# Eval("Classe") %>"><%# Eval("Classe")%> </td>
-                                                                    <td style="width: 091px; border-right: 1px solid rgb(210, 210, 210); text-align: center;" title="<%# Eval("OS") %>"><%# Eval("OS") %> </td>
-                                                                    <td style="width: 081px; border-right: 1px solid rgb(210, 210, 210); text-align: center;" title="<%# Eval("Prefixo") %>"><%# Eval("Prefixo") %> </td>
-                                                                    <td style="width: 150px; border-right: 1px solid rgb(210, 210, 210); text-align: center;" title="<%# Eval("Grupo") %>"><%# Eval("Grupo") %> </td>
-                                                                    <td style="width: 150px; border-right: 1px solid rgb(210, 210, 210); text-align: center;" title="<%# Eval("Motivo") %>"><%# Eval("Motivo") %> </td>
-                                                                    <td style="width: 070px; border-right: 1px solid rgb(210, 210, 210); text-align: center;" title="<%# Eval("SB") %>"><%# Eval("SB") %> </td>
-                                                                    <td style="width: 100px; border-right: 1px solid rgb(210, 210, 210); text-align: center;" title="<%# Eval("Data_Ini") %>"><%# Eval("Data_Ini") %> </td>
-                                                                    <td style="width: 100px; border-right: 1px solid rgb(210, 210, 210); text-align: center;" title="<%# Eval("Data_Fim") %>"><%# Eval("Data_Fim") %> </td>
-                                                                    <td style="width: 130px; border-right: 1px solid rgb(210, 210, 210); text-align: center;">
-                                                                        <%--THP (min)--%>
-                                                                        <table style="width: 100%">
-                                                                            <tr>
-                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("TOT_THP_Meta") %> minuto(s)">
-                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TOT_THP_Meta").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("TOT_THP_Meta").ToString()))) : "" %>' />
-                                                                                </td>
-                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("TOT_THP_Real") %> minuto(s)">
-                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TOT_THP_Real").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("TOT_THP_Real").ToString()))) : "" %>' />
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                    <td style="width: 130px; border-right: 1px solid rgb(210, 210, 210); text-align: center;">
-                                                                        <%--TTP (min)--%>
-                                                                        <table style="width: 100%">
-                                                                            <tr>
-                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("TOT_TTP_Meta") %> minuto(s)">
-                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TOT_TTP_Meta").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTP_Meta").ToString()))) : "" %>' />
-                                                                                </td>
-                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("TOT_TTP_Real") %> minuto(s)">
-                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TOT_TTP_Real").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTP_Real").ToString()))) : "" %>' />
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                    <td style="width: 130px; border-right: 1px solid rgb(210, 210, 210); text-align: center;">
-                                                                        <%--THM (min)--%>
-                                                                        <table style="width: 100%">
-                                                                            <tr>
-                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("TOT_THM_Meta") %> minuto(s)">
-                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TOT_THM_Meta").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("TOT_THM_Meta").ToString()))) : "" %>' />
-                                                                                </td>
-                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("TOT_THM_Real") %> minuto(s)">
-                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TOT_THM_Real").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("TOT_THM_Real").ToString()))) : "" %>' />
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                    <td style="width: 130px; border-right: 1px solid rgb(210, 210, 210); text-align: center;">
-                                                                        <%--TTT (min)--%>
-                                                                        <table style="width: 100%">
-                                                                            <tr>
-                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("TOT_TTT_Meta") %> minuto(s)">
-                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TOT_TTT_Meta").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTT_Meta").ToString()))) : "" %>' />
-                                                                                </td>
-                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("TOT_TTT_Real") %> minuto(s)">
-                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TOT_TTT_Real").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTT_Real").ToString()))) : "" %>' />
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="width: 150px; border-right: 1px solid rgb(240, 240, 240); text-align: center; white-space: nowrap;" title="<%# Eval("Periodo") %>"><%# Eval("Periodo") %> </td>
+                                                                        <td style="width: 100px; border-right: 1px solid rgb(240, 240, 240); text-align: center; white-space: nowrap;" title="<%# Eval("Corredor") %>"><%# Eval("Corredor")%> </td>
+                                                                        <td style="width: 070px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("Rota") %>"><%# Eval("Rota") %> </td>
+                                                                        <td style="width: 070px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("SubRota") %>"><%# Eval("SubRota") %> </td>
+                                                                        <td style="width: 070px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("Classe") %>"><%# Eval("Classe")%> </td>
+                                                                        <td style="width: 070px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("OS") %>"><%# Eval("OS") %> </td>
+                                                                        <td style="width: 070px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("Prefixo") %>"><%# Eval("Prefixo") %> </td>
+                                                                        <td style="width: 100px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("Grupo") %>"><%# Eval("Grupo") %> </td>
+                                                                        <td style="width: 220px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("Motivo") %>"><%# Eval("Motivo") %> </td>
+                                                                        <td style="width: 070px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("SB") %>"><%# Eval("SB") %> </td>
+                                                                        <td style="width: 100px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("Data_Ini") %>"><%# Eval("Data_Ini") %> </td>
+                                                                        <td style="width: 100px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("Data_Fim") %>"><%# Eval("Data_Fim") %> </td>
+                                                                        <td style="width: 150px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="Total THP">
+                                                                            <%--THP (min)--%>
+                                                                            <table style="width: 100%" title="Total THP">
+                                                                                <tr>
+                                                                                    <td class="prb-<%# Eval ("TOT_THP_Meta_PRB")%>" style="width: 50%; border: 0px;" title="<%# double.Parse(Eval("TOT_THP_Meta").ToString()) != 0 ? string.Format("Total THP Meta: {0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THP_Meta").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THP_Meta").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THP_Meta").ToString())).Seconds) : "Total THP Meta" %>">
+                                                                                        <asp:Label runat="server" Text='<%# double.Parse(Eval("TOT_THP_Meta").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THP_Meta").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THP_Meta").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THP_Meta").ToString())).Seconds) : "" %>' />
+                                                                                    </td>
+                                                                                    <td class="prb-<%# Eval ("TOT_THP_Real_PRB")%>" style="width: 50%; border: 0px;" title="<%# double.Parse(Eval("TOT_THP_Real").ToString()) != 0 ? string.Format("Total THP Real: {0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THP_Real").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THP_Real").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THP_Real").ToString())).Seconds) : "Total THP Real" %>">
+                                                                                        <asp:Label runat="server" Text='<%# double.Parse(Eval("TOT_THP_Real").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THP_Real").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THP_Real").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THP_Real").ToString())).Seconds) : "" %>' />
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                        <td style="width: 150px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="Total TTP">
+                                                                            <%--TTP (min)--%>
+                                                                            <table style="width: 100%" title="Total TTP">
+                                                                                <tr>
+                                                                                    <td class="prb-<%# Eval ("TOT_TTP_Meta_PRB")%>" style="width: 50%; border: 0px;" title="<%# double.Parse(Eval("TOT_TTP_Meta").ToString()) != 0 ? string.Format("Total TTP Meta: {0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTP_Meta").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTP_Meta").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTP_Meta").ToString())).Seconds) : "Total TTP Meta" %>">
+                                                                                        <asp:Label runat="server" Text='<%# double.Parse(Eval("TOT_TTP_Meta").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTP_Meta").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTP_Meta").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTP_Meta").ToString())).Seconds) : "" %>' />
+                                                                                    </td>
+                                                                                    <td class="prb-<%# Eval ("TOT_TTP_Real_PRB")%>" style="width: 50%; border: 0px;" title="<%# double.Parse(Eval("TOT_TTP_Real").ToString()) != 0 ? string.Format("Total TTP Real: {0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTP_Real").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTP_Real").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTP_Real").ToString())).Seconds) : "Total TTP Real" %>">
+                                                                                        <asp:Label runat="server" Text='<%# double.Parse(Eval("TOT_TTP_Real").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTP_Real").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTP_Real").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTP_Real").ToString())).Seconds) : "" %>' />
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                        <td style="width: 150px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="Total THM">
+                                                                            <%--THM (min)--%>
+                                                                            <table style="width: 100%" title="Total THM">
+                                                                                <tr>
+                                                                                    <td class="prb-<%# Eval ("TOT_THM_Meta_PRB")%>" style="width: 50%; border: 0px;" title="<%# double.Parse(Eval("TOT_THM_Meta").ToString()) != 0 ? string.Format("Total THM Meta: {0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THM_Meta").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THM_Meta").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THM_Meta").ToString())).Seconds) : "Total THM Meta" %>">
+                                                                                        <asp:Label runat="server" Text='<%# double.Parse(Eval("TOT_THM_Meta").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THM_Meta").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THM_Meta").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THM_Meta").ToString())).Seconds) : "" %>' />
+                                                                                    </td>
+                                                                                    <td class="prb-<%# Eval ("TOT_THM_Real_PRB")%>" style="width: 50%; border: 0px;" title="<%# double.Parse(Eval("TOT_THM_Real").ToString()) != 0 ? string.Format("Total THM Real: {0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THM_Real").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THM_Real").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THM_Real").ToString())).Seconds) : "Total THM Real" %>">
+                                                                                        <asp:Label runat="server" Text='<%# double.Parse(Eval("TOT_THM_Real").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THM_Real").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THM_Real").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_THM_Real").ToString())).Seconds) : "" %>' />
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                        <td style="width: 150px; text-align: center;" title="Total Transit Time">
+                                                                            <%--TTT (min)--%>
+                                                                            <table style="width: 100%" title="Total Transit Time">
+                                                                                <tr>
+                                                                                    <td class="prb-<%# Eval ("TOT_TTT_Meta_PRB")%>" style="width: 50%; border: 0px;" title="<%# double.Parse(Eval("TOT_TTT_Meta").ToString()) != 0 ? string.Format("Total TTT Meta: {0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTT_Meta").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTT_Meta").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTT_Meta").ToString())).Seconds) : "Total TTT Meta" %>">
+                                                                                        <asp:Label runat="server" Text='<%# double.Parse(Eval("TOT_TTT_Meta").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTT_Meta").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTT_Meta").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTT_Meta").ToString())).Seconds) : "" %>' />
+                                                                                    </td>
+                                                                                    <td class="prb-<%# Eval ("TOT_TTT_Real_PRB")%>" style="width: 50%; border: 0px;" title="<%# double.Parse(Eval("TOT_TTT_Real").ToString()) != 0 ? string.Format("Total TTT Real: {0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTT_Real").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTT_Real").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTT_Real").ToString())).Seconds) : "Total TTT Real" %> ">
+                                                                                        <asp:Label runat="server" Text='<%# double.Parse(Eval("TOT_TTT_Real").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTT_Real").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTT_Real").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TOT_TTT_Real").ToString())).Seconds) : "" %>' />
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
                                                             </table>
                                                             <div>
-                                                                <table style="width: 100%; margin: 0px; padding: 0px;">
-                                                                    <tr>
-                                                                        <td style="height: 20px; background-color: rgb(55, 119, 188); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Data</td>
-                                                                        <td style="width: 100px; height: 20px; background-color: rgb(55, 119, 188); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Corredor</td>
-                                                                        <td style="width: 070px; height: 20px; background-color: rgb(55, 119, 188); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Rota</td>
-                                                                        <td style="width: 070px; height: 20px; background-color: rgb(55, 119, 188); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">SubRota</td>
-                                                                        <td style="width: 050px; height: 20px; background-color: rgb(55, 119, 188); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Classe</td>
-                                                                        <td style="width: 070px; height: 20px; background-color: rgb(55, 119, 188); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">OS</td>
-                                                                        <td style="width: 070px; height: 20px; background-color: rgb(55, 119, 188); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Prefixo</td>
-                                                                        <td style="width: 130px; height: 20px; background-color: rgb(55, 119, 188); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Grupo</td>
-                                                                        <td style="width: 130px; height: 20px; background-color: rgb(55, 119, 188); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Motivo</td>
-                                                                        <td style="width: 070px; height: 20px; background-color: rgb(55, 119, 188); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">SB</td>
-                                                                        <td style="width: 130px; height: 20px; background-color: rgb(55, 119, 188); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Hr Início</td>
-                                                                        <td style="width: 130px; height: 20px; background-color: rgb(55, 119, 188); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">Hr Final</td>
-                                                                        <td style="width: 150px; height: 20px; background-color: rgb(55, 119, 188); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">
-                                                                            <%--THP (min)--%>
-                                                                            <table style="width: 100%">
-                                                                                <tr>
-                                                                                    <td style="border: 0px; color: white;" colspan="2">THP (min)</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td style="width: 50%; border: 0px; color: white;">Meta</td>
-                                                                                    <td style="width: 50%; border: 0px; color: white;">Real</td>
-                                                                                </tr>
-                                                                            </table>
-                                                                        </td>
-                                                                        <td style="width: 150px; height: 20px; background-color: rgb(55, 119, 188); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">
-                                                                            <%--TTP (min)--%>
-                                                                            <table style="width: 100%">
-                                                                                <tr>
-                                                                                    <td style="border: 0px; color: white;" colspan="2">TTP (min)</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td style="width: 50%; border: 0px; color: white;">Meta</td>
-                                                                                    <td style="width: 50%; border: 0px; color: white;">Real</td>
-                                                                                </tr>
-                                                                            </table>
-                                                                        </td>
-                                                                        <td style="width: 150px; height: 20px; background-color: rgb(55, 119, 188); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: bottom;">
-                                                                            <%--THM (min)--%>
-                                                                            <table style="width: 100%">
-                                                                                <tr>
-                                                                                    <td style="border: 0px; color: white;" colspan="2">THM (min)</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td style="width: 50%; border: 0px; color: white;">Meta</td>
-                                                                                    <td style="width: 50%; border: 0px; color: white;">Real</td>
-                                                                                </tr>
-                                                                            </table>
-                                                                        </td>
-                                                                        <td style="width: 150px; height: 20px; background-color: rgb(55, 119, 188); color: white; text-align: center; vertical-align: bottom;">
-                                                                            <%--TTT (min)--%>
-                                                                            <table style="width: 100%">
-                                                                                <tr>
-                                                                                    <td style="border: 0px; color: white;" colspan="2">TTT (min)</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td style="width: 50%; border: 0px; color: white;">Meta</td>
-                                                                                    <td style="width: 50%; border: 0px; color: white;">Real</td>
-                                                                                </tr>
-                                                                            </table>
-                                                                        </td>
-                                                                        <td style="width: 17px; height: 20px; background-color: rgb(255, 255, 255); color: white; text-align: center; vertical-align: bottom;"></td>
-                                                                    </tr>
-                                                                </table>
-                                                                <asp:Panel runat="server" ScrollBars="Vertical" Height='<%# DataBinder.Eval(Container.DataItem, "Dados").ToString().Count() *3 %>'>
+                                                                <%--CABEÇALHO DO REPITER DE DENTRO--%>
+                                                                <asp:Panel runat="server" ScrollBars="Vertical" Height='<%# DataBinder.Eval(Container.DataItem, "Dados").ToString().Count() *4 %>'>
                                                                     <asp:Repeater ID="repeaterDados" runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "Dados") %>'>
                                                                         <HeaderTemplate>
+                                                                            <table style="width: 100%; margin: 0px; padding: 0px;" class="table table-hover table-curved pro-table">
+                                                                                <tr style="background-color: #fff; height: 20px;">
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;" title="Data">Data</td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;" title="Corredor">Corredor</td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;" title="Rota">Rota</td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;" title="SubRota">SubRota</td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;" title="Classe">Classe</td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;" title="OS">OS</td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;" title="Prefixo">Prefixo</td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;" title="Grupo">Grupo</td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;" title="Motivo">Motivo</td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;" title="SB">SB</td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;" title="SB">Hr Início</td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;" title="SB">Hr Final</td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;">
+                                                                                        <table style="width: 100%">
+                                                                                            <tr>
+                                                                                                <td style="border: 0px; background-color: rgb(55, 119, 188); color: white;" colspan="2">THP </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td style="width: 50%; border: 0px; background-color: rgb(55, 119, 188); color: white;">Meta</td>
+                                                                                                <td style="width: 50%; border: 0px; background-color: rgb(55, 119, 188); color: white;">Real</td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;">
+                                                                                        <table style="width: 100%">
+                                                                                            <tr>
+                                                                                                <td style="border: 0px; background-color: rgb(55, 119, 188); color: white;" colspan="2">TTP </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td style="width: 50%; border: 0px; background-color: rgb(55, 119, 188); color: white;">Meta</td>
+                                                                                                <td style="width: 50%; border: 0px; background-color: rgb(55, 119, 188); color: white;">Real</td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;">
+                                                                                        <table style="width: 100%">
+                                                                                            <tr>
+                                                                                                <td style="border: 0px; background-color: rgb(55, 119, 188); color: white;" colspan="2">THM </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td style="width: 50%; border: 0px; background-color: rgb(55, 119, 188); color: white;">Meta</td>
+                                                                                                <td style="width: 50%; border: 0px; background-color: rgb(55, 119, 188); color: white;">Real</td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;" title="Duracao_THP">Duração THP </td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;" title="Duracao_TTP">Duração TTP </td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;" title="Duracao_THM">Duração THM </td>
+                                                                                    <td style="text-align: center; padding-left: 05px; padding-right: 05px; background-color: rgb(55, 119, 188); color: white; vertical-align: bottom;">
+                                                                                        <table style="width: 100%">
+                                                                                            <tr>
+                                                                                                <td style="border: 0px; background-color: rgb(55, 119, 188); color: white;" colspan="2">TTT </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td style="width: 50%; border: 0px; background-color: rgb(55, 119, 188); color: white;">Meta</td>
+                                                                                                <td style="width: 50%; border: 0px; background-color: rgb(55, 119, 188); color: white;">Real</td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                </tr>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
-                                                                            <table style="width: 100%; margin: 0px; padding: 0px;" class="table table-hover table-curved pro-table">
-                                                                                <tr style="background-color: rgb(220, 220, 220);">
-                                                                                    <td style="text-align: center;" title="<%# Eval("Data") %>"><%# Eval("Data").ToString().Substring(0, 10) %> </td>
-                                                                                    <td style="width: 100px; text-align: center;" title="<%# Eval("Corredor") %>"><%# !string.IsNullOrEmpty(Eval("Corredor").ToString()) ? Eval("Corredor") : string.Format("        ") %> </td>
-                                                                                    <td style="width: 070px; text-align: center;" title="<%# Eval("Rota") %>"><%# !string.IsNullOrEmpty(Eval("Rota").ToString()) ? Eval("Rota") : string.Format("        ") %> </td>
-                                                                                    <td style="width: 070px; text-align: center;" title="<%# Eval("SubRota") %>"><%# !string.IsNullOrEmpty(Eval("SubRota").ToString()) ? Eval("SubRota") : string.Format("        ") %> </td>
-                                                                                    <td style="width: 050px; text-align: center;" title="<%# Eval("Classe") %>"><%# !string.IsNullOrEmpty(Eval("Classe").ToString()) ? Eval("Classe") : string.Format(" ") %> </td>
-                                                                                    <td style="width: 070px; text-align: center;" title="<%# Eval("OS") %>"><%# !string.IsNullOrEmpty(Eval("OS").ToString()) ? Eval("OS") : string.Format("        ") %> </td>
-                                                                                    <td style="width: 070px; text-align: center;" title="<%# Eval("Prefixo") %>"><%# !string.IsNullOrEmpty(Eval("Prefixo").ToString()) ? Eval("Prefixo") : string.Format("    ") %> </td>
-                                                                                    <td style="width: 130px; text-align: center;" title="<%# Eval("Grupo") %>"><%# !string.IsNullOrEmpty(Eval("Grupo").ToString()) ? Eval("Grupo") : string.Format("        ") %> </td>
-                                                                                    <td style="width: 130px; text-align: center;" title="<%# Eval("Motivo") %>"><%# !string.IsNullOrEmpty(Eval("Motivo").ToString()) ? Eval("Motivo") : string.Format("                    ") %> </td>
-                                                                                    <td style="width: 070px; text-align: center;" title="<%# Eval("SB") %>"><%# !string.IsNullOrEmpty(Eval("SB").ToString()) ? Eval("SB") : string.Format("        ") %> </td>
-                                                                                    <td style="width: 130px; text-align: center;" title="<%# Eval("Data_Ini") %>"><%# !string.IsNullOrEmpty(Eval("Data_Ini").ToString()) ? Eval("Data_Ini") : string.Format("        ") %> </td>
-                                                                                    <td style="width: 130px; text-align: center;" title="<%# Eval("Data_Fim") %>"><%# !string.IsNullOrEmpty(Eval("Data_Fim").ToString()) ? Eval("Data_Fim") : string.Format("        ") %> </td>
-                                                                                    <td style="width: 150px; text-align: center;">
-                                                                                        <%--THP (min)--%>
-                                                                                        <table style="width: 100%">
+                                                                            <%--DADOS DO REPITER DE DENTRO--%>
+                                                                            <tr style="background-color: #fff;">
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Data: <%# Eval("Data").ToString() %>"><%# Eval("Data").ToString().Substring(0, 10) %></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Corredor: <%# Eval("Corredor").ToString() %>"><%# Eval("Corredor")%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Rota: <%# Eval("Rota").ToString() %>"><%# Eval("Rota") %></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="SubRota: <%# Eval("SubRota").ToString() %>"><%# Eval("SubRota") %></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Classe: <%# Eval("Classe").ToString() %>"><%# Eval("Classe")%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="OS: <%# Eval("OS").ToString() %>"><%# Eval("OS")%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Prefixo: <%# Eval("Prefixo").ToString() %>"><%# Eval("Prefixo") %></td>
+                                                                                <td style="text-align: left; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89);" title="Grupo: <%# Eval("Grupo").ToString() %>"><%# Eval("Grupo")%></td>
+                                                                                <td style="text-align: left; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89);" title="Motivo: <%# Eval("Motivo").ToString() %>"><%# Eval("Motivo")%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="SB:&nbsp;&nbsp;<%# Eval("SB") %>"><%# Eval("SB")%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Hora Início:&nbsp;&nbsp;<%# Eval("Data_Ini") %>"><%# Eval("Data_Ini")%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Hora Final:&nbsp;&nbsp;<%# Eval("Data_Fim") %>"><%# Eval("Data_Fim")%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89);" title="THP">
+                                                                                    <table style="width: 100%" title="THP">
+                                                                                        <tbody>
                                                                                             <tr>
-                                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("THP_Meta") %> minuto(s)">
-                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("THP_Meta").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("THP_Meta").ToString()))) : "        " %>' />
+                                                                                                <td class="prb-<%# Eval ("THP_Meta_PRB")%>" style="width: 50%; border: 0px; text-align: right;" title="<%# double.Parse(Eval("THP_Meta").ToString()) != 0 ? string.Format("THP Meta: {0}", TimeSpan.FromSeconds(double.Parse(Eval("THP_Meta").ToString()))) : "THP Meta" %>">
+                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("THP_Meta").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("THP_Meta").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("THP_Meta").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("THP_Meta").ToString())).Seconds) : "" %>' />
                                                                                                 </td>
-                                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("THP_Real") %> minuto(s)">
-                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("THP_Real").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("THP_Real").ToString()))) : "        " %>' />
+                                                                                                <td class="prb-<%# Eval ("THP_Real_PRB")%>" style="width: 50%; border: 0px; text-align: right;" title="<%# double.Parse(Eval("THP_Real").ToString()) != 0 ? string.Format("THP Real: {0}", TimeSpan.FromSeconds(double.Parse(Eval("THP_Real").ToString()))) : "THP Real" %>">
+                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("THP_Real").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("THP_Real").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("THP_Real").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("THP_Real").ToString())).Seconds) : "" %>' />
                                                                                                 </td>
                                                                                             </tr>
-                                                                                        </table>
-                                                                                    </td>
-                                                                                    <td style="width: 150px; text-align: center;">
-                                                                                        <%--TTP (min)--%>
-                                                                                        <table style="width: 100%">
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89);" title="TTP">
+                                                                                    <table style="width: 100%" title="TTP">
+                                                                                        <tbody>
                                                                                             <tr>
-                                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("TTP_Meta") %> minuto(s)">
-                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TTP_Meta").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("TTP_Meta").ToString()))) : "        " %>' />
+                                                                                                <td class="prb-<%# Eval ("TTP_Meta_PRB")%>" style="width: 50%; border: 0px; text-align: right;" title="<%# double.Parse(Eval("TTP_Meta").ToString()) != 0 ? string.Format("TTP Meta: {0}", TimeSpan.FromSeconds(double.Parse(Eval("TTP_Meta").ToString()))) : "TTP Meta" %>">
+                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TTP_Meta").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TTP_Meta").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TTP_Meta").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TTP_Meta").ToString())).Seconds) : "" %>' />
                                                                                                 </td>
-                                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("TTP_Real") %> minuto(s)">
-                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TTP_Real").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("TTP_Real").ToString()))) : "        " %>' />
+                                                                                                <td class="prb-<%# Eval ("TTP_Real_PRB")%>" style="width: 50%; border: 0px; text-align: right;" title="<%# double.Parse(Eval("TTP_Real").ToString()) != 0 ? string.Format("TTP Real: {0}", TimeSpan.FromSeconds(double.Parse(Eval("TTP_Real").ToString()))) : "TTP Real" %>">
+                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TTP_Real").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TTP_Real").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TTP_Real").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TTP_Real").ToString())).Seconds) : "" %>' />
                                                                                                 </td>
                                                                                             </tr>
-                                                                                        </table>
-                                                                                    </td>
-                                                                                    <td style="width: 150px; text-align: center;">
-                                                                                        <%--THM (min)--%>
-                                                                                        <table style="width: 100%">
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89);" title="THM">
+                                                                                    <table style="width: 100%" title="THM">
+                                                                                        <tbody>
                                                                                             <tr>
-                                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("THM_Meta") %> minuto(s)">
-                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("THM_Meta").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("THM_Meta").ToString()))) : "        " %>' />
+                                                                                                <td class="prb-<%# Eval ("THM_Meta_PRB")%>" style="width: 50%; border: 0px; text-align: right;" title="<%# double.Parse(Eval("THM_Meta").ToString()) != 0 ? string.Format("THP Meta: {0}", TimeSpan.FromSeconds(double.Parse(Eval("THM_Meta").ToString()))) : "THP Meta" %>">
+                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("THM_Meta").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("THM_Meta").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("THM_Meta").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("THM_Meta").ToString())).Seconds) : "" %>' />
                                                                                                 </td>
-                                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("THM_Real") %> minuto(s)">
-                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("THM_Real").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("THM_Real").ToString()))) : "        " %>' />
+                                                                                                <td class="prb-<%# Eval ("THM_Real_PRB")%>" style="width: 50%; border: 0px; text-align: right;" title="<%# double.Parse(Eval("THM_Real").ToString()) != 0 ? string.Format("THM Real: {0}", TimeSpan.FromSeconds(double.Parse(Eval("THM_Real").ToString()))) : "THM Real" %>">
+                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("THM_Real").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("THM_Real").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("THM_Real").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("THM_Real").ToString())).Seconds) : "" %>' />
                                                                                                 </td>
                                                                                             </tr>
-                                                                                        </table>
-                                                                                    </td>
-                                                                                    <td style="width: 150px; text-align: center;">
-                                                                                        <%--TTT (min)--%>
-                                                                                        <table style="width: 100%">
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </td>
+
+                                                                                <td class="prb-<%# Eval ("Duracao_THP_PRB")%>" style="text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="<%# double.Parse(Eval("Duracao_THP").ToString()) != 0 ? string.Format("Duração THP: {0}", TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THP").ToString())))  : "Duração THP" %>">
+                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("Duracao_THP").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THP").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THP").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THP").ToString())).Seconds) : "" %>' /></td>
+
+                                                                                <td class="prb-<%# Eval ("Duracao_TTP_PRB")%>" style="text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="<%# double.Parse(Eval("Duracao_TTP").ToString()) != 0 ? string.Format("Duração TTP: {0}", TimeSpan.FromSeconds(double.Parse(Eval("Duracao_TTP").ToString()))) : "Duração TTP" %>">
+                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("Duracao_TTP").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_TTP").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_TTP").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_TTP").ToString())).Seconds) : "" %>' /></td>
+
+                                                                                <td class="prb-<%# Eval ("Duracao_THM_PRB")%>" style="text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="<%# double.Parse(Eval("Duracao_THM").ToString()) != 0 ? string.Format("Duração THM: {0}", TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THM").ToString()))) : "Duração THM" %>">
+                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("Duracao_THM").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THM").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THM").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THM").ToString())).Seconds)  : "" %>' /></td>
+
+                                                                                <td style="width: 130px; text-align: center; vertical-align: middle; visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="Transit Time">
+                                                                                    <table style="width: 100%" title="Transit Time">
+                                                                                        <tbody>
                                                                                             <tr>
-                                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("TTT_Meta") %> minuto(s)">
-                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TTT_Meta").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("TTT_Meta").ToString()))) : "        " %>' />
+                                                                                                <td class="prb-<%# Eval ("TTT_Meta_PRB")%>" style="width: 50%; border: 0px; text-align: right;" title="<%# double.Parse(Eval("TTT_Meta").ToString()) != 0 ? string.Format("TTT Meta: {0}", TimeSpan.FromSeconds(double.Parse(Eval("TTT_Meta").ToString()))) : "TTT Meta" %>">
+                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TTT_Meta").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TTT_Meta").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TTT_Meta").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TTT_Meta").ToString())).Seconds) : "" %>' />
                                                                                                 </td>
-                                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("TTT_Real") %> minuto(s)">
-                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TTT_Real").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("TTT_Real").ToString()))) : "        " %>' />
+                                                                                                <td class="prb-<%# Eval ("TTT_Real_PRB")%>" style="width: 50%; border: 0px; text-align: right;" title="<%# double.Parse(Eval("TTT_Real").ToString()) != 0 ? string.Format("TTT Real: {0}", TimeSpan.FromSeconds(double.Parse(Eval("TTT_Real").ToString()))) : "TTT Real" %>">
+                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TTT_Real").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("TTT_Real").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("TTT_Real").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("TTT_Real").ToString())).Seconds) : "" %>' />
                                                                                                 </td>
                                                                                             </tr>
-                                                                                        </table>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </table>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </td>
+                                                                            </tr>
                                                                         </ItemTemplate>
-                                                                        <AlternatingItemTemplate>
-                                                                            <table style="margin: 0px; padding: 0px;" class="table table-hover table-curved pro-table">
-                                                                                <tr style="background-color: rgb(190, 190, 190);">
-                                                                                    <td style="text-align: center;" title="<%# Eval("Data") %>"><%# Eval("Data").ToString().Substring(0, 10) %> </td>
-                                                                                    <td style="width: 100px; text-align: center;" title="<%# Eval("Corredor") %>"><%# !string.IsNullOrEmpty(Eval("Corredor").ToString()) ? Eval("Corredor") : string.Format("        ") %> </td>
-                                                                                    <td style="width: 070px; text-align: center;" title="<%# Eval("Rota") %>"><%# !string.IsNullOrEmpty(Eval("Rota").ToString()) ? Eval("Rota") : string.Format("        ") %> </td>
-                                                                                    <td style="width: 070px; text-align: center;" title="<%# Eval("SubRota") %>"><%# !string.IsNullOrEmpty(Eval("SubRota").ToString()) ? Eval("SubRota") : string.Format("        ") %> </td>
-                                                                                    <td style="width: 050px; text-align: center;" title="<%# Eval("Classe") %>"><%# !string.IsNullOrEmpty(Eval("Classe").ToString()) ? Eval("Classe") : string.Format(" ") %> </td>
-                                                                                    <td style="width: 070px; text-align: center;" title="<%# Eval("OS") %>"><%# !string.IsNullOrEmpty(Eval("OS").ToString()) ? Eval("OS") : string.Format("        ") %> </td>
-                                                                                    <td style="width: 070px; text-align: center;" title="<%# Eval("Prefixo") %>"><%# !string.IsNullOrEmpty(Eval("Prefixo").ToString()) ? Eval("Prefixo") : string.Format("    ") %> </td>
-                                                                                    <td style="width: 130px; text-align: center;" title="<%# Eval("Grupo") %>"><%# !string.IsNullOrEmpty(Eval("Grupo").ToString()) ? Eval("Grupo") : string.Format("        ") %> </td>
-                                                                                    <td style="width: 130px; text-align: center;" title="<%# Eval("Motivo") %>"><%# !string.IsNullOrEmpty(Eval("Motivo").ToString()) ? Eval("Motivo") : string.Format("                    ") %> </td>
-                                                                                    <td style="width: 070px; text-align: center;" title="<%# Eval("SB") %>"><%# !string.IsNullOrEmpty(Eval("SB").ToString()) ? Eval("SB") : string.Format("        ") %> </td>
-                                                                                    <td style="width: 130px; text-align: center;" title="<%# Eval("Data_Ini") %>"><%# !string.IsNullOrEmpty(Eval("Data_Ini").ToString()) ? Eval("Data_Ini") : string.Format("        ") %> </td>
-                                                                                    <td style="width: 130px; text-align: center;" title="<%# Eval("Data_Fim") %>"><%# !string.IsNullOrEmpty(Eval("Data_Fim").ToString()) ? Eval("Data_Fim") : string.Format("        ") %> </td>
-                                                                                    <td style="width: 150px; text-align: center;">
-                                                                                        <%--THP (min)--%>
-                                                                                        <table style="width: 100%">
-                                                                                            <tr>
-                                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("THP_Meta") %> minuto(s)">
-                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("THP_Meta").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("THP_Meta").ToString()))) : "        " %>' />
-                                                                                                </td>
-                                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("THP_Real") %> minuto(s)">
-                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("THP_Real").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("THP_Real").ToString()))) : "        " %>' />
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        </table>
-                                                                                    </td>
-                                                                                    <td style="width: 150px; text-align: center;">
-                                                                                        <%--TTP (min)--%>
-                                                                                        <table style="width: 100%">
-                                                                                            <tr>
-                                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("TTP_Meta") %> minuto(s)">
-                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TTP_Meta").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("TTP_Meta").ToString()))) : "        " %>' />
-                                                                                                </td>
-                                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("TTP_Real") %> minuto(s)">
-                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TTP_Real").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("TTP_Real").ToString()))) : "        " %>' />
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        </table>
-                                                                                    </td>
-                                                                                    <td style="width: 150px; text-align: center;">
-                                                                                        <%--THM (min)--%>
-                                                                                        <table style="width: 100%">
-                                                                                            <tr>
-                                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("THM_Meta") %> minuto(s)">
-                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("THM_Meta").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("THM_Meta").ToString()))) : "        " %>' />
-                                                                                                </td>
-                                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("THM_Real") %> minuto(s)">
-                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("THM_Real").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("THM_Real").ToString()))) : "        " %>' />
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        </table>
-                                                                                    </td>
-                                                                                    <td style="width: 150px; text-align: center;">
-                                                                                        <%--TTT (min)--%>
-                                                                                        <table style="width: 100%">
-                                                                                            <tr>
-                                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("TTT_Meta") %> minuto(s)">
-                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TTT_Meta").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("TTT_Meta").ToString()))) : "        " %>' />
-                                                                                                </td>
-                                                                                                <td style="width: 50%; border: 0px;" title="<%# Eval("TTT_Real") %> minuto(s)">
-                                                                                                    <asp:Label runat="server" Text='<%# double.Parse(Eval("TTT_Real").ToString()) != 0 ? string.Format("{0}", TimeSpan.FromSeconds(double.Parse(Eval("TTT_Real").ToString()))) : "        " %>' />
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        </table>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </table>
-                                                                        </AlternatingItemTemplate>
                                                                         <FooterTemplate>
+                                                                            </table>
                                                                         </FooterTemplate>
                                                                     </asp:Repeater>
                                                                 </asp:Panel>
@@ -972,61 +958,62 @@
                                                     </asp:Repeater>
                                                 </div>
                                             </asp:Panel>
+                                            <%--RODAPÉ DO REPITER DE FORA--%>
                                             <table style="margin: 0; padding: 0;">
                                                 <tr>
-                                                    <td style="width: 091px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
-                                                    <td style="width: 122px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
-                                                    <td style="width: 122px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
-                                                    <td style="width: 122px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
-                                                    <td style="width: 071px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
-                                                    <td style="width: 091px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
-                                                    <td style="width: 081px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
                                                     <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
-                                                    <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
+                                                    <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
+                                                    <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
+                                                    <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
+                                                    <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
+                                                    <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
+                                                    <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
+                                                    <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
+                                                    <td style="width: 220px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
                                                     <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
                                                     <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
                                                     <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: right; border-right: 1px solid rgb(250, 250, 250); vertical-align: middle;">MÉDIA:  </td>
-                                                    <td style="width: 130px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: middle;">
+                                                    <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: middle;">
                                                         <%--THP (min)--%>
                                                         <table style="width: 100%">
                                                             <tr>
                                                                 <td style="width: 50%; border: 0px; color: white; text-align: center; padding-left: 10px; padding-right: 10px;">THP:</td>
-                                                                <td style="width: 50%; border: 0px; color: white; text-align: center; padding-left: 10px; padding-right: 10px;">
+                                                                <td class="prb-<%# Eval ("AVG_THP_Real_PRB")%>" style="width: 50%; border: 0px; color: white; text-align: center; padding-left: 10px; padding-right: 10px;">
                                                                     <asp:Label runat="server" ID="lblAVG_THP_Real" /></td>
                                                             </tr>
                                                         </table>
                                                     </td>
-                                                    <td style="width: 130px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: middle;">
+                                                    <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: middle;">
                                                         <%--TTP (min)--%>
                                                         <table style="width: 100%">
                                                             <tr>
                                                                 <td style="width: 50%; border: 0px; color: white; text-align: center; padding-left: 10px; padding-right: 10px;">TTP:</td>
-                                                                <td style="width: 50%; border: 0px; color: white; text-align: center; padding-left: 10px; padding-right: 10px;">
+                                                                <td class="prb-<%# Eval ("AVG_TTP_Real_PRB")%>" style="width: 50%; border: 0px; color: white; text-align: center; padding-left: 10px; padding-right: 10px;">
                                                                     <asp:Label runat="server" ID="lblAVG_TTP_Real" /></td>
                                                             </tr>
                                                         </table>
                                                     </td>
-                                                    <td style="width: 130px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: middle;">
+                                                    <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 250, 250); vertical-align: middle;">
                                                         <%--THM (min)--%>
                                                         <table style="width: 100%">
                                                             <tr>
                                                                 <td style="width: 50%; border: 0px; color: white; text-align: center; padding-left: 10px; padding-right: 10px;">THM:</td>
-                                                                <td style="width: 50%; border: 0px; color: white; text-align: center; padding-left: 10px; padding-right: 10px;">
+                                                                <td class="prb-<%# Eval ("AVG_THM_Real_PRB")%>" style="width: 50%; border: 0px; color: white; text-align: center; padding-left: 10px; padding-right: 10px;">
                                                                     <asp:Label runat="server" ID="lblAVG_THM_Real" /></td>
                                                             </tr>
                                                         </table>
                                                     </td>
-                                                    <td style="width: 130px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: middle;">
+                                                    <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: middle;">
                                                         <%--TTT (min)--%>
                                                         <table style="width: 100%">
                                                             <tr>
                                                                 <td style="width: 50%; border: 0px; color: white; text-align: center; padding-left: 10px; padding-right: 10px;">TTT:</td>
-                                                                <td style="width: 50%; border: 0px; color: white; text-align: center; padding-left: 10px; padding-right: 10px;">
+                                                                <td class="prb-<%# Eval ("AVG_TTT_Real_PRB")%>" style="width: 50%; border: 0px; color: white; text-align: center; padding-left: 10px; padding-right: 10px;">
                                                                     <asp:Label runat="server" ID="lblAVG_TTT_Real" /></td>
                                                             </tr>
                                                         </table>
                                                     </td>
-                                                    <td style="width: 020px; height: 25px; background-color: rgb(255, 255, 255); color: white; text-align: center;"></td>
+                                                    <td style="width: 017px; height: 25px; background-color: rgb(255, 255, 255); color: white; text-align: center;"></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -1043,7 +1030,7 @@
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
-                <asp:UpdateProgress runat="server" AssociatedUpdatePanelID="upDados">
+                <asp:UpdateProgress runat="server" DisplayAfter="10" DynamicLayout="true" EnableViewState="false" AssociatedUpdatePanelID="upDados">
                     <ProgressTemplate>
                         <div class="Processando">
                             <table class="Texto_Processando">

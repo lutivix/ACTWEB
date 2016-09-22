@@ -24,37 +24,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
         #endregion
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Pesquisar(null);
+
         }
-
-        //protected void Pesquisar(string ordenacao)
-        //{
-        //    var usuarioController = new UsuarioController();
-        //    itens = usuarioController.ObterTodos(new Entities.Usuarios()
-        //    {
-        //        Perfil_Abreviado = string.Empty,
-        //        Matricula = string.Empty,
-        //        Nome = string.Empty
-        //    });
-
-        //    //for (int i = 0; i < itens.Count; i++)
-        //    //{
-        //    //    itens[i].Senha = Uteis.Criptografar(itens[i].Senha, "a#3G6**@").ToString();
-        //    //}
-        //    for (int i = 0; i < itens.Count; i++)
-        //    {
-        //        itens[i].Senha = Uteis.Descriptografar(itens[i].Senha, "a#3G6**@");
-        //    }
-
-        //    if (itens.Count > 0)
-        //    {
-        //        this.RepeaterItens.DataSource = itens.OrderBy(o => o.Id).ToList();
-        //        this.RepeaterItens.DataBind();
-        //    }
-        //    else
-        //        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Registro não localizado.' });", true);
-
-        //    lblTotal.Text = string.Format("{0:0,0}", itens.Count);
-        //}
     }
 }

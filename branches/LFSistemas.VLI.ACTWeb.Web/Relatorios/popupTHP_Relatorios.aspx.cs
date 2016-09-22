@@ -1601,12 +1601,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
 
             if (Uteis.itensRelatorioTHPAnalitica.Count > 0)
             {
-                string dia = Uteis.itensRelatorioTHPAnalitica[0].Apuracao.ToShortDateString();
-                double rota = double.Parse(Uteis.itensRelatorioTHPAnalitica[0].Rota_ID);
-                double subrota = double.Parse(Uteis.itensRelatorioTHPAnalitica[0].SubRota_ID);
-                string sb = Uteis.itensRelatorioTHPAnalitica[0].SB;
-                string trem_id = Uteis.itensRelatorioTHPAnalitica[0].Trem_ID;
-                string motivo_id = Uteis.itensRelatorioTHPAnalitica[0].Motivo_ID;
+                string dia          = Uteis.itensRelatorioTHPAnalitica[0].Apuracao.ToShortDateString();
+                double rota         = double.Parse(Uteis.itensRelatorioTHPAnalitica[0].Rota_ID);
+                double subrota      = double.Parse(Uteis.itensRelatorioTHPAnalitica[0].SubRota_ID);
+                string sb           = Uteis.itensRelatorioTHPAnalitica[0].SB;
+                string trem_id      = Uteis.itensRelatorioTHPAnalitica[0].Trem_ID;
+                string motivo_id    = Uteis.itensRelatorioTHPAnalitica[0].Motivo_ID;
 
                 int conta = 2;
                 int indice = 1;
@@ -1636,12 +1636,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
 
                     for (int i = 1; i < Uteis.itensRelatorioTHPAnalitica.Count; i++)
                     {
-                        string aux_dia = Uteis.itensRelatorioTHPAnalitica[i].Apuracao.ToShortDateString();
-                        double aux_rota = double.Parse(Uteis.itensRelatorioTHPAnalitica[i].Rota_ID);
-                        double aux_subrota = double.Parse(Uteis.itensRelatorioTHPAnalitica[i].SubRota_ID);
-                        string aux_sb = Uteis.itensRelatorioTHPAnalitica[i].SB;
-                        string aux_trem_id = Uteis.itensRelatorioTHPAnalitica[i].Trem_ID;
-                        string aux_motivo_id = Uteis.itensRelatorioTHPAnalitica[i].Motivo_ID;
+                        string aux_dia          = Uteis.itensRelatorioTHPAnalitica[i].Apuracao.ToShortDateString();
+                        double aux_rota         = double.Parse(Uteis.itensRelatorioTHPAnalitica[i].Rota_ID);
+                        double aux_subrota      = double.Parse(Uteis.itensRelatorioTHPAnalitica[i].SubRota_ID);
+                        string aux_sb           = Uteis.itensRelatorioTHPAnalitica[i].SB;
+                        string aux_trem_id      = Uteis.itensRelatorioTHPAnalitica[i].Trem_ID;
+                        string aux_motivo_id    = Uteis.itensRelatorioTHPAnalitica[i].Motivo_ID;
 
                         if ((aux_dia == dia) && (aux_sb == sb) && (aux_trem_id == trem_id))
                         {
@@ -1755,12 +1755,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                         }
                         else
                         {
-                            dia = Uteis.itensRelatorioTHPAnalitica[i].Apuracao.ToShortDateString();
-                            rota = double.Parse(Uteis.itensRelatorioTHPAnalitica[i].Rota_ID);
-                            subrota = double.Parse(Uteis.itensRelatorioTHPAnalitica[i].SubRota_ID);
-                            sb = Uteis.itensRelatorioTHPAnalitica[i].SB;
-                            trem_id = Uteis.itensRelatorioTHPAnalitica[i].Trem_ID;
-                            motivo_id = Uteis.itensRelatorioTHPAnalitica[i].Motivo_ID;
+                            dia         = Uteis.itensRelatorioTHPAnalitica[i].Apuracao.ToShortDateString();
+                            rota        = double.Parse(Uteis.itensRelatorioTHPAnalitica[i].Rota_ID);
+                            subrota     = double.Parse(Uteis.itensRelatorioTHPAnalitica[i].SubRota_ID);
+                            sb          = Uteis.itensRelatorioTHPAnalitica[i].SB;
+                            trem_id     = Uteis.itensRelatorioTHPAnalitica[i].Trem_ID;
+                            motivo_id   = Uteis.itensRelatorioTHPAnalitica[i].Motivo_ID;
 
                             conta = 2;
                             indice = 1;
