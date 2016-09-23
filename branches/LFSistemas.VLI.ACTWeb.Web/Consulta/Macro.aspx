@@ -146,7 +146,7 @@
                                             <asp:TextBox ID="txtNumeroLocomotiva" runat="server" Width="160" CssClass="form-control" ToolTip="Separe as locomotivas desejadas com vírgulas. Ex.: 2904, 0962, 7007" onkeypress="return fnValidaNroVirgula(event);" />
                                         </td>
                                         <td style="width: 170px;">
-                                            <label for="trem">Nº Trem:</label>
+                                            <label for="trem">Prefixo Trem:</label>
                                             <asp:TextBox ID="txtNumeroTrem" runat="server" Width="160" CssClass="form-control" ToolTip="Separe os trens desejados com vírgulas. Ex.: C001, M642, E050" />
                                         </td>
                                         <td style="width: 170px;">
