@@ -158,7 +158,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     TO_CHAR(MCT.MCT_DT_ATUALI_MAP, 'DD/MM/YYYY HH24:mi:ss') as ATUALIZACAO_MAPA
                                     FROM ACTPP.MCTS MCT, INFORMACAO_OBC IOBC, OBC OBC
                                         WHERE MCT.MCT_NOM_MCT = IOBC.OBC_ID_LOCO
-                                            AND IOBC.OBC_ATIVO_SN = 'S'
+                                            --AND IOBC.OBC_ATIVO_SN = 'S'
                                             ${MCT_NOM_MCT}
                                             ${OBC_CORREDOR}
                                             ${ORDENACAO}");
