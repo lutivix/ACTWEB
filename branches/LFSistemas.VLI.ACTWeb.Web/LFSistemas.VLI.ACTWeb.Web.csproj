@@ -50,14 +50,30 @@
     <Reference Include="CollectionPager">
       <HintPath>Libs\CollectionPager.dll</HintPath>
     </Reference>
-    <Reference Include="EPPlus">
-      <HintPath>Libs\EPPlus.dll</HintPath>
-    </Reference>
     <Reference Include="GMaps, Version=4.1.0.6, Culture=neutral, PublicKeyToken=564d55b144e7aa5a, processorArchitecture=MSIL">
       <HintPath>..\packages\Subgurim.Maps.4.1.0.6\lib\net20\GMaps.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Libs\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>Libs\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>Libs\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>Libs\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>Libs\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
     <Reference Include="ProudMonkey.Common.Controls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>libs\ProudMonkey.Common.Controls.dll</HintPath>
@@ -85,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Ajuda\Erro.aspx" />
+    <Content Include="Ajuda\THP_Regras.aspx" />
     <Content Include="Cadastro\Cadastro_AlocacaoProgramada.aspx" />
     <Content Include="Cadastro\Cadastro_Banners.aspx" />
     <Content Include="Cadastro\Cadastro_Downloads.aspx" />
@@ -279,6 +296,7 @@
     <Content Include="js\jquery-clockpicker.min.js" />
     <Content Include="js\jquery-ui-timepicker-addon.js" />
     <Content Include="js\jquery-ui.js" />
+    <Content Include="js\main.js" />
     <Content Include="js\myFunction.js" />
     <Content Include="js\extensions\Responsive\css\dataTables.responsive.css" />
     <Content Include="js\extensions\Responsive\examples\child-rows\column-control.html" />
@@ -356,7 +374,6 @@
     <Content Include="js\extensions\TableTools\swf\copy_csv_xls_pdf.swf" />
     <Content Include="js\jquery.dataTables.js" />
     <Content Include="js\jquery.dataTables.min.js" />
-    <Content Include="js\main.js" />
     <Content Include="js\mascara.js" />
     <Content Include="js\pro.js" />
     <Content Include="Libs\AjaxControlToolkit.dll" />
@@ -395,6 +412,7 @@
     <Content Include="Painel\PainelEldoradoAraguari.aspx" />
     <Content Include="Painel\PainelGen.CarneiroMontesClaros.aspx" />
     <Content Include="Plus.aspx" />
+    <Content Include="popupTeste.aspx" />
     <Content Include="popup_Mensagem.aspx" />
     <Content Include="RedefinirSenha.aspx" />
     <Content Include="Relatorios\CCO.aspx" />
@@ -403,7 +421,6 @@
     <Content Include="Relatorios\frmTermometros.aspx" />
     <Content Include="Relatorios\frmTHP_Relatorios.aspx" />
     <Content Include="Relatorios\Macros.aspx" />
-    <Content Include="Relatorios\popupTHP_Relatorios.aspx" />
     <Content Include="Relatorios\RelatorioAlarmesTelecomandadas.aspx" />
     <Content Include="Relatorios\RelatoriosPGOF.aspx" />
     <Content Include="Relatorios\VMA.aspx" />
@@ -438,6 +455,13 @@
     </Compile>
     <Compile Include="Ajuda\Erro.aspx.designer.cs">
       <DependentUpon>Erro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ajuda\THP_Regras.aspx.cs">
+      <DependentUpon>THP_Regras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ajuda\THP_Regras.aspx.designer.cs">
+      <DependentUpon>THP_Regras.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cadastro\Cadastro_AlocacaoProgramada.aspx.cs">
       <DependentUpon>Cadastro_AlocacaoProgramada.aspx</DependentUpon>
@@ -1027,6 +1051,13 @@
     <Compile Include="Plus.aspx.designer.cs">
       <DependentUpon>Plus.aspx</DependentUpon>
     </Compile>
+    <Compile Include="popupTeste.aspx.cs">
+      <DependentUpon>popupTeste.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="popupTeste.aspx.designer.cs">
+      <DependentUpon>popupTeste.aspx</DependentUpon>
+    </Compile>
     <Compile Include="popup_Mensagem.aspx.cs">
       <DependentUpon>popup_Mensagem.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1095,13 +1126,6 @@
     </Compile>
     <Compile Include="Relatorios\Macros.aspx.designer.cs">
       <DependentUpon>Macros.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Relatorios\popupTHP_Relatorios.aspx.cs">
-      <DependentUpon>popupTHP_Relatorios.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Relatorios\popupTHP_Relatorios.aspx.designer.cs">
-      <DependentUpon>popupTHP_Relatorios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Relatorios\RelatorioAlarmesTelecomandadas.aspx.cs">
       <DependentUpon>RelatorioAlarmesTelecomandadas.aspx</DependentUpon>

@@ -1,10 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.Login" Async="true" %>
 
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-
 <!DOCTYPE html>
 
-<html lang="pt-br" class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">
+<html lang="pt-br" >
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
@@ -23,20 +21,18 @@
     <link rel="stylesheet" type="text/css" href="/css/jquery-ui-timepicker-addon.css" />
     <link rel="stylesheet" type="text/css" href="/css/main.css" />
 
+    <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/mascara.js"></script>
     <script type="text/javascript" src="/js/myFunction.js"></script>
-    <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/bootstrap-dialog.js"></script>
-    
     <script type="text/javascript" src="/js/pro.js"></script>
     <script type="text/javascript" src="/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="/js/extensions/FixedHeader/js/dataTables.fixedHeader.js"></script>
     <script type="text/javascript" src="/js/jquery-1.8.2.js"></script>
     <script type="text/javascript" src="/js/jquery-ui.js"></script>
     <script type="text/javascript" src="/js/jquery-ui-timepicker-addon.js"></script>
-
+  
     <link rel="grupo vli" href="logo-vli.ico">
-    
 </head>
 <body>
     <div>
@@ -58,6 +54,7 @@
                             filter: alpha(opacity=80);
                             opacity: 0.8;
                         }
+
                         .Texto_Processando {
                             position: absolute;
                             top: 50%;
@@ -68,7 +65,7 @@
                     </style>
                     <div class="form-group">
                         <label for="ds_login">Matricula:</label>
-                        <asp:TextBox ID="TextBoxLogin" runat="server" CssClass="form-control" type="text"></asp:TextBox>
+                        <asp:TextBox ID="TextBoxLogin" runat="server" CssClass="form-control" ></asp:TextBox>
                         <i class="fa fa-user input-icon"></i>
                     </div>
                     <div class="form-group">

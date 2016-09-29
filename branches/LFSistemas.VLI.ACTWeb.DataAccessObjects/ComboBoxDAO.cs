@@ -1592,7 +1592,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT MOT_ID_MOT AS ID, MOT_NOME AS DESCRICAO FROM MOTIVO_PARADA ${GRU_ID_GRU} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT MOT_AUTO_TRAC AS ID, MOT_NOME AS DESCRICAO FROM MOTIVO_PARADA ${GRU_ID_GRU} ORDER BY DESCRICAO");
 
 
                     if (grupos_id.Count > 0)
@@ -1700,7 +1700,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
 
                     if (motivos_id.Count > 0)
-                        query.Replace("${GRU_ID_GRU}", string.Format("WHERE GRU_ID_GRU IN (SELECT DISTINCT GRU_ID_GRU AS GRUPO_ID FROM MOTIVO_PARADA WHERE MOT_AUTO_TRAC IN ({0}))", string.Join(",", motivos_id)));
+                        query.Replace("${GRU_ID_GRU}", string.Format("WHERE GRU_ID_GRU IN (SELECT DISTINCT GRU_ID_GRU AS GRUPO_ID FROM MOTIVO_PARADA WHERE MOT_ID_MOT IN ({0}))", string.Join(",", motivos_id)));
                     else
                         query.Replace("${GRU_ID_GRU}", string.Format(""));
 

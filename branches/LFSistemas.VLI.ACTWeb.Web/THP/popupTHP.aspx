@@ -7,15 +7,15 @@
 <!DOCTYPE html>
 
 <html lang="pt-br" style="width: 100%; height: 100%; overflow: scroll; background-color: none !important; 
-    scrollbar-face-color: rgb(160, 160, 160) !important;
-    scrollbar-shadow-color: rgb(160, 160, 160) !important;
-    scrollbar-3dlight-color: rgb(160, 160, 160) !important;
-    scrollbar-arrow-color: rgb(160, 160, 160) !important;
-    scrollbar-base-color: rgb(160, 160, 160) !important;
-    scrollbar-track-color: rgb(160, 160, 160) !important;
-    scrollbar-darkshadow-color: rgb(160, 160, 160) !important;
-    scrollbar-highlight-color: rgb(160, 160, 160) !important;
-    scrollbar-shadow-color: rgb(160, 160, 160) !important; ">
+    scrollbar-face-color: rgb(000, 000, 000) !important;
+    scrollbar-shadow-color: rgb(000, 000, 000) !important;
+    scrollbar-3dlight-color: rgb(000, 000, 000) !important;
+    scrollbar-arrow-color: rgb(000, 000, 000) !important;
+    scrollbar-base-color: rgb(000, 000, 000) !important;
+    scrollbar-track-color: rgb(000, 000, 000) !important;
+    scrollbar-darkshadow-color: rgb(000, 000, 000) !important;
+    scrollbar-highlight-color: rgb(000, 000, 000) !important;
+    scrollbar-shadow-color: rgb(000, 000, 000) !important; ">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
@@ -166,11 +166,11 @@
     </script>
 </head>
     
-<body style="background: rgb(160, 160, 160);" >
+<body style="background: rgb(000, 000, 000);" >
     <form id="form1" runat="server">
         <asp:Timer ID="Temporizador" runat="server" OnTick="Temporizador_Tick" Interval="60000" />
         <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" />
-        <div class="well-lg" style="background-color: rgb(160, 160, 160); padding-left: 15px; padding-right: 15px;">
+        <div class="well-lg" style="background-color: rgb(000, 000, 000); padding-left: 15px; padding-right: 15px;">
             <div class="content-form">
                 <table class="nav-justified">
                     <tr>
@@ -192,15 +192,15 @@
                         <td style="width: 05%; text-align: left; font-size: 12px;"></td>
                         <td style="width: 10%; text-align: left; font-size: 12px;">
                             <img src="../../img/vermelho.gif" alt="Smiley face" height="30" />
-                            <asp:Label ID="Label2" runat="server" Text="Maior que 3 hs." Font-Size="30px" Style="color: rgb(000, 000, 000);" />
+                            <asp:Label ID="Label2" runat="server" Text="Maior que 3 hs." Font-Size="30px" Style="color: rgb(255, 255, 255);" />
                         </td>
                         <td style="width: 10%; text-align: left; font-size: 12px;">
                             <img src="../../img/amarelo.gif" alt="Smiley face" height="30" />
-                            <asp:Label ID="Label3" runat="server" Text="Maior que 1.5 hs." Font-Size="30px" Style="color: rgb(000, 000, 000);" />
+                            <asp:Label ID="Label3" runat="server" Text="Maior que 1.5 hs." Font-Size="30px" Style="color: rgb(255, 255, 255);" />
                         </td>
                         <td style="width: 10%; text-align: left; font-size: 12px;">
                             <img src="../../img/azul.gif" alt="Smiley face" height="30" />
-                            <asp:Label ID="Label4" runat="server" Text="Maior que 30 Minutos." Font-Size="30px" Style="color: rgb(000, 000, 000);" />
+                            <asp:Label ID="Label4" runat="server" Text="Maior que 30 Minutos." Font-Size="30px" Style="color: rgb(255, 255, 255);" />
                         </td>
                     </tr>
                 </table>
@@ -265,7 +265,7 @@
                                             </asp:Repeater>
                                             <hr style="color: rgb(255, 255, 255); padding: 0px 5px 0px 5px;" />
                                             <asp:Label runat="server" Text="Registros: " Font-Bold="true" Font-Size="20" Style="color: rgb(255, 255, 255);" />
-                                            <asp:Label runat="server" ID="lblTotal" Font-Bold="true" Font-Size="20" Style="color: rgb(0, 72, 89);" />
+                                            <asp:Label runat="server" ID="lblTotal" Font-Bold="true" Font-Size="20" Style="color: rgb(255, 255, 255);" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -297,7 +297,7 @@
                     </ProgressTemplate>
                 </asp:UpdateProgress>
             </div>
-            <div class="footer-lf-popup" style="background-color: rgb(160, 160, 160);">
+            <div class="footer-lf-popup" style="background-color: rgb(000, 000, 000);">
                 <span>desenvolvido por </span>
                 <a href="http://lfsistemas.net.br/" target="_blank" class="lfslogo"></a>
             </div>

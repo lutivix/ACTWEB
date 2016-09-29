@@ -1,7 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ACTWEB.master.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.ACTWEB"  %>
 
 
-<%@ Register assembly = "ProudMonkey.Common.Controls" namespace = "ProudMonkey.Common.Controls" tagprefix = "cc1"%> 
+<%--<%@ Register assembly = "ProudMonkey.Common.Controls" namespace = "ProudMonkey.Common.Controls" tagprefix = "cc1"%> --%>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
@@ -26,12 +26,11 @@
     <link rel="stylesheet" type="text/css" href="/css/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="/css/jquery-ui-timepicker-addon.css" />
     <link rel="stylesheet" type="text/css" href="/css/main.css" />
-    
+
+    <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/mascara.js"></script>
     <script type="text/javascript" src="/js/myFunction.js"></script>
-    <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/bootstrap-dialog.js"></script>
-    
     <script type="text/javascript" src="/js/pro.js"></script>
     <script type="text/javascript" src="/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="/js/extensions/FixedHeader/js/dataTables.fixedHeader.js"></script>

@@ -7,8 +7,17 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text;
-using System.IO;
 using System.Drawing;
+
+using System.IO;
+using NPOI.POIFS.FileSystem;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
+using System.Net;
+using System.ComponentModel;
+using NPOI.HSSF.UserModel;
+using NPOI.HSSF.Util;
+
 
 namespace LFSistemas.VLI.ACTWeb.Web.THP
 {
@@ -57,12 +66,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 lblUsuarioMaleta.Text = ulMaleta.ToUpper();
                 CarregaCombos();
 
-                txtFiltroDataDe.Text = DateTime.Now.AddDays(-1).ToShortDateString();
+                txtFiltroDataDe.Text = DateTime.Now.ToShortDateString();
                 txtFiltroDataAte.Text = DateTime.Now.ToShortDateString();
-            }
 
-            ScriptManager scriptManager = ScriptManager.GetCurrent(this.Page);
-            scriptManager.RegisterPostBackControl(this.lnkGeraExcel);
+                //ScriptManager scriptManager = ScriptManager.GetCurrent(this.Page);
+                //scriptManager.RegisterPostBackControl(this.lnkGeraExcel);
+
+            }
         }
 
         #region [ MÉTODOS DE CLICK DOS BOTÕES ]
@@ -73,7 +83,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
         }
         protected void lnkGeraExcel_Click(object sender, EventArgs e)
         {
-            if (Excel_Analitica(null, Navigation.None))
+            if (Excel(null, Navigation.None))
             {
                 txtFiltroDataDe.Text =
                 txtFiltroDataAte.Text = string.Empty;
@@ -91,7 +101,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 chkGrupos.Checked =
                 chkMotivos.Checked = false;
 
-            txtFiltroDataDe.Text = DateTime.Now.AddDays(-1).ToShortDateString();
+            txtFiltroDataDe.Text = DateTime.Now.ToShortDateString();
             txtFiltroDataAte.Text = DateTime.Now.ToShortDateString();
 
             CarregaCombos();
@@ -915,7 +925,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             string filtro_grupos_id = null;
             string filtro_motivos_id = null;
 
-            List<Rel_THP_Itens> dados = new List<Rel_THP_Itens>();
+            List<Rel_THP_Itens> itens = new List<Rel_THP_Itens>();
 
             var pesquisar = new Relatorio_THPController();
 
@@ -1060,176 +1070,465 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
 
             #endregion
 
-            DateTime filtro_ini = DateTime.Parse(txtFiltroDataDe.Text + " 00:00:00");
-            DateTime filtro_fim = DateTime.Parse(txtFiltroDataAte.Text + " 23:59:59");
+            DateTime filtro_ini = DateTime.Now;
+            DateTime filtro_fim = DateTime.Now;
 
-            var intervalo = (filtro_fim - filtro_ini); // / (1000 * 60 * 60 * 24);
-
-            if (string.IsNullOrEmpty(filtro_classe)
-                && string.IsNullOrEmpty(filtro_os)
-                && string.IsNullOrEmpty(filtro_prefixo)
-                && string.IsNullOrEmpty(filtro_sb)
-                && string.IsNullOrEmpty(filtro_corredores_id)
-                && string.IsNullOrEmpty(filtro_rotas_id)
-                && string.IsNullOrEmpty(filtro_subrotas_id)
-                && string.IsNullOrEmpty(filtro_grupos_id)
-                && string.IsNullOrEmpty(filtro_motivos_id))
+            if (txtFiltroDataDe.Text.ToUpper().Trim() != txtFiltroDataAte.Text.ToUpper().Trim())
             {
-                if (intervalo.Days > 3)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Para filtrar um intervalo de dadas maior que 2 dias, é obrigatório selecionar pelo menos 1 filtro na pesquisa!' });", true);
-                }
-                else
-                {
-                    dados = pesquisar.ObterRelatorioTHPPorFiltro(new Rel_THP_Filtro()
-                    {
-                        Data_INI = filtro_ini.ToString(),
-                        Data_FIM = filtro_fim.ToString(),
-                        Classe = filtro_classe,
-                        OS = filtro_os,
-                        Prefixo = filtro_prefixo,
-                        SB = filtro_sb,
-                        Corredor_ID = filtro_corredores_id,
-                        Rota_ID = filtro_rotas_id,
-                        SubRota_ID = filtro_subrotas_id,
-                        Grupo_ID = filtro_grupos_id,
-                        Motivo_ID = filtro_motivos_id
-                    });
-
-                    //for (int i = 0; i < dados.Count; i++)
-                    //{
-                    //    dados[i].TOT_THP_Meta = 89907;
-                    //    dados[i].TOT_THP_Real = 89907;
-                    //    dados[i].TOT_TTP_Meta = 89907;
-                    //    dados[i].TOT_TTP_Real = 89907;
-                    //    dados[i].TOT_THM_Meta = 89907;
-                    //    dados[i].TOT_THM_Real = 89907;
-                    //    dados[i].TOT_TTT_Meta = 89907;
-                    //    dados[i].TOT_TTT_Real = 89907;
-
-                    //    dados[i].AVG_THM_Real = 89907;
-                    //    dados[i].AVG_THP_Real = 89907;
-                    //    dados[i].AVG_TTP_Real = 89907;
-                    //    dados[i].AVG_TTT_Real = 89907;
-
-                    //    dados[i].Data_Ini = DateTime.Now.ToString();
-                    //    dados[i].Data_Fim = DateTime.Now.ToString();
-
-                    //    for (int j = 0; j < dados[i].Dados.Count; j++)
-                    //    {
-                    //        dados[i].Dados[j].THP_Meta = 89907;
-                    //        dados[i].Dados[j].THP_Real = 89907;
-                    //        dados[i].Dados[j].TTP_Meta = 89907;
-                    //        dados[i].Dados[j].TTP_Real = 89907;
-                    //        dados[i].Dados[j].THM_Meta = 89907;
-                    //        dados[i].Dados[j].THM_Real = 89907;
-                    //        dados[i].Dados[j].TTT_Meta = 89907;
-                    //        dados[i].Dados[j].TTT_Real = 89907;
-
-                    //        dados[i].Dados[j].Data_Ini = DateTime.Now.ToString();
-                    //        dados[i].Dados[j].Data_Fim = DateTime.Now.ToString();
-
-                    //    }
-                    //}
-                }
-            } 
-            else
-            {
-                if (intervalo.Days > 30)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não é possivel filtar um intervalo maior que 30 dias!' });", true);
-                }
-                else
-                {
-                    dados = pesquisar.ObterRelatorioTHPPorFiltro(new Rel_THP_Filtro()
-                    {
-                        Data_INI = filtro_ini.ToString(),
-                        Data_FIM = filtro_fim.ToString(),
-                        Classe = filtro_classe,
-                        OS = filtro_os,
-                        Prefixo = filtro_prefixo,
-                        SB = filtro_sb,
-                        Corredor_ID = filtro_corredores_id,
-                        Rota_ID = filtro_rotas_id,
-                        SubRota_ID = filtro_subrotas_id,
-                        Grupo_ID = filtro_grupos_id,
-                        Motivo_ID = filtro_motivos_id
-                    });
-
-                    //for (int i = 0; i < dados.Count; i++)
-                    //{
-                    //    dados[i].TOT_THP_Meta = 89907;
-                    //    dados[i].TOT_THP_Real = 89907;
-                    //    dados[i].TOT_TTP_Meta = 89907;
-                    //    dados[i].TOT_TTP_Real = 89907;
-                    //    dados[i].TOT_THM_Meta = 89907;
-                    //    dados[i].TOT_THM_Real = 89907;
-                    //    dados[i].TOT_TTT_Meta = 89907;
-                    //    dados[i].TOT_TTT_Real = 89907;
-
-                    //    dados[i].AVG_THM_Real = 89907;
-                    //    dados[i].AVG_THP_Real = 89907;
-                    //    dados[i].AVG_TTP_Real = 89907;
-                    //    dados[i].AVG_TTT_Real = 89907;
-
-                    //    dados[i].Data_Ini = DateTime.Now.ToString();
-                    //    dados[i].Data_Fim = DateTime.Now.ToString();
-
-                    //    for (int j = 0; j < dados[i].Dados.Count; j++)
-                    //    {
-                    //        dados[i].Dados[j].THP_Meta = 89907;
-                    //        dados[i].Dados[j].THP_Real = 89907;
-                    //        dados[i].Dados[j].TTP_Meta = 89907;
-                    //        dados[i].Dados[j].TTP_Real = 89907;
-                    //        dados[i].Dados[j].THM_Meta = 89907;
-                    //        dados[i].Dados[j].THM_Real = 89907;
-                    //        dados[i].Dados[j].TTT_Meta = 89907;
-                    //        dados[i].Dados[j].TTT_Real = 89907;
-
-                    //        dados[i].Dados[j].Data_Ini = DateTime.Now.ToString();
-                    //        dados[i].Dados[j].Data_Fim = DateTime.Now.ToString();
-
-                    //    }
-                    //}
-                }
-            }
-
-            if (dados.Count > 0)
-            {
-                //dvDados.Visible = true;
-                if (dados.Count <= 10) pnlRepiter.Style.Add("height", "400px"); else pnlRepiter.Style.Add("height", "100%");
-
-                repAccordian.DataSource = dados;
-                repAccordian.DataBind();
-
-                double AVG_THP_Real = 0;
-                double AVG_TTP_Real = 0;
-                double AVG_THM_Real = 0;
-                double AVG_TTT_Real = 0;
-                for (int i = 0; i < dados.Count; i++)
-                {
-                    AVG_THP_Real += dados[i].AVG_THP_Real;
-                    AVG_TTP_Real += dados[i].AVG_TTP_Real;
-                    AVG_THM_Real += dados[i].AVG_THM_Real;
-                    AVG_TTT_Real += dados[i].AVG_TTT_Real;
-                }
-                //TimeSpan.TryParseExact(value, "%d", null, out interval)
-                lblAVG_THP_Real.Text = AVG_THP_Real != 0 ? TimeSpan.FromSeconds(AVG_THP_Real / dados.Count).ToString(@"d\.hh\:mm\:ss") : string.Empty;
-                lblAVG_TTP_Real.Text = AVG_TTP_Real != 0 ? TimeSpan.FromSeconds(AVG_TTP_Real / dados.Count).ToString(@"d\.hh\:mm\:ss") : string.Empty;
-                lblAVG_THM_Real.Text = AVG_THM_Real != 0 ? TimeSpan.FromSeconds(AVG_THM_Real / dados.Count).ToString(@"d\.hh\:mm\:ss") : string.Empty;
-                lblAVG_TTT_Real.Text = AVG_TTT_Real != 0 ? TimeSpan.FromSeconds(AVG_TTT_Real / dados.Count).ToString(@"d\.hh\:mm\:ss") : string.Empty;
+                filtro_ini = DateTime.Parse(txtFiltroDataDe.Text + " 00:00:00");
+                filtro_fim = DateTime.Parse(txtFiltroDataAte.Text + " 00:00:00");
             }
             else
             {
-                //dvDados.Visible = false;
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A pesquisa não encontrou registros.' });", true);
-                repAccordian.DataSource = dados;
-                repAccordian.DataBind();
+                filtro_ini = DateTime.Parse(txtFiltroDataDe.Text + " 00:00:00");
+                filtro_fim = DateTime.Parse(txtFiltroDataAte.Text + " 23:59:59");
             }
 
-            lblTotal.Text = string.Format("{0:0,0}", dados.Count);
+            var intervalo = Math.Abs((filtro_fim.ToOADate() - filtro_ini.ToOADate()));
+
+            if (intervalo <= 30)
+            {
+                var totalItens = pesquisar.ObterQTDERegistrosRelatorioTHPPorFiltro(new Rel_THP_Filtro()
+                {
+                    Data_INI = filtro_ini.ToString(),
+                    Data_FIM = filtro_fim.ToString(),
+                    Classe = filtro_classe,
+                    OS = filtro_os,
+                    Prefixo = filtro_prefixo,
+                    SB = filtro_sb,
+                    Corredor_ID = filtro_corredores_id,
+                    Rota_ID = filtro_rotas_id,
+                    SubRota_ID = filtro_subrotas_id,
+                    Grupo_ID = filtro_grupos_id,
+                    Motivo_ID = filtro_motivos_id
+                });
+
+                if (totalItens <= 4000)
+                {
+                    #region [ BUSCA OS REGISTROS NO BANCO POR INTERVALO ]
+
+                    if (string.IsNullOrEmpty(filtro_classe)
+                        && string.IsNullOrEmpty(filtro_os)
+                        && string.IsNullOrEmpty(filtro_prefixo)
+                        && string.IsNullOrEmpty(filtro_sb)
+                        && string.IsNullOrEmpty(filtro_corredores_id)
+                        && string.IsNullOrEmpty(filtro_rotas_id)
+                        && string.IsNullOrEmpty(filtro_subrotas_id)
+                        && string.IsNullOrEmpty(filtro_grupos_id)
+                        && string.IsNullOrEmpty(filtro_motivos_id)
+                        && intervalo <= 0)
+                    {
+                        if (intervalo > 1)
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Para filtrar um intervalo de dadas maior que 1 dias, é obrigatório selecionar pelo menos 2 filtros! \\n\\n Lembrando que quanto mais filtros forem selecionados mais rápido será o retorno dos dados.' });", true);
+                        }
+                        else
+                        {
+                            itens = pesquisar.ObterRelatorioTHPPorFiltro(new Rel_THP_Filtro()
+                            {
+                                Data_INI = filtro_ini.ToString(),
+                                Data_FIM = filtro_fim.ToString(),
+                                Classe = filtro_classe,
+                                OS = filtro_os,
+                                Prefixo = filtro_prefixo,
+                                SB = filtro_sb,
+                                Corredor_ID = filtro_corredores_id,
+                                Rota_ID = filtro_rotas_id,
+                                SubRota_ID = filtro_subrotas_id,
+                                Grupo_ID = filtro_grupos_id,
+                                Motivo_ID = filtro_motivos_id
+                            });
+
+                            //for (int i = 0; i < dados.Count; i++)
+                            //{
+                            //    dados[i].TOT_THP_Meta = 89907;
+                            //    dados[i].TOT_THP_Real = 89907;
+                            //    dados[i].TOT_TTP_Meta = 89907;
+                            //    dados[i].TOT_TTP_Real = 89907;
+                            //    dados[i].TOT_THM_Meta = 89907;
+                            //    dados[i].TOT_THM_Real = 89907;
+                            //    dados[i].TOT_TTT_Meta = 89907;
+                            //    dados[i].TOT_TTT_Real = 89907;
+
+                            //    dados[i].AVG_THM_Real = 89907;
+                            //    dados[i].AVG_THP_Real = 89907;
+                            //    dados[i].AVG_TTP_Real = 89907;
+                            //    dados[i].AVG_TTT_Real = 89907;
+
+                            //    dados[i].Data_Ini = DateTime.Now.ToString();
+                            //    dados[i].Data_Fim = DateTime.Now.ToString();
+
+                            //    for (int j = 0; j < dados[i].Dados.Count; j++)
+                            //    {
+                            //        dados[i].Dados[j].THP_Meta = 89907;
+                            //        dados[i].Dados[j].THP_Real = 89907;
+                            //        dados[i].Dados[j].TTP_Meta = 89907;
+                            //        dados[i].Dados[j].TTP_Real = 89907;
+                            //        dados[i].Dados[j].THM_Meta = 89907;
+                            //        dados[i].Dados[j].THM_Real = 89907;
+                            //        dados[i].Dados[j].TTT_Meta = 89907;
+                            //        dados[i].Dados[j].TTT_Real = 89907;
+
+                            //        dados[i].Dados[j].Data_Ini = DateTime.Now.ToString();
+                            //        dados[i].Dados[j].Data_Fim = DateTime.Now.ToString();
+
+                            //    }
+                            //}
+                        }
+                    }
+                    else
+                    {
+                        itens = pesquisar.ObterRelatorioTHPPorFiltro(new Rel_THP_Filtro()
+                        {
+                            Data_INI = filtro_ini.ToString(),
+                            Data_FIM = filtro_fim.ToString(),
+                            Classe = filtro_classe,
+                            OS = filtro_os,
+                            Prefixo = filtro_prefixo,
+                            SB = filtro_sb,
+                            Corredor_ID = filtro_corredores_id,
+                            Rota_ID = filtro_rotas_id,
+                            SubRota_ID = filtro_subrotas_id,
+                            Grupo_ID = filtro_grupos_id,
+                            Motivo_ID = filtro_motivos_id
+                        });
+
+
+                        //for (int i = 0; i < itens.Count; i++)
+                        //{
+                        //    itens[i].Rota = "EBJ-EEL";
+                        //    itens[i].SubRota = "EDV-EEL";
+                        //    itens[i].Grupo = "CCO";
+                        //    itens[i].Motivo = "CRUZAMENTO";
+                        //    itens[i].TOT_THP_Meta = 89907;
+                        //    itens[i].TOT_THP_Real = 89907;
+                        //    itens[i].TOT_TTP_Meta = 89907;
+                        //    itens[i].TOT_TTP_Real = 89907;
+                        //    itens[i].TOT_THM_Meta = 89907;
+                        //    itens[i].TOT_THM_Real = 89907;
+                        //    itens[i].TOT_TTT_Meta = 89907;
+                        //    itens[i].TOT_TTT_Real = 89907;
+
+                        //    itens[i].AVG_THM_Real = 89907;
+                        //    itens[i].AVG_THP_Real = 89907;
+                        //    itens[i].AVG_TTP_Real = 89907;
+                        //    itens[i].AVG_TTT_Real = 89907;
+
+                        //    itens[i].Data_Ini = DateTime.Now.ToString();
+                        //    itens[i].Data_Fim = DateTime.Now.ToString();
+
+                        //    for (int j = 0; j < itens[i].Dados.Count; j++)
+                        //    {
+                        //        itens[i].Dados[j].Rota = "EBJ-EEL";
+                        //        itens[i].Dados[j].SubRota = "EDV-EEL";
+                        //        itens[i].Dados[j].Grupo = "CCO";
+                        //        itens[i].Dados[j].Motivo = "CRUZAMENTO";
+
+                        //        itens[i].Dados[j].THP_Meta = 89907;
+                        //        itens[i].Dados[j].THP_Real = 89907;
+                        //        itens[i].Dados[j].TTP_Meta = 89907;
+                        //        itens[i].Dados[j].TTP_Real = 89907;
+                        //        itens[i].Dados[j].THM_Meta = 89907;
+                        //        itens[i].Dados[j].THM_Real = 89907;
+                        //        itens[i].Dados[j].TTT_Meta = 89907;
+                        //        itens[i].Dados[j].TTT_Real = 89907;
+
+                        //        itens[i].Dados[j].Data_Ini = DateTime.Now.ToString();
+                        //        itens[i].Dados[j].Data_Fim = DateTime.Now.ToString();
+
+                        //    }
+                        //}
+                    }
+
+                    #endregion
+
+                    if (itens.Count > 0)
+                    {
+
+                        if (itens.Count <= 15) pnlRepiter.Style.Add("height", "500px"); else pnlRepiter.Style.Add("height", "100%");
+
+                        #region [ PERCORRE A LISTA DE ITENS ]
+
+                        for (int i = 0; i < itens.Count; i++)
+                        {
+                            itens[i].OS = itens[i].Dados.Select(s => s.OS).FirstOrDefault();
+                            itens[i].Corredor = itens[i].Dados.Select(s => s.Corredor).FirstOrDefault();
+
+                            #region [ SEPARA O PRIMEIRO REGISTRO DA LISTA E CALCULA O MESMO ]
+
+                            string dia = itens[i].Dados[0].Data.Length > 0 ? itens[i].Dados[0].Data.Substring(0, 10) : string.Empty;
+                            double rota = double.Parse(itens[i].Dados[0].Rota_ID);
+                            double subrota = double.Parse(itens[i].Dados[0].SubRota_ID);
+                            string sb = itens[i].Dados[0].SB;
+                            string trem_id = itens[i].Dados[0].Trem_ID;
+                            string motivo_id = itens[i].Dados[0].Motivo_ID;
+
+                            int conta = 2;
+                            int indice = 1;
+                            string visivel = "visible";
+
+                            double duracao_THP = itens[i].Dados[0].THP_Real;
+                            double duracao_TTP = itens[i].Dados[0].TTP_Real;
+                            double duracao_THM = itens[i].Dados[0].THM_Real;
+
+                            itens[i].Dados[0].Duracao_THP = duracao_THP;
+                            itens[i].Dados[0].Duracao_TTP = duracao_TTP;
+                            itens[i].Dados[0].Duracao_THM = duracao_THM;
+
+                            double ttt_Meta = itens[i].Dados[0].THP_Meta + itens[i].Dados[0].TTP_Meta + itens[i].Dados[0].THM_Meta;
+                            double ttt_Real = itens[i].Dados[0].THP_Real + itens[i].Dados[0].TTP_Real + itens[i].Dados[0].THM_Real;
+
+                            itens[i].Dados[0].TTT_Meta = ttt_Meta;
+                            itens[i].Dados[0].TTT_Real = ttt_Real;
+
+                            itens[i].Dados[0].zRowspan = 0;
+                            itens[i].Dados[0].zVisible = visivel;
+
+                            #endregion
+
+                            #region [PARA CADA ITEM DA LISTA PERCORRE OS DADOS ]
+
+                            for (int j = 0; j < itens[i].Dados.Count; j++)
+                            {
+                                // Pula o primeiro registro da lista que já foi calulado anteriomente.
+                                if (j > 0)
+                                {
+                                    string aux_dia = itens[i].Dados[j].Data.Length > 0 ? itens[i].Dados[j].Data.Substring(0, 10) : string.Empty;
+                                    double aux_rota = double.Parse(itens[i].Dados[j].Rota_ID);
+                                    double aux_subrota = double.Parse(itens[i].Dados[j].SubRota_ID);
+                                    string aux_sb = itens[i].Dados[j].SB;
+                                    string aux_trem_id = itens[i].Dados[j].Trem_ID;
+                                    string aux_motivo_id = itens[i].Dados[j].Motivo_ID;
+
+                                    if ((aux_dia == dia) && (aux_sb == sb) && (aux_trem_id == trem_id))
+                                    {
+                                        if (j >= 2)
+                                        {
+                                            itens[i].Dados[j - indice].zRowspan = conta;
+                                            itens[i].Dados[j - indice].zVisible = "visible";
+                                        }
+                                        else
+                                        {
+                                            itens[i].Dados[j - 1].zRowspan = conta;
+                                            itens[i].Dados[j - 1].zVisible = "visible";
+                                        }
+
+                                        itens[i].Dados[j].zRowspan = 0;
+                                        itens[i].Dados[j].zVisible = "hidden";
+
+                                        // Sem: Corredor, Rota e SubRota
+                                        if (string.IsNullOrEmpty(filtro_corredores_id) && string.IsNullOrEmpty(filtro_rotas_id) && string.IsNullOrEmpty(filtro_subrotas_id))
+                                        {
+                                            if ((aux_dia == dia) && (aux_sb == sb) && (aux_trem_id == trem_id))
+                                            {
+                                                duracao_THP += itens[i].Dados[j].THP_Real;
+                                                itens[i].Dados[j - indice].Duracao_THP = duracao_THP;
+
+                                                duracao_TTP += itens[i].Dados[j].TTP_Real;
+                                                itens[i].Dados[j - indice].Duracao_TTP = duracao_TTP;
+
+                                                duracao_THM += itens[i].Dados[j].THM_Real;
+                                                itens[i].Dados[j - indice].Duracao_THM = duracao_THM;
+
+                                                double ttm = itens[i].Dados[j].THP_Meta + itens[i].Dados[j].TTP_Meta + itens[i].Dados[j].THM_Meta;
+                                                double ttr = itens[i].Dados[j].THP_Real + itens[i].Dados[j].TTP_Real + itens[i].Dados[j].THM_Real;
+                                                ttt_Meta += ttm;
+                                                ttt_Real += ttr;
+
+                                                itens[i].Dados[j - indice].TTT_Meta = ttt_Meta;
+                                                itens[i].Dados[j - indice].TTT_Real = ttt_Real;
+
+                                                rota = double.Parse(itens[i].Dados[j].Rota_ID);
+
+                                                conta++;
+                                                indice++;
+                                            }
+                                            else
+                                            {
+                                                rota = double.Parse(itens[i].Dados[j].Rota_ID);
+
+                                                duracao_THP = itens[i].Dados[j].THP_Real;
+                                                itens[i].Dados[j - indice].Duracao_THP = duracao_THP;
+
+                                                duracao_TTP = itens[i].Dados[j].TTP_Real;
+                                                itens[i].Dados[j - indice].Duracao_TTP = duracao_TTP;
+
+                                                duracao_THM = itens[i].Dados[j].THM_Real;
+                                                itens[i].Dados[j - indice].Duracao_THM = duracao_THM;
+
+                                                itens[i].Dados[j - indice].TTT_Meta = ttt_Meta;
+                                                itens[i].Dados[j - indice].TTT_Real = ttt_Real;
+
+                                                conta++;
+                                                indice++;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if ((aux_dia == dia) && (aux_sb == sb) && (aux_trem_id == trem_id))
+                                            {
+                                                duracao_THP += itens[i].Dados[j].THP_Real;
+                                                itens[i].Dados[j - indice].Duracao_THP = duracao_THP;
+
+                                                duracao_TTP += itens[i].Dados[j].TTP_Real;
+                                                itens[i].Dados[j - indice].Duracao_TTP = duracao_TTP;
+
+                                                duracao_THM += itens[i].Dados[j].THM_Real;
+                                                itens[i].Dados[j - indice].Duracao_THM = duracao_THM;
+
+                                                double ttm = itens[i].Dados[j].THP_Meta + itens[i].Dados[j].TTP_Meta + itens[i].Dados[j].THM_Meta;
+                                                double ttr = itens[i].Dados[j].THP_Real + itens[i].Dados[j].TTP_Real + itens[i].Dados[j].THM_Real;
+                                                ttt_Meta += ttm;
+                                                ttt_Real += ttr;
+
+                                                itens[i].Dados[j - indice].TTT_Meta = ttt_Meta;
+                                                itens[i].Dados[j - indice].TTT_Real = ttt_Real;
+
+                                                rota = double.Parse(itens[i].Dados[j].Rota_ID);
+
+                                                conta++;
+                                                indice++;
+                                            }
+                                            else
+                                            {
+                                                rota = double.Parse(itens[i].Dados[j].Rota_ID);
+
+                                                duracao_THP = itens[i].Dados[j].THP_Real;
+                                                itens[i].Dados[j - indice].Duracao_THP = duracao_THP;
+
+                                                duracao_TTP = itens[i].Dados[j].TTP_Real;
+                                                itens[i].Dados[j - indice].Duracao_TTP = duracao_TTP;
+
+                                                duracao_THM = itens[i].Dados[j].THM_Real;
+                                                itens[i].Dados[j - indice].Duracao_THM = duracao_THM;
+
+                                                itens[i].Dados[j - indice].TTT_Meta = ttt_Meta;
+                                                itens[i].Dados[j - indice].TTT_Real = ttt_Real;
+
+                                                conta++;
+                                                indice++;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        dia = itens[i].Dados[j].Data.Length > 0 ? itens[i].Dados[j].Data.Substring(0, 10) : string.Empty;
+                                        rota = double.Parse(itens[i].Dados[j].Rota_ID);
+                                        subrota = double.Parse(itens[i].Dados[j].SubRota_ID);
+                                        sb = itens[i].Dados[j].SB;
+                                        trem_id = itens[i].Dados[j].Trem_ID;
+                                        motivo_id = itens[i].Dados[j].Motivo_ID;
+
+                                        conta = 2;
+                                        indice = 1;
+                                        duracao_THP = itens[i].Dados[j].THP_Real;
+                                        duracao_TTP = itens[i].Dados[j].TTP_Real;
+                                        duracao_THM = itens[i].Dados[j].THM_Real;
+
+                                        itens[i].Dados[j].Duracao_THP = duracao_THP;
+                                        itens[i].Dados[j].Duracao_TTP = duracao_TTP;
+                                        itens[i].Dados[j].Duracao_THM = duracao_THM;
+
+                                        ttt_Meta = itens[i].Dados[j].THP_Meta + itens[i].Dados[j].TTP_Meta + itens[i].Dados[j].THM_Meta;
+                                        ttt_Real = itens[i].Dados[j].THP_Real + itens[i].Dados[j].TTP_Real + itens[i].Dados[j].THM_Real;
+
+                                        itens[i].Dados[j].TTT_Meta = ttt_Meta;
+                                        itens[i].Dados[j].TTT_Real = ttt_Real;
+
+                                        itens[i].Dados[j].zRowspan = 0;
+                                        itens[i].Dados[j].zVisible = "visible";
+                                    }
+                                }
+                            }
+
+                            #endregion
+                        }
+
+                        #endregion
+
+                        #region [ IDENTIFICA VALORES POSITIVOS E NEGATIVOS E FAZ A MÉDIA ]
+
+                        double AVG_THP_Real = 0;
+                        double AVG_TTP_Real = 0;
+                        double AVG_THM_Real = 0;
+                        double AVG_TTT_Real = 0;
+                        for (int i = 0; i < itens.Count; i++)
+                        {
+                            AVG_THP_Real += itens[i].AVG_THP_Real;
+                            AVG_TTP_Real += itens[i].AVG_TTP_Real;
+                            AVG_THM_Real += itens[i].AVG_THM_Real;
+                            AVG_TTT_Real += itens[i].AVG_TTT_Real;
+
+                            if (itens[i].TOT_THP_Meta < 0) itens[i].TOT_THP_Meta_PRB = "R"; else itens[i].TOT_THP_Meta_PRB = "P";
+                            if (itens[i].TOT_THP_Real < 0) itens[i].TOT_THP_Real_PRB = "R"; else itens[i].TOT_THP_Real_PRB = "P";
+                            if (itens[i].TOT_TTP_Meta < 0) itens[i].TOT_TTP_Meta_PRB = "R"; else itens[i].TOT_TTP_Meta_PRB = "P";
+                            if (itens[i].TOT_TTP_Real < 0) itens[i].TOT_TTP_Real_PRB = "R"; else itens[i].TOT_TTP_Real_PRB = "P";
+                            if (itens[i].TOT_THM_Meta < 0) itens[i].TOT_THM_Meta_PRB = "R"; else itens[i].TOT_THM_Meta_PRB = "P";
+                            if (itens[i].TOT_THM_Real < 0) itens[i].TOT_THM_Real_PRB = "R"; else itens[i].TOT_THM_Real_PRB = "P";
+                            if (itens[i].TOT_TTT_Meta < 0) itens[i].TOT_TTT_Meta_PRB = "R"; else itens[i].TOT_TTT_Meta_PRB = "P";
+                            if (itens[i].TOT_TTT_Real < 0) itens[i].TOT_TTT_Real_PRB = "R"; else itens[i].TOT_TTT_Real_PRB = "P";
+
+                            if (AVG_THP_Real < 0) itens[i].AVG_THP_Real_PRB = "R"; else itens[i].AVG_THP_Real_PRB = "P";
+                            if (AVG_TTP_Real < 0) itens[i].AVG_TTP_Real_PRB = "R"; else itens[i].AVG_TTP_Real_PRB = "P";
+                            if (AVG_THM_Real < 0) itens[i].AVG_THM_Real_PRB = "R"; else itens[i].AVG_THM_Real_PRB = "P";
+                            if (AVG_TTT_Real < 0) itens[i].AVG_TTT_Real_PRB = "R"; else itens[i].AVG_TTT_Real_PRB = "P";
+
+                            for (int j = 0; j < itens[i].Dados.Count; j++)
+                            {
+
+                                if (itens[i].Dados[j].Duracao_THP < 0) itens[i].Dados[j].Duracao_THP_PRB = "R"; else itens[i].Dados[j].Duracao_THP_PRB = "P";
+                                if (itens[i].Dados[j].Duracao_TTP < 0) itens[i].Dados[j].Duracao_TTP_PRB = "R"; else itens[i].Dados[j].Duracao_TTP_PRB = "P";
+                                if (itens[i].Dados[j].Duracao_THM < 0) itens[i].Dados[j].Duracao_THM_PRB = "R"; else itens[i].Dados[j].Duracao_THM_PRB = "P";
+
+                                if (itens[i].Dados[j].THP_Meta < 0) itens[i].Dados[j].THP_Meta_PRB = "R"; else itens[i].Dados[j].THP_Meta_PRB = "P";
+                                if (itens[i].Dados[j].THP_Real < 0) itens[i].Dados[j].THP_Real_PRB = "R"; else itens[i].Dados[j].THP_Real_PRB = "P";
+                                if (itens[i].Dados[j].TTP_Meta < 0) itens[i].Dados[j].TTP_Meta_PRB = "R"; else itens[i].Dados[j].TTP_Meta_PRB = "P";
+                                if (itens[i].Dados[j].TTP_Real < 0) itens[i].Dados[j].TTP_Real_PRB = "R"; else itens[i].Dados[j].TTP_Real_PRB = "P";
+                                if (itens[i].Dados[j].THM_Meta < 0) itens[i].Dados[j].THM_Meta_PRB = "R"; else itens[i].Dados[j].THM_Meta_PRB = "P";
+                                if (itens[i].Dados[j].THM_Real < 0) itens[i].Dados[j].THM_Real_PRB = "R"; else itens[i].Dados[j].THM_Real_PRB = "P";
+                                if (itens[i].Dados[j].TTT_Meta < 0) itens[i].Dados[j].TTT_Meta_PRB = "R"; else itens[i].Dados[j].TTT_Meta_PRB = "P";
+                                if (itens[i].Dados[j].TTT_Real < 0) itens[i].Dados[j].TTT_Real_PRB = "R"; else itens[i].Dados[j].TTT_Real_PRB = "P";
+
+                            }
+                        }
+
+                        lblAVG_THP_Real.Text = AVG_THP_Real != 0 ? TimeSpan.FromSeconds(AVG_THP_Real / itens.Count).ToString(@"d\.hh\:mm\:ss") : string.Empty;
+                        lblAVG_TTP_Real.Text = AVG_TTP_Real != 0 ? TimeSpan.FromSeconds(AVG_TTP_Real / itens.Count).ToString(@"d\.hh\:mm\:ss") : string.Empty;
+                        lblAVG_THM_Real.Text = AVG_THM_Real != 0 ? TimeSpan.FromSeconds(AVG_THM_Real / itens.Count).ToString(@"d\.hh\:mm\:ss") : string.Empty;
+                        lblAVG_TTT_Real.Text = AVG_TTT_Real != 0 ? TimeSpan.FromSeconds(AVG_TTT_Real / itens.Count).ToString(@"d\.hh\:mm\:ss") : string.Empty;
+
+                        #endregion
+
+                        repAccordian.DataSource = itens;
+                        repAccordian.DataBind();
+                    }
+                    else
+                    {
+                        //dvDados.Visible = false;
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A pesquisa não encontrou registros.' });", true);
+                        repAccordian.DataSource = itens;
+                        repAccordian.DataBind();
+                    }
+
+                    lblTotal.Text = string.Format("{0:0,0}", itens.Count);
+                }
+                else
+                {
+                    repAccordian.DataSource = itens;
+                    repAccordian.DataBind();
+                    lblTotal.Text = string.Format("{0:0,0}", 0);
+
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A pesquisa retornou mais de 4000 registros, Refine a pesquisa ou use a opção de gerar Excel.' });", true);
+                }
+            }
+            else
+            {
+                txtFiltroDataDe.Focus();
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'O intervalo entre as datas não pode ser superior a 30 dias!' });", true);
+            }
+
         }
-        protected bool Excel_Analitica(string ordenacao, Navigation navigation)
+        protected bool Excel(string ordenacao, Navigation navigation)
         {
             bool Retorno = false;
 
@@ -1393,7 +1692,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             #endregion
 
             DateTime filtro_ini = DateTime.Parse(txtFiltroDataDe.Text + " 00:00:00");
-            DateTime filtro_fim = DateTime.Parse(txtFiltroDataAte.Text + " 23:59:59");
+            DateTime filtro_fim = DateTime.Parse(txtFiltroDataAte.Text + " 00:00:00");
 
 
             dados = pesquisar.ObterRelatorioTHPPorFiltro(new Rel_THP_Filtro()
@@ -1439,34 +1738,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
 
                     for (int i = 0; i < dados.Count; i++)
                     {
-                        //if (i == 0)
-                        //    sb.AppendLine("DATA; CORREDOR; ROTA; SUBROTA; CLASSE; OS; PREFIXO; GRUPO; MOTIVO; SB; HR INICIO; HR FINAL; TOTAL THP META; TOTAL THP REAL; TOTAL TTP META; TOTAL TTP REAL; TOTAL THM META; TOTAL THM REAL; TOTAL TTT META; TOTAL TTT REAL");
-                        //else
-                        //    sb.AppendLine("\nDATA; CORREDOR; ROTA; SUBROTA; CLASSE; OS; PREFIXO; GRUPO; MOTIVO; SB; HR INICIO; HR FINAL; TOTAL THP META; TOTAL THP REAL; TOTAL TTP META; TOTAL TTP REAL; TOTAL THM META; TOTAL THM REAL; TOTAL TTT META; TOTAL TTT REAL");
-
-                        //sb.AppendLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19}",
-                        //    dados[i].Data.ToShortDateString(),
-                        //    dados[i].Corredor,
-                        //    dados[i].Rota,
-                        //    dados[i].SubRota,
-                        //    dados[i].Classe,
-                        //    dados[i].OS,
-                        //    dados[i].Prefixo,
-                        //    dados[i].Grupo,
-                        //    dados[i].Motivo,
-                        //    dados[i].SB,
-                        //    dados[i].Data_Ini,
-                        //    dados[i].Data_Fim,
-                        //    dados[i].TOT_THP_Meta != 0 ? string.Format("{0}", TimeSpan.FromSeconds(dados[i].TOT_THP_Meta)) : string.Empty,
-                        //    dados[i].TOT_THP_Real != 0 ? string.Format("{0}", TimeSpan.FromSeconds(dados[i].TOT_THP_Real)) : string.Empty,
-                        //    dados[i].TOT_TTP_Meta != 0 ? string.Format("{0}", TimeSpan.FromSeconds(dados[i].TOT_TTP_Meta)) : string.Empty,
-                        //    dados[i].TOT_TTP_Real != 0 ? string.Format("{0}", TimeSpan.FromSeconds(dados[i].TOT_TTP_Real)) : string.Empty,
-                        //    dados[i].TOT_THM_Meta != 0 ? string.Format("{0}", TimeSpan.FromSeconds(dados[i].TOT_THM_Meta)) : string.Empty,
-                        //    dados[i].TOT_THM_Real != 0 ? string.Format("{0}", TimeSpan.FromSeconds(dados[i].TOT_THM_Real)) : string.Empty,
-                        //    dados[i].TOT_TTT_Meta != 0 ? string.Format("{0}", TimeSpan.FromSeconds(dados[i].TOT_TTT_Meta)) : string.Empty,
-                        //    dados[i].TOT_TTT_Real != 0 ? string.Format("{0}", TimeSpan.FromSeconds(dados[i].TOT_TTT_Real)) : string.Empty
-                        //    ));
-
                         if (i == 0)
                         {
                             sb.AppendLine("DATA; CORREDOR; ROTA; SUBROTA; CLASSE; OS; PREFIXO; GRUPO; MOTIVO; SB; HR INICIO; HR FINAL; THP META; THP REAL; TTP META; TTP REAL; THM META; THM REAL; TTT META; TTT REAL");
@@ -1476,7 +1747,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                         {
 
                             sb.AppendLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19}",
-                                dados[i].Dados[j].Data.ToShortDateString(),
+                                dados[i].Dados[j].Data.Substring(0, 10),
                                 dados[i].Dados[j].Corredor,
                                 dados[i].Dados[j].Rota,
                                 dados[i].Dados[j].SubRota,

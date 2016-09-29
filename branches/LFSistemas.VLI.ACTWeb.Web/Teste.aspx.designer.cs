@@ -11,41 +11,5 @@ namespace LFSistemas.VLI.ACTWeb.Web {
     
     
     public partial class Teste {
-        
-        /// <summary>
-        /// tabAbas control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer tabAbas;
-        
-        /// <summary>
-        /// tabPesquisa control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tabPesquisa;
-        
-        /// <summary>
-        /// tabDados control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tabDados;
-        
-        /// <summary>
-        /// tabHistorico control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tabHistorico;
     }
 }

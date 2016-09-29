@@ -2244,7 +2244,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return Retorno;
         }
 
-        public bool RemoveMacrosTemporarias(double Id)
+        public bool RemoveMacrosTemporarias(double? Id)
         {
             bool Retorno = false;
 
