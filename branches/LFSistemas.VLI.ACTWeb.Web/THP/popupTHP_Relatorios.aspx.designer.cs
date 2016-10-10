@@ -247,22 +247,22 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP {
         protected global::System.Web.UI.WebControls.CheckBoxList cblRotas;
         
         /// <summary>
-        /// chkSubRotas control.
+        /// lnkLimpaSubRota control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkSubRotas;
+        protected global::System.Web.UI.WebControls.LinkButton lnkLimpaSubRota;
         
         /// <summary>
-        /// cblSubRotas control.
+        /// rblSubRotas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList cblSubRotas;
+        protected global::System.Web.UI.WebControls.RadioButtonList rblSubRotas;
         
         /// <summary>
         /// chkGrupos control.

@@ -41,6 +41,14 @@
                 color: rgb(204, 102, 51);
             }
 
+            .ativo-S {
+                color: rgb(0, 72, 89);
+            }
+
+            .ativo-N {
+                color: rgb(204, 102, 51);
+            }
+
             .Processando {
                 width: 100%;
                 height: 100%;
@@ -152,16 +160,18 @@
                                                             <asp:LinkButton runat="server" ID="lnkUltima_Comunicacao" OnClick="lnkUltima_Comunicacao_Click" Text="Última Comunicação" /></th>
                                                         <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="lnkAtualizacao_OBC" OnClick="lnkAtualizacao_OBC_Click" Text="Atualização OBC" /></th>
-                                                        <th style="text-align: center; font-size: 12pt;">
+                                                        <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="lnkAtualizacao_Mapa" OnClick="lnkAtualizacao_Mapa_Click" Text="Atualização Mapa" /></th>
-                                                        <th></th>
+                                                        <th style="text-align: center; font-size: 12pt;">
+                                                            <asp:LinkButton runat="server" ID="lnkAtivo" OnClick="lnkAtivo_Click" Text="Ativo" />
+                                                        </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                         </HeaderTemplate>
                                         <ItemTemplate>
                                             <tr style="font-size: 9px; background-color: rgb(255, 255, 255);">
-                                                <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89); " title="<%# Eval("Loco")%>"><%# Eval("Loco")%> </td>
+                                                <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Loco")%>"><%# Eval("Loco")%> </td>
                                                 <td style="text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Corredor")%>"><%# Eval("Corredor")%> </td>
                                                 <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Frota")%>"><%# Eval("Frota")%> </td>
                                                 <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("MCI")%>"><%# Eval ("MCI")%></td>
@@ -171,14 +181,13 @@
                                                 <td class="tipo-<%# Eval ("MPAV")%>" style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Versao_MAPA")%>"><%# Eval ("Versao_MAPA")%></td>
                                                 <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Ultima_Comunicacao")%>"><%# Eval ("Ultima_Comunicacao")%></td>
                                                 <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Atualizacao_OBC")%>"><%# Eval ("Atualizacao_OBC")%></td>
-                                                <td style="text-align: center;" title="<%# Eval ("Atualizacao_Mapa")%>"><%# Eval ("Atualizacao_Mapa")%></td>
-
-                                                <td></td>
+                                                <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Atualizacao_Mapa")%>"><%# Eval ("Atualizacao_Mapa")%></td>
+                                                <td class="ativo-<%# Eval ("Ativo")%>" style="text-align: center;" title="<%# Eval ("Ativo")%>"><%# Eval ("Ativo")%></td>
                                             </tr>
                                         </ItemTemplate>
                                         <FooterTemplate>
                                             </tbody>
-                </table>
+                                            </table>
                                         </FooterTemplate>
                                     </asp:Repeater>
                                 </asp:Panel>
@@ -201,19 +210,19 @@
                             </ProgressTemplate>
                         </asp:UpdateProgress>
                     </td>
-                    </tr>
-                        <tr>
-                            <td>
-                                <table style="padding-top: 10px;">
-                                    <tr>
-                                        <td>
-                                            <asp:Label ID="lblCurrentPage" runat="server"></asp:Label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <asp:LinkButton ID="lnkPrimeiraPagina" runat="server" OnClick="lnkPrimeiraPagina_Click" ToolTip="Primeira página"><i class="fa fa-fast-backward"></i></asp:LinkButton>
-                                            &nbsp; 
+                </tr>
+                <tr>
+                    <td>
+                        <table style="padding-top: 10px;">
+                            <tr>
+                                <td>
+                                    <asp:Label ID="lblCurrentPage" runat="server"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:LinkButton ID="lnkPrimeiraPagina" runat="server" OnClick="lnkPrimeiraPagina_Click" ToolTip="Primeira página"><i class="fa fa-fast-backward"></i></asp:LinkButton>
+                                    &nbsp; 
                                             <asp:LinkButton ID="lnkPaginaAnterior" runat="server" OnClick="lnkPaginaAnterior_Click" ToolTip="Página anterior"><i class="fa fa-backward"></i></asp:LinkButton>&nbsp;
                                             &nbsp; Itens por página: &nbsp;
                                             <asp:DropDownList ID="ddlPageSize" runat="server" AutoPostBack="true" Width="80" CssClass="form-control-single">
@@ -229,16 +238,16 @@
                                                 <asp:ListItem Text="500" Value="500" />
                                                 <asp:ListItem Text="1000" Value="1000" />
                                             </asp:DropDownList>
-                                            &nbsp;
+                                    &nbsp;
                                             <asp:LinkButton ID="lnkProximaPagina" runat="server" OnClick="lnkProximaPagina_Click" ToolTip="Próxima página"><i class="fa fa-forward"></i></asp:LinkButton>
-                                            &nbsp; 
+                                    &nbsp; 
                                             <asp:LinkButton ID="lnkUltimaPagina" runat="server" OnClick="lnkUltimaPagina_Click" ToolTip="Última página"><i class="fa fa-fast-forward"></i></asp:LinkButton>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    <tr>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
                     <td colspan="14" style="text-align: left;">
                         <hr style="color: rgb(0, 72, 89); padding: 0px 5px 0px 5px;" />
                         <asp:Label runat="server" Text="Registros: " Font-Bold="true" Font-Size="12" Style="color: rgb(153, 153, 153);" />
@@ -246,7 +255,6 @@
                     </td>
                 </tr>
             </table>
-            <br />
             <div style="float: right;">
                 <span>desenvolvido por </span>
                 <a href="http://lfsistemas.net.br/" target="_blank" class="lfslogo"></a>

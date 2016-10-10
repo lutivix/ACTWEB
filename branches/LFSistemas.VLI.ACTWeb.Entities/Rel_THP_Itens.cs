@@ -11,8 +11,8 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         #region [ CABEÇALHO DO GRID ]
 
         public DateTime Data { get; set; }
-
         public string Periodo { get; set; }
+        public string Origem_Destino { get; set; }
         public string Corredor_ID { get; set; }
         public string Corredor { get; set; }
         public string Rota_ID { get; set; }
@@ -48,15 +48,15 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string TOT_TTT_Meta_PRB { get; set; }
         public string TOT_TTT_Real_PRB { get; set; }
 
-        public double AVG_THP_Real { get; set; }
-        public double AVG_TTP_Real { get; set; }
-        public double AVG_THM_Real { get; set; }
-        public double AVG_TTT_Real { get; set; }
+        public double TOT_AVG_THP_Real { get; set; }
+        public double TOT_AVG_TTP_Real { get; set; }
+        public double TOT_AVG_THM_Real { get; set; }
+        public double TOT_AVG_TTT_Real { get; set; }
 
-        public string AVG_THP_Real_PRB { get; set; }
-        public string AVG_TTP_Real_PRB { get; set; }
-        public string AVG_THM_Real_PRB { get; set; }
-        public string AVG_TTT_Real_PRB { get; set; }
+        public string TOT_AVG_THP_Real_PRB { get; set; }
+        public string TOT_AVG_TTP_Real_PRB { get; set; }
+        public string TOT_AVG_THM_Real_PRB { get; set; }
+        public string TOT_AVG_TTT_Real_PRB { get; set; }
 
         public double Registros { get; set; }
 

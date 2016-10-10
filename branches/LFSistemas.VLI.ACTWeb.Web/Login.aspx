@@ -11,8 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <link rel="stylesheet" type="text/css" href="/js/extensions/FixedHeader/css/dataTables.fixedHeader.css" />
-    <link rel="stylesheet" type="text/css" href="/fonts/fontawesome-webfont.ttf" />
-    <link rel="stylesheet" type="text/css" href="/fonts/FontAwesome.eot" />
+    <%--<link rel="stylesheet" type="text/css" href="/fonts/fontawesome-webfont.ttf" />--%>
+    <%--<link rel="stylesheet" type="text/css" href="/fonts/FontAwesome.eot" />--%>
 
     <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.css" />
     <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css" />
@@ -39,7 +39,7 @@
         <div class="login-container">
             <div class="login-form">
                 <div class="logo-login" style="text-align: center;">
-                    <img src="/img/logo-login.png" width="210"></img>
+                    <img src="/img/logo-login.png" width="210" />
                 </div>
                 <form id="form1" accept-charset="UTF-8" runat="server">
                     <asp:ScriptManager runat="server" EnablePageMethods="true"></asp:ScriptManager>
@@ -102,7 +102,7 @@
                                     </asp:UpdateProgress>
                                 </td>
                                 <td style="text-align: right;">grupo:
-                                    <img src="/img/logo-vli.png"></img>
+                                    <img src="/img/logo-vli.png" />
                                 </td>
                             </tr>
                         </table>

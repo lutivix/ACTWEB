@@ -7,25 +7,27 @@
 <head runat="server">
     <title>ACTWEB - Envio de Macro 61</title>
 
-    <link rel="stylesheet" type="text/css" href="../js/extensions/FixedHeader/css/dataTables.fixedHeader.css" />
-    <link rel="stylesheet" type="text/css" href="../fonts/fontawesome-webfont.ttf" />
-    <link rel="stylesheet" type="text/css" href="../fonts/FontAwesome.otf" />
-    <link rel="stylesheet" type="text/css" href="../css/main.css" />
-    <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.css" />
-    <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables_themeroller.css" />
-    <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css" />
-    <link rel="stylesheet" type="text/css" href="../css/jquery-ui-timepicker-addon.css" />
+    <link rel="stylesheet" type="text/css" href="/js/extensions/FixedHeader/css/dataTables.fixedHeader.css" />
+    <%--<link rel="stylesheet" type="text/css" href="/fonts/fontawesome-webfont.ttf" />--%>
+    <link rel="stylesheet" type="text/css" href="/fonts/FontAwesome.eot" />
 
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables_themeroller.css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery-ui-timepicker-addon.css" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+
+    <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/mascara.js"></script>
     <script type="text/javascript" src="/js/myFunction.js"></script>
-    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dialog.js"></script>
     <script type="text/javascript" src="/js/pro.js"></script>
     <script type="text/javascript" src="/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="/js/extensions/FixedHeader/js/dataTables.fixedHeader.js"></script>
-    <script type="text/javascript" src="../js/jquery-1.8.2.js"></script>
-    <script type="text/javascript" src="../js/jquery-ui.js"></script>
-    <script type="text/javascript" src="../js/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="/js/jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui-timepicker-addon.js"></script>
 
 
     <link rel="grupo vli" href="logo-vli.ico">

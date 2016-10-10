@@ -17,8 +17,10 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Corredor { get; set; }
         public string Rota_ID { get; set; }
         public string Rota { get; set; }
+        public string Ponta_Rota { get; set; }
         public string SubRota_ID { get; set; }
         public string SubRota { get; set; }
+        public string Ponta_SubRota { get; set; }
         public string Trem_ID { get; set; }
         public string Classe { get; set; }
         public string OS { get; set; }

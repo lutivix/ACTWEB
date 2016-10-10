@@ -10,8 +10,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
     public class Relatorio_THPDAO
     {
+        #region [ PROPRIEDADES ]
+
         int tipo = 1;
         string periodo = null;
+
+        #endregion
+
+        #region [ MÉTODOS DE CONSULTA ]
+
         /// <summary>
         /// Obtem uma lista de dados para compor o relatório de THP
         /// </summary>
@@ -37,18 +44,18 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     if (string.IsNullOrEmpty(filtro.Corredor_ID) && string.IsNullOrEmpty(filtro.Rota_ID) && string.IsNullOrEmpty(filtro.SubRota_ID))
                     {
                         query.Append(@"SELECT '' AS DATA, 0 AS CORREDOR_ID , '' AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, '' AS CLASSE, 0 AS OS, ANA.ID_TREM AS TREM, ANA.TTC_PFX_TRM AS PREFIXO, '' AS GRUPO_ID, '' AS GRUPO, '' AS MOTIVO_ID, '' AS MOTIVO, '' AS SB, '' AS HORA_INI, '' AS HORA_FIM,
-                                       SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
-                                       SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
-                                       SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
-                                       SUM(ANA.TTA_TTP_RLZ)         AS TOT_TTP_REAL,
-                                       SUM(ANA.TTA_THM_PLN)         AS TOT_THM_META,
-                                       SUM(ANA.TTA_THM_RLZ)         AS TOT_THM_REAL,
-                                       SUM(ANA.TTA_TTT_PLN)         AS TOT_TTT_META,
-                                       SUM(ANA.TTA_TTT_RLZ)         AS TOT_TTT_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_THP_RLZ, 0))) AS AVG_THP_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
+                                       0, --SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
+                                       0, --SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
+                                       0, --SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
+                                       0, --SUM(ANA.TTA_TTP_RLZ)         AS TOT_TTP_REAL,
+                                       0, --SUM(ANA.TTA_THM_PLN)         AS TOT_THM_META,
+                                       0, --SUM(ANA.TTA_THM_RLZ)         AS TOT_THM_REAL,
+                                       0, --SUM(ANA.TTA_TTT_PLN)         AS TOT_TTT_META,
+                                       0, --SUM(ANA.TTA_TTT_RLZ)         AS TOT_TTT_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_THP_RLZ, 0))) AS AVG_THP_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
                                        COUNT(*) AS QTDE
                                        FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE
                                        WHERE ANA.EV_ID_ELM = ELE.EV_ID_ELM
@@ -62,6 +69,32 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_PERIODO}      
                                          GROUP BY ANA.ID_TREM, ANA.TTC_PFX_TRM
                                        ORDER BY DATA DESC, TREM");
+//                        query.Append(@"SELECT '' AS DATA, 0 AS CORREDOR_ID , '' AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, '' AS CLASSE, 0 AS OS, ANA.ID_TREM AS TREM, ANA.TTC_PFX_TRM AS PREFIXO, '' AS GRUPO_ID, '' AS GRUPO, '' AS MOTIVO_ID, '' AS MOTIVO, '' AS SB, '' AS HORA_INI, '' AS HORA_FIM,
+//                                       SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
+//                                       SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
+//                                       SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
+//                                       SUM(ANA.TTA_TTP_RLZ)         AS TOT_TTP_REAL,
+//                                       SUM(ANA.TTA_THM_PLN)         AS TOT_THM_META,
+//                                       SUM(ANA.TTA_THM_RLZ)         AS TOT_THM_REAL,
+//                                       SUM(ANA.TTA_TTT_PLN)         AS TOT_TTT_META,
+//                                       SUM(ANA.TTA_TTT_RLZ)         AS TOT_TTT_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_THP_RLZ, 0))) AS AVG_THP_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
+//                                       COUNT(*) AS QTDE
+//                                       FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE
+//                                       WHERE ANA.EV_ID_ELM = ELE.EV_ID_ELM
+//                                         AND SUBSTR(ANA.TTC_PFX_TRM, 0, 1) NOT IN ('F', 'I', 'R', 'A', 'B', 'W', 'L', 'S', 'H','V','P')
+//                                         ${FILTRO_CLASSE}
+//                                         ${FILTRO_OS}
+//                                         ${FILTRO_PREFIXO}
+//                                         ${FILTRO_SB}
+//                                         ${FILTRO_GRUPO}
+//                                         ${FILTRO_MOTIVO}
+//                                         ${FILTRO_PERIODO}      
+//                                         GROUP BY ANA.ID_TREM, ANA.TTC_PFX_TRM
+//                                       ORDER BY DATA DESC, TREM");
                     }
 
                     #endregion
@@ -71,18 +104,18 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     if (!string.IsNullOrEmpty(filtro.Corredor_ID) && string.IsNullOrEmpty(filtro.Rota_ID) && string.IsNullOrEmpty(filtro.SubRota_ID))
                     {
                         query.Append(@"SELECT '' AS DATA, 0 AS CORREDOR_ID , '' AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, '' AS CLASSE, 0 AS OS, ANA.ID_TREM AS TREM, ANA.TTC_PFX_TRM AS PREFIXO, '' AS GRUPO_ID, '' AS GRUPO, '' AS MOTIVO_ID, '' AS MOTIVO, '' AS SB, '' AS HORA_INI, '' AS HORA_FIM,
-                                       SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
-                                       SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
-                                       SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
-                                       SUM(ANA.TTA_TTP_RLZ)         AS TOT_TTP_REAL,
-                                       SUM(ANA.TTA_THM_PLN)         AS TOT_THM_META,
-                                       SUM(ANA.TTA_THM_RLZ)         AS TOT_THM_REAL,
-                                       SUM(ANA.TTA_TTT_PLN)         AS TOT_TTT_META,
-                                       SUM(ANA.TTA_TTT_RLZ)         AS TOT_TTT_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_THP_RLZ, 0))) AS AVG_THP_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
+                                       0, --SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
+                                       0, --SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
+                                       0, --SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
+                                       0, --SUM(ANA.TTA_TTP_RLZ)         AS TOT_TTP_REAL,
+                                       0, --SUM(ANA.TTA_THM_PLN)         AS TOT_THM_META,
+                                       0, --SUM(ANA.TTA_THM_RLZ)         AS TOT_THM_REAL,
+                                       0, --SUM(ANA.TTA_TTT_PLN)         AS TOT_TTT_META,
+                                       0, --SUM(ANA.TTA_TTT_RLZ)         AS TOT_TTT_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_THP_RLZ, 0))) AS AVG_THP_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
                                        COUNT(*) AS QTDE
                                        FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR
                                        WHERE ANA.EV_ID_ELM     = ELE.EV_ID_ELM
@@ -98,6 +131,34 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_PERIODO}
                                          GROUP BY ANA.ID_TREM, ANA.TTC_PFX_TRM
                                        ORDER BY DATA DESC, TREM");
+//                        query.Append(@"SELECT '' AS DATA, 0 AS CORREDOR_ID , '' AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, '' AS CLASSE, 0 AS OS, ANA.ID_TREM AS TREM, ANA.TTC_PFX_TRM AS PREFIXO, '' AS GRUPO_ID, '' AS GRUPO, '' AS MOTIVO_ID, '' AS MOTIVO, '' AS SB, '' AS HORA_INI, '' AS HORA_FIM,
+//                                       SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
+//                                       SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
+//                                       SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
+//                                       SUM(ANA.TTA_TTP_RLZ)         AS TOT_TTP_REAL,
+//                                       SUM(ANA.TTA_THM_PLN)         AS TOT_THM_META,
+//                                       SUM(ANA.TTA_THM_RLZ)         AS TOT_THM_REAL,
+//                                       SUM(ANA.TTA_TTT_PLN)         AS TOT_TTT_META,
+//                                       SUM(ANA.TTA_TTT_RLZ)         AS TOT_TTT_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_THP_RLZ, 0))) AS AVG_THP_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
+//                                       COUNT(*) AS QTDE
+//                                       FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR
+//                                       WHERE ANA.EV_ID_ELM     = ELE.EV_ID_ELM
+//                                         AND ELE.NM_COR_ID     = COR.TTC_ID_COR
+//                                         AND SUBSTR(ANA.TTC_PFX_TRM, 0, 1) NOT IN ('F', 'I', 'R', 'A', 'B', 'W', 'L', 'S', 'H','V','P')
+//                                         ${FILTRO_CORREDOR}
+//                                         ${FILTRO_CLASSE}
+//                                         ${FILTRO_OS}
+//                                         ${FILTRO_PREFIXO}
+//                                         ${FILTRO_SB}
+//                                         ${FILTRO_GRUPO}
+//                                         ${FILTRO_MOTIVO}
+//                                         ${FILTRO_PERIODO}
+//                                         GROUP BY ANA.ID_TREM, ANA.TTC_PFX_TRM
+//                                       ORDER BY DATA DESC, TREM");
                     }
                     #endregion
 
@@ -106,18 +167,18 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     else if (!string.IsNullOrEmpty(filtro.Rota_ID) && string.IsNullOrEmpty(filtro.SubRota_ID))
                     {
                         query.Append(@"SELECT '' AS DATA, 0 AS CORREDOR_ID, '' AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, '' AS CLASSE, 0 AS OS, ANA.ID_TREM AS TREM, ANA.TTC_PFX_TRM AS PREFIXO, '' AS GRUPO_ID, '' AS GRUPO, '' AS MOTIVO_ID, '' AS MOTIVO, '' AS SB, '' AS HORA_INI, '' AS HORA_FIM,
-                                       SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
-                                       SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
-                                       SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
-                                       SUM(ANA.TTA_TTP_RLZ)         AS TOT_TTP_REAL,
-                                       SUM(ANA.TTA_THM_PLN)         AS TOT_THM_META,
-                                       SUM(ANA.TTA_THM_RLZ)         AS TOT_THM_REAL,
-                                       SUM(ANA.TTA_TTT_PLN)         AS TOT_TTT_META,
-                                       SUM(ANA.TTA_TTT_RLZ)         AS TOT_TTT_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_THP_RLZ, 0))) AS AVG_THP_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
+                                       0, --SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
+                                       0, --SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
+                                       0, --SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
+                                       0, --SUM(ANA.TTA_TTP_RLZ)         AS TOT_TTP_REAL,
+                                       0, --SUM(ANA.TTA_THM_PLN)         AS TOT_THM_META,
+                                       0, --SUM(ANA.TTA_THM_RLZ)         AS TOT_THM_REAL,
+                                       0, --SUM(ANA.TTA_TTT_PLN)         AS TOT_TTT_META,
+                                       0, --SUM(ANA.TTA_TTT_RLZ)         AS TOT_TTT_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_THP_RLZ, 0))) AS AVG_THP_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
                                        COUNT(*) AS QTDE
                                        FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR, ACTPP.TT_ROTA_AOP RTA2, ACTPP.TT_ROTA RTA1
                                        WHERE ANA.EV_ID_ELM     = RTA2.TTR_ID_ELM
@@ -137,6 +198,38 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_PERIODO}          
                                          GROUP BY ANA.ID_TREM, ANA.TTC_PFX_TRM
                                        ORDER BY DATA DESC, TREM");
+//                        query.Append(@"SELECT '' AS DATA, 0 AS CORREDOR_ID, '' AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, '' AS CLASSE, 0 AS OS, ANA.ID_TREM AS TREM, ANA.TTC_PFX_TRM AS PREFIXO, '' AS GRUPO_ID, '' AS GRUPO, '' AS MOTIVO_ID, '' AS MOTIVO, '' AS SB, '' AS HORA_INI, '' AS HORA_FIM,
+//                                       SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
+//                                       SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
+//                                       SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
+//                                       SUM(ANA.TTA_TTP_RLZ)         AS TOT_TTP_REAL,
+//                                       SUM(ANA.TTA_THM_PLN)         AS TOT_THM_META,
+//                                       SUM(ANA.TTA_THM_RLZ)         AS TOT_THM_REAL,
+//                                       SUM(ANA.TTA_TTT_PLN)         AS TOT_TTT_META,
+//                                       SUM(ANA.TTA_TTT_RLZ)         AS TOT_TTT_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_THP_RLZ, 0))) AS AVG_THP_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
+//                                       COUNT(*) AS QTDE
+//                                       FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR, ACTPP.TT_ROTA_AOP RTA2, ACTPP.TT_ROTA RTA1
+//                                       WHERE ANA.EV_ID_ELM     = RTA2.TTR_ID_ELM
+//                                         AND RTA2.TTR_ID_RTA   = RTA1.TTR_ID_RTA
+//                                         AND RTA1.TTR_ID_TRC   = COR.TTC_ID_COR
+//                                         AND ANA.EV_ID_ELM     = ELE.EV_ID_ELM
+//                                         AND SUBSTR(ANA.TTC_PFX_TRM, 0, 1) NOT IN ('F', 'I', 'R', 'A', 'B', 'W', 'L', 'S', 'H','V','P')
+//                                         ${FILTRO_CORREDOR}
+//                                         ${FILTRO_ROTA}
+//                                         ${FILTRO_SUBROTA}
+//                                         ${FILTRO_CLASSE}
+//                                         ${FILTRO_OS}
+//                                         ${FILTRO_PREFIXO}
+//                                         ${FILTRO_SB}
+//                                         ${FILTRO_GRUPO}
+//                                         ${FILTRO_MOTIVO}
+//                                         ${FILTRO_PERIODO}          
+//                                         GROUP BY ANA.ID_TREM, ANA.TTC_PFX_TRM
+//                                       ORDER BY DATA DESC, TREM");
                     }
                     #endregion
 
@@ -145,18 +238,18 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     else if (!string.IsNullOrEmpty(filtro.SubRota_ID) && string.IsNullOrEmpty(filtro.Rota_ID))
                     {
                         query.Append(@"SELECT '' AS DATA, 0 AS CORREDOR_ID, '' AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, '' AS CLASSE, 0 AS OS, ANA.ID_TREM AS TREM, ANA.TTC_PFX_TRM AS PREFIXO, '' AS GRUPO_ID, '' AS GRUPO, '' AS MOTIVO_ID, '' AS MOTIVO, '' AS SB, '' AS HORA_INI, '' AS HORA_FIM,
-                                       SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
-                                       SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
-                                       SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
-                                       SUM(ANA.TTA_TTP_RLZ)         AS TOT_TTP_REAL,
-                                       SUM(ANA.TTA_THM_PLN)         AS TOT_THM_META,
-                                       SUM(ANA.TTA_THM_RLZ)         AS TOT_THM_REAL,
-                                       SUM(ANA.TTA_TTT_PLN)         AS TOT_TTT_META,
-                                       SUM(ANA.TTA_TTT_RLZ)         AS TOT_TTT_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_THP_RLZ, 0))) AS AVG_THP_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
+                                       0, --SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
+                                       0, --SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
+                                       0, --SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
+                                       0, --SUM(ANA.TTA_TTP_RLZ)         AS TOT_TTP_REAL,
+                                       0, --SUM(ANA.TTA_THM_PLN)         AS TOT_THM_META,
+                                       0, --SUM(ANA.TTA_THM_RLZ)         AS TOT_THM_REAL,
+                                       0, --SUM(ANA.TTA_TTT_PLN)         AS TOT_TTT_META,
+                                       0, --SUM(ANA.TTA_TTT_RLZ)         AS TOT_TTT_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_THP_RLZ, 0))) AS AVG_THP_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
                                        COUNT(*) AS QTDE
                                        FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR, ACTPP.TT_SUBROTA SUB1, ACTPP.TT_SUBROTA_AOP SUB2
                                        WHERE ANA.EV_ID_ELM     = ELE.EV_ID_ELM
@@ -175,6 +268,37 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_PERIODO}          
                                          GROUP BY ANA.ID_TREM, ANA.TTC_PFX_TRM
                                        ORDER BY DATA DESC, TREM");
+//                        query.Append(@"SELECT '' AS DATA, 0 AS CORREDOR_ID, '' AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, '' AS CLASSE, 0 AS OS, ANA.ID_TREM AS TREM, ANA.TTC_PFX_TRM AS PREFIXO, '' AS GRUPO_ID, '' AS GRUPO, '' AS MOTIVO_ID, '' AS MOTIVO, '' AS SB, '' AS HORA_INI, '' AS HORA_FIM,
+//                                       SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
+//                                       SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
+//                                       SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
+//                                       SUM(ANA.TTA_TTP_RLZ)         AS TOT_TTP_REAL,
+//                                       SUM(ANA.TTA_THM_PLN)         AS TOT_THM_META,
+//                                       SUM(ANA.TTA_THM_RLZ)         AS TOT_THM_REAL,
+//                                       SUM(ANA.TTA_TTT_PLN)         AS TOT_TTT_META,
+//                                       SUM(ANA.TTA_TTT_RLZ)         AS TOT_TTT_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_THP_RLZ, 0))) AS AVG_THP_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
+//                                       COUNT(*) AS QTDE
+//                                       FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR, ACTPP.TT_SUBROTA SUB1, ACTPP.TT_SUBROTA_AOP SUB2
+//                                       WHERE ANA.EV_ID_ELM     = ELE.EV_ID_ELM
+//                                         AND ANA.EV_ID_ELM     = SUB2.TTS_ID_ELM
+//                                         AND SUB2.TTS_ID_SUB   = SUB1.TTS_ID_SUB
+//                                         AND SUBSTR(ANA.TTC_PFX_TRM, 0, 1) NOT IN ('F', 'I', 'R', 'A', 'B', 'W', 'L', 'S', 'H','V','P')
+//                                         ${FILTRO_CORREDOR}
+//                                         ${FILTRO_ROTA}
+//                                         ${FILTRO_SUBROTA}
+//                                         ${FILTRO_CLASSE}
+//                                         ${FILTRO_OS}
+//                                         ${FILTRO_PREFIXO}
+//                                         ${FILTRO_SB}
+//                                         ${FILTRO_GRUPO}
+//                                         ${FILTRO_MOTIVO}
+//                                         ${FILTRO_PERIODO}          
+//                                         GROUP BY ANA.ID_TREM, ANA.TTC_PFX_TRM
+//                                       ORDER BY DATA DESC, TREM");
                     }
                     #endregion
 
@@ -183,18 +307,18 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     else if (!string.IsNullOrEmpty(filtro.Rota_ID) && !string.IsNullOrEmpty(filtro.SubRota_ID))
                     {
                         query.Append(@"SELECT '' AS DATA, 0 AS CORREDOR_ID, '' AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, '' AS CLASSE, 0 AS OS, ANA.ID_TREM AS TREM, ANA.TTC_PFX_TRM AS PREFIXO, '' AS GRUPO_ID, '' AS GRUPO, '' AS MOTIVO_ID, '' AS MOTIVO, '' AS SB, '' AS HORA_INI, '' AS HORA_FIM,
-                                       SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
-                                       SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
-                                       SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
-                                       SUM(ANA.TTA_TTP_RLZ)         AS TOT_TTP_REAL,
-                                       SUM(ANA.TTA_THM_PLN)         AS TOT_THM_META,
-                                       SUM(ANA.TTA_THM_RLZ)         AS TOT_THM_REAL,
-                                       SUM(ANA.TTA_TTT_PLN)         AS TOT_TTT_META,
-                                       SUM(ANA.TTA_TTT_RLZ)         AS TOT_TTT_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_THP_RLZ, 0))) AS AVG_THP_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
-                                       ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
+                                       0, --SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
+                                       0, --SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
+                                       0, --SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
+                                       0, --SUM(ANA.TTA_TTP_RLZ)         AS TOT_TTP_REAL,
+                                       0, --SUM(ANA.TTA_THM_PLN)         AS TOT_THM_META,
+                                       0, --SUM(ANA.TTA_THM_RLZ)         AS TOT_THM_REAL,
+                                       0, --SUM(ANA.TTA_TTT_PLN)         AS TOT_TTT_META,
+                                       0, --SUM(ANA.TTA_TTT_RLZ)         AS TOT_TTT_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_THP_RLZ, 0))) AS AVG_THP_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
+                                       0, --ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
                                        COUNT(*) AS QTDE
                                        FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR, ACTPP.TT_ROTA_AOP RTA2, ACTPP.TT_ROTA RTA1, ACTPP.TT_SUBROTA SUB1, ACTPP.TT_SUBROTA_AOP SUB2
                                        WHERE ANA.EV_ID_ELM     = RTA2.TTR_ID_ELM
@@ -217,6 +341,41 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_PERIODO}          
                                          GROUP BY ANA.ID_TREM, ANA.TTC_PFX_TRM
                                        ORDER BY DATA DESC, TREM");
+//                        query.Append(@"SELECT '' AS DATA, 0 AS CORREDOR_ID, '' AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, '' AS CLASSE, 0 AS OS, ANA.ID_TREM AS TREM, ANA.TTC_PFX_TRM AS PREFIXO, '' AS GRUPO_ID, '' AS GRUPO, '' AS MOTIVO_ID, '' AS MOTIVO, '' AS SB, '' AS HORA_INI, '' AS HORA_FIM,
+//                                       SUM(ANA.TTA_THP_PLN)         AS TOT_THP_META,
+//                                       SUM(ANA.TTA_THP_RLZ)         AS TOT_THP_REAL,
+//                                       SUM(ANA.TTA_TTP_PLN)         AS TOT_TTP_META,
+//                                       SUM(ANA.TTA_TTP_RLZ)         AS TOT_TTP_REAL,
+//                                       SUM(ANA.TTA_THM_PLN)         AS TOT_THM_META,
+//                                       SUM(ANA.TTA_THM_RLZ)         AS TOT_THM_REAL,
+//                                       SUM(ANA.TTA_TTT_PLN)         AS TOT_TTT_META,
+//                                       SUM(ANA.TTA_TTT_RLZ)         AS TOT_TTT_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_THP_RLZ, 0))) AS AVG_THP_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_TTP_RLZ, 0))) AS AVG_TTP_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_THM_RLZ, 0))) AS AVG_THM_REAL,
+//                                       ROUND(AVG(NVL(ANA.TTA_TTT_RLZ, 0))) AS AVG_TTT_REAL,
+//                                       COUNT(*) AS QTDE
+//                                       FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR, ACTPP.TT_ROTA_AOP RTA2, ACTPP.TT_ROTA RTA1, ACTPP.TT_SUBROTA SUB1, ACTPP.TT_SUBROTA_AOP SUB2
+//                                       WHERE ANA.EV_ID_ELM     = RTA2.TTR_ID_ELM
+//                                         AND RTA2.TTR_ID_RTA   = RTA1.TTR_ID_RTA
+//                                         AND RTA1.TTR_ID_TRC   = COR.TTC_ID_COR
+//                                         AND ANA.EV_ID_ELM     = ELE.EV_ID_ELM
+//                                         AND ANA.EV_ID_ELM     = SUB2.TTS_ID_ELM
+//                                         AND SUB2.TTS_ID_SUB   = SUB1.TTS_ID_SUB
+//                                         AND SUB1.TTR_ID_RTA   = RTA1.TTR_ID_RTA
+//                                         AND SUBSTR(ANA.TTC_PFX_TRM, 0, 1) NOT IN ('F', 'I', 'R', 'A', 'B', 'W', 'L', 'S', 'H','V','P')
+//                                         ${FILTRO_CORREDOR}
+//                                         ${FILTRO_ROTA}
+//                                         ${FILTRO_SUBROTA}
+//                                         ${FILTRO_CLASSE}
+//                                         ${FILTRO_OS}
+//                                         ${FILTRO_PREFIXO}
+//                                         ${FILTRO_SB}
+//                                         ${FILTRO_GRUPO}
+//                                         ${FILTRO_MOTIVO}
+//                                         ${FILTRO_PERIODO}          
+//                                         GROUP BY ANA.ID_TREM, ANA.TTC_PFX_TRM
+//                                       ORDER BY DATA DESC, TREM");
                     }
                     #endregion
 
@@ -512,7 +671,6 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return Resultado;
         }
 
-
         /// <summary>
         /// Obtem uma lista de dados para compor o relatório de THP
         /// </summary>
@@ -539,7 +697,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         query.Append(@"SELECT 'Ñ' AS TIPO, ANA.TTA_ID_TTA AS ID, ANA.TTA_DT_APUR AS APURACAO, 0 AS CORREDOR_ID, '' AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, ANA.ID_TREM AS TREM, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE,
                                        ANA.TTC_NUM_OS AS OS, ANA.TTC_PFX_TRM AS PREFIXO, 0 AS GRUPO_ID, '' AS GRUPO, ANA.TTA_COD_MOT AS MOTIVO_ID, '' AS MOTIVO, '' AS JUSTIFICATIVA, ELE.EV_NOM_MAC AS SB, ANA.TTA_DT_INI_EVE AS DATA_INI, ANA.TTA_DT_FIM_EVE AS DATA_FIM, ANA.TTA_THP_PLN AS THP_META,
-                                       ANA.TTA_THP_RLZ AS THP_REAL, ANA.TTA_TTP_PLN AS TTP_META, ANA.TTA_TTP_RLZ AS TTP_REAL, ANA.TTA_THM_PLN AS THM_META, ANA.TTA_THM_RLZ AS THM_REAL, ANA.TTA_TTT_PLN AS TTT_META, ANA.TTA_TTT_RLZ AS TTT_REAL, ANA.TTA_DT_REG AS DATA
+                                       ANA.TTA_THP_RLZ AS THP_REAL, ANA.TTA_TTP_PLN AS TTP_META, ANA.TTA_TTP_RLZ AS TTP_REAL, ANA.TTA_THM_PLN AS THM_META, ANA.TTA_THM_RLZ AS THM_REAL, ANA.TTA_TTT_PLN AS TTT_META, ANA.TTA_TTT_RLZ AS TTT_REAL, ANA.TTA_DT_REG AS DATA, '' AS PONTA_ROTA, '' AS PONTA_SUBROTA
                                        FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE
                                        WHERE ANA.EV_ID_ELM    = ELE.EV_ID_ELM
                                          AND SUBSTR(ANA.TTC_PFX_TRM, 0, 1) NOT IN ('F', 'I', 'R', 'A', 'B', 'W', 'L', 'S', 'H','V','P')
@@ -561,7 +719,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         query.Append(@"SELECT 'C' AS TIPO, ANA.TTA_ID_TTA AS ID, ANA.TTA_DT_APUR AS APURACAO, COR.TTC_ID_COR AS CORREDOR_ID, COR.TTC_NM_COR AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, ANA.ID_TREM AS TREM, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE,
                                        ANA.TTC_NUM_OS AS OS, ANA.TTC_PFX_TRM AS PREFIXO, 0 AS GRUPO_ID, '' AS GRUPO, ANA.TTA_COD_MOT AS MOTIVO_ID, '' AS MOTIVO, '' AS JUSTIFICATIVA, ELE.EV_NOM_MAC AS SB, ANA.TTA_DT_INI_EVE AS DATA_INI, ANA.TTA_DT_FIM_EVE AS DATA_FIM, ANA.TTA_THP_PLN AS THP_META,
-                                       ANA.TTA_THP_RLZ AS THP_REAL, ANA.TTA_TTP_PLN AS TTP_META, ANA.TTA_TTP_RLZ AS TTP_REAL, ANA.TTA_THM_PLN AS THM_META, ANA.TTA_THM_RLZ AS THM_REAL, ANA.TTA_TTT_PLN AS TTT_META, ANA.TTA_TTT_RLZ AS TTT_REAL, ANA.TTA_DT_REG AS DATA
+                                       ANA.TTA_THP_RLZ AS THP_REAL, ANA.TTA_TTP_PLN AS TTP_META, ANA.TTA_TTP_RLZ AS TTP_REAL, ANA.TTA_THM_PLN AS THM_META, ANA.TTA_THM_RLZ AS THM_REAL, ANA.TTA_TTT_PLN AS TTT_META, ANA.TTA_TTT_RLZ AS TTT_REAL, ANA.TTA_DT_REG AS DATA, '' AS PONTA_ROTA, '' AS PONTA_SUBROTA
                                        FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR
                                        WHERE ANA.EV_ID_ELM = ELE.EV_ID_ELM
                                          AND ELE.NM_COR_ID = COR.TTC_ID_COR
@@ -585,7 +743,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         query.Append(@"SELECT 'R' AS TIPO, ANA.TTA_ID_TTA AS ID, ANA.TTA_DT_APUR AS APURACAO, COR.TTC_ID_COR AS CORREDOR_ID, COR.TTC_NM_COR AS CORREDOR, RTA1.TTR_ID_RTA AS ROTA_ID, RTA1.TTR_NM_RTA AS ROTA, 0 AS SUBROTA_ID, '' AS SUBROTA, ANA.ID_TREM AS TREM, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE,
                                        ANA.TTC_NUM_OS AS OS, ANA.TTC_PFX_TRM AS PREFIXO, 0 AS GRUPO_ID, '' AS GRUPO, ANA.TTA_COD_MOT AS MOTIVO_ID, '' AS MOTIVO, '' AS JUSTIFICATIVA, ELE.EV_NOM_MAC AS SB, ANA.TTA_DT_INI_EVE AS DATA_INI, ANA.TTA_DT_FIM_EVE AS DATA_FIM, ANA.TTA_THP_PLN AS THP_META,
-                                       ANA.TTA_THP_RLZ AS THP_REAL, ANA.TTA_TTP_PLN AS TTP_META, ANA.TTA_TTP_RLZ AS TTP_REAL, ANA.TTA_THM_PLN AS THM_META, ANA.TTA_THM_RLZ AS THM_REAL, ANA.TTA_TTT_PLN AS TTT_META, ANA.TTA_TTT_RLZ AS TTT_REAL, ANA.TTA_DT_REG AS DATA
+                                       ANA.TTA_THP_RLZ AS THP_REAL, ANA.TTA_TTP_PLN AS TTP_META, ANA.TTA_TTP_RLZ AS TTP_REAL, ANA.TTA_THM_PLN AS THM_META, ANA.TTA_THM_RLZ AS THM_REAL, ANA.TTA_TTT_PLN AS TTT_META, ANA.TTA_TTT_RLZ AS TTT_REAL, ANA.TTA_DT_REG AS DATA, RTA2.TTR_PNT_RTA AS PONTA_ROTA, '' AS PONTA_SUBROTA
                                        FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR, ACTPP.TT_ROTA_AOP RTA2, ACTPP.TT_ROTA RTA1
                                        WHERE ANA.EV_ID_ELM     = RTA2.TTR_ID_ELM
                                          AND RTA2.TTR_ID_RTA   = RTA1.TTR_ID_RTA
@@ -612,7 +770,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         query.Append(@"SELECT 'R/S' AS TIPO, ANA.TTA_ID_TTA AS ID, ANA.TTA_DT_APUR AS APURACAO, COR.TTC_ID_COR AS CORREDOR_ID, COR.TTC_NM_COR AS CORREDOR, 0 AS ROTA_ID, '' AS ROTA, SUB1.TTS_ID_SUB AS SUBROTA_ID, SUB1.TTS_NM_SUB AS SUBROTA, ANA.ID_TREM AS TREM, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE,
                                        ANA.TTC_NUM_OS AS OS, ANA.TTC_PFX_TRM AS PREFIXO, 0 AS GRUPO_ID, '' AS GRUPO, ANA.TTA_COD_MOT AS MOTIVO_ID, '' AS MOTIVO, '' AS JUSTIFICATIVA, ELE.EV_NOM_MAC AS SB, ANA.TTA_DT_INI_EVE AS DATA_INI, ANA.TTA_DT_FIM_EVE AS DATA_FIM, ANA.TTA_THP_PLN AS THP_META,
-                                       ANA.TTA_THP_RLZ AS THP_REAL, ANA.TTA_TTP_PLN AS TTP_META, ANA.TTA_TTP_RLZ AS TTP_REAL, ANA.TTA_THM_PLN AS THM_META, ANA.TTA_THM_RLZ AS THM_REAL, ANA.TTA_TTT_PLN AS TTT_META, ANA.TTA_TTT_RLZ AS TTT_REAL, ANA.TTA_DT_REG AS DATA
+                                       ANA.TTA_THP_RLZ AS THP_REAL, ANA.TTA_TTP_PLN AS TTP_META, ANA.TTA_TTP_RLZ AS TTP_REAL, ANA.TTA_THM_PLN AS THM_META, ANA.TTA_THM_RLZ AS THM_REAL, ANA.TTA_TTT_PLN AS TTT_META, ANA.TTA_TTT_RLZ AS TTT_REAL, ANA.TTA_DT_REG AS DATA, '' AS PONTA_ROTA, SUB2.TTS_PNT_SUB AS PONTA_SUBROTA
                                        FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR, ACTPP.TT_SUBROTA SUB1, ACTPP.TT_SUBROTA_AOP SUB2
                                        WHERE ANA.EV_ID_ELM     = ELE.EV_ID_ELM
                                          AND ANA.EV_ID_ELM     = SUB2.TTS_ID_ELM
@@ -638,7 +796,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         query.Append(@"SELECT 'R/S' AS TIPO, ANA.TTA_ID_TTA AS ID, ANA.TTA_DT_APUR AS APURACAO, COR.TTC_ID_COR AS CORREDOR_ID, COR.TTC_NM_COR AS CORREDOR, RTA1.TTR_ID_RTA AS ROTA_ID, RTA1.TTR_NM_RTA AS ROTA, SUB1.TTS_ID_SUB AS SUBROTA_ID, SUB1.TTS_NM_SUB AS SUBROTA, ANA.ID_TREM AS TREM, SUBSTR(ANA.TTC_PFX_TRM, 0, 1) AS CLASSE,
                                        ANA.TTC_NUM_OS AS OS, ANA.TTC_PFX_TRM AS PREFIXO, 0 AS GRUPO_ID, '' AS GRUPO, ANA.TTA_COD_MOT AS MOTIVO_ID, '' AS MOTIVO, '' AS JUSTIFICATIVA, ELE.EV_NOM_MAC AS SB, ANA.TTA_DT_INI_EVE AS DATA_INI, ANA.TTA_DT_FIM_EVE AS DATA_FIM, ANA.TTA_THP_PLN AS THP_META,
-                                       ANA.TTA_THP_RLZ AS THP_REAL, ANA.TTA_TTP_PLN AS TTP_META, ANA.TTA_TTP_RLZ AS TTP_REAL, ANA.TTA_THM_PLN AS THM_META, ANA.TTA_THM_RLZ AS THM_REAL, ANA.TTA_TTT_PLN AS TTT_META, ANA.TTA_TTT_RLZ AS TTT_REAL, ANA.TTA_DT_REG AS DATA
+                                       ANA.TTA_THP_RLZ AS THP_REAL, ANA.TTA_TTP_PLN AS TTP_META, ANA.TTA_TTP_RLZ AS TTP_REAL, ANA.TTA_THM_PLN AS THM_META, ANA.TTA_THM_RLZ AS THM_REAL, ANA.TTA_TTT_PLN AS TTT_META, ANA.TTA_TTT_RLZ AS TTT_REAL, ANA.TTA_DT_REG AS DATA, RTA2.TTR_PNT_RTA AS PONTA_ROTA, SUB2.TTS_PNT_SUB AS PONTA_SUBROTA
                                        FROM ACTPP.TT_ANALITICA ANA, ACTPP.ELEM_VIA ELE, ACTPP.TT_CORREDOR COR, ACTPP.TT_ROTA_AOP RTA2, ACTPP.TT_ROTA RTA1, ACTPP.TT_SUBROTA SUB1, ACTPP.TT_SUBROTA_AOP SUB2
                                        WHERE ANA.EV_ID_ELM     = RTA2.TTR_ID_ELM
                                          AND RTA2.TTR_ID_RTA   = RTA1.TTR_ID_RTA
@@ -748,6 +906,128 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return itens;
         }
 
+        /// <summary>
+        /// Obtem uma lista de Ponta de Rota
+        /// </summary>
+        /// <param name="rota_id">Identificador da Rota</param>
+        /// <returns>Retorna uma lista de Ponta de Rota conforme filtro informado</returns>
+        public List<PontaRota> ObterPontaRotaPorRotaID(string rota_id)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var itens = new List<PontaRota>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    var command = connection.CreateCommand();
+
+                    #region [ FILTRA ALARMES TELECOMANDADAS ]
+
+                    query.Append(@"SELECT RTA.TTR_ID_AOP AS ID, RT.TTR_ID_RTA AS ROTA, RTA.TTR_NR_SEQ AS SEQ, EV.EV_ID_ELM AS SB_ID, EV.EV_NOM_MAC AS SB, RTA.TTR_PNT_RTA AS PONTA  
+                                    FROM ACTPP.TT_ROTA RT, ACTPP.TT_ROTA_AOP RTA, ACTPP.ELEM_VIA EV
+                                    WHERE RT.TTR_ID_RTA = RTA.TTR_ID_RTA
+                                      AND RTA.TTR_ID_ELM = EV.EV_ID_ELM
+                                      AND RT.TTR_ID_RTA IN (${ROTA})
+                                      AND RTA.TTR_PNT_RTA = 'S'
+                                      ORDER BY RTA.TTR_NR_SEQ");
+
+                    query.Replace("${ROTA}", string.Format("{0}", rota_id));
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA VARIAVEL ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var iten = PreencherPropriedadesPontaRota(reader);
+                            itens.Add(iten);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "ObterPontaRotaPorRotaID", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return itens;
+        }
+
+        /// <summary>
+        /// Obtem uma lista de Ponta de SubRota
+        /// </summary>
+        /// <param name="rota_id">Identificador da SubRota</param>
+        /// <returns>Retorna uma lista de Ponta de SubRota conforme filtro informado</returns>
+        public List<PontaRota> ObterPontaRotaPorSubRotaID(string subrota_id)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var itens = new List<PontaRota>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    var command = connection.CreateCommand();
+
+                    #region [ FILTRA ALARMES TELECOMANDADAS ]
+
+                    query.Append(@"SELECT SBA.TTS_ID_AOP AS ID, SB.TTS_ID_SUB AS SUBROTA, SBA.TTS_NR_SEQ AS SEQ, EV.EV_ID_ELM AS SB_ID, EV.EV_NOM_MAC AS SB, SBA.TTS_PNT_SUB AS PONTA 
+                                    FROM ACTPP.TT_SUBROTA SB, ACTPP.TT_SUBROTA_AOP SBA, ACTPP.ELEM_VIA EV 
+                                    WHERE SB.TTS_ID_SUB  = SBA.TTS_ID_SUB
+                                      AND SBA.TTS_ID_ELM = EV.EV_ID_ELM
+                                      AND SBA.TTS_ID_SUB IN (${SUBROTA})
+                                      AND SBA.TTS_PNT_SUB = 'S'
+                                      ORDER BY SBA.TTS_NR_SEQ");
+
+                    query.Replace("${SUBROTA}", string.Format("{0}", subrota_id));
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA VARIAVEL ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var iten = PreencherPropriedadesPontaRota(reader);
+                            itens.Add(iten);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "ObterPontaRotaPorRotaID", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return itens;
+        }
+
+        #endregion
+
+        #region [ MÉTODOS DE APOIO ]
+
         private Rel_THP_Itens PreencherPropriedades(OleDbDataReader reader, Rel_THP_Filtro filtro)
         {
             var item = new Rel_THP_Itens();
@@ -755,22 +1035,22 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             try
             {
                 item.Periodo = string.Format("{0} a {1}", DateTime.Parse(filtro.Data_INI).ToShortDateString(), DateTime.Parse(filtro.Data_FIM).ToShortDateString());
-                if (!reader.IsDBNull(01)) item.Corredor_ID  = reader.GetValue(01).ToString();
-                if (!reader.IsDBNull(02)) item.Corredor     = reader.GetValue(02).ToString();
-                if (!reader.IsDBNull(03)) item.Rota_ID      = reader.GetValue(03).ToString();
-                if (!reader.IsDBNull(04)) item.Rota         = reader.GetValue(04).ToString();
-                if (!reader.IsDBNull(05)) item.SubRota_ID   = reader.GetValue(05).ToString();
-                if (!reader.IsDBNull(06)) item.SubRota      = reader.GetValue(06).ToString();
-                if (!reader.IsDBNull(07)) item.Classe       = reader.GetValue(07).ToString();
-                if (!reader.IsDBNull(08)) item.OS           = reader.GetValue(08).ToString();
+                if (!reader.IsDBNull(01)) item.Corredor_ID = reader.GetValue(01).ToString();
+                if (!reader.IsDBNull(02)) item.Corredor = reader.GetValue(02).ToString();
+                if (!reader.IsDBNull(03)) item.Rota_ID = reader.GetValue(03).ToString();
+                if (!reader.IsDBNull(04)) item.Rota = reader.GetValue(04).ToString();
+                if (!reader.IsDBNull(05)) item.SubRota_ID = reader.GetValue(05).ToString();
+                if (!reader.IsDBNull(06)) item.SubRota = reader.GetValue(06).ToString();
+                if (!reader.IsDBNull(07)) item.Classe = reader.GetValue(07).ToString();
+                if (!reader.IsDBNull(08)) item.OS = reader.GetValue(08).ToString();
                 if (!reader.IsDBNull(09))
                 {
                     item.Trem_ID = reader.GetValue(09).ToString();
                     item.Dados = ObterRelatorioTHPPorTremID(item.Trem_ID, filtro);
                 }
-                if (!reader.IsDBNull(10)) item.Prefixo      = reader.GetValue(10).ToString();
-                if (!reader.IsDBNull(11)) item.Grupo_ID     = reader.GetValue(11).ToString(); else item.Grupo = string.Empty;
-                if (!reader.IsDBNull(12)) item.Grupo        = reader.GetValue(12).ToString(); else item.Grupo = string.Empty;
+                if (!reader.IsDBNull(10)) item.Prefixo = reader.GetValue(10).ToString();
+                if (!reader.IsDBNull(11)) item.Grupo_ID = reader.GetValue(11).ToString(); else item.Grupo = string.Empty;
+                if (!reader.IsDBNull(12)) item.Grupo = reader.GetValue(12).ToString(); else item.Grupo = string.Empty;
                 if (!reader.IsDBNull(13))
                 {
                     item.Motivo_ID = reader.GetValue(13).ToString();
@@ -805,9 +1085,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     item.Motivo = string.Empty;
                 }
 
-                if (!reader.IsDBNull(15)) item.SB           = reader.GetValue(15).ToString(); else item.SB = string.Empty;
-                if (!reader.IsDBNull(16)) item.Data_Ini     = reader.GetValue(16).ToString(); else item.Data_Ini = string.Empty;
-                if (!reader.IsDBNull(17)) item.Data_Fim     = reader.GetValue(17).ToString(); else item.Data_Fim = string.Empty;
+                if (!reader.IsDBNull(15)) item.SB = reader.GetValue(15).ToString(); else item.SB = string.Empty;
+                if (!reader.IsDBNull(16)) item.Data_Ini = reader.GetValue(16).ToString(); else item.Data_Ini = string.Empty;
+                if (!reader.IsDBNull(17)) item.Data_Fim = reader.GetValue(17).ToString(); else item.Data_Fim = string.Empty;
                 if (!reader.IsDBNull(18)) item.TOT_THP_Meta = double.Parse(reader.GetValue(18).ToString());
                 if (!reader.IsDBNull(19)) item.TOT_THP_Real = double.Parse(reader.GetValue(19).ToString());
                 if (!reader.IsDBNull(20)) item.TOT_TTP_Meta = double.Parse(reader.GetValue(20).ToString());
@@ -816,11 +1096,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(23)) item.TOT_THM_Real = double.Parse(reader.GetValue(23).ToString());
                 if (!reader.IsDBNull(24)) item.TOT_TTT_Meta = double.Parse(reader.GetValue(24).ToString());
                 if (!reader.IsDBNull(25)) item.TOT_TTT_Real = double.Parse(reader.GetValue(25).ToString());
-                if (!reader.IsDBNull(26)) item.AVG_THP_Real = double.Parse(reader.GetValue(26).ToString());
-                if (!reader.IsDBNull(27)) item.AVG_TTP_Real = double.Parse(reader.GetValue(27).ToString());
-                if (!reader.IsDBNull(28)) item.AVG_THM_Real = double.Parse(reader.GetValue(28).ToString());
-                if (!reader.IsDBNull(29)) item.AVG_TTT_Real = double.Parse(reader.GetValue(29).ToString());
-                if (!reader.IsDBNull(30)) item.Registros    = double.Parse(reader.GetValue(30).ToString());
+                if (!reader.IsDBNull(26)) item.TOT_AVG_THP_Real = double.Parse(reader.GetValue(26).ToString());
+                if (!reader.IsDBNull(27)) item.TOT_AVG_TTP_Real = double.Parse(reader.GetValue(27).ToString());
+                if (!reader.IsDBNull(28)) item.TOT_AVG_THM_Real = double.Parse(reader.GetValue(28).ToString());
+                if (!reader.IsDBNull(29)) item.TOT_AVG_TTT_Real = double.Parse(reader.GetValue(29).ToString());
+                if (!reader.IsDBNull(30)) item.Registros = double.Parse(reader.GetValue(30).ToString());
 
 
             }
@@ -839,21 +1119,21 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(00)) item.Tipo         = reader.GetValue(00).ToString(); else item.Tipo = string.Empty;
-                if (!reader.IsDBNull(01)) item.ID           = reader.GetValue(01).ToString();
-                if (!reader.IsDBNull(02)) item.Data         = reader.GetValue(02).ToString(); else item.Tipo = string.Empty;
-                if (!reader.IsDBNull(03)) item.Corredor_ID  = reader.GetValue(03).ToString();
-                if (!reader.IsDBNull(04)) item.Corredor     = reader.GetValue(04).ToString(); else item.Corredor = string.Empty;
-                if (!reader.IsDBNull(05)) item.Rota_ID      = reader.GetValue(05).ToString();
-                if (!reader.IsDBNull(06)) item.Rota         = reader.GetValue(06).ToString(); else item.Rota = string.Empty;
-                if (!reader.IsDBNull(07)) item.SubRota_ID   = reader.GetValue(07).ToString();
-                if (!reader.IsDBNull(08)) item.SubRota      = reader.GetValue(08).ToString(); else item.SubRota = string.Empty;
-                if (!reader.IsDBNull(09)) item.Trem_ID      = reader.GetValue(09).ToString();
-                if (!reader.IsDBNull(10)) item.Classe       = reader.GetValue(10).ToString(); else item.Classe = string.Empty;
-                if (!reader.IsDBNull(11)) item.OS           = reader.GetValue(11).ToString(); else item.OS = string.Empty;
-                if (!reader.IsDBNull(12)) item.Prefixo      = reader.GetValue(12).ToString(); else item.Prefixo = string.Empty;
-                if (!reader.IsDBNull(13)) item.Grupo_ID     = reader.GetValue(13).ToString();
-                if (!reader.IsDBNull(14)) item.Grupo        = reader.GetValue(14).ToString(); else item.Grupo = string.Empty;
+                if (!reader.IsDBNull(00)) item.Tipo = reader.GetValue(00).ToString(); else item.Tipo = string.Empty;
+                if (!reader.IsDBNull(01)) item.ID = reader.GetValue(01).ToString();
+                if (!reader.IsDBNull(02)) item.Data = reader.GetValue(02).ToString(); else item.Tipo = string.Empty;
+                if (!reader.IsDBNull(03)) item.Corredor_ID = reader.GetValue(03).ToString();
+                if (!reader.IsDBNull(04)) item.Corredor = reader.GetValue(04).ToString(); else item.Corredor = string.Empty;
+                if (!reader.IsDBNull(05)) item.Rota_ID = reader.GetValue(05).ToString();
+                if (!reader.IsDBNull(06)) item.Rota = reader.GetValue(06).ToString(); else item.Rota = string.Empty;
+                if (!reader.IsDBNull(07)) item.SubRota_ID = reader.GetValue(07).ToString();
+                if (!reader.IsDBNull(08)) item.SubRota = reader.GetValue(08).ToString(); else item.SubRota = string.Empty;
+                if (!reader.IsDBNull(09)) item.Trem_ID = reader.GetValue(09).ToString();
+                if (!reader.IsDBNull(10)) item.Classe = reader.GetValue(10).ToString(); else item.Classe = string.Empty;
+                if (!reader.IsDBNull(11)) item.OS = reader.GetValue(11).ToString(); else item.OS = string.Empty;
+                if (!reader.IsDBNull(12)) item.Prefixo = reader.GetValue(12).ToString(); else item.Prefixo = string.Empty;
+                if (!reader.IsDBNull(13)) item.Grupo_ID = reader.GetValue(13).ToString();
+                if (!reader.IsDBNull(14)) item.Grupo = reader.GetValue(14).ToString(); else item.Grupo = string.Empty;
                 if (!reader.IsDBNull(15))
                 {
                     item.Motivo_ID = reader.GetValue(15).ToString();
@@ -887,7 +1167,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(17)) item.Justificativa = reader.GetValue(17).ToString(); else item.Justificativa = string.Empty;
                 if (!reader.IsDBNull(18)) item.SB = reader.GetValue(18).ToString(); else item.SB = string.Empty;
                 if (!reader.IsDBNull(19)) item.Data_Ini = reader.GetValue(19).ToString(); else item.Data_Ini = string.Empty;
-                if (!reader.IsDBNull(20)) item.Data_Fim = reader.GetValue(20).ToString(); else item.Data_Fim = string.Empty;                
+                if (!reader.IsDBNull(20)) item.Data_Fim = reader.GetValue(20).ToString(); else item.Data_Fim = string.Empty;
 
                 if (!reader.IsDBNull(21)) item.THP_Meta = double.Parse(reader.GetValue(21).ToString());
                 if (!reader.IsDBNull(22)) item.THP_Real = double.Parse(reader.GetValue(22).ToString());
@@ -897,6 +1177,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(26)) item.THM_Real = double.Parse(reader.GetValue(26).ToString());
                 if (!reader.IsDBNull(27)) item.TTT_Meta = double.Parse(reader.GetValue(27).ToString());
                 if (!reader.IsDBNull(28)) item.TTT_Real = double.Parse(reader.GetValue(28).ToString());
+                if (!reader.IsDBNull(30)) item.Ponta_Rota = reader.GetValue(30).ToString(); else item.Ponta_Rota = string.Empty;
+                if (!reader.IsDBNull(31)) item.Ponta_SubRota = reader.GetValue(31).ToString(); else item.Ponta_SubRota = string.Empty;
 
 
             }
@@ -909,6 +1191,27 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
+        private PontaRota PreencherPropriedadesPontaRota(OleDbDataReader reader)
+        {
+            var item = new PontaRota();
 
+            try
+            {
+                if (!reader.IsDBNull(03)) item.SB_ID = reader.GetValue(03).ToString();
+                if (!reader.IsDBNull(04)) item.SB = reader.GetValue(04).ToString();
+                if (!reader.IsDBNull(05)) item.Ponta = reader.GetValue(05).ToString();
+
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "PontaRota", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return item;
+        }
+
+        #endregion
     }
 }
