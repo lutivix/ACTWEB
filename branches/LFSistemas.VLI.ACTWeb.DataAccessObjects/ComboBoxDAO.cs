@@ -269,7 +269,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select es_id_efe as id, es_dsc_efe as descricao from estacoes order by es_dsc_efe");
+                    query.Append(@"SELECT COR_ID_COR AS ID, COR_DESCRICAO AS DESCRICAO FROM CORREDORES WHERE COR_ATIVO_SN = 'S' ORDER BY DESCRICAO");
 
                     #endregion
 
