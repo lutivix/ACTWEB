@@ -1,13 +1,8 @@
 ﻿using LFSistemas.VLI.ACTWeb.Controllers;
 using LFSistemas.VLI.ACTWeb.DataAccessObjects;
 using LFSistemas.VLI.ACTWeb.Entities;
-using LFSistemas.VLI.ACTWeb.Web.Cadastro;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
 

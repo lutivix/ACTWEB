@@ -3,20 +3,8 @@ using LFSistemas.VLI.ACTWeb.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Text;
-using System.Drawing;
-
-using System.IO;
-using NPOI.POIFS.FileSystem;
-using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
-using System.Net;
-using System.ComponentModel;
-using NPOI.HSSF.UserModel;
-using NPOI.HSSF.Util;
+ using System.Web.UI;
+ using System.Text;
 
 
 namespace LFSistemas.VLI.ACTWeb.Web.THP

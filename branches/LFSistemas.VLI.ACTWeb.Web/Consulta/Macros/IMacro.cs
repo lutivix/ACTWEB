@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
+﻿namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
 {
     public interface IMacro
     {
