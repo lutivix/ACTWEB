@@ -87,7 +87,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Append(@"SELECT ES.ES_ID_EFE AS ESTACAO, AA.AL_DT_INI AS DATA_INICIAL, AA.AL_DT_TER AS DATA_FINAL, AA.AL_PARAM AS LOCAL, TA.TA_MSG_TA AS DESCRICAO, AA.AL_SIT AS SITUACAO 
                                         FROM ACTPP.ALARMES AA, ACTPP.TIPOS_ALARMES TA, ACTPP.ESTACOES ES 
                                             WHERE AA.TA_ID_TA = TA.TA_ID_TA 
-                                              AND AA.TA_ID_TA IN (205, 206, 607, 213, 212, 208, 301)
+                                              AND AA.TA_ID_TA IN (205, 206, 607, 213, 212, 208, 301, 672)
                                               AND AA.ES_ID_NUM_EFE = ES.ES_ID_NUM_EFE
                                               AND AA.AL_SIT IN ('N','R')
                                               AND ES.ES_ID_EFE NOT IN ('VCS', 'POI')");
@@ -98,7 +98,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         FROM ACTPP.ALARMES AA, ACTPP.TIPOS_ALARMES TA, ACTPP.ESTACOES ES
                                             WHERE AA.TA_ID_TA = TA.TA_ID_TA
                                               AND AA.ES_ID_NUM_EFE = ES.ES_ID_NUM_EFE
-                                              AND AA.TA_ID_TA IN (205, 206, 607, 213, 301, 212, 334, 211, 301)
+                                              AND AA.TA_ID_TA IN (205, 206, 607, 213, 301, 212, 334, 211, 301, 672)
                                               ${PERIODO}");
 
                         if (filtro.DataInicial != null && filtro.DataFinal != null)
