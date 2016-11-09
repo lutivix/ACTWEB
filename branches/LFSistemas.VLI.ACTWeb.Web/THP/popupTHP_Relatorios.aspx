@@ -73,16 +73,6 @@
                 }
             }
         }
-        //function selectAllSubRotas(invoker) {
-        //    var divControll = document.getElementById('dvSubRotas');
-        //    var inputElements = divControll.getElementsByTagName('input');
-        //    for (var i = 0; i < inputElements.length; i++) {
-        //        var myElement = inputElements[i];
-        //        if (myElement.type === "checkbox") {
-        //            myElement.checked = invoker.checked;
-        //        }
-        //    }
-        //}
         function selectAllGrupos(invoker) {
             var divControll = document.getElementById('dvGrupos');
             var inputElements = divControll.getElementsByTagName('input');
@@ -249,7 +239,6 @@
         });
         function InitializeRequest(sender, args) {
         }
-
         function EndRequest(sender, args) {
             $("#dvAccordian").accordion({
                 autoHeight: false,
@@ -257,7 +246,6 @@
                 collapsible: true,
             });
         }
-
         function checkData(sender, args) {
 
             var filtro_classe = $('#txtFiltroClasse').val();
@@ -883,20 +871,20 @@
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <%--DADOS DO REPITER DE DENTRO--%>
-                                                                            <tr class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>">
-                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Data: <%# Eval("Data").ToString()%>"><%# Eval("Data").ToString().Substring(0, 10)%></td>
-                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Corredor: <%# Eval("Corredor").ToString()%>"><%# Eval("Corredor")%></td>
-                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Rota: <%# Eval("Rota").ToString()%>"><%# Eval("Rota")%></td>
-                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="SubRota: <%# Eval("SubRota").ToString()%>"><%# Eval("SubRota")%></td>
-                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Classe: <%# Eval("Classe").ToString()%>"><%# Eval("Classe")%></td>
-                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="OS: <%# Eval("OS").ToString()%>"><%# Eval("OS")%></td>
-                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Prefixo: <%# Eval("Prefixo").ToString()%>"><%# Eval("Prefixo")%></td>
-                                                                                <td style="text-align: left; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89);" title="Grupo: <%# Eval("Grupo").ToString()%>"><%# Eval("Grupo")%></td>
-                                                                                <td style="text-align: left; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89);" title="Motivo: <%# Eval("Motivo").ToString()%>"><%# Eval("Motivo")%></td>
-                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="SB:&nbsp;&nbsp;<%# Eval("SB")%>"><%# Eval("SB")%></td>
-                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Hora Início:&nbsp;&nbsp;<%# Eval("Data_Ini")%>"><%# Eval("Data_Ini")%></td>
-                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Hora Final:&nbsp;&nbsp;<%# Eval("Data_Fim")%>"><%# Eval("Data_Fim")%></td>
-                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89);" title="THP">
+                                                                            <tr>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" title="Data: <%# Eval("Data").ToString()%>"><%# Eval("Data").ToString().Substring(0, 10)%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" title="Corredor: <%# Eval("Corredor").ToString()%>"><%# Eval("Corredor")%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" title="Rota: <%# Eval("Rota").ToString()%>"><%# Eval("Rota")%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" title="SubRota: <%# Eval("SubRota").ToString()%>"><%# Eval("SubRota")%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" title="Classe: <%# Eval("Classe").ToString()%>"><%# Eval("Classe")%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" title="OS: <%# Eval("OS").ToString()%>"><%# Eval("OS")%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" title="Prefixo: <%# Eval("Prefixo").ToString()%>"><%# Eval("Prefixo")%></td>
+                                                                                <td style="text-align: left;   vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89);" class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" title="Grupo: <%# Eval("Grupo").ToString()%>"><%# Eval("Grupo")%></td>
+                                                                                <td style="text-align: left;   vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89);" class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" title="Motivo: <%# Eval("Motivo").ToString()%>"><%# Eval("Motivo")%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" title="SB:&nbsp;&nbsp;<%# Eval("SB")%>"><%# Eval("SB")%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" title="Hora Início:&nbsp;&nbsp;<%# Eval("Data_Ini")%>"><%# Eval("Data_Ini")%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" title="Hora Final:&nbsp;&nbsp;<%# Eval("Data_Fim")%>"><%# Eval("Data_Fim")%></td>
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89);" class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" title="THP">
                                                                                     <table style="width: 100%" title="THP">
                                                                                         <tbody>
                                                                                             <tr>
@@ -910,7 +898,7 @@
                                                                                         </tbody>
                                                                                     </table>
                                                                                 </td>
-                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89);" title="TTP">
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89);" class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" title="TTP">
                                                                                     <table style="width: 100%" title="TTP">
                                                                                         <tbody>
                                                                                             <tr>
@@ -924,7 +912,7 @@
                                                                                         </tbody>
                                                                                     </table>
                                                                                 </td>
-                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89);" title="THM">
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89);" class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" title="THM">
                                                                                     <table style="width: 100%" title="THM">
                                                                                         <tbody>
                                                                                             <tr>
@@ -938,13 +926,13 @@
                                                                                         </tbody>
                                                                                     </table>
                                                                                 </td>
-                                                                                <td class="prb-<%# Eval("Duracao_THP_PRB")%>" style="text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="<%# double.Parse(Eval("Duracao_THP").ToString()) != 0 ? string.Format("Duração THP: {0}", TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THP").ToString()))) : "Duração THP"%>">
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("zVisible")%>; " class="prb-<%# Eval("Duracao_THP_PRB")%> pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" rowspan="<%# Eval("zRowspan")%>" title="<%# double.Parse(Eval("Duracao_THP").ToString()) != 0 ? string.Format("Duração THP: {0}", TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THP").ToString()))) : "Duração THP"%>">
                                                                                     <asp:Label runat="server" Text='<%# double.Parse(Eval("Duracao_THP").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THP").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THP").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THP").ToString())).Seconds) : ""%>' /></td>
-                                                                                <td class="prb-<%# Eval("Duracao_TTP_PRB")%>" style="text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="<%# double.Parse(Eval("Duracao_TTP").ToString()) != 0 ? string.Format("Duração TTP: {0}", TimeSpan.FromSeconds(double.Parse(Eval("Duracao_TTP").ToString()))) : "Duração TTP"%>">
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("zVisible")%>; " class="prb-<%# Eval("Duracao_TTP_PRB")%> pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" rowspan="<%# Eval("zRowspan")%>" title="<%# double.Parse(Eval("Duracao_TTP").ToString()) != 0 ? string.Format("Duração TTP: {0}", TimeSpan.FromSeconds(double.Parse(Eval("Duracao_TTP").ToString()))) : "Duração TTP"%>">
                                                                                     <asp:Label runat="server" Text='<%# double.Parse(Eval("Duracao_TTP").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_TTP").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_TTP").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_TTP").ToString())).Seconds) : ""%>' /></td>
-                                                                                <td class="prb-<%# Eval("Duracao_THM_PRB")%>" style="text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="<%# double.Parse(Eval("Duracao_THM").ToString()) != 0 ? string.Format("Duração THM: {0}", TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THM").ToString()))) : "Duração THM"%>">
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("zVisible")%>; " class="prb-<%# Eval("Duracao_THM_PRB")%> pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" rowspan="<%# Eval("zRowspan")%>" title="<%# double.Parse(Eval("Duracao_THM").ToString()) != 0 ? string.Format("Duração THM: {0}", TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THM").ToString()))) : "Duração THM"%>">
                                                                                     <asp:Label runat="server" Text='<%# double.Parse(Eval("Duracao_THM").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THM").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THM").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THM").ToString())).Seconds) : ""%>' /></td>
-                                                                                <td style="width: 130px; text-align: center; vertical-align: middle; visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="Transit Time">
+                                                                                <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; visibility: <%# Eval("zVisible")%>;" rowspan="<%# Eval("zRowspan")%>" class="pnt-rota-<%# Eval("Ponta_Rota").ToString()%> pnt-subrota-<%# Eval("Ponta_SubRota").ToString()%>" title="Transit Time">
                                                                                     <table style="width: 100%" title="Transit Time">
                                                                                         <tbody>
                                                                                             <tr>

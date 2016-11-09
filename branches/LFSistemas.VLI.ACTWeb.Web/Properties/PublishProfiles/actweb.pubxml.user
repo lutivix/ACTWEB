@@ -162,25 +162,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>11/01/2016 13:07:01</publishTime>
+      <publishTime>11/08/2016 15:48:36</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
       <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>11/01/2016 13:07:01</publishTime>
+      <publishTime>11/08/2016 15:48:36</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
       <publishTime>09/08/2016 12:55:17</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>10/17/2016 14:12:18</publishTime>
+      <publishTime>11/08/2016 15:48:35</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>11/01/2016 13:07:03</publishTime>
+      <publishTime>11/08/2016 15:48:39</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>
@@ -1692,10 +1692,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/07/2016 15:48:26</publishTime>
     </File>
     <File Include="THP/popupTHP_Relatorios.aspx">
-      <publishTime>10/19/2016 15:17:16</publishTime>
+      <publishTime>11/08/2016 09:25:43</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/01/2016 13:07:04</publishTime>
+      <publishTime>11/08/2016 15:48:40</publishTime>
     </File>
   </ItemGroup>
 </Project>
