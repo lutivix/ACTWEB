@@ -422,7 +422,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         for (int i = 0; i < codigoos.Length; i++)
                             codigoos[i] = codigoos[i] + "%";
                         var clausula = string.Join("' or ME_COD_OF like '", codigoos);
-                        clausula = string.Concat("ME_COD_OF like '", clausula, "'");
+                        clausula = string.Concat("MR_COD_OF like '", clausula, "'");
                         query.Replace("${R_CodOS}", string.Format("AND ({0})", clausula));
                     }
                     else
