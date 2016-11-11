@@ -92,7 +92,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Manter
             var acao = new PerfisController();
             Perfil perfil = new Perfil();
 
-            if (!string.IsNullOrEmpty(ID)) perfil.Perfil_ID = double.Parse(ID); else perfil.Perfil_ID = null;
+            if (!string.IsNullOrEmpty(ID)) perfil.Perfil_ID = ID; else perfil.Perfil_ID = null;
 
             perfil.Descricao = txtDadosDescricao.Text.ToUpper();
             perfil.Abreviado = txtDadosAbreviado.Text.ToUpper();

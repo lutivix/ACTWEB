@@ -40,25 +40,26 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT PER_ID_PER AS ID, PER_ATUALIZACAO AS DATA, PER_DESCRICAO AS DESCRICAO, PER_ABREVIADO AS SIGLA, PER_ATIVO_SN AS ATIVO FROM PERFIS ${PER_DESCRICAO} ${PER_ABREVIADO} ${PER_ATIVO_SN}");
+                    query.Append(@"SELECT PER_ID_PER AS ID, PER_ATUALIZACAO AS DATA, PER_DESCRICAO AS DESCRICAO, PER_ABREVIADO AS SIGLA, PER_ATIVO_SN AS ATIVO 
+                                    FROM PERFIS
+                                    WHERE 1=1
+                                      ${PER_DESCRICAO}
+                                      ${PER_ABREVIADO}
+                                      ${PER_ATIVO_SN}");
 
 
                     if (filtro.Descricao != null)
-                        query.Replace("${PER_DESCRICAO}", string.Format(" WHERE UPPER(PER_DESCRICAO) LIKE '%{0}%)", filtro.Descricao.ToUpper()));
+                        query.Replace("${PER_DESCRICAO}", string.Format("AND UPPER(PER_DESCRICAO) LIKE '%{0}%'", filtro.Descricao.ToUpper()));
                     else
                         query.Replace("${PER_DESCRICAO}", string.Format(" "));
 
-                    if (filtro.Descricao == null && filtro.Abreviado != null)
-                        query.Replace("${PER_ABREVIADO}", string.Format(" WHERE UPPER(PER_ABREVIADO) LIKE '%{0}%)", filtro.Abreviado.ToUpper()));
-                    else if (filtro.Descricao != null && filtro.Abreviado != null)
-                        query.Replace("${PER_ABREVIADO}", string.Format(" AND UPPER(PER_ABREVIADO) LIKE '%{0}%)", filtro.Abreviado.ToUpper()));
+                    if (filtro.Abreviado != null)
+                        query.Replace("${PER_ABREVIADO}", string.Format("AND UPPER(PER_ABREVIADO) LIKE '%{0}%'", filtro.Abreviado.ToUpper()));
                     else
                         query.Replace("${PER_ABREVIADO}", string.Format(""));
 
-                    if ((filtro.Descricao == null && filtro.Abreviado == null) && filtro.Ativo != null)
-                        query.Replace("${PER_ATIVO_SN}", string.Format(" WHERE PER_ATIVO_SN = '{0}'", filtro.Ativo.ToUpper()));
-                    else if ((filtro.Descricao != null || filtro.Abreviado != null) && filtro.Ativo != null)
-                        query.Replace("${PER_ATIVO_SN}", string.Format("   AND PER_ATIVO_SN = '{0}'", filtro.Ativo.ToUpper()));
+                    if (filtro.Ativo != null)
+                        query.Replace("${PER_ATIVO_SN}", string.Format("AND PER_ATIVO_SN = '{0}'", filtro.Ativo.ToUpper()));
                     else
                         query.Replace("${PER_ATIVO_SN}", string.Format(""));
 
@@ -225,7 +226,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    if (string.IsNullOrEmpty(perfil.Perfil_ID.ToString()))
+                    if (string.IsNullOrEmpty(perfil.Perfil_ID))
                     {
                        // SELECT PER_ID_PER AS ID, PER_ATUALIZACAO AS DATA, PER_DESCRICAO AS DESCRICAO, PER_ABREVIADO AS SIGLA, PER_ATIVO_SN AS ATIVO FROM PERFIS
 
@@ -260,7 +261,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     if (reader == 1)
                     {
                         Retorno = true;
-                        LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Perfil", Identificador, perfil.Perfil_ID.Value.ToString(), perfil.Descricao + " - " + perfil.Abreviado + " - " + perfil.Atualizacao + " - " + perfil.Ativo, operacao);
+                        LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Perfil", Identificador, perfil.Perfil_ID, perfil.Descricao + " - " + perfil.Abreviado + " - " + perfil.Atualizacao + " - " + perfil.Ativo, operacao);
                     }
 
                     #endregion
@@ -344,7 +345,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.Perfil_ID = reader.GetDouble(0);
+                if (!reader.IsDBNull(0)) item.Perfil_ID = reader.GetValue(0).ToString();
                 if (!reader.IsDBNull(1)) item.Atualizacao = reader.GetDateTime(1);
                 if (!reader.IsDBNull(2)) item.Descricao = reader.GetString(2);
                 if (!reader.IsDBNull(3)) item.Abreviado = reader.GetString(3);

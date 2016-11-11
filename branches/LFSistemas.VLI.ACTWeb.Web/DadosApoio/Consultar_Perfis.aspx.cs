@@ -88,7 +88,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio
         {
             LinkButton btn = (LinkButton)(sender);
             string abreviar = btn.CommandArgument;
-            Response.Redirect("/DadosApoio/Consultar_Perfis.aspx?di=" + Uteis.Criptografar("", "a#3G6**@"));
+            Response.Redirect("/DadosApoio/Manter/Perfis.aspx?di=" + Uteis.Criptografar("", "a#3G6**@"));
 
         }
         protected void lnkLimpar_Click(object sender, EventArgs e)

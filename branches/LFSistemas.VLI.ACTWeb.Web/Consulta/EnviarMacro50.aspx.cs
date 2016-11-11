@@ -80,7 +80,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     _resposta = Request.QueryString["resposta"] != null ? Request.QueryString["resposta"] : "E";
 
                     string texto = txtMensagem.Text.Length > 190 ? Uteis.FormataTextoMacro(50, lblUsuarioMaleta.Text, textoAbreviado.Substring(0, 190)) : Uteis.FormataTextoMacro(50, lblUsuarioMaleta.Text, textoAbreviado);
-                
+
+                    List<EnviarMacro> itens = new List<EnviarMacro>();
                     EnviarMacro m50 = new EnviarMacro();
                     m50.MWE_NUM_MACRO = 50;
                     m50.MWE_DT_ENV = DateTime.Now;
@@ -89,7 +90,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     m50.MWE_SIT_MWE = char.Parse("P");
                     m50.MWE_IND_MCR = char.Parse("N");
 
-                    if (EnviandoMacro(m50, txtIdentificador_lda.Text, _resposta, lblUsuarioMatricula.Text))
+                    itens.Add(m50);
+
+                    if (EnviandoMacro(itens, txtIdentificador_lda.Text, _resposta, lblUsuarioMatricula.Text))
                         Response.Write("<script>alert('Macro 50 enviada com sucesso, por " + lblUsuarioMatricula.Text + " - " + lblUsuarioPerfil.Text + "'); this.window.close();</script>");
 
                     if (_resposta == "R")
@@ -235,10 +238,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         /// <param name="identificador_lda">[ string ] - Identificador da macro lida</param>
         /// <param name="tipo">[ string ]: - Tipo: E = Enviando Macro | R = Respondendo Macro</param>
         /// <returns>Retorna "true" se a macro foi enviada com sucesso ou "false" caso contrário</returns>
-        protected bool EnviandoMacro(EnviarMacro macro, string identificador_lda, string resposta, string usuarioLogado)
+        protected bool EnviandoMacro(List<EnviarMacro> macros, string identificador_lda, string resposta, string usuarioLogado)
         {
             var macroController = new MacroController();
-            return macroController.EnviarMacro(macro, identificador_lda, resposta, usuarioLogado);
+            return macroController.EnviarMacro(macros, identificador_lda, resposta, usuarioLogado);
         }
 
         /// <summary>

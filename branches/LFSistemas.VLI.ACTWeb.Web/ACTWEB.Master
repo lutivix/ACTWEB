@@ -1,5 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ACTWEB.master.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.ACTWEB"  %>
-
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ACTWEB.master.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.ACTWEB" %>
 
 <%--<%@ Register assembly = "ProudMonkey.Common.Controls" namespace = "ProudMonkey.Common.Controls" tagprefix = "cc1"%> --%>
 
@@ -37,7 +36,7 @@
     <script type="text/javascript" src="/js/jquery-1.8.2.js"></script>
     <script type="text/javascript" src="/js/jquery-ui.js"></script>
     <script type="text/javascript" src="/js/jquery-ui-timepicker-addon.js"></script>
-  
+
     <link rel="grupo vli" href="logo-vli.ico">
 
     <script type="text/javascript">
@@ -68,7 +67,7 @@
 </head>
 <body onbeforeunload="ConfirmClose()" <%--onunload="HandleOnClose()"--%>>
     <form id="Form1" runat="server">
-        <asp:ToolkitScriptManager  ID ="ToolkitScriptManager1"  runat ="server" EnableScriptGlobalization="true" />
+        <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" EnableScriptGlobalization="true" />
         <div style="height: 100%; width: 100%">
             <div class="navigation-bar">
                 <div class="navigation-bar-left">
@@ -126,16 +125,15 @@
                         </div>
                     </div>
                     <div class="top-bar-after">
-                        <div id="relogio" style="width: 210px; padding-left: 60px; margin-top: 20px;  font-size: 2.5em; font-weight: 300; color: white; text-shadow: black 0.1em 0.0em 0.1em;"></div>
+                        <div id="relogio" style="width: 210px; padding-left: 60px; margin-top: 20px; font-size: 2.5em; font-weight: 300; color: white; text-shadow: black 0.1em 0.0em 0.1em;"></div>
                     </div>
-                    <div style="width: 100%; margin-top: 57px;  text-shadow: black 0.1em 0.0em 0.1em; color: yellow;  padding: 6px;">
-                        <MARQUEE HEIGHT=30 WIDTH=100% DIRECTION=LEFT SCROLLAMOUNT=8><asp:Label runat="server" ID="lblDisplay"  Font-Size="2em"  /></MARQUEE>
+                    <div style="width: 100%; margin-top: 57px; text-shadow: black 0.1em 0.0em 0.1em; color: yellow; padding: 6px;">
+                        <marquee height="30" width="100%" direction="LEFT" scrollamount="8"><asp:Label runat="server" ID="lblDisplay"  Font-Size="2em"  /></marquee>
                     </div>
-                    
+
                 </div>
-                
+
                 <div class="title-bar-bottom">
-                    
                 </div>
             </div>
             <div class="side-menu">
@@ -210,7 +208,6 @@
                                         <span class="menu-item-label" title="Cadastro de Metas PCTM">Logs</span>
                                     </asp:LinkButton>
                                 </li>
-
                                 <li class="" id="sub_dadosapoio_meta_pctm" runat="server">
                                     <asp:LinkButton runat="server" ID="lnkMeta_PCTM" OnClick="lnkMeta_PCTM_Click">
                                         <span class="menu-item-icon"><i class="fa fa-book"></i></span>
@@ -229,6 +226,10 @@
                                         <span class="menu-item-label" title="Plus">Plus</span>
                                     </asp:LinkButton>
                                 </li>
+
+
+
+
                             </ul>
                         </div>
 
@@ -342,16 +343,14 @@
                                         <span class="menu-item-label" title="Macro pra Frota">Frota</span>
                                     </asp:LinkButton>
                                 </li>
+                                <li class="" id="sub_macros_parada_imediata" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkParadaImediata" OnClick="lnkParadaImediata_OnClick">
+                                        <span class="menu-item-icon"><i class="fa fa-envelope"></i></span>
+                                        <span class="menu-item-label" title="Parada Imediata">Parada Imediata</span>
+                                    </asp:LinkButton>
+                                </li>
                             </ul>
                         </div>
-
-                        <%----------------------  METAFRAME  ----------------------%>
-<%--                        <li class="" id="mnMetaframe" runat="server">
-                            <asp:LinkButton runat="server" ID="lnkMetaframe" OnClick="lnkMetaframe_Click">
-                                <span class="menu-item-icon menu-icon-metaframe"></span>
-                                <span class="menu-item-label" title="Metaframe">Metaframe</span>
-                            </asp:LinkButton>
-                        </li>--%>
 
                         <%----------------------  PAINEIS  ----------------------%>
                         <li class="" id="mnPainel" runat="server">
@@ -564,7 +563,7 @@
                                         <span class="menu-item-label" title="Consultar THP">Consultar</span>
                                     </asp:LinkButton>
                                 </li>
-<%--                                <li class="" id="sub_thp_AlocacaoProgramada" runat="server">
+                                <%--                                <li class="" id="sub_thp_AlocacaoProgramada" runat="server">
                                     <asp:LinkButton runat="server" ID="lnkAlocacaoProgramada" OnClick="lnkAlocacaoProgramada_Click">
                                         <span class="menu-item-icon"><i class="fa fa-connectdevelop"></i></span>
                                         <span class="menu-item-label" title="Consulta">Alocações Programadas</span>
@@ -587,7 +586,7 @@
                                         <span class="menu-item-icon"><i class="fa fa-connectdevelop"></i></span> 
                                         <span class="menu-item-label" title="Tempo de Parada/Confirmação">Tempo de Parada/Confirmação</span>
                                     </asp:LinkButton>
-                                </li> 
+                                </li>
                             </ul>
                         </div>
 
@@ -737,7 +736,6 @@
                                 </li>
                             </ul>
                         </div>
-
                     </ul>
                 </div>
                 <div class="main-content">
@@ -762,30 +760,6 @@
                 </div>
             </div>
         </div>
-                    <ul>
-                        <li class="" id="mnVMA0" runat="server">
-                            <a data-toggle="collapse" data-parent="#menu" href="#sub_vma" title="Consulta VMA">
-                                <span class="menu-item-icon menu-icon-vma"></span>
-                                <span class="menu-item-label" title="Consulta VMA">VMA <i class="fa fa-caret-down"></i></span>
-                            </a>
-                        </li>
-                        <div class="collapse" id="sub_vma0">
-                            <ul class="submenu">
-                                <li class="" id="sub_consultaVMA_consulta0" runat="server">
-                                    <asp:LinkButton runat="server" ID="lnkConsultaVMA0" OnClick="lnkConsultaVMA_Click">
-                                        <span class="menu-item-icon"><i class="fa fa-search"></i></span>
-                                        <span class="menu-item-label" title="Consulta">Consulta</span>
-                                    </asp:LinkButton>
-                                </li>
-                                <li class="" id="sub_relatorio_VMA0" runat="server">
-                                    <asp:LinkButton runat="server" ID="lnkRelarorioVMA0" OnClick="lnkRelarorioVMA_Click">
-                                        <span class="menu-item-icon"><i class="fa fa-print"></i></span>
-                                        <span class="menu-item-label" title="Relatório VMA">Relatórios VMA</span>
-                                    </asp:LinkButton>
-                                </li>
-                            </ul>
-                        </div>
-                    </ul>
     </form>
 </body>
 </html>

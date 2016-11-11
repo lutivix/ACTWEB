@@ -1917,61 +1917,63 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// <param name="identificador_lda">[ string ]: - Identificador da macro lida</param>
         /// <param name="resposta">[ string ]: - R = Resposta | E = Envio</param>
         /// <returns>Retorna "true" se a macro foi enviada com sucesso ou "false" se houver qualquer problema </returns>
-        public bool EnviarMacro(EnviarMacro macro, string identificador_lda, string resposta, string usuarioLogado)
+        public bool EnviarMacro(List<EnviarMacro> macro, string identificador_lda, string resposta, string usuarioLogado)
         {
             bool retorno = false;
 
-            StringBuilder query1 = new StringBuilder();
-            StringBuilder query2 = new StringBuilder();
-
-            try
+            for (int i = 0; i < macro.Count; i++)
             {
-                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                StringBuilder query1 = new StringBuilder();
+                StringBuilder query2 = new StringBuilder();
+
+                try
                 {
+                    using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                    {
 
-                    var command1 = connection.CreateCommand();
-                    var command2 = connection.CreateCommand();
+                        var command1 = connection.CreateCommand();
+                        var command2 = connection.CreateCommand();
 
-                    #region [ PEGA O PRÓXIMO ID ]
+                        #region [ PEGA O PRÓXIMO ID ]
 
-                    query1.Append(@"SELECT ACTPP.UNL_MACROSWEBE_ID.NEXTVAL ID FROM DUAL");
-                    command1.CommandText = query1.ToString();
-                    var reader = command1.ExecuteReader();
-                    if (reader.Read())
-                        identificador_env = reader.GetDouble(0);
+                        query1.Append(@"SELECT ACTPP.UNL_MACROSWEBE_ID.NEXTVAL ID FROM DUAL");
+                        command1.CommandText = query1.ToString();
+                        var reader = command1.ExecuteReader();
+                        if (reader.Read())
+                            identificador_env = double.Parse(reader.GetValue(0).ToString());
 
-                    #endregion
+                        #endregion
 
-                    #region [ ENVIA A MACRO ]
+                        #region [ ENVIA A MACRO ]
 
-                    query2.Append(@"INSERT into ACTPP.UNL_MACROSWEBE (MWE_ID_MWE, MWE_NUM_MACRO, MWE_DT_ENV, MWE_TEXTO, MWE_ID_MCT, MWE_SIT_MWE, MWE_IND_MCR) 
+                        query2.Append(@"INSERT into ACTPP.UNL_MACROSWEBE (MWE_ID_MWE, MWE_NUM_MACRO, MWE_DT_ENV, MWE_TEXTO, MWE_ID_MCT, MWE_SIT_MWE, MWE_IND_MCR) 
                                     values (${MWE_ID_MWE}, ${MWE_NUM_MACRO}, ${MWE_DT_ENV}, ${MWE_TEXTO}, ${MWE_ID_MCT}, ${MWE_SIT_MWE}, ${MWE_IND_MCR})");
 
-                    query2.Replace("${MWE_ID_MWE}", string.Format("{0}", identificador_env));
-                    query2.Replace("${MWE_NUM_MACRO}", string.Format("{0}", macro.MWE_NUM_MACRO));
-                    query2.Replace("${MWE_DT_ENV}", string.Format("TO_DATE('{0}', 'dd/mm/yyyy hh24:mi:ss')", macro.MWE_DT_ENV));
-                    query2.Replace("${MWE_TEXTO}", string.Format("'{0}'", macro.MWE_TEXTO));
-                    query2.Replace("${MWE_ID_MCT}", string.Format("{0}", macro.MWE_ID_MCT));
-                    query2.Replace("${MWE_SIT_MWE}", string.Format("'{0}'", macro.MWE_SIT_MWE));
-                    query2.Replace("${MWE_IND_MCR}", string.Format("'{0}'", macro.MWE_IND_MCR));
+                        query2.Replace("${MWE_ID_MWE}", string.Format("{0}", identificador_env));
+                        query2.Replace("${MWE_NUM_MACRO}", string.Format("{0}", macro[i].MWE_NUM_MACRO));
+                        query2.Replace("${MWE_DT_ENV}", string.Format("TO_DATE('{0}', 'dd/mm/yyyy hh24:mi:ss')", macro[i].MWE_DT_ENV));
+                        query2.Replace("${MWE_TEXTO}", string.Format("'{0}'", macro[i].MWE_TEXTO));
+                        query2.Replace("${MWE_ID_MCT}", string.Format("{0}", macro[i].MWE_ID_MCT));
+                        query2.Replace("${MWE_SIT_MWE}", string.Format("'{0}'", macro[i].MWE_SIT_MWE));
+                        query2.Replace("${MWE_IND_MCR}", string.Format("'{0}'", macro[i].MWE_IND_MCR));
 
-                    command2.CommandText = query2.ToString();
-                    command2.ExecuteNonQuery();
+                        command2.CommandText = query2.ToString();
+                        command2.ExecuteNonQuery();
 
-                    #endregion
+                        #endregion
 
-                    if (resposta == "E")
-                        LogDAO.GravaLogBanco(macro.MWE_DT_ENV, usuarioLogado, "Macro " + macro.MWE_NUM_MACRO.ToString(), null, identificador_env.ToString(), macro.MWE_TEXTO, Uteis.OPERACAO.Enviou.ToString());
-                    else
-                        LogDAO.GravaLogBanco(macro.MWE_DT_ENV, usuarioLogado, "Macro " + macro.MWE_NUM_MACRO.ToString(), identificador_lda, identificador_env.ToString(), macro.MWE_TEXTO, Uteis.OPERACAO.Respondeu.ToString());
-
+                        if (resposta == "E")
+                            LogDAO.GravaLogBanco(macro[i].MWE_DT_ENV, usuarioLogado, "Macro " + macro[i].MWE_NUM_MACRO.ToString(), null, identificador_env.ToString(), macro[i].MWE_TEXTO, Uteis.OPERACAO.Enviou.ToString());
+                        else
+                            LogDAO.GravaLogBanco(macro[i].MWE_DT_ENV, usuarioLogado, "Macro " + macro[i].MWE_NUM_MACRO.ToString(), identificador_lda, identificador_env.ToString(), macro[i].MWE_TEXTO, Uteis.OPERACAO.Respondeu.ToString());
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Enviou Macro " + macro.MWE_NUM_MACRO.ToString(), ex.Message.Trim());
-                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
-                throw new Exception(ex.Message);
+                catch (Exception ex)
+                {
+                    LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Enviou Macro " + macro[i].MWE_NUM_MACRO.ToString(), ex.Message.Trim());
+                    if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                    throw new Exception(ex.Message);
+                }
             }
             return retorno = true;
         }

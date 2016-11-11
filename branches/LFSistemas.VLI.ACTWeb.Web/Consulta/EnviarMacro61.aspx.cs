@@ -101,9 +101,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                         Response.Write("<script>alert('Texto da mensagem não anexado na Macro 61!');</script>");
                     else
                     {
+                        
                         //Pegar todos os itens do repeater
                         for (int i = 0; i < itens.Count; i++)
                         {
+                            List<EnviarMacro> macros = new List<EnviarMacro>();
                             EnviarMacro m61 = new EnviarMacro();
                             m61.MWE_NUM_MACRO = itens[i].Macro;
                             m61.MWE_DT_ENV = itens[i].Data;
@@ -112,11 +114,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                             m61.MWE_SIT_MWE = char.Parse("P");
                             m61.MWE_IND_MCR = char.Parse("N");
 
-                            if (EnviandoMacro(m61, null, "E", lblUsuarioMatricula.Text))
+                            macros.Add(m61);
+                            if (EnviandoMacro(macros, null, "E", lblUsuarioMatricula.Text))
                             {
                                 RemoveItemDaLista(itens[i].Id);
                             }
                         }
+
 
                         Response.Write("<script>alert('Macro 61 enviada com sucesso, por " + lblUsuarioMatricula.Text + " - " + lblUsuarioPerfil.Text + "');</script>");
                         ListaTemporarios();
@@ -146,6 +150,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                         if (textoQuebrado.Length < 3)
                             Response.Write("<script>alert('Texto da mensagem não anexado na Macro 61!');</script>");
 
+                        List<EnviarMacro> macros = new List<EnviarMacro>();
                         EnviarMacro m61 = new EnviarMacro();
                         m61.MWE_NUM_MACRO = 61;
                         m61.MWE_DT_ENV = DateTime.Now;
@@ -154,7 +159,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                         m61.MWE_SIT_MWE = char.Parse("P");
                         m61.MWE_IND_MCR = char.Parse("N");
 
-                        if (EnviandoMacro(m61, null, "E", lblUsuarioMatricula.Text))
+                        macros.Add(m61);
+
+                        if (EnviandoMacro(macros, null, "E", lblUsuarioMatricula.Text))
                         {
                             Response.Write("<script>alert('Macro 61 enviada com sucesso, por " + lblUsuarioMatricula.Text + " - " + lblUsuarioPerfil.Text + "');</script>");
                             ListaTemporarios();
@@ -329,10 +336,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             return retorno;
         }
 
-        protected bool EnviandoMacro(EnviarMacro macro, string macrolidaid, string resposta, string usuarioLogado)
+        protected bool EnviandoMacro(List<EnviarMacro> macros, string macrolidaid, string resposta, string usuarioLogado)
         {
             var macroController = new MacroController();
-            return macroController.EnviarMacro(macro, macrolidaid, resposta, usuarioLogado);
+            return macroController.EnviarMacro(macros, macrolidaid, resposta, usuarioLogado);
         }
         public void addUsuario(string _usuario, string _matricula, string _perfil)
         {

@@ -505,7 +505,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT PER_ID_PER AS ID, PER_ABREVIADO AS ABREVIADO FROM PERFIS WHERE PER_ATIVO_SN = 'S' ORDER BY PER_ABREVIADO");
+                    query.Append(@"SELECT PER_ID_PER AS ID, PER_DESCRICAO AS ABREVIADO FROM PERFIS WHERE PER_ATIVO_SN = 'S' ORDER BY PER_ABREVIADO");
 
                     #endregion
 
