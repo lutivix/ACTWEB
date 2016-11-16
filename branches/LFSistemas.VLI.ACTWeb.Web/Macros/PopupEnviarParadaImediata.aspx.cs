@@ -16,7 +16,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Macros
         public List<Trem> DadosTrem { get; set; }
         public List<Mcts> DadosMcts { get; set; }
 
-
         #endregion
 
         #region [ EVENTOS DE PÁGINA ]
@@ -47,7 +46,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Macros
                 ddlMcts.DataBind();
                 ddlMcts.Items.Insert(0, "Selecione!");
                 ddlMcts.SelectedIndex = 0;
-
             }
         }
 
@@ -78,7 +76,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Macros
 
                         itens.Add(m200);
 
-                        m38.MWE_TEXTO = "";
+                        m38.MWE_TEXTO = "_FREIO APLICADO PELO CCO";
                         m38.MWE_NUM_MACRO = 38;
                         m38.MWE_DT_ENV = DateTime.Now;
                         m38.MWE_ID_MCT = double.Parse(ddlMcts.SelectedValue);
