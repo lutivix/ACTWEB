@@ -346,6 +346,42 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP {
         protected global::System.Web.UI.WebControls.Repeater repAccordian;
         
         /// <summary>
+        /// lblTOT_THP_Real control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTOT_THP_Real;
+        
+        /// <summary>
+        /// lblTOT_TTP_Real control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTOT_TTP_Real;
+        
+        /// <summary>
+        /// lblTOT_THM_Real control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTOT_THM_Real;
+        
+        /// <summary>
+        /// lblTOT_TTT_Real control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTOT_TTT_Real;
+        
+        /// <summary>
         /// lblAVG_THP_Real control.
         /// </summary>
         /// <remarks>

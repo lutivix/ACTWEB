@@ -1,22 +1,10 @@
-﻿using LFSistemas.VLI.ACTWeb.Controllers;
+﻿ using LFSistemas.VLI.ACTWeb.Controllers;
 using LFSistemas.VLI.ACTWeb.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Text;
-using System.Drawing;
-
-using System.IO;
-using NPOI.POIFS.FileSystem;
-using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
-using System.Net;
-using System.ComponentModel;
-using NPOI.HSSF.UserModel;
-using NPOI.HSSF.Util;
+ using System.Web.UI;
+ using System.Text;
 
 
 namespace LFSistemas.VLI.ACTWeb.Web.THP
@@ -47,10 +35,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
         double Total_THM_Meta, Total_THM_Real = 0;
         double Total_TTT_Meta, Total_TTT_Real = 0;
 
-        double AVG_THP_Real, QTD_THP_Real = 0;
-        double AVG_TTP_Real, QTD_TTP_Real = 0;
-        double AVG_THM_Real, QTD_THM_Real = 0;
-        double AVG_TTT_Real, QTD_TTT_Real = 0;
+        double TOT_THP_Real, AVG_THP_Real, QTD_THP_Real = 0;
+        double TOT_TTP_Real, AVG_TTP_Real, QTD_TTP_Real = 0;
+        double TOT_THM_Real, AVG_THM_Real, QTD_THM_Real = 0;
+        double TOT_TTT_Real, AVG_TTT_Real, QTD_TTT_Real = 0;
 
         #endregion
 
@@ -1662,14 +1650,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                         {
                             if (itens.Count > 1)
                             {
-                                AVG_THP_Real += itens[i].TOT_THP_Real;
+                                TOT_THP_Real = AVG_THP_Real += itens[i].TOT_THP_Real;
                                 QTD_THP_Real++;
-                                AVG_TTP_Real += itens[i].TOT_TTP_Real;
+                                TOT_TTP_Real = AVG_TTP_Real += itens[i].TOT_TTP_Real;
                                 QTD_TTP_Real++;
-                                AVG_THM_Real += itens[i].TOT_THM_Real;
+                                TOT_THM_Real = AVG_THM_Real += itens[i].TOT_THM_Real;
                                 QTD_THM_Real++;
-                                AVG_TTT_Real += itens[i].TOT_TTT_Real;
+                                TOT_TTT_Real = AVG_TTT_Real += itens[i].TOT_TTT_Real;
                                 QTD_TTT_Real++;
+                            }
+                            else
+                            {
+                                TOT_THP_Real = AVG_THP_Real += itens[i].TOT_THP_Real;
+                                TOT_TTP_Real = AVG_TTP_Real += itens[i].TOT_TTP_Real;
+                                TOT_THM_Real = AVG_THM_Real += itens[i].TOT_THM_Real;
+                                TOT_TTT_Real = AVG_TTT_Real += itens[i].TOT_TTT_Real;
                             }
 
                             if (itens[i].TOT_THP_Meta < 0) itens[i].TOT_THP_Meta_PRB = "R"; else itens[i].TOT_THP_Meta_PRB = "P";
@@ -1699,6 +1694,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                                     AVG_TTT_Real += itens[i].Dados[j].TTT_Real;
                                     QTD_TTT_Real++;
                                 }
+
                                 if (itens[i].Dados[j].Duracao_THP < 0 ||
                                     itens[i].Dados[j].Duracao_TTP < 0 ||
                                     itens[i].Dados[j].Duracao_THM < 0 ||
@@ -1729,10 +1725,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                             }
                         }
 
-                        lblAVG_THP_Real.Text = AVG_THP_Real != 0 ? TimeSpan.FromSeconds(AVG_THP_Real / QTD_THP_Real).ToString(@"d\.hh\:mm\:ss") : string.Empty;
-                        lblAVG_TTP_Real.Text = AVG_TTP_Real != 0 ? TimeSpan.FromSeconds(AVG_TTP_Real / QTD_TTP_Real).ToString(@"d\.hh\:mm\:ss") : string.Empty;
-                        lblAVG_THM_Real.Text = AVG_THM_Real != 0 ? TimeSpan.FromSeconds(AVG_THM_Real / QTD_THM_Real).ToString(@"d\.hh\:mm\:ss") : string.Empty;
-                        lblAVG_TTT_Real.Text = AVG_TTT_Real != 0 ? TimeSpan.FromSeconds(AVG_TTT_Real / QTD_TTT_Real).ToString(@"d\.hh\:mm\:ss") : string.Empty;
+                        lblTOT_THP_Real.Text = TOT_THP_Real != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse((TOT_THP_Real).ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse((TOT_THP_Real).ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse((TOT_THP_Real).ToString())).Seconds) : string.Empty;
+                        lblTOT_TTP_Real.Text = TOT_TTP_Real != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse((TOT_TTP_Real).ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse((TOT_TTP_Real).ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse((TOT_TTP_Real).ToString())).Seconds) : string.Empty;
+                        lblTOT_THM_Real.Text = TOT_THM_Real != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse((TOT_THM_Real).ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse((TOT_THM_Real).ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse((TOT_THM_Real).ToString())).Seconds) : string.Empty;
+                        lblTOT_TTT_Real.Text = TOT_TTT_Real != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse((TOT_TTT_Real).ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse((TOT_TTT_Real).ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse((TOT_TTT_Real).ToString())).Seconds) : string.Empty;
+
+                        lblAVG_THP_Real.Text = AVG_THP_Real != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse((AVG_THP_Real / QTD_THP_Real).ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse((AVG_THP_Real / QTD_THP_Real).ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse((AVG_THP_Real / QTD_THP_Real).ToString())).Seconds) : string.Empty;
+                        lblAVG_TTP_Real.Text = AVG_TTP_Real != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse((AVG_TTP_Real / QTD_THP_Real).ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse((AVG_TTP_Real / QTD_THP_Real).ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse((AVG_TTP_Real / QTD_THP_Real).ToString())).Seconds) : string.Empty;
+                        lblAVG_THM_Real.Text = AVG_THM_Real != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse((AVG_THM_Real / QTD_THP_Real).ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse((AVG_THM_Real / QTD_THP_Real).ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse((AVG_THM_Real / QTD_THP_Real).ToString())).Seconds) : string.Empty;
+                        lblAVG_TTT_Real.Text = AVG_TTT_Real != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse((AVG_TTT_Real / QTD_THP_Real).ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse((AVG_TTT_Real / QTD_THP_Real).ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse((AVG_TTT_Real / QTD_THP_Real).ToString())).Seconds) : string.Empty;
 
                         #endregion
 
@@ -1769,9 +1770,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
         {
             bool Retorno = false;
 
-            //dvAnalitica.Visible = true;
-            //dvConsolida.Visible = false;
-
             string filtro_classe = null;
             string filtro_os = null;
             string filtro_prefixo = null;
@@ -1783,7 +1781,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             string filtro_grupos_id = null;
             string filtro_motivos_id = null;
 
-            List<Rel_THP_Itens> dados = new List<Rel_THP_Itens>();
+            //List<PontaRota> pontaRotas = new List<PontaRota>();
+
+            List<Rel_THP_Itens> itens = new List<Rel_THP_Itens>();
 
             var pesquisar = new Relatorio_THPController();
 
@@ -1928,11 +1928,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
 
             #endregion
 
-            DateTime filtro_ini = DateTime.Parse(txtFiltroDataDe.Text + " 00:00:00");
-            DateTime filtro_fim = DateTime.Parse(txtFiltroDataAte.Text + " 00:00:00");
+            DateTime filtro_ini = DateTime.Now;
+            DateTime filtro_fim = DateTime.Now;
 
+            if (txtFiltroDataDe.Text.ToUpper().Trim() != txtFiltroDataAte.Text.ToUpper().Trim())
+            {
+                filtro_ini = DateTime.Parse(txtFiltroDataDe.Text + " 00:00:00");
+                filtro_fim = DateTime.Parse(txtFiltroDataAte.Text + " 00:00:00");
+            }
+            else
+            {
+                filtro_ini = DateTime.Parse(txtFiltroDataDe.Text + " 00:00:00");
+                filtro_fim = DateTime.Parse(txtFiltroDataAte.Text + " 23:59:59");
+            }
 
-            dados = pesquisar.ObterRelatorioTHPPorFiltro(new Rel_THP_Filtro()
+            itens = pesquisar.ObterRelatorioTHPPorFiltro(new Rel_THP_Filtro()
             {
                 Data_INI = filtro_ini.ToString(),
                 Data_FIM = filtro_fim.ToString(),
@@ -1947,25 +1957,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 Motivo_ID = filtro_motivos_id
             });
 
-            if (dados.Count > 0)
+
+
+
+            if (itens.Count > 0)
             {
-                double TOT_AVG_THP_Real = 0;
-                double TOT_AVG_TTP_Real = 0;
-                double TOT_AVG_THM_Real = 0;
-                double TOT_AVG_TTT_Real = 0;
-                for (int i = 0; i < dados.Count; i++)
-                {
-                    TOT_AVG_THP_Real += dados[i].TOT_AVG_THP_Real;
-                    TOT_AVG_TTP_Real += dados[i].TOT_AVG_TTP_Real;
-                    TOT_AVG_THM_Real += dados[i].TOT_AVG_THM_Real;
-                    TOT_AVG_TTT_Real += dados[i].TOT_AVG_TTT_Real;
-                }
-
-                lblAVG_THP_Real.Text = TOT_AVG_THP_Real != 0 ? TimeSpan.FromSeconds(TOT_AVG_THP_Real).ToString() : string.Empty;
-                lblAVG_TTP_Real.Text = TOT_AVG_TTP_Real != 0 ? TimeSpan.FromSeconds(TOT_AVG_TTP_Real).ToString() : string.Empty;
-                lblAVG_THM_Real.Text = TOT_AVG_THM_Real != 0 ? TimeSpan.FromSeconds(TOT_AVG_THM_Real).ToString() : string.Empty;
-                lblAVG_TTT_Real.Text = TOT_AVG_TTT_Real != 0 ? TimeSpan.FromSeconds(TOT_AVG_TTT_Real).ToString() : string.Empty;
-
                 #region [GERANDO EXCEL CSV ]
 
                 StringBuilder sb = new StringBuilder();
@@ -1973,41 +1969,39 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 try
                 {
 
-                    for (int i = 0; i < dados.Count; i++)
+                    for (int i = 0; i < itens.Count; i++)
                     {
                         if (i == 0)
                         {
                             sb.AppendLine("DATA; CORREDOR; ROTA; SUBROTA; CLASSE; OS; PREFIXO; GRUPO; MOTIVO; SB; HR INICIO; HR FINAL; THP META; THP REAL; TTP META; TTP REAL; THM META; THM REAL; TTT META; TTT REAL");
                         }
 
-                        for (int j = 0; j < dados[i].Dados.Count; j++)
+                        for (int j = 0; j < itens[i].Dados.Count; j++)
                         {
 
                             sb.AppendLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19}",
-                                dados[i].Dados[j].Data.Substring(0, 10),
-                                dados[i].Dados[j].Corredor,
-                                dados[i].Dados[j].Rota,
-                                dados[i].Dados[j].SubRota,
-                                dados[i].Dados[j].Classe,
-                                dados[i].Dados[j].OS,
-                                dados[i].Dados[j].Prefixo,
-                                dados[i].Dados[j].Grupo,
-                                dados[i].Dados[j].Motivo,
-                                dados[i].Dados[j].SB,
-                                dados[i].Dados[j].Data_Ini,
-                                dados[i].Dados[j].Data_Fim,
-                                dados[i].Dados[j].THP_Meta != 0 ? string.Format("{0}", TimeSpan.FromSeconds(dados[i].Dados[j].THP_Meta)) : string.Empty,
-                                dados[i].Dados[j].THP_Real != 0 ? string.Format("{0}", TimeSpan.FromSeconds(dados[i].Dados[j].THP_Real)) : string.Empty,
-                                dados[i].Dados[j].TTP_Meta != 0 ? string.Format("{0}", TimeSpan.FromSeconds(dados[i].Dados[j].TTP_Meta)) : string.Empty,
-                                dados[i].Dados[j].TTP_Real != 0 ? string.Format("{0}", TimeSpan.FromSeconds(dados[i].Dados[j].TTP_Real)) : string.Empty,
-                                dados[i].Dados[j].THM_Meta != 0 ? string.Format("{0}", TimeSpan.FromSeconds(dados[i].Dados[j].THM_Meta)) : string.Empty,
-                                dados[i].Dados[j].THM_Real != 0 ? string.Format("{0}", TimeSpan.FromSeconds(dados[i].Dados[j].THM_Real)) : string.Empty,
-                                dados[i].Dados[j].TTT_Meta != 0 ? string.Format("{0}", TimeSpan.FromSeconds(dados[i].Dados[j].TTT_Meta)) : string.Empty,
-                                dados[i].Dados[j].TTT_Real != 0 ? string.Format("{0}", TimeSpan.FromSeconds(dados[i].Dados[j].TTT_Real)) : string.Empty
+                                itens[i].Dados[j].Data.Substring(0, 10),
+                                itens[i].Dados[j].Corredor,
+                                itens[i].Dados[j].Rota,
+                                itens[i].Dados[j].SubRota,
+                                itens[i].Dados[j].Classe,
+                                itens[i].Dados[j].OS,
+                                itens[i].Dados[j].Prefixo,
+                                itens[i].Dados[j].Grupo,
+                                itens[i].Dados[j].Motivo,
+                                itens[i].Dados[j].SB,
+                                itens[i].Dados[j].Data_Ini,
+                                itens[i].Dados[j].Data_Fim,
+                                itens[i].Dados[j].THP_Meta != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].THP_Meta.ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].THP_Meta.ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].THP_Meta.ToString())).Seconds) : string.Empty,
+                                itens[i].Dados[j].THP_Real != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].THP_Real.ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].THP_Real.ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].THP_Real.ToString())).Seconds) : string.Empty,
+                                itens[i].Dados[j].TTP_Meta != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].TTP_Meta.ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].TTP_Meta.ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].TTP_Meta.ToString())).Seconds) : string.Empty,
+                                itens[i].Dados[j].TTP_Real != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].TTP_Real.ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].TTP_Real.ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].TTP_Real.ToString())).Seconds) : string.Empty,
+                                itens[i].Dados[j].THM_Meta != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].THM_Meta.ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].THM_Meta.ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].THM_Meta.ToString())).Seconds) : string.Empty,
+                                itens[i].Dados[j].THM_Real != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].THM_Real.ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].THM_Real.ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].THM_Real.ToString())).Seconds) : string.Empty,
+                                itens[i].Dados[j].TTT_Meta != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].TTT_Meta.ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].TTT_Meta.ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].TTT_Meta.ToString())).Seconds) : string.Empty,
+                                itens[i].Dados[j].TTT_Real != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].TTT_Real.ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].TTT_Real.ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(itens[i].Dados[j].TTT_Real.ToString())).Seconds) : string.Empty
                                 ));
-
                         }
-
                     }
                 }
                 catch (Exception ex)
