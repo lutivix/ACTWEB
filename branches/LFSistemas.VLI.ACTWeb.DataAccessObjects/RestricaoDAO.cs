@@ -40,37 +40,37 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-//                    query.Append(@" select * from ( SELECT A.RC_ID_RCO as RestricaoID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
-//                                                        A.RP_DT_INI as Data_inicial, 
-//                                                        A.RP_DT_FIM as Data_final, A.RP_VEL_RP as Velocidade, A.RP_KM_INI as Km_inicial, A.RP_KM_FIM as Km_final, 
-//                                                        A.RP_OBS as Obs, A.RP_ST_RP as Situacao, A.RP_RESP as resp 
-//                                                        FROM ACTPP.RESTRICOES_PROGRAMADAS A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B
-//                                                        WHERE A.TR_ID_TP = B.TR_ID_TP AND A.EV_ID_ELM = C.EV_ID_ELM AND A.RP_ST_RP = 'P' AND A.TR_ID_TP > 1
-//                                                            ${EV_NOM_MAC}
-//                                                            ${RP_ID_RP}
-//                                                            ${SR_COD_STR}
-//                                                            ${RP_KM_INI}
-//                                                            ${RP_KM_FIM}
-//                                                            ${RP_OBS}
-//                                                            ${TR_COD_TP}
-//                                                    UNION ALL
-//                                                    SELECT A.RC_ID_RC as RestricaoID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
-//                                                        A.RC_DT_INI_PRV as Data_inicial, 
-//                                                        A.RC_DT_FIM_PRV as Data_final, A.RC_VEL_MAX as Velocidade, A.RC_KM_INI as Km_inicial, A.RC_KM_FIM as Km_final, 
-//                                                        A.RC_OBS as Obs, A.RC_ST as Situacao, A.RC_RESPONSAVEL as resp 
-//                                                        FROM ACTPP.RESTRICOES_CIRCULACAO A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B 
-//                                                        WHERE A.TR_ID_TP = B.TR_ID_TP AND A.EV_ID_ELM = C.EV_ID_ELM AND A.RC_ST = 'E' AND A.TR_ID_TP > 1
-//                                                            ${EV_NOM_MAC}
-//                                                            ${RC_ID_RC}
-//                                                            ${SR_COD_STR}
-//                                                            ${RC_KM_INI}
-//                                                            ${RC_KM_FIM}
-//                                                            ${RC_OBS}
-//                                                            ${TR_COD_TP})
-//                                                            
-//                                        order by Situacao, Data_inicial desc, Secao_Elemento");
+                    //                    query.Append(@" select * from ( SELECT A.RC_ID_RCO as RestricaoID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
+                    //                                                        A.RP_DT_INI as Data_inicial, 
+                    //                                                        A.RP_DT_FIM as Data_final, A.RP_VEL_RP as Velocidade, A.RP_KM_INI as Km_inicial, A.RP_KM_FIM as Km_final, 
+                    //                                                        A.RP_OBS as Obs, A.RP_ST_RP as Situacao, A.RP_RESP as resp 
+                    //                                                        FROM ACTPP.RESTRICOES_PROGRAMADAS A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B
+                    //                                                        WHERE A.TR_ID_TP = B.TR_ID_TP AND A.EV_ID_ELM = C.EV_ID_ELM AND A.RP_ST_RP = 'P' AND A.TR_ID_TP > 1
+                    //                                                            ${EV_NOM_MAC}
+                    //                                                            ${RP_ID_RP}
+                    //                                                            ${SR_COD_STR}
+                    //                                                            ${RP_KM_INI}
+                    //                                                            ${RP_KM_FIM}
+                    //                                                            ${RP_OBS}
+                    //                                                            ${TR_COD_TP}
+                    //                                                    UNION ALL
+                    //                                                    SELECT A.RC_ID_RC as RestricaoID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
+                    //                                                        A.RC_DT_INI_PRV as Data_inicial, 
+                    //                                                        A.RC_DT_FIM_PRV as Data_final, A.RC_VEL_MAX as Velocidade, A.RC_KM_INI as Km_inicial, A.RC_KM_FIM as Km_final, 
+                    //                                                        A.RC_OBS as Obs, A.RC_ST as Situacao, A.RC_RESPONSAVEL as resp 
+                    //                                                        FROM ACTPP.RESTRICOES_CIRCULACAO A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B 
+                    //                                                        WHERE A.TR_ID_TP = B.TR_ID_TP AND A.EV_ID_ELM = C.EV_ID_ELM AND A.RC_ST = 'E' AND A.TR_ID_TP > 1
+                    //                                                            ${EV_NOM_MAC}
+                    //                                                            ${RC_ID_RC}
+                    //                                                            ${SR_COD_STR}
+                    //                                                            ${RC_KM_INI}
+                    //                                                            ${RC_KM_FIM}
+                    //                                                            ${RC_OBS}
+                    //                                                            ${TR_COD_TP})
+                    //                                                            
+                    //                                        order by Situacao, Data_inicial desc, Secao_Elemento");
 
-                    query.Append(@" select * from ( SELECT 'P', A.RP_ID_RP AS PROGRAMADA_ID, A.RC_ID_RCO as CIRCULACAO_ID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
+                    query.Append(@" select * from ( SELECT 'PP', A.RP_ID_RP AS PROGRAMADA_ID, NULL AS CIRCULACAO_ID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
                                                         A.RP_DT_INI as Data_inicial, 
                                                         A.RP_DT_FIM as Data_final, A.RP_VEL_RP as Velocidade, A.RP_KM_INI as Km_inicial, A.RP_KM_FIM as Km_final, 
                                                         A.RP_OBS as Obs, A.RP_ST_RP as Situacao, A.RP_RESP as resp 
@@ -87,7 +87,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                             ${RP_OBS}
                                                             ${TR_COD_TP}
                                                     UNION ALL
-                                                    SELECT 'C', 0 AS PROGRAMADA_ID, A.RC_ID_RC AS CIRCULACAO_ID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
+                                                    SELECT 'CC', A.RP_ID_RP AS PROGRAMADA_ID, A.RC_ID_RC AS CIRCULACAO_ID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
                                                         A.RC_DT_INI_PRV as Data_inicial, 
                                                         A.RC_DT_FIM_PRV as Data_final, A.RC_VEL_MAX as Velocidade, A.RC_KM_INI as Km_inicial, A.RC_KM_FIM as Km_final, 
                                                         A.RC_OBS as Obs, A.RC_ST as Situacao, A.RC_RESPONSAVEL as resp 
@@ -108,7 +108,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     if (filtro.RestricaoID != null)
                     {
-                        query.Replace("${RP_ID_RP}", string.Format("AND A.RC_ID_RCO IN ({0})", filtro.RestricaoID));
+                        query.Replace("${RP_ID_RP}", string.Format("AND A.RP_ID_RP IN ({0})", filtro.RestricaoID));
                         query.Replace("${RC_ID_RC}", string.Format("AND A.RC_ID_RC IN ({0})", filtro.RestricaoID));
                     }
                     else
@@ -303,7 +303,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="ID">[ double ]: - Identificador da restricao</param>
         /// <returns>Retorna um objeto restrição</returns>
-        public Restricao ObterRestricaoPorID(double ID)
+        public Restricao ObterRestricaoPorID(string tipo, double ID)
         {
             #region [ PROPRIEDADES ]
 
@@ -320,24 +320,27 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-//                    query.Append(@" select * from ( SELECT A.RP_ID_RP as RestricaoID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
-//                                                        A.RP_DT_INI as Data_inicial, 
-//                                                        A.RP_DT_FIM as Data_final, A.RP_VEL_RP as Velocidade, A.RP_KM_INI as Km_inicial, A.RP_KM_FIM as Km_final, 
-//                                                        A.RP_OBS as Obs, A.RP_ST_RP as Situacao, A.RP_RESP as resp 
-//                                                        FROM ACTPP.RESTRICOES_PROGRAMADAS A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B
-//                                                        WHERE A.TR_ID_TP = B.TR_ID_TP AND A.EV_ID_ELM = C.EV_ID_ELM AND A.RP_ST_RP = 'P' AND A.TR_ID_TP <> 1
-//                                                            ${RP_ID_RP}
-//                                                    UNION 
-//                                                    SELECT A.RC_ID_RC as RestricaoID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
-//                                                        A.RC_DT_INI_PRV as Data_inicial, 
-//                                                        A.RC_DT_FIM_PRV as Data_final, A.RC_VEL_MAX as Velocidade, A.RC_KM_INI as Km_inicial, A.RC_KM_FIM as Km_final, 
-//                                                        A.RC_OBS as Obs, A.RC_ST as Situacao, A.RC_RESPONSAVEL as resp 
-//                                                        FROM ACTPP.RESTRICOES_CIRCULACAO A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B 
-//                                                        WHERE A.TR_ID_TP = B.TR_ID_TP AND A.EV_ID_ELM = C.EV_ID_ELM AND A.RC_ST = 'E' AND A.TR_ID_TP <> 1
-//                                                            ${RC_ID_RC})
-//                                        order by Situacao, Data_inicial desc, Secao_Elemento");
+                    //                    query.Append(@" select * from ( SELECT A.RP_ID_RP as RestricaoID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
+                    //                                                        A.RP_DT_INI as Data_inicial, 
+                    //                                                        A.RP_DT_FIM as Data_final, A.RP_VEL_RP as Velocidade, A.RP_KM_INI as Km_inicial, A.RP_KM_FIM as Km_final, 
+                    //                                                        A.RP_OBS as Obs, A.RP_ST_RP as Situacao, A.RP_RESP as resp 
+                    //                                                        FROM ACTPP.RESTRICOES_PROGRAMADAS A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B
+                    //                                                        WHERE A.TR_ID_TP = B.TR_ID_TP AND A.EV_ID_ELM = C.EV_ID_ELM AND A.RP_ST_RP = 'P' AND A.TR_ID_TP <> 1
+                    //                                                            ${RP_ID_RP}
+                    //                                                    UNION 
+                    //                                                    SELECT A.RC_ID_RC as RestricaoID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
+                    //                                                        A.RC_DT_INI_PRV as Data_inicial, 
+                    //                                                        A.RC_DT_FIM_PRV as Data_final, A.RC_VEL_MAX as Velocidade, A.RC_KM_INI as Km_inicial, A.RC_KM_FIM as Km_final, 
+                    //                                                        A.RC_OBS as Obs, A.RC_ST as Situacao, A.RC_RESPONSAVEL as resp 
+                    //                                                        FROM ACTPP.RESTRICOES_CIRCULACAO A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B 
+                    //                                                        WHERE A.TR_ID_TP = B.TR_ID_TP AND A.EV_ID_ELM = C.EV_ID_ELM AND A.RC_ST = 'E' AND A.TR_ID_TP <> 1
+                    //                                                            ${RC_ID_RC})
+                    //                                        order by Situacao, Data_inicial desc, Secao_Elemento");
 
-                    query.Append(@" select * from ( SELECT 'P', A.RP_ID_RP AS PROGRAMADA_ID, A.RC_ID_RCO as CIRCULACAO_ID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
+                    if (tipo == "PP")
+                    {
+
+                        query.Append(@" select * from ( SELECT 'PP' AS TIPO, A.RP_ID_RP AS PROGRAMADA_ID, NULL AS CIRCULACAO_ID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
                                                         A.RP_DT_INI as Data_inicial, 
                                                         A.RP_DT_FIM as Data_final, A.RP_VEL_RP as Velocidade, A.RP_KM_INI as Km_inicial, A.RP_KM_FIM as Km_final, 
                                                         A.RP_OBS as Obs, A.RP_ST_RP as Situacao, A.RP_RESP as resp 
@@ -346,9 +349,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                           AND A.EV_ID_ELM = C.EV_ID_ELM 
                                                           AND A.RP_ST_RP = 'P' 
                                                           AND A.TR_ID_TP > 1
-                                                          ${RP_ID_RP}
-                                                    UNION 
-                                                    SELECT 'C', 0 AS PROGRAMADA_ID, A.RC_ID_RC AS CIRCULACAO_ID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
+                                                          ${PROGRAMADA_ID})
+                                        order by Situacao, Data_inicial desc, Secao_Elemento");
+
+                        query.Replace("${PROGRAMADA_ID}", string.Format("AND A.RP_ID_RP IN ({0})", ID));
+                    }
+                    else
+                    {
+                        query.Append(@" select * from ( SELECT 'CC' AS TIPO, A.RP_ID_RP AS PROGRAMADA_ID, A.RC_ID_RC AS CIRCULACAO_ID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
                                                         A.RC_DT_INI_PRV as Data_inicial, 
                                                         A.RC_DT_FIM_PRV as Data_final, A.RC_VEL_MAX as Velocidade, A.RC_KM_INI as Km_inicial, A.RC_KM_FIM as Km_final, 
                                                         A.RC_OBS as Obs, A.RC_ST as Situacao, A.RC_RESPONSAVEL as resp 
@@ -357,12 +365,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                           AND A.EV_ID_ELM = C.EV_ID_ELM 
                                                           AND A.RC_ST = 'E' 
                                                           AND A.TR_ID_TP > 1
-                                                          ${RC_ID_RC})
+                                                          ${CIRCULACAO_ID})
                                         order by Situacao, Data_inicial desc, Secao_Elemento");
 
-                    query.Replace("${RP_ID_RP}", string.Format("AND A.RC_ID_RCO IN ({0})", ID));
-                    query.Replace("${RC_ID_RC}", string.Format("AND A.RC_ID_RC IN ({0})", ID));
-                    
+                        query.Replace("${CIRCULACAO_ID}", string.Format("AND A.RC_ID_RC IN ({0})", ID));
+                    }
+
 
                     #endregion
 
@@ -464,7 +472,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     from ACTPP.restricoes_circulacao rc, ACTPP.elem_via ev, ACTPP.tipos_restricao tr 
                                         where ev.ev_id_elm = rc.ev_id_elm 
                                             and rc.tr_id_tp=tr.tr_id_Tp 
-                                            and rc_dt_ini_rlz > to_date('" + dataInicial +"','dd/mm/yyyy hh24:mi') and rc_dt_ini_rlz < to_date('"+ dataFinal +"','dd/mm/yyyy hh24:mi') ORDER BY rc_dt_ini_rlz desc");
+                                            and rc_dt_ini_rlz > to_date('" + dataInicial + "','dd/mm/yyyy hh24:mi') and rc_dt_ini_rlz < to_date('" + dataFinal + "','dd/mm/yyyy hh24:mi') ORDER BY rc_dt_ini_rlz desc");
 
                     #endregion
 
@@ -702,7 +710,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         while (reader.Read())
                         {
                             var item = PreencherPropriedadesSecao(reader);
-                            itens.Add(item);                            
+                            itens.Add(item);
                         }
                     }
 
@@ -835,7 +843,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             }
             catch (Exception ex)
             {
-                
+
                 throw new Exception(ex.Message);
             }
 
@@ -982,7 +990,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return retorno;
         }
-    
+
         /// <summary>
         /// Verifica se o Km está dentro da Seção
         /// </summary>
@@ -1033,7 +1041,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                         double dblKm1 = Convert.ToDouble(itens[0]);
                         double dblKm2 = Convert.ToDouble(itens[1]);
-                        
+
                         //ve se esta decrescente
                         if (dblKm1 > dblKm2)
                             blnCrescente = false;
@@ -1055,7 +1063,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         {
                             return ((pdblKm >= dblKm2) && (pdblKm <= dblKm1));
                         }
-                        
+
                     }
 
                     #endregion
@@ -1140,7 +1148,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             #region [ PROPRIEDADES ]
 
             bool Retorno = false;
-            
+
             StringBuilder query1 = new StringBuilder();
             StringBuilder query2 = new StringBuilder();
 
@@ -1171,22 +1179,22 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
 
                     query2.Replace("${RE_RESTRICAOID}", string.Format("{0}", aux_RestricaoID));
-                    if (rr.Secao_Elemento   != string.Empty) query2.Replace("${RE_SECAO_ELEMENTO}", string.Format("'{0}'", rr.Secao_Elemento));                             else query2.Replace("${RE_SECAO_ELEMENTO}", "null");
-                    if (rr.Secao_ElementoID != 0) query2.Replace("${RE_SECAO_ELEMENTOID}", string.Format("{0}", rr.Secao_ElementoID));                           else query2.Replace("${RE_SECAO_ELEMENTOID}", "null");
-                    if (rr.Tipo_Restricao   != string.Empty) query2.Replace("${RE_TIPO_RESTRICAO}", string.Format("'{0}'", rr.Tipo_Restricao));                             else query2.Replace("${RE_TIPO_RESTRICAO}", "null");
-                    if (rr.Tipo_RestricaoID != 0) query2.Replace("${RE_TIPO_RESTRICAOID}", string.Format("{0}", rr.Tipo_RestricaoID));                           else query2.Replace("${RE_TIPO_RESTRICAOID}", "null");
-                    if (rr.SubTipo_VR       != string.Empty) query2.Replace("${RE_SUBTIPO_VR}", string.Format("'{0}'", rr.SubTipo_VR));                                     else query2.Replace("${RE_SUBTIPO_VR}", "null");
-                    if (rr.SubTipo_VRID     != 0) query2.Replace("${RE_SUBTIPO_VRID}", string.Format("{0}", rr.SubTipo_VRID));                                   else query2.Replace("${RE_SUBTIPO_VRID}", "null");
+                    if (rr.Secao_Elemento != string.Empty) query2.Replace("${RE_SECAO_ELEMENTO}", string.Format("'{0}'", rr.Secao_Elemento)); else query2.Replace("${RE_SECAO_ELEMENTO}", "null");
+                    if (rr.Secao_ElementoID != 0) query2.Replace("${RE_SECAO_ELEMENTOID}", string.Format("{0}", rr.Secao_ElementoID)); else query2.Replace("${RE_SECAO_ELEMENTOID}", "null");
+                    if (rr.Tipo_Restricao != string.Empty) query2.Replace("${RE_TIPO_RESTRICAO}", string.Format("'{0}'", rr.Tipo_Restricao)); else query2.Replace("${RE_TIPO_RESTRICAO}", "null");
+                    if (rr.Tipo_RestricaoID != 0) query2.Replace("${RE_TIPO_RESTRICAOID}", string.Format("{0}", rr.Tipo_RestricaoID)); else query2.Replace("${RE_TIPO_RESTRICAOID}", "null");
+                    if (rr.SubTipo_VR != string.Empty) query2.Replace("${RE_SUBTIPO_VR}", string.Format("'{0}'", rr.SubTipo_VR)); else query2.Replace("${RE_SUBTIPO_VR}", "null");
+                    if (rr.SubTipo_VRID != 0) query2.Replace("${RE_SUBTIPO_VRID}", string.Format("{0}", rr.SubTipo_VRID)); else query2.Replace("${RE_SUBTIPO_VRID}", "null");
                     if (rr.Data_Inicial != null) query2.Replace("${RE_DATA_INICIAL}", string.Format("to_date('{0}','DD/MM/YYYY HH24:MI:SS')", rr.Data_Inicial)); else query2.Replace("${RE_DATA_INICIAL}", "null");
                     if (rr.Data_Final != null) query2.Replace("${RE_DATA_FINAL}", string.Format("to_date('{0}','DD/MM/YYYY HH24:MI:SS')", rr.Data_Final)); else query2.Replace("${RE_DATA_FINAL}", "null");
-                    if (rr.Km_Inicial.Value != 0) query2.Replace("${RE_KM_INICIAL}", string.Format("{0}", rr.Km_Inicial.Value.ToString().Replace(",", ".")));    else query2.Replace("${RE_KM_INICIAL}", "null");
-                    if (rr.Km_Final.Value   != 0) query2.Replace("${RE_KM_FINAL}", string.Format("{0}", rr.Km_Final.Value.ToString().Replace(",", ".")));        else query2.Replace("${RE_KM_FINAL}", "null");
-                    if (rr.Lat_Inicial      != null) query2.Replace("${RE_LAT_INICIAL}", string.Format("'{0}'", rr.Lat_Inicial));                                   else query2.Replace("${RE_LAT_INICIAL}", "null");
-                    if (rr.Lat_Final        != null) query2.Replace("${RE_LAT_FINAL}", string.Format("'{0}'", rr.Lat_Final));                                       else query2.Replace("${RE_LAT_FINAL}", "null");
-                    if (rr.Lon_Inicial      != null) query2.Replace("${RE_LON_INICIAL}", string.Format("'{0}'", rr.Lon_Inicial));                                   else query2.Replace("${RE_LON_INICIAL}", "null");
-                    if (rr.Lon_Final        != null) query2.Replace("${RE_LON_FINAL}", string.Format("'{0}'", rr.Lon_Final));                                       else query2.Replace("${RE_LON_FINAL}", "null");
-                    if (rr.Duracao.Value    != 0) query2.Replace("${RE_DURACAO}", string.Format("{0}", rr.Duracao.Value.ToString().Replace(",", ".")));          else query2.Replace("${RE_DURACAO}", "null");
-                    if (rr.Velocidade.Value != 0) query2.Replace("${RE_VELOCIDADE}", string.Format("{0}", rr.Velocidade.Value.ToString().Replace(",", ".")));    else query2.Replace("${RE_VELOCIDADE}", "null");
+                    if (rr.Km_Inicial.Value != 0) query2.Replace("${RE_KM_INICIAL}", string.Format("{0}", rr.Km_Inicial.Value.ToString().Replace(",", "."))); else query2.Replace("${RE_KM_INICIAL}", "null");
+                    if (rr.Km_Final.Value != 0) query2.Replace("${RE_KM_FINAL}", string.Format("{0}", rr.Km_Final.Value.ToString().Replace(",", "."))); else query2.Replace("${RE_KM_FINAL}", "null");
+                    if (rr.Lat_Inicial != null) query2.Replace("${RE_LAT_INICIAL}", string.Format("'{0}'", rr.Lat_Inicial)); else query2.Replace("${RE_LAT_INICIAL}", "null");
+                    if (rr.Lat_Final != null) query2.Replace("${RE_LAT_FINAL}", string.Format("'{0}'", rr.Lat_Final)); else query2.Replace("${RE_LAT_FINAL}", "null");
+                    if (rr.Lon_Inicial != null) query2.Replace("${RE_LON_INICIAL}", string.Format("'{0}'", rr.Lon_Inicial)); else query2.Replace("${RE_LON_INICIAL}", "null");
+                    if (rr.Lon_Final != null) query2.Replace("${RE_LON_FINAL}", string.Format("'{0}'", rr.Lon_Final)); else query2.Replace("${RE_LON_FINAL}", "null");
+                    if (rr.Duracao.Value != 0) query2.Replace("${RE_DURACAO}", string.Format("{0}", rr.Duracao.Value.ToString().Replace(",", "."))); else query2.Replace("${RE_DURACAO}", "null");
+                    if (rr.Velocidade.Value != 0) query2.Replace("${RE_VELOCIDADE}", string.Format("{0}", rr.Velocidade.Value.ToString().Replace(",", "."))); else query2.Replace("${RE_VELOCIDADE}", "null");
                     if (rr.Responsavel != string.Empty) query2.Replace("${RE_RESPONSAVEL}", string.Format("'{0}'", rr.Responsavel)); else query2.Replace("${RE_RESPONSAVEL}", "null");
                     if (rr.Observacao != string.Empty) query2.Replace("${RE_OBSERCACAO}", string.Format("'{0}'", rr.Observacao)); else query2.Replace("${RE_OBSERCACAO}", "null");
 
@@ -1195,7 +1203,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #endregion
 
-                     LogDAO.GravaLogBanco(DateTime.Now, aux_Usuario_Logado, "Restrição", null, aux_RestricaoID.ToString(), " Seção: " + rr.Secao_Elemento + " - Tipo: " + rr.Tipo_Restricao + " - SubTipo: " + rr.SubTipo_VR + " - Data Inicial: " + rr.Data_Inicial + " - Data Final: " + rr.Data_Final + " - Km Inicial: " + rr.Km_Inicial + " - Km Final: " + rr.Km_Final + " - Duração: " + rr.Duracao + " - Velocidade: " + rr.Velocidade + " - Obs: " + rr.Observacao, Uteis.OPERACAO.Solicitou.ToString());
+                    LogDAO.GravaLogBanco(DateTime.Now, aux_Usuario_Logado, "Restrição", null, aux_RestricaoID.ToString(), " Seção: " + rr.Secao_Elemento + " - Tipo: " + rr.Tipo_Restricao + " - SubTipo: " + rr.SubTipo_VR + " - Data Inicial: " + rr.Data_Inicial + " - Data Final: " + rr.Data_Final + " - Km Inicial: " + rr.Km_Inicial + " - Km Final: " + rr.Km_Final + " - Duração: " + rr.Duracao + " - Velocidade: " + rr.Velocidade + " - Obs: " + rr.Observacao, Uteis.OPERACAO.Solicitou.ToString());
 
                 }
             }
@@ -1222,23 +1230,42 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new Restricao();
 
-            if (!reader.IsDBNull(00)) item.P_C = reader.GetString(00);
-            if (!reader.IsDBNull(01)) item.ProgramadaID = double.Parse(reader.GetDouble(01).ToString());
-            if (!reader.IsDBNull(02)) item.CirculacaoID = double.Parse(reader.GetDouble(02).ToString());
-            if (!reader.IsDBNull(03)) item.Secao_Elemento = reader.GetString(03) != string.Empty ? reader.GetString(03).Trim() : string.Empty;
+            if (!reader.IsDBNull(00)) item.Tipo             = reader.GetString(00);
+            if (!reader.IsDBNull(01))
+            {
+                item.ProgramadaID = reader.GetValue(01).ToString();
+                item.RestricaoID = item.ProgramadaID;
+            }
+            if (!reader.IsDBNull(02))
+            {
+                item.CirculacaoID = reader.GetValue(02).ToString();
+
+                if (!string.IsNullOrEmpty(item.ProgramadaID) && !string.IsNullOrEmpty(item.CirculacaoID))
+                    item.RestricaoID = item.ProgramadaID;
+                else
+                    item.RestricaoID = item.CirculacaoID;
+            }
+            if (!reader.IsDBNull(03)) item.Secao_Elemento   = reader.GetString(03) != string.Empty ? reader.GetString(03).Trim() : string.Empty;
             if (!reader.IsDBNull(04)) item.Secao_ElementoID = reader.GetDouble(04) != 0 ? reader.GetDouble(04) : 0;
-            if (!reader.IsDBNull(05)) item.Tipo_Restricao = reader.GetString(05) != string.Empty ? reader.GetString(05).Trim() : string.Empty;
+            if (!reader.IsDBNull(05)) item.Tipo_Restricao   = reader.GetString(05) != string.Empty ? reader.GetString(05).Trim() : string.Empty;
             if (!reader.IsDBNull(06)) item.Tipo_RestricaoID = reader.GetDouble(06) != 0 ? reader.GetDouble(06) : 0;
-            if (!reader.IsDBNull(07)) item.SubTipo_VR = reader.GetString(07) != string.Empty ? reader.GetString(07).Trim() : string.Empty;
-            if (!reader.IsDBNull(08)) item.SubTipo_VRID = reader.GetDouble(08) != 0 ? reader.GetDouble(08) : 0;
-            if (!reader.IsDBNull(09)) item.Data_Inicial = reader.GetDateTime(09);
-            if (!reader.IsDBNull(10)) item.Data_Final = reader.GetDateTime(10);
-            if (!reader.IsDBNull(11)) item.Velocidade = reader.GetDouble(11);
-            if (!reader.IsDBNull(12)) item.Km_Inicial = reader.GetDecimal(12);
-            if (!reader.IsDBNull(13)) item.Km_Final = reader.GetDecimal(13);
-            if (!reader.IsDBNull(14)) item.Observacao = reader.GetString(14);
-            if (!reader.IsDBNull(15)) item.Situacao = reader.GetString(15);
-            if (!reader.IsDBNull(16)) item.Responsavel = reader.GetString(16);
+            if (!reader.IsDBNull(07)) item.SubTipo_VR       = reader.GetString(07) != string.Empty ? reader.GetString(07).Trim() : string.Empty;
+            if (!reader.IsDBNull(08)) item.SubTipo_VRID     = reader.GetDouble(08) != 0 ? reader.GetDouble(08) : 0;
+            if (!reader.IsDBNull(09)) item.Data_Inicial     = reader.GetDateTime(09);
+            if (!reader.IsDBNull(10)) item.Data_Final       = reader.GetDateTime(10);
+            if (!reader.IsDBNull(11)) item.Velocidade       = reader.GetDouble(11);
+            if (!reader.IsDBNull(12)) item.Km_Inicial       = reader.GetDecimal(12);
+            if (!reader.IsDBNull(13)) item.Km_Final         = reader.GetDecimal(13);
+            if (!reader.IsDBNull(14)) item.Observacao       = reader.GetString(14);
+            if (!reader.IsDBNull(15)) item.Situacao         = reader.GetString(15);
+            if (!reader.IsDBNull(16)) item.Responsavel      = reader.GetString(16);
+
+            if (!string.IsNullOrEmpty(item.ProgramadaID) && string.IsNullOrEmpty(item.CirculacaoID))
+                item.Tipo = "PP";
+            else if (string.IsNullOrEmpty(item.ProgramadaID) && !string.IsNullOrEmpty(item.CirculacaoID))
+                item.Tipo = "CC";
+            else
+                item.Tipo = "PC";
 
             return item;
         }

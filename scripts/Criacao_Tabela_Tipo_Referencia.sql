@@ -1,0 +1,30 @@
+--------------------------------------------------------------------------------------------------------
+-- SISTEMA    		: ACTWEB - Sistema de Controle e Automação de Trens
+-- PROJETO/CHAMADO	: P168 - Altera Motivos Trens Parados
+-- TABELA       	: TIPO_REFERENCIA 
+-- SEQUENCE    		: TIPO_REFERENCIA_ID
+-- CRIADO    EM		: 11/10/2016
+-- ANALISTA    		: DENER VIANA
+--------------------------------------------------------------------------------------------------------
+
+--DROP TIPO_REFERENCIA;
+--DROP SEQUENCE TIPO_REFERENCIA_ID;
+
+CREATE TABLE TIPO_REFERENCIA
+(
+  TP_REF_ID					NUMBER              NOT NULL PRIMARY KEY,
+  TP_REF_NOME				NUMBER				NOT NULL, 
+  TP_REF_CRIACAO			DATE				NOT NULL,
+  TP_REF_ATIVO				VARCHAR2(1 BYTE)	NOT NULL
+);
+
+CREATE SEQUENCE TIPO_REFERENCIA_ID
+  START WITH 1
+  MAXVALUE 999999999999999999999999999
+  MINVALUE 1
+  NOCYCLE
+  CACHE 20
+  NOORDER;
+  
+INSERT INTO TIPO_REFERENCIA VALUES (TIPO_REFERENCIA_ID.NEXTVAL, 'PRÓPRIO TREM', SYSDATE, 'S');
+INSERT INTO TIPO_REFERENCIA VALUES (TIPO_REFERENCIA_ID.NEXTVAL, 'LOCAL', SYSDATE, 'S');

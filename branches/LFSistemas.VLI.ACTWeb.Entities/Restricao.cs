@@ -6,9 +6,10 @@ namespace LFSistemas.VLI.ACTWeb.Entities
     {
         #region [ PROPRIEDADES ]
 
-        public string P_C { get; set; }
-        public double CirculacaoID { get; set; }
-        public double ProgramadaID { get; set; }
+        public string Tipo { get; set; }
+        public string CirculacaoID { get; set; }
+        public string ProgramadaID { get; set; }
+        public string RestricaoID { get; set; }
         public string Secao_Elemento { get; set; }
         public double? Secao_ElementoID { get; set; }
         public string Tipo_Restricao { get; set; }

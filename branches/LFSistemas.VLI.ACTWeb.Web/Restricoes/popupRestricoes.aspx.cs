@@ -522,20 +522,17 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             LimpaCampos();
             LinkButton btn = (LinkButton)(sender);
 
-            var aux = btn.CommandArgument;
-            string[] tipo = aux.Split(':');
+            var aux = btn.CommandArgument.Split(':');
+
+            string tipo = aux[0].ToString();
             double id = 0;
 
-            if (tipo.Count() > 1)
-            {
-                //if (tipo[0] == "C")
-                //    id = double.Parse(tipo[1].ToString());
-                //else
-                id = double.Parse(tipo[1].ToString());
-            }
+            if (tipo == "PP") id = double.Parse(aux[1].ToString());
+            if (tipo == "CC") id = double.Parse(aux[2].ToString());
+            if (tipo == "PC") id = double.Parse(aux[2].ToString());
 
             var restricaoController = new RestricaoController();
-            var dados = restricaoController.ObterRestricaoPorID(id);
+            var dados = restricaoController.ObterRestricaoPorID(tipo, id);
             if (dados != null)
             {
                 ddlDadosSecoes.SelectedItem.Text = dados.Secao_Elemento.ToString();
@@ -758,21 +755,19 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         //Verificar se foi selecionado
                         if (chkRestricao.Checked)
                         {
-
                             string[] item = HiddenField1.Value.Split(':');
 
                             if (item[4] != "038")
                             {
-                                if (item[0] == "C")
-                                {
-                                    DLLSendRRE(int.Parse(item[1]), usuario);
-                                    LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Restrições", null, item[1].ToString(), "Foi enviado " + item[1].ToString() + " para avaliação de exclusão.", Uteis.OPERACAO.Removeu.ToString());
-                                }
-                                if (item[0] == "P")
-                                {
-                                    DLLSendRRE(int.Parse(item[2]), usuario);
-                                    LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Restrições", null, item[1].ToString(), "Foi enviado " + item[1].ToString() + " para avaliação de exclusão.", Uteis.OPERACAO.Removeu.ToString());
-                                }
+                                string tipo = item[0].ToString();
+                                int id = 0;
+
+                                if (tipo == "PP") id = int.Parse(item[1].ToString());
+                                if (tipo == "CC") id = int.Parse(item[2].ToString());
+                                if (tipo == "PC") id = int.Parse(item[2].ToString());
+
+                                DLLSendRRE(id, usuario);
+                                LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Restrições", null, item[1].ToString(), "Foi enviado " + item[1].ToString() + " para avaliação de exclusão.", Uteis.OPERACAO.Removeu.ToString());
 
                                 contador++;
                             }

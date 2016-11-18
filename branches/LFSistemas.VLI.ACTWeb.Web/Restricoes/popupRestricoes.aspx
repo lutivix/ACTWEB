@@ -1,4 +1,4 @@
-﻿    <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="popupRestricoes.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.Restricoes.popupRestricoes"  %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="popupRestricoes.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.Restricoes.popupRestricoes" %>
 
 <!DOCTYPE html>
 <html lang="pt-br" style="width: 100%; height: 100%; overflow: scroll;">
@@ -38,7 +38,7 @@
 
         function getDropdownListSelectedText() {
             var DropdownList = document.getElementById('<%=ddlDadosTipoRestricao.ClientID %>');
-            var SelectedText = DropdownList.options[DropdownList.selectedIndex].text.substring(0,2);
+            var SelectedText = DropdownList.options[DropdownList.selectedIndex].text.substring(0, 2);
 
             ddlDadosSecoes = document.getElementById('<%=ddlDadosSecoes.ClientID %>');
             ddlDadosTipoRestricao = document.getElementById('<%=ddlDadosTipoRestricao.ClientID %>');
@@ -56,7 +56,7 @@
 
             var today = new Date();
             var dd = today.getDate();
-            var mm = today.getMonth() + 1; 
+            var mm = today.getMonth() + 1;
 
             var yyyy = today.getFullYear();
             if (dd < 10) {
@@ -150,7 +150,7 @@
                 }
             }
         }
-        
+
         function validaFormulario() {
             var retorno = true;
             var msg = "O(s) campo(s) abaixo é(são) obrigatório(s), gentileza preencher o(s) mesmo(s).  \n\n";
@@ -224,8 +224,7 @@
                     retorno = false;
                 }
             }
-            else
-            {
+            else {
                 if (ddlDadosSecoes == 'Selecione' || ddlDadosSecoes == '0') {
                     msg += "SEÇÃO; \n";
                     item += "ddlDadosSecoes";
@@ -255,7 +254,7 @@
                     msg += "VELOCIDADE; \n";
                     if (item.length > 0) item += ":txtDadosVelocidade"; else item += "txtDadosVelocidade";
                     retorno = false;
-                }   
+                }
                 if (txtDadosObs == '') {
                     msg += "OBSERVAÇÃO; \n";
                     if (item.length > 0) item += ":txtDadosObs"; else item += "txtDadosObs";
@@ -289,6 +288,15 @@
 <body onkeydown="tecla()">
     <form id="formRestricoes" runat="server">
         <style>
+            .tipo-CC {
+                color: black;
+            }
+            .tipo-PP {
+                color: black;
+            }
+            .tipo-PC {
+                color: rgb(46,139,87);
+            }
             .situacao-E {
                 color: black;
                 background-color: white;
@@ -468,15 +476,15 @@
                             <td>
                                 <asp:LinkButton runat="server" ID="lnkCriarRestricao" CssClass="btn btn-success" Text="Criar" OnClick="lnkCriarRestricao_Click" OnClientClick="javascript:return validaFormulario();" ToolTip="Envia uma solicitação de criação de restrição para o ACT."><i class="fa fa-plus"></i>&nbsp;Criar</asp:LinkButton>
                                 &nbsp;&nbsp;
-                                <asp:LinkButton runat="server" ID="lnkProrrogarDataFinal" CssClass="btn btn-success" Text="Prorrogar Data Final" ToolTip="Prorroga data final de restrições." ><i class="fa fa-calendar"></i>&nbsp;Prorrogar Data Final</asp:LinkButton>
+                                <asp:LinkButton runat="server" ID="lnkProrrogarDataFinal" CssClass="btn btn-success" Text="Prorrogar Data Final" ToolTip="Prorroga data final de restrições."><i class="fa fa-calendar"></i>&nbsp;Prorrogar Data Final</asp:LinkButton>
                                 &nbsp;&nbsp;
-                                <asp:LinkButton runat="server" ID="lnkDadosLimpar" CssClass="btn btn-success" OnClick="lnkDadosLimpar_Click" ToolTip="Limpa dados do formulário de criação de restrição." ><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
+                                <asp:LinkButton runat="server" ID="lnkDadosLimpar" CssClass="btn btn-success" OnClick="lnkDadosLimpar_Click" ToolTip="Limpa dados do formulário de criação de restrição."><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
                                 &nbsp;&nbsp;
                                 <asp:LinkButton runat="server" ID="lnkAtualizarLista" CssClass="btn btn-default" OnClick="lnkAtualizarLista_Click" ToolTip="Atualiza lista de restrições."><i class="fa fa-refresh"></i>&nbsp;Atualizar Lista</asp:LinkButton>
                                 &nbsp;&nbsp;
-                                <asp:LinkButton runat="server" ID="lnkRestricoesPorData" CssClass="btn btn-info" Text="Restrições por Data" OnClick="lnkRestricoesPorData_Click" ToolTip="Emite relatório de restrições por intervalo de datas." ><i class="fa fa-calendar"></i>&nbsp;Restrições por Data</asp:LinkButton>
+                                <asp:LinkButton runat="server" ID="lnkRestricoesPorData" CssClass="btn btn-info" Text="Restrições por Data" OnClick="lnkRestricoesPorData_Click" ToolTip="Emite relatório de restrições por intervalo de datas."><i class="fa fa-calendar"></i>&nbsp;Restrições por Data</asp:LinkButton>
                                 &nbsp;&nbsp;
-                                <asp:LinkButton runat="server" ID="lnkRestricoesVigentes" CssClass="btn btn-info" Text="Restrições Vigentes" OnClick="lnkRestricoesVigentes_Click" ToolTip="Emite relatório das restrições vigentes." ><i class="fa fa-retweet"></i>&nbsp;Restrições Vigentes</asp:LinkButton>
+                                <asp:LinkButton runat="server" ID="lnkRestricoesVigentes" CssClass="btn btn-info" Text="Restrições Vigentes" OnClick="lnkRestricoesVigentes_Click" ToolTip="Emite relatório das restrições vigentes."><i class="fa fa-retweet"></i>&nbsp;Restrições Vigentes</asp:LinkButton>
                                 &nbsp;&nbsp;
                                 <asp:LinkButton runat="server" ID="lnkRestricoesDeTemperatura" CssClass="btn btn-info" Text="Restrições de Temperatura" OnClick="lnkRestricoesDeTemperatura_Click" ToolTip="Emite relatório de restrições de temperatura."><i class="fa fa-fire"></i>&nbsp;Restrições de Temperatura</asp:LinkButton>
                             </td>
@@ -512,7 +520,7 @@
                             </td>
                             <td style="width: 160px;">
                                 <label for="grupo">Nº Restrição:</label><br />
-                                <asp:TextBox runat="server" ID="txtFiltroNumeroRestricao" Width="150" CssClass="form-control" onkeypress="return fnValidaNroVirgula(event);"  ToolTip="Informe o número da restrição a ser filtrada." />
+                                <asp:TextBox runat="server" ID="txtFiltroNumeroRestricao" Width="150" CssClass="form-control" onkeypress="return fnValidaNroVirgula(event);" ToolTip="Informe o número da restrição a ser filtrada." />
                             </td>
                             <td style="width: 120px;">
                                 <label for="grupo">Km Inicial:</label><br />
@@ -524,7 +532,7 @@
                             </td>
                             <td style="width: 210px;">
                                 <label for="grupo">Observação:</label><br />
-                                <asp:TextBox runat="server" ID="txtFiltroObs" Width="200" CssClass="form-control" ToolTip="Informe toda ou parte da observação que pretende filtrar."/>
+                                <asp:TextBox runat="server" ID="txtFiltroObs" Width="200" CssClass="form-control" ToolTip="Informe toda ou parte da observação que pretende filtrar." />
                             </td>
                             <td style="width: 160px;">
                                 <label for="grupo">Tipo Restrição:</label><br />
@@ -542,11 +550,11 @@
                         </tr>
                         <tr>
                             <td style="width: 160px;">
-                                <asp:LinkButton runat="server" ID="lnkFiltroPesquisar" CssClass="btn btn-primary" Text="Pesquisar" OnClick="lnkFiltroPesquisar_Click" ToolTip="Pesquisa restrições conforme filtro informado." Width="150" ><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
+                                <asp:LinkButton runat="server" ID="lnkFiltroPesquisar" CssClass="btn btn-primary" Text="Pesquisar" OnClick="lnkFiltroPesquisar_Click" ToolTip="Pesquisa restrições conforme filtro informado." Width="150"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
 
                             </td>
                             <td style="width: 160px;">
-                                <asp:LinkButton runat="server" ID="lnkFiltroLimpar" CssClass="btn btn-primary" Text="Limpar" OnClick="lnkFiltroLimpar_Click" ToolTip="Limpa dados do filtro de pesquisa e atualiza lista de restrições." Width="150" ><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
+                                <asp:LinkButton runat="server" ID="lnkFiltroLimpar" CssClass="btn btn-primary" Text="Limpar" OnClick="lnkFiltroLimpar_Click" ToolTip="Limpa dados do filtro de pesquisa e atualiza lista de restrições." Width="150"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
                             </td>
                         </tr>
                         <tr>
@@ -568,8 +576,8 @@
                                             <table class="table table-hover table-curved pro-table " id="macros">
                                                 <thead>
                                                     <tr>
-                                                        <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                            <%--<asp:CheckBox runat="server" ID="chkTodos" OnClick="selectAll(this)" ToolTip="Seleciona Todos" />--%></th>
+                                                        <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><span><i class="fa fa-check-square-o"></i></span></th>
+                                                        <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><span><i class="fa fa-search-plus"></i></span></th>
                                                         <th style="width: 5%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">Nº REST.</a></th>
                                                         <th style="width: 5%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">TIPO</a></th>
                                                         <th style="width: 5%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">SUBTIPO</a></th>
@@ -579,33 +587,32 @@
                                                         <th style="width: 7%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">VELOCIDADE</a></th>
                                                         <th style="width: 7%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">KM INCIAL</a></th>
                                                         <th style="width: 5%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">KM FINAL</a></th>
-                                                        <th style="width: 50%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">OBS</a></th>
-                                                        <th style="width: 2%; text-align: center; font-size: 12pt;"><a href="#"><span><i class="fa fa-search-plus"></i></span></a></th>
+                                                        <th style="width: 50%; text-align: center; font-size: 12pt; "><a href="#">OBS</a></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                         </HeaderTemplate>
                                         <ItemTemplate>
-                                            <tr style="font-size: 9px; margin-top: 15px;" class="situacao-<%# Eval("Situacao")%>">
+                                            <tr style="font-size: 9px; margin-top: 15px;" class="situacao-<%# Eval("Situacao")%> ">
                                                 <td style="width: 2%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" visible='<%# Eval("Tipo_Restricao").ToString() != "038" ? true : false %>'>
                                                     <div>
-                                                        <asp:HiddenField ID="HiddenField1" Value='<%# Eval("P_C") +":"+ Eval("CirculacaoID") +":"+  Eval("ProgramadaID") +":"+ Eval("Secao_Elemento") +":"+ Eval("Tipo_Restricao") %>' runat="server" />
+                                                        <asp:HiddenField ID="HiddenField1" Value='<%# Eval("Tipo") +":"+ Eval("ProgramadaID") +":"+ Eval("CirculacaoID") +":"+ Eval("Secao_Elemento") +":"+ Eval("Tipo_Restricao") %>' runat="server" />
                                                         <asp:CheckBox runat="server" ID="chkRestricao" ToolTip="Seleciona a restrição atual." />
                                                     </div>
                                                 </td>
-                                                <td style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("CirculacaoID")%>"><%# Eval("CirculacaoID")%> </td>
-                                                <td style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Tipo_Restricao")%>"><%# Eval("Tipo_Restricao")%> </td>
-                                                <td style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("SubTipo_VR")%>"><%# Eval("SubTipo_VR")%> </td>
-                                                <td style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Secao_Elemento")%>"><%# Eval("Secao_Elemento")%> </td>
-                                                <td style="width: 12%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Data_Inicial") %>"><%# Eval ("Data_Inicial")%></td>
-                                                <td style="width: 12%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Data_Final")%>"><%# Eval ("Data_Final")%></td>
-                                                <td style="width: 7%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Velocidade")%>"><%# Eval ("Velocidade")%></td>
-                                                <td style="width: 7%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Km_Inicial")%>"><%# Eval ("Km_Inicial")%></td>
-                                                <td style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Km_Final")%>"><%# Eval ("Km_Final")%></td>
-                                                <td style="width: 50%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Observacao")%>"><%# Eval ("Observacao")%></td>
-                                                <td style="width: 2%; text-align: center;">
-                                                    <asp:LinkButton ID="lnkEdite" runat="server" OnClick="lnkEdite_Click" CommandArgument='<%# Eval("P_C") +":"+ Eval("CirculacaoID") +":"+ Eval("Situacao") %>' ToolTip="Exibe os dados da restrição selecionada no formulário acima."><i class="fa fa-search-plus"></i></asp:LinkButton>
+                                                <td style="width: 2%; text-align: center; border-right: 1px solid rgb(0, 72, 89);">
+                                                    <asp:LinkButton ID="lnkEdite" runat="server" OnClick="lnkEdite_Click" CommandArgument='<%# Eval("Tipo") +":"+ Eval("ProgramadaID") +":"+ Eval("CirculacaoID") +":"+ Eval("Situacao") %>' ToolTip="Exibe os dados da restrição selecionada no formulário acima."><i class="fa fa-search-plus"></i></asp:LinkButton>
                                                 </td>
+                                                <td class="tipo-<%# Eval("Tipo")%>" style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("RestricaoID")%>"><%# Eval("RestricaoID")%> </td>
+                                                <td class="tipo-<%# Eval("Tipo")%>" style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Tipo_Restricao")%>"><%# Eval("Tipo_Restricao")%> </td>
+                                                <td class="tipo-<%# Eval("Tipo")%>" style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("SubTipo_VR")%>"><%# Eval("SubTipo_VR")%> </td>
+                                                <td class="tipo-<%# Eval("Tipo")%>" style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Secao_Elemento")%>"><%# Eval("Secao_Elemento")%> </td>
+                                                <td class="tipo-<%# Eval("Tipo")%>" style="width: 12%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Data_Inicial") %>"><%# Eval ("Data_Inicial")%></td>
+                                                <td class="tipo-<%# Eval("Tipo")%>" style="width: 12%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Data_Final")%>"><%# Eval ("Data_Final")%></td>
+                                                <td class="tipo-<%# Eval("Tipo")%>" style="width: 7%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Velocidade")%>"><%# Eval ("Velocidade")%></td>
+                                                <td class="tipo-<%# Eval("Tipo")%>" style="width: 7%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Km_Inicial")%>"><%# Eval ("Km_Inicial")%></td>
+                                                <td class="tipo-<%# Eval("Tipo")%>" style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Km_Final")%>"><%# Eval ("Km_Final")%></td>
+                                                <td class="tipo-<%# Eval("Tipo")%>" style="width: 50%; text-align: left; " title="<%# Eval ("Observacao")%>"><%# Eval ("Observacao")%></td>
                                             </tr>
                                         </ItemTemplate>
                                         <FooterTemplate>
@@ -629,17 +636,16 @@
             <div class="row" style="margin-top: 1%; margin-bottom: 1%;">
                 <table style="width: 100%; text-align: left;">
                     <tr>
-                        <td>
-                            &nbsp;&nbsp;&nbsp;
-                            <asp:LinkButton runat="server" ID="lnkRemoverRestricao" CssClass="btn btn-success" Text="Remover Restições Selecionadas" OnClientClick="Confirm()" OnClick="lnkRemoverRestricao_Click" ToolTip="Remove restrições selecionadas." ><i class="fa fa-minus-circle"></i>&nbsp;Remover Restições Selecionadas</asp:LinkButton>
+                        <td>&nbsp;&nbsp;&nbsp;
+                            <asp:LinkButton runat="server" ID="lnkRemoverRestricao" CssClass="btn btn-success" Text="Remover Restições Selecionadas" OnClientClick="Confirm()" OnClick="lnkRemoverRestricao_Click" ToolTip="Remove restrições selecionadas."><i class="fa fa-minus-circle"></i>&nbsp;Remover Restições Selecionadas</asp:LinkButton>
                             &nbsp;&nbsp;
-                            <asp:LinkButton runat="server" ID="lnkRemoverRonda" CssClass="btn btn-success" Text="Remover Ronda" OnClick="lnkRemoverRonda_Click" ToolTip="Remove restrição de ronda." ><i class="fa fa-chain-broken"></i>&nbsp;Remover Ronda</asp:LinkButton>
+                            <asp:LinkButton runat="server" ID="lnkRemoverRonda" CssClass="btn btn-success" Text="Remover Ronda" OnClick="lnkRemoverRonda_Click" ToolTip="Remove restrição de ronda."><i class="fa fa-chain-broken"></i>&nbsp;Remover Ronda</asp:LinkButton>
                             &nbsp;&nbsp;
-                            <asp:LinkButton runat="server" ID="lnkAtualizaLista" CssClass="btn btn-default" OnClick="lnkAtualizarLista_Click" ToolTip="Atualiza lista de restrições." ><i class="fa fa-refresh"></i>&nbsp;Atualizar Lista</asp:LinkButton>
-                        </td >
+                            <asp:LinkButton runat="server" ID="lnkAtualizaLista" CssClass="btn btn-default" OnClick="lnkAtualizarLista_Click" ToolTip="Atualiza lista de restrições."><i class="fa fa-refresh"></i>&nbsp;Atualizar Lista</asp:LinkButton>
+                        </td>
                     </tr>
                 </table>
-                        <br />
+                <br />
             </div>
         </asp:Panel>
         <br />
