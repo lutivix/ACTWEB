@@ -579,10 +579,10 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnUsuarios.Visible = sub_locomotivas_trocaloco.Visible = sub_macros_macro50.Visible = sub_macros_macro61.Visible = sub_macros_macro200.Visible =
                 mnRestricoes.Visible = mnIndicadores.Visible = mnGOP.Visible = mnVMA.Visible = mnTelecomandadas.Visible = sub_relatorio_CCO.Visible =
                 submenusub_itemCAT.Visible = lnkImportaOBC.Visible = mnDadosApoio.Visible = sub_interdicoes.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible =
-                sub_relatorio_VMA.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnRadios.Visible = mnPgof.Visible =
+                sub_relatorio_VMA.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnRadios.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible =
                 sub_dadosapoio_plus.Visible = sub_macros_macrofrota.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = sub_thp_parada_confirmacao.Visible = sub_macros_parada_imediata.Visible = true;
 
-                sub_baixada.Visible = mnSistema.Visible = sub_pgof_RelatoriosPGOF.Visible = false;
+                sub_baixada.Visible = mnSistema.Visible =  false;
                 //sub_relatorio_MACROS.Visible =  false;
 
             }
@@ -732,7 +732,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnRestricoes.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible = sub_interdicoes.Visible = lnkImportaOBC.Visible =
                 sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible =
                 sub_dadosapoio_logs.Visible = mnLocomotivas.Visible = sub_dadosapoio_display.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible =
-                sub_dadosapoio_banners.Visible = sub_baixada.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = false;
+                sub_dadosapoio_banners.Visible = sub_baixada.Visible = mnSistema.Visible = mnPgof.Visible = sub_macros_parada_imediata.Visible = false;
             }
             if (usuario.Perfil_ID == "15") // Perfil: SUPERVISOR - SUP
             {

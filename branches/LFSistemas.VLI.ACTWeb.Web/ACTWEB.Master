@@ -429,6 +429,49 @@
                                 </ul>
                             </ul>
                         </div>
+                        
+                        <%----------------------  PGOF  ----------------------%>
+                        <li class="" id="mnPgof" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_pgof" title="PGOF">
+                                <span class="menu-item-icon menu-icon-thp"></span>
+                                <span class="menu-item-label" title="PGOF">PGOF <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_pgof">
+                            <ul class="submenu">
+                                <li class="" id="sub_pgof_QuadroTracao" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkQuadroTracao" OnClick="lnkQuadroTracao_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
+                                        <span class="menu-item-label" title="Quadro Tração">Quadro Tração</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_pgof_MetaTemp" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkMetaTemp" OnClick="lnkMetaTempo_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
+                                        <span class="menu-item-label" title="Meta Tempo">Meta Tempo</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_pgof_Maquinistas" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkMaquinistas" OnClick="lnkMaquinistas_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
+                                        <span class="menu-item-label" title="Maquinistas">Maquinistas</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_pgof_TempoConfiab" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkTempoConfiab" OnClick="lnkTempoConfiab_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
+                                        <span class="menu-item-label" title="Tempo Confiab.)">Tempo Confiab.</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_pgof_RelatoriosPGOF" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkRelatoriosPGOF" OnClick="lnkRelatoriosPGOF_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-print"></i></span>
+                                        <span class="menu-item-label" title="Relatórios)">Relatórios</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+
                         <%----------------------  RADIOS  ----------------------%>
                         <li class="" id="mnRadios" runat="server">
                             <a data-toggle="collapse" data-parent="#menu" href="#sub_controleradios" title="Consulta VMA">
@@ -629,49 +672,6 @@
                                     <asp:LinkButton runat="server" ID="lnkUltLocalizacao" OnClick="lnkUltLocalizacao_Click">
                                         <span class="menu-item-icon"><i class="fa fa-search"></i></span> 
                                         <span class="menu-item-label" title="Ultima Localização">Ultima Localização</span>
-                                    </asp:LinkButton>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <%----------------------  PGOF  ----------------------%>
-                        <li class="" id="mnPgof" runat="server">
-                            <a data-toggle="collapse" data-parent="#menu" href="#sub_pgof" title="PGOF">
-                                <span class="menu-item-icon menu-icon-thp"></span>
-                                <span class="menu-item-label" title="PGOF">PGOF <i class="fa fa-caret-down"></i></span>
-                            </a>
-                        </li>
-                        <div class="collapse" id="sub_pgof">
-                            <ul class="submenu">
-                                <li class="" id="sub_pgof_QuadroTracao" runat="server">
-                                    <asp:LinkButton runat="server" ID="lnkQuadroTracao" OnClick="lnkQuadroTracao_Click">
-                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
-                                        <span class="menu-item-label" title="Quadro Tração">Quadro Tração</span>
-                                    </asp:LinkButton>
-                                </li>
-                                <li class="" id="sub_pgof_MetaTemp" runat="server">
-                                    <asp:LinkButton runat="server" ID="lnkMetaTemp" OnClick="lnkMetaTempo_Click">
-                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
-                                        <span class="menu-item-label" title="Meta Tempo">Meta Tempo</span>
-                                    </asp:LinkButton>
-                                </li>
-                                <li class="" id="sub_pgof_Maquinistas" runat="server">
-                                    <asp:LinkButton runat="server" ID="lnkMaquinistas" OnClick="lnkMaquinistas_Click">
-                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
-                                        <span class="menu-item-label" title="Maquinistas">Maquinistas</span>
-                                    </asp:LinkButton>
-                                </li>
-                                <li class="" id="sub_pgof_TempoConfiab" runat="server">
-                                    <asp:LinkButton runat="server" ID="lnkTempoConfiab" OnClick="lnkTempoConfiab_Click">
-                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
-                                        <span class="menu-item-label" title="Tempo Confiab.)">Tempo Confiab.</span>
-                                    </asp:LinkButton>
-                                </li>
-                                <li class="" id="sub_pgof_RelatoriosPGOF" runat="server">
-                                    <asp:LinkButton runat="server" ID="lnkRelatoriosPGOF" OnClick="lnkRelatoriosPGOF_Click">
-                                        <span class="menu-item-icon"><i class="fa fa-print"></i></span>
-                                        <span class="menu-item-label" title="Relatórios)">Relatórios</span>
                                     </asp:LinkButton>
                                 </li>
                             </ul>

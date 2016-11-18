@@ -88,6 +88,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             {
                 connection.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionStringPGOF"].ConnectionString;
                 connection.Open();
+
             }
             catch (Exception ex)
             {
