@@ -155,7 +155,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     CASE WHEN  MCT.MCT_MAP_VERSAO = OBC.OBC_VRS_MAPA THEN 'T' ELSE 'F' END AS MPAV,
                                     TO_CHAR(MCT.MCT_TIMESTAMP_MCT, 'DD/MM/YYYY HH24:mi:ss') as ULTIMA_COMUNICACAO,
                                     TO_CHAR(MCT.MCT_DT_ATUALI_OBC, 'DD/MM/YYYY HH24:mi:ss') as ATUALIZACAO_OBC,
-                                    TO_CHAR(MCT.MCT_DT_ATUALI_MAP, 'DD/MM/YYYY HH24:mi:ss') as ATUALIZACAO_MAPA
+                                    TO_CHAR(MCT.MCT_DT_ATUALI_MAP, 'DD/MM/YYYY HH24:mi:ss') as ATUALIZACAO_MAPA,
+                                    IOBC.OBC_ATIVO_SN AS ATIVO
                                     FROM ACTPP.MCTS MCT, INFORMACAO_OBC IOBC, OBC OBC
                                         WHERE MCT.MCT_NOM_MCT = IOBC.OBC_ID_LOCO
                                             --AND IOBC.OBC_ATIVO_SN = 'S'
@@ -507,6 +508,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(10)) item.Ultima_Comunicacao = reader.GetValue(10).ToString();
                 if (!reader.IsDBNull(11)) item.Atualizacao_OBC = reader.GetValue(11).ToString();
                 if (!reader.IsDBNull(12)) item.Atualizacao_Mapa = reader.GetValue(12).ToString();
+                if (!reader.IsDBNull(13)) item.Ativo = reader.GetValue(13).ToString();
             }
             catch (Exception ex)
             {

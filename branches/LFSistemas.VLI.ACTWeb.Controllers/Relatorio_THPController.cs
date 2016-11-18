@@ -37,6 +37,26 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ObterQTDERegistrosRelatorioTHPPorFiltro(filtro);
         }
+
+        /// <summary>
+        /// Obtem uma lista de Ponta de Rota
+        /// </summary>
+        /// <param name="rota_id">Identificador da Rota</param>
+        /// <returns>Retorna uma lista de Ponta de Rota conforme filtro informado</returns>
+        public List<PontaRota> ObterPontaRotaPorRotaID(string rota_id)
+        {
+            return dao.ObterPontaRotaPorRotaID(rota_id);
+        }
+
+        /// <summary>
+        /// Obtem uma lista de Ponta de SubRota
+        /// </summary>
+        /// <param name="rota_id">Identificador da SubRota</param>
+        /// <returns>Retorna uma lista de Ponta de SubRota conforme filtro informado</returns>
+        public List<PontaRota> ObterPontaRotaPorSubRotaID(string subrota_id)
+        {
+            return dao.ObterPontaRotaPorSubRotaID(subrota_id);
+        }
         #endregion
     }
 }

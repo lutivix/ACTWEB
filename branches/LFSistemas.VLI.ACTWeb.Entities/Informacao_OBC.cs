@@ -23,5 +23,6 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Ultima_Comunicacao { get; set; }
         public string Atualizacao_OBC { get; set; }
         public string Atualizacao_Mapa { get; set; }
+        public string Ativo { get; set; }
     }
 }

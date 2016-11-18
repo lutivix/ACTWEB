@@ -82,6 +82,22 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             Locos = txtLocomotivas.Text.Length > 0 ? txtLocomotivas.Text : string.Empty;
             GeraExcel(null);
         }
+
+        protected void lnkAtivo_Click(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("IOBC.OBC_ATIVO_SN " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("IOBC.OBC_ATIVO_SN " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
         protected void lnkLoco_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
@@ -380,7 +396,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             else
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Registro não localizado.' });", true);
 
-            lblTotal.Text = itens.Count.ToString();
+            lblTotal.Text = string.Format("{0:0,0}", itens.Count); 
         }
 
         protected void GeraExcel(string ordenacao)
@@ -438,7 +454,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             ddlPageSize.SelectedIndexChanged += new EventHandler(ddlPageSize_SelectedIndexChanged);
         }
 
-        #endregion
-
+        #endregion  
     }
 }

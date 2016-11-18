@@ -8,7 +8,7 @@
     <%--<meta http-equiv="refresh" content="20" />--%>
 
     <link rel="stylesheet" type="text/css" href="/js/extensions/FixedHeader/css/dataTables.fixedHeader.css" />
-    <link rel="stylesheet" type="text/css" href="/fonts/fontawesome-webfont.ttf" />
+    <%--<link rel="stylesheet" type="text/css" href="/fonts/fontawesome-webfont.ttf" />--%>
     <link rel="stylesheet" type="text/css" href="/fonts/FontAwesome.eot" />
 
     <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.css" />

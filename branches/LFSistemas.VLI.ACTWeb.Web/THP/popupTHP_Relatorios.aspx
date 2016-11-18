@@ -1,8 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="popupTHP_Relatorios.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.THP.popupTHP_Relatorios" %>
 
+<!DOCTYPE html>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
-<!DOCTYPE html>
 
 <html lang="pt-br" style="width: 100%; height: 100%; overflow: scroll;">
 <head runat="server">
@@ -13,8 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <link rel="stylesheet" type="text/css" href="/js/extensions/FixedHeader/css/dataTables.fixedHeader.css" />
-    <link rel="stylesheet" type="text/css" href="/fonts/fontawesome-webfont.ttf" />
-    <link rel="stylesheet" type="text/css" href="/fonts/FontAwesome.eot" />
+    <%--<link rel="stylesheet" type="text/css" href="/fonts/fontawesome-webfont.ttf" />
+    <link rel="stylesheet" type="text/css" href="/fonts/FontAwesome.eot" />--%>
 
     <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.css" />
     <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css" />
@@ -72,16 +73,16 @@
                 }
             }
         }
-        function selectAllSubRotas(invoker) {
-            var divControll = document.getElementById('dvSubRotas');
-            var inputElements = divControll.getElementsByTagName('input');
-            for (var i = 0; i < inputElements.length; i++) {
-                var myElement = inputElements[i];
-                if (myElement.type === "checkbox") {
-                    myElement.checked = invoker.checked;
-                }
-            }
-        }
+        //function selectAllSubRotas(invoker) {
+        //    var divControll = document.getElementById('dvSubRotas');
+        //    var inputElements = divControll.getElementsByTagName('input');
+        //    for (var i = 0; i < inputElements.length; i++) {
+        //        var myElement = inputElements[i];
+        //        if (myElement.type === "checkbox") {
+        //            myElement.checked = invoker.checked;
+        //        }
+        //    }
+        //}
         function selectAllGrupos(invoker) {
             var divControll = document.getElementById('dvGrupos');
             var inputElements = divControll.getElementsByTagName('input');
@@ -421,12 +422,25 @@
         .prb-P {
             color: rgb(000, 000, 000);
         }
+
         .prb-R {
             color: rgb(255, 000, 000);
         }
+
         .prb-B {
             color: rgb(000, 000, 255);
         }
+
+        .pnt-rota-S {
+            color: rgb(000, 000, 000);
+            /*background-color: rgb(240,255,240);*/
+            background-color: rgb(143,188,143);
+        }
+
+            .pnt-rota-S:hover {
+                color: rgb(000, 000, 000);
+                background-color: rgb(176,224,230);
+            }
     </style>
 </head>
 <body>
@@ -591,10 +605,12 @@
                                                     </td>
                                                     <td style="width: 10%; padding-top: 1em;" rowspan="3">
                                                         <label for="matricula">SubRotas</label>
-                                                        <asp:CheckBox runat="server" ID="chkSubRotas" OnClick="selectAllSubRotas(this)" ToolTip="Seleciona Todos" OnCheckedChanged="chkSubRotas_CheckedChanged" AutoPostBack="true" />
+                                                        <%--<asp:CheckBox runat="server" ID="chkSubRotas" OnClick="selectAllSubRotas(this)" ToolTip="Seleciona Todos" OnCheckedChanged="chkSubRotas_CheckedChanged" AutoPostBack="true" />--%>
+                                                        <asp:LinkButton runat="server" ID="lnkLimpaSubRota" OnClick="lnkLimpaSubRota_Click" Text="Limpar" />
                                                         <div id="dvSubRotas">
                                                             <asp:Panel runat="server" Width="95%" Height="140" ScrollBars="Vertical" CssClass="form-control">
-                                                                <asp:CheckBoxList runat="server" ID="cblSubRotas" SelectionMode="Multiple" OnSelectedIndexChanged="cblSubRotas_SelectedIndexChanged" AutoPostBack="true" />
+                                                                <asp:RadioButtonList runat="server" ID="rblSubRotas" OnSelectedIndexChanged="rblSubRotas_SelectedIndexChanged" AutoPostBack="true" ValidateRequestMode="Disabled" />
+                                                                <%--<asp:CheckBoxList runat="server" ID="cblSubRotas" SelectionMode="Multiple" OnSelectedIndexChanged="cblSubRotas_SelectedIndexChanged" AutoPostBack="true" />--%>
                                                             </asp:Panel>
                                                         </div>
                                                     </td>
@@ -642,7 +658,6 @@
                         </ProgressTemplate>
                     </asp:UpdateProgress>
                 </div>
-
                 <asp:UpdatePanel runat="server" ID="upDados">
                     <ContentTemplate>
                         <div runat="server" id="dvDados" class="row" style="margin-left: 1%; margin-right: 1%; margin-bottom: 1%;">
@@ -656,14 +671,15 @@
                                             <table style="margin: 0; padding: 0;">
                                                 <tr>
                                                     <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Periodo</td>
+                                                    <td style="width: 140px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Origem/Destino</td>
                                                     <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Corredor</td>
                                                     <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Rota</td>
                                                     <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">SubRota</td>
                                                     <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Classe</td>
                                                     <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">OS</td>
                                                     <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Prefixo</td>
-                                                    <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Grupo</td>
-                                                    <td style="width: 220px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Motivo</td>
+                                                    <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Grupo</td>
+                                                    <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Motivo</td>
                                                     <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">SB</td>
                                                     <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(250, 255, 255); vertical-align: bottom;">Hr Início</td>
                                                     <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; border-right: 1px solid rgb(255, 255, 255); vertical-align: bottom;">Hr Final</td>
@@ -703,7 +719,7 @@
                                                             </tr>
                                                         </table>
                                                     </td>
-                                                    <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; font-size: 1.5em; text-align: center;">
+                                                    <td style="width: 185px; height: 25px; background-color: rgb(0, 72, 89); color: white; font-size: 1.5em; text-align: center;">
                                                         <%--TTT (min)--%>
                                                         <table style="width: 100%">
                                                             <tr>
@@ -729,14 +745,15 @@
                                                                 <tbody>
                                                                     <tr>
                                                                         <td style="width: 150px; border-right: 1px solid rgb(240, 240, 240); text-align: center; white-space: nowrap;" title="<%# Eval("Periodo") %>"><%# Eval("Periodo") %> </td>
+                                                                        <td style="width: 140px; border-right: 1px solid rgb(240, 240, 240); text-align: center; white-space: nowrap;" title="<%# Eval("Origem_Destino") %>"><%# Eval("Origem_Destino") %> </td>
                                                                         <td style="width: 100px; border-right: 1px solid rgb(240, 240, 240); text-align: center; white-space: nowrap;" title="<%# Eval("Corredor") %>"><%# Eval("Corredor")%> </td>
                                                                         <td style="width: 070px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("Rota") %>"><%# Eval("Rota") %> </td>
                                                                         <td style="width: 070px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("SubRota") %>"><%# Eval("SubRota") %> </td>
                                                                         <td style="width: 070px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("Classe") %>"><%# Eval("Classe")%> </td>
                                                                         <td style="width: 070px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("OS") %>"><%# Eval("OS") %> </td>
                                                                         <td style="width: 070px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("Prefixo") %>"><%# Eval("Prefixo") %> </td>
-                                                                        <td style="width: 100px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("Grupo") %>"><%# Eval("Grupo") %> </td>
-                                                                        <td style="width: 220px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("Motivo") %>"><%# Eval("Motivo") %> </td>
+                                                                        <td style="width: 070px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("Grupo") %>"><%# Eval("Grupo") %> </td>
+                                                                        <td style="width: 070px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("Motivo") %>"><%# Eval("Motivo") %> </td>
                                                                         <td style="width: 070px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("SB") %>"><%# Eval("SB") %> </td>
                                                                         <td style="width: 100px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("Data_Ini") %>"><%# Eval("Data_Ini") %> </td>
                                                                         <td style="width: 100px; border-right: 1px solid rgb(240, 240, 240); text-align: center;" title="<%# Eval("Data_Fim") %>"><%# Eval("Data_Fim") %> </td>
@@ -779,7 +796,7 @@
                                                                                 </tr>
                                                                             </table>
                                                                         </td>
-                                                                        <td style="width: 150px; text-align: center;" title="Total Transit Time">
+                                                                        <td style="width: 185px; text-align: center;" title="Total Transit Time">
                                                                             <%--TTT (min)--%>
                                                                             <table style="width: 100%" title="Total Transit Time">
                                                                                 <tr>
@@ -797,7 +814,7 @@
                                                             </table>
                                                             <div>
                                                                 <%--CABEÇALHO DO REPITER DE DENTRO--%>
-                                                                <asp:Panel runat="server" ScrollBars="Vertical" Height='<%# DataBinder.Eval(Container.DataItem, "Dados").ToString().Count() *4 %>'>
+                                                                <asp:Panel runat="server" ScrollBars="Vertical" Height='<%# DataBinder.Eval(Container.DataItem, "Dados").ToString().Count() * 4 %>'>
                                                                     <asp:Repeater ID="repeaterDados" runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "Dados") %>'>
                                                                         <HeaderTemplate>
                                                                             <table style="width: 100%; margin: 0px; padding: 0px;" class="table table-hover table-curved pro-table">
@@ -862,10 +879,11 @@
                                                                                         </table>
                                                                                     </td>
                                                                                 </tr>
+
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <%--DADOS DO REPITER DE DENTRO--%>
-                                                                            <tr style="background-color: #fff;">
+                                                                            <tr class="pnt-rota-<%# Eval ("Ponta_Rota").ToString() %> pnt-subrota-<%# Eval ("Ponta_SubRota").ToString() %>">
                                                                                 <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Data: <%# Eval("Data").ToString() %>"><%# Eval("Data").ToString().Substring(0, 10) %></td>
                                                                                 <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Corredor: <%# Eval("Corredor").ToString() %>"><%# Eval("Corredor")%></td>
                                                                                 <td style="text-align: center; vertical-align: middle; padding-left: 05px; padding-right: 05px; border-right: 1px solid rgb(0, 72, 89); white-space: nowrap;" title="Rota: <%# Eval("Rota").ToString() %>"><%# Eval("Rota") %></td>
@@ -920,16 +938,12 @@
                                                                                         </tbody>
                                                                                     </table>
                                                                                 </td>
-
                                                                                 <td class="prb-<%# Eval ("Duracao_THP_PRB")%>" style="text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="<%# double.Parse(Eval("Duracao_THP").ToString()) != 0 ? string.Format("Duração THP: {0}", TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THP").ToString())))  : "Duração THP" %>">
                                                                                     <asp:Label runat="server" Text='<%# double.Parse(Eval("Duracao_THP").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THP").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THP").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THP").ToString())).Seconds) : "" %>' /></td>
-
                                                                                 <td class="prb-<%# Eval ("Duracao_TTP_PRB")%>" style="text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="<%# double.Parse(Eval("Duracao_TTP").ToString()) != 0 ? string.Format("Duração TTP: {0}", TimeSpan.FromSeconds(double.Parse(Eval("Duracao_TTP").ToString()))) : "Duração TTP" %>">
                                                                                     <asp:Label runat="server" Text='<%# double.Parse(Eval("Duracao_TTP").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_TTP").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_TTP").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_TTP").ToString())).Seconds) : "" %>' /></td>
-
                                                                                 <td class="prb-<%# Eval ("Duracao_THM_PRB")%>" style="text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89); visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="<%# double.Parse(Eval("Duracao_THM").ToString()) != 0 ? string.Format("Duração THM: {0}", TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THM").ToString()))) : "Duração THM" %>">
                                                                                     <asp:Label runat="server" Text='<%# double.Parse(Eval("Duracao_THM").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}:{2:d2}", (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THM").ToString())).TotalHours, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THM").ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse(Eval("Duracao_THM").ToString())).Seconds)  : "" %>' /></td>
-
                                                                                 <td style="width: 130px; text-align: center; vertical-align: middle; visibility: <%# Eval("zVisible") %>;" rowspan="<%# Eval("zRowspan")%>" title="Transit Time">
                                                                                     <table style="width: 100%" title="Transit Time">
                                                                                         <tbody>
@@ -962,14 +976,15 @@
                                             <table style="margin: 0; padding: 0;">
                                                 <tr>
                                                     <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
+                                                    <td style="width: 140px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
                                                     <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
                                                     <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
                                                     <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
                                                     <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
                                                     <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
                                                     <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
-                                                    <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
-                                                    <td style="width: 220px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
+                                                    <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
+                                                    <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
                                                     <td style="width: 070px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
                                                     <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: bottom;"></td>
                                                     <td style="width: 100px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: right; border-right: 1px solid rgb(250, 250, 250); vertical-align: middle;">MÉDIA:  </td>
@@ -1003,7 +1018,7 @@
                                                             </tr>
                                                         </table>
                                                     </td>
-                                                    <td style="width: 150px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: middle;">
+                                                    <td style="width: 185px; height: 25px; background-color: rgb(0, 72, 89); color: white; text-align: center; vertical-align: middle;">
                                                         <%--TTT (min)--%>
                                                         <table style="width: 100%">
                                                             <tr>

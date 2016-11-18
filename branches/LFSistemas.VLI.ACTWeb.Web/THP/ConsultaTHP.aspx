@@ -171,6 +171,9 @@
                                                     <th style="width: 30px; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                         <i class="fa fa-search-plus" style="font-size: 1em;" ></i>
                                                     </th>
+                                                    <th style="width: 03%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <img src="../img/icone_alerta.png" style="visibility: <%# Eval("Parada_Incons") %>;" title="Parada(s) fechada(s) com inconsistência(s)" />    
+                                                    </th>
                                                     <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                         <asp:LinkButton runat="server" ID="lnkCodigo_OS" Text="Cód. OS" /></th>
                                                     <th style="width: 05%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
@@ -197,6 +200,10 @@
                                             <td style="width: 10px; height: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); ">
                                                 <asp:LinkButton runat="server" ID="lnkAcao" OnClick="lnkAcao_Click" CommandArgument='<%# Eval("Trem_ID")%>' Height="20px" ><i class="fa fa-search-plus status-<%# Eval("Cor") %>" style="font-size: 1.5em;" ></i></asp:LinkButton>
                                             </td>
+                                            <td style="width: 03%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89); "> 
+                                                <img src="../img/icone_alerta.png"  style="visibility: <%# Eval("Parada_Incons") %>;" title="Parada fechada com inconsistência" />
+                                            </td>
+                  
                                             <td style="width: 10%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Codigo_OS") %>"><%# Eval("Codigo_OS")%></td>
                                             <td style="width: 05%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Prefixo") %>"><%# Eval("Prefixo")%></td>
                                             <td style="width: 05%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Local") %>"><%# Eval("Local")%></td>

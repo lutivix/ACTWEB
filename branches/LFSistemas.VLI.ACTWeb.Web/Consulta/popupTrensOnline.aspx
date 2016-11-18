@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <link rel="stylesheet" type="text/css" href="/js/extensions/FixedHeader/css/dataTables.fixedHeader.css" />
-    <link rel="stylesheet" type="text/css" href="/fonts/fontawesome-webfont.ttf" />
+    <%--<link rel="stylesheet" type="text/css" href="/fonts/fontawesome-webfont.ttf" />--%>
     <link rel="stylesheet" type="text/css" href="/fonts/FontAwesome.eot" />
 
     <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.css" />

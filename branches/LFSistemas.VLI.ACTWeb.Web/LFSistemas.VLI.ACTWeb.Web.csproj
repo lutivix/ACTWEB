@@ -1252,6 +1252,7 @@
     <Content Include="maps\.gitignore" />
     <Content Include="maps\js\pontos.json" />
     <Content Include="packages.config" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\actweb.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -15,10 +15,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="ACTWEB.Master">
-      <publishTime>09/20/2016 09:04:03</publishTime>
+      <publishTime>10/07/2016 15:58:27</publishTime>
     </File>
     <File Include="Ajuda/Erro.aspx">
-      <publishTime>06/22/2016 11:25:20</publishTime>
+      <publishTime>10/07/2016 15:45:36</publishTime>
     </File>
     <File Include="Ajuda/Help01.html">
       <publishTime>08/04/2015 15:50:20</publishTime>
@@ -27,7 +27,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Ajuda/THP_Regras.aspx">
-      <publishTime>09/19/2016 15:00:20</publishTime>
+      <publishTime>10/07/2016 15:45:47</publishTime>
     </File>
     <File Include="bin/AjaxControlToolkit.dll">
       <publishTime>06/22/2016 11:25:20</publishTime>
@@ -123,7 +123,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/12/2013 20:25:36</publishTime>
     </File>
     <File Include="bin/ICSharpCode.SharpZipLib.dll">
-      <publishTime>07/02/2014 23:56:49</publishTime>
+      <publishTime>09/29/2016 11:22:29</publishTime>
     </File>
     <File Include="bin/it/AjaxControlToolkit.resources.dll">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -162,28 +162,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>09/23/2016 14:04:59</publishTime>
+      <publishTime>10/07/2016 09:10:12</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
-      <publishTime>09/23/2016 14:04:59</publishTime>
+      <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>09/23/2016 14:04:59</publishTime>
+      <publishTime>10/07/2016 09:10:12</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
-      <publishTime>09/23/2016 14:04:59</publishTime>
+      <publishTime>09/08/2016 12:55:17</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>09/23/2016 14:04:58</publishTime>
+      <publishTime>10/07/2016 09:10:11</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
-      <publishTime>09/23/2016 14:04:58</publishTime>
+      <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>09/23/2016 14:05:01</publishTime>
+      <publishTime>10/07/2016 14:42:02</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
-      <publishTime>09/23/2016 14:05:01</publishTime>
+      <publishTime>09/08/2016 12:55:19</publishTime>
     </File>
     <File Include="bin/Libs/DLLMQWeb.dll">
       <publishTime>02/25/2016 17:15:27</publishTime>
@@ -204,22 +204,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/12/2013 20:25:46</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>09/20/2016 09:01:23</publishTime>
+      <publishTime>09/29/2016 11:22:31</publishTime>
     </File>
     <File Include="bin/nl/AjaxControlToolkit.resources.dll">
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/NPOI.dll">
-      <publishTime>05/21/2016 17:35:20</publishTime>
+      <publishTime>09/29/2016 11:22:29</publishTime>
     </File>
     <File Include="bin/NPOI.OOXML.dll">
-      <publishTime>05/21/2016 17:35:29</publishTime>
+      <publishTime>09/29/2016 11:22:29</publishTime>
     </File>
     <File Include="bin/NPOI.OpenXml4Net.dll">
-      <publishTime>05/21/2016 17:35:21</publishTime>
+      <publishTime>09/29/2016 11:22:29</publishTime>
     </File>
     <File Include="bin/NPOI.OpenXmlFormats.dll">
-      <publishTime>05/21/2016 17:35:26</publishTime>
+      <publishTime>09/29/2016 11:22:29</publishTime>
     </File>
     <File Include="bin/pl/AjaxControlToolkit.resources.dll">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -338,6 +338,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="cc3260mt.dll">
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
+    <File Include="ClassDiagram1.cd">
+      <publishTime>10/03/2016 10:21:20</publishTime>
+    </File>
     <File Include="Consulta/Abas/Maquinista.ascx">
       <publishTime>09/06/2016 10:35:57</publishTime>
     </File>
@@ -375,7 +378,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="Consulta/ConsultaMacro50.aspx">
-      <publishTime>07/27/2016 11:33:16</publishTime>
+      <publishTime>10/07/2016 15:46:37</publishTime>
     </File>
     <File Include="Consulta/ConsultaMaquinistas.aspx">
       <publishTime>09/06/2016 14:06:40</publishTime>
@@ -417,7 +420,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="Consulta/EnviarMacro200.aspx">
-      <publishTime>06/22/2016 11:25:20</publishTime>
+      <publishTime>10/07/2016 15:45:56</publishTime>
     </File>
     <File Include="Consulta/EnviarMacro50.aspx">
       <publishTime>06/22/2016 11:25:20</publishTime>
@@ -426,7 +429,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Consulta/EnviarMacro61.aspx">
-      <publishTime>06/22/2016 11:25:20</publishTime>
+      <publishTime>10/07/2016 15:46:07</publishTime>
     </File>
     <File Include="Consulta/EnviarMacro61000.aspx">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -435,10 +438,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="Consulta/Informacao_OBC.aspx">
-      <publishTime>08/30/2016 10:46:39</publishTime>
+      <publishTime>09/29/2016 11:57:49</publishTime>
     </File>
     <File Include="Consulta/Macro.aspx">
-      <publishTime>09/22/2016 16:47:29</publishTime>
+      <publishTime>09/29/2016 11:22:29</publishTime>
     </File>
     <File Include="Consulta/MacroPopUp.aspx">
       <publishTime>06/22/2016 11:25:20</publishTime>
@@ -465,13 +468,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/30/2016 10:47:32</publishTime>
     </File>
     <File Include="Consulta/popupTermometros.aspx">
-      <publishTime>06/22/2016 11:25:20</publishTime>
+      <publishTime>10/07/2016 15:46:46</publishTime>
     </File>
     <File Include="Consulta/popupTHP.aspx">
-      <publishTime>08/30/2016 10:47:53</publishTime>
+      <publishTime>10/07/2016 15:46:57</publishTime>
     </File>
     <File Include="Consulta/popupTrensOnline.aspx">
-      <publishTime>06/22/2016 11:25:20</publishTime>
+      <publishTime>10/07/2016 15:47:14</publishTime>
     </File>
     <File Include="Consulta/Termometro.aspx">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -507,7 +510,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="css/main.css">
-      <publishTime>09/06/2016 10:35:58</publishTime>
+      <publishTime>10/07/2016 15:47:45</publishTime>
     </File>
     <File Include="css/processando.css">
       <publishTime>06/22/2016 11:25:20</publishTime>
@@ -540,7 +543,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="Default.aspx">
-      <publishTime>06/24/2016 14:52:45</publishTime>
+      <publishTime>10/07/2016 15:43:22</publishTime>
     </File>
     <File Include="Desenvolvimento.aspx">
       <publishTime>06/22/2016 11:25:20</publishTime>
@@ -892,9 +895,6 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="img/vermelho.gif">
       <publishTime>04/10/2011 08:42:12</publishTime>
-    </File>
-    <File Include="img/VLI_2014.mp4">
-      <publishTime>09/08/2016 14:52:32</publishTime>
     </File>
     <File Include="img/vma-a.png">
       <publishTime>07/05/2015 14:55:15</publishTime>
@@ -1479,7 +1479,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:21</publishTime>
     </File>
     <File Include="js/main.js">
-      <publishTime>09/20/2016 09:08:50</publishTime>
+      <publishTime>09/29/2016 11:22:31</publishTime>
     </File>
     <File Include="js/mascara.js">
       <publishTime>07/12/2016 15:03:46</publishTime>
@@ -1518,10 +1518,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/02/2015 13:22:10</publishTime>
     </File>
     <File Include="Locomotivas/popupLocomotivas.aspx">
-      <publishTime>06/22/2016 11:25:20</publishTime>
+      <publishTime>10/07/2016 15:45:27</publishTime>
     </File>
     <File Include="Login.aspx">
-      <publishTime>09/20/2016 09:11:00</publishTime>
+      <publishTime>10/07/2016 15:57:35</publishTime>
     </File>
     <File Include="logo-vli.ico">
       <publishTime>06/22/2016 11:25:21</publishTime>
@@ -1581,7 +1581,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:21</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>09/20/2016 09:01:35</publishTime>
+      <publishTime>09/29/2016 11:22:31</publishTime>
     </File>
     <File Include="packages/.gitkeep">
       <publishTime>06/22/2016 11:25:21</publishTime>
@@ -1611,10 +1611,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="popupTeste.aspx">
-      <publishTime>09/21/2016 14:51:13</publishTime>
+      <publishTime>09/29/2016 11:22:31</publishTime>
     </File>
     <File Include="popup_Mensagem.aspx">
-      <publishTime>06/22/2016 11:25:21</publishTime>
+      <publishTime>10/07/2016 15:48:14</publishTime>
     </File>
     <File Include="RedefinirSenha.aspx">
       <publishTime>06/22/2016 11:25:20</publishTime>
@@ -1638,7 +1638,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="Relatorios/popupTHP_Relatorios.aspx">
-      <publishTime>08/30/2016 10:48:51</publishTime>
+      <publishTime>09/05/2016 16:45:35</publishTime>
     </File>
     <File Include="Relatorios/RelatorioAlarmesTelecomandadas.aspx">
       <publishTime>06/22/2016 11:25:20</publishTime>
@@ -1653,13 +1653,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2016 11:25:20</publishTime>
     </File>
     <File Include="Restricoes/popupRelatorioRestricoesPorData.aspx">
-      <publishTime>06/22/2016 11:25:20</publishTime>
+      <publishTime>10/07/2016 15:45:16</publishTime>
     </File>
     <File Include="Restricoes/popupRelatorioRestricoesTemperatura.aspx">
-      <publishTime>06/22/2016 11:25:20</publishTime>
+      <publishTime>10/07/2016 15:45:06</publishTime>
     </File>
     <File Include="Restricoes/popupRelatorioRestricoesVigentes.aspx">
-      <publishTime>06/22/2016 11:25:20</publishTime>
+      <publishTime>10/07/2016 15:44:44</publishTime>
     </File>
     <File Include="Restricoes/popupRestricoes.aspx">
       <publishTime>07/13/2016 08:23:04</publishTime>
@@ -1674,28 +1674,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/07/2015 14:52:37</publishTime>
     </File>
     <File Include="Sobre.aspx">
-      <publishTime>06/22/2016 11:25:20</publishTime>
+      <publishTime>10/07/2016 15:44:21</publishTime>
     </File>
     <File Include="Teste.aspx">
-      <publishTime>09/21/2016 14:45:20</publishTime>
+      <publishTime>09/29/2016 11:22:29</publishTime>
     </File>
     <File Include="THP/Abas/THP.ascx">
       <publishTime>08/19/2016 09:05:46</publishTime>
     </File>
     <File Include="THP/ConsultaTHP.aspx">
-      <publishTime>08/19/2016 09:36:16</publishTime>
+      <publishTime>10/03/2016 10:21:58</publishTime>
     </File>
     <File Include="THP/ConsultaTHP_Confirmacao.aspx">
       <publishTime>08/19/2016 09:55:20</publishTime>
     </File>
     <File Include="THP/popupTHP.aspx">
-      <publishTime>09/22/2016 12:22:17</publishTime>
+      <publishTime>10/07/2016 15:48:26</publishTime>
     </File>
     <File Include="THP/popupTHP_Relatorios.aspx">
-      <publishTime>09/22/2016 11:45:19</publishTime>
+      <publishTime>10/07/2016 16:05:50</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/23/2016 14:05:02</publishTime>
+      <publishTime>10/07/2016 14:42:03</publishTime>
     </File>
   </ItemGroup>
 </Project>

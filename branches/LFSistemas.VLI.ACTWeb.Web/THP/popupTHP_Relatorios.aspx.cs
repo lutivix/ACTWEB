@@ -42,6 +42,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
 
         public List<Relatorio_THP> itens { get; set; }
 
+        double Total_THP_Meta, Total_THP_Real = 0;
+        double Total_TTP_Meta, Total_TTP_Real = 0;
+        double Total_THM_Meta, Total_THM_Real = 0;
+        double Total_TTT_Meta, Total_TTT_Real = 0;
+
+        double AVG_THP_Real, QTD_THP_Real = 0;
+        double AVG_TTP_Real, QTD_TTP_Real = 0;
+        double AVG_THM_Real, QTD_THM_Real = 0;
+        double AVG_TTT_Real, QTD_TTT_Real = 0;
+
         #endregion
 
         #region [ EVENTOS DE PÁGINA ]
@@ -97,7 +107,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 txtFiltroSB.Text = string.Empty;
             chkRotas.Checked =
                 chkTrechos.Checked =
-                chkSubRotas.Checked =
+                //chkSubRotas.Checked =
                 chkGrupos.Checked =
                 chkMotivos.Checked = false;
 
@@ -150,27 +160,27 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             }
 
             var subrotas_id = new List<string>();
-            if (cblSubRotas.Items.Count > 0)
+            if (rblSubRotas.Items.Count > 0)
             {
-                for (int i = 0; i < cblSubRotas.Items.Count; i++)
+                for (int i = 0; i < rblSubRotas.Items.Count; i++)
                 {
-                    if (cblSubRotas.Items[i].Selected)
+                    if (rblSubRotas.Items[i].Selected)
                     {
-                        subrotas_id.Add(string.Format("{0}", cblSubRotas.Items[i].Value));
+                        subrotas_id.Add(string.Format("{0}", rblSubRotas.Items[i].Value));
                     }
                 }
             }
-            cblSubRotas.Items.Clear();
-            cblSubRotas.DataValueField = "Id";
-            cblSubRotas.DataTextField = "Descricao";
-            cblSubRotas.DataSource = combo.ComboBoxTT_SubRotasComTT_CorredoresID(corredores_id);
-            cblSubRotas.DataBind();
-            for (int i = 0; i < cblSubRotas.Items.Count; i++)
+            rblSubRotas.Items.Clear();
+            rblSubRotas.DataValueField = "Id";
+            rblSubRotas.DataTextField = "Descricao";
+            rblSubRotas.DataSource = combo.ComboBoxTT_SubRotasComTT_CorredoresID(corredores_id);
+            rblSubRotas.DataBind();
+            for (int i = 0; i < rblSubRotas.Items.Count; i++)
             {
                 for (int j = 0; j < subrotas_id.Count; j++)
                 {
-                    if (cblSubRotas.Items[i].Value == subrotas_id[j])
-                        cblSubRotas.Items[i].Selected = true;
+                    if (rblSubRotas.Items[i].Value == subrotas_id[j])
+                        rblSubRotas.Items[i].Selected = true;
                 }
             }
         }
@@ -206,6 +216,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             cblRotas.DataTextField = "Descricao";
             cblRotas.DataSource = combo.ComboBoxTT_RotasComTT_CorredoresID(corredores_id);
             cblRotas.DataBind();
+
             for (int i = 0; i < cblRotas.Items.Count; i++)
             {
                 for (int j = 0; j < rotas_id.Count; j++)
@@ -216,28 +227,37 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             }
 
             var subrotas_id = new List<string>();
-            if (cblSubRotas.Items.Count > 0)
+            if (rblSubRotas.Items.Count > 0)
             {
-                for (int i = 0; i < cblSubRotas.Items.Count; i++)
+                for (int i = 0; i < rblSubRotas.Items.Count; i++)
                 {
-                    if (cblSubRotas.Items[i].Selected)
+                    if (rblSubRotas.Items[i].Selected)
                     {
-                        subrotas_id.Add(string.Format("{0}", cblSubRotas.Items[i].Value));
+                        subrotas_id.Add(string.Format("{0}", rblSubRotas.Items[i].Value));
                     }
                 }
             }
-            cblSubRotas.Items.Clear();
-            cblSubRotas.DataValueField = "Id";
-            cblSubRotas.DataTextField = "Descricao";
-            cblSubRotas.DataSource = combo.ComboBoxTT_SubRotasComTT_CorredoresID(corredores_id);
-            cblSubRotas.DataBind();
-            for (int i = 0; i < cblSubRotas.Items.Count; i++)
+            rblSubRotas.Items.Clear();
+            rblSubRotas.DataValueField = "Id";
+            rblSubRotas.DataTextField = "Descricao";
+            rblSubRotas.DataSource = combo.ComboBoxTT_SubRotasComTT_CorredoresID(corredores_id);
+            rblSubRotas.DataBind();
+            for (int i = 0; i < rblSubRotas.Items.Count; i++)
             {
                 for (int j = 0; j < subrotas_id.Count; j++)
                 {
-                    if (cblSubRotas.Items[i].Value == subrotas_id[j])
-                        cblSubRotas.Items[i].Selected = true;
+                    if (rblSubRotas.Items[i].Value == subrotas_id[j])
+                        rblSubRotas.Items[i].Selected = true;
                 }
+            }
+
+            if (corredores_id.Count == 0 && rotas_id.Count == 0 && subrotas_id.Count == 0)
+            {
+                cblCorredores.Items.Clear();
+                cblCorredores.DataValueField = "Id";
+                cblCorredores.DataTextField = "Descricao";
+                cblCorredores.DataSource = combo.ComboBoxTT_Corredores();
+                cblCorredores.DataBind();
             }
         }
         protected void cblTrechos_SelectedIndexChanged(object sender, EventArgs e)
@@ -282,27 +302,27 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             }
 
             var subrotas_id = new List<string>();
-            if (cblSubRotas.Items.Count > 0)
+            if (rblSubRotas.Items.Count > 0)
             {
-                for (int i = 0; i < cblSubRotas.Items.Count; i++)
+                for (int i = 0; i < rblSubRotas.Items.Count; i++)
                 {
-                    if (cblSubRotas.Items[i].Selected)
+                    if (rblSubRotas.Items[i].Selected)
                     {
-                        subrotas_id.Add(string.Format("{0}", cblSubRotas.Items[i].Value));
+                        subrotas_id.Add(string.Format("{0}", rblSubRotas.Items[i].Value));
                     }
                 }
             }
-            cblSubRotas.Items.Clear();
-            cblSubRotas.DataValueField = "Id";
-            cblSubRotas.DataTextField = "Descricao";
-            cblSubRotas.DataSource = combo.ComboBoxTT_SubRotasComTT_TrechosID(trechos_id);
-            cblSubRotas.DataBind();
-            for (int i = 0; i < cblSubRotas.Items.Count; i++)
+            rblSubRotas.Items.Clear();
+            rblSubRotas.DataValueField = "Id";
+            rblSubRotas.DataTextField = "Descricao";
+            rblSubRotas.DataSource = combo.ComboBoxTT_SubRotasComTT_TrechosID(trechos_id);
+            rblSubRotas.DataBind();
+            for (int i = 0; i < rblSubRotas.Items.Count; i++)
             {
                 for (int j = 0; j < subrotas_id.Count; j++)
                 {
-                    if (cblSubRotas.Items[i].Value == subrotas_id[j])
-                        cblSubRotas.Items[i].Selected = true;
+                    if (rblSubRotas.Items[i].Value == subrotas_id[j])
+                        rblSubRotas.Items[i].Selected = true;
                 }
             }
         }
@@ -348,27 +368,27 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             }
 
             var subrotas_id = new List<string>();
-            if (cblSubRotas.Items.Count > 0)
+            if (rblSubRotas.Items.Count > 0)
             {
-                for (int i = 0; i < cblSubRotas.Items.Count; i++)
+                for (int i = 0; i < rblSubRotas.Items.Count; i++)
                 {
-                    if (cblSubRotas.Items[i].Selected)
+                    if (rblSubRotas.Items[i].Selected)
                     {
-                        subrotas_id.Add(string.Format("{0}", cblSubRotas.Items[i].Value));
+                        subrotas_id.Add(string.Format("{0}", rblSubRotas.Items[i].Value));
                     }
                 }
             }
-            cblSubRotas.Items.Clear();
-            cblSubRotas.DataValueField = "Id";
-            cblSubRotas.DataTextField = "Descricao";
-            cblSubRotas.DataSource = combo.ComboBoxTT_SubRotasComTT_TrechosID(trechos_id);
-            cblSubRotas.DataBind();
-            for (int i = 0; i < cblSubRotas.Items.Count; i++)
+            rblSubRotas.Items.Clear();
+            rblSubRotas.DataValueField = "Id";
+            rblSubRotas.DataTextField = "Descricao";
+            rblSubRotas.DataSource = combo.ComboBoxTT_SubRotasComTT_TrechosID(trechos_id);
+            rblSubRotas.DataBind();
+            for (int i = 0; i < rblSubRotas.Items.Count; i++)
             {
                 for (int j = 0; j < subrotas_id.Count; j++)
                 {
-                    if (cblSubRotas.Items[i].Value == subrotas_id[j])
-                        cblSubRotas.Items[i].Selected = true;
+                    if (rblSubRotas.Items[i].Value == subrotas_id[j])
+                        rblSubRotas.Items[i].Selected = true;
                 }
             }
         }
@@ -415,27 +435,27 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             }
 
             var subrotas_id = new List<string>();
-            if (cblSubRotas.Items.Count > 0)
+            if (rblSubRotas.Items.Count > 0)
             {
-                for (int i = 0; i < cblSubRotas.Items.Count; i++)
+                for (int i = 0; i < rblSubRotas.Items.Count; i++)
                 {
-                    if (cblSubRotas.Items[i].Selected)
+                    if (rblSubRotas.Items[i].Selected)
                     {
-                        subrotas_id.Add(string.Format("{0}", cblSubRotas.Items[i].Value));
+                        subrotas_id.Add(string.Format("{0}", rblSubRotas.Items[i].Value));
                     }
                 }
             }
-            cblSubRotas.Items.Clear();
-            cblSubRotas.DataValueField = "Id";
-            cblSubRotas.DataTextField = "Descricao";
-            cblSubRotas.DataSource = combo.ComboBoxTT_SubRotasComTT_RotasID(rotas_id);
-            cblSubRotas.DataBind();
-            for (int i = 0; i < cblSubRotas.Items.Count; i++)
+            rblSubRotas.Items.Clear();
+            rblSubRotas.DataValueField = "Id";
+            rblSubRotas.DataTextField = "Descricao";
+            rblSubRotas.DataSource = combo.ComboBoxTT_SubRotasComTT_RotasID(rotas_id);
+            rblSubRotas.DataBind();
+            for (int i = 0; i < rblSubRotas.Items.Count; i++)
             {
                 for (int j = 0; j < subrotas_id.Count; j++)
                 {
-                    if (cblSubRotas.Items[i].Value == subrotas_id[j])
-                        cblSubRotas.Items[i].Selected = true;
+                    if (rblSubRotas.Items[i].Value == subrotas_id[j])
+                        rblSubRotas.Items[i].Selected = true;
                 }
             }
         }
@@ -482,42 +502,47 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             }
 
             var subrotas_id = new List<string>();
-            if (cblSubRotas.Items.Count > 0)
+            if (rblSubRotas.Items.Count > 0)
             {
-                for (int i = 0; i < cblSubRotas.Items.Count; i++)
+                for (int i = 0; i < rblSubRotas.Items.Count; i++)
                 {
-                    if (cblSubRotas.Items[i].Selected)
+                    if (rblSubRotas.Items[i].Selected)
                     {
-                        subrotas_id.Add(string.Format("{0}", cblSubRotas.Items[i].Value));
+                        subrotas_id.Add(string.Format("{0}", rblSubRotas.Items[i].Value));
                     }
                 }
             }
-            cblSubRotas.Items.Clear();
-            cblSubRotas.DataValueField = "Id";
-            cblSubRotas.DataTextField = "Descricao";
-            cblSubRotas.DataSource = combo.ComboBoxTT_SubRotasComTT_RotasID(rotas_id);
-            cblSubRotas.DataBind();
-            for (int i = 0; i < cblSubRotas.Items.Count; i++)
+            rblSubRotas.Items.Clear();
+            rblSubRotas.DataValueField = "Id";
+            rblSubRotas.DataTextField = "Descricao";
+            rblSubRotas.DataSource = combo.ComboBoxTT_SubRotasComTT_RotasID(rotas_id);
+            rblSubRotas.DataBind();
+            for (int i = 0; i < rblSubRotas.Items.Count; i++)
             {
                 for (int j = 0; j < subrotas_id.Count; j++)
                 {
-                    if (cblSubRotas.Items[i].Value == subrotas_id[j])
-                        cblSubRotas.Items[i].Selected = true;
+                    if (rblSubRotas.Items[i].Value == subrotas_id[j])
+                        rblSubRotas.Items[i].Selected = true;
                 }
             }
         }
-        protected void cblSubRotas_SelectedIndexChanged(object sender, EventArgs e)
+        protected void lnkLimpaSubRota_Click(object sender, EventArgs e)
+        {
+            //or use this (This is The Best 
+            rblSubRotas.SelectedIndex = -1;
+        }
+        protected void rblSubRotas_SelectedIndexChanged(object sender, EventArgs e)
         {
             var combo = new ComboBoxController();
 
             var subrotas_id = new List<string>();
-            if (cblSubRotas.Items.Count > 0)
+            if (rblSubRotas.Items.Count > 0)
             {
-                for (int i = 0; i < cblSubRotas.Items.Count; i++)
+                for (int i = 0; i < rblSubRotas.Items.Count; i++)
                 {
-                    if (cblSubRotas.Items[i].Selected)
+                    if (rblSubRotas.Items[i].Selected)
                     {
-                        subrotas_id.Add(string.Format("{0}", cblSubRotas.Items[i].Value));
+                        subrotas_id.Add(string.Format("{0}", rblSubRotas.Items[i].Value));
                     }
                 }
             }
@@ -603,13 +628,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             var combo = new ComboBoxController();
 
             var subrotas_id = new List<string>();
-            if (cblSubRotas.Items.Count > 0)
+            if (rblSubRotas.Items.Count > 0)
             {
-                for (int i = 0; i < cblSubRotas.Items.Count; i++)
+                for (int i = 0; i < rblSubRotas.Items.Count; i++)
                 {
-                    if (cblSubRotas.Items[i].Selected)
+                    if (rblSubRotas.Items[i].Selected)
                     {
-                        subrotas_id.Add(string.Format("{0}", cblSubRotas.Items[i].Value));
+                        subrotas_id.Add(string.Format("{0}", rblSubRotas.Items[i].Value));
                     }
                 }
             }
@@ -886,11 +911,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             cblRotas.DataSource = combo.ComboBoxTT_Rotas();
             cblRotas.DataBind();
 
-            cblSubRotas.Items.Clear();
-            cblSubRotas.DataValueField = "Id";
-            cblSubRotas.DataTextField = "Descricao";
-            cblSubRotas.DataSource = combo.ComboBoxTT_SubRotas();
-            cblSubRotas.DataBind();
+            rblSubRotas.Items.Clear();
+            rblSubRotas.DataValueField = "Id";
+            rblSubRotas.DataTextField = "Descricao";
+            rblSubRotas.DataSource = combo.ComboBoxTT_SubRotas();
+            rblSubRotas.DataBind();
 
             cblGrupos.Items.Clear();
             cblGrupos.DataValueField = "Id";
@@ -924,6 +949,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             string filtro_subrotas_id = null;
             string filtro_grupos_id = null;
             string filtro_motivos_id = null;
+
+            List<PontaRota> pontaRotas = new List<PontaRota>();
 
             List<Rel_THP_Itens> itens = new List<Rel_THP_Itens>();
 
@@ -974,13 +1001,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             else filtro_rotas_id = string.Empty;
 
             var auxSubRotas = new List<string>();
-            if (cblSubRotas.Items.Count > 0)
+            if (rblSubRotas.Items.Count > 0)
             {
-                for (int i = 0; i < cblSubRotas.Items.Count; i++)
+                for (int i = 0; i < rblSubRotas.Items.Count; i++)
                 {
-                    if (cblSubRotas.Items[i].Selected)
+                    if (rblSubRotas.Items[i].Selected)
                     {
-                        auxSubRotas.Add(string.Format("{0}", cblSubRotas.Items[i].Value));
+                        auxSubRotas.Add(string.Format("{0}", rblSubRotas.Items[i].Value));
                     }
                 }
                 filtro_subrotas_id = string.Join(",", auxSubRotas);
@@ -1244,42 +1271,122 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
 
                     if (itens.Count > 0)
                     {
-
                         if (itens.Count <= 15) pnlRepiter.Style.Add("height", "500px"); else pnlRepiter.Style.Add("height", "100%");
 
                         #region [ PERCORRE A LISTA DE ITENS ]
 
                         for (int i = 0; i < itens.Count; i++)
                         {
+                            Total_TTT_Meta = 0;
+                            Total_TTT_Real = 0;
+                            // Limpa as ponta de rotas
+                            pontaRotas.Clear();
+
+                            // Verifica se existe ponta de rotas/subrotas se existir pinta a linha da mesma de verde
+                            for (int j = 0; j < itens[i].Dados.Count; j++)
+                            {
+                                if (itens[i].Dados[j].Ponta_Rota == "S" || itens[i].Dados[j].Ponta_SubRota == "S")
+                                {
+                                    itens[i].Dados[j].Ponta_Rota = "S";
+                                    itens[i].Dados[j].Ponta_SubRota = "S";
+                                }
+                            }
+
+                            // Pega o número da OS e o nome do corredor
                             itens[i].OS = itens[i].Dados.Select(s => s.OS).FirstOrDefault();
                             itens[i].Corredor = itens[i].Dados.Select(s => s.Corredor).FirstOrDefault();
 
                             #region [ SEPARA O PRIMEIRO REGISTRO DA LISTA E CALCULA O MESMO ]
 
-                            string dia = itens[i].Dados[0].Data.Length > 0 ? itens[i].Dados[0].Data.Substring(0, 10) : string.Empty;
-                            double rota = double.Parse(itens[i].Dados[0].Rota_ID);
-                            double subrota = double.Parse(itens[i].Dados[0].SubRota_ID);
-                            string sb = itens[i].Dados[0].SB;
-                            string trem_id = itens[i].Dados[0].Trem_ID;
-                            string motivo_id = itens[i].Dados[0].Motivo_ID;
+                            string dia_0 = itens[i].Dados[0].Data.Length > 0 ? itens[i].Dados[0].Data.Substring(0, 10) : string.Empty;
+                            double rota_0 = double.Parse(itens[i].Dados[0].Rota_ID);
+                            double subrota_0 = double.Parse(itens[i].Dados[0].SubRota_ID);
+                            string sb_0 = itens[i].Dados[0].SB;
+                            string trem_id_0 = itens[i].Dados[0].Trem_ID;
+                            string motivo_id_0 = itens[i].Dados[0].Motivo_ID;
 
                             int conta = 2;
                             int indice = 1;
                             string visivel = "visible";
 
-                            double duracao_THP = itens[i].Dados[0].THP_Real;
-                            double duracao_TTP = itens[i].Dados[0].TTP_Real;
-                            double duracao_THM = itens[i].Dados[0].THM_Real;
+                            itens[i].Dados[0].Duracao_THP = itens[i].Dados[0].THP_Real;
+                            itens[i].Dados[0].Duracao_TTP = itens[i].Dados[0].TTP_Real;
+                            itens[i].Dados[0].Duracao_THM = itens[i].Dados[0].THM_Real;
 
-                            itens[i].Dados[0].Duracao_THP = duracao_THP;
-                            itens[i].Dados[0].Duracao_TTP = duracao_TTP;
-                            itens[i].Dados[0].Duracao_THM = duracao_THM;
+                            #region [ OBTEM PONTA DE ROTA ]
 
-                            double ttt_Meta = itens[i].Dados[0].THP_Meta + itens[i].Dados[0].TTP_Meta + itens[i].Dados[0].THM_Meta;
-                            double ttt_Real = itens[i].Dados[0].THP_Real + itens[i].Dados[0].TTP_Real + itens[i].Dados[0].THM_Real;
+                            if (!string.IsNullOrEmpty(itens[i].Dados[0].Rota))
+                            {
+                                var aux = new Relatorio_THPController().ObterPontaRotaPorRotaID(itens[i].Dados[0].Rota_ID);
+                                for (int w = 0; w < aux.Count; w++)
+                                {
+                                    pontaRotas.Add(aux[w]);
+                                }
+                            }
 
-                            itens[i].Dados[0].TTT_Meta = ttt_Meta;
-                            itens[i].Dados[0].TTT_Real = ttt_Real;
+                            if (!string.IsNullOrEmpty(itens[i].Dados[0].SubRota))
+                            {
+                                var aux = new Relatorio_THPController().ObterPontaRotaPorSubRotaID(itens[i].Dados[0].SubRota_ID);
+                                for (int w = 0; w < aux.Count; w++)
+                                {
+                                    pontaRotas.Add(aux[w]);
+                                }
+                            }
+
+                            #endregion
+
+                            // Se existir ponta de rota/subrota
+                            if (pontaRotas.Count > 0)
+                            {
+                                // Verifica se a SB do elemento é ponta de rota/subrota
+                                var existe = (from c in pontaRotas
+                                              where itens[i].Dados[0].SB == c.SB
+                                              select c).FirstOrDefault();
+
+                                // Se não for entra na conta
+                                if (existe == null)
+                                {
+                                    Total_TTT_Meta = itens[i].Dados[0].THP_Meta + itens[i].Dados[0].TTP_Meta + itens[i].Dados[0].THM_Meta;
+                                    Total_TTT_Real = itens[i].Dados[0].THP_Real + itens[i].Dados[0].TTP_Real + itens[i].Dados[0].THM_Real;
+
+                                    itens[i].TOT_THP_Meta = itens[i].Dados[0].THP_Meta;
+                                    itens[i].TOT_THP_Real = itens[i].Dados[0].THP_Real;
+                                    itens[i].TOT_TTP_Meta = itens[i].Dados[0].TTP_Meta;
+                                    itens[i].TOT_TTP_Real = itens[i].Dados[0].TTP_Real;
+                                    itens[i].TOT_THM_Meta = itens[i].Dados[0].THM_Meta;
+                                    itens[i].TOT_THM_Real = itens[i].Dados[0].THM_Real;
+
+                                    itens[i].TOT_TTT_Meta = itens[i].TOT_THP_Meta + itens[i].TOT_TTP_Meta + itens[i].TOT_THM_Meta;
+                                    itens[i].TOT_TTT_Real = itens[i].TOT_THP_Real + itens[i].TOT_TTP_Real + itens[i].TOT_THM_Real;
+
+                                    //itens[i].Dados[0].TTT_Meta = itens[i].TOT_TTT_Meta;
+                                    //itens[i].Dados[0].TTT_Real = itens[i].TOT_TTT_Real;
+
+                                }
+                            }
+                            // Se não existir ponta de rota/subrota
+                            else
+                            {
+                                Total_TTT_Meta = itens[i].Dados[0].THP_Meta + itens[i].Dados[0].TTP_Meta + itens[i].Dados[0].THM_Meta;
+                                Total_TTT_Real = itens[i].Dados[0].THP_Real + itens[i].Dados[0].TTP_Real + itens[i].Dados[0].THM_Real;
+
+                                itens[i].TOT_THP_Meta = itens[i].Dados[0].THP_Meta;
+                                itens[i].TOT_THP_Real = itens[i].Dados[0].THP_Real;
+                                itens[i].TOT_TTP_Meta = itens[i].Dados[0].TTP_Meta;
+                                itens[i].TOT_TTP_Real = itens[i].Dados[0].TTP_Real;
+                                itens[i].TOT_THM_Meta = itens[i].Dados[0].THM_Meta;
+                                itens[i].TOT_THM_Real = itens[i].Dados[0].THM_Real;
+
+                                itens[i].TOT_TTT_Meta = itens[i].TOT_THP_Meta + itens[i].TOT_TTP_Meta + itens[i].TOT_THM_Meta;
+                                itens[i].TOT_TTT_Real = itens[i].TOT_THP_Real + itens[i].TOT_TTP_Real + itens[i].TOT_THM_Real;
+
+                                //itens[i].Dados[0].TTT_Meta = itens[i].TOT_TTT_Meta;
+                                //itens[i].Dados[0].TTT_Real = itens[i].TOT_TTT_Real;
+
+                            }
+
+                            itens[i].Dados[0].TTT_Meta = itens[i].Dados[0].THP_Meta + itens[i].Dados[0].TTP_Meta + itens[i].Dados[0].THM_Meta;
+                            itens[i].Dados[0].TTT_Real = itens[i].Dados[0].THP_Real + itens[i].Dados[0].TTP_Real + itens[i].Dados[0].THM_Real;
 
                             itens[i].Dados[0].zRowspan = 0;
                             itens[i].Dados[0].zVisible = visivel;
@@ -1293,151 +1400,220 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                                 // Pula o primeiro registro da lista que já foi calulado anteriomente.
                                 if (j > 0)
                                 {
-                                    string aux_dia = itens[i].Dados[j].Data.Length > 0 ? itens[i].Dados[j].Data.Substring(0, 10) : string.Empty;
-                                    double aux_rota = double.Parse(itens[i].Dados[j].Rota_ID);
-                                    double aux_subrota = double.Parse(itens[i].Dados[j].SubRota_ID);
-                                    string aux_sb = itens[i].Dados[j].SB;
-                                    string aux_trem_id = itens[i].Dados[j].Trem_ID;
-                                    string aux_motivo_id = itens[i].Dados[j].Motivo_ID;
+                                    // Limpa as ponta de rotas
+                                    pontaRotas.Clear();
 
-                                    if ((aux_dia == dia) && (aux_sb == sb) && (aux_trem_id == trem_id))
+                                    #region [ OBTEM PONTA DE ROTA PARA CADA ITEM DA LISTA ]
+
+                                    if (!string.IsNullOrEmpty(itens[i].Dados[j].Rota))
+                                    {
+                                        var aux = new Relatorio_THPController().ObterPontaRotaPorRotaID(itens[i].Dados[j].Rota_ID);
+                                        for (int w = 0; w < aux.Count; w++)
+                                        {
+                                            pontaRotas.Add(aux[w]);
+                                        }
+                                    }
+
+                                    if (!string.IsNullOrEmpty(itens[i].Dados[j].SubRota))
+                                    {
+                                        var aux = new Relatorio_THPController().ObterPontaRotaPorSubRotaID(itens[i].Dados[j].SubRota_ID);
+                                        for (int w = 0; w < aux.Count; w++)
+                                        {
+                                            pontaRotas.Add(aux[w]);
+                                        }
+                                    }
+
+                                    #endregion
+
+                                    // pega os dados do registro corrente
+                                    string dia_i = itens[i].Dados[j].Data.Length > 0 ? itens[i].Dados[j].Data.Substring(0, 10) : string.Empty;
+                                    double rota_i = double.Parse(itens[i].Dados[j].Rota_ID);
+                                    double subrota_i = double.Parse(itens[i].Dados[j].SubRota_ID);
+                                    string sb_i = itens[i].Dados[j].SB;
+                                    string trem_id_i = itens[i].Dados[j].Trem_ID;
+                                    string motivo_id_i = itens[i].Dados[j].Motivo_ID;
+
+                                    #region [ SE É O MENSO TREM A MESMA SB E O MESMO DIA, FAZ MERGE NAS LINHAS E SOMA OS VALORES ]
+
+                                    if ((trem_id_0 == trem_id_i) && (sb_0 == sb_i) && (dia_0 == dia_i))
                                     {
                                         if (j >= 2)
                                         {
+                                            // Deixa a primeira linha como visivel para as colunas: Duração THP, Duração TTP, Duração THM e Total TTT
                                             itens[i].Dados[j - indice].zRowspan = conta;
                                             itens[i].Dados[j - indice].zVisible = "visible";
                                         }
                                         else
                                         {
+                                            // Deixa a primeira linha do primeiro item como visivel para as colunas: Duração THP, Duração TTP, Duração THM e Total TTT
                                             itens[i].Dados[j - 1].zRowspan = conta;
                                             itens[i].Dados[j - 1].zVisible = "visible";
                                         }
 
+                                        // Deixa as demais linhas como invisivel para as colunas: Duração THP, Duração TTP, Duração THM e Total TTT
                                         itens[i].Dados[j].zRowspan = 0;
                                         itens[i].Dados[j].zVisible = "hidden";
 
-                                        // Sem: Corredor, Rota e SubRota
-                                        if (string.IsNullOrEmpty(filtro_corredores_id) && string.IsNullOrEmpty(filtro_rotas_id) && string.IsNullOrEmpty(filtro_subrotas_id))
+                                        // Verifica se existem ponta de rota/subrota para o elemento
+                                        if (pontaRotas.Count > 0)
                                         {
-                                            if ((aux_dia == dia) && (aux_sb == sb) && (aux_trem_id == trem_id))
+                                            // Verifica se a SB do elemento é ponta de rota/subrota
+                                            var existe = (from c in pontaRotas
+                                                          where itens[i].Dados[j].SB == c.SB
+                                                          select c).FirstOrDefault();
+
+                                            // Se não for soma os valores
+                                            if (existe == null)
                                             {
-                                                duracao_THP += itens[i].Dados[j].THP_Real;
-                                                itens[i].Dados[j - indice].Duracao_THP = duracao_THP;
+                                                itens[i].TOT_THP_Meta += itens[i].Dados[j].THP_Meta;
+                                                itens[i].TOT_THP_Real += itens[i].Dados[j].THP_Real;
+                                                itens[i].TOT_TTP_Meta += itens[i].Dados[j].TTP_Meta;
+                                                itens[i].TOT_TTP_Real += itens[i].Dados[j].TTP_Real;
+                                                itens[i].TOT_THM_Meta += itens[i].Dados[j].THM_Meta;
+                                                itens[i].TOT_THM_Real += itens[i].Dados[j].THM_Real;
 
-                                                duracao_TTP += itens[i].Dados[j].TTP_Real;
-                                                itens[i].Dados[j - indice].Duracao_TTP = duracao_TTP;
+                                                Total_TTT_Meta += itens[i].Dados[j].THP_Meta + itens[i].Dados[j].TTP_Meta + itens[i].Dados[j].THM_Meta;
+                                                Total_TTT_Real += itens[i].Dados[j].THP_Real + itens[i].Dados[j].TTP_Real + itens[i].Dados[j].THM_Real;
 
-                                                duracao_THM += itens[i].Dados[j].THM_Real;
-                                                itens[i].Dados[j - indice].Duracao_THM = duracao_THM;
+                                                itens[i].TOT_TTT_Meta = Total_TTT_Meta;
+                                                itens[i].TOT_TTT_Real = Total_TTT_Real;
 
-                                                double ttm = itens[i].Dados[j].THP_Meta + itens[i].Dados[j].TTP_Meta + itens[i].Dados[j].THM_Meta;
-                                                double ttr = itens[i].Dados[j].THP_Real + itens[i].Dados[j].TTP_Real + itens[i].Dados[j].THM_Real;
-                                                ttt_Meta += ttm;
-                                                ttt_Real += ttr;
+                                                var ttt = itens[i].Dados[j].Duracao_THP + itens[i].Dados[j].Duracao_TTP + itens[i].Dados[j].Duracao_THM;
 
-                                                itens[i].Dados[j - indice].TTT_Meta = ttt_Meta;
-                                                itens[i].Dados[j - indice].TTT_Real = ttt_Real;
+                                                itens[i].Dados[j - indice].TTT_Meta += ttt;
+                                                itens[i].Dados[j - indice].TTT_Real += ttt;
 
-                                                rota = double.Parse(itens[i].Dados[j].Rota_ID);
-
-                                                conta++;
-                                                indice++;
-                                            }
-                                            else
-                                            {
-                                                rota = double.Parse(itens[i].Dados[j].Rota_ID);
-
-                                                duracao_THP = itens[i].Dados[j].THP_Real;
-                                                itens[i].Dados[j - indice].Duracao_THP = duracao_THP;
-
-                                                duracao_TTP = itens[i].Dados[j].TTP_Real;
-                                                itens[i].Dados[j - indice].Duracao_TTP = duracao_TTP;
-
-                                                duracao_THM = itens[i].Dados[j].THM_Real;
-                                                itens[i].Dados[j - indice].Duracao_THM = duracao_THM;
-
-                                                itens[i].Dados[j - indice].TTT_Meta = ttt_Meta;
-                                                itens[i].Dados[j - indice].TTT_Real = ttt_Real;
-
-                                                conta++;
-                                                indice++;
+                                                rota_i = double.Parse(itens[i].Dados[j].Rota_ID);
                                             }
                                         }
                                         else
                                         {
-                                            if ((aux_dia == dia) && (aux_sb == sb) && (aux_trem_id == trem_id))
-                                            {
-                                                duracao_THP += itens[i].Dados[j].THP_Real;
-                                                itens[i].Dados[j - indice].Duracao_THP = duracao_THP;
+                                            Total_TTT_Meta += itens[i].Dados[j].THP_Meta + itens[i].Dados[j].TTP_Meta + itens[i].Dados[j].THM_Meta;
+                                            Total_TTT_Real += itens[i].Dados[j].THP_Real + itens[i].Dados[j].TTP_Real + itens[i].Dados[j].THM_Real;
 
-                                                duracao_TTP += itens[i].Dados[j].TTP_Real;
-                                                itens[i].Dados[j - indice].Duracao_TTP = duracao_TTP;
+                                            itens[i].TOT_THP_Meta += itens[i].Dados[j].THP_Meta;
+                                            itens[i].TOT_THP_Real += itens[i].Dados[j].THP_Real;
+                                            itens[i].TOT_TTP_Meta += itens[i].Dados[j].TTP_Meta;
+                                            itens[i].TOT_TTP_Real += itens[i].Dados[j].TTP_Real;
+                                            itens[i].TOT_THM_Meta += itens[i].Dados[j].THM_Meta;
+                                            itens[i].TOT_THM_Real += itens[i].Dados[j].THM_Real;
 
-                                                duracao_THM += itens[i].Dados[j].THM_Real;
-                                                itens[i].Dados[j - indice].Duracao_THM = duracao_THM;
+                                            itens[i].TOT_TTT_Meta = Total_TTT_Meta;
+                                            itens[i].TOT_TTT_Real = Total_TTT_Real;
 
-                                                double ttm = itens[i].Dados[j].THP_Meta + itens[i].Dados[j].TTP_Meta + itens[i].Dados[j].THM_Meta;
-                                                double ttr = itens[i].Dados[j].THP_Real + itens[i].Dados[j].TTP_Real + itens[i].Dados[j].THM_Real;
-                                                ttt_Meta += ttm;
-                                                ttt_Real += ttr;
+                                            itens[i].Dados[j - indice].TTT_Meta = itens[i].TOT_TTT_Meta;
+                                            itens[i].Dados[j - indice].TTT_Real = itens[i].TOT_TTT_Real;
 
-                                                itens[i].Dados[j - indice].TTT_Meta = ttt_Meta;
-                                                itens[i].Dados[j - indice].TTT_Real = ttt_Real;
-
-                                                rota = double.Parse(itens[i].Dados[j].Rota_ID);
-
-                                                conta++;
-                                                indice++;
-                                            }
-                                            else
-                                            {
-                                                rota = double.Parse(itens[i].Dados[j].Rota_ID);
-
-                                                duracao_THP = itens[i].Dados[j].THP_Real;
-                                                itens[i].Dados[j - indice].Duracao_THP = duracao_THP;
-
-                                                duracao_TTP = itens[i].Dados[j].TTP_Real;
-                                                itens[i].Dados[j - indice].Duracao_TTP = duracao_TTP;
-
-                                                duracao_THM = itens[i].Dados[j].THM_Real;
-                                                itens[i].Dados[j - indice].Duracao_THM = duracao_THM;
-
-                                                itens[i].Dados[j - indice].TTT_Meta = ttt_Meta;
-                                                itens[i].Dados[j - indice].TTT_Real = ttt_Real;
-
-                                                conta++;
-                                                indice++;
-                                            }
+                                            rota_i = double.Parse(itens[i].Dados[j].Rota_ID);
                                         }
+
+                                        itens[i].Dados[j - indice].Duracao_THP += itens[i].Dados[j].THP_Real;
+                                        itens[i].Dados[j - indice].Duracao_TTP += itens[i].Dados[j].TTP_Real;
+                                        itens[i].Dados[j - indice].Duracao_THM += itens[i].Dados[j].THM_Real;
+
+                                        //itens[i].Dados[j - indice].TTT_Real += itens[i].Dados[j - indice].Duracao_THP + itens[i].Dados[j - indice].Duracao_TTP + itens[i].Dados[j - indice].Duracao_THM;
+
+                                        itens[i].Dados[j - indice].TTT_Meta += itens[i].Dados[j].THP_Meta + itens[i].Dados[j].TTP_Meta + itens[i].Dados[j].THM_Meta;
+                                        itens[i].Dados[j - indice].TTT_Real += itens[i].Dados[j].THP_Real + itens[i].Dados[j].TTP_Real + itens[i].Dados[j].THM_Real;
+
+                                        conta++;
+                                        indice++;
                                     }
+                                    #endregion
+
+                                    #region [ SE NÃO É O MENSO TREM A MESMA SB E O MESMO DIA, NÃO FAZ MERGE NAS LINHAS E SOMA OS VALORES ]
+
                                     else
                                     {
-                                        dia = itens[i].Dados[j].Data.Length > 0 ? itens[i].Dados[j].Data.Substring(0, 10) : string.Empty;
-                                        rota = double.Parse(itens[i].Dados[j].Rota_ID);
-                                        subrota = double.Parse(itens[i].Dados[j].SubRota_ID);
-                                        sb = itens[i].Dados[j].SB;
-                                        trem_id = itens[i].Dados[j].Trem_ID;
-                                        motivo_id = itens[i].Dados[j].Motivo_ID;
+
+                                        dia_0 = itens[i].Dados[j].Data.Length > 0 ? itens[i].Dados[j].Data.Substring(0, 10) : string.Empty;
+                                        rota_0 = double.Parse(itens[i].Dados[j].Rota_ID);
+                                        subrota_0 = double.Parse(itens[i].Dados[j].SubRota_ID);
+                                        sb_0 = itens[i].Dados[j].SB;
+                                        trem_id_0 = itens[i].Dados[j].Trem_ID;
+                                        motivo_id_0 = itens[i].Dados[j].Motivo_ID;
 
                                         conta = 2;
                                         indice = 1;
-                                        duracao_THP = itens[i].Dados[j].THP_Real;
-                                        duracao_TTP = itens[i].Dados[j].TTP_Real;
-                                        duracao_THM = itens[i].Dados[j].THM_Real;
+                                        visivel = "visible";
 
-                                        itens[i].Dados[j].Duracao_THP = duracao_THP;
-                                        itens[i].Dados[j].Duracao_TTP = duracao_TTP;
-                                        itens[i].Dados[j].Duracao_THM = duracao_THM;
+                                        itens[i].Dados[j].Duracao_THP = itens[i].Dados[j].THP_Real;
+                                        itens[i].Dados[j].Duracao_TTP = itens[i].Dados[j].TTP_Real;
+                                        itens[i].Dados[j].Duracao_THM = itens[i].Dados[j].THM_Real;
 
-                                        ttt_Meta = itens[i].Dados[j].THP_Meta + itens[i].Dados[j].TTP_Meta + itens[i].Dados[j].THM_Meta;
-                                        ttt_Real = itens[i].Dados[j].THP_Real + itens[i].Dados[j].TTP_Real + itens[i].Dados[j].THM_Real;
-
-                                        itens[i].Dados[j].TTT_Meta = ttt_Meta;
-                                        itens[i].Dados[j].TTT_Real = ttt_Real;
-
+                                        // Deixa a linha como invisivel para as colunas: Duração THP, Duração TTP, Duração THM e Total TTT
                                         itens[i].Dados[j].zRowspan = 0;
                                         itens[i].Dados[j].zVisible = "visible";
+
+
+                                        // Verifica se existem ponta de rota/subrota para o elemento
+                                        if (pontaRotas.Count > 0)
+                                        {
+                                            // Verifica se a SB do elemento é ponta de rota/subrota
+                                            var existe = (from c in pontaRotas
+                                                          where itens[i].Dados[j].SB == c.SB
+                                                          select c).FirstOrDefault();
+
+                                            // Se não for soma os valores
+                                            if (existe == null)
+                                            {
+
+                                                Total_TTT_Meta += itens[i].Dados[j].THP_Meta + itens[i].Dados[j].TTP_Meta + itens[i].Dados[j].THM_Meta;
+                                                Total_TTT_Real += itens[i].Dados[j].THP_Real + itens[i].Dados[j].TTP_Real + itens[i].Dados[j].THM_Real;
+
+                                                itens[i].TOT_THP_Meta += itens[i].Dados[j].THP_Meta;
+                                                itens[i].TOT_THP_Real += itens[i].Dados[j].THP_Real;
+                                                itens[i].TOT_TTP_Meta += itens[i].Dados[j].TTP_Meta;
+                                                itens[i].TOT_TTP_Real += itens[i].Dados[j].TTP_Real;
+                                                itens[i].TOT_THM_Meta += itens[i].Dados[j].THM_Meta;
+                                                itens[i].TOT_THM_Real += itens[i].Dados[j].THM_Real;
+
+                                                itens[i].TOT_TTT_Meta = Total_TTT_Meta;
+                                                itens[i].TOT_TTT_Real = Total_TTT_Real;
+
+                                                //itens[i].Dados[j - indice].TTT_Meta = itens[i].TOT_TTT_Meta;
+                                                //itens[i].Dados[j - indice].TTT_Real = itens[i].TOT_TTT_Real;
+
+                                                itens[i].Dados[j].TTT_Meta = itens[i].TOT_TTT_Meta;
+                                                itens[i].Dados[j].TTT_Real = itens[i].TOT_TTT_Real;
+
+                                                rota_i = double.Parse(itens[i].Dados[j].Rota_ID);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Total_TTT_Meta += itens[i].Dados[j].THP_Meta + itens[i].Dados[j].TTP_Meta + itens[i].Dados[j].THM_Meta;
+                                            Total_TTT_Real += itens[i].Dados[j].THP_Real + itens[i].Dados[j].TTP_Real + itens[i].Dados[j].THM_Real;
+
+                                            itens[i].TOT_THP_Meta += itens[i].Dados[j].THP_Meta;
+                                            itens[i].TOT_THP_Real += itens[i].Dados[j].THP_Real;
+                                            itens[i].TOT_TTP_Meta += itens[i].Dados[j].TTP_Meta;
+                                            itens[i].TOT_TTP_Real += itens[i].Dados[j].TTP_Real;
+                                            itens[i].TOT_THM_Meta += itens[i].Dados[j].THM_Meta;
+                                            itens[i].TOT_THM_Real += itens[i].Dados[j].THM_Real;
+
+                                            itens[i].TOT_TTT_Meta = Total_TTT_Meta;
+                                            itens[i].TOT_TTT_Real = Total_TTT_Real;
+
+                                            //itens[i].Dados[j - indice].TTT_Meta = itens[i].TOT_TTT_Meta;
+                                            //itens[i].Dados[j - indice].TTT_Real = itens[i].TOT_TTT_Real;
+
+                                            itens[i].Dados[j].TTT_Meta = itens[i].TOT_TTT_Meta;
+                                            itens[i].Dados[j].TTT_Real = itens[i].TOT_TTT_Real;
+
+                                            rota_i = double.Parse(itens[i].Dados[j].Rota_ID);
+                                        }
+
+                                        itens[i].Dados[j].TTT_Meta = itens[i].Dados[j].THP_Meta + itens[i].Dados[j].TTP_Meta + itens[i].Dados[j].THM_Meta;
+                                        itens[i].Dados[j].TTT_Real = itens[i].Dados[j].THP_Real + itens[i].Dados[j].TTP_Real + itens[i].Dados[j].THM_Real;
+
+
+                                        itens[i].Dados[j].zRowspan = 0;
+                                        itens[i].Dados[j].zVisible = visivel;
                                     }
+
+                                    #endregion
+
                                 }
                             }
 
@@ -1446,18 +1622,55 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
 
                         #endregion
 
-                        #region [ IDENTIFICA VALORES POSITIVOS E NEGATIVOS E FAZ A MÉDIA ]
-
-                        double AVG_THP_Real = 0;
-                        double AVG_TTP_Real = 0;
-                        double AVG_THM_Real = 0;
-                        double AVG_TTT_Real = 0;
                         for (int i = 0; i < itens.Count; i++)
                         {
-                            AVG_THP_Real += itens[i].AVG_THP_Real;
-                            AVG_TTP_Real += itens[i].AVG_TTP_Real;
-                            AVG_THM_Real += itens[i].AVG_THM_Real;
-                            AVG_TTT_Real += itens[i].AVG_TTT_Real;
+                            var horaIni = string.Empty;
+                            var horaFim = string.Empty;
+
+                            // Hora final da conta de Transit Time
+                            for (int j = 0; j < itens[i].Dados.Count; j++)
+                            {
+                                if ((itens[i].Dados[j].Ponta_Rota == "" || itens[i].Dados[j].Ponta_Rota == "N") || (itens[i].Dados[j].Ponta_SubRota == "" || itens[i].Dados[j].Ponta_SubRota == "N"))
+                                {
+                                    if (horaFim == string.Empty)
+                                    {
+                                        horaFim = itens[i].Dados[j].Data_Fim;
+                                        itens[i].Data_Fim = horaFim;
+                                    }
+                                }
+                            }
+
+                            // Hora inicio da conta de Transit Time
+                            for (int j = itens[i].Dados.Count - 1; j >= 0; j--)
+                            {
+                                if ((itens[i].Dados[j].Ponta_Rota == "" || itens[i].Dados[j].Ponta_Rota == "N") || (itens[i].Dados[j].Ponta_SubRota == "" || itens[i].Dados[j].Ponta_SubRota == "N"))
+                                {
+                                    if (horaIni == string.Empty)
+                                    {
+                                        horaIni = itens[i].Dados[j].Data_Ini;
+                                        itens[i].Data_Ini = horaIni;
+                                    }
+                                }
+                            }
+
+                            itens[i].Origem_Destino = string.Format("{0} à {1}", itens[i].Dados[itens[i].Dados.Count - 1].SB, itens[i].Dados[0].SB);
+                        }
+
+                        #region [ IDENTIFICA VALORES POSITIVOS E NEGATIVOS E FAZ A MÉDIA ]
+
+                        for (int i = 0; i < itens.Count; i++)
+                        {
+                            if (itens.Count > 1)
+                            {
+                                AVG_THP_Real += itens[i].TOT_THP_Real;
+                                QTD_THP_Real++;
+                                AVG_TTP_Real += itens[i].TOT_TTP_Real;
+                                QTD_TTP_Real++;
+                                AVG_THM_Real += itens[i].TOT_THM_Real;
+                                QTD_THM_Real++;
+                                AVG_TTT_Real += itens[i].TOT_TTT_Real;
+                                QTD_TTT_Real++;
+                            }
 
                             if (itens[i].TOT_THP_Meta < 0) itens[i].TOT_THP_Meta_PRB = "R"; else itens[i].TOT_THP_Meta_PRB = "P";
                             if (itens[i].TOT_THP_Real < 0) itens[i].TOT_THP_Real_PRB = "R"; else itens[i].TOT_THP_Real_PRB = "P";
@@ -1468,13 +1681,38 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                             if (itens[i].TOT_TTT_Meta < 0) itens[i].TOT_TTT_Meta_PRB = "R"; else itens[i].TOT_TTT_Meta_PRB = "P";
                             if (itens[i].TOT_TTT_Real < 0) itens[i].TOT_TTT_Real_PRB = "R"; else itens[i].TOT_TTT_Real_PRB = "P";
 
-                            if (AVG_THP_Real < 0) itens[i].AVG_THP_Real_PRB = "R"; else itens[i].AVG_THP_Real_PRB = "P";
-                            if (AVG_TTP_Real < 0) itens[i].AVG_TTP_Real_PRB = "R"; else itens[i].AVG_TTP_Real_PRB = "P";
-                            if (AVG_THM_Real < 0) itens[i].AVG_THM_Real_PRB = "R"; else itens[i].AVG_THM_Real_PRB = "P";
-                            if (AVG_TTT_Real < 0) itens[i].AVG_TTT_Real_PRB = "R"; else itens[i].AVG_TTT_Real_PRB = "P";
+                            if (AVG_THP_Real < 0) itens[i].TOT_AVG_THP_Real_PRB = "R"; else itens[i].TOT_AVG_THP_Real_PRB = "P";
+                            if (AVG_TTP_Real < 0) itens[i].TOT_AVG_TTP_Real_PRB = "R"; else itens[i].TOT_AVG_TTP_Real_PRB = "P";
+                            if (AVG_THM_Real < 0) itens[i].TOT_AVG_THM_Real_PRB = "R"; else itens[i].TOT_AVG_THM_Real_PRB = "P";
+                            if (AVG_TTT_Real < 0) itens[i].TOT_AVG_TTT_Real_PRB = "R"; else itens[i].TOT_AVG_TTT_Real_PRB = "P";
 
                             for (int j = 0; j < itens[i].Dados.Count; j++)
                             {
+                                if (itens.Count <= 1)
+                                {
+                                    AVG_THP_Real += itens[i].Dados[j].THP_Real;
+                                    QTD_THP_Real++;
+                                    AVG_TTP_Real += itens[i].Dados[j].TTP_Real;
+                                    QTD_TTP_Real++;
+                                    AVG_THM_Real += itens[i].Dados[j].THM_Real;
+                                    QTD_THM_Real++;
+                                    AVG_TTT_Real += itens[i].Dados[j].TTT_Real;
+                                    QTD_TTT_Real++;
+                                }
+                                if (itens[i].Dados[j].Duracao_THP < 0 ||
+                                    itens[i].Dados[j].Duracao_TTP < 0 ||
+                                    itens[i].Dados[j].Duracao_THM < 0 ||
+                                    itens[i].Dados[j].THP_Meta < 0 ||
+                                    itens[i].Dados[j].THP_Real < 0 ||
+                                    itens[i].Dados[j].TTP_Meta < 0 ||
+                                    itens[i].Dados[j].TTP_Real < 0 ||
+                                    itens[i].Dados[j].THM_Meta < 0 ||
+                                    itens[i].Dados[j].THM_Real < 0 ||
+                                    itens[i].Dados[j].TTT_Meta < 0 ||
+                                    itens[i].Dados[j].TTT_Real < 0)
+                                {
+
+                                }
 
                                 if (itens[i].Dados[j].Duracao_THP < 0) itens[i].Dados[j].Duracao_THP_PRB = "R"; else itens[i].Dados[j].Duracao_THP_PRB = "P";
                                 if (itens[i].Dados[j].Duracao_TTP < 0) itens[i].Dados[j].Duracao_TTP_PRB = "R"; else itens[i].Dados[j].Duracao_TTP_PRB = "P";
@@ -1488,14 +1726,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                                 if (itens[i].Dados[j].THM_Real < 0) itens[i].Dados[j].THM_Real_PRB = "R"; else itens[i].Dados[j].THM_Real_PRB = "P";
                                 if (itens[i].Dados[j].TTT_Meta < 0) itens[i].Dados[j].TTT_Meta_PRB = "R"; else itens[i].Dados[j].TTT_Meta_PRB = "P";
                                 if (itens[i].Dados[j].TTT_Real < 0) itens[i].Dados[j].TTT_Real_PRB = "R"; else itens[i].Dados[j].TTT_Real_PRB = "P";
-
                             }
                         }
 
-                        lblAVG_THP_Real.Text = AVG_THP_Real != 0 ? TimeSpan.FromSeconds(AVG_THP_Real / itens.Count).ToString(@"d\.hh\:mm\:ss") : string.Empty;
-                        lblAVG_TTP_Real.Text = AVG_TTP_Real != 0 ? TimeSpan.FromSeconds(AVG_TTP_Real / itens.Count).ToString(@"d\.hh\:mm\:ss") : string.Empty;
-                        lblAVG_THM_Real.Text = AVG_THM_Real != 0 ? TimeSpan.FromSeconds(AVG_THM_Real / itens.Count).ToString(@"d\.hh\:mm\:ss") : string.Empty;
-                        lblAVG_TTT_Real.Text = AVG_TTT_Real != 0 ? TimeSpan.FromSeconds(AVG_TTT_Real / itens.Count).ToString(@"d\.hh\:mm\:ss") : string.Empty;
+                        lblAVG_THP_Real.Text = AVG_THP_Real != 0 ? TimeSpan.FromSeconds(AVG_THP_Real / QTD_THP_Real).ToString(@"d\.hh\:mm\:ss") : string.Empty;
+                        lblAVG_TTP_Real.Text = AVG_TTP_Real != 0 ? TimeSpan.FromSeconds(AVG_TTP_Real / QTD_TTP_Real).ToString(@"d\.hh\:mm\:ss") : string.Empty;
+                        lblAVG_THM_Real.Text = AVG_THM_Real != 0 ? TimeSpan.FromSeconds(AVG_THM_Real / QTD_THM_Real).ToString(@"d\.hh\:mm\:ss") : string.Empty;
+                        lblAVG_TTT_Real.Text = AVG_TTT_Real != 0 ? TimeSpan.FromSeconds(AVG_TTT_Real / QTD_TTT_Real).ToString(@"d\.hh\:mm\:ss") : string.Empty;
 
                         #endregion
 
@@ -1595,13 +1832,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             else filtro_rotas_id = string.Empty;
 
             var auxSubRotas = new List<string>();
-            if (cblSubRotas.Items.Count > 0)
+            if (rblSubRotas.Items.Count > 0)
             {
-                for (int i = 0; i < cblSubRotas.Items.Count; i++)
+                for (int i = 0; i < rblSubRotas.Items.Count; i++)
                 {
-                    if (cblSubRotas.Items[i].Selected)
+                    if (rblSubRotas.Items[i].Selected)
                     {
-                        auxSubRotas.Add(string.Format("{0}", cblSubRotas.Items[i].Value));
+                        auxSubRotas.Add(string.Format("{0}", rblSubRotas.Items[i].Value));
                     }
                 }
                 filtro_subrotas_id = string.Join(",", auxSubRotas);
@@ -1712,22 +1949,22 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
 
             if (dados.Count > 0)
             {
-                double AVG_THP_Real = 0;
-                double AVG_TTP_Real = 0;
-                double AVG_THM_Real = 0;
-                double AVG_TTT_Real = 0;
+                double TOT_AVG_THP_Real = 0;
+                double TOT_AVG_TTP_Real = 0;
+                double TOT_AVG_THM_Real = 0;
+                double TOT_AVG_TTT_Real = 0;
                 for (int i = 0; i < dados.Count; i++)
                 {
-                    AVG_THP_Real += dados[i].AVG_THP_Real;
-                    AVG_TTP_Real += dados[i].AVG_TTP_Real;
-                    AVG_THM_Real += dados[i].AVG_THM_Real;
-                    AVG_TTT_Real += dados[i].AVG_TTT_Real;
+                    TOT_AVG_THP_Real += dados[i].TOT_AVG_THP_Real;
+                    TOT_AVG_TTP_Real += dados[i].TOT_AVG_TTP_Real;
+                    TOT_AVG_THM_Real += dados[i].TOT_AVG_THM_Real;
+                    TOT_AVG_TTT_Real += dados[i].TOT_AVG_TTT_Real;
                 }
 
-                lblAVG_THP_Real.Text = AVG_THP_Real != 0 ? TimeSpan.FromSeconds(AVG_THP_Real).ToString() : string.Empty;
-                lblAVG_TTP_Real.Text = AVG_TTP_Real != 0 ? TimeSpan.FromSeconds(AVG_TTP_Real).ToString() : string.Empty;
-                lblAVG_THM_Real.Text = AVG_THM_Real != 0 ? TimeSpan.FromSeconds(AVG_THM_Real).ToString() : string.Empty;
-                lblAVG_TTT_Real.Text = AVG_TTT_Real != 0 ? TimeSpan.FromSeconds(AVG_TTT_Real).ToString() : string.Empty;
+                lblAVG_THP_Real.Text = TOT_AVG_THP_Real != 0 ? TimeSpan.FromSeconds(TOT_AVG_THP_Real).ToString() : string.Empty;
+                lblAVG_TTP_Real.Text = TOT_AVG_TTP_Real != 0 ? TimeSpan.FromSeconds(TOT_AVG_TTP_Real).ToString() : string.Empty;
+                lblAVG_THM_Real.Text = TOT_AVG_THM_Real != 0 ? TimeSpan.FromSeconds(TOT_AVG_THM_Real).ToString() : string.Empty;
+                lblAVG_TTT_Real.Text = TOT_AVG_TTT_Real != 0 ? TimeSpan.FromSeconds(TOT_AVG_TTT_Real).ToString() : string.Empty;
 
                 #region [GERANDO EXCEL CSV ]
 

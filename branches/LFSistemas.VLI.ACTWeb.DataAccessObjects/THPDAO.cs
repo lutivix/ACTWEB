@@ -29,7 +29,21 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
                     query.Append(@"SELECT * FROM (
-                                    SELECT  T.TM_ID_TRM AS TREM_ID, T.TM_COD_OF AS OS, T.TM_PRF_ACT AS PREFIXO, EV_NOM_MAC AS LOCAL, M.MOT_NOME AS MOTIVO, COD_MOTIVO, COD_MOT_DESPACHADOR, ID_POSTO, DT_INI_PARADA, NC.NM_COR_NOME AS CORREDOR, G.GRU_NOME AS GRUPO, TP.ID_TREM_ACT AS ID_TREM, ROW_NUMBER() OVER (PARTITION BY TM_COD_OF ORDER BY TM_COD_OF ) as LINHA, TP.ID_SB
+                                    SELECT  T.TM_ID_TRM AS TREM_ID, 
+                                            T.TM_COD_OF AS OS, 
+                                            T.TM_PRF_ACT AS PREFIXO, 
+                                            EV_NOM_MAC AS LOCAL, 
+                                            M.MOT_NOME AS MOTIVO, 
+                                            COD_MOTIVO, 
+                                            COD_MOT_DESPACHADOR, 
+                                            ID_POSTO, 
+                                            DT_INI_PARADA,
+                                            NC.NM_COR_NOME AS CORREDOR, 
+                                            G.GRU_NOME AS GRUPO, 
+                                            TP.ID_TREM_ACT AS ID_TREM, 
+                                            ROW_NUMBER() OVER (PARTITION BY TM_COD_OF ORDER BY TM_COD_OF ) as LINHA, 
+                                            TP.ID_SB, 
+                                            TP.IND_INCS 
                                         FROM  ACTPP.OCUPACOES_VIGENTES OV, ACTPP.UNL_TRENS_PARADOS TP, ACTPP.TRENS T,  ACTPP.ELEM_VIA EV, MOTIVO_PARADA M, GRUPOS G, ACTPP.NOME_CORREDOR NC
                                             WHERE OV.TM_ID_TRM = T.TM_ID_TRM 
                                                 AND TP.ID_TREM_ACT = T.TM_ID_TRM
@@ -116,7 +130,21 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
                     query.Append(@"SELECT * FROM (
-                                    SELECT  T.TM_ID_TRM AS TREM_ID, T.TM_COD_OF AS OS, T.TM_PRF_ACT AS PREFIXO, EV_NOM_MAC AS LOCAL, M.MOT_NOME AS MOTIVO, COD_MOTIVO, COD_MOT_DESPACHADOR, ID_POSTO, DT_INI_PARADA, NC.NM_COR_NOME AS CORREDOR, G.GRU_NOME AS GRUPO, TP.ID_TREM_ACT AS ID_TREM, ROW_NUMBER() OVER (PARTITION BY TM_COD_OF ORDER BY TM_COD_OF ) as LINHA, TP.ID_SB
+                                        SELECT  T.TM_ID_TRM AS TREM_ID, 
+                                                T.TM_COD_OF AS OS, 
+                                                T.TM_PRF_ACT AS PREFIXO, 
+                                                EV_NOM_MAC AS LOCAL, 
+                                                M.MOT_NOME AS MOTIVO, 
+                                                COD_MOTIVO, 
+                                                COD_MOT_DESPACHADOR, 
+                                                ID_POSTO, 
+                                                DT_INI_PARADA, 
+                                                NC.NM_COR_NOME AS CORREDOR, 
+                                                G.GRU_NOME AS GRUPO, 
+                                                TP.ID_TREM_ACT AS ID_TREM, 
+                                                ROW_NUMBER() OVER (PARTITION BY TM_COD_OF ORDER BY TM_COD_OF ) as LINHA, 
+                                                TP.ID_SB,
+                                                TP.IND_INCS
                                         FROM  ACTPP.OCUPACOES_VIGENTES OV, ACTPP.UNL_TRENS_PARADOS TP, ACTPP.TRENS T,  ACTPP.ELEM_VIA EV, MOTIVO_PARADA M, GRUPOS G, ACTPP.NOME_CORREDOR NC
                                             WHERE OV.TM_ID_TRM = T.TM_ID_TRM 
                                                 AND TP.ID_TREM_ACT = T.TM_ID_TRM
@@ -1076,6 +1104,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         item.Grupo = "CCO";
                 }
                 if (!reader.IsDBNull(11)) item.Trem_ID = reader.GetDouble(11);
+                if (!reader.IsDBNull(14))
+                {
+                    var aux = reader.GetString(14);
+                    item.Parada_Incons = aux == "T" ? "visible" : "hidden";
+                }
             }
             catch (Exception ex)
             {
