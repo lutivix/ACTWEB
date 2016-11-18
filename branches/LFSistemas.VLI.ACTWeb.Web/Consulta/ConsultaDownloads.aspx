@@ -5,7 +5,8 @@
         <tr>
             <td style="width: 79%; text-align: left;">
                 <div class="alert alert-success">
-                    <h2><asp:Image runat="server" ImageUrl="/img/apoio-b.png" />
+                    <h2>
+                        <asp:Image runat="server" ImageUrl="/img/apoio-b.png" />
                         <asp:Label ID="Label1" runat="server" Text="Consulta de Downloads" Font-Size="20px" Style="color: rgb(0, 100, 0);" /></h2>
                 </div>
             </td>
@@ -81,9 +82,17 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
-                            <asp:LinkButton runat="server" ID="lnkFiltroPesquisar" CssClass="btn btn-primary" Text="Pesquisar" OnClick="lnkFiltroPesquisar_Click" ToolTip="Pesquisa informações conforme filtro informado." Width="150"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
-                            <asp:LinkButton runat="server" ID="lnkFiltroLimpar" CssClass="btn btn-primary" Text="Limpar" OnClick="lnkFiltroLimpar_Click" ToolTip="Limpa dados do filtro de pesquisa e atualiza grid." Width="150"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
-                            <asp:LinkButton runat="server" ID="lnkFiltroNovo" CssClass="btn btn-success" Text="Novo" OnClick="lnkFiltroNovo_Click" ToolTip="Cadastra novo registro"><i class="fa fa-plus"></i>&nbsp;Novo</asp:LinkButton>
+                            <div class="btn-group btn-group-lg hidden-xs">
+                                <div class="btn-group btn-group-lg">
+                                    <asp:LinkButton runat="server" ID="lnkFiltroPesquisar" CssClass="btn btn-primary" Text="Pesquisar" OnClick="lnkFiltroPesquisar_Click" ToolTip="Pesquisa informações conforme filtro informado." Width="150"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
+                                </div>
+                                <div class="btn-group btn-group-lg">
+                                    <asp:LinkButton runat="server" ID="lnkFiltroLimpar" CssClass="btn btn-default" Text="Limpar" OnClick="lnkFiltroLimpar_Click" ToolTip="Limpa dados do filtro de pesquisa e atualiza grid." Width="150"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
+                                </div>
+                                <div class="btn-group btn-group-lg">
+                                    <asp:LinkButton runat="server" ID="lnkFiltroNovo" CssClass="btn btn-success" Text="Novo" OnClick="lnkFiltroNovo_Click" ToolTip="Cadastra novo registro"><i class="fa fa-plus"></i>&nbsp;Novo</asp:LinkButton>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     </div>
@@ -106,6 +115,7 @@
                 </ProgressTemplate>
             </asp:UpdateProgress>
         </div>
+    </div>
     <div class="form-group">
         <div class="page-header sub-content-header">
             <h3>Resultados da Pesquisa</h3>
@@ -125,19 +135,19 @@
                                                 <tr>
                                                     <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#"><span><i class="fa fa-search-plus"></i></span></a></th>
                                                     <th style="width: 20%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                        <asp:LinkButton runat="server" ID="lnkArquivo"  Text="Arquivo" OnClick="lnkArquivo_Click" />
+                                                        <asp:LinkButton runat="server" ID="lnkArquivo" Text="Arquivo" OnClick="lnkArquivo_Click" />
                                                     </th>
                                                     <th style="width: 60%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                        <asp:LinkButton runat="server" ID="lnkDescricao"  Text="Descrição" OnClick="lnkDescricao_Click" />
+                                                        <asp:LinkButton runat="server" ID="lnkDescricao" Text="Descrição" OnClick="lnkDescricao_Click" />
                                                     </th>
                                                     <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                        <asp:LinkButton runat="server" ID="lnkVersao"  Text="Versão" OnClick="lnkVersao_Click" />
+                                                        <asp:LinkButton runat="server" ID="lnkVersao" Text="Versão" OnClick="lnkVersao_Click" />
                                                     </th>
                                                     <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                        <asp:LinkButton runat="server" ID="lnkLiberado"  Text="Liberado" OnClick="lnkLiberado_Click" />
+                                                        <asp:LinkButton runat="server" ID="lnkLiberado" Text="Liberado" OnClick="lnkLiberado_Click" />
                                                     </th>
                                                     <th style="width: 06%; text-align: center; font-size: 12pt;">
-                                                        <asp:LinkButton runat="server" ID="lnkAtivo"  Text="Ativo" OnClick="lnkAtivo_Click" />
+                                                        <asp:LinkButton runat="server" ID="lnkAtivo" Text="Ativo" OnClick="lnkAtivo_Click" />
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -146,12 +156,12 @@
                                     <ItemTemplate>
                                         <tr>
                                             <td style="width: 2%; text-align: center; border-right: 1px solid rgb(0, 72, 89);">
-                                                <asp:LinkButton runat="server" ID="lnkAlteraDownload"  CommandArgument='<%# Eval("Downloads_ID")%>' OnClick="lnkAlteraDownload_Click" ><span><i class="fa fa-search-plus"></i></span></asp:LinkButton></td>
+                                                <asp:LinkButton runat="server" ID="lnkAlteraDownload" CommandArgument='<%# Eval("Downloads_ID")%>' OnClick="lnkAlteraDownload_Click"><span><i class="fa fa-search-plus"></i></span></asp:LinkButton></td>
                                             <td style="width: 35%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Arquivo")%>"><%# Eval("Arquivo")%> </td>
                                             <td style="width: 35%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Descricao")%>"><%# Eval("Descricao")%> </td>
                                             <td style="width: 35%; text-align: right; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Versao") %>"><%# Eval("Versao") %> </td>
                                             <td class="ativo-<%# Eval("Liberado_SN").ToString().Substring(0, 1) %>" style="width: 35%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Liberado_SN")%>"><%# Eval("Liberado_SN")%> </td>
-                                            <td class="ativo-<%# Eval("Ativo_SN").ToString().Substring(0, 1) %>"style="width: 06%; text-align: center;" title="<%# Eval("Ativo_SN")%>"><%# Eval("Ativo_SN")%> </td>
+                                            <td class="ativo-<%# Eval("Ativo_SN").ToString().Substring(0, 1) %>" style="width: 06%; text-align: center;" title="<%# Eval("Ativo_SN")%>"><%# Eval("Ativo_SN")%> </td>
                                         </tr>
                                     </ItemTemplate>
                                     <FooterTemplate>

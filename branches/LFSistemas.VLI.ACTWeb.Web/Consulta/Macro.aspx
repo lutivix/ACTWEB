@@ -61,52 +61,6 @@
         }
     </style>
     <script type="text/javascript">
-<%--        $(function () {
-            $("#<%= txtDataInicio.ClientID %>").datepicker({
-                buttonText: "Data inicial",
-                showOn: "button",
-                showButtonPanel: true,
-                changeMonth: true,
-                changeYear: true,
-                buttonImage: "../img/calendario.gif",
-                buttonImageOnly: true,
-
-                closeText: 'Fechar',
-                prevText: '&#x3C;Anterior',
-                nextText: 'Próximo&#x3E;',
-                currentText: 'Hoje',
-                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
-                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-                dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-                weekHeader: 'Sm',
-                dateFormat: 'dd/mm/yy',
-                firstDay: 0,
-                isRTL: false,
-                showMonthAfterYear: false,
-                yearSuffix: '',
-                beforeShowDay: function (date) {
-                    return [true, 'highlight', 'The custom title'];
-                }
-            });
-            $('#<%= txtHoraInicio.ClientID %>').timepicker({
-                buttonText: "Hora inicial",
-                buttonImage: '../img/time.png',
-                buttonImageOnly: true,
-                showOn: 'button',
-                timeOnlyTitle: 'Escolha a hora',
-                timeText: 'Hora',
-                hourText: 'Horas',
-                minuteText: 'Minutos',
-                secondText: 'Segundos',
-                millisecText: 'Milissegundos',
-                timezoneText: 'Fuso horário',
-                currentText: 'Agora',
-                closeText: 'Fechar',
-            });
-        });--%>
-
         $(document).keydown(function (e) {
             if (e.which == 120) {
                 $('#link1').click();
@@ -228,16 +182,23 @@
                                     </tr>
                                     <tr>
                                         <td colspan="5" style="width: 100%">
-
-                                            <asp:LinkButton ID="lnkPesquisar" runat="server" CssClass="btn btn-success" OnClick="ButtonPesquisar_Click"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
-                                            &nbsp;&nbsp;
-                                            <asp:LinkButton ID="lnkLImpar" runat="server" CssClass="btn btn-primary" OnClick="btnLimpar_Click"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
-                                            &nbsp;&nbsp;
-                                            <asp:LinkButton ID="lnkAtualizarHora" runat="server" CssClass="btn btn-info" OnClick="ButtonAtualizarHora_Click"><i class="fa fa-clock-o"></i>&nbsp;Atualizar Hora</asp:LinkButton>
-                                            &nbsp;&nbsp;
-                                            <asp:LinkButton ID="lnkGerarExcel" runat="server" CssClass="btn btn-default" OnClick="ButtonGerarExcel_Click"><i class="fa fa-table"></i>&nbsp;Gerar Excel</asp:LinkButton>
-                                            &nbsp;&nbsp;
-                                            <asp:LinkButton ID="SelectButton" runat="server" CssClass="btn btn-info" OnClientClick="abrirhelp()"><i class="fa fa-question-circle"></i>&nbsp;Ajuda</asp:LinkButton>
+                                            <div class="btn-group btn-group-lg hidden-xs">
+                                                <div class="btn-group btn-group-lg">
+                                                    <asp:LinkButton ID="lnkPesquisar" runat="server" CssClass="btn btn-success" OnClick="ButtonPesquisar_Click"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>    
+                                                </div>
+                                                <div class="btn-group btn-group-lg">
+                                                    <asp:LinkButton ID="lnkLImpar" runat="server" CssClass="btn btn-primary" OnClick="btnLimpar_Click"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>        
+                                                </div>
+                                                <div class="btn-group btn-group-lg">
+                                                    <asp:LinkButton ID="lnkAtualizarHora" runat="server" CssClass="btn btn-info" OnClick="ButtonAtualizarHora_Click"><i class="fa fa-clock-o"></i>&nbsp;Atualizar Hora</asp:LinkButton>
+                                                </div>
+                                                <div class="btn-group btn-group-lg">
+                                                    <asp:LinkButton ID="lnkGerarExcel" runat="server" CssClass="btn btn-default" OnClick="ButtonGerarExcel_Click"><i class="fa fa-table"></i>&nbsp;Gerar Excel</asp:LinkButton>        
+                                                </div>
+                                                <div class="btn-group btn-group-lg">
+                                                    <asp:LinkButton ID="SelectButton" runat="server" CssClass="btn btn-info" OnClientClick="abrirhelp()"><i class="fa fa-question-circle"></i>&nbsp;Ajuda</asp:LinkButton>    
+                                                </div>
+                                            </div>                                           
                                         </td>
                                     </tr>
                                 </table>

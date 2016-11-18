@@ -1359,7 +1359,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                                 break;
                         }
                         objPds.CurrentPageIndex = NowViewing;
-                        lblJ_PaginaAte.Text = "Página: " + (NowViewing + 1).ToString() + " de " + objPds.PageCount.ToString();
+                        lblJ_PaginaAte.Text = "Página: " + (NowViewing + 1).ToString() + " de " +
+                                              objPds.PageCount.ToString();
                         lnkJ_PaginaAnterior.Enabled = !objPds.IsFirstPage;
                         lnkJ_ProximaPagina.Enabled = !objPds.IsLastPage;
                         lnkJ_PrimeiraPagina.Enabled = !objPds.IsFirstPage;
@@ -1369,7 +1370,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                         this.RepeaterJuntas.DataBind();
                     }
                     else
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Registro não localizado.' });", true);
+                    {
+                        this.RepeaterJuntas.DataSource = itens;
+                        this.RepeaterJuntas.DataBind();
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!",
+                            " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Registro não localizado.' });", true);
+                    }
 
                     lblTotalJuntas.Text = string.Format("{0:0,0}", itens.Count);
                 }

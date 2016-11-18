@@ -18,7 +18,7 @@
                             <i class="fa fa-quote-left fa-3x pull-left fa-border imagem-inicio"></i>
                             <p style="font-weight: bold; font-size: 1.5em; color: red;">
                                 A versão do software do OBC mudou!<br />
-                                A versão atual agora é a 3,30.
+                                A versão atual agora é a 3,33.
                             </p>
                         </div>
 

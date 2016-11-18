@@ -140,13 +140,17 @@
                         </td>
                         <td style="width: 20%; padding-top: 1em;" rowspan="2"></td>
                     </tr>
-                    <tr>
-                        <td style="width: 50%; padding-top: 1em;"></td>
-                    </tr>
+
                     <tr>
                         <td style="width: 100%; padding-top: 1em;" colspan="3">
-                            <asp:LinkButton runat="server" ID="lnkPesquisar" CssClass="btn btn-success" OnClick="lnkPesquisar_Click" ToolTip="Pesquisa palavra conforme filtro informado." Width="150"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
-                            <asp:LinkButton runat="server" ID="lnkLimpar" CssClass="btn btn-default" OnClick="lnkLimpar_Click" ToolTip="Limpa os filtros de pesquisa." Width="150"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
+                            <div class="btn-group btn-group-lg hidden-xs">
+                                <div class="btn-group btn-group-lg">
+                                    <asp:LinkButton runat="server" ID="lnkPesquisar" CssClass="btn btn-success" OnClick="lnkPesquisar_Click" ToolTip="Pesquisa palavra conforme filtro informado." Width="150"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
+                                </div>
+                                <div class="btn-group btn-group-lg">
+                                    <asp:LinkButton runat="server" ID="lnkLimpar" CssClass="btn btn-default" OnClick="lnkLimpar_Click" ToolTip="Limpa os filtros de pesquisa." Width="150"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
+                                </div>
+                            </div>                             
                         </td>
                     </tr>
                 </table>

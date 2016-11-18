@@ -389,6 +389,7 @@
     <Content Include="Locomotivas\popupLocomotivas.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="logo-vli.ico" />
+    <Content Include="Macros\PopupEnviarParadaImediata.aspx" />
     <Content Include="maps\circulacaotrens.aspx" />
     <Content Include="maps\css\estilo.css" />
     <Content Include="maps\css\_notes\dwsync.xml" />
@@ -980,6 +981,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Macros\PopupEnviarParadaImediata.aspx.cs">
+      <DependentUpon>PopupEnviarParadaImediata.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Macros\PopupEnviarParadaImediata.aspx.designer.cs">
+      <DependentUpon>PopupEnviarParadaImediata.aspx</DependentUpon>
     </Compile>
     <Compile Include="maps\circulacaotrens.aspx.cs">
       <DependentUpon>circulacaotrens.aspx</DependentUpon>

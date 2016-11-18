@@ -61,6 +61,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
 
         public int zRowspan { get; set; }
         public string zVisible { get; set; }
+        public string zDisplay { get; set; }
 
         #endregion
     }

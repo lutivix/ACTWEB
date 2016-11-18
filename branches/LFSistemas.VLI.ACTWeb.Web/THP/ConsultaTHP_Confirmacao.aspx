@@ -187,9 +187,14 @@
                     </tr>
                     <tr>
                         <td colspan="5" style="width: 100%;">
-                            <asp:LinkButton runat="server" ID="lnkFiltroPesquisar" CssClass="btn btn-primary" OnClick="lnkFiltroPesquisar_Click" ToolTip="Pesquisa alarmes telecomandadas conforme filtro informado." Width="150"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
-                            <asp:LinkButton runat="server" ID="lnkFiltroAtualiza" CssClass="btn btn-info" OnClick="lnkFiltroAtualiza_Click" ToolTip="Atualiza data e hora no filtro de pesquisa." Width="150"><i class="fa fa-clock-o"></i>&nbsp;Atualizar Hora</asp:LinkButton>
-                            <%--<asp:LinkButton ID="lnkGerarExcel" runat="server" CssClass="btn btn-default" OnClick="lnkGerarExcel_Click" ToolTip="Gera Excel de alarmes telecomandadas conforme filtro informado." Width="150"><i class="fa fa-table"></i>&nbsp;Gerar Excel</asp:LinkButton>--%>
+                            <div class="btn-group btn-group-lg hidden-xs">
+                                <div class="btn-group btn-group-lg">
+                                    <asp:LinkButton runat="server" ID="lnkFiltroPesquisar" CssClass="btn btn-primary" OnClick="lnkFiltroPesquisar_Click" ToolTip="Pesquisa alarmes telecomandadas conforme filtro informado." ><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
+                                </div>
+                                <div class="btn-group btn-group-lg">
+                                    <asp:LinkButton runat="server" ID="lnkFiltroAtualiza" CssClass="btn btn-info" OnClick="lnkFiltroAtualiza_Click" ToolTip="Atualiza data e hora no filtro de pesquisa." ><i class="fa fa-clock-o"></i>&nbsp;Atualizar Hora</asp:LinkButton>
+                                </div>
+                            </div>                             
                         </td>
                     </tr>
                 </table>

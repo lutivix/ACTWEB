@@ -13,12 +13,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="tabela">Tabela</param>
         /// <returns>Retorna o próximo identificador da tabela passada no parâmetro</returns>
-        public double ObterNovaSequence(string tabela)
+        public string ObterNovaSequence(string tabela)
         {
             #region [ PROPRIEDADES ]
 
             StringBuilder query = new StringBuilder();
-            double? Identificador = null;
+            string Id = null;
 
             #endregion
 
@@ -46,7 +46,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         if (reader.Read())
                         {
-                            Identificador = reader.GetDouble(0);
+                            Id = reader.GetValue(0).ToString();
                         }
                     }
 
@@ -59,7 +59,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 throw new Exception(ex.Message);
             }
 
-            return Identificador.Value;
+            return Id;
         }
     }
 }

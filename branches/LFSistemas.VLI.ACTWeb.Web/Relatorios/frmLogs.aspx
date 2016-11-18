@@ -184,12 +184,22 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 100%; vertical-align: top;" colspan="4">
-                            <br />
-                            <asp:LinkButton ID="lnkPesquisar" runat="server" CssClass="btn btn-success" OnClick="lnkPesquisar_Click"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
-                            &nbsp;&nbsp;<asp:LinkButton ID="lnkLImpar" runat="server" CssClass="btn btn-primary" OnClick="lnkLImpar_Click"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
-                            &nbsp;&nbsp;<asp:LinkButton ID="lnkAtualizarHora" runat="server" CssClass="btn btn-info" OnClick="lnkAtualizarHora_Click"><i class="fa fa-clock-o"></i>&nbsp;Atualizar Hora</asp:LinkButton>
-                            &nbsp;&nbsp;<asp:LinkButton ID="lnkGerarExcel" runat="server" CssClass="btn btn-default" OnClick="lnkGerarExcel_Click"><i class="fa fa-table"></i>&nbsp;Gerar Excel</asp:LinkButton>
+                        <td style="width: 100%; vertical-align: top;" colspan="5">
+							<br/>
+                            <div class="btn-group btn-group-lg hidden-xs">
+                                <div class="btn-group btn-group-lg">
+                                    <asp:LinkButton ID="lnkPesquisar" runat="server" CssClass="btn btn-success" OnClick="lnkPesquisar_Click"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
+                                </div>
+                                <div class="btn-group btn-group-lg">
+                                    <asp:LinkButton ID="lnkLImpar" runat="server" CssClass="btn btn-primary" OnClick="lnkLImpar_Click"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
+                                </div>
+                                <div class="btn-group btn-group-lg">
+                                    <asp:LinkButton ID="lnkAtualizarHora" runat="server" CssClass="btn btn-info" OnClick="lnkAtualizarHora_Click"><i class="fa fa-clock-o"></i>&nbsp;Atualizar Hora</asp:LinkButton>
+                                </div>
+                                <div class="btn-group btn-group-lg">
+                                    <asp:LinkButton ID="lnkGerarExcel" runat="server" CssClass="btn btn-default" OnClick="lnkGerarExcel_Click"><i class="fa fa-table"></i>&nbsp;Gerar Excel</asp:LinkButton>
+                                </div>
+                            </div> 
                         </td>
                     </tr>
                     <tr>

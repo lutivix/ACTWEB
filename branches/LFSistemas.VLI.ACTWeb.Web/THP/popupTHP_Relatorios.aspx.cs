@@ -1296,10 +1296,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                             int conta = 2;
                             int indice = 1;
                             string visivel = "visible";
+                            string display = "block";
 
                             itens[i].Dados[0].Duracao_THP = itens[i].Dados[0].THP_Real;
                             itens[i].Dados[0].Duracao_TTP = itens[i].Dados[0].TTP_Real;
                             itens[i].Dados[0].Duracao_THM = itens[i].Dados[0].THM_Real;
+                            itens[i].Dados[0].zVisible = visivel;
 
                             #region [ OBTEM PONTA DE ROTA ]
 
@@ -1376,8 +1378,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                             itens[i].Dados[0].TTT_Meta = itens[i].Dados[0].THP_Meta + itens[i].Dados[0].TTP_Meta + itens[i].Dados[0].THM_Meta;
                             itens[i].Dados[0].TTT_Real = itens[i].Dados[0].THP_Real + itens[i].Dados[0].TTP_Real + itens[i].Dados[0].THM_Real;
 
-                            itens[i].Dados[0].zRowspan = 0;
+                            itens[i].Dados[0].zRowspan = 1;
                             itens[i].Dados[0].zVisible = visivel;
+                            itens[i].Dados[0].zDisplay = display;
 
                             #endregion
 
@@ -1430,17 +1433,20 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                                             // Deixa a primeira linha como visivel para as colunas: Duração THP, Duração TTP, Duração THM e Total TTT
                                             itens[i].Dados[j - indice].zRowspan = conta;
                                             itens[i].Dados[j - indice].zVisible = "visible";
+                                            itens[i].Dados[j - indice].zDisplay = "block";
                                         }
                                         else
                                         {
                                             // Deixa a primeira linha do primeiro item como visivel para as colunas: Duração THP, Duração TTP, Duração THM e Total TTT
                                             itens[i].Dados[j - 1].zRowspan = conta;
                                             itens[i].Dados[j - 1].zVisible = "visible";
+                                            itens[i].Dados[j - 1].zDisplay = "block";
                                         }
 
                                         // Deixa as demais linhas como invisivel para as colunas: Duração THP, Duração TTP, Duração THM e Total TTT
-                                        itens[i].Dados[j].zRowspan = 0;
+                                        itens[i].Dados[j].zRowspan = 1;
                                         itens[i].Dados[j].zVisible = "hidden";
+                                        itens[i].Dados[j].zDisplay = "none";
 
                                         // Verifica se existem ponta de rota/subrota para o elemento
                                         if (pontaRotas.Count > 0)
@@ -1524,14 +1530,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                                         conta = 2;
                                         indice = 1;
                                         visivel = "visible";
+                                        display = "block";
 
                                         itens[i].Dados[j].Duracao_THP = itens[i].Dados[j].THP_Real;
                                         itens[i].Dados[j].Duracao_TTP = itens[i].Dados[j].TTP_Real;
                                         itens[i].Dados[j].Duracao_THM = itens[i].Dados[j].THM_Real;
 
-                                        // Deixa a linha como invisivel para as colunas: Duração THP, Duração TTP, Duração THM e Total TTT
-                                        itens[i].Dados[j].zRowspan = 0;
-                                        itens[i].Dados[j].zVisible = "visible";
+                                        // Deixa a linha como visivel para as colunas: Duração THP, Duração TTP, Duração THM e Total TTT
+                                        itens[i].Dados[j].zRowspan = 1;
+                                        itens[i].Dados[j].zVisible = visivel;
+                                        itens[i].Dados[j].zDisplay = display;
 
 
                                         // Verifica se existem ponta de rota/subrota para o elemento
@@ -1559,9 +1567,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                                                 itens[i].TOT_TTT_Meta = Total_TTT_Meta;
                                                 itens[i].TOT_TTT_Real = Total_TTT_Real;
 
-                                                //itens[i].Dados[j - indice].TTT_Meta = itens[i].TOT_TTT_Meta;
-                                                //itens[i].Dados[j - indice].TTT_Real = itens[i].TOT_TTT_Real;
-
                                                 itens[i].Dados[j].TTT_Meta = itens[i].TOT_TTT_Meta;
                                                 itens[i].Dados[j].TTT_Real = itens[i].TOT_TTT_Real;
 
@@ -1583,9 +1588,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                                             itens[i].TOT_TTT_Meta = Total_TTT_Meta;
                                             itens[i].TOT_TTT_Real = Total_TTT_Real;
 
-                                            //itens[i].Dados[j - indice].TTT_Meta = itens[i].TOT_TTT_Meta;
-                                            //itens[i].Dados[j - indice].TTT_Real = itens[i].TOT_TTT_Real;
-
                                             itens[i].Dados[j].TTT_Meta = itens[i].TOT_TTT_Meta;
                                             itens[i].Dados[j].TTT_Real = itens[i].TOT_TTT_Real;
 
@@ -1596,8 +1598,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                                         itens[i].Dados[j].TTT_Real = itens[i].Dados[j].THP_Real + itens[i].Dados[j].TTP_Real + itens[i].Dados[j].THM_Real;
 
 
-                                        itens[i].Dados[j].zRowspan = 0;
+                                        itens[i].Dados[j].zRowspan = 1;
                                         itens[i].Dados[j].zVisible = visivel;
+                                        itens[i].Dados[j].zDisplay = display;
                                     }
 
                                     #endregion

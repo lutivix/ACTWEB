@@ -27,33 +27,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentMain" runat="server">
     <script type="text/javascript">
-<%--        $(function () {
-            $("#<%= txtDataInicio.ClientID %>").datepicker({
-                showOn: "button",
-                showButtonPanel: true,
-                changeMonth: true,
-                changeYear: true,
-                buttonImage: "../img/calendario.gif",
-                buttonImageOnly: true,
-
-                closeText: 'Fechar',
-                prevText: '&#x3C;Anterior',
-                nextText: 'Próximo&#x3E;',
-                currentText: 'Hoje',
-                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
-                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-                dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-                weekHeader: 'Sm',
-                dateFormat: 'dd/mm/yy',
-                firstDay: 0,
-                isRTL: false,
-                showMonthAfterYear: false,
-                yearSuffix: ''
-            });
-        });--%>
-
         $(document).keydown(function (e) {
             if (e.which == 120) {
                 $('#link1').click();
@@ -127,9 +100,17 @@
                     <tr><td><br /></td></tr>
                     <tr>
                         <td colspan="2" style="width: 100%;">
-                            <asp:LinkButton runat="server" ID="lnkFiltroPesquisar" CssClass="btn btn-primary" Text="Pesquisar" OnClick="lnkFiltroPesquisar_Click" ToolTip="Pesquisa palavra conforme filtro informado." Width="150"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
-                            <asp:LinkButton runat="server" ID="lnkFiltroLimpar" CssClass="btn btn-primary" Text="Limpar" OnClick="lnkFiltroLimpar_Click" ToolTip="Limpa dados do filtro de pesquisa e atualiza lista de palavras." Width="150"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
-                            <asp:LinkButton runat="server" ID="lnkFiltroNovo" CssClass="btn btn-success" Text="Novo" OnClick="lnkFiltroNovo_Click" ToolTip="Cadastra nova palavra"><i class="fa fa-plus"></i>&nbsp;Novo</asp:LinkButton>
+                            <div class="btn-group btn-group-lg hidden-xs">
+                                <div class="btn-group btn-group-lg">
+                                    <asp:LinkButton runat="server" ID="lnkFiltroPesquisar" CssClass="btn btn-primary" Text="Pesquisar" OnClick="lnkFiltroPesquisar_Click" ToolTip="Pesquisa palavra conforme filtro informado." Width="150"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
+                                </div>
+                                <div class="btn-group btn-group-lg">
+                                    <asp:LinkButton runat="server" ID="lnkFiltroLimpar" CssClass="btn btn-default" Text="Limpar" OnClick="lnkFiltroLimpar_Click" ToolTip="Limpa dados do filtro de pesquisa e atualiza lista de palavras." Width="150"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
+                                </div>
+                                <div class="btn-group btn-group-lg">
+                                    <asp:LinkButton runat="server" ID="lnkFiltroNovo" CssClass="btn btn-success" Text="Novo" OnClick="lnkFiltroNovo_Click" ToolTip="Cadastra nova palavra"><i class="fa fa-plus"></i>&nbsp;Novo</asp:LinkButton>
+                                </div>
+                            </div>                             
                         </td>
                     </tr>
                 </table>

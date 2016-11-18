@@ -71,13 +71,13 @@
                     <td> 
                         <div class="form-group col-sm-12">
                             <label for="nome">Descrição:</label>
-                            <asp:TextBox runat="server" ID="txtDadosDescricao" CssClass="form-control" />
+                            <asp:TextBox runat="server" ID="txtDadosDescricao" CssClass="form-control" MaxLength="50" />
                         </div>
                     </td>
                     <td>
                         <div class="form-group col-sm-12">
                             <label for="nome">Sigla:</label>
-                            <asp:TextBox runat="server" ID="txtDadosAbreviado" CssClass="form-control" />
+                            <asp:TextBox runat="server" ID="txtDadosAbreviado" CssClass="form-control" MaxLength="10" />
                         </div>
                     </td>
                 </tr>

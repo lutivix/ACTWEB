@@ -1,6 +1,7 @@
 ﻿using LFSistemas.VLI.ACTWeb.Controllers;
 using LFSistemas.VLI.ACTWeb.Entities;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Web.UI;
 
@@ -56,6 +57,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         {
             if (validaFormulario())
             {
+                List<EnviarMacro> itens = new List<EnviarMacro>();
                 EnviarMacro m200 = new EnviarMacro();
 
                 if (!rdHabilitaSV.Checked && !rdDesabilitaSV.Checked && !rdHabilitaTP.Checked && !rdDesabilitaTP.Checked)
@@ -72,7 +74,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     m200.MWE_SIT_MWE = char.Parse("P");
                     m200.MWE_IND_MCR = char.Parse("B");
 
-                    if (EnviandoMacro(m200, null, "E", lblUsuarioMatricula.Text))
+                    itens.Add(m200);
+
+                    if (EnviandoMacro(itens, null, "E", lblUsuarioMatricula.Text))
                         Response.Write("<script>alert('Macro 200 enviada com sucesso!');this.window.close();</script>");
                     limpaCampos();
                 }
@@ -86,7 +90,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     m200.MWE_SIT_MWE = char.Parse("P");
                     m200.MWE_IND_MCR = char.Parse("B");
 
-                    if (EnviandoMacro(m200, null, "E", lblUsuarioMatricula.Text))
+                    itens.Add(m200);
+
+                    if (EnviandoMacro(itens, null, "E", lblUsuarioMatricula.Text))
                         Response.Write("<script>alert('Macro 200 enviada com sucesso!');this.window.close();</script>");
                     limpaCampos();
                 }
@@ -100,7 +106,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     m200.MWE_SIT_MWE = char.Parse("P");
                     m200.MWE_IND_MCR = char.Parse("B");
 
-                    if (EnviandoMacro(m200, null, "E", lblUsuarioMatricula.Text))
+                    itens.Add(m200);
+
+                    if (EnviandoMacro(itens, null, "E", lblUsuarioMatricula.Text))
                         Response.Write("<script>alert('Macro 200 enviada com sucesso!');this.window.close();</script>");
                     limpaCampos();
                 }
@@ -114,7 +122,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     m200.MWE_SIT_MWE = char.Parse("P");
                     m200.MWE_IND_MCR = char.Parse("B");
 
-                    if (EnviandoMacro(m200, null, "E", lblUsuarioMatricula.Text))
+                    itens.Add(m200);
+
+                    if (EnviandoMacro(itens, null, "E", lblUsuarioMatricula.Text))
                         Response.Write("<script>alert('Macro 200 enviada com sucesso!');this.window.close();</script>");
                     limpaCampos();
                 }
@@ -222,10 +232,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             return macroController.SelecionaTremPeloMcts(mct_id_mct);
         }
 
-        protected bool EnviandoMacro(EnviarMacro macro, string macrolidaid, string resposta, string usuarioLogado)
+        protected bool EnviandoMacro(List<EnviarMacro> macros, string macrolidaid, string resposta, string usuarioLogado)
         {
             var macroController = new MacroController();
-            return macroController.EnviarMacro(macro, macrolidaid, resposta, usuarioLogado);
+            return macroController.EnviarMacro(macros, macrolidaid, resposta, usuarioLogado);
         }
 
         #endregion

@@ -220,7 +220,7 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         /// <param name="identificador_lda">[ string ] - Identificador da macro lida</param>
         /// <param name="tipo">[ string ]: - Tipo: E = Enviando Macro | R = Respondendo Macro</param>
         /// <returns>Retorna "true" se a macro foi enviada com sucesso ou "false" caso contrário</returns>
-        public bool EnviarMacro(EnviarMacro macro, string identificador_lda, string resposta, string usuarioLogado)
+        public bool EnviarMacro(List<EnviarMacro> macro, string identificador_lda, string resposta, string usuarioLogado)
         {
             return dao.EnviarMacro(macro, identificador_lda, resposta, usuarioLogado);
         }

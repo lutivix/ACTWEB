@@ -8,7 +8,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
 {
     public class Perfil
     {
-        public double? Perfil_ID { get; set; }
+        public String Perfil_ID { get; set; }
         public DateTime Atualizacao { get; set; }
         public string Descricao { get; set; }
         public string Abreviado { get; set; }
