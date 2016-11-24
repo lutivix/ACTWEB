@@ -435,6 +435,8 @@
     <Content Include="THP\Abas\THP.ascx" />
     <Content Include="THP\ConsultaTHP.aspx" />
     <Content Include="THP\ConsultaTHP_Confirmacao.aspx" />
+    <Content Include="THP\ConsultaTHP_Subparadas.aspx" />
+    <Content Include="THP\popupSubparadas.aspx" />
     <Content Include="THP\popupTHP.aspx" />
     <Content Include="THP\popupTHP_Relatorios.aspx" />
     <Content Include="Web.config">
@@ -1193,6 +1195,7 @@
     </Compile>
     <Compile Include="Sobre.aspx.cs">
       <DependentUpon>Sobre.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Sobre.aspx.designer.cs">
       <DependentUpon>Sobre.aspx</DependentUpon>
@@ -1224,6 +1227,20 @@
     </Compile>
     <Compile Include="THP\ConsultaTHP_Confirmacao.aspx.designer.cs">
       <DependentUpon>ConsultaTHP_Confirmacao.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="THP\ConsultaTHP_Subparadas.aspx.cs">
+      <DependentUpon>ConsultaTHP_Subparadas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="THP\ConsultaTHP_Subparadas.aspx.designer.cs">
+      <DependentUpon>ConsultaTHP_Subparadas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="THP\popupSubparadas.aspx.cs">
+      <DependentUpon>popupSubparadas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="THP\popupSubparadas.aspx.designer.cs">
+      <DependentUpon>popupSubparadas.aspx</DependentUpon>
     </Compile>
     <Compile Include="THP\popupTHP.aspx.cs">
       <DependentUpon>popupTHP.aspx</DependentUpon>

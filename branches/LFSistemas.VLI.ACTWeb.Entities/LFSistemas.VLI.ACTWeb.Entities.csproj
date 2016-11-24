@@ -140,6 +140,7 @@
     <Compile Include="Slide.cs" />
     <Compile Include="TempoConfiab.cs" />
     <Compile Include="TempoParadaConfirmacao.cs" />
+    <Compile Include="TempoParadaSubParadas.cs" />
     <Compile Include="THP.cs" />
     <Compile Include="TipoOperador.cs" />
     <Compile Include="TMP_MACROS.cs" />

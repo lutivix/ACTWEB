@@ -114,6 +114,7 @@
     <Compile Include="RotasController.cs" />
     <Compile Include="TempoConfiabController.cs" />
     <Compile Include="TempoParadaConfirmacao.cs" />
+    <Compile Include="TempoParadaSubParadasController.cs" />
     <Compile Include="TermometroController.cs" />
     <Compile Include="THPController.cs" />
     <Compile Include="TipoOperadorController.cs" />

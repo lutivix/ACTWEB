@@ -242,7 +242,6 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-
         //public List<global::LFSistemas.VLI.ACTWeb.Controllers.TempoParadaConfirmacaoController> ObterTempoParadaConfirmacao(global::LFSistemas.VLI.ACTWeb.Controllers.TempoParadaConfirmacaoController filtro, string origem)
         //{
         //    throw new NotImplementedException();

@@ -630,6 +630,12 @@
                                         <span class="menu-item-label" title="Tempo de Parada/Confirmação">Tempo de Parada/Confirmação</span>
                                     </asp:LinkButton>
                                 </li>
+                                <li class="" id="sub_thp_Subparadas" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkTHP_Subparadas" OnClick="lnkTHP_Subparadas_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-connectdevelop"></i></span> 
+                                        <span class="menu-item-label" title="Altera motivo e Sub Paradas">Altera motivos e Sub-paradas</span>
+                                    </asp:LinkButton>
+                                </li>
                             </ul>
                         </div>
 

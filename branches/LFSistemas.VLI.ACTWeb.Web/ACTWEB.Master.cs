@@ -477,6 +477,11 @@ namespace LFSistemas.VLI.ACTWeb.Web
             Response.Redirect("/Consulta/ConsultaAlarmesParadas.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
         }
 
+        protected void lnkTHP_Subparadas_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/THP/ConsultaTHP_Subparadas.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
+        }
+
         #endregion
 
         #region [ TERMÔMETROS ]
@@ -759,5 +764,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
         }
 
         #endregion
+
+        
     }
 }

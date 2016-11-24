@@ -84,8 +84,6 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ComboBoxSBs();
         }
-
-
         public List<ComboBox> ComboBoxTT_Corredores()
         {
             return dao.ComboBoxTT_Corredores();

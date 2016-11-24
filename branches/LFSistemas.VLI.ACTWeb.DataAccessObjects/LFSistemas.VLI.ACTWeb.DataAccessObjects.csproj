@@ -121,6 +121,7 @@
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="TempoConfiabDAO.cs" />
     <Compile Include="TempoParadaConfirmacaoDAO.cs" />
+    <Compile Include="TempoParadaSubParadasDAO.cs" />
     <Compile Include="TermometroDAO.cs" />
     <Compile Include="THPDAO.cs" />
     <Compile Include="TipoOperadorDAO.cs" />
