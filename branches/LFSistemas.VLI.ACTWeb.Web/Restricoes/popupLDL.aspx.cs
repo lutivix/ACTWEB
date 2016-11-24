@@ -260,7 +260,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 ddlDadosSecao.SelectedItem.Text = dados.Secao_Nome != null ? dados.Secao_Nome : string.Empty;
                 ddlDadosTipoDaInterdicao.SelectedItem.Value = dados.Tipo_Interdicao_ID != null ? dados.Tipo_Interdicao_ID.ToString() : "0";
                 ddlDadosTipoDaInterdicao.SelectedItem.Text = dados.Tipo_Interdicao_Nome != null ? dados.Tipo_Interdicao_Nome : string.Empty;
-                txtDadosDuracao.Text = dados.Duracao != null ? dados.Duracao.ToString() : string.Empty;
+                txtDadosDuracaoSolicitada.Text = dados.Duracao_Solicitada != null ? dados.Duracao_Solicitada.ToString() : string.Empty;
                 ddlDadosTipoDaManutencao.SelectedItem.Value = dados.Tipo_Manutencao_ID != null ? dados.Tipo_Manutencao_ID.ToString() : "0";
                 ddlDadosTipoDaManutencao.SelectedItem.Text = dados.Tipo_Manutencao_Nome != null ? dados.Tipo_Manutencao_Nome : string.Empty;
 
@@ -448,6 +448,36 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 Pesquisar("II.SLT_OBSERVACAO " + ViewState["ordenacao"].ToString() + ", SLT_DATA desc");
             }
         }
+        protected void lnkDuracaoSolicitada_OnClick(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("II.SLT_DURACAO_SOLICITADA " + ViewState["ordenacao"].ToString());
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("II.SLT_DURACAO_SOLICITADA " + ViewState["ordenacao"].ToString());
+            }
+        }
+        protected void lnkDuracaoAutorizada_OnClick(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("II.SLT_DURACAO_AUTORIZADA " + ViewState["ordenacao"].ToString());
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("II.SLT_DURACAO_AUTORIZADA " + ViewState["ordenacao"].ToString());
+            }
+        }
         protected void lnkAutorizacao_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
@@ -530,8 +560,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     if (ddlDadosTipoDaInterdicao.SelectedItem.Value.Length > 0)
                         inter.Tipo_Interdicao_ID = double.Parse(ddlDadosTipoDaInterdicao.SelectedItem.Value);
                     inter.Tipo_Interdicao_Nome = ddlDadosTipoDaInterdicao.SelectedItem.Text.Length > 0 ? ddlDadosTipoDaInterdicao.SelectedItem.Text : null;
-                    if (txtDadosDuracao.Text.Length > 0)
-                        inter.Duracao = double.Parse(Uteis.TocarVirgulaPorPonto(txtDadosDuracao.Text));
+                    if (txtDadosDuracaoSolicitada.Text.Length > 0)
+                        inter.Duracao_Solicitada = double.Parse(Uteis.TocarVirgulaPorPonto(txtDadosDuracaoSolicitada.Text));
                     if (ddlDadosTipoDaManutencao.SelectedItem.Value.Length > 0)
                         inter.Tipo_Manutencao_ID = double.Parse(ddlDadosTipoDaManutencao.SelectedItem.Value);
                     inter.Tipo_Manutencao_Nome = ddlDadosTipoDaManutencao.SelectedItem.Text.Length > 0 ? ddlDadosTipoDaManutencao.SelectedItem.Text : null;
@@ -587,7 +617,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     inter.Solicitacao_ID_ACTWEB = (int)interdicaoController.ObterIdSolicitacao(); // Pega o ID na tabela SOLICITACAO_INTERDICAO no ACTWEB
 
                     DLLSendSOI((int)inter.Solicitacao_ID_ACTWEB, (int)inter.Tipo_Situacao_ID, inter.Data.ToOADate(), (int)inter.Secao_ID,
-                                (int)inter.Tipo_Interdicao_ID, (int)inter.Duracao, (int)inter.Tipo_Manutencao_ID, (double)inter.Km, responsavel,
+                                (int)inter.Tipo_Interdicao_ID, (int)inter.Duracao_Solicitada, (int)inter.Tipo_Manutencao_ID, (double)inter.Km, responsavel,
                                 observacao, usuariologado, 'W');
 
                     if (interdicaoController.Inserir(inter, ulMatricula))
@@ -767,7 +797,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     txtDadosDataAtual.Enabled = false;
                     ddlDadosSecao.Enabled = true;
                     ddlDadosTipoDaInterdicao.Enabled = false;
-                    txtDadosDuracao.Enabled = true;
+                    txtDadosDuracaoSolicitada.Enabled = true;
                     ddlDadosTipoDaManutencao.Enabled = true;
                     ddlDadosTipoDaCirculacao.Enabled = false;
                     txtDadosKm.Enabled = true;
@@ -783,7 +813,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     txtDadosMacro.Enabled = false;
                     txtDadosObsercacao.Enabled = true;
 
-                    txtDadosDuracao.Text = string.Empty;
+                    txtDadosDuracaoSolicitada.Text = string.Empty;
                     txtDadosKm.Text = string.Empty;
                     txtDadosTelefone.Text = string.Empty;
                     txtDadosResponsavel.Text = string.Empty;
@@ -821,7 +851,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     txtDadosDataAtual.Enabled = false;
                     ddlDadosSecao.Enabled = false;
                     ddlDadosTipoDaInterdicao.Enabled = false;
-                    txtDadosDuracao.Enabled = false;
+                    txtDadosDuracaoSolicitada.Enabled = false;
                     ddlDadosTipoDaManutencao.Enabled = false;
                     ddlDadosTipoDaCirculacao.Enabled = true;
                     txtDadosKm.Enabled = false;
@@ -857,6 +887,5 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         }
 
         #endregion
-
     }
 }

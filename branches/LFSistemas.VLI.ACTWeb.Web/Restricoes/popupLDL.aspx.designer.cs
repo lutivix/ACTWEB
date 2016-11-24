@@ -130,13 +130,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         protected global::System.Web.UI.WebControls.DropDownList ddlDadosTipoDaInterdicao;
         
         /// <summary>
-        /// txtDadosDuracao control.
+        /// txtDadosDuracaoSolicitada control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDadosDuracao;
+        protected global::System.Web.UI.WebControls.TextBox txtDadosDuracaoSolicitada;
         
         /// <summary>
         /// ddlDadosTipoDaManutencao control.

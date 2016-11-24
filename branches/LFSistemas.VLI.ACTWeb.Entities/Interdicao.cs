@@ -28,7 +28,8 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Responsavel_Matricula { get; set; }
         public string Responsavel_Nome { get; set; }
         public DateTime Data { get; set; }
-        public double? Duracao { get; set; }
+        public double? Duracao_Solicitada { get; set; }
+        public double? Duracao_Autorizada { get; set; }
         public decimal? Km { get; set; }
         public string Telefone_SN { get; set; }
         public string Telefone_Numero { get; set; }
