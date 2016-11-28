@@ -26,5 +26,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string DataFinal { get; set; }
         public string TextoAlarme { get; set; }
         public string CodigoMotivo { get; set; }
+        public double TempoRestante { get; set; }
+        public double TempoParadaOriginal { get; set; }
     }
 }

@@ -161,6 +161,7 @@
     <Compile Include="Tipo_Manutencao.cs" />
     <Compile Include="Tipo_Restricao.cs" />
     <Compile Include="Tipo_Situacao.cs" />
+    <Compile Include="TMP_SUBPARADAS.cs" />
     <Compile Include="Trem.cs" />
     <Compile Include="EnviarMacro.cs" />
     <Compile Include="TremHoraParado.cs" />

@@ -5,7 +5,7 @@
 
 <html lang="pt-br" style="width: 100%; height: 100%; overflow: scroll;">
 <head runat="server">
-    <title>ACTWEB - Envio de Macro 61</title>
+    <title>ACTWEB - Adiciona SubParadas</title>
 
     <link rel="stylesheet" type="text/css" href="/js/extensions/FixedHeader/css/dataTables.fixedHeader.css" />
     <%--<link rel="stylesheet" type="text/css" href="/fonts/fontawesome-webfont.ttf" />--%>
@@ -83,7 +83,6 @@
             if (i.value == "") { i.value = i.defaultValue; i.style.color = "#888"; }
         }
 
-
     </script>
 
 </head>
@@ -120,11 +119,9 @@
             <table class="nav-justified">
                 <tr>
                     <td style="width: 30%;">
-                        <asp:Label ID="lblTremOS" runat="server" Font-Size="12px" Style="color: rgb(0, 72, 89);" Text="OS da parada: " />
-                        <asp:Label ID="lblTremOSValor" runat="server" Font-Size="12px" Style="color: rgb(0, 72, 89);" />
+                        <asp:Label ID="lblTremOS" runat="server" Font-Size="12px" Style="color: rgb(0, 72, 89);" />
                         <br />
-                        <asp:Label ID="lblTempoTotalOriginal" runat="server" Font-Size="12px" Style="color: rgb(0, 72, 89);" Text="Tempo da parada: " />
-                        <asp:Label ID="lblTempoTotalOriginalValor" runat="server" Font-Size="12px" Style="color: rgb(0, 72, 89);" />
+                        <asp:Label ID="lblTempoTotalOriginal" runat="server" Font-Size="12px" Style="color: rgb(0, 72, 89);" />
                     </td>
                     <td style="width: 5%;"></td>
                 </tr>
@@ -132,19 +129,13 @@
                     <td style="width: 30%;">
                         <label for="data_fim">Motivo:</label>
                         <br />
-                        <asp:DropDownList runat="server" ID="ddlMotivoParada" CssClass="form-control" OnSelectedIndexChanged="ddlMotivoParada_SelectedIndexChanged" AutoPostBack="true" ToolTip="Selecione o motivo da parada." Style="width: 100%;" />
+                        <asp:DropDownList runat="server" ID="ddlMotivoParada" CssClass="form-control" OnSelectedIndexChanged="ddlMotivoParada_SelectedIndexChanged" ToolTip="Selecione o motivo da parada." Style="width: 100%;" />
                     </td>
                     <td style="width: 5%;"></td>
                     <td style="width: 30%;">
-                        <label for="data_fim">Tempo</label>
+                        <asp:Label runat="server" ID="lblTempoRestante" />
                         <br />
-                        <asp:TextBox runat="server" ID="txtboxTempoParada" CssClass="form-control" ToolTip="Digite o tempo da subparada" Style="width: 100%;color:#888;" value="First Name" onfocus="inputFocus(this)" onblur="inputBlur(this)"></asp:TextBox>
-
-                       
-    
-
-
-
+                        <asp:TextBox runat="server" ID="txtboxTempoParada" CssClass="form-control" ToolTip="Digite o tempo da subparada em minutos" Style="width: 100%; color: #888;" value="Tempo da Subparada" onfocus="inputFocus(this)" onblur="inputBlur(this)"></asp:TextBox>
 
                     </td>
                     <td style="width: 5%;"></td>
@@ -169,15 +160,15 @@
                     <td colspan="7">
                         <asp:Panel ID="Panel1" runat="server" ScrollBars="Vertical" Visible="true" Enabled="true" Height="110px">
                             <strong>Selecionados</strong>
-                            <asp:Repeater ID="rptListaMacrosTemporarias" runat="server">
+                            <asp:Repeater ID="rptListaSubParadasTemporarias" runat="server">
                                 <HeaderTemplate>
-                                    <table class="table table-hover table-curved pro-table " id="macros">
+                                    <table class="table table-hover table-curved pro-table " id="subparadas">
                                         <thead>
                                             <tr>
                                                 <th style="width: 2%; text-align: center; font-size: 12pt; background-color: #fff; border-right: 1px solid rgb(0, 72, 89);">
-                                                    <asp:CheckBox runat="server" ID="chkTodos" OnClick="selectAll(this)" ToolTip="Seleciona Todos" /></th>
-                                                <th style="width: 44%; text-align: center; font-size: 12pt; background-color: #fff; border-right: 1px solid rgb(0, 72, 89);"><a href="#">TREM</a></th>
-                                                <th style="width: 44%; text-align: center; font-size: 12pt; background-color: #fff;"><a href="#">MCT</a></th>
+                                                    <asp:CheckBox runat="server" ID="ChkboxSubParadaTodos" OnClick="selectAll(this)" ToolTip="Seleciona Todos" /></th>
+                                                <th style="width: 44%; text-align: center; font-size: 12pt; background-color: #fff; border-right: 1px solid rgb(0, 72, 89);"><a href="#">Motivo</a></th>
+                                                <th style="width: 44%; text-align: center; font-size: 12pt; background-color: #fff;"><a href="#">Tempo</a></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -186,13 +177,13 @@
                                     <tr style="font-size: 9px; margin-top: 15px;">
                                         <td style="width: 2%; text-align: center; border-right: 1px solid rgb(0, 72, 89);">
                                             <div>
-                                                <asp:HiddenField ID="HiddenField1" Value='<%# Eval("Id") %>' runat="server" />
-                                                <asp:CheckBox runat="server" ID="chkRestricao" ToolTip="Seleciona a restrição atual." />
+                                                <asp:HiddenField ID="hfSubParada" Value='<%# Eval("UTPS_ID") %>' runat="server" />
+                                                <asp:CheckBox ID="ChkboxSubParada" runat="server" />
                                             </div>
                                         </td>
-                                        <td style="width: 44%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Trem") %>"><%# Eval ("Trem")%></td>
-                                        <td style="width: 44%; text-align: center;" title="<%# Eval ("Mct")%>"><%# Eval ("Mct")%></td>
-                                        <td style="width: 00%; text-align: center;" title="<%# Eval ("Mct_ID")%>" hidden="hidden"><%# Eval ("Mct_ID")%></td>
+                                        <td style="width: 44%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Motivo") %>"><%# Eval ("Motivo")%></td>
+                                        <td style="width: 44%; text-align: center;" title="<%# Eval ("TempoSubparada")%>"><%# Eval ("TempoSubparada")%></td>
+                                        <td style="width: 00%; text-align: center;" title="<%# Eval ("UTPS_ID")%>" hidden="hidden"><%# Eval ("UTPS_ID")%></td>
                                     </tr>
                                 </ItemTemplate>
                                 <FooterTemplate>
@@ -209,7 +200,7 @@
                         <asp:Label runat="server" ID="lblTotal" Font-Bold="true" Font-Size="10" Style="color: rgb(0, 72, 89);" />
                     </td>
                     <td colspan="2" style="text-align: right;">
-                        <asp:Label runat="server" Text="Máximo: " Font-Bold="true" Font-Size="10" Style="color: rgb(153, 153, 153);" />
+                        <%--<asp:Label runat="server" Text="Máximo: " Font-Bold="true" Font-Size="10" Style="color: rgb(153, 153, 153);" />--%>
                         <asp:Label runat="server" ID="lblQtdeMaxima" Font-Bold="true" Font-Size="10" Style="color: rgb(0, 72, 89);" />
                     </td>
                 </tr>

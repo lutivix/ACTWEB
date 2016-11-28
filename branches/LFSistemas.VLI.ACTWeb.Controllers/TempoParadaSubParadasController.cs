@@ -28,6 +28,34 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ObterParada(UTPID);
         }
 
+        public bool TemSubparadasTemporarias(TMP_SUBPARADAS tmp, string usuarioLogado)
+        {
+            return dao.TemSubParadasTemporarias(tmp, usuarioLogado);
+        }
+
+        public bool SalvarSubparadasTemporarias(TMP_SUBPARADAS tmp, string usuarioLogado)
+        {
+            return dao.SalvarSubParadasTemporarias(tmp, usuarioLogado);
+        }
+
+        public bool RemoveSubparadasTemporarias(double Id)
+        {
+            return dao.RemoveSubparadasTemporarias(Id);
+        }
+
+        public List<TMP_SUBPARADAS> ObterSubparadasTemporariasPorUsuario(double parada, string usuarioLogado)
+        {
+            return dao.ObterSubparadasTemporariasPorUsuario(parada, usuarioLogado);
+        }
+        public bool SalvarSubParadas(TMP_SUBPARADAS tmp)
+        {
+            return dao.SalvarSubParadas(tmp);
+        }
+
+
+
+        
+
         #endregion
 
     }

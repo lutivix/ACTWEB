@@ -85,15 +85,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP {
         protected global::System.Web.UI.WebControls.Label lblTremOS;
         
         /// <summary>
-        /// lblTremOSValor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTremOSValor;
-        
-        /// <summary>
         /// lblTempoTotalOriginal control.
         /// </summary>
         /// <remarks>
@@ -103,15 +94,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP {
         protected global::System.Web.UI.WebControls.Label lblTempoTotalOriginal;
         
         /// <summary>
-        /// lblTempoTotalOriginalValor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTempoTotalOriginalValor;
-        
-        /// <summary>
         /// ddlMotivoParada control.
         /// </summary>
         /// <remarks>
@@ -119,6 +101,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlMotivoParada;
+        
+        /// <summary>
+        /// lblTempoRestante control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTempoRestante;
         
         /// <summary>
         /// txtboxTempoParada control.
@@ -157,13 +148,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP {
         protected global::System.Web.UI.WebControls.Panel Panel1;
         
         /// <summary>
-        /// rptListaMacrosTemporarias control.
+        /// rptListaSubParadasTemporarias control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptListaMacrosTemporarias;
+        protected global::System.Web.UI.WebControls.Repeater rptListaSubParadasTemporarias;
         
         /// <summary>
         /// lblTotal control.
