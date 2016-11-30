@@ -56,6 +56,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             ListaTemporarios();
             if (!Page.IsPostBack)
             {
+                //txtboxTempoParada.Attributes.Add("onkeypress", "if (event.keyCode < 48 || event.keyCode > 58) {event.keyCode = 0;}");
                 var usuarioLogado = Uteis.Descriptografar(Request.QueryString["lu"].ToString(), "a#3G6**@").ToUpper();
 
                 lblUsuarioLogado.Text = usuarioLogado.Length > 12 ? usuarioLogado.Substring(0, 12).ToUpper() : usuarioLogado;
@@ -68,7 +69,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 ddlMotivoParada.DataTextField = "Descricao";
                 ddlMotivoParada.DataSource = CarregaComboMotivos();
                 ddlMotivoParada.DataBind();
-                ddlMotivoParada.Items.Insert(0, "Selecione o motivo!");
+                ddlMotivoParada.Items.Insert(0, "Selecione o motivo.");
                 ddlMotivoParada.SelectedIndex = 0;
 
                 Uteis.abreviados = abreviar.ObterTodos();
@@ -76,55 +77,72 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 BindRepeater();
                 //ListaTemporarios();
                 //ViewState["Contador"] = ListaTemporarios().Count;
-                 
+                ViewState["Contador"] = AtualizaContador();
                 //Pesquisar(UTPID);
 
             }
-          
-        }
-
-        protected void Pesquisar(string UTPID)
-        {
 
         }
+
+
         #endregion
 
         #region [ MÉTODOS DE CLICK DOS BOTÕES ]
 
-        // Método utilizado para enviar mensagens (Macro) ao clicar no botão enviar
+        // Método utilizado para salvar os registros
         protected void bntEnviar_Click(object sender, EventArgs e)
         {
             var tmp = new TempoParadaSubParadasController();
             var itens = tmp.ObterSubparadasTemporariasPorUsuario(double.Parse(UTPID), lblUsuarioMatricula.Text);
 
-
-
             //Pegar todos os itens do repeater
             for (int i = 0; i < itens.Count; i++)
             {
+                
                 var parada = new TMP_SUBPARADAS();
+                if (itens[i].Origem == "T")
+                { 
+                    parada.COD_MOTIVO = itens[i].COD_MOTIVO;
+                    parada.DT_INI_PARADA = itens[i].DT_INI_PARADA;
+                    parada.DT_FIM_PARADA = itens[i].DT_FIM_PARADA;
+                    parada.Matricula = itens[i].Matricula;
+                    parada.UTP_ID = itens[i].UTP_ID;
+                    parada.UTPS_ID = itens[i].UTPS_ID;
+                    parada.TempoSubparada = itens[i].TempoSubparada;
+                    parada.USU_ID = itens[i].USU_ID;
+                    var retorno = tmp.SalvarSubParadas(parada);
 
-                parada.COD_MOTIVO = itens[i].COD_MOTIVO;
-                parada.DT_INI_PARADA = itens[i].DT_INI_PARADA;
-                parada.DT_FIM_PARADA = itens[i].DT_FIM_PARADA;
-                parada.Matricula = itens[i].Matricula;
-                parada.UTP_ID = itens[i].UTP_ID;
-                parada.UTPS_ID = itens[i].UTPS_ID;
-                var retorno = tmp.SalvarSubParadas(parada);
-
-
-                if (retorno)
-                {
-                    RemoveItemDaLista(itens[i].UTP_ID);
+                    if (retorno)
+                    {
+                        RemoveSubparadaTemporaria(itens[i].UTP_ID);
+                    }
                 }
             }
 
 
-            Response.Write("<script>alert('Macro 61 enviada com sucesso, por " + lblUsuarioMatricula.Text + " - " + lblUsuarioPerfil.Text + "');</script>");
+            Response.Write("<script>alert('Registros salvos pelo usuário " + lblUsuarioMatricula.Text + " - " + lblUsuarioPerfil.Text + "');</script>");
             ListaTemporarios();
+            BindRepeater();
 
-            ViewState["Contador"] = "0";
+            ViewState["Contador"] = AtualizaContador();
         }
+
+        protected string AtualizaContador()
+        {
+            var Contador = 0;
+            List<string> itens = new List<string>();
+            for (int i = 0; i < rptListaSubParadasTemporarias.Items.Count; i++)
+            {
+                if ((HiddenField)rptListaSubParadasTemporarias.Items[i].FindControl("USU_ID") != null)
+                    Contador += 1;
+                
+            }
+
+            return Contador.ToString();
+             
+        }
+
+
 
         // Método utilizado para limpar os campos do formulário clicar no botão limpar
         protected void btnLimpar_Click(object sender, EventArgs e)
@@ -136,16 +154,18 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             //double Contador = double.Parse(ViewState["Contador"].ToString());
             //if (Contador < QtdeMaxima)
             //{
-            if (ddlMotivoParada.SelectedItem.Text == "Selecione o motivo da parada." && txtboxTempoParada.Text == null)
+            if (ddlMotivoParada.SelectedItem.Text == "Selecione o motivo." && txtboxTempoParada.Text == null)
             {
+
+
                 Response.Write("<script>alert('Selecione um motivo e digite o tempo da parada antes de adicionar itens na lista.');</script>");
             }
             else
             {
                 if (AdicionaItemNaLista())
                 {
-                    ViewState["Contador"] = double.Parse(ViewState["Contador"].ToString()) + 1;
-                    Pesquisar(UTPID);
+                    //ViewState["Contador"] = double.Parse(ViewState["Contador"].ToString()) + 1;
+                    //Pesquisar(UTPID);
                     BindRepeater();
                 }
             }
@@ -166,7 +186,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                     List<string> itens = new List<string>();
                     for (int i = 0; i < rptListaSubParadasTemporarias.Items.Count; i++)
                     {
-                        
+
                         HiddenField hfSubParada = (HiddenField)rptListaSubParadasTemporarias.Items[i].FindControl("hfSubParada");
                         CheckBox ChkboxSubParada = (CheckBox)rptListaSubParadasTemporarias.Items[i].FindControl("ChkboxSubParada");
                         if (ChkboxSubParada.Checked)
@@ -175,22 +195,48 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
 
                     if (itens.Count > 0)
                     {
+
+                        var ErroPermissao = 0;
+
                         //Pegar todos os itens do repeater
                         for (int i = 0; i < rptListaSubParadasTemporarias.Items.Count; i++)
                         {
-                            //Pegando o HiddenField dentro do repeater
-                            HiddenField HiddenField1 = (HiddenField)rptListaSubParadasTemporarias.Items[i].FindControl("hfSubParada");
 
-                            //Pegando o CheckBox dentro do repeater
-                            CheckBox ChkboxSubParada = (CheckBox)rptListaSubParadasTemporarias.Items[i].FindControl("ChkboxSubParada");
 
-                            //Verificar se foi selecionado
-                            if (ChkboxSubParada.Checked)
+                            HiddenField usu_id = (HiddenField)rptListaSubParadasTemporarias.Items[i].FindControl("USU_ID");
+
+                            usu_id.ToString();
+
+                            if (lblUsuarioMatricula.Text == usu_id.Value.ToString() || lblUsuarioPerfil.Text == "SUP" || lblUsuarioPerfil.Text == "ADM")
                             {
-                                if (subparada.RemoveSubparadasTemporarias(int.Parse(HiddenField1.Value)))
-                                    ViewState["Contador"] = double.Parse(ViewState["Contador"].ToString()) - 1;
+
+
+                                //Pegando o HiddenField dentro do repeater
+                                HiddenField HiddenField1 = (HiddenField)rptListaSubParadasTemporarias.Items[i].FindControl("hfSubParada");
+
+                                //Pegando o CheckBox dentro do repeater
+                                CheckBox ChkboxSubParada = (CheckBox)rptListaSubParadasTemporarias.Items[i].FindControl("ChkboxSubParada");
+
+                                //Verificar se foi selecionado
+                                if (ChkboxSubParada.Checked)
+                                {
+                                    //if (subparada.RemoveSubparadasTemporarias(int.Parse(HiddenField1.Value)))
+                                    //    ViewState["Contador"] = double.Parse(ViewState["Contador"].ToString()) - 1;
+                                    //else if (subparada.RemoveSubparadas(int.Parse(HiddenField1.Value)))
+                                    //    ViewState["Contador"] = double.Parse(ViewState["Contador"].ToString()) - 1;
+
+                                    subparada.RemoveSubparadasTemporarias(int.Parse(HiddenField1.Value));
+                                    subparada.RemoveSubparadas(int.Parse(HiddenField1.Value));
+
+                                }
                             }
+                            else
+                                ErroPermissao += 1;
                         }
+
+                        if (ErroPermissao > 0)
+                            Response.Write("<script>alert('Usuário não tem permissão para apagar um ou mais registros de outros usuários. Se necessário, comunique ao Supervisor do CCO.'); </script>");
+
                     }
                     else Response.Write("<script>alert('Selecione pelo menos 1 item da lista antes de clicar em remover.');</script>");
                 }
@@ -200,7 +246,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             ListaTemporarios();
             BindRepeater();
         }
-         
+
         #endregion
 
 
@@ -212,57 +258,89 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             var item = new TMP_SUBPARADAS();
             var tmp = new TempoParadaSubParadasController();
 
-            item.Matricula = lblUsuarioMatricula.Text;
-            item.DT_REGISTRO = DateTime.Now;
-            item.DT_INI_PARADA = DateTime.Parse(tempoParadaOriginal.InicioParada);
-            item.UTP_ID = double.Parse(UTPID);
-            item.DT_FIM_PARADA = DateTime.Parse(tempoParadaOriginal.InicioParada).AddMinutes(double.Parse(txtboxTempoParada.Text));
-            item.USU_ID = double.Parse(lblUsuarioMatricula.Text);
-            item.TempoSubparada = double.Parse(txtboxTempoParada.Text);
+            if (ddlMotivoParada.SelectedItem.Value != "Selecione o motivo.")
+            { 
 
-            //TempoDisponivel = tempoTotal.Add(- int.Parse(txtboxTempoParada.Text));
-
-            if ( tempoParadaOriginal.TempoRestante - double.Parse(txtboxTempoParada.Text) >= 0)
+            if (txtboxTempoParada.Text != "Tempo da Subparada")
             {
-                if (ddlMotivoParada.SelectedItem.Value != "Selecione o motivo da parada.")
+                if (txtboxTempoParada.Text != null)
                 {
-                    item.COD_MOTIVO = double.Parse(ddlMotivoParada.SelectedItem.Value);
-                    item.Motivo = ddlMotivoParada.SelectedItem.Text;
-                }
 
-                if (txtboxTempoParada.Text != string.Empty)
-                {
+                    item.Matricula = lblUsuarioMatricula.Text;
+                    item.DT_REGISTRO = DateTime.Now;
+                    item.DT_INI_PARADA = DateTime.Parse(tempoParadaOriginal.InicioParada);
+                    item.UTP_ID = double.Parse(UTPID);
+                    item.DT_FIM_PARADA = DateTime.Parse(tempoParadaOriginal.InicioParada).AddMinutes(double.Parse(txtboxTempoParada.Text));
+                    item.USU_ID = double.Parse(lblUsuarioMatricula.Text);
                     item.TempoSubparada = double.Parse(txtboxTempoParada.Text);
-                }
 
-                if (!tmp.TemSubparadasTemporarias(item, lblUsuarioMatricula.Text))
-                    if (tmp.SalvarSubparadasTemporarias(item, lblUsuarioMatricula.Text))
+                    //TempoDisponivel = tempoTotal.Add(- int.Parse(txtboxTempoParada.Text));
+
+                    if (tempoParadaOriginal.TempoRestante - double.Parse(txtboxTempoParada.Text) >= 0)
                     {
-                        ListaTemporarios();
-                        //tempoParadaOriginal.TempoRestante = tempoParadaOriginal.TempoRestante - int.Parse(txtboxTempoParada.Text);
-                        //lblTempoRestante.Text = "Tempo Restante (Min.): " + string.Format("{0:d2}:{1:d2}", (int)TimeSpan.FromMinutes(double.Parse((tempoParadaOriginal.TempoRestante).ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse((tempoParadaOriginal.TempoRestante).ToString())).Seconds);
-                        limpaCampos();
-                        retorno = true;
+                        if (ddlMotivoParada.SelectedItem.Value != "Selecione o motivo.")
+                        {
+                            item.COD_MOTIVO = double.Parse(ddlMotivoParada.SelectedItem.Value);
+                            item.Motivo = ddlMotivoParada.SelectedItem.Text;
+                        }
+
+                        if (txtboxTempoParada.Text != string.Empty)
+                        {
+                            item.TempoSubparada = double.Parse(txtboxTempoParada.Text);
+                        }
+
+                        if (!tmp.TemSubparadasTemporarias(item, lblUsuarioMatricula.Text))
+                            if (tmp.SalvarSubparadasTemporarias(item, lblUsuarioMatricula.Text))
+                            {
+
+                                ListaTemporarios();
+                                //tempoParadaOriginal.TempoRestante = tempoParadaOriginal.TempoRestante - int.Parse(txtboxTempoParada.Text);
+                                //lblTempoRestante.Text = "Tempo Restante (Min.): " + string.Format("{0:d2}:{1:d2}", (int)TimeSpan.FromMinutes(double.Parse((tempoParadaOriginal.TempoRestante).ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse((tempoParadaOriginal.TempoRestante).ToString())).Seconds);
+                                limpaCampos();
+                                retorno = true;
+                            }
+                            else
+                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não foi possível gravar o registro no sistema.' });", true);
+                        else
+                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'O Trem e o MCT selecionados já estão na lista.' });", true);
                     }
                     else
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não foi possível gravar o registro no sistema.' });", true);
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Tempo total excedido.' });", true);
+                }
                 else
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'O Trem e o MCT selecionados já estão na lista.' });", true);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Favor digitar o valor no campo Tempo.' });", true);
             }
             else
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Tempo total excedido.' });", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Favor digitar o valor no campo Tempo.' });", true);
+            }
+            else
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Favor escolher o motivo da subparada.' });", true);
+
             return retorno;
         }
-        protected bool RemoveItemDaLista(double Id)
+        protected bool RemoveSubparadaTemporaria(double Id)
         {
             bool retorno = false;
-            var macro = new TempoParadaSubParadasController();
+            var subparada = new TempoParadaSubParadasController();
 
-            if (macro.RemoveSubparadasTemporarias(Id))
+            if (subparada.RemoveSubparadasTemporarias(Id))
+                retorno = true;
+
+
+            return retorno;
+        }
+
+        protected bool RemoveItemDoBanco(double Id)
+        {
+            bool retorno = false;
+            var subparada = new TempoParadaSubParadasController();
+
+            if (subparada.RemoveSubparadas(Id))
                 retorno = true;
 
             return retorno;
         }
+
 
         //protected bool EnviandoMacro(List<EnviarMacro> macros, string macrolidaid, string resposta, string usuarioLogado)
         //{
@@ -279,12 +357,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
         // Método que retorna "true" se os campos obrigatórios do formulários estiverem preenchidos ou "false" caso contrario
         protected bool validaFormulario()
         {
-            return ddlMotivoParada.SelectedValue != "Selecione o motivo da parada." ? txtboxTempoParada.Text != string.Empty ? true : false : false;
+            return ddlMotivoParada.SelectedValue != "Selecione o motivo." ? txtboxTempoParada.Text != string.Empty ? true : false : false;
         }
 
         // Método utilizado para limpar os campos do formulário
         protected void limpaCampos()
-        {  
+        {
             ddlMotivoParada.SelectedIndex = 0;
             txtboxTempoParada.Text = string.Empty;
         }
@@ -313,8 +391,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
 
         #endregion
 
-        public void BindRepeater(){
-        var itens = new TempoParadaSubParadasController().ObterSubparadasTemporariasPorUsuario(double.Parse(UTPID), Usuario.Matricula);
+        public void BindRepeater()
+        {
+            var itens = new TempoParadaSubParadasController().ObterSubparadasTemporariasPorUsuario(double.Parse(UTPID), Usuario.Matricula);
             tempoParadaOriginal.TempoRestante = tempoParadaOriginal.TempoParadaOriginal;
 
             rptListaSubParadasTemporarias.DataSource = itens.OrderBy(x => x.Motivo);
@@ -328,9 +407,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
         {
             var itens = new TempoParadaSubParadasController().ObterSubparadasTemporariasPorUsuario(double.Parse(UTPID), Usuario.Matricula);
             tempoParadaOriginal.TempoRestante = tempoParadaOriginal.TempoParadaOriginal;
-
-
-
+             
             //rptListaSubParadasTemporarias.DataSource = itens.OrderBy(x => x.Motivo);
             //rptListaSubParadasTemporarias.DataBind();
 
@@ -345,17 +422,19 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 {
                     dif += itens[i].TempoSubparada;
                 }
-                 tempoParadaOriginal.TempoRestante = tempoParadaOriginal.TempoRestante - dif;
-            } 
+                tempoParadaOriginal.TempoRestante = tempoParadaOriginal.TempoRestante - dif;
+            }
 
-            lblTempoRestante.Text = "Tempo Restante (Min.): " + string.Format("{0:d2}:{1:d2}", (int)TimeSpan.FromMinutes(double.Parse((tempoParadaOriginal.TempoRestante).ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse((tempoParadaOriginal.TempoRestante).ToString())).Seconds);
+            //lblTempoRestante.Text = "Tempo Restante (Min.): " + string.Format("{0:d2}:{1:d2}", (int)TimeSpan.FromMinutes(double.Parse((tempoParadaOriginal.TempoRestante).ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse((tempoParadaOriginal.TempoRestante).ToString())).Seconds);
+            lblTempoRestante.Text = "Tempo Disponível (Min.):" + tempoParadaOriginal.TempoRestante.ToString();
 
             //lblTempoRestante.Text = "Tempo Restante (Min.): " + string.Format("{0:d2}:{1:d2}", TimeSpan.Parse(aux.ToString()).Minutes, TimeSpan.Parse(aux.ToString()).Seconds);
 
             lblTremOS.Text = tempoParadaOriginal.OS.ToString() != null ? "Trem OS: " + tempoParadaOriginal.OS.ToString() : string.Empty;
-            lblTempoTotalOriginal.Text = dif != null ? "Tempo (Min.): " + string.Format("{0:d2}:{1:d2}", (int)TimeSpan.FromMinutes(double.Parse((tempoParadaOriginal.TempoParadaOriginal).ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse((tempoParadaOriginal.TempoParadaOriginal).ToString())).Seconds) : string.Empty;
+            //lblTempoTotalOriginal.Text = dif != null ? "Tempo (Min.): " + string.Format("{0:d2}:{1:d2}", (int)TimeSpan.FromMinutes(double.Parse((tempoParadaOriginal.TempoParadaOriginal).ToString())).Minutes, (int)TimeSpan.FromSeconds(double.Parse((tempoParadaOriginal.TempoParadaOriginal).ToString())).Seconds) : string.Empty;
+            lblTempoTotalOriginal.Text = "Tempo total da parada (Min.):" + tempoParadaOriginal.TempoParadaOriginal.ToString();
 
-            ViewState["Contador"] = itens.Count;
+            ViewState["Contador"] = AtualizaContador();
 
             return itens.ToList();
         }

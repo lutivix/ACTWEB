@@ -116,30 +116,28 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           AND ELV.EV_ID_ELM = ELE.EV_ID_ELM
                                           AND ELE.ES_ID_NUM_EFE = EST.ES_ID_NUM_EFE
                                           AND EST.RG_ID_RG_CRT = RGC.RG_ID_RG_CRT
-                                          AND TO_CHAR(DT_INI_PARADA, 'DD/MM/RRRR') > TO_CHAR('18/09/2016')
+                                          AND DT_INI_PARADA > SYSDATE - 7
+                                          AND DT_FIM_PARADA IS NOT NULL
+                                          /*${PERIODO}*/
+                                          ${TREM}
+                                          ${POSTOTRABALHO}
                                     ORDER BY DT_INI_PARADA ");
 
-                                          //--${PERIODO}
-                                          //--${TREM}
-                                          //--${POSTOTRABALHO}
-
-
-
+                                           
                     //if (filtro.DataInicial != null && filtro.DataFinal != null)
                     //    query.Replace("${PERIODO}", string.Format("AND DT_INI_PARADA BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.DataInicial, filtro.DataFinal));
                     //else
                     //    query.Replace("${PERIODO}", "");
+                     
+                    if (!string.IsNullOrEmpty(filtro.Prefixo))
+                        query.Replace("${TREM}", string.Format("AND UPPER(TRE.TM_PRF_ACT) LIKE UPPER( '{0}' )", filtro.Prefixo));
+                    else
+                        query.Replace("${TREM}", "");
 
-
-                    //if (!string.IsNullOrEmpty(filtro.Prefixo))
-                    //    query.Replace("${TREM}", string.Format("AND UPPER(TRE.TM_PRF_ACT) LIKE UPPER( '{0}' )", filtro.Prefixo));
-                    //else
-                    //    query.Replace("${TREM}", "");
-
-                    //if (!string.IsNullOrEmpty(filtro.PostoTrabalho))
-                    //    query.Replace("${POSTOTRABALHO}", string.Format(" AND UPPER(RGC.PO_ID_PS_TRB) LIKE '%{0}%'", filtro.PostoTrabalho.ToUpper()));
-                    //else
-                    //    query.Replace("${POSTOTRABALHO}", string.Format(" "));
+                    if (!string.IsNullOrEmpty(filtro.PostoTrabalho))
+                        query.Replace("${POSTOTRABALHO}", string.Format(" AND UPPER(RGC.PO_ID_PS_TRB) LIKE '%{0}%'", filtro.PostoTrabalho.ToUpper()));
+                    else
+                        query.Replace("${POSTOTRABALHO}", string.Format(" "));
                      
                     #endregion
 
@@ -222,57 +220,66 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
+ 
+//        public List<TMP_SUBPARADAS> ObterSubParadasExistentes(string UTPID)
+//        {
+//            #region [ PROPRIEDADES ]
 
-        public TempoParadaSubParadas ObterSubParadasExistentes(string UTPID)
-        {
-            #region [ PROPRIEDADES ]
+//            StringBuilder query = new StringBuilder();
+//            List<TMP_SUBPARADAS> itens = new List<TMP_SUBPARADAS>();
 
-            StringBuilder query = new StringBuilder();
-            var item = new TempoParadaSubParadas();
+//            #endregion
 
-            #endregion
+//            try
+//            {
+//                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+//                {
+//                    #region [ FILTRA VMA POR SB ]
 
-            try
-            {
-                using (var connection = ServiceLocator.ObterConexaoACTWEB())
-                {
-                    var command = connection.CreateCommand();
+//                    var command = connection.CreateCommand();
 
-                    #region [ FILTRA TEMPO PARADAS E CONFIRMAÇÃO]
+//                    query.Append(@"SELECT COD_MOTIVO, 
+//                                          (DT_FIM_PARADA - DT_INI_PARADA) * 1440
+//                                     FROM ACTPP.UNL_TRENS_PARADOS_SUBPARADAS
+//                                          ${TMP_UTP_ID}
+//                                          ${TMP_USU_ID}");
 
-                    query.Append(@"SELECT COD_MOTIVO, 
-                                          (DT_FIM_PARADA - DT_INI_PARADA) * 1440
-                                          FROM ACTPP.UNL_TRENS_PARADOS_SUBPARADAS
-                                    WHERE TRE.TM_ID_TRM = UTP.ID_TREM_ACT
-                                          ${UTP_ID}");
+//                    if (UTPID != null)
+//                        query.Replace("${TMP_UTP_ID}", string.Format(" AND TMP_UTP_ID = {0} ", UTPID));
+//                    else
+//                        query.Replace("${TMP_UTP_ID}", string.Format(""));
 
-                    query.Replace("${UTP_ID}", string.Format("AND UTP.UTP_ID ={0}", UTPID));
+//                    //if (usuarioLogado != null)
+//                    //    query.Replace("${TMP_USU_ID}", string.Format(" AND TMP_USU_ID = '{0}' ", usuarioLogado));
+//                    //else
+//                    //    query.Replace("${TMP_USU_ID}", string.Format(""));
 
-                    #endregion
+//                    #endregion
 
-                    #region [BUSCA NO BANCO E ADICIONA NA VARIAVEL ]
+//                    #region [BUSCA NO BANCO ]
 
-                    command.CommandText = query.ToString();
-                    using (var reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            item = PreencherTempoSubParada(reader);
-                        }
-                    }
+//                    command.CommandText = query.ToString();
+//                    using (var reader = command.ExecuteReader())
+//                    {
+//                        while (reader.Read())
+//                        {
+//                            var item = PreencherPropriedadesTMP(reader);
+//                            itens.Add(item);
+//                        }
+//                    }
 
-                    #endregion
-                }
-            }
-            catch (Exception ex)
-            {
-                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Obter macros 50", ex.Message.Trim());
-                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
-                throw new Exception(ex.Message);
-            }
+//                    #endregion
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                LogDAO.GravaLogSistema(DateTime.Now, null, "Abreviar", ex.Message.Trim());
+//                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+//                throw new Exception(ex.Message);
+//            }
 
-            return item;
-        }
+//            return itens;
+//        }
 
 
         public bool TemSubParadasTemporarias(TMP_SUBPARADAS tmp, string usuarioLogado)
@@ -362,7 +369,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                            TMP_TEMPO_PARADA,
                                                            TMP_DT_REGISTRO)
                         VALUES (${TMP_UTP_ID} , 
-                                TMP_SUBPARADAS_ID.NEXTVAL, 
+                                ACTPP.UNL_TRENS_PAR_SUBPARADAS_ID.NEXTVAL, 
                                 ${TMP_COD_MOTIVO}, 
                                 ${TMP_DT_INI_PARADA}, 
                                 ${TMP_DT_FIM_PARADA}, 
@@ -483,17 +490,35 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           TMP_TEMPO_PARADA,
                                           TMP_USU_ID,
                                           TMP_DT_REGISTRO,
-                                          MOT.MOT_NOME
-                                     FROM ACTWEB.TMP_SUBPARADAS TMP,
-                                          ACTWEB.MOTIVO_PARADA MOT
-                                    WHERE TMP.TMP_COD_MOTIVO = MOT.MOT_AUTO_TRAC 
-                                          ${TMP_UTP_ID}
-                                          ${TMP_USU_ID}");
+                                          MOT.MOT_NOME,
+                                         'T' /*TEMPORÁRIA*/ AS ORIGEM
+                                     FROM ACTWEB.TMP_SUBPARADAS TMP, ACTWEB.MOTIVO_PARADA MOT
+                                    WHERE TMP.TMP_COD_MOTIVO = MOT.MOT_AUTO_TRAC
+                                         ${TMP_UTP_ID}
+                                    UNION ALL
+                                   SELECT UTP_ID,
+                                          UTPS_ID,
+                                          COD_MOTIVO,
+                                          DT_INI_PARADA,
+                                          DT_FIM_PARADA,
+                                          TEMPO_PARADA,
+                                          USU_ID,
+                                          DT_REGISTRO,
+                                          MOT.MOT_NOME,
+                                          'D' /*DEFINITIVA*/ AS ORIGEM
+                                     FROM ACTPP.UNL_TRENS_PARADOS_SUBPARADAS UTPS, ACTWEB.MOTIVO_PARADA MOT
+                                    WHERE UTPS.COD_MOTIVO = MOT.MOT_AUTO_TRAC
+                                          ${UTP_ID}");
 
                     if (parada != null)
                         query.Replace("${TMP_UTP_ID}", string.Format(" AND TMP_UTP_ID = {0} ", parada));
                     else
                         query.Replace("${TMP_UTP_ID}",  string.Format(""));
+
+                    if (parada != null)
+                        query.Replace("${UTP_ID}", string.Format(" AND UTP_ID = {0} ", parada));
+                    else
+                        query.Replace("${UTP_ID}", string.Format(""));
 
                     if (usuarioLogado != null)
                         query.Replace("${TMP_USU_ID}", string.Format(" AND TMP_USU_ID = '{0}' ", usuarioLogado));
@@ -539,7 +564,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(6)) item.USU_ID = reader.GetDouble(6);
             if (!reader.IsDBNull(7)) item.DT_REGISTRO = reader.GetDateTime(7);
             if (!reader.IsDBNull(8)) item.Motivo = reader.GetString(8);
-
+            if (!reader.IsDBNull(9)) item.Origem = reader.GetString(9);
               
             return item;
         }
@@ -574,8 +599,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(2)) item.FimParada = reader.GetDateTime(2).ToString(); 
             if (!reader.IsDBNull(3)) item.CodigoMotivo = reader.GetValue(3).ToString();
             if (!reader.IsDBNull(4)) item.OS = reader.GetValue(4).ToString();
-            item.TempoParadaOriginal = Math.Floor((reader.GetDateTime(2) - reader.GetDateTime(1)).TotalMinutes);
-             
+            if (!reader.IsDBNull(2)) item.TempoParadaOriginal = Math.Floor(reader.GetDateTime(2).Subtract(reader.GetDateTime(1)).TotalMinutes);
+ 
             return item;
         }
 
@@ -596,13 +621,18 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           COD_MOTIVO,
                                           DT_INI_PARADA,
                                           DT_FIM_PARADA,
-                                          USU_ID)
+                                          USU_ID,
+                                          TEMPO_PARADA,
+                                          DT_REGISTRO
+                                          )
                                    VALUES (actpp.UNL_TRENS_PARADOS_ID.nextval, 
                                            ${TMP_UTP_ID}, 
                                            ${TMP_COD_MOTIVO}, 
                                            ${TMP_DT_INI_PARADA}, 
                                            ${TMP_DT_FIM_PARADA}, 
-                                           ${TMP_USU_ID})");
+                                           ${TMP_USU_ID},
+                                           ${TMP_TEMPO_PARADA},
+                                           SYSDATE)");
 
                     if (tmp.UTP_ID != null)
                         query.Replace("${TMP_UTP_ID}", string.Format("'{0}'", tmp.UTP_ID));
@@ -610,7 +640,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${TMP_UTP_ID}", "NULL");
                       
                     if (tmp.COD_MOTIVO != null)
-                        query.Replace("${TMP_COD_MOTIVO}", string.Format("'{0}'", tmp.UTPS_ID));
+                        query.Replace("${TMP_COD_MOTIVO}", string.Format("'{0}'", tmp.COD_MOTIVO));
                     else
                         query.Replace("${TMP_COD_MOTIVO}", "NULL");
 
@@ -628,6 +658,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${TMP_USU_ID}", string.Format("'{0}'", tmp.USU_ID));
                     else
                         query.Replace("${TMP_USU_ID}", "NULL");
+
+                    if (tmp.TempoSubparada != null)
+                        query.Replace("${TMP_TEMPO_PARADA}", string.Format("'{0}'", tmp.TempoSubparada));
+                    else
+                        query.Replace("${TMP_TEMPO_PARADA}", "NULL");
+
+
 
                     command.CommandText = query.ToString();
                     var reader = command.ExecuteNonQuery();
@@ -658,12 +695,48 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"DELETE FROM TMP_SUBPARADAS WHERE TMP_UTPS_ID = ${TMP_UTPS_ID}");
+                    query.Append(@"DELETE FROM TMP_SUBPARADAS WHERE TMP_UTP_ID = ${TMP_UTP_ID}");
 
                     if (Id != null)
-                        query.Replace("${TMP_UTPS_ID}", string.Format("{0}", Id));
+                        query.Replace("${TMP_UTP_ID}", string.Format("{0}", Id));
                     else
-                        query.Replace("${TMP_UTPS_ID}", "NULL");
+                        query.Replace("${TMP_UTP_ID}", "NULL");
+
+                    command.CommandText = query.ToString();
+                    var reader = command.ExecuteNonQuery();
+                    if (reader == 1)
+                    {
+                        Retorno = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Gravou R na MFP_LEITURA", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+            return Retorno;
+        }
+
+        public bool RemoveSubparadas(double? Id)
+        {
+            bool Retorno = false;
+
+            StringBuilder query = new StringBuilder();
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"DELETE FROM ACTPP.UNL_TRENS_PARADOS_SUBPARADAS WHERE UTPS_ID = ${UTPS_ID}");
+
+                    if (Id != null)
+                        query.Replace("${UTPS_ID}", string.Format("{0}", Id));
+                    else
+                        query.Replace("${UTPS_ID}", "NULL");
 
                     command.CommandText = query.ToString();
                     var reader = command.ExecuteNonQuery();

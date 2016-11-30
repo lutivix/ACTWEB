@@ -50,7 +50,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 lblUsuarioMatricula.Text = ulMatricula.ToUpper();
                 lblUsuarioPerfil.Text = ulPerfil.ToUpper();
                 lblUsuarioMaleta.Text = ulMaleta.ToUpper();
-
+                  
+                 //lnkAcao.Attributes.Add("onclick", "doSomething();");
+                
                 CarregaCombos();
                 Pesquisar(null);
             }
@@ -306,5 +308,40 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
         }
 
         #endregion
+
+        protected void lnkUsuario_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void lnkTempo_Click1(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void lnkMotivo_Click1(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void lnkMotivoSubparada_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void lnkTempoSubparada_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void lnkUsuarioSubparada_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void lnkRegistroSubparada_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public double USU_ID { get; set; }
         public string Matricula { get; set; }
         public DateTime DT_REGISTRO { get; set; }
+        public string Origem { get; set; }
 
         #endregion
     }

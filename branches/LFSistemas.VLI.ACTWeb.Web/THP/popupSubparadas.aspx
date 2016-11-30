@@ -135,8 +135,8 @@
                     <td style="width: 30%;">
                         <asp:Label runat="server" ID="lblTempoRestante" />
                         <br />
-                        <asp:TextBox runat="server" ID="txtboxTempoParada" CssClass="form-control" ToolTip="Digite o tempo da subparada em minutos" Style="width: 100%; color: #888;" value="Tempo da Subparada" onfocus="inputFocus(this)" onblur="inputBlur(this)"></asp:TextBox>
-
+                        <asp:TextBox runat="server" ID="txtboxTempoParada" CssClass="form-control" ToolTip="Digite o tempo da subparada em minutos" Style="width: 100%; color: #888;" value="Tempo da Subparada" onfocus="inputFocus(this)" onblur="inputBlur(this)" onkeypress="return PermiteSomenteNumeros(event);"></asp:TextBox>
+            
                     </td>
                     <td style="width: 5%;"></td>
                     <td style="width: 10%;">
@@ -167,8 +167,10 @@
                                             <tr>
                                                 <th style="width: 2%; text-align: center; font-size: 12pt; background-color: #fff; border-right: 1px solid rgb(0, 72, 89);">
                                                     <asp:CheckBox runat="server" ID="ChkboxSubParadaTodos" OnClick="selectAll(this)" ToolTip="Seleciona Todos" /></th>
-                                                <th style="width: 44%; text-align: center; font-size: 12pt; background-color: #fff; border-right: 1px solid rgb(0, 72, 89);"><a href="#">Motivo</a></th>
-                                                <th style="width: 44%; text-align: center; font-size: 12pt; background-color: #fff;"><a href="#">Tempo</a></th>
+                                                <th style="width: 40%; text-align: center; font-size: 12pt; background-color: #fff; border-right: 1px solid rgb(0, 72, 89);"><a href="#">Motivo</a></th>
+                                                <th style="width: 20%; text-align: center; font-size: 12pt; background-color: #fff;"><a href="#">Tempo</a></th>
+                                                <th style="width: 20%; text-align: center; font-size: 12pt; background-color: #fff;"><a href="#">Matricula</a></th>
+                                                <th style="width: 20%; text-align: center; font-size: 12pt; background-color: #fff;"><a href="#">Status</a></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -178,12 +180,15 @@
                                         <td style="width: 2%; text-align: center; border-right: 1px solid rgb(0, 72, 89);">
                                             <div>
                                                 <asp:HiddenField ID="hfSubParada" Value='<%# Eval("UTPS_ID") %>' runat="server" />
+                                                <asp:HiddenField ID="USU_ID" Value='<%# Eval("USU_ID") %>' runat="server" />
                                                 <asp:CheckBox ID="ChkboxSubParada" runat="server" />
                                             </div>
                                         </td>
                                         <td style="width: 44%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Motivo") %>"><%# Eval ("Motivo")%></td>
-                                        <td style="width: 44%; text-align: center;" title="<%# Eval ("TempoSubparada")%>"><%# Eval ("TempoSubparada")%></td>
+                                        <td style="width: 20%; text-align: center;" title="<%# Eval ("TempoSubparada")%>"><%# Eval ("TempoSubparada")%></td>
+                                        <td style="width: 20%; text-align: center;" title="<%# Eval ("USU_ID")%>"><%# Eval ("USU_ID")%></td>
                                         <td style="width: 00%; text-align: center;" title="<%# Eval ("UTPS_ID")%>" hidden="hidden"><%# Eval ("UTPS_ID")%></td>
+                                        <td style="width: 10%; text-align: center;" title="<%# Eval ("Origem").ToString() == "T" ? "Pendente" : "Salvo" %>"><%# Eval ("Origem").ToString() == "T" ? "Pendente" : "Salvo"%></td>
                                     </tr>
                                 </ItemTemplate>
                                 <FooterTemplate>
@@ -219,9 +224,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="width: 100%; text-align: center;">
-                        <asp:Button ID="bntEnviar" CssClass="btn btn-success" runat="server" Text="Concluir" OnClick="bntEnviar_Click" Width="30%" />
-                        &nbsp;&nbsp;
-                        <asp:Button ID="btnLimpar" CssClass="btn btn-primary" runat="server" Text="Cancelar" OnClick="btnLimpar_Click" Width="30%" />
+                        <asp:Button ID="bntEnviar" CssClass="btn btn-success" runat="server" Text="Salvar Alterações" OnClick="bntEnviar_Click" Width="30%" />
                     </td>
                 </tr>
                 <tr>

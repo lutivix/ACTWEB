@@ -633,7 +633,7 @@
                                 <li class="" id="sub_thp_Subparadas" runat="server">
                                     <asp:LinkButton runat="server" ID="lnkTHP_Subparadas" OnClick="lnkTHP_Subparadas_Click">
                                         <span class="menu-item-icon"><i class="fa fa-connectdevelop"></i></span> 
-                                        <span class="menu-item-label" title="Altera motivo e Sub Paradas">Altera motivos e Sub-paradas</span>
+                                        <span class="menu-item-label" title="SubParadas">Subparadas</span>
                                     </asp:LinkButton>
                                 </li>
                             </ul>

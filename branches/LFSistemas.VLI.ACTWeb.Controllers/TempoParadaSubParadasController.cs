@@ -43,6 +43,11 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.RemoveSubparadasTemporarias(Id);
         }
 
+        public bool RemoveSubparadas(double Id)
+        {
+            return dao.RemoveSubparadas(Id);
+        }
+
         public List<TMP_SUBPARADAS> ObterSubparadasTemporariasPorUsuario(double parada, string usuarioLogado)
         {
             return dao.ObterSubparadasTemporariasPorUsuario(parada, usuarioLogado);
@@ -52,6 +57,10 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.SalvarSubParadas(tmp);
         }
 
+        //public List<TMP_SUBPARADAS> ObterSubParadasExistentes(string UTPID)
+        //{
+        //    return dao.ObterSubParadasExistentes(UTPID);
+        //}
 
 
         

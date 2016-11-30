@@ -43,7 +43,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             TP.ID_TREM_ACT AS ID_TREM, 
                                             ROW_NUMBER() OVER (PARTITION BY TM_COD_OF ORDER BY TM_COD_OF ) as LINHA, 
                                             TP.ID_SB, 
-                                            TP.IND_INCS 
+                                            TP.IND_INCS,
+                                            TP.UTP_ID
                                         FROM  ACTPP.OCUPACOES_VIGENTES OV, ACTPP.UNL_TRENS_PARADOS TP, ACTPP.TRENS T,  ACTPP.ELEM_VIA EV, MOTIVO_PARADA M, GRUPOS G, ACTPP.NOME_CORREDOR NC
                                             WHERE OV.TM_ID_TRM = T.TM_ID_TRM 
                                                 AND TP.ID_TREM_ACT = T.TM_ID_TRM
@@ -144,7 +145,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 TP.ID_TREM_ACT AS ID_TREM, 
                                                 ROW_NUMBER() OVER (PARTITION BY TM_COD_OF ORDER BY TM_COD_OF ) as LINHA, 
                                                 TP.ID_SB,
-                                                TP.IND_INCS
+                                                TP.IND_INCS,
+                                                TP.UTP_ID
                                         FROM  ACTPP.OCUPACOES_VIGENTES OV, ACTPP.UNL_TRENS_PARADOS TP, ACTPP.TRENS T,  ACTPP.ELEM_VIA EV, MOTIVO_PARADA M, GRUPOS G, ACTPP.NOME_CORREDOR NC
                                             WHERE OV.TM_ID_TRM = T.TM_ID_TRM 
                                                 AND TP.ID_TREM_ACT = T.TM_ID_TRM
@@ -198,6 +200,75 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
+
+        private List<TempoParadaSubParadas> ObterSubparadasPorID(string utp_id)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var itens = new List<TempoParadaSubParadas>(); 
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA VMA POR SB ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT UTP_ID,
+                                          UTPS_ID,
+                                          MOT.MOT_NOME,
+                                          DT_INI_PARADA,
+                                          DT_FIM_PARADA,
+                                          TEMPO_PARADA,
+                                          USU_ID,
+                                          DT_REGISTRO
+                                     FROM ACTPP.UNL_TRENS_PARADOS_SUBPARADAS UTPS, 
+                                          ACTWEB.MOTIVO_PARADA MOT
+                                    WHERE UTPS.COD_MOTIVO = MOT.MOT_AUTO_TRAC
+                                       ${UTP_ID}");
+
+                    if (utp_id != string.Empty && utp_id != null)
+                        query.Replace("${UTP_ID}", string.Format("AND UTPS.UTP_ID = {0}", utp_id));
+                    else
+                        query.Replace("${UTP_ID}", string.Format(" "));
+                     
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var item = PreencherPropriedadesSubparadas(reader);
+                            itens.Add(item);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, null, "THP", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return itens;
+             
+
+
+
+        }
+
+
 
         /// <summary>
         /// Altera o motivo da parada do Trem
@@ -1109,6 +1180,19 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var aux = reader.GetString(14);
                     item.Parada_Incons = aux == "T" ? "visible" : "hidden";
                 }
+                if (!reader.IsDBNull(15))
+                {
+                    var itens = ObterSubparadasPorID(reader.GetValue(15).ToString());
+                    if (itens.Count > 0)
+                    {
+                        item.SubParadas = itens;
+                        item.TemSubParadas = "visible";
+                    }
+                    else
+                        item.TemSubParadas = "hidden";
+                }
+
+
             }
             catch (Exception ex)
             {
@@ -1119,6 +1203,34 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
+
+        private TempoParadaSubParadas PreencherPropriedadesSubparadas(OleDbDataReader reader)
+        {
+            var item = new TempoParadaSubParadas();
+
+            try
+            {
+                if (!reader.IsDBNull(0)) item.IDParada = reader.GetValue(0).ToString();
+                if (!reader.IsDBNull(1)) item.ID = reader.GetValue(1).ToString();
+                if (!reader.IsDBNull(2)) item.Motivo = reader.GetString(2);
+                if (!reader.IsDBNull(3)) item.InicioParada = reader.GetDateTime(3).ToString();
+                if (!reader.IsDBNull(4)) item.FimParada = reader.GetDateTime(4).ToString();
+                if (!reader.IsDBNull(5)) item.TempoParada = reader.GetValue(5).ToString();
+                if (!reader.IsDBNull(6)) item.UsuarioRegistro = reader.GetValue(6).ToString();
+                if (!reader.IsDBNull(7)) item.DataRegistro = reader.GetDateTime(7);
+                  
+
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "THP", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return item;
+        }
+        
         private Relatorio_THP PreencherPropriedadesRelatorio_THPAnalitica(OleDbDataReader reader)
         {
             var item = new Relatorio_THP();
@@ -1165,6 +1277,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         item.Motivo = "Motivo inexistente!";
                     }
                 }
+                
                 if (!reader.IsDBNull(17)) item.Justificativa = reader.GetString(17);
                 if (!reader.IsDBNull(18)) item.SB = reader.GetString(18);
                 if (!reader.IsDBNull(19)) item.THP_Meta = reader.GetDouble(19);
