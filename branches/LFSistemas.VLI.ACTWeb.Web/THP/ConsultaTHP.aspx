@@ -71,7 +71,7 @@
             e.cancelBubble = true;
             if (e.stopPropagation) e.stopPropagation();
         };
-         
+
     </script>
     <style>
         .status-branco {
@@ -158,8 +158,11 @@
                             <label for="matricula">Motivo:</label>
                             <asp:TextBox runat="server" ID="txtFiltroMotivo" CssClass="form-control" Width="98%" />
                         </td>
+                        <td>
+                            <asp:CheckBox ID="chkboxSubparadas" Text="Exibe Subparadas" runat="server" />
+                        </td>
                         <td style="width: 15%; padding-top: 1em;" rowspan="2">
-                            <label for="matricula">Corredor:</label>
+                            <label for="">Corredor:</label>
                             <asp:CheckBoxList runat="server" ID="cblCorredor" CssClass="form-control" SelectionMode="Multiple" Width="160" Height="120">
                                 <asp:ListItem Text="&nbsp;&nbsp;Baixada" Value="6" />
                                 <asp:ListItem Text="&nbsp;&nbsp;Centro Leste" Value="1" />

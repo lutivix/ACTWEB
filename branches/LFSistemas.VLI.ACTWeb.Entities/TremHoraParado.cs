@@ -26,5 +26,6 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Parada_Incons { get; set; }
         public string TemSubParadas { get; set; }
         public List<TempoParadaSubParadas> SubParadas { get; set; }
+        public bool ExibeSubparadas { get; set; }
     }
 }

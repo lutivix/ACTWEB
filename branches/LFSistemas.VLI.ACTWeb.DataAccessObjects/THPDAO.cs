@@ -51,7 +51,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 AND G.GRU_ID_GRU = M.GRU_ID_GRU
                                                 AND (EV.NM_COR_ID = NC.NM_COR_ID OR EV.NM_COR_ID IS NULL)
                                                 AND (TRIM(TP.COD_MOT_DESPACHADOR) = TRIM(M.MOT_AUTO_TRAC) OR TP.COD_MOT_DESPACHADOR IS NULL)
-                                                AND TP.DT_FIM_PARADA IS NULL    
+                                                ${EXIBESUBPARADAS}
+                                                /*AND TP.DT_FIM_PARADA IS NULL*/    
                                                 AND T.TM_HR_REA_CHG  IS NULL   
                                                 AND EV.EV_ID_ELM = TP.ID_SB 
                                                 AND T.TM_COD_OF IS NOT NULL 
@@ -85,6 +86,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${GRU_NOME}", string.Format("AND G.GRU_ID_GRU IN ({0})", filtro.Grupo_ID.ToUpper()));
                     else
                         query.Replace("${GRU_NOME}", string.Format(" "));
+
+                    if (filtro.ExibeSubparadas == true)
+                    {
+                        query.Replace("${EXIBESUBPARADAS}", string.Format(" AND EXISTS (SELECT 1 FROM ACTPP.UNL_TRENS_PARADOS_SUBPARADAS UTPS WHERE TP.UTP_ID = UTPS.UTP_ID)", filtro.Grupo_ID.ToUpper()));
+                    }
+                    else query.Replace("${EXIBESUBPARADAS}", string.Format("AND TP.DT_FIM_PARADA IS NULL"));
+
 
                     #endregion
 

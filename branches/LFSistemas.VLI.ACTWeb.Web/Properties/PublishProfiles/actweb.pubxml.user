@@ -162,25 +162,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>11/30/2016 13:41:51</publishTime>
+      <publishTime>11/30/2016 15:29:18</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
       <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>11/30/2016 13:41:50</publishTime>
+      <publishTime>11/30/2016 15:29:17</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
       <publishTime>09/08/2016 12:55:17</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>11/30/2016 13:41:49</publishTime>
+      <publishTime>11/30/2016 15:29:15</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>11/30/2016 13:41:54</publishTime>
+      <publishTime>11/30/2016 15:29:20</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>
@@ -1686,7 +1686,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/03/2016 14:11:33</publishTime>
     </File>
     <File Include="THP/ConsultaTHP.aspx">
-      <publishTime>11/30/2016 12:08:18</publishTime>
+      <publishTime>11/30/2016 15:23:33</publishTime>
     </File>
     <File Include="THP/ConsultaTHP_Confirmacao.aspx">
       <publishTime>11/21/2016 09:59:18</publishTime>
