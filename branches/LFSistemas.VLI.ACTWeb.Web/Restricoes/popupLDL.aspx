@@ -94,9 +94,9 @@
                 if (item.length > 0) item += ":<%=txtDadosResponsavel.ClientID%>"; else item += "<%=txtDadosResponsavel.ClientID%>";
                 retorno = false;
             }
-            if (document.getElementById("<%=txtDadosDuracao.ClientID%>").value == '') {
+            if (document.getElementById("<%=txtDadosDuracaoSolicitada.ClientID%>").value == '') {
                 msg += " a Duração. \n";
-                if (item.length > 0) item += ":<%=txtDadosDuracao.ClientID%>"; else item += "<%=txtDadosDuracao.ClientID%>";
+                if (item.length > 0) item += ":<%=txtDadosDuracaoSolicitada.ClientID%>"; else item += "<%=txtDadosDuracaoSolicitada.ClientID%>";
                 retorno = false;
             }
             if (document.getElementById("<%=txtDadosKm.ClientID%>").value == '') {
@@ -257,7 +257,7 @@
                     <tr>
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Duração (Min.):&nbsp;&nbsp;</td>
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-                            <asp:TextBox ID="txtDadosDuracao" runat="server" CssClass="form-control" />
+                            <asp:TextBox ID="txtDadosDuracaoSolicitada" runat="server" CssClass="form-control" />
                         </td>
                         <td style="width: 40%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Tipo da Manutenção:&nbsp;&nbsp;</td>
@@ -462,18 +462,22 @@
                                         <thead>
                                             <tr>
                                                 <th style="background-color: #fff; width: 02%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#"><i class="fa fa-search-plus"></a></th>
-                                                <th style="background-color: #fff; width: 15%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                <th style="background-color: #fff; width: 05%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                     <asp:LinkButton ID="lnkSituacao" runat="server" OnClick="lnkSituacao_Click">Situação</asp:LinkButton> </th>
                                                 <th style="background-color: #fff; width: 07%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                     <asp:LinkButton ID="lnkSecao" runat="server" OnClick="lnkSecao_Click">Seção</asp:LinkButton></th>
                                                 <th style="background-color: #fff; width: 07%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                     <asp:LinkButton ID="lnkManutencao" runat="server" OnClick="lnkManutencao_Click">Manutenção</asp:LinkButton> </th>
-                                                <th style="background-color: #fff; width: 15%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                <th style="background-color: #fff; width: 07%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                     <asp:LinkButton ID="lnkData" runat="server" OnClick="lnkData_Click">Data</asp:LinkButton> </th>
                                                 <th style="background-color: #fff; width: 05%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                     <asp:LinkButton ID="lnkKM" runat="server" OnClick="lnkKM_Click">KM</asp:LinkButton> </th>
-                                                <th style="background-color: #fff; width: 44%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"">
+                                                <th style="background-color: #fff; width: 25%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                     <asp:LinkButton ID="lnkObservacao" runat="server" OnClick="lnkObservacao_Click">Observação</asp:LinkButton> </th>
+                                                <th style="background-color: #fff; width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                    <asp:LinkButton ID="lnkDuracaoSolicitada" runat="server" OnClick="lnkDuracaoSolicitada_OnClick">Solicitado <Font size="2">(hh:mm)</Font></asp:LinkButton> </th>
+                                                <th style="background-color: #fff; width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                    <asp:LinkButton ID="lnkDuracaoAutorizada" runat="server" OnClick="lnkDuracaoAutorizada_OnClick">Autorizado <Font size="2">(hh:mm)</Font> </asp:LinkButton> </th>
                                                 <th style="background-color: #fff; width: 05%; text-align: center; font-size: 12pt;" title="Autorização">
                                                     <asp:LinkButton ID="lnkAutorizacao" runat="server" OnClick="lnkAutorizacao_Click">ATZ</asp:LinkButton> </th>
                                                 
@@ -482,16 +486,18 @@
                                         <tbody>
                                 </HeaderTemplate>
                                 <ItemTemplate>
-                                    <tr style="font-size: 9px; margin-top: 15px; cursor: pointer;" class="situacao-<%# Eval("Situacao_Nome").ToString().Substring(0,1) %>">
+                                    <tr style="font-size: 9px; margin-top: 1px; cursor: pointer;" class="situacao-<%# Eval("Situacao_Nome").ToString().Substring(0,1) %>">
                                         <td style="width: 02%; text-align: center; border-right: 1px solid rgb(0, 72, 89);">
                                             <asp:LinkButton ID="lnkEdite" runat="server" OnClick="lnkEdite_Click" CommandArgument='<%# Eval("Solicitacao_ID_ACTWEB") %>'><i class="fa fa-search-plus"></i></asp:LinkButton>
                                         </td>
-                                        <td style="width: 15%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Situacao_Nome") %>"><%# Eval("Situacao_Nome") %></td>
+                                        <td style="width: 05%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Situacao_Nome") %>"><%# Eval("Situacao_Nome") %></td>
                                         <td style="width: 07%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Secao_Nome") %>"><%# Eval("Secao_Nome") %></td>
                                         <td style="width: 07%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Tipo_Manutencao_Nome") %>"><%# Eval("Tipo_Manutencao_Nome") %></td>
-                                        <td style="width: 15%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Data") %>"><%# Eval("Data") %></td>
+                                        <td style="width: 07%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Data") %>"><%# Eval("Data") %></td>
                                         <td style="width: 05%; text-align: right; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Km") %>"><%# Eval("Km") %></td>
-                                        <td style="width: 44%; text-align: left; border-right: 1px solid rgb(0, 72, 89);"" title="<%# Eval("Observacao") %>"><%# Eval("Observacao") %></td>
+                                        <td style="width: 25%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Observacao") %>"><%# Eval("Observacao") %></td>
+                                        <td style="width: 10%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Duracao_Solicitada") %>"><%# double.Parse(Eval("Duracao_Solicitada").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}", (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Solicitada").ToString())).TotalHours, (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Solicitada").ToString())).Minutes) : ""%> </td>
+                                        <td style="width: 10%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Duracao_Autorizada") %>"><%# double.Parse(Eval("Duracao_Autorizada").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}", (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Autorizada").ToString())).TotalHours, (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Autorizada").ToString())).Minutes) : ""%> </td>
                                         <td style="width: 05%; text-align: center; " title="<%# Eval("Aut_Interdicao_Act") %>"><%# Eval("Aut_Interdicao_Act") %></td>
                                     </tr>
                                 </ItemTemplate>
