@@ -68,7 +68,7 @@
             var confirm_value = document.createElement("INPUT");
             confirm_value.type = "hidden";
             confirm_value.name = "confirm_value";
-            if (confirm("Deseja realmente remover as macros selecionadas?")) {
+            if (confirm("As subparadas serão removidas DEFINITIVAMENTE. Deseja continuar?")) {
                 confirm_value.value = "true";
             } else {
                 confirm_value.value = "false";
