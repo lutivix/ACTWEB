@@ -1406,7 +1406,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     DataInicio = DateTime.Parse(txtDataInicio.Text + " " + FormataHora(txtHoraInicio.Text)),
                     DataFim = horaFim,
                     Espaco = Espaco,
-                    Motivo = result
+                    Motivo = result,
+                    Corredores = corredores
                 });
 
                 if (itens.Count > 0)
@@ -1538,6 +1539,36 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 }
             }
 
+            var aux = new List<string>();
+            if (clbCorredor.Items.Count > 0)
+            {
+                for (int i = 0; i < clbCorredor.Items.Count; i++)
+                {
+                    if (clbCorredor.Items[i].Selected)
+                    {
+                        aux.Add(string.Format("'{0}'", clbCorredor.Items[i].Value));
+                    }
+                }
+                if (aux.Count <= 0)
+                {
+                    aux.Add("'Baixada'");
+                    aux.Add("'Centro Leste'");
+                    aux.Add("'Centro Norte'");
+                    aux.Add("'Centro Sudeste'");
+                    aux.Add("'Minas Bahia'");
+                    aux.Add("'Minas Rio'");
+                    aux.Add("'-'");
+                    aux.Add("' '");
+                }
+                else
+                {
+                    aux.Add("'-'");
+                    aux.Add("' '");
+                }
+
+                corredores = string.Join(",", aux);
+            }
+
             var macroController = new MacroController();
             var itens = macroController.ObterEnviadas(new Entities.FiltroMacro()
             {
@@ -1548,7 +1579,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 DataInicio = DateTime.Parse(txtDataInicio.Text + " " + txtHoraInicio.Text),
                 DataFim = horaFim,
                 Expressao = txtExpressao.Text,
-                Espaco = Espaco
+                Espaco = Espaco,
+                Corredores = corredores
             });
 
             if (itens.Count > 0)

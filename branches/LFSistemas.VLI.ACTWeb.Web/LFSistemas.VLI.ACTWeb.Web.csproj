@@ -1195,7 +1195,6 @@
     </Compile>
     <Compile Include="Sobre.aspx.cs">
       <DependentUpon>Sobre.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Sobre.aspx.designer.cs">
       <DependentUpon>Sobre.aspx</DependentUpon>
