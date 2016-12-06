@@ -50,7 +50,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             if (Request.QueryString["pu"] != null) ViewState["uPerfil"] = Uteis.Descriptografar(Request.QueryString["pu"].ToString(), "a#3G6**@").ToUpper();
             if (Request.QueryString["mm"] != null) ViewState["ulMaleta"] = Uteis.Descriptografar(Request.QueryString["mm"].ToString(), "a#3G6**@").ToUpper();
             
-            chkboxTremEncerrado.Checked = true;
+            
 
             if (!Page.IsPostBack)
             {
@@ -71,6 +71,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
 
                 //ScriptManager scriptManager = ScriptManager.GetCurrent(this.Page);
                 //scriptManager.RegisterPostBackControl(this.lnkGeraExcel);
+                chkboxTremEncerrado.Checked = true;
 
             }
         }
