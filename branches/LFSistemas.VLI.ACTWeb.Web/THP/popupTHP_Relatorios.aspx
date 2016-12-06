@@ -539,6 +539,13 @@
                                                                     <asp:TextBox runat="server" ID="txtFiltroSB" CssClass="form-control" Width="95%" />
                                                                 </td>
                                                             </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <label for="CheckBoxTremEncerrado">Somente trem encerrado:</label>
+                                                                    <asp:CheckBox ID="chkboxTremEncerrado" runat="server" />
+                                                                </td>
+                                                                 
+                                                            </tr>
                                                         </table>
                                                     </td>
                                                 </tr>
