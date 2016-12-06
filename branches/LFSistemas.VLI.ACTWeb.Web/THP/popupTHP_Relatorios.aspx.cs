@@ -1093,7 +1093,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             if (txtFiltroDataDe.Text.ToUpper().Trim() != txtFiltroDataAte.Text.ToUpper().Trim())
             {
                 filtro_ini = DateTime.Parse(txtFiltroDataDe.Text + " 00:00:00");
-                filtro_fim = DateTime.Parse(txtFiltroDataAte.Text + " 00:00:00");
+                filtro_fim = DateTime.Parse(txtFiltroDataAte.Text + " 23:59:59");
             }
             else
             {
@@ -1942,7 +1942,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             if (txtFiltroDataDe.Text.ToUpper().Trim() != txtFiltroDataAte.Text.ToUpper().Trim())
             {
                 filtro_ini = DateTime.Parse(txtFiltroDataDe.Text + " 00:00:00");
-                filtro_fim = DateTime.Parse(txtFiltroDataAte.Text + " 00:00:00");
+                filtro_fim = DateTime.Parse(txtFiltroDataAte.Text + " 23:59:59");
             }
             else
             {
