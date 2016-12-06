@@ -10,6 +10,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
     public class TempoParadaConfirmacao
         {
         public string Prefixo { get; set; }
+        public string Prefixo7D { get; set; }
         public string OS { get; set; }
         public string Local { get; set; }
         public string InicioParada { get; set; }

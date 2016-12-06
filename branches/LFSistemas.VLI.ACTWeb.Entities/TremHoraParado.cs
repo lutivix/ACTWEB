@@ -15,6 +15,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Corredor { get; set; }
         public double Codigo_OS { get; set; }
         public string Prefixo { get; set; }
+        public string Prefixo7D { get; set; }
         public string Local { get; set; }
         public string Tempo { get; set; }
         public double Sb_ID { get; set; }

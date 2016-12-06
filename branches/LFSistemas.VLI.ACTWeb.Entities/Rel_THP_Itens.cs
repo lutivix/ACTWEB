@@ -23,6 +23,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string OS { get; set; }
         public string Trem_ID { get; set; }
         public string Prefixo { get; set; }
+        public string Prefixo7D { get; set; }
         public string Grupo_ID { get; set; }
         public string Grupo { get; set; }
         public string Motivo_ID { get; set; }

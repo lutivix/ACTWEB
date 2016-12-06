@@ -40,7 +40,7 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
 
         public bool RemoveSubparadasTemporarias(double Id)
         {
-            return dao.RemoveSubparadasTemporarias(Id);
+            return dao.RemoveSubParadasTemporarias(Id);
         }
 
         public bool RemoveSubparadas(double Id)

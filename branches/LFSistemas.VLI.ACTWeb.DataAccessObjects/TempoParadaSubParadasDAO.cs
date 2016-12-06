@@ -104,7 +104,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           UTP.COD_MOT_DESPACHADOR AS MOTIVO_PARADA_DESPACHADOR,
                                           UTP.NM_USUARIO_LOG AS DESPACHADOR,
                                           RGC.PO_ID_PS_TRB AS POSTO_TRABALHO,
-                                          UTP.UTP_ID
+                                          UTP.UTP_ID,
+                                          TRE.TM_ID_TRM
                                      FROM ACTPP.UNL_TRENS_PARADOS UTP,
                                           ACTPP.TRENS TRE,
                                           ACTPP.ELEM_VIA ELV,
@@ -586,7 +587,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(10)) item.Despachador = reader.GetString(10);
             if (!reader.IsDBNull(11)) item.PostoTrabalho = reader.GetDouble(11).ToString();
             if (!reader.IsDBNull(12)) item.ID =  reader.GetValue(12).ToString();
-
+            if (!reader.IsDBNull(13))
+            {
+                var tremID = reader.GetValue(13).ToString();
+                if (tremID != null)
+                    item.Prefixo7D = new MacroDAO().ObterPrefixo7D(tremID).Prefixo7D;
+            }
+        
             return item;
         }
 
@@ -600,7 +607,6 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(3)) item.CodigoMotivo = reader.GetValue(3).ToString();
             if (!reader.IsDBNull(4)) item.OS = reader.GetValue(4).ToString();
             if (!reader.IsDBNull(2)) item.TempoParadaOriginal = Math.Floor(reader.GetDateTime(2).Subtract(reader.GetDateTime(1)).TotalMinutes);
- 
             return item;
         }
 

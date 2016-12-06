@@ -13,6 +13,8 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Tipo { get; set; }
         public string Locomotiva { get; set; }
         public string Trem { get; set; }
+        public string TremID { get; set; }
+        public string Prefixo7D { get; set; }
         public double CodigoOS { get; set; }
         public DateTime Horario { get; set; }
         public DateTime? Tratado { get; set; }

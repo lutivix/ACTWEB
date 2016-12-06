@@ -88,8 +88,23 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
         protected void lnkFiltroAtualiza_Click(object sender, EventArgs e)
         {
             AtualizarDataHora();
-        } 
+        }
 
+        protected void lnkPrefixo7D_OnClick(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("PREFIXO7D " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("PREFIXO7D " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
         protected void linkDescricao_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
@@ -392,6 +407,5 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             //Response.Redirect("/THP/popupSubparadas.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
             //Response.Redirect("/THP/popupSubparadas.aspx?so=" + Uteis.Criptografar(iu, "a#3G6**@").ToString());
         }
-    
     }
 }

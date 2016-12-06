@@ -251,7 +251,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 {
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT 'R' AS R_E, MR.MR_LOCO, MR.MR_PRF_ACT, MR.MR_COD_OF, MR.MR_MSG_TIME AS HorArio, MR.MR_MC_NUM, SUBSTR(MR.MR_TEXT, 1, 760) AS MR_TEXT, MR.MR_MCT_ADDR, MR.MR_GRMN, MR.MR_CORREDOR, MR.MR_NOME_SB, MR.MR_KM, MR.MR_TIME_TRT AS TRATADO, MR.MR_LAND_MARK
+                    query.Append(@"SELECT 'R' AS R_E, MR.MR_LOCO, MR.MR_PRF_ACT, MR.MR_COD_OF, MR.MR_MSG_TIME AS HorArio, MR.MR_MC_NUM, SUBSTR(MR.MR_TEXT, 1, 760) AS MR_TEXT, MR.MR_MCT_ADDR, MR.MR_GRMN, MR.MR_CORREDOR, MR.MR_NOME_SB, MR.MR_KM, MR.MR_TIME_TRT AS TRATADO, MR.MR_LAND_MARK, MR.MR_ID_TRM
                                         FROM ACTPP.MENSAGENS_RECEBIDAS MR
                                         WHERE 1=1
                                             ${R_Horar}
@@ -262,7 +262,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             ${R_Expre}
                                             ${R_Corre}
                                     UNION
-                                        SELECT 'E' AS R_E, ME.ME_LOCO, ME.ME_PRF_ACT, ME.ME_COD_OF, ME.ME_MSG_TIME AS HorArio, ME.ME_MAC_NUM, SUBSTR (ME.ME_TEXT, 1, 760) AS MR_TEXT, ME.ME_MCT_ADDR, ME.ME_MSG_NUM,  ME.ME_CORREDOR, ME.ME_NOME_SB, ME.ME_KM, ME.ME_CONFIRM_TIME AS TRATADO, ME.ME_LAND_MARK
+                                        SELECT 'E' AS R_E, ME.ME_LOCO, ME.ME_PRF_ACT, ME.ME_COD_OF, ME.ME_MSG_TIME AS HorArio, ME.ME_MAC_NUM, SUBSTR (ME.ME_TEXT, 1, 760) AS MR_TEXT, ME.ME_MCT_ADDR, ME.ME_MSG_NUM,  ME.ME_CORREDOR, ME.ME_NOME_SB, ME.ME_KM, ME.ME_CONFIRM_TIME AS TRATADO, ME.ME_LAND_MARK, ME.ME_ID_TRM
                                         FROM ACTPP.MENSAGENS_ENVIADAS ME
                                         WHERE 1=1
                                         ${E_Horar}
@@ -473,7 +473,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 {
                     var command = connection.CreateCommand();
 
-                        queryE.Append(@"SELECT 'E' AS R_E, ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS HorArio, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS ME_TEXT, ME_MCT_ADDR, ME.ME_MSG_NUM, ME_MSG_STATUS, ME_CONFIRM_TIME AS TRATADO, ME_CORREDOR AS CORREDOR
+                        queryE.Append(@"SELECT 'E' AS R_E, ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS HorArio, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS ME_TEXT, ME_MCT_ADDR, ME.ME_MSG_NUM, ME_MSG_STATUS, ME_CONFIRM_TIME AS TRATADO, ME_CORREDOR AS CORREDOR, ME.ME_ID_TRM
                                         FROM ACTPP.MENSAGENS_ENVIADAS ME
                                             WHERE 1=1
                                             ${ME_MSG_TIME}
@@ -608,7 +608,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
 
-                        queryR.Append(@"SELECT 'R' AS R_E, MR.MR_LOCO, MR.MR_PRF_ACT, MR.MR_COD_OF, MR.MR_MSG_TIME AS HorArio, MR.MR_MC_NUM, SUBSTR(MR.MR_TEXT, 1, 760) AS MR_TEXT, MR.MR_MCT_ADDR, MR.MR_GRMN, MR.MR_LAT, MR.MR_LON, MR.MR_CORREDOR, MR.MR_NOME_SB, MR.MR_KM, MR.MR_LAND_MARK, MR.MR_TIME_TRT AS TRATADO, MR.MR_MAT_OPER, MR.MR_MSG_LIDA, MR.MR_MSG_RESP
+                        queryR.Append(@"SELECT 'R' AS R_E, MR.MR_LOCO, MR.MR_PRF_ACT, MR.MR_COD_OF, MR.MR_MSG_TIME AS HorArio, MR.MR_MC_NUM, SUBSTR(MR.MR_TEXT, 1, 760) AS MR_TEXT, MR.MR_MCT_ADDR, MR.MR_GRMN, MR.MR_LAT, MR.MR_LON, MR.MR_CORREDOR, MR.MR_NOME_SB, MR.MR_KM, MR.MR_LAND_MARK, MR.MR_TIME_TRT AS TRATADO, MR.MR_MAT_OPER, MR.MR_MSG_LIDA, MR.MR_MSG_RESP, MR.MR_ID_TRM
                                         FROM ACTPP.MENSAGENS_RECEBIDAS MR
                                         WHERE 1=1
                                         ${MR_MSG_TIME}
@@ -1458,6 +1458,56 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return conversas;
         }
 
+        public Prefixo7Dativos ObterPrefixo7D(string TremID)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var item = new Prefixo7Dativos();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA VMA POR SB ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT TM7_ID_TRM, TM7_PRF_ACT, TM_ID_TRM, TM_PFR_ACT, TM7_TIME AS PREFIXO7D FROM ACTPP.TRENS7D_ATIVOS T7 WHERE TM_ID_TRM = ${TM_ID_TRM}");
+
+                    query.Replace("${TM_ID_TRM}", string.Format("{0}", TremID));
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            item.Prefixo7DID    = reader.GetValue(0).ToString();
+                            item.Prefixo7D      = reader.GetValue(1).ToString();
+                            item.TremID         = reader.GetValue(2).ToString();
+                            item.Prefixo4D      = reader.GetValue(3).ToString();
+                            item.Data           = reader.GetValue(4).ToString();
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, null, "Abreviar", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return item;
+        }
 
         #endregion
 
@@ -1532,8 +1582,18 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (item.Tratado != DateTime.MinValue) item.Tratado = reader.GetDateTime(12); else item.Tratado = null;
             }
             if (!reader.IsDBNull(13)) item.Localizacao = reader.GetString(13);
+            if (!reader.IsDBNull(14))
+            {
+                item.TremID = reader.GetValue(14).ToString();
+                if (item.TremID != null)
+                {
+                    item.Prefixo7D = ObterPrefixo7D(item.TremID).Prefixo7D;
+                }
+            }
 
-            item.DescricaoMacro = "DESCRICAO DE TESTE ";
+                item.DescricaoMacro = "DESCRICAO DE TESTE ";
+
+
             return item;
         }
         private Macro PreencherPropriedadesE(OleDbDataReader reader)
@@ -1592,6 +1652,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (item.Tratado != DateTime.MinValue) item.Tratado = reader.GetDateTime(10); else item.Tratado = null;
             }
             if (!reader.IsDBNull(11)) item.Corredor = reader.GetString(11);
+            if (!reader.IsDBNull(12))
+            {
+                item.TremID = reader.GetValue(12).ToString();
+                if (item.TremID != null)
+                {
+                    item.Prefixo7D = ObterPrefixo7D(item.TremID).Prefixo7D;
+                }
+            }
+
 
             item.DescricaoMacro = "DESCRICAO DE TESTE ";
             return item;
@@ -1636,7 +1705,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                 item.Tempo_Resposta = tempo != null ? tempo.ToString() : string.Empty;
             }
-
+            if (!reader.IsDBNull(19))
+            {
+                item.TremID = reader.GetValue(19).ToString();
+                if (item.TremID != null)
+                {
+                    item.Prefixo7D = ObterPrefixo7D(item.TremID).Prefixo7D;
+                }
+            }
 
 
             item.DescricaoMacro = "DESCRICAO DE TESTE ";

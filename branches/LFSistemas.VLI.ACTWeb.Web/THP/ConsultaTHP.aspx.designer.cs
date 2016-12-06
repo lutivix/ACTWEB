@@ -175,6 +175,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP {
         protected global::System.Web.UI.WebControls.LinkButton lnkPrefixo;
         
         /// <summary>
+        /// lnkPrefixo7D control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkPrefixo7D;
+        
+        /// <summary>
         /// lnkLocal control.
         /// </summary>
         /// <remarks>

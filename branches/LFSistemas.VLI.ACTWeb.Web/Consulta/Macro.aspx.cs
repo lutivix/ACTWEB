@@ -63,7 +63,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
         #region [ MÉTODOS DE CLICK DOS BOTÕES ]
 
-        /* - ORDENAR POR COLUNAS -- JUNTAS */
+        
         protected void ButtonPesquisar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtNumeroLocomotiva.Text) && string.IsNullOrEmpty(txtNumeroTrem.Text) && string.IsNullOrEmpty(txtCodigoOS.Text) && string.IsNullOrEmpty(txtNumeroMacro.Text))
@@ -415,6 +415,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             if (rdRecebidas.Checked)
                 this.CarregarMacrosRecebidas(null, Navigation.None);
         }
+
+        #region [ ORDENAR POR COLUNAS - JUNTAS ]
+
         protected void lnkJuntasRE_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
@@ -458,6 +461,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             {
                 ViewState["ordenacao"] = "ASC";
                 CarregarMacrosJuntas("TREM " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+        protected void lnkJuntasPrefixo7D_OnClick(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                CarregarMacrosJuntas("PREFIXO7D " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                CarregarMacrosJuntas("PREFIXO7D " + ViewState["ordenacao"].ToString(), Navigation.None);
             }
         }
         protected void lnkJuntasCodOS_Click(object sender, EventArgs e)
@@ -551,7 +569,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             }
         }
 
-        /* - ORDENAR POR COLUNAS -- ENVIADAS */
+        #endregion
+
+        #region [ ORDENAR POR COLUNAS - ENVIADAS ]
+        
         protected void lnkEnviadasRE_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
@@ -595,6 +616,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             {
                 ViewState["ordenacao"] = "ASC";
                 CarregarMacrosEnviadas("TREM " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+        protected void lnkEnviadasPrefixo7D_OnClick(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                CarregarMacrosEnviadas("PREFIXO7D " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                CarregarMacrosEnviadas("PREFIXO7D " + ViewState["ordenacao"].ToString(), Navigation.None);
             }
         }
         protected void lnkEnviadasCodOS_Click(object sender, EventArgs e)
@@ -718,8 +754,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             }
         }
 
+        #endregion
 
-        /* - ORDENAR POR COLUNAS -- RECEBIDAS */
+        #region [ ORDENAR POR COLUNAS - RECEBIDAS ]
+        
         protected void lnkRecebidasRE_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
@@ -763,6 +801,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             {
                 ViewState["ordenacao"] = "ASC";
                 CarregarMacrosRecebidas("TREM " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+        protected void lnkRecebidasPrefixo7D_OnClick(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                CarregarMacrosRecebidas("PREFIXO7D " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                CarregarMacrosRecebidas("PREFIXO7D " + ViewState["ordenacao"].ToString(), Navigation.None);
             }
         }
         protected void lnkRecebidasCodOS_Click(object sender, EventArgs e)
@@ -916,6 +969,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             }
         }
 
+        #endregion
+
+        #region [ NAVEGAR NO REPITER ]
+
         protected void lnkJ_PrimeiraPagina_Click(object sender, EventArgs e)
         {
             PrimeiraPagina();
@@ -1007,6 +1064,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             ViewState["SortExpression"] = e.CommandName;
             Pesquisar(null, Navigation.Anterior);
         }
+
+        #endregion
 
         #endregion
 
@@ -1291,6 +1350,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                             case "TREM DESC":
                                 itens = itens.OrderByDescending(o => o.Trem).ToList();
                                 break;
+                            case "PREFIXO7D ASC":
+                                itens = itens.OrderBy(o => o.Prefixo7D).ToList();
+                                break;
+                            case "PREFIXO7D DESC":
+                                itens = itens.OrderByDescending(o => o.Prefixo7D).ToList();
+                                break;
+
                             case "COD_OS ASC":
                                 itens = itens.OrderBy(o => o.CodigoOS).ToList();
                                 break;
@@ -1605,6 +1671,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     case "TREM DESC":
                         itens = itens.OrderByDescending(o => o.Trem).ToList();
                         break;
+                    case "PREFIXO7D ASC":
+                        itens = itens.OrderBy(o => o.Prefixo7D).ToList();
+                        break;
+                    case "PREFIXO7D DESC":
+                        itens = itens.OrderByDescending(o => o.Prefixo7D).ToList();
+                        break;
                     case "COD_OS ASC":
                         itens = itens.OrderBy(o => o.CodigoOS).ToList();
                         break;
@@ -1802,6 +1874,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     case "TREM DESC":
                         itens = itens.OrderByDescending(o => o.Trem).ToList();
                         break;
+                    case "PREFIXO7D ASC":
+                        itens = itens.OrderBy(o => o.Prefixo7D).ToList();
+                        break;
+                    case "PREFIXO7D DESC":
+                        itens = itens.OrderByDescending(o => o.Prefixo7D).ToList();
+                        break;
                     case "COD_OS ASC":
                         itens = itens.OrderBy(o => o.CodigoOS).ToList();
                         break;
@@ -1955,6 +2033,5 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         }
 
         #endregion
-
     }
 }

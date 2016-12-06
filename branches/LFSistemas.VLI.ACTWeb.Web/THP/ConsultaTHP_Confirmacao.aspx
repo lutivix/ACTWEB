@@ -160,26 +160,23 @@
                             <asp:TextBox runat="server" ID="txtHoraFinal" CssClass="form-control" Width="98%" MaxLength="05" onKeyUp="formatar(this, '##:##')" onkeypress="return PermiteSomenteNumeros(event);" />
                         </td>
                         <td>
-                            <td style="width: 07%;">&nbsp;<label for="matricula">Trem:</label>
+                        <td style="width: 07%;">&nbsp;<label for="matricula">Trem:</label>
                             <asp:TextBox runat="server" ID="txtPrefixo" CssClass="form-control" />
                         </td>
                         <td>
-                            <td style="width: 15%;">&nbsp;<label for="matricula">Posto de trabalho:</label>
+                        <td style="width: 15%;">&nbsp;<label for="matricula">Posto de trabalho:</label>
                             <asp:DropDownList ID="ddlPostoTrabalho" runat="server" CssClass="form-control" ToolTip="Selecione o Posto de Trabalho" />
                         </td>
 
                         <td style="width: 65%;"></td>
                     </tr>
-                     <tr>
-                        <td> 
-
-                        </td>
+                    <tr>
+                        <td></td>
                         <td>
                             <div class="form-group col-sm-6">
-                            
                             </div>
                         </td>
-                    </tr> 
+                    </tr>
                     <tr>
                         <td>
                             <br />
@@ -189,12 +186,12 @@
                         <td colspan="5" style="width: 100%;">
                             <div class="btn-group btn-group-lg hidden-xs">
                                 <div class="btn-group btn-group-lg">
-                                    <asp:LinkButton runat="server" ID="lnkFiltroPesquisar" CssClass="btn btn-primary" OnClick="lnkFiltroPesquisar_Click" ToolTip="Pesquisa alarmes telecomandadas conforme filtro informado." ><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
+                                    <asp:LinkButton runat="server" ID="lnkFiltroPesquisar" CssClass="btn btn-primary" OnClick="lnkFiltroPesquisar_Click" ToolTip="Pesquisa alarmes telecomandadas conforme filtro informado."><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
                                 </div>
                                 <div class="btn-group btn-group-lg">
-                                    <asp:LinkButton runat="server" ID="lnkFiltroAtualiza" CssClass="btn btn-info" OnClick="lnkFiltroAtualiza_Click" ToolTip="Atualiza data e hora no filtro de pesquisa." ><i class="fa fa-clock-o"></i>&nbsp;Atualizar Hora</asp:LinkButton>
+                                    <asp:LinkButton runat="server" ID="lnkFiltroAtualiza" CssClass="btn btn-info" OnClick="lnkFiltroAtualiza_Click" ToolTip="Atualiza data e hora no filtro de pesquisa."><i class="fa fa-clock-o"></i>&nbsp;Atualizar Hora</asp:LinkButton>
                                 </div>
-                            </div>                             
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -221,6 +218,8 @@
                                                         <th style="width: 05%; text-align: center; font-size: 8pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="lnkPrefixo" OnClick="lnkPrefixo_Click" Text="Prefixo" /></th>
                                                         <th style="width: 05%; text-align: center; font-size: 8pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                            <asp:LinkButton runat="server" ID="lnkPrefixo7D" OnClick="lnkPrefixo7D_OnClick" Text="Prefixo 7D" /></th>
+                                                        <th style="width: 05%; text-align: center; font-size: 8pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="linkOS" OnClick="linkOS_Click" Text="OS" /></th>
                                                         <th style="width: 05%; text-align: center; font-size: 8pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="lnkLocal" OnClick="lnkLocal_Click" Text="Local" /></th>
@@ -234,8 +233,8 @@
                                                             <asp:LinkButton runat="server" ID="lnkTempoConfirmacaoDespachador" OnClick="lnkTempoConfirmacaoDespachador_Click" Text="Confirm. Despachador" /></th>
                                                         <th style="width: 05%; text-align: center; font-size: 8pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="lnkTempoRespostaDespachador" OnClick="lnkTempoRespostaDespachador_Click" Text="Tempo Resposta Despachador" /></th>
-                                                            <th style="width: 05%; text-align: center; font-size: 8pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                <asp:LinkButton runat="server" ID="lnkMotivoParadaMaquinista" OnClick="lnkMotivoParadaMaquinista_Click" Text="Motivo Parada Maquinista" /></th>
+                                                        <th style="width: 05%; text-align: center; font-size: 8pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                            <asp:LinkButton runat="server" ID="lnkMotivoParadaMaquinista" OnClick="lnkMotivoParadaMaquinista_Click" Text="Motivo Parada Maquinista" /></th>
                                                         <th style="width: 05%; text-align: center; font-size: 8pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="lnkMotivoParadaDespachador" OnClick="lnkMotivoParadaDespachador_Click" Text="Motivo Parada Despachador" /></th>
                                                         <th style="width: 05%; text-align: center; font-size: 8pt; border-right: 1px solid rgb(0, 72, 89);">
@@ -247,18 +246,19 @@
                                                 <tbody>
                                         </HeaderTemplate>
                                         <ItemTemplate>
-                                                <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Prefixo")%>"><%# Eval("Prefixo")%> </td>
-                                                <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("OS")%>"><%# Eval("OS") %> </td>
-                                                <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Local")%>"><%# Eval("Local")%> </td>
-                                                <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("InicioParada")%>"><%# Eval("InicioParada")%></td>
-                                                <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("FimParada")%>"><%# Eval("FimParada")%></td>
-                                                <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("TempoParada")%>"><%# Eval("TempoParada")%></td>
-                                                <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("ConfirmacaoDespachador")%>"><%# Eval("ConfirmacaoDespachador")%></td>
-                                                <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("TempoRespostaDespachador")%>"><%# Eval("TempoRespostaDespachador")%></td>
-                                                <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("MotivoParadaMaquinista")%>"><%# Eval("MotivoParadaMaquinista")%></td>
-                                                <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("MotivoParadaDespachador")%>"><%# Eval("MotivoParadaDespachador")%></td>
-                                                <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Despachador")%>"><%# Eval("Despachador")%></td>
-                                                <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("PostoTrabalho")%>"><%# Eval("PostoTrabalho")%></td>
+                                            <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Prefixo")%>"><%# Eval("Prefixo")%> </td>
+                                            <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Prefixo7D")%>"><%# Eval("Prefixo7D")%> </td>
+                                            <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("OS")%>"><%# Eval("OS") %> </td>
+                                            <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Local")%>"><%# Eval("Local")%> </td>
+                                            <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("InicioParada")%>"><%# Eval("InicioParada")%></td>
+                                            <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("FimParada")%>"><%# Eval("FimParada")%></td>
+                                            <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("TempoParada")%>"><%# Eval("TempoParada")%></td>
+                                            <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("ConfirmacaoDespachador")%>"><%# Eval("ConfirmacaoDespachador")%></td>
+                                            <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("TempoRespostaDespachador")%>"><%# Eval("TempoRespostaDespachador")%></td>
+                                            <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("MotivoParadaMaquinista")%>"><%# Eval("MotivoParadaMaquinista")%></td>
+                                            <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("MotivoParadaDespachador")%>"><%# Eval("MotivoParadaDespachador")%></td>
+                                            <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Despachador")%>"><%# Eval("Despachador")%></td>
+                                            <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("PostoTrabalho")%>"><%# Eval("PostoTrabalho")%></td>
                                             </tr>
                                         </ItemTemplate>
                                         <FooterTemplate>
@@ -268,18 +268,18 @@
                                     </asp:Repeater>
                                 </td>
                             </tr>
-                        <tr>
-                            <td>
-                                <table style="padding-top: 10px;">
-                                    <tr>
-                                        <td>
-                                            <asp:Label ID="lblCurrentPage" runat="server"></asp:Label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <asp:LinkButton ID="lnkPrimeiraPagina" runat="server" OnClick="lnkPrimeiraPagina_Click" ToolTip="Primeira página"><i class="fa fa-fast-backward"></i></asp:LinkButton>
-                                            &nbsp; 
+                            <tr>
+                                <td>
+                                    <table style="padding-top: 10px;">
+                                        <tr>
+                                            <td>
+                                                <asp:Label ID="lblCurrentPage" runat="server"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <asp:LinkButton ID="lnkPrimeiraPagina" runat="server" OnClick="lnkPrimeiraPagina_Click" ToolTip="Primeira página"><i class="fa fa-fast-backward"></i></asp:LinkButton>
+                                                &nbsp; 
                                     <asp:LinkButton ID="lnkPaginaAnterior" runat="server" OnClick="lnkPaginaAnterior_Click" ToolTip="Página anterior"><i class="fa fa-backward"></i></asp:LinkButton>&nbsp;
                                     &nbsp; Itens por página: &nbsp;
                                     <asp:DropDownList ID="ddlPageSize" runat="server" AutoPostBack="true" Width="80" CssClass="form-control-single">
@@ -295,15 +295,15 @@
                                         <asp:ListItem Text="500" Value="500" />
                                         <asp:ListItem Text="1000" Value="1000" />
                                     </asp:DropDownList>
-                                            &nbsp;
+                                                &nbsp;
                                     <asp:LinkButton ID="lnkProximaPagina" runat="server" OnClick="lnkProximaPagina_Click" ToolTip="Próxima página"><i class="fa fa-forward"></i></asp:LinkButton>
-                                            &nbsp; 
+                                                &nbsp; 
                                     <asp:LinkButton ID="lnkUltimaPagina" runat="server" OnClick="lnkUltimaPagina_Click" ToolTip="Última página"><i class="fa fa-fast-forward"></i></asp:LinkButton>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
                             <tr>
                                 <td colspan="14" style="text-align: left;">
                                     <hr style="color: rgb(0, 72, 89); padding: 0px 5px 0px 5px;" />

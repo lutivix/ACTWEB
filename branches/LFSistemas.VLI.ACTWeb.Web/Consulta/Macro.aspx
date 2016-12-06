@@ -277,7 +277,10 @@
                                                                 </th>
                                                                 <%} %>
                                                                 <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasTrem" runat="server" OnClick="lnkJuntasTrem_Click">Trem</asp:LinkButton>
+                                                                    <asp:LinkButton ID="lnkJuntasTrem" runat="server" OnClick="lnkJuntasTrem_Click">Prefixo</asp:LinkButton>
+                                                                </th>
+                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasPrefixo7D" runat="server" OnClick="lnkJuntasPrefixo7D_OnClick">Prefixo 7D</asp:LinkButton>
                                                                 </th>
                                                                 <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                                     <asp:LinkButton ID="lnkJuntasCodOS" runat="server" OnClick="lnkJuntasCodOS_Click">Cod. OS</asp:LinkButton>
@@ -312,6 +315,7 @@
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Locomotiva")%>"><%# Eval("Locomotiva")%></td>
                                                         <%} %>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Trem")%>"><%# Eval("Trem")%></td>
+                                                        <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Prefixo7D")%>"><%# Eval("Prefixo7D")%></td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("CodigoOS")%>"><%# Eval ("CodigoOS")%></td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Horario")%>"><%# Eval ("Horario")%></td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("DescricaoMacro")%>"><%# Eval ("NumeroMacro")%></td>
@@ -426,7 +430,9 @@
                                                                     <asp:LinkButton ID="lnkEnviadasLoco" runat="server" OnClick="lnkEnviadasLoco_Click">Loco</asp:LinkButton></th>
                                                                 <%} %>
                                                                 <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkEnviadasTrem" runat="server" OnClick="lnkEnviadasTrem_Click">Trem</asp:LinkButton></th>
+                                                                    <asp:LinkButton ID="lnkEnviadasTrem" runat="server" OnClick="lnkEnviadasTrem_Click">Prefixo</asp:LinkButton></th>
+                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkEnviadasPrefixo7D" runat="server" OnClick="lnkEnviadasPrefixo7D_OnClick">Prefixo 7D</asp:LinkButton></th>
                                                                 <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                                     <asp:LinkButton ID="lnkEnviadasCodOS" runat="server" OnClick="lnkEnviadasCodOS_Click">Cod. OS</asp:LinkButton></th>
                                                                 <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
@@ -459,6 +465,7 @@
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Locomotiva")%>"><%# Eval("Locomotiva")%></td>
                                                         <%} %>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Trem")%>"><%# Eval("Trem")%></td>
+                                                        <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Prefixo7D")%>"><%# Eval("Prefixo7D")%></td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("CodigoOS")%>"><%# Eval ("CodigoOS")%></td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Horario")%>"><%# Eval ("Horario")%></td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("DescricaoMacro")%>"><%# Eval ("NumeroMacro")%></td>
@@ -574,7 +581,9 @@
                                                                     <asp:LinkButton ID="lnkRecebidasLoco" runat="server" OnClick="lnkRecebidasLoco_Click">Loco</asp:LinkButton></th>
                                                                 <%} %>
                                                                 <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkRecebidasTrem" runat="server" OnClick="lnkRecebidasTrem_Click">Trem</asp:LinkButton></th>
+                                                                    <asp:LinkButton ID="lnkRecebidasTrem" runat="server" OnClick="lnkRecebidasTrem_Click">Prefixo</asp:LinkButton></th>
+                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkRecebidasPrefixo7D" runat="server" OnClick="lnkRecebidasPrefixo7D_OnClick">Prefixo 7D</asp:LinkButton></th>
                                                                 <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                                     <asp:LinkButton ID="lnkRecebidasCodOS" runat="server" OnClick="lnkRecebidasCodOS_Click">Cod. OS</asp:LinkButton></th>
                                                                 <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
@@ -610,11 +619,12 @@
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Locomotiva")%>"><%# Eval("Locomotiva")%> </td>
                                                         <%} %>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Trem")%>"><%# Eval("Trem")%></td>
+                                                        <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Prefixo7D")%>"><%# Eval("Prefixo7D")%></td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("CodigoOS")%>"><%# Eval ("CodigoOS")%></td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Horario")%>"><%# Eval ("Horario")%></td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("DescricaoMacro")%>"><%# Eval ("NumeroMacro")%></td>
                                                         <td style="text-align: left; border-right: 1px solid rgb(0, 72, 89);">
-                                                            <div onclick="<%--$(this).css('text-overflow', 'inherit'); $(this).css('width', '100%');--%>" style="width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="<%# Eval ("Texto")%>"><%# Eval ("Texto")%></div>
+                                                            <div onclick="<%--$(this).css('text-overflow', 'inherit'); $(this).css('width', '100%');--%>" style="width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="<%# Eval ("Texto")%>"><%# Eval ("Texto")%></div>
                                                         </td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Localizacao")%>"><%# Eval ("Localizacao")%></td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("MCT")%>"><%# Eval ("MCT")%></td>
