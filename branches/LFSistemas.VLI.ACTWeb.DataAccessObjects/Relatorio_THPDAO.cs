@@ -474,11 +474,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
                                                                                               " FROM ACTPP.TRENS" +
                                                                                              " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
-                                                                                               " AND TRENS.ST_ID_SIT_TREM = 4)"));
+                                                                                               " AND TRENS.ST_ID_SIT_TREM = 1)"));
                     else query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
                                                                                               " FROM ACTPP.TRENS" +
                                                                                              " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
-                                                                                               " AND TRENS.ST_ID_SIT_TREM <> 4)"));
+                                                                                               " AND TRENS.ST_ID_SIT_TREM <> 1)"));
 
                     #endregion
 
@@ -735,11 +735,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
                                                                                               " FROM ACTPP.TRENS" +
                                                                                              " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
-                                                                                               " AND TRENS.ST_ID_SIT_TREM = 4)"));
+                                                                                               " AND TRENS.ST_ID_SIT_TREM = 1)"));
                     else query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
                                                                                               " FROM ACTPP.TRENS" +
                                                                                              " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
-                                                                                               " AND TRENS.ST_ID_SIT_TREM <> 4)"));
+                                                                                               " AND TRENS.ST_ID_SIT_TREM <> 1)"));
 
                     #endregion
 
@@ -1016,11 +1016,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
                                                                                               " FROM ACTPP.TRENS" +
                                                                                              " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
-                                                                                               " AND TRENS.ST_ID_SIT_TREM = 4)"));
+                                                                                               " AND TRENS.ST_ID_SIT_TREM = 1)"));
                     else query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
                                                                                               " FROM ACTPP.TRENS" +
                                                                                              " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
-                                                                                               " AND TRENS.ST_ID_SIT_TREM <> 4)"));
+                                                                                               " AND TRENS.ST_ID_SIT_TREM <> 1)"));
 
                     #endregion
 
