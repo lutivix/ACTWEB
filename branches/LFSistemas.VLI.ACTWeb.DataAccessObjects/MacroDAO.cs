@@ -1475,9 +1475,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TM7_ID_TRM, TM7_PRF_ACT, TM_ID_TRM, TM_PFR_ACT, TM7_TIME AS PREFIXO7D FROM ACTPP.TRENS7D_ATIVOS T7 WHERE TM_ID_TRM = ${TM_ID_TRM}");
+                    query.Append(@"SELECT TM_HIST_ID AS PREFIXO7D_ID, TMH_ID_TRM AS TREM_ID, TM7H_PRF_ACT AS PREFIXO7D, TMH_PRF_ACT AS PREFIXO4D, TM7H_TIME_IN AS DATA_PARTIDA FROM ACTPP.TRENS7D_HIST T7 WHERE TMH_ID_TRM = ${TMH_ID_TRM}");
 
-                    query.Replace("${TM_ID_TRM}", string.Format("{0}", TremID));
+                    query.Replace("${TMH_ID_TRM}", string.Format("{0}", TremID));
 
                     #endregion
 
@@ -1489,8 +1489,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         if (reader.Read())
                         {
                             item.Prefixo7DID    = reader.GetValue(0).ToString();
-                            item.Prefixo7D      = reader.GetValue(1).ToString();
-                            item.TremID         = reader.GetValue(2).ToString();
+                            item.TremID         = reader.GetValue(1).ToString();
+                            item.Prefixo7D      = reader.GetValue(2).ToString();
                             item.Prefixo4D      = reader.GetValue(3).ToString();
                             item.Data           = reader.GetValue(4).ToString();
                         }
