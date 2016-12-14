@@ -8,7 +8,9 @@ namespace LFSistemas.VLI.ACTWeb.Entities
 {
     public class TremOline
     {
+        public string TremID { get; set; }
         public string Trem { get; set; }
+        public string Prefixo7D { get; set; }
         public string Locomotiva { get; set; }
         public string Os { get; set; }
         public string Origem { get; set; }

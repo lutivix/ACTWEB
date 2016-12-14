@@ -114,6 +114,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                         "       </tr>                                                                                                                                                                   " +
                         "       <tr>                                                                                                                                                                    " +
                         "           <td style='width: 100px; background-color: rgb(55, 119, 188); color: white;'>                                                                                       " +
+                        "               <label for='nome'>Prefixo 7D:</label>                                                                                                                                 " +
+                        "           </td>                                                                                                                                                               " +
+                        "           <td style='width: 200px;'>                                                                                                                                          " +
+                        "               <label for='nome'>" + trens[i].Prefixo7D + "</label>                                                                                                                 " +
+                        "           </td>                                                                                                                                                               " +
+                        "       </tr>                                                                                                                                                                   " +
+                        "       <tr>                                                                                                                                                                    " +
+                        "           <td style='width: 100px; background-color: rgb(55, 119, 188); color: white;'>                                                                                       " +
                         "               <label for='nome'>Locomotiva:</label>                                                                                                                           " +
                         "           </td>                                                                                                                                                               " +
                         "           <td style='width: 200px;'>                                                                                                                                          " +
