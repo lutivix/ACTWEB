@@ -218,6 +218,7 @@
                                                             <tr>
                                                                 <th style="width: 07%; text-align: center; font-size: 19pt; border: 0px; border-right: 0.2px solid rgb(000, 072, 089);"><asp:LinkButton runat="server" ID="lnkCodigo_OS" Text="Código OS" /></th>
                                                                 <th style="width: 05%; text-align: center; font-size: 19pt; border: 0px; border-right: 0.2px solid rgb(000, 072, 089);"><asp:LinkButton runat="server" ID="lnkPrefixo" Text="Prefixo" /></th>
+                                                                <th style="width: 05%; text-align: center; font-size: 19pt; border: 0px; border-right: 0.2px solid rgb(000, 072, 089);"><asp:LinkButton runat="server" ID="lnkPrefixo7D" Text="Prefixo 7D" /></th>
                                                                 <th style="width: 05%; text-align: center; font-size: 19pt; border: 0px; border-right: 0.2px solid rgb(000, 072, 089);"><asp:LinkButton runat="server" ID="lnkLocal" Text="Local" /></th>
                                                                 <th style="width: 05%; text-align: center; font-size: 19pt; border: 0px; border-right: 0.2px solid rgb(000, 072, 089);"><asp:LinkButton runat="server" ID="lnkTempo" Text="Tempo" /></th>
                                                                 <th style="width: 05%; text-align: center; font-size: 19pt; border: 0px; border-right: 0.2px solid rgb(000, 072, 089);"><asp:LinkButton runat="server" ID="lnkTempoTotal" Text="Tempo Total" /></th>
@@ -234,6 +235,7 @@
                                                     <tr class="status-<%# Eval("Cor") %>">
                                                         <td style="width: 05%; text-align: center; font-size: 17pt; border: 0px; border-right: 0.2px solid rgb(160, 160, 160);" title="<%# Eval("Codigo_OS") %>"><%# Eval("Codigo_OS")%> </td>
                                                         <td style="width: 07%; text-align: center; font-size: 17pt; border: 0px; border-right: 0.2px solid rgb(160, 160, 160);" title="<%# Eval("Prefixo") %>"><%# Eval("Prefixo")%> </td>
+                                                        <td style="width: 07%; text-align: center; font-size: 17pt; border: 0px; border-right: 0.2px solid rgb(160, 160, 160);" title="<%# Eval("Prefixo7D") %>"><%# Eval("Prefixo7D")%> </td>
                                                         <td style="width: 05%; text-align: center; font-size: 17pt; border: 0px; border-right: 0.2px solid rgb(160, 160, 160);" title="<%# Eval("Local") %>"><%# Eval("Local")%> </td>
                                                         <td style="width: 05%; text-align: center; font-size: 17pt; border: 0px; border-right: 0.2px solid rgb(160, 160, 160);" title="<%# Eval("Tempo") %>"><%# Eval("Tempo")%> </td>
                                                         <td style="width: 05%; text-align: center; font-size: 17pt; border: 0px; border-right: 0.2px solid rgb(160, 160, 160);" title="<%# Eval("TempoTotal") %>"><%# Eval("TempoTotal")%> </td>
@@ -248,6 +250,7 @@
                                                     <tr class="status2-<%# Eval("Cor") %>">
                                                         <td style="width: 05%; text-align: center; font-size: 17pt; border: 0px; border-right: 0.2px solid rgb(160, 160, 160);" title="<%# Eval("Codigo_OS") %>"><%# Eval("Codigo_OS")%> </td>
                                                         <td style="width: 07%; text-align: center; font-size: 17pt; border: 0px; border-right: 0.2px solid rgb(160, 160, 160);" title="<%# Eval("Prefixo") %>"><%# Eval("Prefixo")%> </td>
+                                                        <td style="width: 07%; text-align: center; font-size: 17pt; border: 0px; border-right: 0.2px solid rgb(160, 160, 160);" title="<%# Eval("Prefixo7D") %>"><%# Eval("Prefixo7D")%> </td>
                                                         <td style="width: 05%; text-align: center; font-size: 17pt; border: 0px; border-right: 0.2px solid rgb(160, 160, 160);" title="<%# Eval("Local") %>"><%# Eval("Local")%> </td>
                                                         <td style="width: 05%; text-align: center; font-size: 17pt; border: 0px; border-right: 0.2px solid rgb(160, 160, 160);" title="<%# Eval("Tempo") %>"><%# Eval("Tempo")%> </td>
                                                         <td style="width: 05%; text-align: center; font-size: 17pt; border: 0px; border-right: 0.2px solid rgb(160, 160, 160);" title="<%# Eval("TempoTotal") %>"><%# Eval("TempoTotal")%> </td>

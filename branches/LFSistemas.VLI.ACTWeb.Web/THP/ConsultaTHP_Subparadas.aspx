@@ -127,6 +127,8 @@
                                                         <th style="width: 05%; text-align: center; font-size: 8pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="lnkPrefixo" OnClick="lnkPrefixo_Click" Text="Prefixo" /></th>
                                                         <th style="width: 05%; text-align: center; font-size: 8pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                            <asp:LinkButton runat="server" ID="lnkPrefixo7D" OnClick="lnkPrefixo7D_OnClick" Text="Prefixo 7D" /></th>
+                                                        <th style="width: 05%; text-align: center; font-size: 8pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="linkOS" OnClick="linkOS_Click" Text="OS" /></th>
                                                         <th style="width: 05%; text-align: center; font-size: 8pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="lnkLocal" OnClick="lnkLocal_Click" Text="Local" /></th>
@@ -157,6 +159,7 @@
                                                 <asp:LinkButton runat="server" ID="lnkAcao" OnClick="lnkAcao_Click" CommandArgument='<%# Eval("ID")%>' Height="20px" ><i class="fa fa-search-plus"  style="font-size: 1.5em;" ></i></asp:LinkButton>
                                             </td>
                                             <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Prefixo")%>"><%# Eval("Prefixo")%> </td>
+                                            <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Prefixo7D")%>"><%# Eval("Prefixo7D")%> </td>
                                             <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("OS")%>"><%# Eval("OS") %> </td>
                                             <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Local")%>"><%# Eval("Local")%> </td>
                                             <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("InicioParada")%>"><%# Eval("InicioParada")%></td>

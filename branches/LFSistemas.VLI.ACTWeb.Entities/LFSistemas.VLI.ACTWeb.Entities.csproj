@@ -95,6 +95,7 @@
     <Compile Include="Maquinista.cs" />
     <Compile Include="MetaTempo.cs" />
     <Compile Include="PontaRota.cs" />
+    <Compile Include="Prefixo7Dativos.cs" />
     <Compile Include="Proj_Corredor.cs" />
     <Compile Include="Proj_Localidade.cs" />
     <Compile Include="MacroPraFrota.cs" />

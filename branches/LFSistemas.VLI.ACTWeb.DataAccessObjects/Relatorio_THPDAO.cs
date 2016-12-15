@@ -1046,7 +1046,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(09))
                 {
                     item.Trem_ID = reader.GetValue(09).ToString();
-                    item.Dados = ObterRelatorioTHPPorTremID(item.Trem_ID, filtro);
+                    if (item.Trem_ID != null)
+                    {
+                        var prefixo7d = new MacroDAO().ObterPrefixo7D(item.Trem_ID).Prefixo7D;
+                        if (prefixo7d != null)
+                            item.Prefixo7D = prefixo7d;
+                        else
+                            item.Prefixo7D = "";
+
+                        item.Dados = ObterRelatorioTHPPorTremID(item.Trem_ID, filtro);
+                    }
                 }
                 if (!reader.IsDBNull(10)) item.Prefixo = reader.GetValue(10).ToString();
                 if (!reader.IsDBNull(11)) item.Grupo_ID = reader.GetValue(11).ToString(); else item.Grupo = string.Empty;
@@ -1128,7 +1137,18 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(06)) item.Rota = reader.GetValue(06).ToString(); else item.Rota = string.Empty;
                 if (!reader.IsDBNull(07)) item.SubRota_ID = reader.GetValue(07).ToString();
                 if (!reader.IsDBNull(08)) item.SubRota = reader.GetValue(08).ToString(); else item.SubRota = string.Empty;
-                if (!reader.IsDBNull(09)) item.Trem_ID = reader.GetValue(09).ToString();
+                if (!reader.IsDBNull(09))
+                {
+                    item.Trem_ID = reader.GetValue(09).ToString();
+                    if (item.Trem_ID != null)
+                    {
+                        var prefixo7d = new MacroDAO().ObterPrefixo7D(item.Trem_ID).Prefixo7D;
+                        if (prefixo7d != null)
+                            item.Prefixo7D = prefixo7d;
+                        else
+                            item.Prefixo7D = "";
+                    }
+                }
                 if (!reader.IsDBNull(10)) item.Classe = reader.GetValue(10).ToString(); else item.Classe = string.Empty;
                 if (!reader.IsDBNull(11)) item.OS = reader.GetValue(11).ToString(); else item.OS = string.Empty;
                 if (!reader.IsDBNull(12)) item.Prefixo = reader.GetValue(12).ToString(); else item.Prefixo = string.Empty;

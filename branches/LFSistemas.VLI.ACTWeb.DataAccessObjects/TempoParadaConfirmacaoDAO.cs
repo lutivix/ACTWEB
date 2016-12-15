@@ -106,7 +106,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           UTP.COD_MOTIVO AS MOTIVO_PARADA_MAQUINISTA,
                                           UTP.COD_MOT_DESPACHADOR AS MOTIVO_PARADA_DESPACHADOR,
                                           UTP.NM_USUARIO_LOG AS DESPACHADOR,
-                                          RGC.PO_ID_PS_TRB AS POSTO_TRABALHO
+                                          RGC.PO_ID_PS_TRB AS POSTO_TRABALHO,
+                                          TRE.TM_ID_TRM
                                      FROM ACTPP.UNL_TRENS_PARADOS UTP,
                                           ACTPP.TRENS TRE,
                                           ACTPP.ELEM_VIA ELV,
@@ -195,21 +196,27 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             //if (origem == "tela_consulta")
             //{
 
-                if (!reader.IsDBNull(0)) item.Prefixo = reader.GetString(0);
-                if (!reader.IsDBNull(1)) item.OS = reader.GetDouble(1).ToString();
-                if (!reader.IsDBNull(2)) item.Local = reader.GetString(2).ToString();
-                if (!reader.IsDBNull(3)) item.InicioParada = reader.GetDateTime(3).ToString();
-                if (!reader.IsDBNull(4)) item.FimParada = reader.GetDateTime(4).ToString();
-                if (!reader.IsDBNull(5)) item.TempoParada = reader.GetDecimal(5).ToString();
-                if (!reader.IsDBNull(6)) item.ConfirmacaoDespachador = reader.GetDateTime(6).ToString();
-                if (!reader.IsDBNull(7)) item.TempoRespostaDespachador = reader.GetDecimal(7).ToString();
-                if (!reader.IsDBNull(8)) item.MotivoParadaMaquinista = reader.GetString(8);
-                if (!reader.IsDBNull(9)) item.MotivoParadaDespachador = reader.GetString(9);
-                if (!reader.IsDBNull(10)) item.Despachador = reader.GetString(10);
-                if (!reader.IsDBNull(11)) item.PostoTrabalho = reader.GetDouble(11).ToString();
-                 
-                
-                
+            if (!reader.IsDBNull(0)) item.Prefixo = reader.GetString(0);
+            if (!reader.IsDBNull(1)) item.OS = reader.GetDouble(1).ToString();
+            if (!reader.IsDBNull(2)) item.Local = reader.GetString(2).ToString();
+            if (!reader.IsDBNull(3)) item.InicioParada = reader.GetDateTime(3).ToString();
+            if (!reader.IsDBNull(4)) item.FimParada = reader.GetDateTime(4).ToString();
+            if (!reader.IsDBNull(5)) item.TempoParada = reader.GetDecimal(5).ToString();
+            if (!reader.IsDBNull(6)) item.ConfirmacaoDespachador = reader.GetDateTime(6).ToString();
+            if (!reader.IsDBNull(7)) item.TempoRespostaDespachador = reader.GetDecimal(7).ToString();
+            if (!reader.IsDBNull(8)) item.MotivoParadaMaquinista = reader.GetString(8);
+            if (!reader.IsDBNull(9)) item.MotivoParadaDespachador = reader.GetString(9);
+            if (!reader.IsDBNull(10)) item.Despachador = reader.GetString(10);
+            if (!reader.IsDBNull(11)) item.PostoTrabalho = reader.GetDouble(11).ToString();
+            if (!reader.IsDBNull(12))
+            {
+                var tremID = reader.GetValue(12).ToString();
+                if (tremID != null)
+                    item.Prefixo7D = new MacroDAO().ObterPrefixo7D(tremID).Prefixo7D;
+            }
+
+
+
             //}
             //else if (origem == "tela_relatorio")
             //{

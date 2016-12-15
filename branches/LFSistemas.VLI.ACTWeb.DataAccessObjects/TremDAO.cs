@@ -146,7 +146,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT T.TM_PRF_ACT AS PREFIXO, L.LOC_ID_LOCO AS LOCOMOTIVA, T.TM_COD_OF AS COD_OF,  L4.ES_ID_EFE AS ORIGEM, L5.ES_ID_EFE AS DESTINO,  L.MCT_ID_MCT AS MCT  
+                    query.Append(@"SELECT T.TM_PRF_ACT AS PREFIXO, L.LOC_ID_LOCO AS LOCOMOTIVA, T.TM_COD_OF AS COD_OF,  L4.ES_ID_EFE AS ORIGEM, L5.ES_ID_EFE AS DESTINO,  L.MCT_ID_MCT AS MCT, T.TM_ID_TRM AS TREM_ID  
                                     FROM ACTPP.TRENS T, ACTPP.LOCOMOTIVAS L, ACTPP.estacoes l4, ACTPP.estacoes l5
                                         WHERE T.LOC_ID_NUM_LOCO = L.LOC_ID_NUM_LOCO 
                                              AND T.ES_ID_NUM_EFE_ORIG = L4.ES_ID_NUM_EFE
@@ -446,6 +446,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     item.Corredor = posicao.Corredor;
                     item.SB = posicao.SB;
                 }
+                if (!reader.IsDBNull(6))
+                {
+                    item.TremID = reader.GetValue(6).ToString();
+                    if (item.TremID != null)
+                    {
+                        item.Prefixo7D = new MacroDAO().ObterPrefixo7D(item.TremID).Prefixo7D;
+                    }
+                }
+
             }
             catch (Exception ex)
             {

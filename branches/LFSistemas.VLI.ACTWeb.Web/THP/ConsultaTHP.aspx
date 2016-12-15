@@ -224,6 +224,8 @@
                                                         <th style="width: 05%; text-align: center; font-size: 10pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="lnkPrefixo" Text="Prefixo" /></th>
                                                         <th style="width: 05%; text-align: center; font-size: 10pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                            <asp:LinkButton runat="server" ID="lnkPrefixo7D" Text="Prefixo 7D" /></th>
+                                                        <th style="width: 05%; text-align: center; font-size: 10pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="lnkLocal" Text="Local" /></th>
                                                         <th style="width: 10%; text-align: center; font-size: 10pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="lnkTempo" Text="Tempo" /></th>
@@ -253,6 +255,7 @@
                                                                         </td>
                                                                         <td style="width: 10%; height: 20px; font-size: 1em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Codigo_OS") %>"><%# Eval("Codigo_OS")%></td>
                                                                         <td style="width: 05%; height: 20px; font-size: 1em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Prefixo") %>"><%# Eval("Prefixo")%></td>
+                                                                        <td style="width: 05%; height: 20px; font-size: 1em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Prefixo7D") %>"><%# Eval("Prefixo7D")%></td>
                                                                         <td style="width: 05%; height: 20px; font-size: 1em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Local") %>"><%# Eval("Local")%></td>
                                                                         <td style="width: 10%; height: 20px; font-size: 1em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Tempo") %>"><%# Eval("Tempo")%></td>
                                                                         <td style="width: 10%; height: 20px; font-size: 1em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("TempoTotal") %>"><%# Eval("TempoTotal")%></td>

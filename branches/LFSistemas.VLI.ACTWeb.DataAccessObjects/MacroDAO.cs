@@ -1596,6 +1596,56 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return conversas;
         }
 
+        public Prefixo7Dativos ObterPrefixo7D(string TremID)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var item = new Prefixo7Dativos();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA VMA POR SB ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT TM_HIST_ID AS PREFIXO7D_ID, TMH_ID_TRM AS TREM_ID, TM7H_PRF_ACT AS PREFIXO7D, TMH_PRF_ACT AS PREFIXO4D, TM7H_TIME_IN AS DATA_PARTIDA FROM ACTPP.TRENS7D_HIST T7 WHERE TMH_ID_TRM = ${TMH_ID_TRM}");
+
+                    query.Replace("${TMH_ID_TRM}", string.Format("{0}", TremID));
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            item.Prefixo7DID    = reader.GetValue(0).ToString();
+                            item.TremID         = reader.GetValue(1).ToString();
+                            item.Prefixo7D      = reader.GetValue(2).ToString();
+                            item.Prefixo4D      = reader.GetValue(3).ToString();
+                            item.Data           = reader.GetValue(4).ToString();
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, null, "Abreviar", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return item;
+        }
 
         #endregion
 
@@ -1670,6 +1720,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (item.Tratado != DateTime.MinValue) item.Tratado = reader.GetDateTime(12); else item.Tratado = null;
             }
             if (!reader.IsDBNull(13)) item.Localizacao = reader.GetString(13);
+            if (!reader.IsDBNull(14))
+            {
+                item.TremID = reader.GetValue(14).ToString();
+                if (item.TremID != null)
+                {
+                    item.Prefixo7D = ObterPrefixo7D(item.TremID).Prefixo7D;
+                }
+            }
 
             item.DescricaoMacro = "DESCRICAO DE TESTE ";
             return item;
@@ -1730,6 +1788,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (item.Tratado != DateTime.MinValue) item.Tratado = reader.GetDateTime(10); else item.Tratado = null;
             }
             if (!reader.IsDBNull(11)) item.Corredor = reader.GetString(11);
+            if (!reader.IsDBNull(12))
+            {
+                item.TremID = reader.GetValue(12).ToString();
+                if (item.TremID != null)
+                {
+                    item.Prefixo7D = ObterPrefixo7D(item.TremID).Prefixo7D;
+                }
+            }
+
 
             item.DescricaoMacro = "DESCRICAO DE TESTE ";
             return item;
@@ -1774,7 +1841,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                 item.Tempo_Resposta = tempo != null ? tempo.ToString() : string.Empty;
             }
-
+            if (!reader.IsDBNull(19))
+            {
+                item.TremID = reader.GetValue(19).ToString();
+                if (item.TremID != null)
+                {
+                    item.Prefixo7D = ObterPrefixo7D(item.TremID).Prefixo7D;
+                }
+            }
 
 
             item.DescricaoMacro = "DESCRICAO DE TESTE ";

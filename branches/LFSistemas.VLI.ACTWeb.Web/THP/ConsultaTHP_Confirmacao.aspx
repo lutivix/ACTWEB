@@ -170,10 +170,8 @@
 
                         <td style="width: 65%;"></td>
                     </tr>
-                     <tr>
-                        <td> 
-
-                        </td>
+                    <tr>
+                        <td></td>
                         <td>
                             <div class="form-group col-sm-6">
                             

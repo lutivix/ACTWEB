@@ -90,6 +90,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             AtualizarDataHora();
         } 
 
+        protected void lnkPrefixo7D_OnClick(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("PREFIXO7D " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("PREFIXO7D " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
         protected void linkDescricao_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
