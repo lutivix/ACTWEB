@@ -251,9 +251,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 {
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT 'R' AS R_E, MR.MR_LOCO, MR.MR_PRF_ACT, MR.MR_COD_OF, MR.MR_MSG_TIME AS HorArio, MR.MR_MC_NUM, SUBSTR(MR.MR_TEXT, 1, 760) AS MR_TEXT, MR.MR_MCT_ADDR, MR.MR_GRMN, MR.MR_CORREDOR, MR.MR_NOME_SB, MR.MR_KM, MR.MR_TIME_TRT AS TRATADO, MR.MR_LAND_MARK, MR.MR_ID_TRM
-                                        FROM ACTPP.MENSAGENS_RECEBIDAS MR
-                                        WHERE 1=1
+                    #region [ DIFERENTE DE MACROS: 9 ]
+
+                    if (filtro.NumeroMacro != "9")
+                    {
+                        query.Append(@"SELECT 'R' AS R_E, DECODE(MCT_NOM_MCT, NULL, MR_LOCO, MR_LOCO, NULL, MCT_NOM_MCT) AS MR_LOCO, MR_PRF_ACT, MR_COD_OF, MR_MSG_TIME AS Horário, MR_MC_NUM, SUBSTR(MR_TEXT, 1, 760) AS MR_TEXT, MR_MCT_ADDR, MENSAGENS_RECEBIDAS.MR_GRMN, MR_CORREDOR, MR_NOME_SB, MR_KM, MR_TIME_TRT AS TRATADO, MR_LAND_MARK 
+                                        FROM ACTPP.MENSAGENS_RECEBIDAS, ACTPP.MCTS 
+                                        WHERE MCTS.MCT_ID_MCT = MENSAGENS_RECEBIDAS.MR_MCT_ADDR
                                             ${R_Horar}
                                             ${R_Locom}
                                             ${R_Trens}
@@ -262,9 +266,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             ${R_Expre}
                                             ${R_Corre}
                                     UNION
-                                        SELECT 'E' AS R_E, ME.ME_LOCO, ME.ME_PRF_ACT, ME.ME_COD_OF, ME.ME_MSG_TIME AS HorArio, ME.ME_MAC_NUM, SUBSTR (ME.ME_TEXT, 1, 760) AS MR_TEXT, ME.ME_MCT_ADDR, ME.ME_MSG_NUM,  ME.ME_CORREDOR, ME.ME_NOME_SB, ME.ME_KM, ME.ME_CONFIRM_TIME AS TRATADO, ME.ME_LAND_MARK, ME.ME_ID_TRM
-                                        FROM ACTPP.MENSAGENS_ENVIADAS ME
-                                        WHERE 1=1
+                                        SELECT 'E' AS R_E, DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS Horário, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS MR_TEXT, ME_MCT_ADDR, MENSAGENS_ENVIADAS.ME_MSG_NUM, ME_CORREDOR, ME_NOME_SB, ME_KM, ME_CONFIRM_TIME AS TRATADO, ME_LAND_MARK 
+                                        FROM ACTPP.MENSAGENS_ENVIADAS, ACTPP.MCTS 
+                                        WHERE MCTS.MCT_ID_MCT = MENSAGENS_ENVIADAS.ME_MCT_ADDR
                                         ${E_Horar}
                                         ${E_Locom}
                                         ${E_Trens}
@@ -473,16 +477,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 {
                     var command = connection.CreateCommand();
 
-                        queryE.Append(@"SELECT 'E' AS R_E, ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS HorArio, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS ME_TEXT, ME_MCT_ADDR, ME.ME_MSG_NUM, ME_MSG_STATUS, ME_CONFIRM_TIME AS TRATADO, ME_CORREDOR AS CORREDOR, ME.ME_ID_TRM
-                                        FROM ACTPP.MENSAGENS_ENVIADAS ME
-                                            WHERE 1=1
-                                            ${ME_MSG_TIME}
-                                            ${ME_LOCO}
-                                            ${ME_PRF_ACT}
-                                            ${ME_MAC_NUM}
-                                            ${ME_COD_OF}
-                                            ${ME_Expre}
-                                            ${E_Corre}
+                        queryE.Append(@"SELECT 'E' AS R_E, DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS Horário, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS ME_TEXT, ME_MCT_ADDR, MENSAGENS_ENVIADAS.ME_MSG_NUM, ME_MSG_STATUS, ME_CONFIRM_TIME AS TRATADO, ME_CORREDOR AS CORREDOR
+                                        FROM ACTPP.MENSAGENS_ENVIADAS, ACTPP.MCTS
+                                            WHERE MCTS.MCT_ID_MCT = MENSAGENS_ENVIADAS.ME_MCT_ADDR
+                                                ${ME_MSG_TIME}
+                                                ${ME_LOCO}
+                                                ${ME_PRF_ACT}
+                                                ${ME_MAC_NUM}
+                                                ${ME_COD_OF}
+                                                ${ME_Expre}
+												${E_Corre}
                                             ORDER BY HorArio DESC");
 
 
@@ -608,18 +612,18 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
 
-                        queryR.Append(@"SELECT 'R' AS R_E, MR.MR_LOCO, MR.MR_PRF_ACT, MR.MR_COD_OF, MR.MR_MSG_TIME AS HorArio, MR.MR_MC_NUM, SUBSTR(MR.MR_TEXT, 1, 760) AS MR_TEXT, MR.MR_MCT_ADDR, MR.MR_GRMN, MR.MR_LAT, MR.MR_LON, MR.MR_CORREDOR, MR.MR_NOME_SB, MR.MR_KM, MR.MR_LAND_MARK, MR.MR_TIME_TRT AS TRATADO, MR.MR_MAT_OPER, MR.MR_MSG_LIDA, MR.MR_MSG_RESP, MR.MR_ID_TRM
-                                        FROM ACTPP.MENSAGENS_RECEBIDAS MR
-                                        WHERE 1=1
-                                        ${MR_MSG_TIME}
-                                        ${MR_LOCO}
-                                        ${MR_PRF_ACT}
-                                        ${MR_MOTIVO}
-                                        ${MR_MC_NUM}
-                                        ${MR_COD_OF}
-                                        ${MR_Expre}
-                                        ${MR_Corre}
-                                        ORDER BY HorArio DESC");
+                        queryR.Append(@"SELECT 'R' AS R_E, DECODE(MC.MCT_NOM_MCT, NULL, MR.MR_LOCO, MR.MR_LOCO, NULL, MC.MCT_NOM_MCT) AS MR_LOCO, MR.MR_PRF_ACT, MR.MR_COD_OF, MR.MR_MSG_TIME AS Horário, MR.MR_MC_NUM, SUBSTR(MR.MR_TEXT, 1, 760) AS MR_TEXT, MR.MR_MCT_ADDR, MR.MR_GRMN, MR.MR_LAT, MR.MR_LON, MR.MR_CORREDOR, MR.MR_NOME_SB, MR.MR_KM, MR.MR_LAND_MARK, MR.MR_TIME_TRT AS TRATADO, MR.MR_MAT_OPER, MR.MR_MSG_LIDA, MR.MR_MSG_RESP
+                                        FROM ACTPP.MENSAGENS_RECEBIDAS MR, ACTPP.MCTS MC
+                                        WHERE MC.MCT_ID_MCT = MR.MR_MCT_ADDR
+                                            ${MR_MSG_TIME}
+                                            ${MR_MOTIVO}
+                                            ${MCT_NOM_MCT}
+                                            ${MR_PRF_ACT}
+                                            ${MR_MC_NUM}
+                                            ${MR_COD_OF}
+                                            ${MR_Expre}
+                                            ${MR_Corre}
+										ORDER BY HorArio DESC");
 
 
                     #region [ PARÂMETROS ]
