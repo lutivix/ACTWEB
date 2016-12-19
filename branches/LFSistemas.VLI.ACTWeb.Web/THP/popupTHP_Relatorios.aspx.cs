@@ -49,6 +49,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             if (Request.QueryString["mu"] != null) ViewState["uMatricula"] = Uteis.Descriptografar(Request.QueryString["mu"].ToString(), "a#3G6**@").ToUpper();
             if (Request.QueryString["pu"] != null) ViewState["uPerfil"] = Uteis.Descriptografar(Request.QueryString["pu"].ToString(), "a#3G6**@").ToUpper();
             if (Request.QueryString["mm"] != null) ViewState["ulMaleta"] = Uteis.Descriptografar(Request.QueryString["mm"].ToString(), "a#3G6**@").ToUpper();
+            
+            
 
             if (!Page.IsPostBack)
             {
@@ -69,6 +71,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
 
                 //ScriptManager scriptManager = ScriptManager.GetCurrent(this.Page);
                 //scriptManager.RegisterPostBackControl(this.lnkGeraExcel);
+                chkboxTremEncerrado.Checked = true;
 
             }
         }
@@ -1091,7 +1094,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             if (txtFiltroDataDe.Text.ToUpper().Trim() != txtFiltroDataAte.Text.ToUpper().Trim())
             {
                 filtro_ini = DateTime.Parse(txtFiltroDataDe.Text + " 00:00:00");
-                filtro_fim = DateTime.Parse(txtFiltroDataAte.Text + " 00:00:00");
+                filtro_fim = DateTime.Parse(txtFiltroDataAte.Text + " 23:59:59");
             }
             else
             {
@@ -1115,7 +1118,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                     Rota_ID = filtro_rotas_id,
                     SubRota_ID = filtro_subrotas_id,
                     Grupo_ID = filtro_grupos_id,
-                    Motivo_ID = filtro_motivos_id
+                    Motivo_ID = filtro_motivos_id,
+                    TremEncerrado = chkboxTremEncerrado.Checked
                 });
 
                 if (totalItens <= 4000)
@@ -1151,7 +1155,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                                 Rota_ID = filtro_rotas_id,
                                 SubRota_ID = filtro_subrotas_id,
                                 Grupo_ID = filtro_grupos_id,
-                                Motivo_ID = filtro_motivos_id
+                                Motivo_ID = filtro_motivos_id,
+                                TremEncerrado = chkboxTremEncerrado.Checked
                             });
 
                             //for (int i = 0; i < dados.Count; i++)
@@ -1205,7 +1210,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                             Rota_ID = filtro_rotas_id,
                             SubRota_ID = filtro_subrotas_id,
                             Grupo_ID = filtro_grupos_id,
-                            Motivo_ID = filtro_motivos_id
+                            Motivo_ID = filtro_motivos_id,
+                            TremEncerrado = chkboxTremEncerrado.Checked
                         });
 
 
@@ -1937,7 +1943,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             if (txtFiltroDataDe.Text.ToUpper().Trim() != txtFiltroDataAte.Text.ToUpper().Trim())
             {
                 filtro_ini = DateTime.Parse(txtFiltroDataDe.Text + " 00:00:00");
-                filtro_fim = DateTime.Parse(txtFiltroDataAte.Text + " 00:00:00");
+                filtro_fim = DateTime.Parse(txtFiltroDataAte.Text + " 23:59:59");
             }
             else
             {
@@ -1957,12 +1963,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 Rota_ID = filtro_rotas_id,
                 SubRota_ID = filtro_subrotas_id,
                 Grupo_ID = filtro_grupos_id,
-                Motivo_ID = filtro_motivos_id
+                Motivo_ID = filtro_motivos_id,
+                TremEncerrado = chkboxTremEncerrado.Checked
             });
-
-
-
-
+             
             if (itens.Count > 0)
             {
                 #region [GERANDO EXCEL CSV ]
