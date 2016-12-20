@@ -255,8 +255,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     if (filtro.NumeroMacro != "9")
                     {
-                        query.Append(@"SELECT 'R' AS R_E, DECODE(MCT_NOM_MCT, NULL, MR_LOCO, MR_LOCO, NULL, MCT_NOM_MCT) AS MR_LOCO, MR_PRF_ACT, MR_COD_OF, MR_MSG_TIME AS Horário, MR_MC_NUM, SUBSTR(MR_TEXT, 1, 760) AS MR_TEXT, MR_MCT_ADDR, MENSAGENS_RECEBIDAS.MR_GRMN, MR_CORREDOR, MR_NOME_SB, MR_KM, MR_TIME_TRT AS TRATADO, MR_LAND_MARK 
-                                        FROM ACTPP.MENSAGENS_RECEBIDAS, ACTPP.MCTS 
+                        query.Append(@"SELECT 'R' AS R_E, DECODE(MCT_NOM_MCT, NULL, MR_LOCO, MR_LOCO, NULL, MCT_NOM_MCT) AS MR_LOCO, MR_PRF_ACT, MR_COD_OF, MR_MSG_TIME AS Horário, MR_MC_NUM, SUBSTR(MR_TEXT, 1, 760) AS MR_TEXT, MR_MCT_ADDR, MENSAGENS_RECEBIDAS.MR_GRMN, MR_CORREDOR, MR_NOME_SB, MR_KM, MR_TIME_TRT AS TRATADO, MR_LAND_MARK, TM7H_PRF_ACT  
+                                        FROM ACTPP.MENSAGENS_RECEBIDAS, ACTPP.MCTS, ACTPP.TRENS7D_HIST 
                                         WHERE MCTS.MCT_ID_MCT = MENSAGENS_RECEBIDAS.MR_MCT_ADDR
                                             ${R_Horar}
                                             ${R_Locom}
@@ -265,16 +265,18 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             ${R_CodOS}
                                             ${R_Expre}
                                             ${R_Corre}
+                                            AND TRENS7D_HIST.TMH_ID_TRM(+) = MENSAGENS_RECEBIDAS.MR_ID_TRM
                                     UNION
-                                        SELECT 'E' AS R_E, DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS Horário, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS MR_TEXT, ME_MCT_ADDR, MENSAGENS_ENVIADAS.ME_MSG_NUM, ME_CORREDOR, ME_NOME_SB, ME_KM, ME_CONFIRM_TIME AS TRATADO, ME_LAND_MARK 
-                                        FROM ACTPP.MENSAGENS_ENVIADAS, ACTPP.MCTS 
+                                        SELECT 'E' AS R_E, DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS Horário, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS MR_TEXT, ME_MCT_ADDR, MENSAGENS_ENVIADAS.ME_MSG_NUM, ME_CORREDOR, ME_NOME_SB, ME_KM, ME_CONFIRM_TIME AS TRATADO, ME_LAND_MARK, TM7H_PRF_ACT  
+                                        FROM ACTPP.MENSAGENS_ENVIADAS, ACTPP.MCTS, ACTPP.TRENS7D_HIST
                                         WHERE MCTS.MCT_ID_MCT = MENSAGENS_ENVIADAS.ME_MCT_ADDR
                                         ${E_Horar}
                                         ${E_Locom}
                                         ${E_Trens}
                                         ${E_Macro}
                                         ${E_CodOS}
-                                        ${E_Expre}");
+                                        ${E_Expre}
+                                        AND TRENS7D_HIST.TMH_ID_TRM(+) = MENSAGENS_ENVIADAS.ME_ID_TRM");
 
                         #region [ FILTRA MACROS PRA TRÁS ]
 
@@ -318,8 +320,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ MACROS: 9 ]
                     else
                     {
-                        query.Append(@"SELECT 'R' AS R_E, DECODE(MCT_NOM_MCT, NULL, MR_LOCO, MR_LOCO, NULL, MCT_NOM_MCT) AS MR_LOCO, MR_PRF_ACT, MR_COD_OF, MR_MSG_TIME AS Horário, MR_MC_NUM, SUBSTR(MR_TEXT, 1, 760) AS MR_TEXT, MR_MCT_ADDR, MENSAGENS_RECEBIDAS.MR_GRMN, MR_CORREDOR, MR_NOME_SB, MR_KM, MR_TIME_TRT AS TRATADO, MR_LAND_MARK 
-                                        FROM ACTPP.MENSAGENS_RECEBIDAS, ACTPP.MCTS 
+                        query.Append(@"SELECT 'R' AS R_E, DECODE(MCT_NOM_MCT, NULL, MR_LOCO, MR_LOCO, NULL, MCT_NOM_MCT) AS MR_LOCO, MR_PRF_ACT, MR_COD_OF, MR_MSG_TIME AS Horário, MR_MC_NUM, SUBSTR(MR_TEXT, 1, 760) AS MR_TEXT, MR_MCT_ADDR, MENSAGENS_RECEBIDAS.MR_GRMN, MR_CORREDOR, MR_NOME_SB, MR_KM, MR_TIME_TRT AS TRATADO, MR_LAND_MARK, TM7H_PRF_ACT 
+                                        FROM ACTPP.MENSAGENS_RECEBIDAS, ACTPP.MCTS, ACTPP.TRENS7D_HIST 
                                         WHERE MCTS.MCT_ID_MCT = MENSAGENS_RECEBIDAS.MR_MCT_ADDR
                                         ${R_Horar}
                                         ${R_Locom}
@@ -330,9 +332,10 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ${R_Expre}
                                         ${R_Corre}
                                         AND (MENSAGENS_RECEBIDAS.MR_MC_NUM <> 4)
-                                    UNION
-                                        SELECT 'E' AS R_E, DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS Horário, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS MR_TEXT, ME_MCT_ADDR, MENSAGENS_ENVIADAS.ME_MSG_NUM, ME_CORREDOR, ME_NOME_SB, ME_KM, ME_CONFIRM_TIME AS TRATADO, ME_LAND_MARK 
-                                        FROM ACTPP.MENSAGENS_ENVIADAS, ACTPP.MCTS 
+                                        AND TRENS7D_HIST.TMH_ID_TRM(+) = MENSAGENS_RECEBIDAS.MR_ID_TRM
+                                  UNION
+                                        SELECT 'E' AS R_E, DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS Horário, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS MR_TEXT, ME_MCT_ADDR, MENSAGENS_ENVIADAS.ME_MSG_NUM, ME_CORREDOR, ME_NOME_SB, ME_KM, ME_CONFIRM_TIME AS TRATADO, ME_LAND_MARK, TM7H_PRF_ACT 
+                                        FROM ACTPP.MENSAGENS_ENVIADAS, ACTPP.MCTS, ACTPP.TRENS7D_HIST 
                                         WHERE MCTS.MCT_ID_MCT = MENSAGENS_ENVIADAS.ME_MCT_ADDR
                                         ${E_Horar}
                                         ${E_Locom}
@@ -340,7 +343,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ${E_Macro}
                                         ${E_Motiv}
                                         ${E_CodOS}
-                                        ${E_Expre}");
+                                        ${E_Expre}
+                                        AND TRENS7D_HIST.TMH_ID_TRM(+) = MENSAGENS_ENVIADAS.ME_ID_TRM");
 
                         #region [ FILTRA MACROS PRA TRÁS ]
 
@@ -1207,7 +1211,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     }
                                     else
                                     {
-                                        comando.CommandText = @"select mr.ME_MSG_NUM, ME_LOCO,ME_PRF_ACT,ME_COD_OF, ME_MSG_TIME, ME_MAC_NUM, ME_TEXT, ME_MCT_ADDR, eo.ES_ID_EFE, ed.ES_ID_EFE,t.TM_NUM_VAG, t.TM_TON_BRT,m.MCT_OBC_VERSAO,m.MCT_MAP_VERSAO,t.TM_CMP_TR
+                                        comando.CommandText = @"select mr.ME_MSG_NUM, ME_LOCO,ME_PRF_ACT,ME_COD_OF, ME_MSG_TIME, ME_MAC_NUM, ME_TEXT, ME_MCT_ADDR, eo.ES_ID_EFE, ed.ES_ID_EFE,t.TM_NUM_VAG, t.TM_TON_BRT,m.MCT_OBC_VERSAO,m.MCT_MAP_VERSAO,t.TM_CMP_TR, null as Prefixo7D
                                 from ACTPP.mensagens_enviadas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m
                                 where mr.Me_MCT_ADDR = m.MCT_ID_MCT and mr.Me_ID_TRM = t.TM_ID_TRM  --(+) outter join
                                 and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
@@ -1231,7 +1235,6 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     else
                                     {
                                         comando.CommandText = @"select mr.ME_MSG_NUM, ME_LOCO,ME_PRF_ACT,ME_COD_OF, ME_MSG_TIME, ME_MAC_NUM, ME_TEXT, ME_MCT_ADDR, eo.ES_ID_EFE, ed.ES_ID_EFE,t.TM_NUM_VAG, t.TM_TON_BRT,m.MCT_OBC_VERSAO,m.MCT_MAP_VERSAO,t.TM_CMP_TR
-                                from ACTPP.mensagens_enviadas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m
                                 where mr.Me_MCT_ADDR = m.MCT_ID_MCT 
                                 and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                                 and t.es_id_Num_efe_dest = ed.es_id_num_efe
@@ -1720,14 +1723,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (item.Tratado != DateTime.MinValue) item.Tratado = reader.GetDateTime(12); else item.Tratado = null;
             }
             if (!reader.IsDBNull(13)) item.Localizacao = reader.GetString(13);
-            if (!reader.IsDBNull(14))
-            {
-                item.TremID = reader.GetValue(14).ToString();
-                if (item.TremID != null)
-                {
-                    item.Prefixo7D = ObterPrefixo7D(item.TremID).Prefixo7D;
-                }
-            }
+       
+            if (!reader.IsDBNull(14)) item.Prefixo7D = reader.GetValue(14).ToString();
+
+            //if (!reader.IsDBNull(3)) item.TremID = reader.GetValue(3).ToString();
+      
+      
+            
 
             item.DescricaoMacro = "DESCRICAO DE TESTE ";
             return item;
