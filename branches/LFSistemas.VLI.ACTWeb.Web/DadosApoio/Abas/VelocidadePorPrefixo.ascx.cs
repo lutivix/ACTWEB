@@ -29,7 +29,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
 
                 return this.usuario;
             }
-        } 
+        }
         enum TpUser
         {
             _UserOperador = 'O',
@@ -49,14 +49,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
         public unsafe struct MsgCentBloqAVP
         {
-          public ulong           tipo;
-          public double          timestamp;
-          public char[]          matUsuarioLogado;   //[TAMMATRICULA]
-          public char[]          prefixo;            //[TAMPREFIXO]
-          public ulong           velocidade;
-          public ulong           idsb;
-          public ulong           tipoop;
-          public ulong           idvelprf;
+            public ulong tipo;
+            public double timestamp;
+            public char[] matUsuarioLogado;   //[TAMMATRICULA]
+            public char[] prefixo;            //[TAMPREFIXO]
+            public ulong velocidade;
+            public ulong idsb;
+            public ulong tipoop;
+            public ulong idvelprf;
         };
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
                                       int tpoper,
                                       char[] prmMat_Usuario,
                                       char[] prefixo,
-                                      char prmTpUser); 
+                                      char prmTpUser);
 
         public delegate void VoltarEventHandler();
         public event VoltarEventHandler Voltar;
@@ -122,10 +122,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
 
             var usuarioController = new UsuarioController();
             var usuarioLogado = usuarioController.ObterPorLogin(Page.User.Identity.Name);
-             
+
 
             int[] selecao = new int[10];
-            
+
             string teste;
 
             //usuario
@@ -147,28 +147,33 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
 
                 else
                     prefixo[i] = char.MinValue;
-            } 
-
-            for (int i = 0; i < selecionado.Length; i++)
-			{ 
+            }
+             
+            if (ViewState["Velocidade_ID"] != null) //Editando
+            {
                 var velocidade = txtVelocidade.Text;
-                var sb = lbSecao.Items[i].Value.ToString();
-                                 
-                if (ViewState["Velocidade_ID"] != null) //Editando
+                var sb = txtSb.Text; 
+                DLLSendAVP((int)int.Parse(txtVelocidade.Text), int.Parse(sb), int.Parse(ViewState["Velocidade_ID"].ToString()), 1, usuario, prefixo, 'W');
+                 
+            }
+            else
+            {
+                for (int i = 0; i < selecionado.Length; i++)//Adicionando
                 {
-                    DLLSendAVP((int)int.Parse(txtVelocidade.Text), int.Parse(lbSecao.Items[i].Value), int.Parse(ViewState["Velocidade_ID"].ToString()), 1, usuario, prefixo, 'W'); 
+                    var velocidade = txtVelocidade.Text;
+                    var sb = lbSecao.Items[i].Value.ToString();
+                    DLLSendAVP((int)int.Parse(txtVelocidade.Text), int.Parse(lbSecao.Items[i].Value), 0, 0, usuario, prefixo, 'W');
                 }
-                //Adicionando
-                DLLSendAVP((int)int.Parse(txtVelocidade.Text), int.Parse(lbSecao.Items[i].Value), 0, 0, usuario, prefixo,'W');
-			}
-
+                 
+            }
+             
             LimparFormulario();
             if (Voltar != null)
             {
                 Voltar.Invoke();
             }
 
-             
+
         }
         protected void lnkExcluir_OnClick(object sender, EventArgs e)
         {
@@ -185,7 +190,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
                 else
                     usuario[i] = char.MinValue;
             }
-             
+
             //prefixo
             char[] prefixo = new char[10];
             for (int i = 0; i <= 9; i++)
@@ -195,10 +200,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
 
                 else
                     prefixo[i] = char.MinValue;
-            } 
+            }
 
-            DLLSendAVP(0, 0, int.Parse(ViewState["Velocidade_ID"].ToString()), 2, usuario, prefixo,'W');
-            
+            DLLSendAVP(0, 0, int.Parse(ViewState["Velocidade_ID"].ToString()), 2, usuario, prefixo, 'W');
+
             LimparFormulario();
             if (Voltar != null)
             {
@@ -207,7 +212,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
         }
         protected void lnkCancelar_OnClick(object sender, EventArgs e)
         {
-            LimparFormulario(); 
+            LimparFormulario();
             if (Voltar != null)
             {
                 Voltar.Invoke();
@@ -217,7 +222,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
 
         #endregion
 
-        #endregion 
+        #endregion
 
         #region [ COMBOS ]
 
@@ -286,12 +291,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
             if (comando == BarraControle.Novo)
             {
                 txtPrefixo.Enabled = true;
-                
+
                 lbSecao.Enabled = true;
                 lbSecao.Visible = true;
 
                 lnkCancelar.Enabled = true;
-                                
+
                 txtSb.Enabled = false;
                 txtSb.Visible = false;
 
