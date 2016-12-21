@@ -276,7 +276,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ${E_CodOS}
                                         ${E_Expre}
                                         ${E_Corre}");
-
+                    }
+                    #endregion
 
                     #region [ PRA TRÁS, PRA FRENTE E MOTIVO ]
 

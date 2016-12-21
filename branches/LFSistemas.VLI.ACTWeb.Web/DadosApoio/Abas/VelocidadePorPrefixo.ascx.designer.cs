@@ -13,13 +13,22 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas {
     public partial class VelocidadePorPrefixo {
         
         /// <summary>
-        /// ddlSecao control.
+        /// lbSecao control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSecao;
+        protected global::System.Web.UI.WebControls.ListBox lbSecao;
+        
+        /// <summary>
+        /// txtSb control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSb;
         
         /// <summary>
         /// txtPrefixo control.
@@ -40,13 +49,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas {
         protected global::System.Web.UI.WebControls.TextBox txtVelocidade;
         
         /// <summary>
-        /// lnkCalncelar control.
+        /// lnkCancelar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkCalncelar;
+        protected global::System.Web.UI.WebControls.LinkButton lnkCancelar;
         
         /// <summary>
         /// lnkExcluir control.

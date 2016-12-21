@@ -226,6 +226,12 @@
                                         <span class="menu-item-label" title="Plus">Plus</span>
                                     </asp:LinkButton>
                                 </li>
+                                <li class="" id="sub_dadosapoio_velocidade" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkVelocidade" OnClick="lnkVelocidade_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-book"></i></span>
+                                        <span class="menu-item-label" title="Plus">Velocidade Prefixo</span>
+                                    </asp:LinkButton>
+                                </li>
 
 
 

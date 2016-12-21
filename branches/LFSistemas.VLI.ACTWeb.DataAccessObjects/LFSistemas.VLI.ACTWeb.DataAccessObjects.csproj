@@ -128,6 +128,7 @@
     <Compile Include="TremDAO.cs" />
     <Compile Include="UsuarioDAO.cs" />
     <Compile Include="UsuarioACTDAO.cs" />
+    <Compile Include="VelocidadePorPrefixoDAO.cs" />
     <Compile Include="VMADAO.cs" />
   </ItemGroup>
   <ItemGroup>

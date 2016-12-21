@@ -292,6 +292,24 @@ namespace LFSistemas.VLI.ACTWeb.Web {
         protected global::System.Web.UI.WebControls.LinkButton lnkPlus;
         
         /// <summary>
+        /// sub_dadosapoio_velocidade control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub_dadosapoio_velocidade;
+        
+        /// <summary>
+        /// lnkVelocidade control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkVelocidade;
+        
+        /// <summary>
         /// mnGOP control.
         /// </summary>
         /// <remarks>

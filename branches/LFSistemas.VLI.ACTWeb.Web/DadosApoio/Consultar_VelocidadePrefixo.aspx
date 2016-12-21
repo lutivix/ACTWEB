@@ -3,7 +3,9 @@
 <%@ Register TagPrefix="asp" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit, Version=4.1.40412.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e" %>
 <%@ Register Src="Abas/VelocidadePorPrefixo.ascx" TagName="Dados" TagPrefix="ucAbas" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPageTitle" runat="server">
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPageTitle" runat="server">  
     <table class="nav-justified">
         <tr>
             <td style="width: 79%; text-align: left;">
@@ -182,7 +184,7 @@
                                                     <asp:LinkButton ID="lnkPrimeiraPagina" runat="server" OnClick="lnkPrimeiraPagina_Click" ToolTip="Primeira página"><i class="fa fa-fast-backward"></i></asp:LinkButton>
                                                     &nbsp;<asp:LinkButton ID="lnkPaginaAnterior" runat="server" OnClick="lnkPaginaAnterior_Click" ToolTip="Página anterior"><i class="fa fa-backward"></i></asp:LinkButton>&nbsp;
                                                             &nbsp;Itens por página:&nbsp;
-                                                            <asp:DropDownList ID="ddlPageSize" runat="server" AutoPostBack="true" Width="80" CssClass="form-control-single">
+                                                            <asp:DropDownList ID="ddlPageSize" runat="server" AutoPostBack="True" Width="80px" CssClass="form-control-single">
                                                                 <asp:ListItem Text="10" Value="10" />
                                                                 <asp:ListItem Text="20" Value="20" />
                                                                 <asp:ListItem Text="30" Value="30" Selected="True" />
@@ -205,8 +207,8 @@
                                 <tr>
                                     <td colspan="14" style="text-align: left; color: rgb(0, 72, 89);">
                                         <hr style="color: rgb(0, 72, 89); padding: 0px 5px 0px 5px;" />
-                                        <asp:Label runat="server" Text="Registros: " Font-Bold="true" Font-Size="12" Style="color: rgb(153, 153, 153);" />
-                                        <asp:Label runat="server" ID="lblTotal" Font-Bold="true" Font-Size="12" Style="color: rgb(0, 72, 89);" />
+                                        <asp:Label runat="server" Text="Registros: " Font-Bold="True" Font-Size="12pt" Style="color: rgb(153, 153, 153);" />
+                                        <asp:Label runat="server" ID="lblTotal" Font-Bold="True" Font-Size="12pt" Style="color: rgb(0, 72, 89);" />
                                     </td>
                                 </tr>
                             </table>

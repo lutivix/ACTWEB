@@ -170,11 +170,13 @@
     <Content Include="css\jquery.dataTables_themeroller.css" />
     <Content Include="css\main.css" />
     <Content Include="css\processando.css" />
+    <Content Include="DadosApoio\Abas\VelocidadePorPrefixo.ascx" />
     <Content Include="DadosApoio\Consultar_Abreviaturas.aspx" />
     <Content Include="DadosApoio\Consultar_Banners.aspx" />
     <Content Include="DadosApoio\Consultar_Menus.aspx" />
     <Content Include="DadosApoio\Consultar_Perfis.aspx" />
     <Content Include="DadosApoio\Consultar_Submenus.aspx" />
+    <Content Include="DadosApoio\Consultar_VelocidadePrefixo.aspx" />
     <Content Include="DadosApoio\Manter\Abreviaturas.aspx" />
     <Content Include="DadosApoio\Manter\Banners.aspx" />
     <Content Include="DadosApoio\Manter\Menus.aspx" />
@@ -881,6 +883,13 @@
     <Compile Include="Consulta\UsuarioACT.aspx.designer.cs">
       <DependentUpon>UsuarioACT.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DadosApoio\Abas\VelocidadePorPrefixo.ascx.cs">
+      <DependentUpon>VelocidadePorPrefixo.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DadosApoio\Abas\VelocidadePorPrefixo.ascx.designer.cs">
+      <DependentUpon>VelocidadePorPrefixo.ascx</DependentUpon>
+    </Compile>
     <Compile Include="DadosApoio\Consultar_Abreviaturas.aspx.cs">
       <DependentUpon>Consultar_Abreviaturas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -915,6 +924,13 @@
     </Compile>
     <Compile Include="DadosApoio\Consultar_Submenus.aspx.designer.cs">
       <DependentUpon>Consultar_Submenus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DadosApoio\Consultar_VelocidadePrefixo.aspx.cs">
+      <DependentUpon>Consultar_VelocidadePrefixo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DadosApoio\Consultar_VelocidadePrefixo.aspx.designer.cs">
+      <DependentUpon>Consultar_VelocidadePrefixo.aspx</DependentUpon>
     </Compile>
     <Compile Include="DadosApoio\Manter\Abreviaturas.aspx.cs">
       <DependentUpon>Abreviaturas.aspx</DependentUpon>
@@ -1195,6 +1211,7 @@
     </Compile>
     <Compile Include="Sobre.aspx.cs">
       <DependentUpon>Sobre.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Sobre.aspx.designer.cs">
       <DependentUpon>Sobre.aspx</DependentUpon>

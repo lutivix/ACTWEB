@@ -121,6 +121,7 @@
     <Compile Include="TremController.cs" />
     <Compile Include="UsuarioController.cs" />
     <Compile Include="UsuarioACTController.cs" />
+    <Compile Include="VelocidadePorPrefixoController.cs" />
     <Compile Include="VMAController.cs" />
   </ItemGroup>
   <ItemGroup>

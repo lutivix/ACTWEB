@@ -105,6 +105,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio
         protected void lnkFiltroPesquisar_OnClick(object sender, EventArgs e)
         {
             Pesquisar(null, Navigation.None);
+
         }
         protected void lnkFiltroLimpar_OnClick(object sender, EventArgs e)
         {

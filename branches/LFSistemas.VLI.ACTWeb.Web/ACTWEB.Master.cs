@@ -155,6 +155,11 @@ namespace LFSistemas.VLI.ACTWeb.Web
         {
             Response.Redirect("~/Plus.aspx");
         }
+         
+        protected void lnkVelocidade_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/DadosApoio/Consultar_VelocidadePrefixo.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
+        }
 
         #endregion
 
@@ -764,6 +769,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
         }
 
         #endregion
+
 
         
     }

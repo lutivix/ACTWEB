@@ -2,6 +2,23 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
+<link rel="stylesheet" type="text/css" href="../js/extensions/FixedHeader/css/dataTables.fixedHeader.css" />
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.css" />
+    <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables_themeroller.css" />
+    <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css" />
+
+    <script type="text/javascript" src="/js/mascara.js"></script>
+    <script type="text/javascript" src="/js/myFunction.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dialog.js"></script>
+    <script type="text/javascript" src="/js/pro.js"></script>
+    <script type="text/javascript" src="/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="/js/extensions/FixedHeader/js/dataTables.fixedHeader.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="../js/jquery-ui.js"></script>
+
 <script type="text/javascript">
     function tecla() {
         if (window.event.keyCode == 27) {
@@ -13,10 +30,10 @@
             var retorno = true;
             var msg = "Informe";
             var item = [];
-
-            if (document.getElementById("<%=ddlSecao.ClientID%>").value == 'Selecione!' || document.getElementById("<%=ddlSecao.ClientID%>").value == '') {
+             
+            if (document.getElementById("<%=lbSecao.ClientID%>").value == 'Selecione!' || document.getElementById("<%=lbSecao.ClientID%>").value == '') {
                 msg += " a SB. \n";
-                if (item.length > 0) item += ":<%=ddlSecao.ClientID%>"; else item += "<%=ddlSecao.ClientID%>";
+                if (item.length > 0) item += ":<%=lbSecao.ClientID%>"; else item += "<%=lbSecao.ClientID%>";
                 retorno = false;
             }
             if (document.getElementById("<%=txtPrefixo.ClientID%>").value == '') {
@@ -63,6 +80,7 @@
             }
             document.forms[0].appendChild(confirm_value);
         }
+     
 </script>
 <style type="text/css">
 
@@ -74,7 +92,9 @@
             <tr>
                 <td style="width: 20%; padding-top: 05px;" colspan="2">
                     <label for="Prefixo">SB:</label>
-                    <asp:DropDownList ID="ddlSecao" runat="server" CssClass="form-control" Width="98%" />
+                    <%--<asp:DropDownList ID="ddlSecao" runat="server" CssClass="form-control" Width="98%" />--%> 
+                    <asp:ListBox ID="lbSecao" runat="server" CssClass="form-control" Width="98%" SelectionMode="Multiple" Visible="true"></asp:ListBox> 
+                    <asp:TextBox ID="txtSb"   runat="server" CssClass="form-control" Width="97%" />
                 </td>
             </tr>
             <tr>
@@ -97,13 +117,13 @@
                 <td style="width: 100%; padding-top: 10px;" colspan="4">
                     <div class="btn-group btn-group-lg hidden-xs">
                         <div class="btn-group btn-group-lg">
-                            <asp:LinkButton runat="server" ID="lnkCalncelar" CssClass="btn btn-info" Text="Cancelar" OnClick="lnkCalncelar_OnClick"><i class="fa fa-sign-out"></i>&nbsp;Cancelar</asp:LinkButton>
+                            <asp:LinkButton runat="server" ID="lnkCancelar" CssClass="btn btn-info" Text="Cancelar" OnClick="lnkCancelar_OnClick"><i class="fa fa-sign-out"></i>&nbsp;Cancelar</asp:LinkButton>
                         </div>
                         <div class="btn-group btn-group-lg">
                             <asp:LinkButton runat="server" ID="lnkExcluir" CssClass="btn btn-danger" Text="Excluir" OnClientClick="ConfirmE();" OnClick="lnkExcluir_OnClick"><i class="fa fa-eraser"></i>&nbsp;Excluir</asp:LinkButton>
                         </div>
                         <div class="btn-group btn-group-lg">
-                            <asp:LinkButton runat="server" ID="lnkSalvar" CssClass="btn btn-success" Text="Salvar" OnClientClick="javascript:return validaFormulario();" OnClientClick="ConfirmS();" OnClick="lnkSalvar_OnClick"><i class="fa fa-plus"></i>&nbsp;Salvar</asp:LinkButton>
+                            <asp:LinkButton runat="server" ID="lnkSalvar" CssClass="btn btn-success" Text="Salvar" OnClientClick="javascript:return validaFormulario();" OnClick="lnkSalvar_OnClick"><i class="fa fa-plus"></i>&nbsp;Salvar</asp:LinkButton>
                         </div>
                     </div>
                 </td>

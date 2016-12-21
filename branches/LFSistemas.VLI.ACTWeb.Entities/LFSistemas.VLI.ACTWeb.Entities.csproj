@@ -172,6 +172,7 @@
     <Compile Include="Usuarios.cs" />
     <Compile Include="UsuariosACT.cs" />
     <Compile Include="Uteis.cs" />
+    <Compile Include="VelocidadePorPrefixo.cs" />
     <Compile Include="VMA.cs" />
   </ItemGroup>
   <ItemGroup>
