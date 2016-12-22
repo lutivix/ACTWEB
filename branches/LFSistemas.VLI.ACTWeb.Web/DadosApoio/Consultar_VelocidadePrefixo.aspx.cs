@@ -105,6 +105,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio
         protected void lnkFiltroPesquisar_OnClick(object sender, EventArgs e)
         {
             Pesquisar(null, Navigation.None);
+            ViewState["Atualizando"] = "S";
 
         }
         protected void lnkFiltroLimpar_OnClick(object sender, EventArgs e)
@@ -114,6 +115,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio
         protected void lnkFiltroNovo_OnClick(object sender, EventArgs e)
         {
             ControlarBarraComandos(BarraControle.Novo);
+            ViewState["Atualizando"] = "N";
         }
         protected void lnkDados1_OnClick(object sender, EventArgs e)
         {

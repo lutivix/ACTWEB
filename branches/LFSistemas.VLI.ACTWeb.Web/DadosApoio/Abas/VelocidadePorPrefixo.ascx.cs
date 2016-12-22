@@ -106,6 +106,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
             {
                 ViewState["Velocidade_ID"] = null;
                 ViewState["ordenacao"] = "ASC";
+                ViewState["Atualizando"] = "N";
+
                 //rdMotivo.Checked = true;
                 string status = null;
                 //if (rdMotivo.Checked || rdParada.Checked) status = "true";
@@ -145,8 +147,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
                 else
                     prefixo[i] = char.MinValue;
             }
-             
-            if (Atualizando == true) //Atualizando
+
+            if (ViewState["Atualizando"].ToString() == "S") //Atualizando
             {
                 var id = ViewState["Velocidade_ID"].ToString();
                 var item = new VelocidadePorPrefixoController().ObterPorID(id);
@@ -182,24 +184,27 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
             char[] usuario = new char[10];
             for (int i = 0; i <= 9; i++)
             {
-                if (i < usuarioLogado.Nome.Length)
-                    usuario[i] = usuarioLogado.Nome[i];
+                if (i < usuarioLogado.Matricula.Length)
+                    usuario[i] = usuarioLogado.Matricula[i];
 
                 else
                     usuario[i] = char.MinValue;
             }
-
             //prefixo
-            char[] prefixo = new char[10];
-            for (int i = 0; i <= 9; i++)
+            char[] prefixo = new char[4];
+            for (int i = 0; i <= 3; i++)
             {
-                if (i < txtPrefixo.Text.Length)
-                    prefixo[i] = txtPrefixo.Text[i];
+                if (i < txtPrefixo.Text.ToUpper().Length)
+                    prefixo[i] = txtPrefixo.Text.ToUpper()[i];
 
                 else
                     prefixo[i] = char.MinValue;
             }
-            DLLSendAVP(0, 0, int.Parse(ViewState["Velocidade_ID"].ToString()), 1, usuario, prefixo, 'W');
+
+            var id = ViewState["Velocidade_ID"].ToString();
+            var item = new VelocidadePorPrefixoController().ObterPorID(id);
+            DLLSendAVP(0, 0, (int)int.Parse(item.Velocidade_ID), 1, usuario, prefixo, 'W');
+            
 
             LimparFormulario();
             if (Voltar != null)
@@ -224,8 +229,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
         #region [ COMBOS ]
 
         public void CarregaCombos()
-        {
-
+        { 
             var interdicaoController = new InterdicaoController();
             var ListaSecoes = interdicaoController.ObterComboInterdicao_ListaTodasSecoes();
 
@@ -235,9 +239,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
                 lbSecao.DataTextField = "SecaoNome";
                 lbSecao.DataSource = ListaSecoes;
                 lbSecao.DataBind();
-            }
-
-
+            } 
         }
 
         #endregion
@@ -247,13 +249,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
         public void CarregaDados(string id)
         {
             ViewState["Velocidade_ID"] = id;
-
-            
              
             var item = new VelocidadePorPrefixoController().ObterPorID(id);
             if (item != null)
             {
-                Atualizando = true;
+                ViewState["Atualizando"] = "S";
                 var idVelocidade = id;
                 txtSb.Text = item.SB;
                 txtPrefixo.Text = item.Prefixo;
@@ -266,6 +266,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
             }
             else
             {
+                ViewState["Atualizando"] = "N";
+                Atualizando = false;
                 lbSecao.Enabled = true;
                 lbSecao.Visible = true;
                 txtSb.Visible = false;
@@ -275,6 +277,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
         }
         public void LimparFormulario()
         {
+            Atualizando = false;
+            ViewState["Atualizando"] = "N";
             ViewState["Alarme_ID"] = null;
             txtPrefixo.Text =
             txtVelocidade.Text = string.Empty;
@@ -290,6 +294,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
         {
             if (comando == BarraControle.Novo)
             {
+
+                Atualizando = false;
                 txtPrefixo.Enabled = true;
 
                 lbSecao.Enabled = true;
@@ -309,6 +315,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
             }
             else if (comando == BarraControle.Excluir)
             {
+                Atualizando = true;
                 txtPrefixo.Enabled = false;
                 lbSecao.Enabled = false;
                 txtSb.Enabled = false;
