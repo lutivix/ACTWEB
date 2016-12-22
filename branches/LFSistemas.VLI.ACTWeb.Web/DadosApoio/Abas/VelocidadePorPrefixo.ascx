@@ -100,7 +100,7 @@
             <tr>
                 <td style="width: 10%; padding-top: 05px;">
                     <label for="Prefixo">Prefixo:</label>
-                    <asp:TextBox runat="server" ID="txtPrefixo" CssClass="form-control" Width="97%" />
+                    <asp:TextBox runat="server" ID="txtPrefixo" CssClass="form-control" Width="97%" style="text-transform:uppercase;"/>
                 </td>
                 <td style="width: 10%; padding-top: 05px;">
                     <label for="Velocidade">Velocidade:</label>

@@ -30,6 +30,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
                 return this.usuario;
             }
         }
+        public bool Atualizando { get; set; }
         enum TpUser
         {
             _UserOperador = 'O',
@@ -118,51 +119,48 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
 
         protected void lnkSalvar_OnClick(object sender, EventArgs e)
         {
-            var selecionado = lbSecao.GetSelectedIndices();
-
+            
             var usuarioController = new UsuarioController();
             var usuarioLogado = usuarioController.ObterPorLogin(Page.User.Identity.Name);
 
-
             int[] selecao = new int[10];
-
-            string teste;
-
+             
             //usuario
             char[] usuario = new char[10];
             for (int i = 0; i <= 9; i++)
             {
-                if (i < usuarioLogado.Nome.Length)
-                    usuario[i] = usuarioLogado.Nome[i];
+                if (i < usuarioLogado.Matricula.Length)
+                    usuario[i] = usuarioLogado.Matricula[i];
 
                 else
                     usuario[i] = char.MinValue;
             }
             //prefixo
-            char[] prefixo = new char[10];
-            for (int i = 0; i <= 9; i++)
+            char[] prefixo = new char[4];
+            for (int i = 0; i <= 3; i++)
             {
-                if (i < txtPrefixo.Text.Length)
-                    prefixo[i] = txtPrefixo.Text[i];
+                if (i < txtPrefixo.Text.ToUpper().Length)
+                    prefixo[i] = txtPrefixo.Text.ToUpper()[i];
 
                 else
                     prefixo[i] = char.MinValue;
             }
              
-            if (ViewState["Velocidade_ID"] != null) //Editando
+            if (Atualizando == true) //Atualizando
             {
-                var velocidade = txtVelocidade.Text;
-                var sb = txtSb.Text; 
-                DLLSendAVP((int)int.Parse(txtVelocidade.Text), int.Parse(sb), int.Parse(ViewState["Velocidade_ID"].ToString()), 1, usuario, prefixo, 'W');
+                var id = ViewState["Velocidade_ID"].ToString();
+                var item = new VelocidadePorPrefixoController().ObterPorID(id);
+                 
+                DLLSendAVP((int)int.Parse(txtVelocidade.Text), (int)int.Parse(item.SB_ID), (int)int.Parse(item.Velocidade_ID), 2, usuario, prefixo, 'W');
                  
             }
             else
             {
+                var selecionado = lbSecao.GetSelectedIndices();
                 for (int i = 0; i < selecionado.Length; i++)//Adicionando
                 {
-                    var velocidade = txtVelocidade.Text;
-                    var sb = lbSecao.Items[i].Value.ToString();
-                    DLLSendAVP((int)int.Parse(txtVelocidade.Text), int.Parse(lbSecao.Items[i].Value), 0, 0, usuario, prefixo, 'W');
+                   
+                     DLLSendAVP((int)int.Parse(txtVelocidade.Text), int.Parse(lbSecao.Items[selecionado[i]].Value.ToString()), 0, 0, usuario, prefixo, 'W');
                 }
                  
             }
@@ -201,8 +199,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
                 else
                     prefixo[i] = char.MinValue;
             }
-
-            DLLSendAVP(0, 0, int.Parse(ViewState["Velocidade_ID"].ToString()), 2, usuario, prefixo, 'W');
+            DLLSendAVP(0, 0, int.Parse(ViewState["Velocidade_ID"].ToString()), 1, usuario, prefixo, 'W');
 
             LimparFormulario();
             if (Voltar != null)
@@ -251,9 +248,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
         {
             ViewState["Velocidade_ID"] = id;
 
+            
+             
             var item = new VelocidadePorPrefixoController().ObterPorID(id);
             if (item != null)
             {
+                Atualizando = true;
                 var idVelocidade = id;
                 txtSb.Text = item.SB;
                 txtPrefixo.Text = item.Prefixo;
