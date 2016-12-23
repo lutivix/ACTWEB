@@ -26,34 +26,47 @@
         }
     }
 
-        function validaFormulario() {
-            var retorno = true;
-            var msg = "Informe";
-            var item = [];
-             
-            if (document.getElementById("<%=lbSecao.ClientID%>").value == 'Selecione!' || document.getElementById("<%=lbSecao.ClientID%>").value == '') {
+    function validaFormulario() {
+        var retorno = true;
+        var msg = "Informe";
+        var item = [];
+        var teste = document.getElementById("<%=txtVelocidade.ClientID%>").value;
+
+       
+        BootstrapDialog.show({ title: 'Entrou1', message: 'Teste' + teste + 'nada' });
+
+        if (document.getElementById("<%=lbSecao.ClientID%>").value == 'Selecione!' || document.getElementById("<%=lbSecao.ClientID%>").value == '')
+        {
                 msg += " a SB. \n";
                 if (item.length > 0) item += ":<%=lbSecao.ClientID%>"; else item += "<%=lbSecao.ClientID%>";
                 retorno = false;
-            }
-            if (document.getElementById("<%=txtPrefixo.ClientID%>").value == '') {
+        }
+
+        BootstrapDialog.show({ title: 'Entrou2', message: 'Teste' + teste + 'nada2' });
+
+        if (document.getElementById("<%=txtPrefixo.ClientID%>").value == '')
+        {
                 msg += " o Prefixo. \n";
                 if (item.length > 0) item += ":<%=txtPrefixo.ClientID%>"; else item += "<%=txtPrefixo.ClientID%>";
                 retorno = false;
-            }
-            if (document.getElementById("<%=txtVelocidade.ClientID%>").value == '') {
-                msg += " a Velocidade. \n";
-                if (item.length > 0) item += ":<%=txtVelocidade.ClientID%>"; else item += "<%=txtVelocidade.ClientID%>";
-                retorno = false;
-            }
+        }
 
-            if (retorno == false) {
+        if (document.getElementById("<%=txtVelocidade.ClientID%>").value == '') 
+        {
+            msg += " a Velocidade. \n";
+            BootstrapDialog.show({ title: 'Teste' });
+            if (item.length > 0) item += ":<%=txtVelocidade.ClientID%>"; else item += "<%=txtVelocidade.ClientID%>";
+            retorno = false;
+        }
+
+        if (retorno == false)
+        {
                 BootstrapDialog.show({ title: 'ATENÇÃO!', message: msg });
 
                 var ind = item.split(":");
                 if (ind.length > 0)
                     document.getElementById(ind[0]).focus();
-            }
+        }
 
             return retorno;
         }
@@ -80,7 +93,7 @@
             }
             document.forms[0].appendChild(confirm_value);
         }
-     
+
 </script>
 <style type="text/css">
 

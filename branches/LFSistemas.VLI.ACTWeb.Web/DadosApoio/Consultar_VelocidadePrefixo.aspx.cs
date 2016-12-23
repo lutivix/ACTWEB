@@ -111,6 +111,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio
         protected void lnkFiltroLimpar_OnClick(object sender, EventArgs e)
         {
             Pesquisar(null, Navigation.None);
+            txtFiltroPrefixo.Text = "";
+            txtFiltroVelocidade.Text = "";
+            ddlFiltroSecao.SelectedIndex = 0;
         }
         protected void lnkFiltroNovo_OnClick(object sender, EventArgs e)
         {
@@ -320,6 +323,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Registro não localizado.' });", true);
                 txtFiltroPrefixo.Text = string.Empty;
                 txtFiltroPrefixo.Focus();
+                Page_Load(null, EventArgs.Empty);
+                txtFiltroPrefixo.Text = "";
+                txtFiltroVelocidade.Text = "";
+                ddlFiltroSecao.SelectedIndex = 0;
+                
+
+
             }
         }
 
