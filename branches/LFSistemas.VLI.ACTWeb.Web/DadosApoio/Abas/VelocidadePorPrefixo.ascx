@@ -2,22 +2,7 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
-<link rel="stylesheet" type="text/css" href="../js/extensions/FixedHeader/css/dataTables.fixedHeader.css" />
-    <link rel="stylesheet" type="text/css" href="../css/main.css" />
-    <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.css" />
-    <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables_themeroller.css" />
-    <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css" />
-
-    <script type="text/javascript" src="/js/mascara.js"></script>
-    <script type="text/javascript" src="/js/myFunction.js"></script>
-    <script type="text/javascript" src="/js/main.js"></script>
-    <script type="text/javascript" src="/js/bootstrap-dialog.js"></script>
-    <script type="text/javascript" src="/js/pro.js"></script>
-    <script type="text/javascript" src="/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="/js/extensions/FixedHeader/js/dataTables.fixedHeader.js"></script>
-    <script type="text/javascript" src="../js/jquery-1.8.2.js"></script>
-    <script type="text/javascript" src="../js/jquery-ui.js"></script>
+ 
 
 <script type="text/javascript">
     function tecla() {
@@ -31,30 +16,27 @@
         var msg = "Informe";
         var item = [];
         var teste = document.getElementById("<%=txtVelocidade.ClientID%>").value;
-
-       
-        BootstrapDialog.show({ title: 'Entrou1', message: 'Teste' + teste + 'nada' });
-
-        if (document.getElementById("<%=lbSecao.ClientID%>").value == 'Selecione!' || document.getElementById("<%=lbSecao.ClientID%>").value == '')
-        {
+         
+        if (document.getElementById("<%=lbSecao.ClientID%>")) {
+            if (document.getElementById("<%=lbSecao.ClientID%>").value == 'Selecione!' || document.getElementById("<%=lbSecao.ClientID%>").value == '') {
                 msg += " a SB. \n";
                 if (item.length > 0) item += ":<%=lbSecao.ClientID%>"; else item += "<%=lbSecao.ClientID%>";
                 retorno = false;
-        }
-
-        BootstrapDialog.show({ title: 'Entrou2', message: 'Teste' + teste + 'nada2' });
-
-        if (document.getElementById("<%=txtPrefixo.ClientID%>").value == '')
-        {
-                msg += " o Prefixo. \n";
-                if (item.length > 0) item += ":<%=txtPrefixo.ClientID%>"; else item += "<%=txtPrefixo.ClientID%>";
-                retorno = false;
-        }
+            }
+        } 
+       
+       <%-- document.getElementById("<%=txtPrefixo.ClientID%>").value == '' || --%>
+        if (document.getElementById("<%=txtPrefixo.ClientID%>").innerHTML.length < 4)
+             {
+                     msg += " o Prefixo corretamente. Ex: A001\n";
+                     if (item.length > 0) item += ":<%=txtPrefixo.ClientID%>"; else item += "<%=txtPrefixo.ClientID%>";
+                     retorno = false;
+             }
+        
 
         if (document.getElementById("<%=txtVelocidade.ClientID%>").value == '') 
         {
-            msg += " a Velocidade. \n";
-            BootstrapDialog.show({ title: 'Teste' });
+            msg += " a Velocidade. \n"; 
             if (item.length > 0) item += ":<%=txtVelocidade.ClientID%>"; else item += "<%=txtVelocidade.ClientID%>";
             retorno = false;
         }
@@ -93,6 +75,7 @@
             }
             document.forms[0].appendChild(confirm_value);
         }
+     
 
 </script>
 <style type="text/css">
