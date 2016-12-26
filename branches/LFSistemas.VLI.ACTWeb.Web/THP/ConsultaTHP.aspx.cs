@@ -3,6 +3,7 @@ using LFSistemas.VLI.ACTWeb.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -26,7 +27,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
         protected override void OnInit(EventArgs e)
         {
             //abaDados.Voltar +=  new Abas.THP.VoltarEventHandler(Voltar);
-
+            
 
             base.OnInit(e);
         }
@@ -50,8 +51,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 lblUsuarioMatricula.Text = ulMatricula.ToUpper();
                 lblUsuarioPerfil.Text = ulPerfil.ToUpper();
                 lblUsuarioMaleta.Text = ulMaleta.ToUpper();
-
-                //lnkAcao.Attributes.Add("onclick", "doSomething();");
 
                 CarregaCombos();
                 Pesquisar(null);
@@ -229,14 +228,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 grupos = string.Join(",", auxGrupo);
             }
 
-            var auxSubparadas = chkboxSubparadas.Checked; 
-
             itens = pesquisar.ObterPorFiltro(new TremHoraParado()
             {
                 Motivo = txtFiltroMotivo.Text.Length > 0 ? txtFiltroMotivo.Text : null,
                 Corredor_ID = corredores,
-                Grupo_ID = grupos,
-                ExibeSubparadas = auxSubparadas
+                Grupo_ID = grupos
             });
 
             if (itens.Count > 0)
@@ -284,7 +280,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                         itens = itens.OrderByDescending(o => o.TempoTotal).ToList();
                         break;
                 }
-
+                
                 RepeaterItens.DataSource = itens;
                 RepeaterItens.DataBind();
             }
@@ -311,40 +307,5 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
         }
 
         #endregion
-
-        protected void lnkUsuario_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void lnkTempo_Click1(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void lnkMotivo_Click1(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void lnkMotivoSubparada_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void lnkTempoSubparada_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void lnkUsuarioSubparada_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void lnkRegistroSubparada_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
