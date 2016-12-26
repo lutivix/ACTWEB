@@ -14,9 +14,11 @@
     function validaFormulario() {
         var retorno = true;
         var msg = "Informe";
-        var item = [];
-        var teste = document.getElementById("<%=txtVelocidade.ClientID%>").value;
-         
+        var item = []; 
+        var prefixo = document.getElementById("<%=txtPrefixo.ClientID%>").value; 
+        var prefixoLetra = document.getElementById("<%=txtPrefixo.ClientID%>").value.substr(0, 1);
+        var prefixoNumero = document.getElementById("<%=txtPrefixo.ClientID%>").value.substr(1, 3);
+
         if (document.getElementById("<%=lbSecao.ClientID%>")) {
             if (document.getElementById("<%=lbSecao.ClientID%>").value == 'Selecione!' || document.getElementById("<%=lbSecao.ClientID%>").value == '') {
                 msg += " a SB. \n";
@@ -26,20 +28,21 @@
         } 
        
        <%-- document.getElementById("<%=txtPrefixo.ClientID%>").value == '' || --%>
-        if (document.getElementById("<%=txtPrefixo.ClientID%>").innerHTML.length < 4)
+        if (prefixo.length != 4 || isNaN(prefixoLetra) == false || isNaN(prefixoNumero) == true)
              {
-                     msg += " o Prefixo corretamente. Ex: A001\n";
+            msg += " o Prefixo corretamente. Ex: A001\n";  
                      if (item.length > 0) item += ":<%=txtPrefixo.ClientID%>"; else item += "<%=txtPrefixo.ClientID%>";
                      retorno = false;
              }
         
 
-        if (document.getElementById("<%=txtVelocidade.ClientID%>").value == '') 
-        {
-            msg += " a Velocidade. \n"; 
-            if (item.length > 0) item += ":<%=txtVelocidade.ClientID%>"; else item += "<%=txtVelocidade.ClientID%>";
-            retorno = false;
-        }
+        if (document.getElementById("<%=txtVelocidade.ClientID%>").value == '' || isNaN(document.getElementById("<%=txtVelocidade.ClientID%>").value) || document.getElementById("<%=txtVelocidade.ClientID%>").value < 1 || document.getElementById("<%=txtVelocidade.ClientID%>").value > 99) {
+                msg += " a Velocidade corretamente. \n";
+                if (item.length > 0) item += ":<%=txtVelocidade.ClientID%>"; else item += "<%=txtVelocidade.ClientID%>";
+                retorno = false;
+            }
+        
+
 
         if (retorno == false)
         {
