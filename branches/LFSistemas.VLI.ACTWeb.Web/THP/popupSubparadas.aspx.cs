@@ -114,7 +114,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
 
                     if (retorno)
                     {
-                        RemoveSubparadaTemporaria(itens[i].UTP_ID);
+                        RemoveSubparadaTemporaria(itens[i].UTPS_ID);
                     }
                 }
             }

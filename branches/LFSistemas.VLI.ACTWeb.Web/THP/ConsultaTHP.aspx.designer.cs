@@ -85,15 +85,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP {
         protected global::System.Web.UI.WebControls.TextBox txtFiltroMotivo;
         
         /// <summary>
-        /// chkboxSubparadas control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkboxSubparadas;
-        
-        /// <summary>
         /// cblCorredor control.
         /// </summary>
         /// <remarks>
@@ -146,105 +137,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel tpPesquisa;
-        
-        /// <summary>
-        /// upDados control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upDados;
-        
-        /// <summary>
-        /// lnkCodigo_OS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkCodigo_OS;
-        
-        /// <summary>
-        /// lnkPrefixo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkPrefixo;
-        
-        /// <summary>
-        /// lnkPrefixo7D control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkPrefixo7D;
-        
-        /// <summary>
-        /// lnkLocal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkLocal;
-        
-        /// <summary>
-        /// lnkTempo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkTempo;
-        
-        /// <summary>
-        /// lnkTempoTotal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkTempoTotal;
-        
-        /// <summary>
-        /// lnkMotivo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkMotivo;
-        
-        /// <summary>
-        /// lnkCorredor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkCorredor;
-        
-        /// <summary>
-        /// lnkGrupo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkGrupo;
-        
-        /// <summary>
-        /// pnlRepiter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlRepiter;
         
         /// <summary>
         /// RepeaterItens control.

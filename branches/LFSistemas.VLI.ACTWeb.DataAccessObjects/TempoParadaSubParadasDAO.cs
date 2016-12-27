@@ -442,12 +442,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"DELETE FROM TMP_MACROS WHERE TMP_ID_TMP = ${TMP_ID_TMP}");
+                    query.Append(@"DELETE FROM TMP_SUBPARADAS WHERE TMP_UTPS_ID = ${TMP_UTPS_ID}");
 
                     if (Id != null)
-                        query.Replace("${TMP_ID_TMP}", string.Format("{0}", Id));
+                        query.Replace("${TMP_UTPS_ID}", string.Format("{0}", Id));
                     else
-                        query.Replace("${TMP_ID_TMP}", "NULL");
+                        query.Replace("${TMP_UTPS_ID}", "NULL");
 
                     command.CommandText = query.ToString();
                     var reader = command.ExecuteNonQuery();
@@ -701,12 +701,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"DELETE FROM TMP_SUBPARADAS WHERE TMP_UTP_ID = ${TMP_UTP_ID}");
+                    query.Append(@"DELETE FROM TMP_SUBPARADAS WHERE TMP_UTPS_ID = ${TMP_UTPS_ID}");
 
                     if (Id != null)
-                        query.Replace("${TMP_UTP_ID}", string.Format("{0}", Id));
+                        query.Replace("${TMP_UTPS_ID}", string.Format("{0}", Id));
                     else
-                        query.Replace("${TMP_UTP_ID}", "NULL");
+                        query.Replace("${TMP_UTPS_ID}", "NULL");
 
                     command.CommandText = query.ToString();
                     var reader = command.ExecuteNonQuery();

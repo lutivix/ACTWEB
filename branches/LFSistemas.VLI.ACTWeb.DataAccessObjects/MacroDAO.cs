@@ -255,8 +255,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     if (filtro.NumeroMacro != "9")
                     {
-                        query.Append(@"SELECT 'R' AS R_E, DECODE(MCT_NOM_MCT, NULL, MR_LOCO, MR_LOCO, NULL, MCT_NOM_MCT) AS MR_LOCO, MR_PRF_ACT, MR_COD_OF, MR_MSG_TIME AS Horário, MR_MC_NUM, SUBSTR(MR_TEXT, 1, 760) AS MR_TEXT, MR_MCT_ADDR, MENSAGENS_RECEBIDAS.MR_GRMN, MR_CORREDOR, MR_NOME_SB, MR_KM, MR_TIME_TRT AS TRATADO, MR_LAND_MARK 
-                                        FROM ACTPP.MENSAGENS_RECEBIDAS, ACTPP.MCTS 
+                        query.Append(@"SELECT 'R' AS R_E, DECODE(MCT_NOM_MCT, NULL, MR_LOCO, MR_LOCO, NULL, MCT_NOM_MCT) AS MR_LOCO, MR_PRF_ACT, MR_COD_OF, MR_MSG_TIME AS Horário, MR_MC_NUM, SUBSTR(MR_TEXT, 1, 760) AS MR_TEXT, MR_MCT_ADDR, MENSAGENS_RECEBIDAS.MR_GRMN, MR_CORREDOR, MR_NOME_SB, MR_KM, MR_TIME_TRT AS TRATADO, MR_LAND_MARK, TM7H_PRF_ACT  
+                                        FROM ACTPP.MENSAGENS_RECEBIDAS, ACTPP.MCTS, ACTPP.TRENS7D_HIST 
                                         WHERE MCTS.MCT_ID_MCT = MENSAGENS_RECEBIDAS.MR_MCT_ADDR
                                             ${R_Horar}
                                             ${R_Locom}
@@ -265,9 +265,10 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             ${R_CodOS}
                                             ${R_Expre}
                                             ${R_Corre}
+                                            AND TRENS7D_HIST.TMH_ID_TRM(+) = MENSAGENS_RECEBIDAS.MR_ID_TRM
                                     UNION
-                                        SELECT 'E' AS R_E, DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS Horário, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS MR_TEXT, ME_MCT_ADDR, MENSAGENS_ENVIADAS.ME_MSG_NUM, ME_CORREDOR, ME_NOME_SB, ME_KM, ME_CONFIRM_TIME AS TRATADO, ME_LAND_MARK 
-                                        FROM ACTPP.MENSAGENS_ENVIADAS, ACTPP.MCTS 
+                                        SELECT 'E' AS R_E, DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS Horário, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS MR_TEXT, ME_MCT_ADDR, MENSAGENS_ENVIADAS.ME_MSG_NUM, ME_CORREDOR, ME_NOME_SB, ME_KM, ME_CONFIRM_TIME AS TRATADO, ME_LAND_MARK, TM7H_PRF_ACT  
+                                        FROM ACTPP.MENSAGENS_ENVIADAS, ACTPP.MCTS, ACTPP.TRENS7D_HIST
                                         WHERE MCTS.MCT_ID_MCT = MENSAGENS_ENVIADAS.ME_MCT_ADDR
                                         ${E_Horar}
                                         ${E_Locom}
@@ -275,48 +276,122 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ${E_Macro}
                                         ${E_CodOS}
                                         ${E_Expre}
-                                        ${E_Corre}");
+                                        AND TRENS7D_HIST.TMH_ID_TRM(+) = MENSAGENS_ENVIADAS.ME_ID_TRM");
+
+                        #region [ FILTRA MACROS PRA TRÁS ]
+
+                        if (filtro.Espaco == 1)
+                        {
+                            if (filtro.DataInicio.HasValue && filtro.DataFim.HasValue)
+                            {
+                                query.Replace("${R_Horar}", string.Format("AND MR_MSG_TIME <= to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND MR_MSG_TIME >= to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                                query.Replace("${E_Horar}", string.Format("AND ME_MSG_TIME <= to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND ME_MSG_TIME >= to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                            }
+                            else
+                            {
+                                query.Replace("${R_Horar}", "");
+                                query.Replace("${E_Horar}", "");
+                            }
+                        }
+
+                        #endregion
+
+                        #region [ FILTRA MACROS PRA FRENTE ]
+
+                        else
+                        {
+                            if (filtro.DataInicio.HasValue && filtro.DataFim.HasValue)
+                            {
+                                query.Replace("${R_Horar}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                                query.Replace("${E_Horar}", string.Format("AND ME_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                            }
+                            else
+                            {
+                                query.Replace("${R_Horar}", "");
+                                query.Replace("${E_Horar}", "");
+                            }
+                        }
+
+                        #endregion
                     }
+
                     #endregion
 
-                    #region [ PRA TRÁS, PRA FRENTE E MOTIVO ]
-
-                    if (filtro.Espaco == 1)
+                    #region [ MACROS: 9 ]
+                    else
                     {
-                        if (filtro.DataInicio.HasValue && filtro.DataFim.HasValue)
+                        query.Append(@"SELECT 'R' AS R_E, DECODE(MCT_NOM_MCT, NULL, MR_LOCO, MR_LOCO, NULL, MCT_NOM_MCT) AS MR_LOCO, MR_PRF_ACT, MR_COD_OF, MR_MSG_TIME AS Horário, MR_MC_NUM, SUBSTR(MR_TEXT, 1, 760) AS MR_TEXT, MR_MCT_ADDR, MENSAGENS_RECEBIDAS.MR_GRMN, MR_CORREDOR, MR_NOME_SB, MR_KM, MR_TIME_TRT AS TRATADO, MR_LAND_MARK, TM7H_PRF_ACT 
+                                        FROM ACTPP.MENSAGENS_RECEBIDAS, ACTPP.MCTS, ACTPP.TRENS7D_HIST 
+                                        WHERE MCTS.MCT_ID_MCT = MENSAGENS_RECEBIDAS.MR_MCT_ADDR
+                                        ${R_Horar}
+                                        ${R_Locom}
+                                        ${R_Trens}
+                                        ${R_Macro}
+                                        ${R_Motiv}
+                                        ${R_CodOS}
+                                        ${R_Expre}
+                                        ${R_Corre}
+                                        AND (MENSAGENS_RECEBIDAS.MR_MC_NUM <> 4)
+                                        AND TRENS7D_HIST.TMH_ID_TRM(+) = MENSAGENS_RECEBIDAS.MR_ID_TRM
+                                  UNION
+                                        SELECT 'E' AS R_E, DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS Horário, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS MR_TEXT, ME_MCT_ADDR, MENSAGENS_ENVIADAS.ME_MSG_NUM, ME_CORREDOR, ME_NOME_SB, ME_KM, ME_CONFIRM_TIME AS TRATADO, ME_LAND_MARK, TM7H_PRF_ACT 
+                                        FROM ACTPP.MENSAGENS_ENVIADAS, ACTPP.MCTS, ACTPP.TRENS7D_HIST 
+                                        WHERE MCTS.MCT_ID_MCT = MENSAGENS_ENVIADAS.ME_MCT_ADDR
+                                        ${E_Horar}
+                                        ${E_Locom}
+                                        ${E_Trens}
+                                        ${E_Macro}
+                                        ${E_Motiv}
+                                        ${E_CodOS}
+                                        ${E_Expre}
+                                        AND TRENS7D_HIST.TMH_ID_TRM(+) = MENSAGENS_ENVIADAS.ME_ID_TRM");
+
+                        #region [ FILTRA MACROS PRA TRÁS ]
+
+                        if (filtro.Espaco == 1)
                         {
-                            query.Replace("${R_Horar}", string.Format("AND MR_MSG_TIME <= to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND MR_MSG_TIME >= to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
-                            query.Replace("${E_Horar}", string.Format("AND ME_MSG_TIME <= to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND ME_MSG_TIME >= to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                            if (filtro.DataInicio.HasValue && filtro.DataFim.HasValue)
+                            {
+                                query.Replace("${R_Horar}", string.Format("AND MR_MSG_TIME <= to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND MR_MSG_TIME >= to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                                query.Replace("${E_Horar}", string.Format("AND ME_MSG_TIME <= to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND ME_MSG_TIME >= to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                            }
+                            else
+                            {
+                                query.Replace("${R_Horar}", "");
+                                query.Replace("${E_Horar}", "");
+                            }
+                        }
+
+                        #endregion
+
+                        #region [ FILTRA MACROS PRA FRENTE ]
+
+                        else
+                        {
+                            if (filtro.DataInicio.HasValue && filtro.DataFim.HasValue)
+                            {
+                                query.Replace("${R_Horar}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                                query.Replace("${E_Horar}", string.Format("AND ME_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                            }
+                            else
+                            {
+                                query.Replace("${R_Horar}", "");
+                                query.Replace("${E_Horar}", "");
+                            }
+                        }
+
+                        #endregion
+
+                        if (!string.IsNullOrEmpty(filtro.Motivo))
+                        {
+                            query.Replace("${R_Motiv}", string.Format("AND SUBSTR(MR_TEXT,length(MR_TEXT) -1,length(MR_TEXT)) IN ({0})", filtro.Motivo));
+                            query.Replace("${E_Motiv}", string.Format("AND SUBSTR(ME_TEXT,length(ME_TEXT) -1,length(ME_TEXT)) IN ({0})", filtro.Motivo));
                         }
                         else
                         {
-                            query.Replace("${R_Horar}", "");
-                            query.Replace("${E_Horar}", "");
+                            query.Replace("${R_Motiv}", "");
+                            query.Replace("${E_Motiv}", "");
                         }
-                    }
-                    else
-                    {
-                        if (filtro.DataInicio.HasValue && filtro.DataFim.HasValue)
-                        {
-                            query.Replace("${R_Horar}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
-                            query.Replace("${E_Horar}", string.Format("AND ME_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
-                        }
-                        else
-                        {
-                            query.Replace("${R_Horar}", "");
-                            query.Replace("${E_Horar}", "");
-                        }
-                    }
-
-                    if (!string.IsNullOrEmpty(filtro.Motivo))
-                    {
-                        query.Replace("${R_Motiv}", string.Format("AND SUBSTR(MR_TEXT,length(MR_TEXT) -1,length(MR_TEXT)) IN ({0})", filtro.Motivo));
-                        query.Replace("${E_Motiv}", string.Format("AND SUBSTR(ME_TEXT,length(ME_TEXT) -1,length(ME_TEXT)) IN ({0})", filtro.Motivo));
-                    }
-                    else
-                    {
-                        query.Replace("${R_Motiv}", "");
-                        query.Replace("${E_Motiv}", "");
                     }
 
                     #endregion
@@ -478,18 +553,40 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 {
                     var command = connection.CreateCommand();
 
-                        queryE.Append(@"SELECT 'E' AS R_E, DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS Horário, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS ME_TEXT, ME_MCT_ADDR, MENSAGENS_ENVIADAS.ME_MSG_NUM, ME_MSG_STATUS, ME_CONFIRM_TIME AS TRATADO, ME_CORREDOR AS CORREDOR
-                                        FROM ACTPP.MENSAGENS_ENVIADAS, ACTPP.MCTS
+                    #region [ FILTRA MACROS PRA FRENTE ]
+
+                    if (filtro.Espaco == 0)
+                    {
+                        queryE.Append(@"SELECT 'E' AS R_E, DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS Horário, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS ME_TEXT, ME_MCT_ADDR, MENSAGENS_ENVIADAS.ME_MSG_NUM, ME_MSG_STATUS, ME_CONFIRM_TIME AS TRATADO, ME_CORREDOR AS CORREDOR, TM7H_PRF_ACT
+                                        FROM ACTPP.MENSAGENS_ENVIADAS, ACTPP.MCTS, ACTPP.TRENS7D_HIST
                                             WHERE MCTS.MCT_ID_MCT = MENSAGENS_ENVIADAS.ME_MCT_ADDR
-                                                ${ME_MSG_TIME}
+                                              AND TRENS7D_HIST.TMH_ID_TRM =  MENSAGENS_ENVIADAS.ME_ID_TRM
+                                              AND ME_MSG_TIME BETWEEN ${DataInicio} AND ${DataFinal} 
                                                 ${ME_LOCO}
                                                 ${ME_PRF_ACT}
                                                 ${ME_MAC_NUM}
                                                 ${ME_COD_OF}
-                                                ${ME_Expre}
-												${E_Corre}
-                                            ORDER BY HorArio DESC");
+                                                ${ME_Expre}");
+                    }
+                    #endregion
 
+                    #region [ FILTRA MACROS PRA TRÁS ]
+
+                    else if (filtro.Espaco == 1)
+                    {
+                        queryE.Append(@"SELECT 'E' AS R_E, DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS Horário, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS ME_TEXT, ME_MCT_ADDR, MENSAGENS_ENVIADAS.ME_MSG_NUM, ME_MSG_STATUS, ME_CONFIRM_TIME AS TRATADO, ME_CORREDOR AS CORREDOR, TM7H_PRF_ACT
+                                        FROM ACTPP.MENSAGENS_ENVIADAS, ACTPP.MCTS, ACTPP.TRENS7D_HIST
+                                            WHERE MCTS.MCT_ID_MCT = MENSAGENS_ENVIADAS.ME_MCT_ADDR
+                                              AND TRENS7D_HIST.TMH_ID_TRM =  MENSAGENS_ENVIADAS.ME_ID_TRM
+                                              AND ME_MSG_TIME <= ${DataInicio} AND ME_MSG_TIME >= ${DataFinal} 
+                                                ${ME_LOCO}
+                                                ${ME_PRF_ACT}
+                                                ${ME_MAC_NUM}
+                                                ${ME_COD_OF}
+                                                ${ME_Expre}");
+                    }
+
+                    #endregion
 
                     #region [ PARÂMETROS ]
 
@@ -612,11 +709,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 {
                     var command = connection.CreateCommand();
 
-
-                        queryR.Append(@"SELECT 'R' AS R_E, DECODE(MC.MCT_NOM_MCT, NULL, MR.MR_LOCO, MR.MR_LOCO, NULL, MC.MCT_NOM_MCT) AS MR_LOCO, MR.MR_PRF_ACT, MR.MR_COD_OF, MR.MR_MSG_TIME AS Horário, MR.MR_MC_NUM, SUBSTR(MR.MR_TEXT, 1, 760) AS MR_TEXT, MR.MR_MCT_ADDR, MR.MR_GRMN, MR.MR_LAT, MR.MR_LON, MR.MR_CORREDOR, MR.MR_NOME_SB, MR.MR_KM, MR.MR_LAND_MARK, MR.MR_TIME_TRT AS TRATADO, MR.MR_MAT_OPER, MR.MR_MSG_LIDA, MR.MR_MSG_RESP
-                                        FROM ACTPP.MENSAGENS_RECEBIDAS MR, ACTPP.MCTS MC
+                    #region [ BUSCA MACROS PARA FRENTE COM MOTIVO ]
+                    if (filtro.Espaco == 0 && !string.IsNullOrEmpty(filtro.Motivo)) // pra frente com motivo
+                    {
+                        queryR.Append(@"SELECT 'R' AS R_E, DECODE(MC.MCT_NOM_MCT, NULL, MR.MR_LOCO, MR.MR_LOCO, NULL, MC.MCT_NOM_MCT) AS MR_LOCO, MR.MR_PRF_ACT, MR.MR_COD_OF, MR.MR_MSG_TIME AS Horário, MR.MR_MC_NUM, SUBSTR(MR.MR_TEXT, 1, 760) AS MR_TEXT, MR.MR_MCT_ADDR, MR.MR_GRMN, MR.MR_LAT, MR.MR_LON, MR.MR_CORREDOR, MR.MR_NOME_SB, MR.MR_KM, MR.MR_LAND_MARK, MR.MR_TIME_TRT AS TRATADO, MR.MR_MAT_OPER, MR.MR_MSG_LIDA, MR.MR_MSG_RESP, TH.TM7H_PRF_ACT
+                                        FROM ACTPP.MENSAGENS_RECEBIDAS MR, ACTPP.MCTS MC, ACTPP.TRENS7D_HIST TH
                                         WHERE MC.MCT_ID_MCT = MR.MR_MCT_ADDR
-                                            ${MR_MSG_TIME}
+                                            ${MR_TIME}
                                             ${MR_MOTIVO}
                                             ${MCT_NOM_MCT}
                                             ${MR_PRF_ACT}
@@ -624,8 +723,60 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             ${MR_COD_OF}
                                             ${MR_Expre}
                                             ${MR_Corre}
-										ORDER BY HorArio DESC");
+                                            AND TH.TMH_ID_TRM(+) = MR.MR_ID_TRM");
+                    }
+                    #endregion
+                    #region [ BUSCA MACROS PARA FRENTE SEM MOTIVO ]
+                    else if (filtro.Espaco == 0 && string.IsNullOrEmpty(filtro.Motivo)) // pra frente sem motivo
+                    {
+                        queryR.Append(@"SELECT 'R' AS R_E, DECODE(MC.MCT_NOM_MCT, NULL, MR.MR_LOCO, MR.MR_LOCO, NULL, MC.MCT_NOM_MCT) AS MR_LOCO, MR.MR_PRF_ACT, MR.MR_COD_OF, MR.MR_MSG_TIME AS Horário, MR.MR_MC_NUM, SUBSTR(MR.MR_TEXT, 1, 760) AS MR_TEXT, MR.MR_MCT_ADDR, MR.MR_GRMN, MR.MR_LAT, MR.MR_LON, MR.MR_CORREDOR, MR.MR_NOME_SB, MR.MR_KM, MR.MR_LAND_MARK, MR.MR_TIME_TRT AS TRATADO, MR.MR_MAT_OPER, MR.MR_MSG_LIDA, MR.MR_MSG_RESP, TH.TM7H_PRF_ACT 
+                                        FROM ACTPP.MENSAGENS_RECEBIDAS MR, ACTPP.MCTS MC, ACTPP.TRENS7D_HIST TH
+                                        WHERE MC.MCT_ID_MCT = MR.MR_MCT_ADDR
+                                            ${MR_TIME}
+                                            ${MCT_NOM_MCT}
+                                            ${MR_PRF_ACT}
+                                            ${MR_MC_NUM}
+                                            ${MR_COD_OF}
+                                            ${MR_Expre}
+                                            ${MR_Corre}
+                                            AND TH.TMH_ID_TRM(+) = MR.MR_ID_TRM");
+                    }
 
+                    #endregion
+                    #region [ BUSCA MACROS PARA TRÁS COM MOTIVO ]
+
+                    if (filtro.Espaco == 1 && !string.IsNullOrEmpty(filtro.Motivo)) // pra trás com motivo
+                    {
+                        queryR.Append(@"SELECT 'R' AS R_E, DECODE(MC.MCT_NOM_MCT, NULL, MR.MR_LOCO, MR.MR_LOCO, NULL, MC.MCT_NOM_MCT) AS MR_LOCO, MR.MR_PRF_ACT, MR.MR_COD_OF, MR.MR_MSG_TIME AS Horário, MR.MR_MC_NUM, SUBSTR(MR.MR_TEXT, 1, 760) AS MR_TEXT, MR.MR_MCT_ADDR, MR.MR_GRMN, MR.MR_LAT, MR.MR_LON, MR.MR_CORREDOR, MR.MR_NOME_SB, MR.MR_KM, MR.MR_LAND_MARK, MR.MR_TIME_TRT AS TRATADO, MR.MR_MAT_OPER, MR.MR_MSG_LIDA, MR.MR_MSG_RESP, TH.TM7H_PRF_ACT 
+                                        FROM ACTPP.MENSAGENS_RECEBIDAS MR, ACTPP.MCTS MC, ACTPP.TRENS7D_HIST TH
+                                        WHERE MC.MCT_ID_MCT = MR.MR_MCT_ADDR
+                                            ${MR_TIME} 
+                                            ${MR_MOTIVO} 
+                                            ${MCT_NOM_MCT}
+                                            ${MR_PRF_ACT}
+                                            ${MR_MC_NUM}
+                                            ${MR_COD_OF}
+                                            ${MR_Expre}
+                                            ${MR_Corre}
+                                            AND TH.TMH_ID_TRM(+) = MR.MR_ID_TRM");
+                    }
+                    #endregion
+                    #region [ BUSCA MACROS PARA TRÁS SEM MOTIVO ]
+                    else if (filtro.Espaco == 1 && string.IsNullOrEmpty(filtro.Motivo)) // pra trás sem motivo
+                    {
+                        queryR.Append(@"SELECT 'R' AS R_E, DECODE(MC.MCT_NOM_MCT, NULL, MR.MR_LOCO, MR.MR_LOCO, NULL, MC.MCT_NOM_MCT) AS MR_LOCO, MR.MR_PRF_ACT, MR.MR_COD_OF, MR.MR_MSG_TIME AS Horário, MR.MR_MC_NUM, SUBSTR(MR.MR_TEXT, 1, 760) AS MR_TEXT, MR.MR_MCT_ADDR, MR.MR_GRMN, MR.MR_LAT, MR.MR_LON, MR.MR_CORREDOR, MR.MR_NOME_SB, MR.MR_KM, MR.MR_LAND_MARK, MR.MR_TIME_TRT AS TRATADO, MR.MR_MAT_OPER, MR.MR_MSG_LIDA, MR.MR_MSG_RESP, TH.TM7H_PRF_ACT
+                                        FROM ACTPP.MENSAGENS_RECEBIDAS MR, ACTPP.MCTS MC, ACTPP.TRENS7D_HIST TH
+                                        WHERE MC.MCT_ID_MCT = MR.MR_MCT_ADDR
+                                            ${MR_TIME}
+                                            ${MCT_NOM_MCT}
+                                            ${MR_PRF_ACT}
+                                            ${MR_MC_NUM}
+                                            ${MR_COD_OF}
+                                            ${MR_Expre}
+                                            ${MR_Corre}
+                                            AND TH.TMH_ID_TRM(+) = MR.MR_ID_TRM");
+                    }
+                    #endregion
 
                     #region [ PARÂMETROS ]
 
@@ -1074,7 +1225,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     }
                                     else
                                     {
-                                        comando.CommandText = @"select mr.ME_MSG_NUM, ME_LOCO,ME_PRF_ACT,ME_COD_OF, ME_MSG_TIME, ME_MAC_NUM, ME_TEXT, ME_MCT_ADDR, eo.ES_ID_EFE, ed.ES_ID_EFE,t.TM_NUM_VAG, t.TM_TON_BRT,m.MCT_OBC_VERSAO,m.MCT_MAP_VERSAO,t.TM_CMP_TR
+                                        comando.CommandText = @"select mr.ME_MSG_NUM, ME_LOCO,ME_PRF_ACT,ME_COD_OF, ME_MSG_TIME, ME_MAC_NUM, ME_TEXT, ME_MCT_ADDR, eo.ES_ID_EFE, ed.ES_ID_EFE,t.TM_NUM_VAG, t.TM_TON_BRT,m.MCT_OBC_VERSAO,m.MCT_MAP_VERSAO,t.TM_CMP_TR, null as Prefixo7D
                                 from ACTPP.mensagens_enviadas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m
                                 where mr.Me_MCT_ADDR = m.MCT_ID_MCT and mr.Me_ID_TRM = t.TM_ID_TRM  --(+) outter join
                                 and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
@@ -1098,7 +1249,6 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     else
                                     {
                                         comando.CommandText = @"select mr.ME_MSG_NUM, ME_LOCO,ME_PRF_ACT,ME_COD_OF, ME_MSG_TIME, ME_MAC_NUM, ME_TEXT, ME_MCT_ADDR, eo.ES_ID_EFE, ed.ES_ID_EFE,t.TM_NUM_VAG, t.TM_TON_BRT,m.MCT_OBC_VERSAO,m.MCT_MAP_VERSAO,t.TM_CMP_TR
-                                from ACTPP.mensagens_enviadas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m
                                 where mr.Me_MCT_ADDR = m.MCT_ID_MCT 
                                 and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                                 and t.es_id_Num_efe_dest = ed.es_id_num_efe
@@ -1587,14 +1737,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (item.Tratado != DateTime.MinValue) item.Tratado = reader.GetDateTime(12); else item.Tratado = null;
             }
             if (!reader.IsDBNull(13)) item.Localizacao = reader.GetString(13);
-            if (!reader.IsDBNull(14))
-            {
-                item.TremID = reader.GetValue(14).ToString();
-                if (item.TremID != null)
-                {
-                    item.Prefixo7D = ObterPrefixo7D(item.TremID).Prefixo7D;
-                }
-            }
+       
+            if (!reader.IsDBNull(14)) item.Prefixo7D = reader.GetValue(14).ToString();
+
+            //if (!reader.IsDBNull(3)) item.TremID = reader.GetValue(3).ToString();
+      
+      
+            
 
                 item.DescricaoMacro = "DESCRICAO DE TESTE ";
 
@@ -1658,13 +1807,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             }
             if (!reader.IsDBNull(11)) item.Corredor = reader.GetString(11);
             if (!reader.IsDBNull(12))
-            {
-                item.TremID = reader.GetValue(12).ToString();
-                if (item.TremID != null)
-                {
-                    item.Prefixo7D = ObterPrefixo7D(item.TremID).Prefixo7D;
-                }
-            }
+            //if (!reader.IsDBNull(14)) item.Prefixo7D = reader.GetValue(14).ToString();  
+            //{
+                item.Prefixo7D = reader.GetValue(12).ToString();
+            //    if (item.TremID != null)
+            //    {
+            //        item.Prefixo7D = ObterPrefixo7D(item.TremID).Prefixo7D;
+            //    }
+            //}
 
 
             item.DescricaoMacro = "DESCRICAO DE TESTE ";
@@ -1710,14 +1860,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                 item.Tempo_Resposta = tempo != null ? tempo.ToString() : string.Empty;
             }
-            if (!reader.IsDBNull(19))
-            {
-                item.TremID = reader.GetValue(19).ToString();
-                if (item.TremID != null)
-                {
-                    item.Prefixo7D = ObterPrefixo7D(item.TremID).Prefixo7D;
-                }
-            }
+            //if (!reader.IsDBNull(19))
+            if (!reader.IsDBNull(19)) item.Prefixo7D = reader.GetValue(19).ToString();
+            //{
+            //    item.TremID = reader.GetValue(19).ToString();
+            //    if (item.TremID != null)
+            //    {
+            //        item.Prefixo7D = ObterPrefixo7D(item.TremID).Prefixo7D;
+            //    }
+            //}
 
 
             item.DescricaoMacro = "DESCRICAO DE TESTE ";

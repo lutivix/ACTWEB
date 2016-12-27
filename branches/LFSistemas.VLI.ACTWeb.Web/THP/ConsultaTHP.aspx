@@ -38,40 +38,6 @@
             }
         });
 
-        $(function () {
-            $("#dvAccordian").accordion({
-                autoHeight: false,
-                active: false,
-                collapsible: true
-            });
-        });
-        $(document).ready(function () {
-            var prm = Sys.WebForms.PageRequestManager.getInstance();
-            prm.add_initializeRequest(InitializeRequest);
-            prm.add_endRequest(EndRequest);
-            $("#dvAccordian").accordion({
-                autoHeight: false,
-                active: false,
-                collapsible: true,
-            });
-        });
-        function InitializeRequest(sender, args) {
-        }
-
-        function EndRequest(sender, args) {
-            $("#dvAccordian").accordion({
-                autoHeight: false,
-                active: false,
-                collapsible: true,
-            });
-        };
-
-        function AbreDetalhe(e) {
-            if (!e) var e = window.event;
-            e.cancelBubble = true;
-            if (e.stopPropagation) e.stopPropagation();
-        };
-
     </script>
     <style>
         .status-branco {
@@ -137,12 +103,9 @@
             display: -moz-inline-box;
             display: inline-block;
             border: none;
-            background-color: rgb(255, 255, 255);
         }
-
         .ajax__tab_xp .ajax__tab_header .ajax__tab_tab {
-            height: 15px;
-            background-color: rgb(255, 255, 255);
+            height: 21px !important;
         }
     </style>
     <div class="well well-sm">
@@ -158,11 +121,8 @@
                             <label for="matricula">Motivo:</label>
                             <asp:TextBox runat="server" ID="txtFiltroMotivo" CssClass="form-control" Width="98%" />
                         </td>
-                        <td>
-                            <asp:CheckBox ID="chkboxSubparadas" Text="Exibe Subparadas" runat="server" />
-                        </td>
                         <td style="width: 15%; padding-top: 1em;" rowspan="2">
-                            <label for="">Corredor:</label>
+                            <label for="matricula">Corredor:</label>
                             <asp:CheckBoxList runat="server" ID="cblCorredor" CssClass="form-control" SelectionMode="Multiple" Width="160" Height="120">
                                 <asp:ListItem Text="&nbsp;&nbsp;Baixada" Value="6" />
                                 <asp:ListItem Text="&nbsp;&nbsp;Centro Leste" Value="1" />
@@ -190,7 +150,7 @@
                                 <div class="btn-group btn-group-lg">
                                     <asp:LinkButton runat="server" ID="lnkLimpar" CssClass="btn btn-default" OnClick="lnkLimpar_Click" ToolTip="Limpa os filtros de pesquisa." Width="150"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
                                 </div>
-                            </div>
+                            </div>                             
                         </td>
                     </tr>
                 </table>
@@ -199,130 +159,86 @@
     </div>
     <div class="row" style="margin: 0.3%;">
         <asp:TabContainer runat="server" ID="tabAbas" ActiveTabIndex="0" BorderStyle="None" BorderWidth="0">
-            <asp:TabPanel runat="server" ID="tpPesquisa">
+            <asp:TabPanel runat="server" ID="tpPesquisa" >
                 <HeaderTemplate>
                     <asp:Label runat="server" Text="Pesquisa" Font-Size="Medium" />
                 </HeaderTemplate>
                 <ContentTemplate>
-                    <asp:UpdatePanel runat="server" ID="upDados">
-                        <ContentTemplate>
-                            <div class="row" style="margin-left: 1%; margin-right: 1%; margin-bottom: 1%;">
-                                <div style="margin-top: 20px;">
-                                    <table class="nav-justified">
-                                        <tr>
-                                            <td>
-                                                <table style="width: 100%;">
-                                                    <tr>
-                                                        <th style="width: 30px; text-align: center; font-size: 10pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                            <i class="fa fa-search-plus" style="font-size: 1em;"></i>
-                                                        </th>
-                                                        <th style="width: 03%; text-align: center; font-size: 10pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                            <img src="../img/icone_alerta.png" style="visibility: <%# Eval("Parada_Incons") %>;" title="Parada(s) fechada(s) com inconsistência(s)" />
-                                                        </th>
-                                                        <th style="width: 10%; text-align: center; font-size: 10pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="lnkCodigo_OS" Text="Cód. OS" /></th>
-                                                        <th style="width: 05%; text-align: center; font-size: 10pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="lnkPrefixo" Text="Prefixo" /></th>
-                                                        <th style="width: 05%; text-align: center; font-size: 10pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="lnkPrefixo7D" Text="Prefixo 7D" /></th>
-                                                        <th style="width: 05%; text-align: center; font-size: 10pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="lnkLocal" Text="Local" /></th>
-                                                        <th style="width: 10%; text-align: center; font-size: 10pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="lnkTempo" Text="Tempo" /></th>
-                                                        <th style="width: 10%; text-align: center; font-size: 10pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="lnkTempoTotal" Text="Tempo Total" /></th>
-                                                        <th style="width: 30%; text-align: center; font-size: 10pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="lnkMotivo" Text="Motivo" /></th>
-                                                        <th style="width: 15%; text-align: center; font-size: 10pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="lnkCorredor" Text="Corredor" /></th>
-                                                        <th style="width: 15%; text-align: center; font-size: 10pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="lnkGrupo" Text="Grupo" /></th>
-                                                        <th style="width: 15%; text-align: center; font-size: 10pt;"></th>
-                                                    </tr>
-                                                </table>
-                                                <asp:Panel runat="server" ID="pnlRepiter" ScrollBars="Vertical" Style="scrollbar-arrow-color: white; scrollbar-face-color: gray; scrollbar-arrow-color: rgb(0, 72, 89);">
-                                                        <asp:Repeater ID="RepeaterItens" runat="server">
-                                                            <HeaderTemplate>
-                                                            </HeaderTemplate>
-                                                            <ItemTemplate>
-                                                                <table style="width: 100%;" class="status-<%# Eval("Cor") %>">
-                                                                    <tr >
-                                                                        <td style="width: 10px; height: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); ">
-                                                                            <asp:LinkButton runat="server" ID="lnkAcao" OnClick="lnkAcao_Click" CommandArgument='<%# Eval("Trem_ID")%>' Height="20px"><i class="fa fa-search-plus status-<%# Eval("Cor") %>" style="font-size: 1.5em; z-index: 9999;" ></i></asp:LinkButton>
-                                                                        </td>
-                                                                        <td style="width: 03%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                            <img src="../img/icone_alerta.png" style="visibility: <%# Eval("Parada_Incons") %>;" title="Parada fechada com inconsistência" />
-                                                                        </td>
-                                                                        <td style="width: 10%; height: 20px; font-size: 1em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Codigo_OS") %>"><%# Eval("Codigo_OS")%></td>
-                                                                        <td style="width: 05%; height: 20px; font-size: 1em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Prefixo") %>"><%# Eval("Prefixo")%></td>
-                                                                        <td style="width: 05%; height: 20px; font-size: 1em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Prefixo7D") %>"><%# Eval("Prefixo7D")%></td>
-                                                                        <td style="width: 05%; height: 20px; font-size: 1em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Local") %>"><%# Eval("Local")%></td>
-                                                                        <td style="width: 10%; height: 20px; font-size: 1em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Tempo") %>"><%# Eval("Tempo")%></td>
-                                                                        <td style="width: 10%; height: 20px; font-size: 1em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("TempoTotal") %>"><%# Eval("TempoTotal")%></td>
-                                                                        <td style="width: 30%; height: 20px; font-size: 1em; text-align: left; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Motivo")%>"><%# Eval("Motivo")%></td>
-                                                                        <td style="width: 15%; height: 20px; font-size: 1em; text-align: left; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Corredor") %>"><%# Eval("Corredor")%> </td>
-                                                                        <td style="width: 15%; height: 20px; font-size: 1em; text-align: left; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Grupo") %>"><%# Eval("Grupo")%></td>
-                                                                        <td class="pisca-<%# Eval("Cor") %>" style="width: 15%; text-align: left; vertical-align: middle; height: 15px;"></td>
-                                                                    </tr>
-                                                                </table>
-                                                                <div runat="server" visible='<%# Eval("TemSubParadas").ToString() == "visible" ? true : false %>' >
-                                                                    <asp:Panel runat="server" ScrollBars="Vertical">
-
-                                                                        <asp:Repeater ID="repSubparadas" runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "SubParadas") %>' >
-                                                                            <HeaderTemplate>
-                                                                                <table style="width: 100%; background-color: White; "  >
-                                                                                    <tr>
-                                                                                        <th style="width: 110px; vertical-align: middle; text-align: center; font-size: 1em; background-color: rgb(000, 000, 000); border: 1px solid rgb(0, 72, 89);">
-                                                                                            <asp:LinkButton runat="server" ID="lnkMotivoSubparada" Text="Motivo" ForeColor="White" OnClick="lnkMotivoSubparada_Click" /></th>
-                                                                                        <th style="width: 120px; vertical-align: middle; text-align: center; font-size: 1em; background-color: rgb(000, 000, 000); border: 1px solid rgb(0, 72, 89);">
-                                                                                            <asp:LinkButton runat="server" ID="lnkTempoSubparada" Text="Tempo (Min.)" ForeColor="White" OnClick="lnkTempoSubparada_Click" /></th>
-                                                                                        <th style="width: 120px; vertical-align: middle; text-align: center; font-size: 1em; background-color: rgb(000, 000, 000); border: 1px solid rgb(0, 72, 89);">
-                                                                                            <asp:LinkButton runat="server" ID="lnkUsuarioSubparada" Text="Matrícula" ForeColor="White" OnClick="lnkUsuarioSubparada_Click" /></th>
-                                                                                        <th style="width: 120px; vertical-align: middle; text-align: center; font-size: 1   em; background-color: rgb(000, 000, 000); border: 1px solid rgb(0, 72, 89);">
-                                                                                            <asp:LinkButton runat="server" ID="lnkRegistroSubparada" Text="Data Registro" ForeColor="White" OnClick="lnkRegistroSubparada_Click" /></th>
-                                                                                    </tr>
-                                                                            </HeaderTemplate>
-                                                                            <ItemTemplate>
-                                                                                <tr>
-                                                                                    <td style="width: 25%; vertical-align: middle; text-align: center; border-right: 1px solid rgb(55, 119, 188); font-size: 1em;" title="<%# Eval("Motivo")%>"><%# Eval("Motivo")%> </td>
-                                                                                    <td style="width: 25%; vertical-align: middle; text-align: center; border-right: 1px solid rgb(55, 119, 188); font-size: 1em;" title="<%# Eval("TempoParada")%>"><%# Eval("TempoParada")%> </td>
-                                                                                    <td style="width: 25%; vertical-align: middle; text-align: center; border-right: 1px solid rgb(55, 119, 188); font-size: 1em;" title="<%# Eval("UsuarioRegistro")%>"><%# Eval("UsuarioRegistro")%> </td>
-                                                                                    <td style="width: 25%; vertical-align: middle; text-align: center; border-right: 1px solid rgb(55, 119, 188); font-size: 1em;" title="<%# Eval("DataRegistro")%>"><%# Eval("DataRegistro")%> </td>
-                                                                                </tr>
-                                                                            </ItemTemplate>
-                                                                            <FooterTemplate>
-                                                                                </table>
-                                                                            </FooterTemplate>
-                                                                        </asp:Repeater>
-                                                                        <br />
-                                                                    </asp:Panel>
-                                                                </div>
-                                                            </ItemTemplate>
-                                                        </asp:Repeater>
-                                                </asp:Panel>
+                    <table class="nav-justified">
+                        <tr>
+                            <td>
+                                <asp:Repeater ID="RepeaterItens" runat="server">
+                                    <HeaderTemplate>
+                                        <table class="table table-hover table-curved pro-table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 30px; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <i class="fa fa-search-plus" style="font-size: 1em;" ></i>
+                                                    </th>
+                                                    <th style="width: 03%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <img src="../img/icone_alerta.png" style="visibility: <%# Eval("Parada_Incons") %>;" title="Parada(s) fechada(s) com inconsistência(s)" />    
+                                                    </th>
+                                                    <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <asp:LinkButton runat="server" ID="lnkCodigo_OS" Text="Cód. OS" /></th>
+                                                    <th style="width: 05%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <asp:LinkButton runat="server" ID="lnkPrefixo" Text="Prefixo" /></th>
+                                                    <th style="width: 05%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <asp:LinkButton runat="server" ID="lnkPrefixo7D" Text="Prefixo 7D" /></th>
+                                                    <th style="width: 05%; text-align: center; font-size: 10pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <asp:LinkButton runat="server" ID="lnkLocal" Text="Local" /></th>
+                                                    <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <asp:LinkButton runat="server" ID="lnkTempo" Text="Tempo" /></th>
+                                                    <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <asp:LinkButton runat="server" ID="lnkTempoTotal" Text="Tempo Total" /></th>
+                                                    <th style="width: 30%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <asp:LinkButton runat="server" ID="lnkMotivo" Text="Motivo" /></th>
+                                                    <th style="width: 15%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <asp:LinkButton runat="server" ID="lnkCorredor" Text="Corredor" /></th>
+                                                    <th style="width: 15%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <asp:LinkButton runat="server" ID="lnkGrupo" Text="Grupo" /></th>
+                                                    <th style="width: 15%; text-align: center; font-size: 12pt;"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <tr class="status-<%# Eval("Cor") %>">
+                                            <td style="width: 10px; height: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); ">
+                                                <asp:LinkButton runat="server" ID="lnkAcao" OnClick="lnkAcao_Click" CommandArgument='<%# Eval("Trem_ID")%>' Height="20px" ><i class="fa fa-search-plus status-<%# Eval("Cor") %>" style="font-size: 1.5em;" ></i></asp:LinkButton>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="14" style="text-align: left; color: rgb(0, 72, 89);">
-                                                <hr style="color: rgb(0, 72, 89); padding: 0px 5px 0px 5px;" />
-                                                <asp:Label runat="server" Text="Registros: " Font-Bold="True" Font-Size="12pt" Style="color: rgb(153, 153, 153);" />
-                                                <asp:Label runat="server" ID="lblTotal" Font-Bold="True" Font-Size="12pt" Style="color: rgb(0, 72, 89);" />
+                                            <td style="width: 03%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89); "> 
+                                                <img src="../img/icone_alerta.png"  style="visibility: <%# Eval("Parada_Incons") %>;" title="Parada fechada com inconsistência" />
                                             </td>
+                  
+                                            <td style="width: 10%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Codigo_OS") %>"><%# Eval("Codigo_OS")%></td>
+                                            <td style="width: 05%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Prefixo") %>"><%# Eval("Prefixo")%></td>
+                                            <td style="width: 05%; height: 20px; font-size: 1em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Prefixo7D") %>"><%# Eval("Prefixo7D")%></td>
+                                            <td style="width: 05%; height: 20px; font-size: 1em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Local") %>"><%# Eval("Local")%></td>
+                                            <td style="width: 10%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Tempo") %>"><%# Eval("Tempo")%></td>
+                                            <td style="width: 10%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("TempoTotal") %>"><%# Eval("TempoTotal")%></td>
+                                            <%--<td style="width: 10%; height: 20px; font-size: 1.2em; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("TempoTotal") %>"><%# string.Format("{0}", TimeSpan.FromMinutes(double.Parse(Eval("TempoTotal").ToString()))) %></td>--%>
+                                            <td style="width: 30%; height: 20px; font-size: 1.2em; text-align: left; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Motivo")%>"><%# Eval("Motivo")%></td>
+                                            <td style="width: 15%; height: 20px; font-size: 1.2em; text-align: left; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Corredor") %>"><%# Eval("Corredor")%> </td>
+                                            <td style="width: 15%; height: 20px; font-size: 1.2em; text-align: left; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Grupo") %>"><%# Eval("Grupo")%></td>
+                                            <td class="pisca-<%# Eval("Cor") %>" style="width: 15%; text-align: left; vertical-align: middle; height: 15px;"></td>
                                         </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <table style="width: 100%;">
-                                    <tr>
-                                        <td>
-                                            <br />
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        </tbody>
+                                            </table>
+                                    </FooterTemplate>
+                                </asp:Repeater>
+                                <hr style="color: rgb(0, 72, 89); padding: 0px 5px 0px 5px;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left;">
+                                <br />
+                                <asp:Label runat="server" Text="Registros: " Font-Bold="true" Font-Size="12" Style="color: rgb(153, 153, 153);" />
+                                <asp:Label runat="server" ID="lblTotal" Font-Bold="true" Font-Size="12" Style="color: rgb(0, 72, 89);" />
+                            </td>
+                        </tr>
+                    </table>
                 </ContentTemplate>
             </asp:TabPanel>
             <asp:TabPanel runat="server" ID="tpAcao" Enabled="false">

@@ -320,7 +320,7 @@
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Horario")%>"><%# Eval ("Horario")%></td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("DescricaoMacro")%>"><%# Eval ("NumeroMacro")%></td>
                                                         <td style="text-align: left; border-right: 1px solid rgb(0, 72, 89);">
-                                                            <div onclick="<%--$(this).css('text-overflow', 'inherit'); $(this).css('width', '100%');--%>" style="width: 600px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="<%# Eval ("Texto")%>"><%# Eval ("Texto")%></div>
+                                                            <div onclick="<%--$(this).css('text-overflow', 'inherit'); $(this).css('width', '100%');--%>" style="width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="<%# Eval ("Texto")%>"><%# Eval ("Texto")%></div>
                                                         </td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Tratado")%>"><%# Eval ("Tratado")%></td>
                                                         <td style="text-align: left;" title="<%# Eval ("Corredor")%>"><%# Eval ("Corredor")%></td>
