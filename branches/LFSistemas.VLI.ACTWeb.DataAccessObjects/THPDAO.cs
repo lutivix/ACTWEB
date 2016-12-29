@@ -152,8 +152,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 TP.ID_TREM_ACT AS ID_TREM, 
                                                 ROW_NUMBER() OVER (PARTITION BY TM_COD_OF ORDER BY TM_COD_OF ) as LINHA, 
                                                 TP.ID_SB,
-                                                TP.IND_INCS,
-                                                TP.UTP_ID
+                                                TP.IND_INCS
                                         FROM  ACTPP.OCUPACOES_VIGENTES OV, ACTPP.UNL_TRENS_PARADOS TP, ACTPP.TRENS T,  ACTPP.ELEM_VIA EV, MOTIVO_PARADA M, GRUPOS G, ACTPP.NOME_CORREDOR NC
                                             WHERE OV.TM_ID_TRM = T.TM_ID_TRM 
                                                 AND TP.ID_TREM_ACT = T.TM_ID_TRM
@@ -1198,9 +1197,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 //    else
                 //        item.TemSubParadas = "hidden";
                 //}
-                if (!reader.IsDBNull(15))
+                if (!reader.IsDBNull(0))
                 {
-                    item.Trem_ID = double.Parse(reader.GetValue(15).ToString());
+                    item.Trem_ID = double.Parse(reader.GetValue(0).ToString());
                     if (!string.IsNullOrEmpty(item.Trem_ID.ToString()))
                     {
                         item.Prefixo7D = new MacroDAO().ObterPrefixo7D(item.Trem_ID.ToString()).Prefixo7D;
