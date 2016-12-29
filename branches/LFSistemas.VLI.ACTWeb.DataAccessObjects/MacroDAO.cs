@@ -255,7 +255,21 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     if (filtro.NumeroMacro != "9")
                     {
-                        query.Append(@"SELECT 'R' AS R_E, DECODE(MCT_NOM_MCT, NULL, MR_LOCO, MR_LOCO, NULL, MCT_NOM_MCT) AS MR_LOCO, MR_PRF_ACT, MR_COD_OF, MR_MSG_TIME AS Horário, MR_MC_NUM, SUBSTR(MR_TEXT, 1, 760) AS MR_TEXT, MR_MCT_ADDR, MENSAGENS_RECEBIDAS.MR_GRMN, MR_CORREDOR, MR_NOME_SB, MR_KM, MR_TIME_TRT AS TRATADO, MR_LAND_MARK, TM7H_PRF_ACT  
+                        query.Append(@"SELECT 'R' AS R_E, 
+                                               DECODE(MCT_NOM_MCT, NULL, MR_LOCO, MR_LOCO, NULL, MCT_NOM_MCT) AS MR_LOCO, 
+                                               MR_PRF_ACT, 
+                                               MR_COD_OF, 
+                                               MR_MSG_TIME AS Horário, 
+                                               MR_MC_NUM, 
+                                               SUBSTR(MR_TEXT, 1, 760) AS MR_TEXT, 
+                                               MR_MCT_ADDR, 
+                                               MENSAGENS_RECEBIDAS.MR_GRMN, 
+                                               MR_CORREDOR, 
+                                               MR_NOME_SB, 
+                                               MR_KM, 
+                                               MR_TIME_TRT AS TRATADO, 
+                                               MR_LAND_MARK, 
+                                               TM7H_PRF_ACT  
                                         FROM ACTPP.MENSAGENS_RECEBIDAS, ACTPP.MCTS, ACTPP.TRENS7D_HIST 
                                         WHERE MCTS.MCT_ID_MCT = MENSAGENS_RECEBIDAS.MR_MCT_ADDR
                                             ${R_Horar}
@@ -445,7 +459,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${R_Expre}", "");
 
                     if (!string.IsNullOrEmpty(filtro.Corredores))
-                        query.Replace("${R_Corre}", string.Format("AND (UPPER(MR.MR_CORREDOR) IN ({0}) OR MR.MR_CORREDOR IS NULL)", filtro.Corredores.ToUpper()));
+                        query.Replace("${R_Corre}", string.Format("AND (UPPER(MR_CORREDOR) IN ({0}) OR MR_CORREDOR IS NULL)", filtro.Corredores.ToUpper()));
                     else
                         query.Replace("${R_Corre}", "");
 
