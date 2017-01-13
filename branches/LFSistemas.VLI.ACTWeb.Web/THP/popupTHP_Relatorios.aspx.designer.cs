@@ -130,6 +130,33 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP {
         protected global::System.Web.UI.WebControls.TextBox txtFiltroClasse;
         
         /// <summary>
+        /// rbDtaInicio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbDtaInicio;
+        
+        /// <summary>
+        /// rbDtaFim control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbDtaFim;
+        
+        /// <summary>
+        /// rbDtaEvento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbDtaEvento;
+        
+        /// <summary>
         /// txtFiltroOS control.
         /// </summary>
         /// <remarks>

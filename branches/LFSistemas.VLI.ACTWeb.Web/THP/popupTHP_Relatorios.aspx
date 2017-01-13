@@ -429,6 +429,14 @@
                 color: rgb(000, 000, 000);
                 background-color: rgb(176,224,230);
             }
+        .auto-style1 {
+            width: 40%;
+            height: 80px;
+        }
+        .auto-style2 {
+            width: 20%;
+            height: 80px;
+        }
     </style>
 </head>
 <body>
@@ -495,7 +503,7 @@
                             <table style="width: 100%; padding-left: 1em; padding-right: 1em;">
                                 <tr>
                                     <td style="width: 30%">
-                                        <asp:Panel runat="server" ToolTip="Filtros: Grupo 1" CssClass="well-sm" Height="220px" BackColor="#eeeeee">
+                                        <asp:Panel runat="server" ToolTip="Filtros: Grupo 1" CssClass="well-sm" Height="320px" BackColor="#eeeeee">
                                             <table style="width: 100%">
                                                 <tr>
                                                     <td style="width: 20%;">
@@ -504,22 +512,29 @@
                                                                 <td>GRUPO 1</td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width: 40%">
+                                                                <td class="auto-style1">
                                                                     <label for="De">De:</label>
                                                                     <asp:TextBox runat="server" ID="txtFiltroDataDe" CssClass="form-control" Width="95%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" onkeypress="return PermiteSomenteNumeros(event);" />
                                                                     <asp:CalendarExtender runat="server" ID="ceFiltroDataDe" TargetControlID="txtFiltroDataDe" OnClientDateSelectionChanged="checkData" />
                                                                 </td>
-                                                                <td style="width: 40%">
+                                                                <td class="auto-style1">
                                                                     <label for="Ate">Até:</label>
                                                                     <asp:TextBox runat="server" ID="txtFiltroDataAte" CssClass="form-control" Width="95%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" onkeypress="return PermiteSomenteNumeros(event);" />
                                                                     <asp:CalendarExtender runat="server" ID="ceFiltroDataAte" TargetControlID="txtFiltroDataAte" Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkData" />
                                                                 </td>
-                                                                <td style="width: 20%; padding-top: 1em;">
+                                                                <td style="padding-top: 1em;" class="auto-style2">
                                                                     <label for="Inicio">Classe:</label>
                                                                     <asp:TextBox runat="server" ID="txtFiltroClasse" CssClass="form-control" Width="95%" />
                                                                 </td>
                                                             </tr>
                                                         </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <asp:RadioButton ID="rbDtaInicio" runat="server" GroupName="rbGrupoData" Text="Data Inicio" />
+                                                        <asp:RadioButton ID="rbDtaFim"    runat="server"    GroupName="rbGrupoData" Text="Data Fim" />
+                                                        <asp:RadioButton ID="rbDtaEvento" runat="server" GroupName="rbGrupoData" Text="Data Evento" Checked/> 
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -541,8 +556,8 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <label for="CheckBoxTremEncerrado">Somente trem encerrado:</label>
-                                                                    <asp:CheckBox ID="chkboxTremEncerrado" runat="server" />
+                                                                    <%--<label for="CheckBoxTremEncerrado">Somente trem encerrado:</label>--%>
+                                                                    <asp:CheckBox ID="chkboxTremEncerrado" runat="server" Visible="false"/>
                                                                 </td>
                                                                  
                                                             </tr>
@@ -572,7 +587,7 @@
                                     </td>
                                     <td style="width: 01%;"></td>
                                     <td style="width: 69%">
-                                        <asp:Panel runat="server" ToolTip="Filtros: Grupo 2" CssClass="well-sm" Height="220px" BackColor="#eeeeee">
+                                        <asp:Panel runat="server" ToolTip="Filtros: Grupo 2" CssClass="well-sm" Height="320px" BackColor="#eeeeee">
                                             <table style="width: 100%; padding-left: 1em; padding-right: 1em;">
                                                 <tr>
                                                     <td>GRUPO 2</td>

@@ -23,6 +23,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Grupo_ID { get; set; }
         public string Motivo_ID { get; set; }
         public bool TremEncerrado { get; set; }
+        public int OpData { get; set; }
 
         #endregion
     }

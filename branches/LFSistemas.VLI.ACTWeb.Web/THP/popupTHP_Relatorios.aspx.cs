@@ -1,10 +1,10 @@
-﻿ using LFSistemas.VLI.ACTWeb.Controllers;
+﻿using LFSistemas.VLI.ACTWeb.Controllers;
 using LFSistemas.VLI.ACTWeb.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
- using System.Web.UI;
- using System.Text;
+using System.Web.UI;
+using System.Text;
 
 
 namespace LFSistemas.VLI.ACTWeb.Web.THP
@@ -49,8 +49,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             if (Request.QueryString["mu"] != null) ViewState["uMatricula"] = Uteis.Descriptografar(Request.QueryString["mu"].ToString(), "a#3G6**@").ToUpper();
             if (Request.QueryString["pu"] != null) ViewState["uPerfil"] = Uteis.Descriptografar(Request.QueryString["pu"].ToString(), "a#3G6**@").ToUpper();
             if (Request.QueryString["mm"] != null) ViewState["ulMaleta"] = Uteis.Descriptografar(Request.QueryString["mm"].ToString(), "a#3G6**@").ToUpper();
-            
-            
+
+
 
             if (!Page.IsPostBack)
             {
@@ -1091,6 +1091,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             DateTime filtro_ini = DateTime.Now;
             DateTime filtro_fim = DateTime.Now;
 
+            int opData = 0;
+
+            if (rbDtaInicio.Checked == true)
+            {
+                opData = 1;
+            }
+            else if (rbDtaFim.Checked == true)
+            {
+                opData = 2;
+            }
+            else if (rbDtaEvento.Checked == true)
+            {
+                opData = 3;
+            }
+
             if (txtFiltroDataDe.Text.ToUpper().Trim() != txtFiltroDataAte.Text.ToUpper().Trim())
             {
                 filtro_ini = DateTime.Parse(txtFiltroDataDe.Text + " 00:00:00");
@@ -1119,7 +1134,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                     SubRota_ID = filtro_subrotas_id,
                     Grupo_ID = filtro_grupos_id,
                     Motivo_ID = filtro_motivos_id,
-                    TremEncerrado = chkboxTremEncerrado.Checked
+                    TremEncerrado = chkboxTremEncerrado.Checked,
+                    OpData =  opData
                 });
 
                 if (totalItens <= 4000)
@@ -1156,7 +1172,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                                 SubRota_ID = filtro_subrotas_id,
                                 Grupo_ID = filtro_grupos_id,
                                 Motivo_ID = filtro_motivos_id,
-                                TremEncerrado = chkboxTremEncerrado.Checked
+                                TremEncerrado = chkboxTremEncerrado.Checked,
+                                OpData = opData
                             });
 
                             //for (int i = 0; i < dados.Count; i++)
@@ -1211,7 +1228,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                             SubRota_ID = filtro_subrotas_id,
                             Grupo_ID = filtro_grupos_id,
                             Motivo_ID = filtro_motivos_id,
-                            TremEncerrado = chkboxTremEncerrado.Checked
+                            TremEncerrado = chkboxTremEncerrado.Checked,
+                            OpData = opData
                         });
 
 
@@ -1798,6 +1816,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
 
             #region [ VERIFICA OS FILTROS MARCADOS ]
 
+            int opData = 0;
+
+            if (rbDtaInicio.Checked == true)
+            {
+                opData = 1;
+            }
+            else if (rbDtaFim.Checked == true)
+            {
+                opData = 2;
+            }
+            else if (rbDtaEvento.Checked == true)
+            {
+                opData = 3;
+            }
+
             var auxCorredores = new List<string>();
             if (cblCorredores.Items.Count > 0)
             {
@@ -1964,9 +1997,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 SubRota_ID = filtro_subrotas_id,
                 Grupo_ID = filtro_grupos_id,
                 Motivo_ID = filtro_motivos_id,
-                TremEncerrado = chkboxTremEncerrado.Checked
+                TremEncerrado = chkboxTremEncerrado.Checked,
+                OpData = opData
             });
-             
+
             if (itens.Count > 0)
             {
                 #region [GERANDO EXCEL CSV ]

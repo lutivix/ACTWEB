@@ -270,7 +270,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                            " AND TT_ROTA_AOP.TTR_ID_ELM = ELEM_VIA_ESTACOES.EV_ID_ELM" +
                                                                                                            " AND TT_ROTA.TTR_ID_RTA = rta1.TTR_ID_RTA" +
                                                                                                            " AND ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T')" +
-                                                                                                           " AND ANA.TTA_DT_APUR >= SYSDATE - 30", filtro.Rota_ID));
+                                                                                                           "/* AND ANA.TTA_DT_APUR >= SYSDATE - 30*/", filtro.Rota_ID));
                     else
                         query.Replace("${FILTRO_ROTA}", string.Format(""));
 
@@ -294,7 +294,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                               " AND TT_SUBROTA_AOP.TTS_ID_ELM = ELEM_VIA_ESTACOES.EV_ID_ELM" +
                                                                                                               " AND TT_SUBROTA.TTS_ID_SUB = SUB1.TTS_ID_SUB" +
                                                                                                               " AND ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T')" +
-                                                                                                              " AND ANA.TTA_DT_APUR >= SYSDATE - 30", filtro.SubRota_ID));
+                                                                                                              "/* AND ANA.TTA_DT_APUR >= SYSDATE - 30*/", filtro.SubRota_ID));
                     else
                         query.Replace("${FILTRO_SUBROTA}", string.Format(""));
 
@@ -313,20 +313,53 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     else
                         query.Replace("${FILTRO_MOTIVO}", string.Format(" "));
 
-                    if (!string.IsNullOrEmpty(filtro.Data_INI.ToString()) && !string.IsNullOrEmpty(filtro.Data_FIM.ToString()))
-                        query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_APUR BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_INI, filtro.Data_FIM));
-                    else
-                        query.Replace("${FILTRO_PERIODO}", string.Format(""));
+                    //if (!string.IsNullOrEmpty(filtro.Data_INI.ToString()) && !string.IsNullOrEmpty(filtro.Data_FIM.ToString()))
+                    //    query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_APUR BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_INI, filtro.Data_FIM));
+                    //else
+                    //    query.Replace("${  }", string.Format(""));
 
-                    if (filtro.TremEncerrado == true)
-                        query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
-                                                                                              " FROM ACTPP.TRENS" +
-                                                                                             " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
-                                                                                               " AND TRENS.ST_ID_SIT_TREM = 1)"));
-                    else query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
-                                                                                              " FROM ACTPP.TRENS" +
-                                                                                             " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
-                                                                                               " AND TRENS.ST_ID_SIT_TREM <> 1)"));
+                    if (!string.IsNullOrEmpty(filtro.Data_INI.ToString()) && !string.IsNullOrEmpty(filtro.Data_FIM.ToString()))
+                        if (filtro.OpData == 1)
+                        {
+                            query.Replace("${FILTRO_PERIODO}", string.Format("AND EXISTS " +
+                                                                                 "(SELECT 1 " +
+                                                                                 "FROM ACTPP.TT_ANALITICA, " +
+                                                                                 "ACTPP.TT_ROTA_AOP ROTA " +
+                                                                                 "WHERE ANA.ID_TREM = TT_ANALITICA.ID_TREM " +
+                                                                                 "AND ROTA.TTR_ID_RTA = RTA1.TTR_ID_RTA " +
+                                                                                 "AND TT_ANALITICA.EV_ID_ELM = ROTA.TTR_ID_ELM " +
+                                                                                 "AND TTA_DT_INI_EVE BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS') " +
+                                                                                 "AND ROTA.TTR_PNT_RTA LIKE 'S')", filtro.Data_INI, filtro.Data_FIM));
+                        }
+                        else if (filtro.OpData == 2)
+                        {
+                            query.Replace("${FILTRO_PERIODO}", string.Format("AND EXISTS " +
+                                                                                 "(SELECT 1 " +
+                                                                                 "FROM ACTPP.TT_ANALITICA, " +
+                                                                                 "ACTPP.TT_ROTA_AOP ROTA " +
+                                                                                 "WHERE ANA.ID_TREM = TT_ANALITICA.ID_TREM " +
+                                                                                 "AND ROTA.TTR_ID_RTA = RTA1.TTR_ID_RTA " +
+                                                                                 "AND TTA_DT_FIM_EVE BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS') " +
+                                                                                 "AND ROTA.TTR_PNT_RTA LIKE 'S') ", filtro.Data_INI, filtro.Data_FIM));
+                        }
+                        else if (filtro.OpData == 3)
+                        {
+                            query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_APUR BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_INI, filtro.Data_FIM));
+                        }
+                        else
+                            query.Replace("${  }", string.Format(""));
+
+                    //if (filtro.TremEncerrado == true)
+                    //    query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
+                    //                                                                          " FROM ACTPP.TRENS" +
+                    //                                                                         " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
+                    //                                                                           " AND TRENS.ST_ID_SIT_TREM = 1)"));
+                    //else query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
+                    //                                                                          " FROM ACTPP.TRENS" +
+                    //                                                                         " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
+                    //                                                                           " AND TRENS.ST_ID_SIT_TREM <> 1)"));
+
+                    query.Replace("${FILTRO_TREMENCERRADO}", string.Format(" "));
 
                     #endregion
 
@@ -531,7 +564,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                            " AND TT_ROTA_AOP.TTR_ID_ELM = ELEM_VIA_ESTACOES.EV_ID_ELM" +
                                                                                                            " AND TT_ROTA.TTR_ID_RTA = rta1.TTR_ID_RTA" +
                                                                                                            " AND ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T')" +
-                                                                                                           " AND ANA.TTA_DT_APUR >= SYSDATE - 30", filtro.Rota_ID));
+                                                                                                           " /*AND ANA.TTA_DT_APUR >= SYSDATE - 30*/", filtro.Rota_ID));
                     else
                         query.Replace("${FILTRO_ROTA}", string.Format(""));
 
@@ -555,7 +588,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                               " AND TT_SUBROTA_AOP.TTS_ID_ELM = ELEM_VIA_ESTACOES.EV_ID_ELM" +
                                                                                                               " AND TT_SUBROTA.TTS_ID_SUB = SUB1.TTS_ID_SUB" +
                                                                                                               " AND ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T')" +
-                                                                                                              " AND ANA.TTA_DT_APUR >= SYSDATE - 30", filtro.SubRota_ID));
+                                                                                                              " /*AND ANA.TTA_DT_APUR >= SYSDATE - 30*/", filtro.SubRota_ID));
                     else
                         query.Replace("${FILTRO_SUBROTA}", string.Format(""));
 
@@ -574,20 +607,53 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     else
                         query.Replace("${FILTRO_MOTIVO}", string.Format(" "));
 
-                    if (!string.IsNullOrEmpty(filtro.Data_INI.ToString()) && !string.IsNullOrEmpty(filtro.Data_FIM.ToString()))
-                        query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_APUR BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_INI, filtro.Data_FIM));
-                    else
-                        query.Replace("${FILTRO_PERIODO}", string.Format(""));
+                    //if (!string.IsNullOrEmpty(filtro.Data_INI.ToString()) && !string.IsNullOrEmpty(filtro.Data_FIM.ToString()))
+                    //    query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_APUR BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_INI, filtro.Data_FIM));
+                    //else
+                    //    query.Replace("${  }", string.Format(""));
 
-                    if (filtro.TremEncerrado == true)
-                        query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
-                                                                                              " FROM ACTPP.TRENS" +
-                                                                                             " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
-                                                                                               " AND TRENS.ST_ID_SIT_TREM = 1)"));
-                    else query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
-                                                                                              " FROM ACTPP.TRENS" +
-                                                                                             " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
-                                                                                               " AND TRENS.ST_ID_SIT_TREM <> 1)"));
+                    if (!string.IsNullOrEmpty(filtro.Data_INI.ToString()) && !string.IsNullOrEmpty(filtro.Data_FIM.ToString()))
+                        if (filtro.OpData == 1)
+                        {
+                            query.Replace("${FILTRO_PERIODO}", string.Format("AND EXISTS " +
+                                                                                 "(SELECT 1 " +
+                                                                                 "FROM ACTPP.TT_ANALITICA, " +
+                                                                                 "ACTPP.TT_ROTA_AOP ROTA " +
+                                                                                 "WHERE ANA.ID_TREM = TT_ANALITICA.ID_TREM " +
+                                                                                 "AND ROTA.TTR_ID_RTA = RTA1.TTR_ID_RTA " +
+                                                                                 "AND TT_ANALITICA.EV_ID_ELM = ROTA.TTR_ID_ELM " +
+                                                                                 "AND TTA_DT_INI_EVE BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS') " +
+                                                                                 "AND ROTA.TTR_PNT_RTA LIKE 'S')", filtro.Data_INI, filtro.Data_FIM));
+                        }
+                        else if (filtro.OpData == 2)
+                        {
+                            query.Replace("${FILTRO_PERIODO}", string.Format("AND EXISTS " +
+                                                                            "(SELECT 1 " +
+                                                                            "FROM ACTPP.TT_ANALITICA, " +
+                                                                            "ACTPP.TT_ROTA_AOP ROTA " +
+                                                                            "WHERE ANA.ID_TREM = TT_ANALITICA.ID_TREM " +
+                                                                            "AND ROTA.TTR_ID_RTA = RTA1.TTR_ID_RTA " +
+                                                                            "AND TTA_DT_FIM_EVE BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS') " +
+                                                                            "AND ROTA.TTR_PNT_RTA LIKE 'S') ", filtro.Data_INI, filtro.Data_FIM));
+                        }
+                        else if (filtro.OpData == 3)
+                        {
+                            query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_APUR BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_INI, filtro.Data_FIM));
+                        }
+                        else
+                            query.Replace("${  }", string.Format(""));
+
+                    //if (filtro.TremEncerrado == true)
+                    //    query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
+                    //                                                                          " FROM ACTPP.TRENS" +
+                    //                                                                         " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
+                    //                                                                           " AND TRENS.ST_ID_SIT_TREM = 1)"));
+                    //else query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
+                    //                                                                          " FROM ACTPP.TRENS" +
+                    //                                                                         " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
+                    //                                                                           " AND TRENS.ST_ID_SIT_TREM <> 1)"));
+
+                    query.Replace("${FILTRO_TREMENCERRADO}", string.Format(" "));
 
                     #endregion
 
@@ -812,7 +878,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                            " AND TT_ROTA_AOP.TTR_ID_ELM = ELEM_VIA_ESTACOES.EV_ID_ELM" +
                                                                                                            " AND TT_ROTA.TTR_ID_RTA = rta1.TTR_ID_RTA" +
                                                                                                            " AND ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T')" +
-                                                                                                           " AND ANA.TTA_DT_APUR >= SYSDATE - 30", filtro.Rota_ID));
+                                                                                                           " /*AND ANA.TTA_DT_APUR >= SYSDATE - 30*/", filtro.Rota_ID));
                     else
                         query.Replace("${FILTRO_ROTA}", string.Format(""));
 
@@ -836,7 +902,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                               " AND TT_SUBROTA_AOP.TTS_ID_ELM = ELEM_VIA_ESTACOES.EV_ID_ELM" +
                                                                                                               " AND TT_SUBROTA.TTS_ID_SUB = SUB1.TTS_ID_SUB" +
                                                                                                               " AND ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T')" +
-                                                                                                              " AND ANA.TTA_DT_APUR >= SYSDATE - 30", filtro.SubRota_ID));
+                                                                                                              " /*AND ANA.TTA_DT_APUR >= SYSDATE - 30*/", filtro.SubRota_ID));
                     else
                         query.Replace("${FILTRO_SUBROTA}", string.Format(""));
 
@@ -855,20 +921,53 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     else
                         query.Replace("${FILTRO_MOTIVO}", string.Format(" "));
 
-                    if (!string.IsNullOrEmpty(filtro.Data_INI.ToString()) && !string.IsNullOrEmpty(filtro.Data_FIM.ToString()))
-                        query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_APUR   BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_INI, filtro.Data_FIM));
-                    else
-                        query.Replace("${FILTRO_PERIODO}", string.Format(""));
+                    //if (!string.IsNullOrEmpty(filtro.Data_INI.ToString()) && !string.IsNullOrEmpty(filtro.Data_FIM.ToString()))
+                    //    query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_APUR BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_INI, filtro.Data_FIM));
+                    //else
+                    //    query.Replace("${  }", string.Format(""));
 
-                    if (filtro.TremEncerrado == true)
-                        query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
-                                                                                              " FROM ACTPP.TRENS" +
-                                                                                             " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
-                                                                                               " AND TRENS.ST_ID_SIT_TREM = 1)"));
-                    else query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
-                                                                                              " FROM ACTPP.TRENS" +
-                                                                                             " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
-                                                                                               " AND TRENS.ST_ID_SIT_TREM <> 1)"));
+                    if (!string.IsNullOrEmpty(filtro.Data_INI.ToString()) && !string.IsNullOrEmpty(filtro.Data_FIM.ToString()))
+                        if (filtro.OpData == 1)
+                        {
+                            query.Replace("${FILTRO_PERIODO}", string.Format("AND EXISTS " +
+                                                                                 "(SELECT 1 " +
+                                                                                 "FROM ACTPP.TT_ANALITICA, " +
+                                                                                 "ACTPP.TT_ROTA_AOP ROTA " +
+                                                                                 "WHERE ANA.ID_TREM = TT_ANALITICA.ID_TREM " +
+                                                                                 "AND ROTA.TTR_ID_RTA = RTA1.TTR_ID_RTA " +
+                                                                                 "AND TT_ANALITICA.EV_ID_ELM = ROTA.TTR_ID_ELM " +
+                                                                                 "AND TTA_DT_INI_EVE BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS') " +
+                                                                                 "AND ROTA.TTR_PNT_RTA LIKE 'S')", filtro.Data_INI, filtro.Data_FIM));
+                        }
+                        else if (filtro.OpData == 2)
+                        {
+                            query.Replace("${FILTRO_PERIODO}", string.Format("AND EXISTS " +
+                                                                            "(SELECT 1 " +
+                                                                            "FROM ACTPP.TT_ANALITICA, " +
+                                                                            "ACTPP.TT_ROTA_AOP ROTA " +
+                                                                            "WHERE ANA.ID_TREM = TT_ANALITICA.ID_TREM " +
+                                                                            "AND ROTA.TTR_ID_RTA = RTA1.TTR_ID_RTA " +
+                                                                            "AND TTA_DT_FIM_EVE BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS') " +
+                                                                            "AND ROTA.TTR_PNT_RTA LIKE 'S') ", filtro.Data_INI, filtro.Data_FIM));
+                        }
+                        else if (filtro.OpData == 3)
+                        {
+                            query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_APUR BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_INI, filtro.Data_FIM));
+                        }
+                        else
+                            query.Replace("${  }", string.Format(""));
+
+                    //if (filtro.TremEncerrado == true)
+                    //    query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
+                    //                                                                          " FROM ACTPP.TRENS" +
+                    //                                                                         " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
+                    //                                                                           " AND TRENS.ST_ID_SIT_TREM = 1)"));
+                    //else query.Replace("${FILTRO_TREMENCERRADO}", string.Format("AND EXISTS (SELECT 1" +
+                    //                                                                          " FROM ACTPP.TRENS" +
+                    //                                                                         " WHERE ACTPP.TT_ANALITICA.ID_TREM = TRENS.TM_ID_TRM" +
+                    //                                                                           " AND TRENS.ST_ID_SIT_TREM <> 1)"));
+
+                    query.Replace("${FILTRO_TREMENCERRADO}", string.Format(" "));
 
                     #endregion
 
@@ -896,7 +995,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return itens;
         }
-
+        
         /// <summary>
         /// Obtem uma lista de Ponta de Rota
         /// </summary>
