@@ -171,8 +171,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 AND NOT T.TM_PRF_ACT LIKE 'V%'
                                                 AND T.TM_ID_TRM = ${TM_ID_TRM}
                                                 /*MEDIDA PROVISÓRIA PARA NÃO EXIBIR OS CÓDIGOS 9 E 46 E CORREDOR BAIXADA*/
-                                                AND COD_MOTIVO NOT IN (9, 46)
-                                                AND NC.NM_COR_NOME NOT IN ('Baixada'))
+                                                AND COD_MOTIVO NOT IN (9, 46))
                                                 WHERE LINHA = 1 
                                         ORDER BY  DT_INI_PARADA");
 
