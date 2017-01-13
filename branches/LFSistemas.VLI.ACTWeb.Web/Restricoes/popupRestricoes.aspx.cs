@@ -880,7 +880,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             {
                 txtDadosDataInicial.Text = DataAtual.ToShortDateString();
                 txtDadosHoraInicial.Text = HoraAtual;
-                txtDadosDataFinal.Text = NovaData.ToShortDateString();
+                //SLF104 - Luciano desabilitando preenchimento automático da data final
+                //txtDadosDataFinal.Text = NovaData.ToShortDateString();
+                txtDadosDataFinal.Text =
+                txtDadosHoraFinal.Text = string.Empty;
             }
             else
             {
