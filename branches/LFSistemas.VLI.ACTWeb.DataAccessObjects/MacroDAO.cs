@@ -413,7 +413,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ PARÂMETROS - RECEBIDAS ]
 
                     if (!string.IsNullOrEmpty(filtro.NumeroLocomotiva))
-                        query.Replace("${R_Locom}", string.Format("AND MR.MR_LOCO = {0}", filtro.NumeroLocomotiva.ToUpper()));
+                        query.Replace("${R_Locom}", string.Format("AND DECODE(MCT_NOM_MCT, NULL, MR_LOCO, MR_LOCO, NULL, MCT_NOM_MCT) = {0}", filtro.NumeroLocomotiva.ToUpper()));
                     else
                         query.Replace("${R_Locom}", "");
 
@@ -422,15 +422,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         var trens = filtro.NumeroTrem.Split(',');
                         for (int i = 0; i < trens.Length; i++)
                             trens[i] = trens[i] + "%";
-                        var clausula = string.Join("' or MR.MR_PRF_ACT like '", trens);
-                        clausula = string.Concat("UPPER(MR.MR_PRF_ACT) like '", clausula.ToUpper(), "'");
+                        var clausula = string.Join("' or MR_PRF_ACT like '", trens);
+                        clausula = string.Concat("UPPER(MR_PRF_ACT) like '", clausula.ToUpper(), "'");
                         query.Replace("${R_Trens}", string.Format("AND ({0})", clausula));
                     }
                     else
                         query.Replace("${R_Trens}", "");
 
                     if (!string.IsNullOrEmpty(filtro.NumeroMacro))
-                        query.Replace("${R_Macro}", string.Format("AND MR.MR_MC_NUM IN ({0})", filtro.NumeroMacro));
+                        query.Replace("${R_Macro}", string.Format("AND MR_MC_NUM IN ({0})", filtro.NumeroMacro));
                     else
                         query.Replace("${R_Macro}", "");
 
@@ -439,8 +439,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         var codigoos = filtro.CodigoOS.Split(',');
                         for (int i = 0; i < codigoos.Length; i++)
                             codigoos[i] = codigoos[i] + "%";
-                        var clausula = string.Join("' or MR.ME_COD_OF like '", codigoos);
-                        clausula = string.Concat("MR.MR_COD_OF like '", clausula, "'");
+                        var clausula = string.Join("' or ME_COD_OF like '", codigoos);
+                        clausula = string.Concat("MR_COD_OF like '", clausula, "'");
                         query.Replace("${R_CodOS}", string.Format("AND ({0})", clausula));
                     }
                     else
@@ -451,8 +451,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         var espressao = filtro.Expressao.Split(',');
                         for (int i = 0; i < espressao.Length; i++)
                             espressao[i] = "%" + espressao[i].ToUpper() + "%";
-                        var clausula = string.Join("' or MR.MR_TEXT like '", espressao);
-                        clausula = string.Concat("UPPER(MR.MR_TEXT) like '", clausula.ToUpper(), "'");
+                        var clausula = string.Join("' or MR_TEXT like '", espressao);
+                        clausula = string.Concat("UPPER(MR_TEXT) like '", clausula.ToUpper(), "'");
                         query.Replace("${R_Expre}", string.Format("AND ({0})", clausula));
                     }
                     else
@@ -468,7 +468,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ PARÂMETROS - ENVIADAS ]
 
                     if (!string.IsNullOrEmpty(filtro.NumeroLocomotiva))
-                        query.Replace("${E_Locom}", string.Format("AND ME.ME_LOCO = {0}", filtro.NumeroLocomotiva));
+                        //query.Replace("${E_Locom}", string.Format("AND ME_LOCO = {0}", filtro.NumeroLocomotiva));
+                        query.Replace("${E_Locom}", string.Format("AND DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT)  = {0}", filtro.NumeroLocomotiva));
                     else
                         query.Replace("${E_Locom}", "");
 
@@ -477,8 +478,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         var trens = filtro.NumeroTrem.Split(',');
                         for (int i = 0; i < trens.Length; i++)
                             trens[i] = trens[i] + "%";
-                        var clausula = string.Join("' or ME.ME_PRF_ACT like '", trens);
-                        clausula = string.Concat("UPPER(ME.ME_PRF_ACT) like '", clausula.ToUpper(), "'");
+                        var clausula = string.Join("' or ME_PRF_ACT like '", trens);
+                        clausula = string.Concat("UPPER(ME_PRF_ACT) like '", clausula.ToUpper(), "'");
                         query.Replace("${E_Trens}", string.Format("AND ({0})", clausula));
                     }
                     else
@@ -487,7 +488,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     }
 
                     if (!string.IsNullOrEmpty(filtro.NumeroMacro))
-                        query.Replace("${E_Macro}", string.Format("AND ME.ME_MAC_NUM IN ({0})", filtro.NumeroMacro));
+                        query.Replace("${E_Macro}", string.Format("AND ME_MAC_NUM IN ({0})", filtro.NumeroMacro));
                     else
                         query.Replace("${E_Macro}", "");
 
@@ -496,8 +497,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         var codigoos = filtro.CodigoOS.Split(',');
                         for (int i = 0; i < codigoos.Length; i++)
                             codigoos[i] = codigoos[i] + "%";
-                        var clausula = string.Join("' or ME.ME_COD_OF like '", codigoos);
-                        clausula = string.Concat("ME.ME_COD_OF like '", clausula, "'");
+                        var clausula = string.Join("' or ME_COD_OF like '", codigoos);
+                        clausula = string.Concat("ME_COD_OF like '", clausula, "'");
                         query.Replace("${E_CodOS}", string.Format("AND ({0})", clausula));
                     }
                     else
@@ -508,15 +509,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         var espressao = filtro.Expressao.Split(',');
                         for (int i = 0; i < espressao.Length; i++)
                             espressao[i] = "%" + espressao[i].ToUpper() + "%";
-                        var clausula = string.Join("' or ME.ME_TEXT like '", espressao);
-                        clausula = string.Concat("UPPER(ME.ME_TEXT) like '", clausula.ToUpper(), "'");
+                        var clausula = string.Join("' or ME_TEXT like '", espressao);
+                        clausula = string.Concat("UPPER(ME_TEXT) like '", clausula.ToUpper(), "'");
                         query.Replace("${E_Expre}", string.Format("AND ({0})", clausula));
                     }
                     else
                         query.Replace("${E_Expre}", "");
 
                     if (!string.IsNullOrEmpty(filtro.Corredores))
-                        query.Replace("${E_Corre}", string.Format("AND (UPPER(ME.ME_CORREDOR) IN ({0}) OR ME.ME_CORREDOR IS NULL)", filtro.Corredores.ToUpper()));
+                        query.Replace("${E_Corre}", string.Format("AND (UPPER(ME_CORREDOR) IN ({0}) OR ME_CORREDOR IS NULL)", filtro.Corredores.ToUpper()));
                     else
                         query.Replace("${E_Corre}", "");
 
@@ -571,16 +572,30 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     if (filtro.Espaco == 0)
                     {
-                        queryE.Append(@"SELECT 'E' AS R_E, DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS Horário, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS ME_TEXT, ME_MCT_ADDR, MENSAGENS_ENVIADAS.ME_MSG_NUM, ME_MSG_STATUS, ME_CONFIRM_TIME AS TRATADO, ME_CORREDOR AS CORREDOR, TM7H_PRF_ACT
-                                        FROM ACTPP.MENSAGENS_ENVIADAS, ACTPP.MCTS, ACTPP.TRENS7D_HIST
-                                            WHERE MCTS.MCT_ID_MCT = MENSAGENS_ENVIADAS.ME_MCT_ADDR
-                                              AND TRENS7D_HIST.TMH_ID_TRM =  MENSAGENS_ENVIADAS.ME_ID_TRM
-                                              AND ME_MSG_TIME BETWEEN ${DataInicio} AND ${DataFinal} 
-                                                ${ME_LOCO}
-                                                ${ME_PRF_ACT}
-                                                ${ME_MAC_NUM}
-                                                ${ME_COD_OF}
-                                                ${ME_Expre}");
+                        queryE.Append(@"SELECT 'E' AS R_E, 
+                                                DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, 
+                                                ME_PRF_ACT, 
+                                                ME_COD_OF, 
+                                                ME_MSG_TIME AS Horário, 
+                                                ME_MAC_NUM, 
+                                                SUBSTR (ME_TEXT, 1, 760) AS ME_TEXT, 
+                                                ME_MCT_ADDR, 
+                                                ME.ME_MSG_NUM, 
+                                                ME_MSG_STATUS, 
+                                                ME_CONFIRM_TIME AS TRATADO, 
+                                                ME_CORREDOR AS CORREDOR, 
+                                                TM7H_PRF_ACT
+                                        FROM ACTPP.MENSAGENS_ENVIADAS ME, 
+                                             ACTPP.MCTS, 
+                                             ACTPP.TRENS7D_HIST
+                                       WHERE MCTS.MCT_ID_MCT = ME.ME_MCT_ADDR
+                                         AND TRENS7D_HIST.TMH_ID_TRM(+) =  ME.ME_ID_TRM
+                                             ${ME_MSG_TIME}  
+                                             ${ME_LOCO}
+                                             ${ME_PRF_ACT}
+                                             ${ME_MAC_NUM}
+                                             ${ME_COD_OF}
+                                             ${ME_Expre}");
                     }
                     #endregion
 
@@ -588,11 +603,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     else if (filtro.Espaco == 1)
                     {
-                        queryE.Append(@"SELECT 'E' AS R_E, DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS Horário, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS ME_TEXT, ME_MCT_ADDR, MENSAGENS_ENVIADAS.ME_MSG_NUM, ME_MSG_STATUS, ME_CONFIRM_TIME AS TRATADO, ME_CORREDOR AS CORREDOR, TM7H_PRF_ACT
-                                        FROM ACTPP.MENSAGENS_ENVIADAS, ACTPP.MCTS, ACTPP.TRENS7D_HIST
-                                            WHERE MCTS.MCT_ID_MCT = MENSAGENS_ENVIADAS.ME_MCT_ADDR
-                                              AND TRENS7D_HIST.TMH_ID_TRM =  MENSAGENS_ENVIADAS.ME_ID_TRM
-                                              AND ME_MSG_TIME <= ${DataInicio} AND ME_MSG_TIME >= ${DataFinal} 
+                        queryE.Append(@"SELECT 'E' AS R_E, DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) AS ME_LOCO, ME_PRF_ACT, ME_COD_OF, ME_MSG_TIME AS Horário, ME_MAC_NUM, SUBSTR (ME_TEXT, 1, 760) AS ME_TEXT, ME_MCT_ADDR, ME.ME_MSG_NUM, ME_MSG_STATUS, ME_CONFIRM_TIME AS TRATADO, ME_CORREDOR AS CORREDOR, TM7H_PRF_ACT
+                                        FROM ACTPP.MENSAGENS_ENVIADAS ME, ACTPP.MCTS, ACTPP.TRENS7D_HIST
+                                            WHERE MCTS.MCT_ID_MCT = ME.ME_MCT_ADDR
+                                              AND TRENS7D_HIST.TMH_ID_TRM(+) =  ME.ME_ID_TRM
+                                                ${ME_MSG_TIME}
                                                 ${ME_LOCO}
                                                 ${ME_PRF_ACT}
                                                 ${ME_MAC_NUM}
@@ -621,7 +636,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
 
                     if (!string.IsNullOrEmpty(filtro.NumeroLocomotiva))
-                        queryE.Replace("${ME_LOCO}", string.Format("AND ME.ME_LOCO ={0}", filtro.NumeroLocomotiva));
+                        queryE.Replace("${ME_LOCO}", string.Format("AND DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) ={0}", filtro.NumeroLocomotiva));
                     else
                         queryE.Replace("${ME_LOCO}", "");
 
@@ -794,26 +809,29 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ PARÂMETROS ]
 
-
-                    if (filtro.Espaco == 1) // PRA TRÁZ
+                    if (filtro.Espaco == 0) // Pra frente
                     {
-                        if (filtro.DataInicio.HasValue && filtro.DataFim.HasValue)
-                            queryR.Replace("${MR_MSG_TIME}", string.Format("AND MR.MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataFim, filtro.DataInicio));
-                        else
-                            queryR.Replace("${MR_MSG_TIME}", "");
+                        if (!string.IsNullOrEmpty(filtro.DataInicio.ToString()) || !string.IsNullOrEmpty(filtro.DataFim.ToString()))
+                        {
+                            queryR.Replace("${MR_TIME}", string.Format(" AND MR.MR_MSG_TIME >= to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND MR.MR_MSG_TIME <= to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                        }
                     }
-                    else    // PRA FRENTE
+                    else if (filtro.Espaco == 1) // pra trás
                     {
-                        if (filtro.DataInicio.HasValue && filtro.DataFim.HasValue)
-                            queryR.Replace("${MR_MSG_TIME}", string.Format("AND MR.MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
-                        else
-                            queryR.Replace("${MR_MSG_TIME}", "");
+                        if (!string.IsNullOrEmpty(filtro.DataInicio.ToString()) || !string.IsNullOrEmpty(filtro.DataFim.ToString()))
+                        {
+                            queryR.Replace("${MR_TIME}", string.Format(" AND MR.MR_MSG_TIME <= to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND MR.MR_MSG_TIME >= to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                        }
+                    }
+                    else
+                    {
+                        queryR.Replace("${MR_TIME}", string.Format("AND MR.MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
                     }
 
                     if (!string.IsNullOrEmpty(filtro.NumeroLocomotiva))
-                        queryR.Replace("${MR_LOCO}", string.Format("AND MR.MR_LOCO = {0}", filtro.NumeroLocomotiva));
+                        queryR.Replace("${MCT_NOM_MCT}", string.Format("AND MC.MCT_NOM_MCT IN ({0})", filtro.NumeroLocomotiva));
                     else
-                        queryR.Replace("${MR_LOCO}", "");
+                        queryR.Replace("${MCT_NOM_MCT}", "");
 
 
                     if (!string.IsNullOrEmpty(filtro.NumeroTrem))
@@ -821,7 +839,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         var trem = filtro.NumeroTrem.Split(',');
                         for (int i = 0; i < trem.Length; i++)
                             trem[i] = "%" + trem[i].ToUpper() + "%";
-                        var clausula = string.Join("' or MR.MR_PRF_ACT like '", trem);
+                        var clausula = string.Join("' or MR_PRF_ACT like '", trem);
                         clausula = string.Concat("MR.MR_PRF_ACT like '", clausula, "'");
                         queryR.Replace("${MR_PRF_ACT}", string.Format("AND ({0})", clausula));
                     }
@@ -1263,6 +1281,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     else
                                     {
                                         comando.CommandText = @"select mr.ME_MSG_NUM, ME_LOCO,ME_PRF_ACT,ME_COD_OF, ME_MSG_TIME, ME_MAC_NUM, ME_TEXT, ME_MCT_ADDR, eo.ES_ID_EFE, ed.ES_ID_EFE,t.TM_NUM_VAG, t.TM_TON_BRT,m.MCT_OBC_VERSAO,m.MCT_MAP_VERSAO,t.TM_CMP_TR
+                                from ACTPP.mensagens_enviadas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m
                                 where mr.Me_MCT_ADDR = m.MCT_ID_MCT 
                                 and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                                 and t.es_id_Num_efe_dest = ed.es_id_num_efe
