@@ -413,7 +413,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ PARÂMETROS - RECEBIDAS ]
 
                     if (!string.IsNullOrEmpty(filtro.NumeroLocomotiva))
-                        query.Replace("${R_Locom}", string.Format("AND MR.MR_LOCO = {0}", filtro.NumeroLocomotiva.ToUpper()));
+                        query.Replace("${R_Locom}", string.Format("AND DECODE(MCT_NOM_MCT, NULL, MR_LOCO, MR_LOCO, NULL, MCT_NOM_MCT) = {0}", filtro.NumeroLocomotiva.ToUpper()));
                     else
                         query.Replace("${R_Locom}", "");
 
@@ -422,15 +422,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         var trens = filtro.NumeroTrem.Split(',');
                         for (int i = 0; i < trens.Length; i++)
                             trens[i] = trens[i] + "%";
-                        var clausula = string.Join("' or MR.MR_PRF_ACT like '", trens);
-                        clausula = string.Concat("UPPER(MR.MR_PRF_ACT) like '", clausula.ToUpper(), "'");
+                        var clausula = string.Join("' or MR_PRF_ACT like '", trens);
+                        clausula = string.Concat("UPPER(MR_PRF_ACT) like '", clausula.ToUpper(), "'");
                         query.Replace("${R_Trens}", string.Format("AND ({0})", clausula));
                     }
                     else
                         query.Replace("${R_Trens}", "");
 
                     if (!string.IsNullOrEmpty(filtro.NumeroMacro))
-                        query.Replace("${R_Macro}", string.Format("AND MR.MR_MC_NUM IN ({0})", filtro.NumeroMacro));
+                        query.Replace("${R_Macro}", string.Format("AND MR_MC_NUM IN ({0})", filtro.NumeroMacro));
                     else
                         query.Replace("${R_Macro}", "");
 
@@ -439,8 +439,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         var codigoos = filtro.CodigoOS.Split(',');
                         for (int i = 0; i < codigoos.Length; i++)
                             codigoos[i] = codigoos[i] + "%";
-                        var clausula = string.Join("' or MR.ME_COD_OF like '", codigoos);
-                        clausula = string.Concat("MR.MR_COD_OF like '", clausula, "'");
+                        var clausula = string.Join("' or ME_COD_OF like '", codigoos);
+                        clausula = string.Concat("MR_COD_OF like '", clausula, "'");
                         query.Replace("${R_CodOS}", string.Format("AND ({0})", clausula));
                     }
                     else
@@ -451,8 +451,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         var espressao = filtro.Expressao.Split(',');
                         for (int i = 0; i < espressao.Length; i++)
                             espressao[i] = "%" + espressao[i].ToUpper() + "%";
-                        var clausula = string.Join("' or MR.MR_TEXT like '", espressao);
-                        clausula = string.Concat("UPPER(MR.MR_TEXT) like '", clausula.ToUpper(), "'");
+                        var clausula = string.Join("' or MR_TEXT like '", espressao);
+                        clausula = string.Concat("UPPER(MR_TEXT) like '", clausula.ToUpper(), "'");
                         query.Replace("${R_Expre}", string.Format("AND ({0})", clausula));
                     }
                     else
@@ -468,7 +468,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ PARÂMETROS - ENVIADAS ]
 
                     if (!string.IsNullOrEmpty(filtro.NumeroLocomotiva))
-                        query.Replace("${E_Locom}", string.Format("AND ME.ME_LOCO = {0}", filtro.NumeroLocomotiva));
+                        //query.Replace("${E_Locom}", string.Format("AND ME_LOCO = {0}", filtro.NumeroLocomotiva));
+                        query.Replace("${E_Locom}", string.Format("AND DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) = {0}", filtro.NumeroLocomotiva));
                     else
                         query.Replace("${E_Locom}", "");
 
@@ -477,8 +478,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         var trens = filtro.NumeroTrem.Split(',');
                         for (int i = 0; i < trens.Length; i++)
                             trens[i] = trens[i] + "%";
-                        var clausula = string.Join("' or ME.ME_PRF_ACT like '", trens);
-                        clausula = string.Concat("UPPER(ME.ME_PRF_ACT) like '", clausula.ToUpper(), "'");
+                        var clausula = string.Join("' or ME_PRF_ACT like '", trens);
+                        clausula = string.Concat("UPPER(ME_PRF_ACT) like '", clausula.ToUpper(), "'");
                         query.Replace("${E_Trens}", string.Format("AND ({0})", clausula));
                     }
                     else
@@ -487,7 +488,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     }
 
                     if (!string.IsNullOrEmpty(filtro.NumeroMacro))
-                        query.Replace("${E_Macro}", string.Format("AND ME.ME_MAC_NUM IN ({0})", filtro.NumeroMacro));
+                        query.Replace("${E_Macro}", string.Format("AND ME_MAC_NUM IN ({0})", filtro.NumeroMacro));
                     else
                         query.Replace("${E_Macro}", "");
 
@@ -496,8 +497,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         var codigoos = filtro.CodigoOS.Split(',');
                         for (int i = 0; i < codigoos.Length; i++)
                             codigoos[i] = codigoos[i] + "%";
-                        var clausula = string.Join("' or ME.ME_COD_OF like '", codigoos);
-                        clausula = string.Concat("ME.ME_COD_OF like '", clausula, "'");
+                        var clausula = string.Join("' or ME_COD_OF like '", codigoos);
+                        clausula = string.Concat("ME_COD_OF like '", clausula, "'");
                         query.Replace("${E_CodOS}", string.Format("AND ({0})", clausula));
                     }
                     else
@@ -508,15 +509,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         var espressao = filtro.Expressao.Split(',');
                         for (int i = 0; i < espressao.Length; i++)
                             espressao[i] = "%" + espressao[i].ToUpper() + "%";
-                        var clausula = string.Join("' or ME.ME_TEXT like '", espressao);
-                        clausula = string.Concat("UPPER(ME.ME_TEXT) like '", clausula.ToUpper(), "'");
+                        var clausula = string.Join("' or ME_TEXT like '", espressao);
+                        clausula = string.Concat("UPPER(ME_TEXT) like '", clausula.ToUpper(), "'");
                         query.Replace("${E_Expre}", string.Format("AND ({0})", clausula));
                     }
                     else
                         query.Replace("${E_Expre}", "");
 
                     if (!string.IsNullOrEmpty(filtro.Corredores))
-                        query.Replace("${E_Corre}", string.Format("AND (UPPER(ME.ME_CORREDOR) IN ({0}) OR ME.ME_CORREDOR IS NULL)", filtro.Corredores.ToUpper()));
+                        query.Replace("${E_Corre}", string.Format("AND (UPPER(ME_CORREDOR) IN ({0}) OR ME_CORREDOR IS NULL)", filtro.Corredores.ToUpper()));
                     else
                         query.Replace("${E_Corre}", "");
 
