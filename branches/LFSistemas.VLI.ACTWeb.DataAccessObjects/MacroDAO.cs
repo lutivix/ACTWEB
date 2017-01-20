@@ -184,6 +184,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             WHERE MC.MCT_ID_MCT = ME.ME_MCT_ADDR 
                                               AND ME.ME_MAT_OPER = US.MATRICULA
                                               ${INTERVALO_E}
+                                              ${CORREDOR}
                                               AND ME.ME_MAC_NUM = 50 
                                               AND SUBSTR(ME.ME_TEXT,2,4) = '7000'");
 
@@ -290,6 +291,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ${E_Macro}
                                         ${E_CodOS}
                                         ${E_Expre}
+                                        ${E_Corre}
                                         AND TRENS7D_HIST.TMH_ID_TRM(+) = MENSAGENS_ENVIADAS.ME_ID_TRM");
 
                         #region [ FILTRA MACROS PRA TRÁS ]
@@ -358,6 +360,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ${E_Motiv}
                                         ${E_CodOS}
                                         ${E_Expre}
+                                        ${E_Corre}
                                         AND TRENS7D_HIST.TMH_ID_TRM(+) = MENSAGENS_ENVIADAS.ME_ID_TRM");
 
                         #region [ FILTRA MACROS PRA TRÁS ]
@@ -413,7 +416,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ PARÂMETROS - RECEBIDAS ]
 
                     if (!string.IsNullOrEmpty(filtro.NumeroLocomotiva))
-                        query.Replace("${R_Locom}", string.Format("AND DECODE(MCT_NOM_MCT, NULL, MR_LOCO, MR_LOCO, NULL, MCT_NOM_MCT) = {0}", filtro.NumeroLocomotiva.ToUpper()));
+                        query.Replace("${R_Locom}", string.Format("AND DECODE(MCT_NOM_MCT, NULL, MR_LOCO, MR_LOCO, NULL, MCT_NOM_MCT) in ({0})", filtro.NumeroLocomotiva.ToUpper()));
                     else
                         query.Replace("${R_Locom}", "");
 
@@ -469,7 +472,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     if (!string.IsNullOrEmpty(filtro.NumeroLocomotiva))
                         //query.Replace("${E_Locom}", string.Format("AND ME_LOCO = {0}", filtro.NumeroLocomotiva));
-                        query.Replace("${E_Locom}", string.Format("AND DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT)  = {0}", filtro.NumeroLocomotiva));
+                        query.Replace("${E_Locom}", string.Format("AND DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT)  in ({0})", filtro.NumeroLocomotiva));
                     else
                         query.Replace("${E_Locom}", "");
 
@@ -595,7 +598,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                              ${ME_PRF_ACT}
                                              ${ME_MAC_NUM}
                                              ${ME_COD_OF}
-                                             ${ME_Expre}");
+                                             ${ME_Expre}
+                                             ${ME_Corre}");
                     }
                     #endregion
 
@@ -612,7 +616,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 ${ME_PRF_ACT}
                                                 ${ME_MAC_NUM}
                                                 ${ME_COD_OF}
-                                                ${ME_Expre}");
+                                                ${ME_Expre}
+                                                ${ME_Corre}");
                     }
 
                     #endregion
@@ -636,7 +641,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
 
                     if (!string.IsNullOrEmpty(filtro.NumeroLocomotiva))
-                        queryE.Replace("${ME_LOCO}", string.Format("AND DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) ={0}", filtro.NumeroLocomotiva));
+                        queryE.Replace("${ME_LOCO}", string.Format("AND DECODE(MCT_NOM_MCT, NULL, ME_LOCO, ME_LOCO, NULL, MCT_NOM_MCT) in ({0})", filtro.NumeroLocomotiva));
                     else
                         queryE.Replace("${ME_LOCO}", "");
 
@@ -687,9 +692,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         queryE.Replace("${ME_Expre}", "");
 
                     if (!string.IsNullOrEmpty(filtro.Corredores))
-                        queryE.Replace("${E_Corre}", string.Format("AND (UPPER(ME.ME_CORREDOR) IN ({0}) OR ME.ME_CORREDOR IS NULL)", filtro.Corredores.ToUpper()));
+                        queryE.Replace("${ME_Corre}", string.Format("AND (UPPER(ME.ME_CORREDOR) IN ({0}) OR ME.ME_CORREDOR IS NULL)", filtro.Corredores.ToUpper()));
                     else
-                        queryE.Replace("${E_Corre}", "");
+                        queryE.Replace("${ME_Corre}", "");
 
                     #endregion
 
