@@ -182,6 +182,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         protected void Pesquisar(string ordenacao)
         {
             var pesquisar = new AlarmesController();
+            string filtro_trem = null;
              
             DateTime horaInicio = txtDataInicio.Text.Length > 0 ? DateTime.Parse(txtDataInicio.Text + " 00:00:00") : DateTime.Now;
             DateTime horaFim = txtDataFim.Text.Length > 0 ? DateTime.Parse(txtDataFim.Text + " 00:00:00") : DateTime.Now.Date.AddDays(1);
@@ -206,12 +207,26 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 }
                 corredores = string.Join(",", aux);
             }
+
+            string[] filtroTrem = txtFiltroTrem.Text.ToString().ToUpper().Split(',');
+            if (filtroTrem.Length > 1)
+            {
+                for (int i = 0; i < filtroTrem.Length; i++)
+                {
+                    filtroTrem[i] = "'" + filtroTrem[i].Trim() + "'";
+                }
+
+                filtro_trem = string.Join(",", filtroTrem);
+            }
+            else
+                filtro_trem = txtFiltroTrem.Text.Length > 0 ? "'" + txtFiltroTrem.Text.ToUpper().Trim() + "'" : null;
+ 
              
             itens = pesquisar.ObterAlarmesPosicionamento(new AlarmesTelecomandadas()
             {
                 Corredor = corredores,
-                Trem = txtFiltroTrem.Text,
-                Estacao = txtFiltroEstacao.Text,
+                Trem = filtro_trem,
+                Estacao = txtFiltroEstacao.Text.ToUpper(),
                 DateInicial = horaInicio,
                 DateFinal = horaFim
             });

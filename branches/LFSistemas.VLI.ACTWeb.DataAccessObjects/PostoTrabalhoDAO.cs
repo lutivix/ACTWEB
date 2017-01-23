@@ -197,7 +197,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             try
             {
                 if (!reader.IsDBNull(0)) item.ID = reader.GetDouble(0);
-                if (!reader.IsDBNull(2)) item.Descricao = reader.GetString(1);
+                if (!reader.IsDBNull(1)) item.Descricao = reader.GetString(1);
             }
             catch (Exception ex)
             {

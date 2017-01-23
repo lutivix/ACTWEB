@@ -186,7 +186,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 ORDER BY AL_DT_INI DESC");
 
                     if (!string.IsNullOrEmpty(filtro.Trem))
-                        query.Replace("${TREM}", string.Format("AND SUBSTR(AL_PARAM,0, INSTR(AL_PARAM,'_',1,1)-1) LIKE UPPER({0}) )", filtro.Trem));
+                        query.Replace("${TREM}", string.Format("AND SUBSTR(AL_PARAM,0, INSTR(AL_PARAM,'_',1,1)-1) IN ({0})", filtro.Trem));
                     else
                         query.Replace("${TREM}", "");
 
