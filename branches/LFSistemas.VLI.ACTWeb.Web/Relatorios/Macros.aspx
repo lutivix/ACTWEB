@@ -122,7 +122,7 @@
     </script>
     <div class="well well-sm">
         <asp:Panel ID="Panel1" runat="server" DefaultButton="lnkPesquisar">
-            <asp:Table ID="Table1" runat="server">
+            <asp:Table ID="Table1" runat="server" Width="500px">
                 <asp:TableRow>
                     <asp:TableCell>
                         <div class="form-group">
@@ -141,11 +141,11 @@
                                         </td>
                                         <td style="width: 20%; vertical-align: top;">
                                             <label for="data_inicio">Data Inicial:</label>
-                                            <asp:TextBox ID="txtDataInicial" runat="server" Width="95%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
+                                            <asp:TextBox ID="txtDataInicial" runat="server" Width="100%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
                                         </td>
                                         <td style="width: 20%; vertical-align: top;">
                                             <label for="hora_inicio">Data Final:</label>
-                                            <asp:TextBox ID="txtDataFinal" runat="server" Width="95%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
+                                            <asp:TextBox ID="txtDataFinal" runat="server" Width="100%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
                                         </td>
                                         <td rowspan="2" style="width: 170px; vertical-align: top;">
                                             <label for="data_fim">Corredor:</label>
@@ -179,22 +179,13 @@
                                 </table>
                             </div>
                         </div>
-                    </asp:TableCell>
-                </asp:TableRow>
-            </asp:Table>
-        </asp:Panel>
-    </div>
-    <div class="row">
+                    </asp:TableCell></asp:TableRow></asp:Table></asp:Panel></div><div class="row">
         <asp:Panel runat="server" ID="pnlJuntas" Visible="true">
             <%--   MACROS JUNTAS   --%>
             <div class="tab-pane active" id="Div1">
                 <div class="form-group">
                     <div class="page-header sub-content-header">
-                        <h3>Resultados da Pesquisa</h3>
-                        <%--<a data-toggle="modal" data-target="#modal_macros" data-backdrop="static" style="margin-left: 3px;" href=""><i class="fa fa-question-circle"></i></a>--%>
-                    </div>
-                </div>
-                <asp:UpdatePanel runat="server" ID="upRegistros">
+                        <h3>Resultados da Pesquisa</h3><%--<a data-toggle="modal" data-target="#modal_macros" data-backdrop="static" style="margin-left: 3px;" href=""><i class="fa fa-question-circle"></i></a>--%></div></div><asp:UpdatePanel runat="server" ID="upRegistros">
                     <ContentTemplate>
                         <div class="row">
                             <div class="form-group col-xs-12 table-responsive">
@@ -207,30 +198,17 @@
                                                         <thead>
                                                             <tr>
                                                                 <td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasRE" runat="server" OnClick="lnkJuntasRE_Click">R/E</asp:LinkButton></td>
-                                                                <td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasLoco" runat="server" OnClick="lnkJuntasLoco_Click">Loco</asp:LinkButton></td>
-                                                                <td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasTrem" runat="server" OnClick="lnkJuntasTrem_Click">Trem</asp:LinkButton></td>
-                                                                <td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasCodOS" runat="server" OnClick="lnkJuntasCodOS_Click">Cod. OS</asp:LinkButton></td>
-                                                                <td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasHorario" runat="server" OnClick="lnkJuntasHorario_Click">Horário</asp:LinkButton></td>
-                                                                <td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasMacro" runat="server" OnClick="lnkJuntasMacro_Click">Macro</asp:LinkButton></td>
-                                                                <td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasTexto" runat="server" OnClick="lnkJuntasTexto_Click">Texto</asp:LinkButton></td>
-                                                                <td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasMatricula" runat="server">Operador</asp:LinkButton></td>
-                                                                <td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="LinkButton1" runat="server">Tmp. Leitura</asp:LinkButton></td>
-                                                                <td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="LinkButton2" runat="server">Tmp. Resposta</asp:LinkButton></td>
-                                                                <td style="text-align: center; font-size: 12pt;">
-                                                                    <asp:LinkButton ID="lnkJuntasCorredor" runat="server" OnClick="lnkJuntasCorredor_Click">Corredor</asp:LinkButton></td>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
+                                                                    <asp:LinkButton ID="lnkJuntasRE" runat="server" OnClick="lnkJuntasRE_Click">R/E</asp:LinkButton></td><td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasLoco" runat="server" OnClick="lnkJuntasLoco_Click">Loco</asp:LinkButton></td><td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasTrem" runat="server" OnClick="lnkJuntasTrem_Click">Trem</asp:LinkButton></td><td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasCodOS" runat="server" OnClick="lnkJuntasCodOS_Click">Cod. OS</asp:LinkButton></td><td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasHorario" runat="server" OnClick="lnkJuntasHorario_Click">Horário</asp:LinkButton></td><td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasMacro" runat="server" OnClick="lnkJuntasMacro_Click">Macro</asp:LinkButton></td><td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasTexto" runat="server" OnClick="lnkJuntasTexto_Click">Texto</asp:LinkButton></td><td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasMatricula" runat="server">Operador</asp:LinkButton></td><td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="LinkButton1" runat="server">Tmp. Leitura</asp:LinkButton></td><td style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="LinkButton2" runat="server">Tmp. Resposta</asp:LinkButton></td><td style="text-align: center; font-size: 12pt;">
+                                                                    <asp:LinkButton ID="lnkJuntasCorredor" runat="server" OnClick="lnkJuntasCorredor_Click">Corredor</asp:LinkButton></td></tr></thead><tbody>
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
                                                     <tr class="lida-<%# Eval("Lida")%> sem_resposta-<%# Eval("Respondida")%> tipo-<%# Eval("Tipo")%>" >

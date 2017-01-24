@@ -151,8 +151,21 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     if (origem == "tela_consulta")
                     {
 
-                        query.Append(@"SELECT 'R' AS R_E, MR.MR_GRMN AS ID, MR.MR_MSG_TIME AS Horário, MC.MCT_NOM_MCT AS Loco, MR.MR_MC_NUM AS Macro, MR.MR_TEXT AS Mensagem, SUBSTR(MR.MR_TEXT, 1, 760) AS Texto, MR.MR_MCT_ADDR AS MCT, MR.MR_PRF_ACT AS Trem, MR.MR_COD_OF AS CodOS, PF.MFP_LEITURA AS Leitura, PF.MPF_ID AS Leitura_ID, MR.MR_CORREDOR 
-                                    FROM ACTPP.MENSAGENS_RECEBIDAS MR, ACTPP.MCTS MC, ACTPP.MSG_PF PF 
+                        query.Append(@"SELECT 'R' AS R_E, 
+                                              MR.MR_GRMN AS ID, 
+                                              MR.MR_MSG_TIME AS Horário, 
+                                              MC.MCT_NOM_MCT AS Loco, 
+                                              MR.MR_MC_NUM AS Macro, 
+                                              MR.MR_TEXT AS Mensagem, 
+                                              SUBSTR(MR.MR_TEXT, 1, 760) AS Texto, 
+                                              MR.MR_MCT_ADDR AS MCT, 
+                                              MR.MR_PRF_ACT AS Trem, 
+                                              MR.MR_COD_OF AS CodOS, 
+                                              PF.MFP_LEITURA AS Leitura, 
+                                              PF.MPF_ID AS Leitura_ID, 
+                                              MR.MR_CORREDOR 
+                                    FROM ACTPP.MENSAGENS_RECEBIDAS MR, 
+                                         ACTPP.MCTS MC, ACTPP.MSG_PF PF 
                                     WHERE MC.MCT_ID_MCT = MR.MR_MCT_ADDR 
                                       AND PF.MFP_ID_MSG = MR.MR_GRMN 
                                       AND MR.MR_MSG_TIME > SYSDATE - 1 
@@ -160,8 +173,20 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                       AND SUBSTR(MR.MR_TEXT,2,4) = '7000' 
                                       ${CORREDOR}
                                 UNION 
-                                SELECT 'E' AS R_E, ME.ME_GFMN AS ID, ME.ME_MSG_TIME AS Horário, MC.MCT_NOM_MCT AS Loco, ME.ME_MAC_NUM AS Macro, ME.ME_TEXT AS Mensagem, SUBSTR(ME.ME_TEXT, 1, 760) AS Texto, ME.ME_MCT_ADDR AS MCT, ME.ME_PRF_ACT AS Trem, ME.ME_COD_OF AS CodOS, 'T' AS Leitura, 0 AS Leitura_ID, ME.ME_CORREDOR 
-                                    FROM ACTPP.MENSAGENS_ENVIADAS ME, ACTPP.MCTS MC 
+                                SELECT 'E' AS R_E, ME.ME_GFMN AS ID, 
+                                       ME.ME_MSG_TIME AS Horário, 
+                                       MC.MCT_NOM_MCT AS Loco, 
+                                       ME.ME_MAC_NUM AS Macro, 
+                                       ME.ME_TEXT AS Mensagem, 
+                                       SUBSTR(ME.ME_TEXT, 1, 760) AS Texto, 
+                                       ME.ME_MCT_ADDR AS MCT, 
+                                       ME.ME_PRF_ACT AS Trem, 
+                                       ME.ME_COD_OF AS CodOS, 
+                                       'T' AS Leitura, 
+                                       0 AS Leitura_ID, 
+                                       ME.ME_CORREDOR 
+                                    FROM ACTPP.MENSAGENS_ENVIADAS ME, 
+                                         ACTPP.MCTS MC 
                                     WHERE MC.MCT_ID_MCT = ME.ME_MCT_ADDR 
                                       AND ME.ME_MSG_TIME > SYSDATE - 1 
                                       AND ME.ME_MAC_NUM = 50 
@@ -169,22 +194,57 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     }
                     else if (origem == "tela_relatorio")
                     {
-                        query.Append(@"SELECT 'R' AS R_E, MR.MR_GRMN AS ID, MR.MR_MSG_TIME AS Horário, MC.MCT_NOM_MCT AS Loco, MR.MR_MC_NUM AS Macro, MR.MR_TEXT AS Mensagem, SUBSTR(MR.MR_TEXT, 1, 760) AS Texto, MR.MR_MCT_ADDR AS MCT, MR.MR_PRF_ACT AS Trem, MR.MR_COD_OF AS CodOS, PF.MFP_LEITURA AS Leitura, PF.MPF_ID AS Leitura_ID, US.NOME, MR.MR_MSG_LIDA, MR.MR_MSG_RESP, MR.MR_CORREDOR
-                                        FROM ACTPP.MENSAGENS_RECEBIDAS MR, ACTPP.MCTS MC, ACTPP.MSG_PF PF, ACTWEB.USUARIOS US 
+                        query.Append(@"SELECT 'R' AS R_E, 
+                                              MR.MR_GRMN AS ID, 
+                                              MR.MR_MSG_TIME AS Horário, 
+                                              MC.MCT_NOM_MCT AS Loco, 
+                                              MR.MR_MC_NUM AS Macro, 
+                                              MR.MR_TEXT AS Mensagem, 
+                                              SUBSTR(MR.MR_TEXT, 1, 760) AS Texto, 
+                                              MR.MR_MCT_ADDR AS MCT, 
+                                              MR.MR_PRF_ACT AS Trem, 
+                                              MR.MR_COD_OF AS CodOS, 
+                                              PF.MFP_LEITURA AS Leitura, 
+                                              PF.MPF_ID AS Leitura_ID, 
+                                              US.NOME, 
+                                              MR.MR_MSG_LIDA, 
+                                              MR.MR_MSG_RESP, 
+                                              MR.MR_CORREDOR
+                                        FROM ACTPP.MENSAGENS_RECEBIDAS MR, 
+                                             ACTPP.MCTS MC, 
+                                             ACTPP.MSG_PF PF, 
+                                             ACTWEB.USUARIOS US 
                                             WHERE MC.MCT_ID_MCT = MR.MR_MCT_ADDR 
                                               AND PF.MFP_ID_MSG = MR.MR_GRMN
                                               AND MR.MR_MAT_OPER = US.MATRICULA
                                               ${INTERVALO_R}
-                                              ${CORREDOR}
+                                              ${CORREDOR_R}
                                               AND MR.MR_MC_NUM = 50 
                                               AND SUBSTR(MR.MR_TEXT,2,4) = '7000' 
                                         UNION                                         
-                                        SELECT 'E' AS R_E, ME.ME_GFMN AS ID, ME.ME_MSG_TIME AS Horário, MC.MCT_NOM_MCT AS Loco, ME.ME_MAC_NUM AS Macro, ME.ME_TEXT AS Mensagem, SUBSTR(ME.ME_TEXT, 1, 760) AS Texto, ME.ME_MCT_ADDR AS MCT, ME.ME_PRF_ACT AS Trem, ME.ME_COD_OF AS CodOS, 'T' AS Leitura, 0 AS Leitura_ID, US.NOME, ME.ME_MSG_LIDA, ME.ME_MSG_RESP, ME.ME_CORREDOR 
-                                        FROM ACTPP.MENSAGENS_ENVIADAS ME, ACTPP.MCTS MC, ACTWEB.USUARIOS US
+                                        SELECT 'E' AS R_E, 
+                                               ME.ME_GFMN AS ID, 
+                                               ME.ME_MSG_TIME AS Horário, 
+                                               MC.MCT_NOM_MCT AS Loco, 
+                                               ME.ME_MAC_NUM AS Macro, 
+                                               ME.ME_TEXT AS Mensagem, 
+                                               SUBSTR(ME.ME_TEXT, 1, 760) AS Texto, 
+                                               ME.ME_MCT_ADDR AS MCT, 
+                                               ME.ME_PRF_ACT AS Trem, 
+                                               ME.ME_COD_OF AS CodOS, 
+                                               'T' AS Leitura, 
+                                               0 AS Leitura_ID, 
+                                               US.NOME, 
+                                               ME.ME_MSG_LIDA, 
+                                               ME.ME_MSG_RESP, 
+                                               ME.ME_CORREDOR 
+                                        FROM ACTPP.MENSAGENS_ENVIADAS ME, 
+                                             ACTPP.MCTS MC,
+                                             ACTWEB.USUARIOS US 
                                             WHERE MC.MCT_ID_MCT = ME.ME_MCT_ADDR 
-                                              AND ME.ME_MAT_OPER = US.MATRICULA
+                                              AND ME.ME_MAT_DES = US.MATRICULA
                                               ${INTERVALO_E}
-                                              ${CORREDOR}
+                                              ${CORREDOR_E}
                                               AND ME.ME_MAC_NUM = 50 
                                               AND SUBSTR(ME.ME_TEXT,2,4) = '7000'");
 
@@ -203,9 +263,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #endregion
 
                     if (!string.IsNullOrEmpty(filtro.Corredores))
-                        query.Replace("${CORREDOR}", string.Format("AND (MR.MR_CORREDOR IN ({0}) OR MR.MR_CORREDOR IS NULL)", filtro.Corredores));
+                    {
+                        query.Replace("${CORREDOR_R}", string.Format("AND (MR.MR_CORREDOR IN ({0}) OR MR.MR_CORREDOR IS NULL)", filtro.Corredores));
+                        query.Replace("${CORREDOR_E}", string.Format("AND (ME.ME_CORREDOR IN ({0}) OR ME.ME_CORREDOR IS NULL)", filtro.Corredores));
+                    }
                     else
-                        query.Replace("${CORREDOR}", "");
+                    {
+                        query.Replace("${CORREDOR_R}", "");
+                        query.Replace("${CORREDOR_E}", "");
+                    }
 
                     #region [BUSCA NO BANCO E ADICIONA NA VARIAVEL ]
 
