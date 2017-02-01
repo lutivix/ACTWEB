@@ -171,7 +171,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                       AND MR.MR_MSG_TIME > SYSDATE - 1 
                                       AND MR.MR_MC_NUM = 50 
                                       AND SUBSTR(MR.MR_TEXT,2,4) = '7000' 
-                                      ${CORREDOR}
+                                        
+                                       ${CORREDOR_R}
                                 UNION 
                                 SELECT 'E' AS R_E, ME.ME_GFMN AS ID, 
                                        ME.ME_MSG_TIME AS Horário, 
@@ -190,7 +191,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     WHERE MC.MCT_ID_MCT = ME.ME_MCT_ADDR 
                                       AND ME.ME_MSG_TIME > SYSDATE - 1 
                                       AND ME.ME_MAC_NUM = 50 
-                                      AND SUBSTR(ME.ME_TEXT,2,4) = '7000'");
+                                      AND SUBSTR(ME.ME_TEXT,2,4) = '7000'
+                                        
+                                       ${CORREDOR_E}");
                     }
                     else if (origem == "tela_relatorio")
                     {
