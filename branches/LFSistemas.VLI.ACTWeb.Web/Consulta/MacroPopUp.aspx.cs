@@ -21,37 +21,47 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
             var macro = macroController.ObterPorId(id, tipo);
 
-            if (!macro.Equals(null))
+            if (macro == null)
             {
 
-            }
-
-            if (string.IsNullOrEmpty(Convert.ToString(macro.NumeroMacro)))
-            {
-                macro.NumeroMacro = 200;
-            }
-
-            var numeromacro = Convert.ToInt32(macro.NumeroMacro);
-            if (numeromacro == 200)
-            {
-                if (tipo == "E")
-                {
-                    macroUserControl = LoadControl("/Consulta/Macros/Macro200en.ascx") as IMacro;
-                }
-                else
-                {
-                    macroUserControl = LoadControl("/Consulta/Macros/Macro200re.ascx") as IMacro;
-                }
+                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Registro não localizado.' });", true);
+                //macroUserControl = LoadControl("/Consulta/Macros/Macro.ascx") as IMacro;
+                lblAviso.Text = "MCT Inexistente";
+                lblAviso.Visible = true; 
+                //Response.Write("<script>window.close();</" + "script>");
+                //Response.End();
             }
             else
             {
-                macroUserControl = LoadControl("/Consulta/Macros/Macro.ascx") as IMacro;
+
+                if (string.IsNullOrEmpty(Convert.ToString(macro.NumeroMacro)))
+                {
+                    macro.NumeroMacro = 200;
+                }
+
+                var numeromacro = Convert.ToInt32(macro.NumeroMacro);
+                if (numeromacro == 200)
+                {
+                    if (tipo == "E")
+                    {
+                        macroUserControl = LoadControl("/Consulta/Macros/Macro200en.ascx") as IMacro;
+                    }
+                    else
+                    {
+                        macroUserControl = LoadControl("/Consulta/Macros/Macro200re.ascx") as IMacro;
+                    }
+                }
+                else
+                {
+                    macroUserControl = LoadControl("/Consulta/Macros/Macro.ascx") as IMacro;
+                }
+                var dd = macro;
+                macroUserControl.EntidadeMacro = macro;
+                macroUserControl.Texto = macro.Texto;
+                macroUserControl.Mascara = macro.Mascara;
+                PanelMacro.Controls.Add((UserControl)macroUserControl);
             }
-            var dd = macro;
-            macroUserControl.EntidadeMacro = macro;
-            macroUserControl.Texto = macro.Texto;
-            macroUserControl.Mascara = macro.Mascara;
-            PanelMacro.Controls.Add((UserControl)macroUserControl);
+
 
         }
 

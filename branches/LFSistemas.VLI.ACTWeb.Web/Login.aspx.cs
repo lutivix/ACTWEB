@@ -71,7 +71,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Gentilesa inserir sua matrícula para redefinir a senha.' });", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Gentileza inserir sua matrícula para redefinir a senha.' });", true);
                 TextBoxLogin.Focus();
             }
         }

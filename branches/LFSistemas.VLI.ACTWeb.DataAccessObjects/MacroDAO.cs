@@ -1331,7 +1331,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     }
                                     else
                                     {
-                                        comando.CommandText = @"select mr.ME_MSG_NUM, ME_LOCO,ME_PRF_ACT,ME_COD_OF, ME_MSG_TIME, ME_MAC_NUM, ME_TEXT, ME_MCT_ADDR, eo.ES_ID_EFE, ed.ES_ID_EFE,t.TM_NUM_VAG, t.TM_TON_BRT,m.MCT_OBC_VERSAO,m.MCT_MAP_VERSAO,t.TM_CMP_TR, null as Prefixo7D
+                                        comando.CommandText = @"select mr.ME_MSG_NUM, ME_LOCO,ME_PRF_ACT,ME_COD_OF, ME_MSG_TIME, ME_MAC_NUM, ME_TEXT, ME_MCT_ADDR, eo.ES_ID_EFE, ed.ES_ID_EFE,t.TM_NUM_VAG, t.TM_TON_BRT,m.MCT_OBC_VERSAO,m.MCT_MAP_VERSAO,t.TM_CMP_TR
                                 from ACTPP.mensagens_enviadas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m
                                 where mr.Me_MCT_ADDR = m.MCT_ID_MCT and mr.Me_ID_TRM = t.TM_ID_TRM  --(+) outter join
                                 and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
@@ -1379,6 +1379,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Obter Macro por ID", ex.Message.Trim());
                 if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
                 throw;
+                //return null;
             }
 
             return macro;

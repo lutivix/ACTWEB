@@ -24,7 +24,9 @@
 <body onkeydown="tecla()">
     <form id="form1" runat="server">
         <asp:Panel ID="PanelMacro" runat="server" >
+            <asp:Label ID="lblAviso" runat="server" Text="" Visible="false"></asp:Label>
         </asp:Panel>
+        
         <script type="text/javascript" src="/js/main.js"></script>
         <script type="text/javascript" src="/js/pro.js"></script>
     </form>
