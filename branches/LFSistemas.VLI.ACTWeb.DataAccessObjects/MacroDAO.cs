@@ -1321,22 +1321,62 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                 {
                                     if (tipo == "R")
                                     {
-                                        comando.CommandText = @"select  mr.MR_GRMN, MR_LOCO, MR_PRF_ACT, mr_cod_of, MR_MSG_TIME, MR_MC_NUM, MR_TEXT, MR_MCT_ADDR, eo.ES_ID_EFE, ed.ES_ID_EFE,t.TM_NUM_VAG, t.TM_TON_BRT,m.MCT_OBC_VERSAO,m.MCT_MAP_VERSAO,t.TM_CMP_TR, MR_NOME_SB, MR_KM
-                                from ACTPP.mensagens_recebidas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m
-                                where mr.MR_MCT_ADDR = m.MCT_ID_MCT and mr.MR_ID_TRM = t.TM_ID_TRM 
-                                and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
-                                and t.es_id_Num_efe_dest = ed.es_id_num_efe  
-                                and mr.MR_GRMN = ?";
+                                        comando.CommandText = @"SELECT MR.MR_GRMN,
+                                                                       MR_LOCO,
+                                                                       MR_PRF_ACT,
+                                                                       MR_COD_OF,
+                                                                       MR_MSG_TIME,
+                                                                       MR_MC_NUM,
+                                                                       MR_TEXT,
+                                                                       MR_MCT_ADDR,
+                                                                       EO.ES_ID_EFE,
+                                                                       ED.ES_ID_EFE,
+                                                                       T.TM_NUM_VAG,
+                                                                       T.TM_TON_BRT,
+                                                                       M.MCT_OBC_VERSAO,
+                                                                       M.MCT_MAP_VERSAO,
+                                                                       T.TM_CMP_TR,
+                                                                       MR_NOME_SB,
+                                                                       MR_KM
+                                                                  FROM ACTPP.MENSAGENS_RECEBIDAS MR,
+                                                                       ACTPP.ESTACOES EO,
+                                                                       ACTPP.ESTACOES ED,
+                                                                       ACTPP.TRENS T,
+                                                                       ACTPP.MCTS M
+                                                                 WHERE MR.MR_MCT_ADDR = M.MCT_ID_MCT
+                                                                   AND MR.MR_ID_TRM = T.TM_ID_TRM(+)
+                                                                   AND T.ES_ID_NUM_EFE_ORIG = EO.ES_ID_NUM_EFE(+)
+                                                                   AND T.ES_ID_NUM_EFE_DEST = ED.ES_ID_NUM_EFE(+)
+                                                                   AND MR.MR_GRMN = ?";
                                         comando.Parameters.AddWithValue("", id);
                                     }
                                     else
                                     {
-                                        comando.CommandText = @"select mr.ME_MSG_NUM, ME_LOCO,ME_PRF_ACT,ME_COD_OF, ME_MSG_TIME, ME_MAC_NUM, ME_TEXT, ME_MCT_ADDR, eo.ES_ID_EFE, ed.ES_ID_EFE,t.TM_NUM_VAG, t.TM_TON_BRT,m.MCT_OBC_VERSAO,m.MCT_MAP_VERSAO,t.TM_CMP_TR
-                                from ACTPP.mensagens_enviadas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m
-                                where mr.Me_MCT_ADDR = m.MCT_ID_MCT and mr.Me_ID_TRM = t.TM_ID_TRM  --(+) outter join
-                                and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
-                                and t.es_id_Num_efe_dest = ed.es_id_num_efe
-                                and mr.ME_MSG_NUM = ? ";
+                                        comando.CommandText = @"SELECT MR.ME_MSG_NUM,
+                                                                       ME_LOCO,
+                                                                       ME_PRF_ACT,
+                                                                       ME_COD_OF,
+                                                                       ME_MSG_TIME,
+                                                                       ME_MAC_NUM,
+                                                                       ME_TEXT,
+                                                                       ME_MCT_ADDR,
+                                                                       EO.ES_ID_EFE,
+                                                                       ED.ES_ID_EFE,
+                                                                       T.TM_NUM_VAG,
+                                                                       T.TM_TON_BRT,
+                                                                       M.MCT_OBC_VERSAO,
+                                                                       M.MCT_MAP_VERSAO,
+                                                                       T.TM_CMP_TR
+                                                                  FROM ACTPP.MENSAGENS_ENVIADAS MR,
+                                                                       ACTPP.ESTACOES EO,
+                                                                       ACTPP.ESTACOES ED,
+                                                                       ACTPP.TRENS T,
+                                                                       ACTPP.MCTS M
+                                                                 WHERE MR.ME_MCT_ADDR = M.MCT_ID_MCT
+                                                                   AND MR.ME_ID_TRM = T.TM_ID_TRM (+)
+                                                                   AND T.ES_ID_NUM_EFE_ORIG = EO.ES_ID_NUM_EFE (+)
+                                                                   AND T.ES_ID_NUM_EFE_DEST = ED.ES_ID_NUM_EFE (+)
+                                                                   AND MR.ME_MSG_NUM = ?";
                                         comando.Parameters.AddWithValue("", id);
                                     }
                                 }
