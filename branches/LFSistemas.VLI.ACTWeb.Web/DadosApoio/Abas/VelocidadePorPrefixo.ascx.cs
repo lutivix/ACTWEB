@@ -203,7 +203,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.DadosApoio.Abas
 
             var id = ViewState["Velocidade_ID"].ToString();
             var item = new VelocidadePorPrefixoController().ObterPorID(id);
-            DLLSendAVP(0, 0, (int)int.Parse(item.Velocidade_ID), 1, usuario, prefixo, 'W');
+            DLLSendAVP((int)int.Parse(txtVelocidade.Text), (int)int.Parse(item.SB_ID), (int)int.Parse(item.Velocidade_ID), 1, usuario, prefixo, 'W');
             
 
             LimparFormulario();
