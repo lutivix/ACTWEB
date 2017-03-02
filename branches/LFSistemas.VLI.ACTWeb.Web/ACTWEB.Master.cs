@@ -736,13 +736,14 @@ namespace LFSistemas.VLI.ACTWeb.Web
             {
                 sub_macros_consulta.Visible = sub_macros_macro50.Visible = mnPainel.Visible = mnTermometros.Visible = mnVMA.Visible =
                 mnTelecomandadas.Visible = submenusub_itemCAT.Visible = mnGOP.Visible = sub_relatorio_VMA.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = mnRadios.Visible =
-                mnDadosApoio.Visible = sub_dadosapoio_meta_pctm.Visible = mnRelatorios.Visible = sub_relatorio_PCTM.Visible = sub_pgof_RelatoriosPGOF.Visible = true;
+                mnRelatorios.Visible = sub_relatorio_PCTM.Visible = sub_pgof_RelatoriosPGOF.Visible = mnPgof.Visible = true;
 
                 mnUsuarios.Visible = sub_locomotivas_trocaloco.Visible = mnRestricoes.Visible = sub_macros_macro61.Visible = sub_macros_macro200.Visible =
                 mnRestricoes.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible = sub_interdicoes.Visible = lnkImportaOBC.Visible =
                 sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible =
                 sub_dadosapoio_logs.Visible = mnLocomotivas.Visible = sub_dadosapoio_display.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible =
-                sub_dadosapoio_banners.Visible = sub_baixada.Visible = mnSistema.Visible = mnPgof.Visible = sub_macros_parada_imediata.Visible = false;
+                sub_dadosapoio_banners.Visible = sub_baixada.Visible = mnSistema.Visible = sub_macros_parada_imediata.Visible = mnDadosApoio.Visible = 
+                sub_dadosapoio_meta_pctm.Visible = false;
             }
             if (usuario.Perfil_ID == "15") // Perfil: SUPERVISOR - SUP
             {
