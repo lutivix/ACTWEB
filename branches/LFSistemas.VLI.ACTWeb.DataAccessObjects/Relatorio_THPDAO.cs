@@ -599,8 +599,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                          " WHERE TT_ROTA.TTR_ID_RTA = TT_ROTA_AOP.TTR_ID_RTA" +
                                                                                                            " AND TT_ROTA_AOP.TTR_ID_ELM = ELEM_VIA_ESTACOES.EV_ID_ELM" +
                                                                                                            " AND TT_ROTA.TTR_ID_RTA = rta1.TTR_ID_RTA" +
-                                                                                                           " AND ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T')" +
-                                                                                                           " /*AND ANA.TTA_DT_APUR >= SYSDATE - 30*/", filtro.Rota_ID));
+                                                                                                           " AND ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T')", filtro.Rota_ID));
                     else
                         query.Replace("${FILTRO_ROTA}", string.Format(""));
 
@@ -609,13 +608,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                              " FROM ACTPP.TT_ANALITICA," +
                                                                                                                   " ACTPP.TT_SUBROTA," +
                                                                                                                   " ACTPP.TT_SUBROTA_AOP," +
-                                                                                                                  " ELEM_VIA_ESTACOES" +
+                                                                                                                  " ACTPP.ELEM_VIA_ESTACOES" +
                                                                                                             " WHERE ANA.ID_TREM = TT_ANALITICA.ID_TREM" +
                                                                                                               " AND TT_ANALITICA.EV_ID_ELM = TT_SUBROTA_AOP.TTS_ID_ELM" +
                                                                                                               " AND TT_SUBROTA_AOP.TTS_ID_SUB = TT_SUBROTA.TTS_ID_SUB" +
                                                                                                               " AND TT_SUBROTA_AOP.TTS_ID_ELM = ELEM_VIA_ESTACOES.EV_ID_ELM" +
                                                                                                               " AND TT_SUBROTA.TTS_ID_SUB = SUB1.TTS_ID_SUB" +
-                                                                                                              " AND ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T') >=" +
+                                                                                                              " AND ACTPP.ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T') >=" +
                                                                                                           " (SELECT COUNT (DISTINCT (ES_ID_NUM_EFE))" +
                                                                                                              " FROM ACTPP.TT_SUBROTA, " +
                                                                                                                   " ACTPP.TT_SUBROTA_AOP, " +
@@ -623,8 +622,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                             " WHERE TT_SUBROTA.TTS_ID_SUB = TT_SUBROTA_AOP.TTS_ID_SUB" +
                                                                                                               " AND TT_SUBROTA_AOP.TTS_ID_ELM = ELEM_VIA_ESTACOES.EV_ID_ELM" +
                                                                                                               " AND TT_SUBROTA.TTS_ID_SUB = SUB1.TTS_ID_SUB" +
-                                                                                                              " AND ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T')" +
-                                                                                                              " /*AND ANA.TTA_DT_APUR >= SYSDATE - 30*/", filtro.SubRota_ID));
+                                                                                                              " AND ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T')", filtro.SubRota_ID));
                     else
                         query.Replace("${FILTRO_SUBROTA}", string.Format(""));
 
@@ -959,7 +957,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                              " FROM ACTPP.TT_ANALITICA," +
                                                                                                                   " ACTPP.TT_SUBROTA," +
                                                                                                                   " ACTPP.TT_SUBROTA_AOP," +
-                                                                                                                  " ELEM_VIA_ESTACOES" +
+                                                                                                                  " ACTPP.ELEM_VIA_ESTACOES" +
                                                                                                             " WHERE ANA.ID_TREM = TT_ANALITICA.ID_TREM" +
                                                                                                               " AND TT_ANALITICA.EV_ID_ELM = TT_SUBROTA_AOP.TTS_ID_ELM" +
                                                                                                               " AND TT_SUBROTA_AOP.TTS_ID_SUB = TT_SUBROTA.TTS_ID_SUB" +
@@ -973,7 +971,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                             " WHERE TT_SUBROTA.TTS_ID_SUB = TT_SUBROTA_AOP.TTS_ID_SUB" +
                                                                                                               " AND TT_SUBROTA_AOP.TTS_ID_ELM = ELEM_VIA_ESTACOES.EV_ID_ELM" +
                                                                                                               " AND TT_SUBROTA.TTS_ID_SUB = SUB1.TTS_ID_SUB" +
-                                                                                                              " AND ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T')" +
+                                                                                                              " AND ACTPP.ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T')" +
                                                                                                               " /*AND ANA.TTA_DT_APUR >= SYSDATE - 30*/", filtro.SubRota_ID));
                     else
                         query.Replace("${FILTRO_SUBROTA}", string.Format(""));
