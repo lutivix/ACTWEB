@@ -334,20 +334,18 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                                    " AND TT_ROTA_AOP.TTR_PNT_RTA LIKE 'S'" +
                                                                                                               " ORDER BY tt_analitica.tta_dt_ini_eve asc) xtab" +
                                                                                                      " where ANA.ID_TREM = xtab.ID_TREM" +
-                                                                                                       //" AND ANA.TTA_ID_TTA = xtab.TTA_ID_TTA" +
+                                    //" AND ANA.TTA_ID_TTA = xtab.TTA_ID_TTA" +
                                                                                                        " AND xtab.TTA_DT_INI_EVE BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS') " +
                                                                                                        " AND xtab.CONTADOR = 1 )", filtro.Data_INI, filtro.Data_FIM));
                             }
                             else
                             {
-                                query.Replace("${FILTRO_PERIODO}", string.Format(" AND EXISTS( SELECT 1 " +
-                                                                                               " FROM ACTPP.TRENS " +
-                                                                                              " WHERE ANA.ID_TREM = TRENS.TM_ID_TRM " +
-                                                                                                " AND TRENS.TM_HR_REA_PRT BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS'))", filtro.Data_INI, filtro.Data_FIM));
-
-                            }
-
-
+                                //query.Replace("${FILTRO_PERIODO}", string.Format(" AND EXISTS( SELECT 1 " +
+                                //                                                               " FROM ACTPP.TRENS " +
+                                //                                                              " WHERE ANA.ID_TREM = TRENS.TM_ID_TRM " +
+                                //                                                                " AND TRENS.TM_HR_REA_PRT BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS'))", filtro.Data_INI, filtro.Data_FIM));
+                                query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_INI_EVE BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_INI, filtro.Data_FIM));
+                            }                           
                         }
                         else if (filtro.OpData == 2)
                         {
@@ -364,21 +362,18 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                                     " AND TT_ROTA_AOP.TTR_PNT_RTA LIKE 'S'" +
                                                                                                                " ORDER BY tt_analitica.tta_dt_fim_eve desc) xtab" +
                                                                                                       " where ANA.ID_TREM = xtab.ID_TREM" +
-                                                                                                        //" AND ANA.TTA_ID_TTA = xtab.TTA_ID_TTA" +
+                                    //" AND ANA.TTA_ID_TTA = xtab.TTA_ID_TTA" +
                                                                                                         " AND xtab.TTA_DT_FIM_EVE BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS') " +
                                                                                                         " AND xtab.CONTADOR = 1 )", filtro.Data_INI, filtro.Data_FIM));
                             }
                             else
                             {
-                                query.Replace("${FILTRO_PERIODO}", string.Format(" AND EXISTS( SELECT 1 " +
-                                                                                               " FROM ACTPP.TRENS " +
-                                                                                              " WHERE ANA.ID_TREM = TRENS.TM_ID_TRM " +
-                                                                                                " AND TRENS.TM_HR_REA_CHG BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS'))", filtro.Data_INI, filtro.Data_FIM));
-
-                            }
-
-
-
+                                //query.Replace("${FILTRO_PERIODO}", string.Format(" AND EXISTS( SELECT 1 " +
+                                //                                                               " FROM ACTPP.TRENS " +
+                                //                                                              " WHERE ANA.ID_TREM = TRENS.TM_ID_TRM " +
+                                //                                                                " AND TRENS.TM_HR_REA_CHG BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS'))", filtro.Data_INI, filtro.Data_FIM));
+                                query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_FIM_EVE BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_INI, filtro.Data_FIM));
+                            }                            
                         }
                         else if (filtro.OpData == 3)
                         {
@@ -662,20 +657,19 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                                    " AND TT_ROTA_AOP.TTR_PNT_RTA LIKE 'S'" +
                                                                                                               " ORDER BY tt_analitica.tta_dt_ini_eve asc) xtab" +
                                                                                                      " where ANA.ID_TREM = xtab.ID_TREM" +
-                                                                                                       //" AND ANA.TTA_ID_TTA = xtab.TTA_ID_TTA" +
+                                    //" AND ANA.TTA_ID_TTA = xtab.TTA_ID_TTA" +
                                                                                                        " AND xtab.TTA_DT_INI_EVE BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS') " +
                                                                                                        " AND xtab.CONTADOR = 1 )", filtro.Data_INI, filtro.Data_FIM));
                             }
                             else
                             {
-                                query.Replace("${FILTRO_PERIODO}", string.Format(" AND EXISTS( SELECT 1 " +
-                                                                                               " FROM ACTPP.TRENS " +
-                                                                                              " WHERE ANA.ID_TREM = TRENS.TM_ID_TRM " +
-                                                                                                " AND TRENS.TM_HR_REA_PRT BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS'))", filtro.Data_INI, filtro.Data_FIM));
-
+                                //query.Replace("${FILTRO_PERIODO}", string.Format(" AND EXISTS( SELECT 1 " +
+                                //                                                               " FROM ACTPP.TRENS " +
+                                //                                                              " WHERE ANA.ID_TREM = TRENS.TM_ID_TRM " +
+                                //                                                                " AND TRENS.TM_HR_REA_PRT BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS'))", filtro.Data_INI, filtro.Data_FIM));
+                                query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_INI_EVE BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_INI, filtro.Data_FIM));
                             }
-
-
+                           
                         }
                         else if (filtro.OpData == 2)
                         {
@@ -692,21 +686,18 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                                     " AND TT_ROTA_AOP.TTR_PNT_RTA LIKE 'S'" +
                                                                                                                " ORDER BY tt_analitica.tta_dt_fim_eve desc) xtab" +
                                                                                                       " where ANA.ID_TREM = xtab.ID_TREM" +
-                                                                                                        //" AND ANA.TTA_ID_TTA = xtab.TTA_ID_TTA" +
+                                    //" AND ANA.TTA_ID_TTA = xtab.TTA_ID_TTA" +
                                                                                                         " AND xtab.TTA_DT_FIM_EVE BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS') " +
                                                                                                         " AND xtab.CONTADOR = 1 )", filtro.Data_INI, filtro.Data_FIM));
                             }
                             else
                             {
-                                query.Replace("${FILTRO_PERIODO}", string.Format(" AND EXISTS( SELECT 1 " +
-                                                                                               " FROM ACTPP.TRENS " +
-                                                                                              " WHERE ANA.ID_TREM = TRENS.TM_ID_TRM " +
-                                                                                                " AND TRENS.TM_HR_REA_CHG BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS'))", filtro.Data_INI, filtro.Data_FIM));
-
-                            }
-
-
-
+                                //query.Replace("${FILTRO_PERIODO}", string.Format(" AND EXISTS( SELECT 1 " +
+                                //                                                               " FROM ACTPP.TRENS " +
+                                //                                                              " WHERE ANA.ID_TREM = TRENS.TM_ID_TRM " +
+                                //                                                                " AND TRENS.TM_HR_REA_CHG BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS'))", filtro.Data_INI, filtro.Data_FIM));
+                                query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_FIM_EVE BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_INI, filtro.Data_FIM));
+                            }                            
                         }
                         else if (filtro.OpData == 3)
                         {
@@ -1018,11 +1009,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             }
                             else
                             {
-                                query.Replace("${FILTRO_PERIODO}", string.Format(" AND EXISTS( SELECT 1 " +
-                                                                                               " FROM ACTPP.TRENS " +
-                                                                                              " WHERE ANA.ID_TREM = TRENS.TM_ID_TRM " +
-                                                                                                " AND TRENS.TM_HR_REA_PRT BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS'))", filtro.Data_INI, filtro.Data_FIM));
-
+                                //query.Replace("${FILTRO_PERIODO}", string.Format(" AND EXISTS( SELECT 1 " +
+                                //                                                               " FROM ACTPP.TRENS " +
+                                //                                                              " WHERE ANA.ID_TREM = TRENS.TM_ID_TRM " +
+                                //                                                                " AND TRENS.TM_HR_REA_PRT BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS'))", filtro.Data_INI, filtro.Data_FIM));
+                                query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_INI_EVE BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_INI, filtro.Data_FIM));
                             }
 
 
@@ -1048,11 +1039,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                 }
                             else
                             {
-                                query.Replace("${FILTRO_PERIODO}", string.Format(" AND EXISTS( SELECT 1 " +
-                                                                                               " FROM ACTPP.TRENS " +
-                                                                                              " WHERE ANA.ID_TREM = TRENS.TM_ID_TRM " +
-                                                                                                " AND TRENS.TM_HR_REA_CHG BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS'))", filtro.Data_INI, filtro.Data_FIM));
-
+                                //query.Replace("${FILTRO_PERIODO}", string.Format(" AND EXISTS( SELECT 1 " +
+                                //                                                               " FROM ACTPP.TRENS " +
+                                //                                                              " WHERE ANA.ID_TREM = TRENS.TM_ID_TRM " +
+                                //                                                                " AND TRENS.TM_HR_REA_CHG BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS'))", filtro.Data_INI, filtro.Data_FIM));
+                                query.Replace("${FILTRO_PERIODO}", string.Format("AND ANA.TTA_DT_FIM_EVE BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_INI, filtro.Data_FIM));
                             }
 
 

@@ -107,7 +107,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
 
             CarregaCombos();
 
-            Pesquisar(null, Navigation.None);
+            //Pesquisar(null, Navigation.None);
         }
         protected void chkCorredores_CheckedChanged(object sender, EventArgs e)
         {
