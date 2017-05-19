@@ -51,6 +51,11 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.MctCirculando(idMCT);
         }
+
+        public bool LocomotivaAssociadaMCT(double locoId)
+        {
+            return dao.LocomotivaAssociadaMCT(locoId);
+        }
         #endregion
 
     }

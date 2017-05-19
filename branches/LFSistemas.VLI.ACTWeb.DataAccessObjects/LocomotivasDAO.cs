@@ -694,6 +694,55 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return Retorno;
         }
 
+        public bool LocomotivaAssociadaMCT(double locoId)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            bool retorno = false;
+
+            #endregion
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    var command = connection.CreateCommand();
+
+                    #region [ FILTRA MACROS ]
+
+                    query.Append(@"Select * from ACTPP.LOCOMOTIVAS ${LOC_ID_NUM_LOCO}");
+
+                    if (locoId != null)
+                        query.Replace("${LOC_ID_NUM_LOCO}", string.Format("WHERE LOC_ID_NUM_LOCO = {0}", locoId));
+                    else
+                        query.Replace("${LOC_ID_NUM_LOCO}", "");
+
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader != null && reader.Read())
+                        {
+                            retorno = true;
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+
+            return retorno;
+        }
+
         private static Locomotivas PreencherPropriedadesLocomotivas(OleDbDataReader reader)
         {
             var item = new Locomotivas();

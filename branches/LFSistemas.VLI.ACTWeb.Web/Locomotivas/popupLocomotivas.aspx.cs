@@ -464,9 +464,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                             Response.Write("<script>alert('O MCT " + txtAtualiza_MCT.Text + " não existe mais.');</script>");
                             return Retorno = false;
                         }
-                        if (Loco.locoSelecionada(idLoco) == idLoco.ToString() && txtAtualiza_Locomotiva.Text != string.Empty) //Se NÂO está havendo troca de locomotiva do MCT.
+                        if (Loco.LocomotivaAssociadaMCT(idLoco) && txtAtualiza_Locomotiva.Text != string.Empty) //Se NÂO está havendo troca de locomotiva do MCT.
                         {
-                            Response.Write("<script>alert('O MCT " + txtAtualiza_MCT.Text + " já está associado à Locomotiva " + txtAtualiza_Locomotiva.Text + ".');</script>");
+                            Response.Write("<script>alert('Já existe um MCT associado à Locomotiva " + txtAtualiza_Locomotiva.Text + ".');</script>");
                             return Retorno = false;
                         }
                         if (Loco.MCTCirculando(idMCT)) //Se o MCT está associado a algum trem.
