@@ -65,8 +65,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 AND NOT T.TM_PRF_ACT LIKE 'H%' 
                                                 AND NOT T.TM_PRF_ACT LIKE 'L%' 
                                                 AND NOT T.TM_PRF_ACT LIKE 'V%'
-                                                /*MEDIDA PROVISÓRIA PARA NÃO EXIBIR OS CÓDIGOS 9 E 46 E CORREDOR BAIXADA*/
-                                                AND COD_MOTIVO NOT IN ('9', '46'))
+                                                ${COD_MOTIVO}
                                                 WHERE LINHA = 1 
                                         ORDER BY  DT_INI_PARADA");
 
@@ -84,6 +83,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${GRU_NOME}", string.Format("AND G.GRU_ID_GRU IN ({0})", filtro.Grupo_ID.ToUpper()));
                     else
                         query.Replace("${GRU_NOME}", string.Format(" "));
+
+                    if (filtro.ExibeTodosCodigos==true)
+                        query.Replace("${COD_MOTIVO}", string.Format("AND COD_MOTIVO NOT IN ('9', '46'))"));
+                    else
+                        query.Replace("${COD_MOTIVO}", string.Format(" )"));                                                                                                                   
 
                     //if (filtro.ExibeSubparadas == true)
                     //{

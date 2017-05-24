@@ -28,5 +28,6 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string TemSubParadas { get; set; }
         public List<TempoParadaSubParadas> SubParadas { get; set; }
         public bool ExibeSubparadas { get; set; }
+        public bool ExibeTodosCodigos { get; set; }
     }
 }

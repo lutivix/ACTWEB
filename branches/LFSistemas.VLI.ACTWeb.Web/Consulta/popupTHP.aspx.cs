@@ -19,6 +19,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         {
             if (!Page.IsPostBack)
             {
+                if(Request.QueryString["op"] == null)
+                
                 Pesquisar(null);
             }
         }
@@ -32,7 +34,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
             itens = pesquisar.ObterPorFiltro(new TremHoraParado()
             {
-
+                //ExibeTodosCodigos = true
             });
 
             if (itens.Count > 0)
