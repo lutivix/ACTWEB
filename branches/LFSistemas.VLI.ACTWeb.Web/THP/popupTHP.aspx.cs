@@ -11,12 +11,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
         #region [ PROPRIEDADES ]
 
         public List<TremHoraParado> itens { get; set; }
+        public string op;
 
         #endregion
 
         #region [ EVENTOS DE PÁGINA ]
         protected void Page_Load(object sender, EventArgs e)
         {
+            op = Request.QueryString["op"];
             if (!Page.IsPostBack)
             {
                 Pesquisar(null);
@@ -29,12 +31,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
         protected void Pesquisar(string ordenacao)
         {
             var pesquisar = new THPController();
-
+            pesquisar.flag = op;
+            
             itens = pesquisar.ObterPorFiltro(new TremHoraParado()
             {
 
             });
 
+            
             if (itens.Count > 0)
             {
                 itens = itens.OrderByDescending(o => o.Intervalo).ToList();

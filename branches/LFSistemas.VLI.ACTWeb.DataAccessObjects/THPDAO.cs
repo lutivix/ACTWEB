@@ -84,7 +84,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     else
                         query.Replace("${GRU_NOME}", string.Format(" "));
 
-                    if (filtro.ExibeTodosCodigos==true)
+                    if (!filtro.ExibeTodosCodigos)
                         query.Replace("${COD_MOTIVO}", string.Format("AND COD_MOTIVO NOT IN ('9', '46'))"));
                     else
                         query.Replace("${COD_MOTIVO}", string.Format(" )"));                                                                                                                   
