@@ -26,7 +26,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
 
         protected override void OnInit(EventArgs e)
         {
-            //abaDados.Voltar +=  new Abas.THP.VoltarEventHandler(Voltar);
+            abaDados.Voltar +=  new Abas.THP.VoltarEventHandler(Voltar);
             
 
             base.OnInit(e);

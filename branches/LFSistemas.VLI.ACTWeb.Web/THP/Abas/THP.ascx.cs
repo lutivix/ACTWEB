@@ -74,7 +74,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP.Abas
                 }
                 else
                 {
-                    if (Usuario.Senha == txtParadaSenha.Text)
+                    if (Usuario.Senha.ToUpper() == txtParadaSenha.Text.ToUpper())
                     {
                         var acao = new THPController();
 

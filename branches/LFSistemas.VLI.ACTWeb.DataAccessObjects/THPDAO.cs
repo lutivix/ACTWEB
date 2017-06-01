@@ -22,6 +22,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
+
                 using (var connection = ServiceLocator.ObterConexaoACTWEB())
                 {
                     #region [ FILTRA VMA POR SB ]
