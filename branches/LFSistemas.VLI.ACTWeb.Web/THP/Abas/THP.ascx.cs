@@ -66,7 +66,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP.Abas
                         if (acao.MudarMotivoParadaTrem(double.Parse(txtDadosID.Text), lblDadosCodigoMotivo.Text, ddlMotivoNovo.SelectedItem.Value, Usuario.Matricula))
                         {
                             Response.Write("<script>alert('Motivo alterado com sucesso, por " + Usuario.Matricula + " - " + Usuario.Perfil_Abreviado + "'); </script>");
-                            Voltar.Invoke();
+                            Response.Redirect("/THP/ConsultaTHP.aspx");
+                            //Voltar.Invoke();
                         }
                     }
                     else
@@ -81,7 +82,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP.Abas
                         if (acao.EncerrarParadaTrem(double.Parse(txtDadosID.Text), txtDadosTrem.Text, Usuario.Matricula))
                         {
                             Response.Write("<script>alert('Encerrada a parada do trem: " + txtDadosTrem.Text + ", por " + Usuario.Matricula + " - " + Usuario.Perfil_Abreviado + "'); </script>");
-                            Voltar.Invoke();
+                            Response.Redirect("/THP/ConsultaTHP.aspx");
+                            //Voltar.Invoke();
                         }
                     }
                     else
@@ -96,6 +98,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP.Abas
             {
                 Voltar.Invoke();
             }
+            Response.Redirect("/THP/ConsultaTHP.aspx");
         }
         protected void rdMotivo_CheckedChanged(object sender, EventArgs e)
         {

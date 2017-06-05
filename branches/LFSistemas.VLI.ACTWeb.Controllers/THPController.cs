@@ -13,10 +13,16 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         #region [ PROPRIEDADES ]
 
         THPDAO dao = new THPDAO();
+        public String flag;
 
         #endregion
         public List<TremHoraParado> ObterPorFiltro(TremHoraParado filtro)
         {
+            
+            if (flag == "0" || flag == null)
+                filtro.ExibeTodosCodigos = false;
+            else if (flag == "1")
+                filtro.ExibeTodosCodigos = true;
             return dao.ObterPorFiltro(filtro);
         }
 
