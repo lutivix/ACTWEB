@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PainelBaixada.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.Painel.PainelBaixada" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PainelEFVM.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.Painel.PainelEFVM" %>
 
 <% Session.Timeout = 60; %>
 
@@ -6,7 +6,7 @@
 
 <html lang="pt-br" style="width: 100%; height: 100%; overflow: scroll;">
 <head id="Head1" runat="server">
-    <title>ACTWEB - Painel Baixada</title>
+    <title>ACTWEB - Painel EFVM </title>
     <meta http-equiv="refresh" content="60" />
 
     <link rel="stylesheet" type="text/css" href="../js/extensions/FixedHeader/css/dataTables.fixedHeader.css" />
@@ -33,7 +33,7 @@
                 document.getElementById('mais').click();
             }
         }
-        function wheel(event) { 
+        function wheel(event) {
             var delta = 0; if (!event) event = window.event; if (event.wheelDelta) { delta = event.wheelDelta / 120; if (window.opera) delta = -delta; } else if (event.detail) { delta = -event.detail / 3; } if (delta) handle(delta); if (event.preventDefault) event.preventDefault(); event.returnValue = false;
         } if (window.addEventListener) window.addEventListener('DOMMouseScroll', wheel, false); window.onmousewheel = document.onmousewheel = wheel;
 
@@ -72,9 +72,8 @@
                 </tr>
             </table>
             <div id="container_image">
-                <img src="../imagens_paineis/painel_baixada/01_Painel_Full.jpg" id="image" style="width: 150%" />
+                <img src="../imagens_paineis/painel_EFVM/Painel_EFVM.jpg" id="image" style="width: 460%" />
             </div>
-            <br />
         </div>
         <br />
         <div class="footer-lf-popup">
@@ -84,3 +83,4 @@
     </form>
 </body>
 </html>
+

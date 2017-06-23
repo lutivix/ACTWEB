@@ -377,13 +377,21 @@
                                     <li class="" id="sub_cco" runat="server">
                                         <asp:LinkButton runat="server" ID="lnkPainelCCO" OnClick="lnkPainelCCO_Click">
                                                 <span class="menu-item-icon"><i class="fa fa-external-link"></i></span>
-                                                <span class="menu-item-label" title="Painel Baixada">Painel CCO</span>
+                                                <span class="menu-item-label" title="Painel CCO">Painel CCO</span>
                                         </asp:LinkButton>
                                     </li>
+                                </ul>
+                                <li id="submenu_itemBaixada" runat="server">
+                                    <a data-toggle="collapse" data-parent="#menu" title="Baixada" style="cursor: default;"
+                                        <span class="menu-item-icon"><i class="fa fa-link"></i></span>
+                                        <span class="menu-item-label" title="Baixada">Baixada</span>
+                                    </a>
+                                </li>
+                                <ul class="submenusub">
                                     <li class="" id="sub_baixada" runat="server">
                                         <asp:LinkButton runat="server" ID="lnkPainelBaixada" OnClick="lnkPainelBaixada_Click">
-                                                <span class="menu-item-icon"><i class="fa fa-external-link"></i></span>
-                                                <span class="menu-item-label" title="Painel Baixada">Painel Baixada</span>
+                                        <span class="menu-item-icon"><i class="fa fa-link"></i></span>
+                                        <span class="menu-item-label" title="Painel Baixada">Painel Baixada</span>
                                         </asp:LinkButton>
                                     </li>
                                 </ul>
@@ -425,6 +433,20 @@
                                         <span class="menu-item-label" title="CTD">CAT</span>
                                     </a>
                                 </li>
+                                <li id="submenu_itemEFVM" runat="server">
+                                    <a data-toggle="collapse" data-parent="#menu" title="EFVM" style="cursor: default;"
+                                        <span class="menu-item-icon"><i class="fa fa-magnet"></i></span>
+                                        <span class="menu-item-label" title="EFVM">EFVM</span>
+                                    </a>
+                                </li>
+                                <ul class="submenusub">
+                                    <li class="" id="sub_efvm" runat="server">
+                                        <asp:LinkButton runat="server" ID="lnkPainelEFVM" OnClick="lnkPainelEFVM_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-magnet"></i></span>
+                                        <span class="menu-item-label" title="Painel VM">Painel EFVM</span>
+                                        </asp:LinkButton>
+                                    </li>
+                                </ul>
                                 <ul class="submenusub">
                                     <li class="" id="sub_cat" runat="server">
                                         <asp:LinkButton runat="server" ID="lnkCat" OnClick="lnkCat_Click">
@@ -433,6 +455,7 @@
                                         </asp:LinkButton>
                                     </li>
                                 </ul>
+                                
                             </ul>
                         </div>
                         
@@ -759,7 +782,7 @@
                             </div>
                         </div>
                         <div class="footer-lf" style="padding-right: 10px;">
-                            <span>(4.175.203.4)desenvolvido por </span>
+                            <span>(5.175.267.5)desenvolvido por </span>
                             <a href="http://lfsistemas.net.br/" target="_blank" class="lfslogo"></a>
                         </div>
                     </div>

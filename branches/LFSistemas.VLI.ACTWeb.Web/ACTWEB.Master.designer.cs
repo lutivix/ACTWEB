@@ -607,6 +607,15 @@ namespace LFSistemas.VLI.ACTWeb.Web {
         protected global::System.Web.UI.WebControls.LinkButton lnkPainelCCO;
         
         /// <summary>
+        /// submenu_itemBaixada control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl submenu_itemBaixada;
+        
+        /// <summary>
         /// sub_baixada control.
         /// </summary>
         /// <remarks>
@@ -713,6 +722,33 @@ namespace LFSistemas.VLI.ACTWeb.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl submenusub_itemCAT;
+        
+        /// <summary>
+        /// submenu_itemEFVM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl submenu_itemEFVM;
+        
+        /// <summary>
+        /// sub_efvm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub_efvm;
+        
+        /// <summary>
+        /// lnkPainelEFVM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkPainelEFVM;
         
         /// <summary>
         /// sub_cat control.
