@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PainelEFVM.aspx.cs" 
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PainelEFVM.aspx.cs" 
+
 Inherits="LFSistemas.VLI.ACTWeb.Web.Painel.PainelEFVM" %>
 
 <% Session.Timeout = 60; %>
@@ -35,10 +36,13 @@ Inherits="LFSistemas.VLI.ACTWeb.Web.Painel.PainelEFVM" %>
             }
         }
         function wheel(event) {
-            var delta = 0; if (!event) event = window.event; if (event.wheelDelta) { delta = event.wheelDelta / 120; if 
-(window.opera) delta = -delta; } else if (event.detail) { delta = -event.detail / 3; } if (delta) handle(delta); if 
+            var delta = 0; if (!event) event = window.event; if (event.wheelDelta) { delta = event.wheelDelta / 120; if 
+
+(window.opera) delta = -delta; } else if (event.detail) { delta = -event.detail / 3; } if (delta) handle(delta); if 
+
 (event.preventDefault) event.preventDefault(); event.returnValue = false;
-        } if (window.addEventListener) window.addEventListener('DOMMouseScroll', wheel, false); window.onmousewheel = 
+        } if (window.addEventListener) window.addEventListener('DOMMouseScroll', wheel, false); window.onmousewheel = 
+
 document.onmousewheel = wheel;
 
         function tecla() {
@@ -56,27 +60,35 @@ document.onmousewheel = wheel;
                 <tr>
                     <td style="width: 79%;">
                         <div class="alert alert-success">
-                            <h2><asp:Label ID="Label1" runat="server" Text="Role o scroll do mouse para aumentar ou diminuir 
+                            <h2><asp:Label ID="Label1" runat="server" Text="Role o scroll do mouse para aumentar ou diminuir 
+
 o tamanho da imagem, ou clique nos ícones abaixo. Atualizado em: " Font-Size="20px" style="color: rgb(0, 100, 0);" />&nbsp;
-                                <font color="red"><asp:Label runat="server" ID="lblUltimaAtualizacao" Font-Size="20px" 
+                                <font color="red"><asp:Label runat="server" ID="lblUltimaAtualizacao" Font-Size="20px" 
+
 style="color: rgb(204, 102, 51);" /></font></h2>
                         </div>
-                        <a id="mais" href="#" title="Seta pra cima Zoom +" class="mais tamanho"><img src="../img/zoom_in-
+                        <a id="mais" href="#" title="Seta pra cima Zoom +" class="mais tamanho"><img src="../img/zoom_in-
+
 a.png" width="50" /></a>
-                        <a id="menos" href="#" title="Seta pra baixo Zoom -" class="menos tamanho"><img 
+                        <a id="menos" href="#" title="Seta pra baixo Zoom -" class="menos tamanho"><img 
+
 src="../img/zoom_out-a.png" width="50" /></a>
                     </td>
                     <td style="width: 1%; text-align: left;"></td>
                     <td style="width: 20%; text-align: center;">
                         <div class="alert alert-info">
                             <h2>
-                                <asp:Label ID="lblUsuarioMatricula" runat="server" Font-Size="12px" style="color: rgb(0, 72, 
+                                <asp:Label ID="lblUsuarioMatricula" runat="server" Font-Size="12px" style="color: rgb(0, 72, 
+
 89);" />,&nbsp;
-                                <asp:Label ID="lblUsuarioLogado" runat="server" Font-Size="12px" style="color: rgb(0, 72, 
+                                <asp:Label ID="lblUsuarioLogado" runat="server" Font-Size="12px" style="color: rgb(0, 72, 
+
 89);" />,&nbsp;
-                                <asp:Label ID="lblUsuarioPerfil" runat="server" Font-Size="12px" style="color: rgb(0, 72, 
+                                <asp:Label ID="lblUsuarioPerfil" runat="server" Font-Size="12px" style="color: rgb(0, 72, 
+
 89);" />&nbsp;
-                                <asp:Label ID="lblUsuarioMaleta" runat="server" Font-Size="12px" style="color: rgb(0, 72, 
+                                <asp:Label ID="lblUsuarioMaleta" runat="server" Font-Size="12px" style="color: rgb(0, 72, 
+
 89);" Visible="false" />
                             </h2>
                         </div>
@@ -84,7 +96,7 @@ src="../img/zoom_out-a.png" width="50" /></a>
                 </tr>
             </table>
             <div id="container_image">
-                <img src="../imagens_paineis/painel_EFVM/Painel_EFVM.jpg" id="image" style="width: 460%" />
+                <img src="../imagens_paineis/painel_EFVM/Painel_EFVM.jpg" id="image" style="width: 1004px 748px" />
             </div>
         </div>
         <br />
