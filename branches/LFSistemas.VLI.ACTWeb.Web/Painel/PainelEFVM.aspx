@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PainelEFVM.aspx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.Painel.PainelEFVM" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PainelEFVM.aspx.cs" 
+Inherits="LFSistemas.VLI.ACTWeb.Web.Painel.PainelEFVM" %>
 
 <% Session.Timeout = 60; %>
 
@@ -34,8 +35,11 @@
             }
         }
         function wheel(event) {
-            var delta = 0; if (!event) event = window.event; if (event.wheelDelta) { delta = event.wheelDelta / 120; if (window.opera) delta = -delta; } else if (event.detail) { delta = -event.detail / 3; } if (delta) handle(delta); if (event.preventDefault) event.preventDefault(); event.returnValue = false;
-        } if (window.addEventListener) window.addEventListener('DOMMouseScroll', wheel, false); window.onmousewheel = document.onmousewheel = wheel;
+            var delta = 0; if (!event) event = window.event; if (event.wheelDelta) { delta = event.wheelDelta / 120; if 
+(window.opera) delta = -delta; } else if (event.detail) { delta = -event.detail / 3; } if (delta) handle(delta); if 
+(event.preventDefault) event.preventDefault(); event.returnValue = false;
+        } if (window.addEventListener) window.addEventListener('DOMMouseScroll', wheel, false); window.onmousewheel = 
+document.onmousewheel = wheel;
 
         function tecla() {
             if (window.event.keyCode == 27) {
@@ -52,20 +56,28 @@
                 <tr>
                     <td style="width: 79%;">
                         <div class="alert alert-success">
-                            <h2><asp:Label ID="Label1" runat="server" Text="Role o scroll do mouse para aumentar ou diminuir o tamanho da imagem, ou clique nos ícones abaixo. Atualizado em: " Font-Size="20px" style="color: rgb(0, 100, 0);" />&nbsp;
-                                <font color="red"><asp:Label runat="server" ID="lblUltimaAtualizacao" Font-Size="20px" style="color: rgb(204, 102, 51);" /></font></h2>
+                            <h2><asp:Label ID="Label1" runat="server" Text="Role o scroll do mouse para aumentar ou diminuir 
+o tamanho da imagem, ou clique nos ícones abaixo. Atualizado em: " Font-Size="20px" style="color: rgb(0, 100, 0);" />&nbsp;
+                                <font color="red"><asp:Label runat="server" ID="lblUltimaAtualizacao" Font-Size="20px" 
+style="color: rgb(204, 102, 51);" /></font></h2>
                         </div>
-                        <a id="mais" href="#" title="Seta pra cima Zoom +" class="mais tamanho"><img src="../img/zoom_in-a.png" width="50" /></a>
-                        <a id="menos" href="#" title="Seta pra baixo Zoom -" class="menos tamanho"><img src="../img/zoom_out-a.png" width="50" /></a>
+                        <a id="mais" href="#" title="Seta pra cima Zoom +" class="mais tamanho"><img src="../img/zoom_in-
+a.png" width="50" /></a>
+                        <a id="menos" href="#" title="Seta pra baixo Zoom -" class="menos tamanho"><img 
+src="../img/zoom_out-a.png" width="50" /></a>
                     </td>
                     <td style="width: 1%; text-align: left;"></td>
                     <td style="width: 20%; text-align: center;">
                         <div class="alert alert-info">
                             <h2>
-                                <asp:Label ID="lblUsuarioMatricula" runat="server" Font-Size="12px" style="color: rgb(0, 72, 89);" />,&nbsp;
-                                <asp:Label ID="lblUsuarioLogado" runat="server" Font-Size="12px" style="color: rgb(0, 72, 89);" />,&nbsp;
-                                <asp:Label ID="lblUsuarioPerfil" runat="server" Font-Size="12px" style="color: rgb(0, 72, 89);" />&nbsp;
-                                <asp:Label ID="lblUsuarioMaleta" runat="server" Font-Size="12px" style="color: rgb(0, 72, 89);" Visible="false" />
+                                <asp:Label ID="lblUsuarioMatricula" runat="server" Font-Size="12px" style="color: rgb(0, 72, 
+89);" />,&nbsp;
+                                <asp:Label ID="lblUsuarioLogado" runat="server" Font-Size="12px" style="color: rgb(0, 72, 
+89);" />,&nbsp;
+                                <asp:Label ID="lblUsuarioPerfil" runat="server" Font-Size="12px" style="color: rgb(0, 72, 
+89);" />&nbsp;
+                                <asp:Label ID="lblUsuarioMaleta" runat="server" Font-Size="12px" style="color: rgb(0, 72, 
+89);" Visible="false" />
                             </h2>
                         </div>
                     </td>
@@ -83,4 +95,5 @@
     </form>
 </body>
 </html>
+
 

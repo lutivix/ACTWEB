@@ -413,6 +413,7 @@
     <Content Include="Painel\PainelBarraMansaGarças.aspx" />
     <Content Include="Painel\PainelCat.aspx" />
     <Content Include="Painel\PainelCCO.aspx" />
+    <Content Include="Painel\PainelEFVM.aspx" />
     <Content Include="Painel\PainelEldoradoAraguari.aspx" />
     <Content Include="Painel\PainelGen.CarneiroMontesClaros.aspx" />
     <Content Include="Plus.aspx" />
@@ -1056,6 +1057,13 @@
     </Compile>
     <Compile Include="Painel\PainelCCO.aspx.designer.cs">
       <DependentUpon>PainelCCO.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Painel\PainelEFVM.aspx.cs">
+      <DependentUpon>PainelEFVM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Painel\PainelEFVM.aspx.designer.cs">
+      <DependentUpon>PainelEFVM.aspx</DependentUpon>
     </Compile>
     <Compile Include="Painel\PainelEldoradoAraguari.aspx.cs">
       <DependentUpon>PainelEldoradoAraguari.aspx</DependentUpon>
