@@ -10,7 +10,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Painel
         {
             FileInfo file_info = new FileInfo(@"\inetpub\wwwroot\novo\imagens_paineis\painel_Baixada\01_Painel_Full.jpg");
 
-            lblUltimaAtualizacao.Text = file_info.LastWriteTime.ToString("dd/MM/yyyy HH:mm:ss");
+            lblUltimaAtualizacao.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
 
             var usuarioLogado = Uteis.Descriptografar(Request.QueryString["lu"].ToString(), "a#3G6**@").ToUpper();
 

@@ -162,13 +162,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>06/23/2017 14:05:13</publishTime>
+      <publishTime>06/26/2017 16:30:51</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
       <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>06/23/2017 14:05:13</publishTime>
+      <publishTime>06/26/2017 16:30:51</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
       <publishTime>09/08/2016 12:55:17</publishTime>
@@ -180,7 +180,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>06/23/2017 14:05:15</publishTime>
+      <publishTime>06/30/2017 15:28:27</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>
@@ -1611,7 +1611,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/24/2017 11:24:16</publishTime>
     </File>
     <File Include="Painel/PainelEFVM.aspx">
-      <publishTime>06/22/2017 16:09:59</publishTime>
+      <publishTime>06/28/2017 14:07:11</publishTime>
     </File>
     <File Include="Painel/PainelEldoradoAraguari.aspx">
       <publishTime>05/24/2017 11:24:16</publishTime>
@@ -1713,7 +1713,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/01/2017 13:50:20</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/23/2017 14:05:16</publishTime>
+      <publishTime>06/30/2017 15:28:28</publishTime>
     </File>
   </ItemGroup>
 </Project>
