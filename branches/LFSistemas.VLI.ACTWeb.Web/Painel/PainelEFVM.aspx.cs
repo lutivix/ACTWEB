@@ -8,9 +8,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Painel
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-            FileInfo file_info = new FileInfo(@"\inetpub\wwwroot\novo\imagens_paineis\painel_CCO\01_Painel_Full.jpg");
+            FileInfo file_info = new FileInfo(@"D:\Actweb\imagens_paineis\painel_EFVM\01_Painel_Full.jpg");
 
-            lblUltimaAtualizacao.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            lblUltimaAtualizacao.Text = file_info.LastWriteTime.ToString("dd/MM/yyyy HH:mm:ss");
 
             var usuarioLogado = Uteis.Descriptografar(Request.QueryString["lu"].ToString(), "a#3G6**@").ToUpper();
 
