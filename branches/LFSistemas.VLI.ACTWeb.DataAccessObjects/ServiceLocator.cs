@@ -146,9 +146,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 "    where                                                                            " ,
                 "     loco.lxdident = trem.lxaident                                                   " ,
                 "    ) num_locomotivas,                                                 " ,
-                "     (SELECT fn_locos_trem ( trem.lxaident )       " , 
+                "     (SELECT ( trem.lxaident )       " , 
                 "		FROM DUAL) locomotivas,                     " ,
-                "	 (SELECT fn_locoseq_trem_sec ( trem.lxaident )  " ,
+                "	 (SELECT ( trem.lxaident )  " ,
                 "		FROM DUAL) teste_locotrol,                  " ,
                 "    locomotiva.lxdident identificador_trem,                                                                                       " ,
                 "    locomotiva.lxdseque sequencia_loco,                                                                                                            " ,
@@ -182,7 +182,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 "    trim(locomotiva.lxdcdres) codigo_responsavel,                                     " ,
                 "    trim(locomotiva.lxdcdsit) codigo_situacao,                                        " ,
                 "    trim(locomotiva.lxdcdeve) codigo_evento,                                          " ,
-                "    to_char(locomotiva.lxddtsit, 'dd/mm/yyyy hh24:mi:ss') data_hora_situacao          " ,
+                "    to_char(locomotiva.lxddtsit, 'dd/mm/yyyy hh24:mi:ss') data_hora_situacao,          " ,
+                "       ROUND(((sysdate-mv.lxqdcral)*1440),0) GIRO_LOCOMOTIVA                          " ,
                 "  from area_operacional_pgef sede   " ,
                 "      left outer join (select                                                                           " ,
                 "                          ao_sede.AO_ID_AO, count(1) indicador_fiminiciotrecho                                                  " ,
@@ -196,6 +197,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 "                          group by ao_sede.AO_ID_AO) possui_trecho  " ,
                 "      on possui_trecho.AO_ID_AO = sede.AO_ID_AO,  " ,
                 "      lxatremv trem " ,
+                "      RIGHT OUTER JOIN lxqmovtt mv ON trem.lxaident = mv.lxqnroos",
                 "      left outer join " ,
                 "      (SELECT   " ,
                 "          trim(DECODE(AOS.AO_COD_AOP,NULL,AOF.AO_COD_AOP ,AOS.AO_COD_AOP)) Codigo_Local_Ferroviario,   " ,
@@ -227,7 +229,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 "  where  " ,
                 "  trem.LXAIDAOL = sede.AO_ID_AO  " ,
                 "  and trem.lxaident = locomotiva.lxdident  " ,
-                "  and trem.LXASITUA <> 'E' ") ;
+                "  and trem.LXASITUA <> 'E' and (mv.lxqdsral is null and mv.lxqdcral is not null)");
 
             }
             catch (Exception ex)

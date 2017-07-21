@@ -33,7 +33,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Licenciamento { get; set; }
         public string DataPrevisaoChegada { get; set; }
         public string Locomotivas { get; set; }
-
+        public string GiroLocomotiva { get; set; }
         public string UltDataManut { get; set; }
         public string TempoForaOficina { get; set; }
         public string TempoVoltarOficina { get; set; }

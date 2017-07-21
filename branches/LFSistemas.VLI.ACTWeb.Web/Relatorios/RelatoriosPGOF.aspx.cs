@@ -228,10 +228,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                 this.Titulo3 = "Trem";
                 this.Titulo4 = "OS";
                 this.Titulo5 = "Partida";
-                this.Titulo6 = "Qtde Vagões";
-                this.Titulo7 = "TB";
+                this.Titulo6 = "Locomotiva";
+                this.Titulo7 = "Modelo";
                 this.Titulo8 = "Qtde Loco";
-                this.Titulo9 = "Estado";
+                this.Titulo9 = "Giro Locomotiva";
             }
             else if (RB3.Checked) // Melhor Locomotiva (Confiabilidade)
             {
@@ -242,7 +242,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                 this.Titulo2 = "Local";
                 this.Titulo3 = "Trem";
                 this.Titulo4 = "OS";
-                this.Titulo5 = "Partida";
+                this.Titulo5 = "Locomotiva";
                 this.Titulo6 = "Ultima Manut";
                 this.Titulo7 = "Tempo Fora Ofic";
                 this.Titulo8 = "Tempo Volta Ofic";
@@ -257,7 +257,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                 this.Titulo2 = "Local";
                 this.Titulo3 = "Trem";
                 this.Titulo4 = "OS";
-                this.Titulo5 = "Partida";
+                this.Titulo5 = "Locomotiva";
                 this.Titulo6 = "Previsão Chegada";
                 this.Titulo7 = "Qtde Vagões";
                 this.Titulo8 = "TB";
