@@ -183,7 +183,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 "    trim(locomotiva.lxdcdsit) codigo_situacao,                                        " ,
                 "    trim(locomotiva.lxdcdeve) codigo_evento,                                          " ,
                 "    to_char(locomotiva.lxddtsit, 'dd/mm/yyyy hh24:mi:ss') data_hora_situacao,          " ,
-                "       ROUND(((sysdate-mv.lxqdcral)*1440),0) GIRO_LOCOMOTIVA                          " ,
+                "       ROUND(((sysdate-mv.lxqdcral)*1440),0) GIRO_LOCOMOTIVA,                           " ,
+                "       PD_DRS_PT DSC_PRODUTO                                                           ",
                 "  from area_operacional_pgef sede   " ,
                 "      left outer join (select                                                                           " ,
                 "                          ao_sede.AO_ID_AO, count(1) indicador_fiminiciotrecho                                                  " ,
@@ -225,10 +226,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 "      left outer join area_operacional_pgef ao_localorigem_loco  " ,
                 "      on locomotiva.LXDIDAOO = ao_localorigem_loco.AO_ID_AO  " ,
                 "      left outer join area_operacional_pgef ao_localdestino_loco   " ,
-                "      on locomotiva.LXDIDAOD = ao_localdestino_loco.AO_ID_AO  " ,
+                "      on locomotiva.LXDIDAOD = ao_localdestino_loco.AO_ID_AO,  " ,
+                "       lxfvagav vagao                                  ",
+                "      LEFT OUTER JOIN produto_pgef produto             " ,
+                "    ON TRIM (vagao.lxfcdpro) = produto.pd_cod_pd           " ,
                 "  where  " ,
                 "  trem.LXAIDAOL = sede.AO_ID_AO  " ,
                 "  and trem.lxaident = locomotiva.lxdident  " ,
+                "  AND trem.lxaident = vagao.lxfidetr ",
+                "  AND vagao.LXFNUMBL is not null   ",
                 "  and trem.LXASITUA <> 'E' and (mv.lxqdsral is null and mv.lxqdcral is not null)");
 
             }

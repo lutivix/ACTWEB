@@ -272,7 +272,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                 this.Titulo2 = "Local";
                 this.Titulo3 = "Trem";
                 this.Titulo4 = "OS";
-                this.Titulo5 = "Partida";
+                this.Titulo5 = "Produto";
                 this.Titulo6 = "Qtde Vagões";
                 this.Titulo7 = "TB";
                 this.Titulo8 = "Qtde Loco";
