@@ -146,9 +146,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 "    where                                                                            " ,
                 "     loco.lxdident = trem.lxaident                                                   " ,
                 "    ) num_locomotivas,                                                 " ,
-                "     (SELECT ( trem.lxaident )       " , 
+                "     (SELECT fn_locos_trem ( trem.lxaident )       ", 
                 "		FROM DUAL) locomotivas,                     " ,
-                "	 (SELECT ( trem.lxaident )  " ,
+                "	 (SELECT fn_locoseq_trem_sec ( trem.lxaident )  ",
                 "		FROM DUAL) teste_locotrol,                  " ,
                 "    locomotiva.lxdident identificador_trem,                                                                                       " ,
                 "    locomotiva.lxdseque sequencia_loco,                                                                                                            " ,
@@ -234,7 +234,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 "  trem.LXAIDAOL = sede.AO_ID_AO  " ,
                 "  and trem.lxaident = locomotiva.lxdident  " ,
                 "  AND trem.lxaident = vagao.lxfidetr ",
-                "  AND vagao.LXFNUMBL is not null   ",
+                "  AND PD_DRS_PT IS NOT NULL ",
                 "  and trem.LXASITUA <> 'E' and (mv.lxqdsral is null and mv.lxqdcral is not null)");
 
             }
