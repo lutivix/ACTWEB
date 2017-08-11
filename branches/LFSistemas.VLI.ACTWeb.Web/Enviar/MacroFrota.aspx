@@ -54,8 +54,8 @@
         <tr>
             <td style="width: 100%; text-align: center;" colspan="2">
                 <asp:Label runat="server" Text="ABREVIE A MENSAGEM" Font-Size="15" ForeColor="Black" /><br />
-                <asp:Label runat="server" Text="Evite o uso de cumprimentos e nomes.<br>Cada caracter digitado aumenta o preço da mensagem, máxomo de " Font-Size="10" ForeColor="Red" />
-                <asp:Label runat="server" Text="190" Font-Size="10" ForeColor="Blue" />
+                <asp:Label runat="server" Text="Evite o uso de cumprimentos e nomes.<br>Cada caracter digitado aumenta o preço da mensagem, máximo de " Font-Size="10" ForeColor="Red" />
+                <asp:Label runat="server" Text="100" Font-Size="10" ForeColor="Blue" />
                 <asp:Label runat="server" Text=" caracteres." Font-Size="10" ForeColor="red" />
             </td>
         </tr>
@@ -70,7 +70,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <asp:TextBox ID="txtMensagem" runat="server" TextMode="MultiLine" CssClass="form-control" Height="160" MaxLength="190" onkeypress='ContChar(this, 190)' onkeyup='ContChar(this, 190)' Width="100%" />
+                <asp:TextBox ID="txtMensagem" runat="server" TextMode="MultiLine" CssClass="form-control" Height="160" MaxLength="190" onkeypress='ContChar(this, 100)' onkeyup='ContChar(this, 100)' Width="100%" />
             </td>
         </tr>
     </table>

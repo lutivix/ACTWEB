@@ -680,13 +680,13 @@ namespace LFSistemas.VLI.ACTWeb.Web
             {
                 sub_macros_consulta.Visible = sub_macros_macro61.Visible = sub_consultaVMA_consulta.Visible = mnPainel.Visible = mnTelecomandadas.Visible =
                 mnTermometros.Visible = sub_relatorio_VMA.Visible = mnGOP.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible =
-                mnRadios.Visible = sub_baixada.Visible = true;
+                mnRadios.Visible = sub_baixada.Visible = sub_macros_macrofrota.Visible = true;
 
                 sub_locomotivas_trocaloco.Visible = sub_restricao.Visible = sub_interdicoes.Visible = sub_macros_macro50.Visible = sub_macros_macro200.Visible =
                 sub_alarmes.Visible = sub_relatorio.Visible = mnRestricoes.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible = lnkImportaOBC.Visible =
                 mnDadosApoio.Visible = mnUsuarios.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_dadosapoio_meta_pctm.Visible =
                 sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnLocomotivas.Visible = sub_relatorio_MACROS.Visible =
-                sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = false;
+                sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = false;
             }
             if (usuario.Perfil_ID == "9") // Perfil: PROGRAMAÇÃO E CONTROLE DE MANUTENÇÃO - PCM
             {
