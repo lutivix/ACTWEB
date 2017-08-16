@@ -290,7 +290,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                 this.Titulo5 = "Partida";
                 this.Titulo6 = "Qtde Vagões";
                 this.Titulo7 = "TB";
-                this.Titulo8 = "Qtde Loco";
+                this.Titulo8 = "Licenciamento";
                 this.Titulo9 = "Estado";
             }
             else if (RB7.Checked) // Previsão de Chegada de Trens

@@ -774,7 +774,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 item.Campo5 = item.DataPartida; // data partida
                 item.Campo6 = item.QtdeVagoes.ToString(); // qtde vagoes
                 item.Campo7 = item.TB.ToString(); // tonelada bruta
-                item.Campo8 = item.QtdeLoco.ToString(); // qtde loco
+                item.Campo8 = "ND"; // licenciamento
                 item.Campo9 = item.Estado; // estado
 
             }
