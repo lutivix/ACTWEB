@@ -145,6 +145,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 "     lxdlocov loco                                                            " ,
                 "    where                                                                            " ,
                 "     loco.lxdident = trem.lxaident                                                   " ,
+                "       AND LOCO.LXDCODIG = locomotiva.LXDCODIG                                       " ,
                 "    ) num_locomotivas,                                                 " ,
                 "     (SELECT fn_locos_trem ( trem.lxaident )       ", 
                 "		FROM DUAL) locomotivas,                     " ,

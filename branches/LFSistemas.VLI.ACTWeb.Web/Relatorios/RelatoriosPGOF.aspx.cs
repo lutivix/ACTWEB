@@ -215,7 +215,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                 this.Titulo5 = "Partida";
                 this.Titulo6 = "Qtde Vagões";
                 this.Titulo7 = "Locomotiva";
-                this.Titulo8 = "Qtde Loco";
+                this.Titulo8 = "Qtde Loco (Por Modelo)";
                 this.Titulo9 = "Modelo";
             }
             else if (RB2.Checked) // Locomotivas - Tempo Acumulado
@@ -230,7 +230,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                 this.Titulo5 = "Partida";
                 this.Titulo6 = "Locomotiva";
                 this.Titulo7 = "Modelo";
-                this.Titulo8 = "Qtde Loco";
+                this.Titulo8 = "Qtde Loco (Por Modelo)";
                 this.Titulo9 = "Giro Locomotiva";
             }
             else if (RB3.Checked) // Melhor Locomotiva (Confiabilidade)
