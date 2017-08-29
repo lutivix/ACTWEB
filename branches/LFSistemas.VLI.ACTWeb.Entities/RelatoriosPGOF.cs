@@ -16,5 +16,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Situacao { get; set; }
         public string TTR { get; set; }
         public string AlarmeVigente { get; set; }
+        public string Trem_id { get; set; }
+        public string Cod_Modelo { get; set; }
     }
 }
