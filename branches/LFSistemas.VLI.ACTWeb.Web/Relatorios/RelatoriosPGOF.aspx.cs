@@ -214,7 +214,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                 this.Titulo4 = "OS";
                 this.Titulo5 = "Partida";
                 this.Titulo6 = "Qtde Vagões";
-                this.Titulo7 = "TB";
+                this.Titulo7 = "Locomotiva";
                 this.Titulo8 = "Qtde Loco";
                 this.Titulo9 = "Modelo";
             }
@@ -248,10 +248,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                 this.Titulo8 = "Tempo Volta Ofic";
                 this.Titulo9 = "Confiab.";
             }
-            else if (RB4.Checked) // Locomotiva por Trem/Tipo/Corredor
+            else if (RB4.Checked) // Locomotiva por Trem/Corredor
             {
                 itens = RelatoriosPGOFController.ObterLocomotivasPorTremTipoCorredor(grupos);
-                lblRelat.Text = "Resultados da Pesquisa: Locomotiva por Trem/Tipo/Corredor  ";
+                lblRelat.Text = "Resultados da Pesquisa: Locomotiva por Trem/Corredor  ";
 
                 this.Titulo1 = "Corredor";
                 this.Titulo2 = "Local";
@@ -461,7 +461,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                 sb.AppendLine(RB1.Text);
                 sb.AppendLine("");
 
-                sb.AppendLine("CORREDOR;LOCALIDADE;TREM;OS;PARTIDA; QTDE VAGOES;TB;QTDE LOCO;MODELO");
+                sb.AppendLine("CORREDOR;LOCALIDADE;TREM;OS;PARTIDA;QTDE VAGOES;LOCOMOTIVA;QTDE LOCO;MODELO");
             }
             else if (RB2.Checked) // Locomotivas - Tempo Acumulado
             {
@@ -470,7 +470,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                 sb.AppendLine(RB2.Text);
                 sb.AppendLine("");
 
-                sb.AppendLine("CORREDOR;LOCALIDADE;TREM;OS;PARTIDA; QTDE VAGOES;TB;QTDE LOCO;ESTADO");
+                sb.AppendLine("CORREDOR;LOCALIDADE;TREM;OS;PARTIDA;LOCOMOTIVA;MODELO;QTDE LOCO;GIRO");
             }
             else if (RB3.Checked) // Melhor Locomotiva (Confiabilidade)
             {
@@ -479,16 +479,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                 sb.AppendLine(RB3.Text);
                 sb.AppendLine("");
 
-                sb.AppendLine("CORREDOR;LOCALIDADE;TREM;OS;PARTIDA;ULTIMA MANUT;TEMPO FORA OFIC.;TEMPO VOLTA OFIC.;CONFIABILIDADE");
+                sb.AppendLine("CORREDOR;LOCALIDADE;TREM;OS;LOCOMOTIVA;ULTIMA MANUT;TEMPO FORA OFIC.;TEMPO VOLTA OFIC.;CONFIABILIDADE");
             }
-            else if (RB4.Checked) // Locomotiva por Trem/Tipo/Corredor
+            else if (RB4.Checked) // Locomotiva por Trem/Corredor
             {
                 itens = RelatoriosPGOFController.ObterLocomotivasPorTremTipoCorredor(grupos);
 
                 sb.AppendLine(RB4.Text);
                 sb.AppendLine("");
 
-                sb.AppendLine("CORREDOR;LOCALIDADE;TREM;OS;PARTIDA; PREV CHEGADA;QTDE VAGOES;TB;QTDE LOCO");
+                sb.AppendLine("CORREDOR;LOCALIDADE;TREM;OS;LOCOMOTIVA; PREV CHEGADA;QTDE VAGOES;TB;QTDE LOCO");
             }
             else if (RB5.Checked) // Locomotivas por Produto
             {
@@ -497,7 +497,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                 sb.AppendLine(RB5.Text);
                 sb.AppendLine("");
 
-                sb.AppendLine("CORREDOR;LOCALIDADE;TREM;OS;PARTIDA; QTDE VAGOES;TB;QTDE LOCO;LOCOMOTIVAS");
+                sb.AppendLine("CORREDOR;LOCALIDADE;TREM;OS;PRODUTO; QTDE VAGOES;TB;QTDE LOCO;LOCOMOTIVAS");
             }
             else if (RB6.Checked) // Trens Parados e Licenciados
             {
@@ -506,7 +506,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                 sb.AppendLine(RB6.Text);
                 sb.AppendLine("");
 
-                sb.AppendLine("CORREDOR;LOCALIDADE;TREM;OS;PARTIDA; QTDE VAGOES;TB;QTDE LOCO;ESTADO");
+                sb.AppendLine("CORREDOR;LOCALIDADE;TREM;OS;PARTIDA; QTDE VAGOES;TB;LICENCIAMENTO;ESTADO");
             }
             else if (RB7.Checked) // Previsão de Chegada de Trens
             {

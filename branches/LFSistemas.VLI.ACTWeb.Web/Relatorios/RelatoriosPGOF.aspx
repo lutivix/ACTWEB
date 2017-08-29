@@ -24,7 +24,7 @@
     </table>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentMain" runat="server">
-    <asp:Timer ID="Temporizador" runat="server"  Interval="60000" />
+    <asp:Timer ID="Temporizador" runat="server"  Interval="300000" />
     <script type="text/javascript">
         $(document).keydown(function (e) {
             if (e.which == 120) {
@@ -138,7 +138,7 @@
                                  <asp:RadioButton ID="RB1" GroupName="tipoRelat" runat="server" Text="Locomotivas por Corredor (Alocação)" /><br />
                                  <asp:RadioButton ID="RB2" GroupName="tipoRelat" runat="server" Text="Locomotivas - Tempo Acumulado"   /><br />
                                  <asp:RadioButton ID="RB3" GroupName="tipoRelat" runat="server" Text="Melhor Locomotiva (Confiabilidade)"  /><br />
-                                 <asp:RadioButton ID="RB4" GroupName="tipoRelat" runat="server" Text="Locomotiva por Trem/Tipo/Corredor"   /><br />
+                                 <asp:RadioButton ID="RB4" GroupName="tipoRelat" runat="server" Text="Locomotiva por Trem/Corredor"   /><br />
                                  <asp:RadioButton ID="RB5" GroupName="tipoRelat" runat="server" Text="Locomotivas por Produto"   /><br />
                                  <asp:RadioButton ID="RB6" GroupName="tipoRelat" runat="server" Text="Trens Parados e Licenciados"   /><br />
                                  <asp:RadioButton ID="RB7" GroupName="tipoRelat" runat="server" Text="Previsão de Chegada de Trens"  /><br />
