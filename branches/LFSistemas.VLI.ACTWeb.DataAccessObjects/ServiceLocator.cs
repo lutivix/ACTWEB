@@ -185,7 +185,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 "    trim(locomotiva.lxdcdeve) codigo_evento,                                          " ,
                 "    to_char(locomotiva.lxddtsit, 'dd/mm/yyyy hh24:mi:ss') data_hora_situacao,          " ,
                 "       ROUND(((sysdate-mv.lxqdcral)*1440),0) GIRO_LOCOMOTIVA,                           " ,
-                "       PD_DRS_PT DSC_PRODUTO                                                           ",
+                "       PD_DRS_PT DSC_PRODUTO, trem.lxaident id_trem                                     ",
                 "  from area_operacional_pgef sede   " ,
                 "      left outer join (select                                                                           " ,
                 "                          ao_sede.AO_ID_AO, count(1) indicador_fiminiciotrecho                                                  " ,

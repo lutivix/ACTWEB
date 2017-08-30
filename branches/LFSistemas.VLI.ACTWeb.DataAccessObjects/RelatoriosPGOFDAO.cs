@@ -40,11 +40,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     if (Localidades == string.Empty || Localidades == null)
                     {
-                        query.Append(@"SELECT DISTINCT UNIDADE_PRODUCAO, LOCAL_FERROVIARIO, PREFIXO, TREM, DATA_FORMACAO, PREVISAO_CHEGADA_DESTINO, CAPACIDADE_TRACAO_TOTAL, QTD_LOCOMOTIVAS, QTD_VAGOES_VAZIOS, QTD_VAGOES_CARREGADOS, TU, TB, NUM_LOCOMOTIVAS, LOCOMOTIVAS,SIGLA_MODELO_LOCOMOTIVA, DESCRICAO_MODELO_LOCOMOTIVA, CODIGO_SITUACAO, HORAS_FORA_OFICINA, DATA_SAIDA_OFICINA, DATA_HORA_PREVISAO_MANUTENCAO, GIRO_LOCOMOTIVA FROM (" + ServiceLocator.ObterQueryLocoTrem() + ") ORDER BY LOCAL_FERROVIARIO");
+                        query.Append(@"SELECT DISTINCT UNIDADE_PRODUCAO, LOCAL_FERROVIARIO, PREFIXO, TREM, DATA_FORMACAO, PREVISAO_CHEGADA_DESTINO, CAPACIDADE_TRACAO_TOTAL, QTD_LOCOMOTIVAS, QTD_VAGOES_VAZIOS, QTD_VAGOES_CARREGADOS, TU, TB, NUM_LOCOMOTIVAS, LOCOMOTIVAS,SIGLA_MODELO_LOCOMOTIVA, DESCRICAO_MODELO_LOCOMOTIVA, CODIGO_SITUACAO, HORAS_FORA_OFICINA, DATA_SAIDA_OFICINA, DATA_HORA_PREVISAO_MANUTENCAO, GIRO_LOCOMOTIVA, ID_TREM FROM (" + ServiceLocator.ObterQueryLocoTrem() + ") ORDER BY LOCAL_FERROVIARIO");
                     }
                     else
                     {
-                        query.Append(@"SELECT DISTINCT UNIDADE_PRODUCAO, LOCAL_FERROVIARIO, PREFIXO, TREM, DATA_FORMACAO, PREVISAO_CHEGADA_DESTINO, CAPACIDADE_TRACAO_TOTAL, QTD_LOCOMOTIVAS, QTD_VAGOES_VAZIOS, QTD_VAGOES_CARREGADOS, TU, TB, NUM_LOCOMOTIVAS, LOCOMOTIVAS,SIGLA_MODELO_LOCOMOTIVA, DESCRICAO_MODELO_LOCOMOTIVA, CODIGO_SITUACAO, HORAS_FORA_OFICINA, DATA_SAIDA_OFICINA, DATA_HORA_PREVISAO_MANUTENCAO, GIRO_LOCOMOTIVA FROM (" + ServiceLocator.ObterQueryLocoTrem() + ") WHERE LOCAL_FERROVIARIO IN (" + Localidades + ") ORDER BY LOCAL_FERROVIARIO");
+                        query.Append(@"SELECT DISTINCT UNIDADE_PRODUCAO, LOCAL_FERROVIARIO, PREFIXO, TREM, DATA_FORMACAO, PREVISAO_CHEGADA_DESTINO, CAPACIDADE_TRACAO_TOTAL, QTD_LOCOMOTIVAS, QTD_VAGOES_VAZIOS, QTD_VAGOES_CARREGADOS, TU, TB, NUM_LOCOMOTIVAS, LOCOMOTIVAS,SIGLA_MODELO_LOCOMOTIVA, DESCRICAO_MODELO_LOCOMOTIVA, CODIGO_SITUACAO, HORAS_FORA_OFICINA, DATA_SAIDA_OFICINA, DATA_HORA_PREVISAO_MANUTENCAO, GIRO_LOCOMOTIVA, ID_TREM FROM (" + ServiceLocator.ObterQueryLocoTrem() + ") WHERE LOCAL_FERROVIARIO IN (" + Localidades + ") ORDER BY LOCAL_FERROVIARIO");
                     }
 
                     #endregion
@@ -56,6 +56,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         while (reader.Read())
                         {
+                            
                             var iten = PreencherPropriedadesLocomotivasCorredor(reader);
                             itens.Add(iten);
                         }
@@ -97,11 +98,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     if (Localidades == string.Empty || Localidades == null)
                     {
-                        query.Append(@"SELECT DISTINCT UNIDADE_PRODUCAO, LOCAL_FERROVIARIO, PREFIXO, TREM, DATA_FORMACAO, PREVISAO_CHEGADA_DESTINO, CAPACIDADE_TRACAO_TOTAL, QTD_LOCOMOTIVAS, QTD_VAGOES_VAZIOS, QTD_VAGOES_CARREGADOS, TU, TB, NUM_LOCOMOTIVAS, LOCOMOTIVAS,SIGLA_MODELO_LOCOMOTIVA, DESCRICAO_MODELO_LOCOMOTIVA, CODIGO_SITUACAO, HORAS_FORA_OFICINA, DATA_SAIDA_OFICINA, DATA_HORA_PREVISAO_MANUTENCAO, GIRO_LOCOMOTIVA FROM (" + ServiceLocator.ObterQueryLocoTrem() + ") ORDER BY LOCAL_FERROVIARIO");
+                        query.Append(@"SELECT DISTINCT UNIDADE_PRODUCAO, LOCAL_FERROVIARIO, PREFIXO, TREM, DATA_FORMACAO, PREVISAO_CHEGADA_DESTINO, CAPACIDADE_TRACAO_TOTAL, QTD_LOCOMOTIVAS, QTD_VAGOES_VAZIOS, QTD_VAGOES_CARREGADOS, TU, TB, NUM_LOCOMOTIVAS, LOCOMOTIVAS,SIGLA_MODELO_LOCOMOTIVA, DESCRICAO_MODELO_LOCOMOTIVA, CODIGO_SITUACAO, HORAS_FORA_OFICINA, DATA_SAIDA_OFICINA, DATA_HORA_PREVISAO_MANUTENCAO, GIRO_LOCOMOTIVA, ID_TREM FROM (" + ServiceLocator.ObterQueryLocoTrem() + ") ORDER BY LOCAL_FERROVIARIO");
                     }
                     else
                     {
-                        query.Append(@"SELECT DISTINCT UNIDADE_PRODUCAO, LOCAL_FERROVIARIO, PREFIXO, TREM, DATA_FORMACAO, PREVISAO_CHEGADA_DESTINO, CAPACIDADE_TRACAO_TOTAL, QTD_LOCOMOTIVAS, QTD_VAGOES_VAZIOS, QTD_VAGOES_CARREGADOS, TU, TB, NUM_LOCOMOTIVAS, LOCOMOTIVAS,SIGLA_MODELO_LOCOMOTIVA, DESCRICAO_MODELO_LOCOMOTIVA, CODIGO_SITUACAO, HORAS_FORA_OFICINA, DATA_SAIDA_OFICINA, DATA_HORA_PREVISAO_MANUTENCAO, GIRO_LOCOMOTIVA FROM (" + ServiceLocator.ObterQueryLocoTrem() + ") WHERE LOCAL_FERROVIARIO IN (" + Localidades + ") ORDER BY LOCAL_FERROVIARIO");
+                        query.Append(@"SELECT DISTINCT UNIDADE_PRODUCAO, LOCAL_FERROVIARIO, PREFIXO, TREM, DATA_FORMACAO, PREVISAO_CHEGADA_DESTINO, CAPACIDADE_TRACAO_TOTAL, QTD_LOCOMOTIVAS, QTD_VAGOES_VAZIOS, QTD_VAGOES_CARREGADOS, TU, TB, NUM_LOCOMOTIVAS, LOCOMOTIVAS,SIGLA_MODELO_LOCOMOTIVA, DESCRICAO_MODELO_LOCOMOTIVA, CODIGO_SITUACAO, HORAS_FORA_OFICINA, DATA_SAIDA_OFICINA, DATA_HORA_PREVISAO_MANUTENCAO, GIRO_LOCOMOTIVA, ID_TREM FROM (" + ServiceLocator.ObterQueryLocoTrem() + ") WHERE LOCAL_FERROVIARIO IN (" + Localidades + ") ORDER BY LOCAL_FERROVIARIO");
                     }
 
                     #endregion
@@ -415,7 +416,57 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return itens;
         }
 
+        public string ObterLocomotivasPorModelo(int id_trem, string cod_modelo)
+        {
+            #region [ PROPRIEDADES ]
 
+            StringBuilder query = new StringBuilder();
+
+            #endregion
+
+            string iten = "";
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoPGOF())
+                {
+                    var command = connection.CreateCommand();
+
+                    #region [ FILTRA LOCOMOTIVAS POR MODELOS ]
+
+                    query.Append(@"SELECT (locomot.lxdnuloc || ' ' || locomot.lxdcontr || ';' ) locomotivas_trem
+                                   FROM (
+                                            select lxdnuloc,lxdcontr,lxdident, lxdcodig
+                                            from lxdlocov locs
+                                            order by locs.lxdseque
+                                        ) locomot
+                                   WHERE locomot.lxdident = ("+ id_trem +") and locomot.lxdcodig = (" + "'"+cod_modelo+"'" + ")");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA VARIAVEL ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            iten = PreencherPropriedadesLocomotivaPorModelo(reader);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Obter macros 50", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return iten;
+        }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -438,9 +489,10 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(12)) item.QtdeLoco = int.Parse(reader.GetValue(12).ToString());
                 if (!reader.IsDBNull(8)) item.QtdeVagoes = (int.Parse(reader.GetValue(8).ToString()) + int.Parse(reader.GetValue(9).ToString()));
 
-                if (!reader.IsDBNull(13)) item.Locomotivas = reader.GetValue(13).ToString();
+                if (!reader.IsDBNull(13)) item.Locomotivas = ObterLocomotivasPorModelo(int.Parse(reader.GetValue(21).ToString()), reader.GetString(14));
 
                 if (!reader.IsDBNull(15)) item.ModeloLoco_DS = reader.GetString(15);
+
 
                 item.Corredor_DS = "";
                 switch (item.Corredor_ID)
@@ -497,7 +549,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(4)) item.DataPartida = reader.GetString(4);
 
                 if (!reader.IsDBNull(12)) item.QtdeLoco = int.Parse(reader.GetValue(12).ToString());
-                if (!reader.IsDBNull(13)) item.Locomotivas = reader.GetValue(13).ToString();
+                if (!reader.IsDBNull(13)) item.Locomotivas = ObterLocomotivasPorModelo(int.Parse(reader.GetValue(21).ToString()), reader.GetString(14));
                 if (!reader.IsDBNull(15)) item.ModeloLoco_DS = reader.GetString(15);
 
                 if (!reader.IsDBNull(20)) item.GiroLocomotiva = reader.GetValue(20).ToString();
@@ -563,9 +615,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                 if (!reader.IsDBNull(14)) item.Estado = reader.GetString(14);
 
-                if (!reader.IsDBNull(16)) item.UltDataManut = reader.GetString(18);
-                if (!reader.IsDBNull(15)) item.TempoForaOficina = reader.GetValue(17).ToString();
-                if (!reader.IsDBNull(17)) item.TempoVoltarOficina = reader.GetString(19);
+                if (!reader.IsDBNull(16)) item.UltDataManut = reader.GetString(16);
+                if (!reader.IsDBNull(15)) item.TempoForaOficina = reader.GetValue(15).ToString();
+                if (!reader.IsDBNull(17)) item.TempoVoltarOficina = reader.GetString(17);
 
                 item.Corredor_DS = "";
                 switch (item.Corredor_ID)
@@ -841,10 +893,21 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-
-
-
-
+        private string PreencherPropriedadesLocomotivaPorModelo(OleDbDataReader reader)
+        {
+            string item = "";
+            try
+            {
+                if (!reader.IsDBNull(0)) item = reader.GetString(0);
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "MetaTempo", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+            return item;
+        }
 
     }
 }
