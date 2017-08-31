@@ -452,6 +452,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     if (Corredor != "")
                     {
+                        
                         query.Append(@"select es_id_efe as id, (es_id_efe || ' - ' || es_dsc_efe) as decricao from actpp.estacoes where nm_cor_id in (" + Corredor + ") order by es_dsc_efe");
                     }
                     else
@@ -460,6 +461,59 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     }
                     
 
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var item = PreencherPropriedadesComboBox(reader);
+                            itens.Add(item);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Combo Interdição Filtro Seção", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return itens.ToList();
+        }
+
+        public List<ComboBox> ComboBoxEstacoes(string Corredor)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var itens = new List<ComboBox>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoPGOF())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    if (Corredor != "")
+                    {
+                        
+                        query.Append(@"SELECT DISTINCT UNIDADE_PRODUCAO, LOCAL_FERROVIARIO, PREFIXO, ID_TREM FROM (" + ServiceLocator.ObterQueryLocoTrem() + ") WHERE UNIDADE_PRODUCAO = (" + Corredor + ") ORDER BY LOCAL_FERROVIARIO");
+                    }
+                    else
+                    {
+                        query.Append(@"SELECT DISTINCT UNIDADE_PRODUCAO, LOCAL_FERROVIARIO, PREFIXO, ID_TREM FROM (" + ServiceLocator.ObterQueryLocoTrem() + ") ORDER BY LOCAL_FERROVIARIO");
+                    }
                     #endregion
 
                     #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]

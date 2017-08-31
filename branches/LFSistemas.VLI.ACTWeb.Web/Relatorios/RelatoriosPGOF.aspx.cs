@@ -194,7 +194,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                 {
                     if (cblGrupos.Items[i].Selected)
                     {
-                        auxGrupo.Add(string.Format("'{0}'", cblGrupos.Items[i].Value));
+                        auxGrupo.Add(string.Format("'{0}'", cblGrupos.Items[i].Text));
                     }
                 }
 
@@ -404,7 +404,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
             var combo = new ComboBoxController();
             cblGrupos.DataValueField = "Id";
             cblGrupos.DataTextField = "Descricao";
-            cblGrupos.DataSource = combo.ComboBoxLocalidades(corredores);
+            cblGrupos.DataSource = combo.ComboBoxEstacoes(corredores);
             cblGrupos.DataBind();
 
             if (cblGrupos.Items.Count > 0)
@@ -425,7 +425,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
             //txtFiltroMotivo.Text = string.Empty;
             cblCorredor.ClearSelection();
             cblGrupos.ClearSelection();
-            Pesquisar(null);
+            //Pesquisar(null);
         }
 
         protected void lnkExportar_Click(object sender, EventArgs e)

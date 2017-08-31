@@ -181,23 +181,23 @@
                                             <table class="table table-hover table-curved pro-table">
                                                 <thead>
                                                     <tr>
-                                                        <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                            <asp:LinkButton runat="server" ID="lnkCampo1"  /><%# this.Titulo1 %> </th>
-                                                        <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="lnkCampo2"  /> <%# this.Titulo2 %> </th>
-                                                        <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="lnkCampo3"  /> <%# this.Titulo3 %> </th>
-                                                        <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="lnkCampo4" /> <%# this.Titulo4 %></th>
-                                                        <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="lnkCampo5"  Enabled="false" /> <%# this.Titulo5 %></th>
-                                                        <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="LinkButton1" /> <%# this.Titulo6 %></th>
-                                                        <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="LinkButton2" /> <%# this.Titulo7 %></th>
-                                                        <th style="width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                        <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                             <asp:LinkButton runat="server" ID="LinkButton3" /> <%# this.Titulo8 %></th>
-                                                        <th style="width: 10%; text-align: center; font-size: 12pt; ">
+                                                        <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; ">
                                                             <asp:LinkButton runat="server" ID="LinkButton4" /> <%# this.Titulo9 %></th>
                                                     </tr>
                                                 </thead>
@@ -205,15 +205,15 @@
                                         </HeaderTemplate>
                                         <ItemTemplate>
                                             <tr style="font-size: 9px;" >
-                                                <td style="width: 10%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Campo1")%>"><%# Eval("Campo1")%> </td>
-                                                <td style="width: 10%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Campo2")%>"><%# Eval("Campo2") %> </td>
-                                                <td style="width: 10%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Campo3")%>"><%# Eval("Campo3")%> </td>
-                                                <td style="width: 10%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Campo4")%>"><%# Eval("Campo4")%></td>
-                                                <td style="width: 10%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Campo5")%>"><%# Eval("Campo5")%> </td>
-                                                <td style="width: 10%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Campo6")%>"><%# Eval("Campo6")%></td>
-                                                <td style="width: 10%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Campo7")%>"><%# Eval("Campo7")%></td>
-                                                <td style="width: 10%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Campo8")%>"><%# Eval("Campo8")%></td>
-                                                <td style="width: 10%; text-align: center; " title="<%# Eval("Campo9")%>"><%# Eval("Campo9")%></td>
+                                                <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Campo1")%>"><%# Eval("Campo1")%> </td>
+                                                <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Campo2")%>"><%# Eval("Campo2") %> </td>
+                                                <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Campo3")%>"><%# Eval("Campo3")%> </td>
+                                                <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Campo4")%>"><%# Eval("Campo4")%></td>
+                                                <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Campo5")%>"><%# Eval("Campo5")%> </td>
+                                                <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Campo6")%>"><%# Eval("Campo6")%></td>
+                                                <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Campo7")%>"><%# Eval("Campo7")%></td>
+                                                <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Campo8")%>"><%# Eval("Campo8")%></td>
+                                                <td style="width: 10%; text-align: center; vertical-align: middle; " title="<%# Eval("Campo9")%>"><%# Eval("Campo9")%></td>
                                             </tr>
                                         </ItemTemplate>
                                         <FooterTemplate>

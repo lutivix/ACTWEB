@@ -440,7 +440,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             from lxdlocov locs
                                             order by locs.lxdseque
                                         ) locomot
-                                   WHERE locomot.lxdident = ("+ id_trem +") and locomot.lxdcodig = (" + "'"+cod_modelo+"'" + ")");
+                                   WHERE locomot.lxdident = (" + id_trem + ") and locomot.lxdcodig = (" + "'" + cod_modelo + "'" + ")");
 
                     #endregion
 
@@ -451,7 +451,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         while (reader.Read())
                         {
-                            iten = PreencherPropriedadesLocomotivaPorModelo(reader);
+                            iten = iten +" " + PreencherPropriedadesLocomotivaPorModelo(reader);
                         }
                     }
 

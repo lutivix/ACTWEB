@@ -52,6 +52,10 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ComboBoxLocalidades(Corredor);
         }
 
+        public List<ComboBox> ComboBoxEstacoes(string Corredor)
+        {
+            return dao.ComboBoxEstacoes(Corredor);
+        }
 
         public List<ComboBox> ComboBoxPerfis()
         {
