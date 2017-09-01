@@ -443,7 +443,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Relatorios
                 {
                     if (cblGrupos.Items[i].Selected)
                     {
-                        auxGrupo.Add(string.Format("'{0}'", cblGrupos.Items[i].Value));
+                        auxGrupo.Add(string.Format("'{0}'", cblGrupos.Items[i].Text));
                     }
                 }
 
