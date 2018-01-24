@@ -849,7 +849,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ PARÂMETRO ]
 
-                    query.Replace("${ID}", string.Format("{0}", "ID_USUARIOS.NEXTVAL"));
+                    query.Replace("${ID}", string.Format("{0}", "USUARIOS_ID.NEXTVAL"));
                     query.Replace("${MATRICULA}", string.Format("'{0}'", usuario.Matricula));
                     query.Replace("${NOME}", string.Format("'{0}'", usuario.Nome));
                     query.Replace("${SENHA}", string.Format("'{0}'", usuario.Senha));
