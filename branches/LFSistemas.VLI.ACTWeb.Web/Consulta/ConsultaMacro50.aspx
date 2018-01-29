@@ -164,17 +164,11 @@
                             <span class="menu-item-label">Enviar Macro 50</span>
                         </asp:LinkButton>
                     </td>
-                    <td colspan="3">
-                        <label for="data_fim">Corredor:</label>
-                        <br />
-                        <asp:CheckBoxList runat="server" ID="clbCorredor" Rows="7" CssClass="form-control" SelectionMode="Multiple" Width="160" Height="120">
-                            <asp:ListItem Text="&nbsp;&nbsp;Baixada" Value="Baixada" />
-                            <asp:ListItem Text="&nbsp;&nbsp;Centro Leste" Value="Centro Leste" />
-                            <asp:ListItem Text="&nbsp;&nbsp;Centro Norte" Value="Centro Norte" />
-                            <asp:ListItem Text="&nbsp;&nbsp;Centro Sudeste" Value="Centro Sudeste" />
-                            <asp:ListItem Text="&nbsp;&nbsp;Minas Bahia" Value="Minas Bahia" />
-                            <asp:ListItem Text="&nbsp;&nbsp;Minas Rio" Value="Minas Rio" />
-                        </asp:CheckBoxList>
+                    <td style="width: 30%" rowspan="2">
+                            <label for="perfil">Corredores:</label>
+                            <asp:Panel runat="server" Width="160" Height="120" ScrollBars="Vertical" CssClass="form-control">
+                                <asp:CheckBoxList runat="server" ID="cblDadosCorredores" />
+                            </asp:Panel>
                     </td>
                 </tr>
                 <tr>
