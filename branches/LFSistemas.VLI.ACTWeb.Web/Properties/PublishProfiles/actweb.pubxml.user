@@ -15,7 +15,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/24/2017 11:24:16</publishTime>
     </File>
     <File Include="ACTWEB.Master">
-      <publishTime>01/29/2018 17:32:25</publishTime>
+      <publishTime>01/29/2018 18:26:48</publishTime>
     </File>
     <File Include="Ajuda/Erro.aspx">
       <publishTime>07/07/2017 14:27:50</publishTime>
@@ -180,7 +180,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>01/29/2018 17:35:06</publishTime>
+      <publishTime>01/29/2018 18:29:39</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>
