@@ -61,7 +61,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 ViewState["ordenacao"] = "ASC";
                 ViewState["corredor"] = "";
 
-                CarregaCombos(null);
                 VerificaNovasMensagens();
             }
         }
@@ -222,23 +221,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
         #endregion
 
-        #region [ EVENTOS ]
-        protected void CarregaCombos(string origem)
-        {
-            var pesquisa = new ComboBoxController();
-
-            var corredores = pesquisa.ComboBoxPostosTrabalhoACTPP();
-            if (corredores.Count > 0)
-            {
-                cblDadosCorredores.DataValueField = "ID";
-                cblDadosCorredores.DataTextField = "DESCRICAO";
-                cblDadosCorredores.DataSource = corredores;
-                cblDadosCorredores.DataBind();
-            }
-
-        }
-        #endregion
-
         #region [ MÉTODOS DE ACESSO A DADOS ]
 
         protected void VerificaNovasMensagens()
@@ -246,13 +228,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             if (lblUsuarioMaleta.Text == "7000")
             {
                 var aux = new List<string>();
-                if (cblDadosCorredores.Items.Count > 0)
+                if (clbCorredor.Items.Count > 0)
                 {
-                    for (int i = 0; i < cblDadosCorredores.Items.Count; i++)
+                    for (int i = 0; i < clbCorredor.Items.Count; i++)
                     {
-                        if (cblDadosCorredores.Items[i].Selected)
+                        if (clbCorredor.Items[i].Selected)
                         {
-                            aux.Add(string.Format("'{0}'", cblDadosCorredores.Items[i].Value));
+                            aux.Add(string.Format("'{0}'", clbCorredor.Items[i].Value));
                         }
                     }
                     if (aux.Count <= 0)
@@ -304,13 +286,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             DateTime horaFim = DateTime.Now;
 
             var aux = new List<string>();
-            if (cblDadosCorredores.Items.Count > 0)
+            if (clbCorredor.Items.Count > 0)
             {
-                for (int i = 0; i < cblDadosCorredores.Items.Count; i++)
+                for (int i = 0; i < clbCorredor.Items.Count; i++)
                 {
-                    if (cblDadosCorredores.Items[i].Selected)
+                    if (clbCorredor.Items[i].Selected)
                     {
-                        aux.Add(string.Format("'{0}'", cblDadosCorredores.Items[i].Value));
+                        aux.Add(string.Format("'{0}'", clbCorredor.Items[i].Value));
                     }
                 }
                 if (aux.Count <= 0)

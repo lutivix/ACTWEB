@@ -94,13 +94,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         protected global::System.Web.UI.WebControls.LinkButton lnkMacro50;
         
         /// <summary>
-        /// cblDadosCorredores control.
+        /// clbCorredor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList cblDadosCorredores;
+        protected global::System.Web.UI.WebControls.CheckBoxList clbCorredor;
         
         /// <summary>
         /// pnlGrid control.
