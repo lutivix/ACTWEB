@@ -13,6 +13,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Grupo { get; set; }
         public string Corredor_ID { get; set; }
         public string Corredor { get; set; }
+        public string Categoria { get; set; }
         public double Codigo_OS { get; set; }
         public string Prefixo { get; set; }
         public string Prefixo7D { get; set; }

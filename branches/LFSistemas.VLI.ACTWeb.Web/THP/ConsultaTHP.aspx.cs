@@ -19,6 +19,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
         public List<TremHoraParado> itens { get; set; }
         public string corredores { get; set; }
         public string grupos { get; set; }
+        public string motivos { get; set; }
+        public string categorias { get; set; }
 
         #endregion
 
@@ -65,7 +67,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
         }
         protected void lnkLimpar_Click(object sender, EventArgs e)
         {
-            txtFiltroMotivo.Text = string.Empty;
+            cblMotivos.ClearSelection();
             cblCorredor.ClearSelection();
             cblGrupos.ClearSelection();
             Pesquisar(null);
@@ -228,11 +230,40 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 grupos = string.Join(",", auxGrupo);
             }
 
+            var auxMotivo = new List<string>();
+            if (cblMotivos.Items.Count > 0)
+            {
+                for (int i = 0; i < cblMotivos.Items.Count; i++)
+                {
+                    if (cblMotivos.Items[i].Selected)
+                    {
+                        auxMotivo.Add(string.Format("'{0}'", cblMotivos.Items[i].Value));
+                    }
+                }
+
+                motivos = string.Join(",", auxMotivo);
+            }
+
+            var auxCategoria = new List<string>();
+            if (cblCategorias.Items.Count > 0)
+            {
+                for (int i = 0; i < cblCategorias.Items.Count; i++)
+                {
+                    if (cblCategorias.Items[i].Selected)
+                    {
+                        auxCategoria.Add(string.Format("{0}", cblCategorias.Items[i].Value));
+                    }
+                }
+
+                categorias = string.Join(",", auxCategoria);
+            }
+
             itens = pesquisar.ObterPorFiltro(new TremHoraParado()
             {
-                Motivo = txtFiltroMotivo.Text.Length > 0 ? txtFiltroMotivo.Text : null,
+                Motivo = motivos,
                 Corredor_ID = corredores,
-                Grupo_ID = grupos
+                Grupo_ID = grupos,
+                Categoria = categorias
             });
 
             if (itens.Count > 0)
@@ -300,6 +331,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             cblGrupos.DataTextField = "Descricao";
             cblGrupos.DataSource = combo.ComboBoxGrupos();
             cblGrupos.DataBind();
+
+            cblMotivos.DataValueField = "Id";
+            cblMotivos.DataTextField = "Descricao";
+            cblMotivos.DataSource = combo.ComboBoxMotivoParadaTremCOMId();
+            cblMotivos.DataBind();
+
+            cblCategorias.DataValueField = "Id";
+            cblCategorias.DataTextField = "Descricao";
+            cblCategorias.DataSource = combo.ComboBoxCategorias();
+            cblCategorias.DataBind();
         }
         protected void Temporizador_Tick(object sender, EventArgs e)
         {

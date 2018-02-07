@@ -818,9 +818,101 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return itens.ToList();
         }
-        public List<ComboBox> ComboBoxMotivoParadaTrem()
+        public List<ComboBox> ComboBoxMotivoParadaTremCOMId()
         {
             
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var itens = new List<ComboBox>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT MOT_AUTO_TRAC AS CODIGO, MOT_NOME AS NOME FROM MOTIVO_PARADA WHERE MOT_AUTO_TRAC NOT IN (0) AND MOT_ATIVO = 'S' ORDER BY CODIGO");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var item = ComboBoxMotivoComID(reader);
+                            itens.Add(item);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Combo Interdição Filtro Seção", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return itens.ToList();
+        }
+        public List<ComboBox> ComboBoxCategorias()
+        {
+
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var itens = new List<ComboBox>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT CT_COD_CAT, CT_DSC_CAT FROM ACTPP.CATEGORIA_DE_TREM ORDER BY CT_COD_CAT");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var item = ComboBoxCategoriaComID(reader);
+                            itens.Add(item);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Combo Interdição Filtro Seção", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return itens.ToList();
+        }
+        public List<ComboBox> ComboBoxMotivoParadaTrem()
+        {
+
             #region [ PROPRIEDADES ]
 
             StringBuilder query = new StringBuilder();
@@ -1935,7 +2027,25 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        
+        private ComboBox ComboBoxMotivoComID(OleDbDataReader reader)
+        {
+            var item = new ComboBox();
+
+            if (!reader.IsDBNull(00)) item.Id = reader.GetValue(00).ToString();
+            if (!reader.IsDBNull(01)) item.Descricao = reader.GetValue(00) + " - " + reader.GetString(01);
+
+            return item;
+        }
+
+        private ComboBox ComboBoxCategoriaComID(OleDbDataReader reader)
+        {
+            var item = new ComboBox();
+
+            if (!reader.IsDBNull(00)) item.Id = reader.GetValue(00).ToString();
+            if (!reader.IsDBNull(01)) item.Descricao = reader.GetValue(00) + " - " + reader.GetString(01);
+
+            return item;
+        }
 
 
         #endregion

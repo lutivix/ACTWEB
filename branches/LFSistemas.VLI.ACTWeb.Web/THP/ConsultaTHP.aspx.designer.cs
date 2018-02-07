@@ -76,13 +76,22 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP {
         protected global::System.Web.UI.WebControls.Panel pnlFiltros;
         
         /// <summary>
-        /// txtFiltroMotivo control.
+        /// cblMotivos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFiltroMotivo;
+        protected global::System.Web.UI.WebControls.CheckBoxList cblMotivos;
+        
+        /// <summary>
+        /// cblCategorias control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList cblCategorias;
         
         /// <summary>
         /// cblCorredor control.

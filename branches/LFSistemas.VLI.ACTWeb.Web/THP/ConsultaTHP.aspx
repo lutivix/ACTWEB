@@ -117,9 +117,17 @@
             <asp:Panel runat="server" ID="pnlFiltros">
                 <table style="width: 100%; padding-left: 1em; padding-right: 1em;">
                     <tr>
-                        <td style="width: 50%; padding-top: 1em;">
-                            <label for="matricula">Motivo:</label>
-                            <asp:TextBox runat="server" ID="txtFiltroMotivo" CssClass="form-control" Width="98%" />
+                        <td style="width: 30%; padding-top: 1em;">
+                            <label for="matricula">Motivos:</label>
+                            <asp:Panel runat="server" Width="400" Height="120" ScrollBars="Vertical" CssClass="form-control">
+                                <asp:CheckBoxList runat="server" ID="cblMotivos" SelectionMode="Multiple" />
+                            </asp:Panel>
+                        </td>
+                        <td style="width: 15%; padding-top: 1em;" rowspan="2">
+                            <label for="matricula">Categorias de Trem:</label>
+                            <asp:Panel runat="server" Width="230" Height="120" ScrollBars="Vertical" CssClass="form-control">
+                                <asp:CheckBoxList runat="server" ID="cblCategorias" SelectionMode="Multiple" />
+                            </asp:Panel>
                         </td>
                         <td style="width: 15%; padding-top: 1em;" rowspan="2">
                             <label for="matricula">Corredor:</label>

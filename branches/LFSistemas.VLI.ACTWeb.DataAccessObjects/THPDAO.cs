@@ -46,7 +46,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             TP.ID_SB, 
                                             TP.IND_INCS, 
                                             T.TM_ID_TRM
-                                        FROM  ACTPP.OCUPACOES_VIGENTES OV, ACTPP.UNL_TRENS_PARADOS TP, ACTPP.TRENS T,  ACTPP.ELEM_VIA EV, MOTIVO_PARADA M, GRUPOS G, ACTPP.NOME_CORREDOR NC
+                                        FROM  ACTPP.OCUPACOES_VIGENTES OV, ACTPP.UNL_TRENS_PARADOS TP, ACTPP.TRENS T,  ACTPP.ELEM_VIA EV, MOTIVO_PARADA M, GRUPOS G, ACTPP.NOME_CORREDOR NC, ACTPP.CATEGORIA_DE_TREM CT
                                             WHERE OV.TM_ID_TRM = T.TM_ID_TRM 
                                                 AND TP.ID_TREM_ACT = T.TM_ID_TRM
                                                 AND G.GRU_ID_GRU = M.GRU_ID_GRU
@@ -56,9 +56,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 AND T.TM_HR_REA_CHG  IS NULL   
                                                 AND EV.EV_ID_ELM = TP.ID_SB 
                                                 AND T.TM_COD_OF IS NOT NULL 
+                                                AND T.CT_ID_CAT = CT.CT_ID_CAT
                                                 ${NM_COR_ID}
-                                                ${MOT_NOME}
+                                                ${MOT_AUTO_TRAC}
                                                 ${GRU_NOME}
+                                                ${CT_COD_CAT}
                                                 AND NOT T.TM_PRF_ACT LIKE 'A%' 
                                                 AND NOT T.TM_PRF_ACT LIKE 'B%' 
                                                 AND NOT T.TM_PRF_ACT LIKE 'R%' 
@@ -75,15 +77,20 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     else
                         query.Replace("${NM_COR_ID}", string.Format(" "));
 
-                    if (filtro.Motivo != null)
-                        query.Replace("${MOT_NOME}", string.Format("AND UPPER(M.MOT_NOME) LIKE '%{0}%'", filtro.Motivo.ToUpper()));
+                    if (filtro.Motivo != string.Empty && filtro.Motivo != null)
+                        query.Replace("${MOT_AUTO_TRAC}", string.Format("AND M.MOT_AUTO_TRAC IN ({0})", filtro.Motivo));
                     else
-                        query.Replace("${MOT_NOME}", string.Format(" "));
+                        query.Replace("${MOT_AUTO_TRAC}", string.Format(" "));
 
                     if (filtro.Grupo_ID != string.Empty && filtro.Grupo_ID != null)
                         query.Replace("${GRU_NOME}", string.Format("AND G.GRU_ID_GRU IN ({0})", filtro.Grupo_ID.ToUpper()));
                     else
                         query.Replace("${GRU_NOME}", string.Format(" "));
+
+                    if (filtro.Categoria != string.Empty && filtro.Categoria != null)
+                        query.Replace("${CT_COD_CAT}", string.Format("AND UPPER(CT.CT_COD_CAT) LIKE '%{0}%'", filtro.Categoria.ToUpper()));
+                    else
+                        query.Replace("${CT_COD_CAT}", string.Format(" "));
 
                     if (!filtro.ExibeTodosCodigos)
                         query.Replace("${COD_MOTIVO}", string.Format("AND COD_MOTIVO NOT IN ('9', '46'))"));

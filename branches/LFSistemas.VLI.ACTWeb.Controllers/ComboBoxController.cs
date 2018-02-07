@@ -88,6 +88,14 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ComboBoxMotivoParadaTrem();
         }
+        public List<ComboBox> ComboBoxMotivoParadaTremCOMId()
+        {
+            return dao.ComboBoxMotivoParadaTremCOMId();
+        }
+        public List<ComboBox> ComboBoxCategorias()
+        {
+            return dao.ComboBoxCategorias();
+        }
         public List<ComboBox> ComboBoxSBs()
         {
             return dao.ComboBoxSBs();
