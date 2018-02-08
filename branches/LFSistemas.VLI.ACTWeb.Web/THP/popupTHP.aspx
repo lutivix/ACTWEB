@@ -200,10 +200,67 @@
                         </td>
                         <td style="width: 10%; text-align: left; font-size: 12px;">
                             <img src="../../img/azul.gif" alt="Smiley face" height="30" />
-                            <asp:Label ID="Label4" runat="server" Text="Maior que 30 Minutos." Font-Size="30px" Style="color: rgb(255, 255, 255);" />
+                            <asp:Label ID="Label4" runat="server" Text="Maior que 20 Minutos." Font-Size="30px" Style="color: rgb(255, 255, 255);" />
                         </td>
                     </tr>
                 </table>
+                <div class="well well-sm">
+        <div class="page-header sub-content-header">
+            <%--<h2>Filtros de Pesquisa</h2>--%>
+            <a id="link1" data-toggle="collapse" title="Filtros" data-parent="#macros" href="macros#filtros" style="margin-left: 3px; font-size: 15px" accesskey="F9"><b>Filtros</b> <i class="fa fa-search"></i></a>
+        </div>
+        <div id="filtros" class ="collapse">
+            <asp:Panel runat="server" ID="pnlFiltros">
+                <table style="width: 100%; padding-left: 1em; padding-right: 1em;">
+                    <tr>
+                        <td style="width: 30%; padding-top: 1em;">
+                            <label for="matricula">Motivos:</label>
+                            <asp:Panel runat="server" Width="400" Height="120" ScrollBars="Vertical" CssClass="form-control">
+                                <asp:CheckBoxList runat="server" ID="cblMotivos" SelectionMode="Multiple" />
+                            </asp:Panel>
+                        </td>
+                        <td style="width: 15%; padding-top: 1em;" rowspan="2">
+                            <label for="matricula">Categorias de Trem:</label>
+                            <asp:Panel runat="server" Width="230" Height="120" ScrollBars="Vertical" CssClass="form-control">
+                                <asp:CheckBoxList runat="server" ID="cblCategorias" SelectionMode="Multiple" />
+                            </asp:Panel>
+                        </td>
+                        <td style="width: 15%; padding-top: 1em;" rowspan="2">
+                            <label for="matricula">Corredor:</label>
+                            <asp:CheckBoxList runat="server" ID="cblCorredor" CssClass="form-control" SelectionMode="Multiple" Width="160" Height="120">
+                                <asp:ListItem Text="&nbsp;&nbsp;Baixada" Value="6" />
+                                <asp:ListItem Text="&nbsp;&nbsp;Centro Leste" Value="1" />
+                                <asp:ListItem Text="&nbsp;&nbsp;Centro Norte" Value="3" />
+                                <asp:ListItem Text="&nbsp;&nbsp;Centro Sudeste" Value="2" />
+                                <asp:ListItem Text="&nbsp;&nbsp;Minas Bahia" Value="5" />
+                                <asp:ListItem Text="&nbsp;&nbsp;Minas Rio" Value="4" />
+                            </asp:CheckBoxList>
+                        </td>
+                        <td style="width: 15%; padding-top: 1em;" rowspan="2">
+                            <label for="matricula">Grupos:</label>
+                            <asp:Panel runat="server" Width="200" Height="120" ScrollBars="Vertical" CssClass="form-control">
+                                <asp:CheckBoxList runat="server" ID="cblGrupos" SelectionMode="Multiple" />
+                            </asp:Panel>
+                        </td>
+                        <td style="width: 20%; padding-top: 1em;" rowspan="2"></td>
+                    </tr>
+
+                    <tr>
+                        <td style="width: 100%; padding-top: 1em;" colspan="3">
+                            <div class="btn-group btn-group-lg hidden-xs">
+                                <div class="btn-group btn-group-lg">
+                                    <asp:LinkButton runat="server" ID="lnkPesquisar" CssClass="btn btn-success" OnClick="lnkPesquisar_Click" ToolTip="Pesquisa palavra conforme filtro informado." Width="150"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
+                                </div>
+                                <div class="btn-group btn-group-lg">
+                                    <asp:LinkButton runat="server" ID="lnkLimpar" CssClass="btn btn-default" OnClick="lnkLimpar_Click" ToolTip="Limpa os filtros de pesquisa." Width="150"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
+                                </div>
+                            </div>                             
+                        </td>
+                    </tr>
+                </table>
+            </asp:Panel>
+        </div>
+    </div>
                 <asp:UpdatePanel runat="server" ID="upRegistros">
                     <ContentTemplate>
                         <div class="row">

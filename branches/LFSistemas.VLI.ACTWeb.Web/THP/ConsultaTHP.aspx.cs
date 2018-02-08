@@ -70,6 +70,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             cblMotivos.ClearSelection();
             cblCorredor.ClearSelection();
             cblGrupos.ClearSelection();
+            cblCategorias.ClearSelection();
             Pesquisar(null);
         }
         protected void lnkCodigo_OS_Click(object sender, EventArgs e)
