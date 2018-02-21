@@ -181,7 +181,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 {
                     if (cblGrupos.Items[i].Selected)
                     {
-                        auxGrupo.Add(string.Format("'{0}'", cblGrupos.Items[i].Value));
+                        auxGrupo.Add(string.Format("{0}", cblGrupos.Items[i].Value));
                     }
                 }
 
@@ -232,8 +232,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 RepeaterItens.DataSource = itens;
                 RepeaterItens.DataBind();
 
-                lblTotal.Text = string.Format("{0:0,0}", itens.Count);
             }
+            else
+            {
+                RepeaterItens.DataSource = itens;
+                RepeaterItens.DataBind();
+            }
+
+            lblTotal.Text = string.Format("{0:0,0}", itens.Count);
         }
 
         protected void CarregaCombos()

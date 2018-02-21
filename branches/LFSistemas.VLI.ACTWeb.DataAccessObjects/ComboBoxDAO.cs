@@ -882,7 +882,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT CT_COD_CAT, CT_DSC_CAT FROM ACTPP.CATEGORIA_DE_TREM ORDER BY CT_COD_CAT");
+                    query.Append(@"SELECT CT_ID_CAT, CT_COD_CAT, CT_DSC_CAT FROM ACTPP.CATEGORIA_DE_TREM ORDER BY CT_COD_CAT");
 
                     #endregion
 
@@ -2042,7 +2042,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             var item = new ComboBox();
 
             if (!reader.IsDBNull(00)) item.Id = reader.GetValue(00).ToString();
-            if (!reader.IsDBNull(01)) item.Descricao = reader.GetValue(00) + " - " + reader.GetString(01);
+            if (!reader.IsDBNull(01)) item.Descricao = reader.GetValue(01) + " - " + reader.GetString(02);
 
             return item;
         }
