@@ -160,6 +160,12 @@
                                         <span class="menu-item-label" title="Trens Parados">Trens Parados</span>
                                     </asp:LinkButton>
                                 </li>
+                                <li class="" id="sub_alarmes_alarmes_relatorio_alarmes" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkRelatorioAlarmes" OnClick="lnkRelatorioAlarmes_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-print"></i></span> 
+                                        <span class="menu-item-label" title="Relatórios">Relatórios</span>
+                                    </asp:LinkButton>
+                                </li>
                             </ul>
                         </div>
 
@@ -765,6 +771,14 @@
                                 </li>
                             </ul>
                         </div>
+                        
+                        <%----------------------  LDL DE PÁTIO  ----------------------%>
+                        <li class="" id="mnLdlPatios" runat="server">
+                            <asp:LinkButton runat="server" ID="lnkLdlPatios" OnClick="lnkLdlPatios_Click">
+                                <span class="menu-item-icon menu-icon-gop"></span>
+                                <span class="menu-item-label" title="LDL de Pátio">LDL de Pátio</span>
+                            </asp:LinkButton>
+                        </li>
                     </ul>
                 </div>
                 <div class="main-content">

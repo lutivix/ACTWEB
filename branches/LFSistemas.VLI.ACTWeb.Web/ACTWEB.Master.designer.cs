@@ -121,6 +121,24 @@ namespace LFSistemas.VLI.ACTWeb.Web {
         protected global::System.Web.UI.WebControls.LinkButton lnkParadaPosicionamento;
         
         /// <summary>
+        /// sub_alarmes_alarmes_relatorio_alarmes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub_alarmes_alarmes_relatorio_alarmes;
+        
+        /// <summary>
+        /// lnkRelatorioAlarmes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkRelatorioAlarmes;
+        
+        /// <summary>
         /// mnDadosApoio control.
         /// </summary>
         /// <remarks>
@@ -1352,6 +1370,24 @@ namespace LFSistemas.VLI.ACTWeb.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkRelarorioVMA;
+        
+        /// <summary>
+        /// mnLdlPatios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mnLdlPatios;
+        
+        /// <summary>
+        /// lnkLdlPatios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkLdlPatios;
         
         /// <summary>
         /// ContentPageTitle control.
