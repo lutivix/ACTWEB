@@ -772,10 +772,34 @@
                             </ul>
                         </div>
                         
+                        <%----------------------  WAYSIDE  ----------------------%>
+                        <li class="" id="mnWayside" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_wayside" title="Wayside">
+                                <span class="menu-item-icon menu-icon-wayside"></span>
+                                <span class="menu-item-label" title="Wayside">Wayside <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_wayside">
+                            <ul class="submenu">
+                                <li class="" id="sub_FleetONE" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkFleetONE" OnClick="lnkFleetONE_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-subway"></i></span>
+                                        <span class="menu-item-label" title="FleetONE">FleetONE</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="sub_monitoramento_wayside" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkMonitoramentoWayside" OnClick="lnkMonitoramentoWayside_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-subway"></i></span>                            
+                                        <span class="menu-item-label" title="Monitoramento">Monitoramento</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+                        
                         <%----------------------  LDL DE PÁTIO  ----------------------%>
                         <li class="" id="mnLdlPatios" runat="server">
                             <asp:LinkButton runat="server" ID="lnkLdlPatios" OnClick="lnkLdlPatios_Click">
-                                <span class="menu-item-icon menu-icon-gop"></span>
+                                <span class="menu-item-icon menu-icon-ldlpatios"></span>
                                 <span class="menu-item-label" title="LDL de Pátio">LDL de Pátio</span>
                             </asp:LinkButton>
                         </li>

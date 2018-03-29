@@ -9946,6 +9946,14 @@ button:focus {
             background-image: url(../img/apoio-b.png) !important;
         }
 
+        .side-menu .menu li.sub-selected .menu-icon-wayside, .side-menu .menu li:active .menu-icon-wayside, .side-menu .menu li:focus .menu-icon-wayside, .side-menu .menu li:hover .menu-icon-wayside {
+            background-image: url(../img/wayside-b.png) !important;
+        }
+
+        .side-menu .menu li.sub-selected .menu-icon-ldlpatios, .side-menu .menu li:active .menu-icon-ldlpatios, .side-menu .menu li:focus .menu-icon-ldlpatios, .side-menu .menu li:hover .menu-icon-ldlpatios {
+            background-image: url(../img/restricao-b.png) !important;
+        }
+
     .side-menu .menu li.selected {
         color: #3777bc;
         background-color: #fff;
@@ -10154,6 +10162,13 @@ button:focus {
 
     .side-menu .menu li a .menu-item-icon.menu-icon-apoio {
         background-image: url(../img/apoio-a.png);
+    }
+
+    .side-menu .menu li a .menu-item-icon.menu-icon-wayside {
+        background-image: url(../img/wayside-a.png);
+    }
+    .side-menu .menu li a .menu-item-icon.menu-icon-ldlpatios {
+        background-image: url(../img/restricao-a.png);
     }
 
 .side-menu .menu li a .menu-item-label {

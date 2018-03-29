@@ -585,6 +585,27 @@ namespace LFSistemas.VLI.ACTWeb.Web
 
         #endregion
 
+        #region [ LDL DE PÁTIOS ]
+        protected void lnkLdlPatios_Click(object sender, EventArgs e)
+        {
+            Response.Write("<script> window.open('http://actldl.fcacco.br/', '', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); </script>");
+        }
+
+        #endregion
+
+        #region [ WAYSIDE ]
+        protected void lnkFleetONE_Click(object sender, EventArgs e)
+        {
+            Response.Write("<script> window.open('http://actwsd.fcacco.br/fleetone', '', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); </script>");
+        }
+
+        protected void lnkMonitoramentoWayside_Click(object sender, EventArgs e)
+        {
+            Response.Write("<script> window.open('http://actmat.fcacco.br/', '', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); </script>");
+        }
+
+        #endregion
+
         protected void lnkAlteraSenha_Click(object sender, EventArgs e)
         {
             Response.Redirect("/Cadastro/Usuario.aspx?matricula=" + Uteis.Criptografar(ulMatricula, "a#3G6**@") + "&flag=alterasenha&lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
