@@ -160,6 +160,7 @@
     <Content Include="Consulta\popupTermometros.aspx" />
     <Content Include="Consulta\popupTHP.aspx" />
     <Content Include="Consulta\popupTrensOnline.aspx" />
+    <Content Include="Consulta\RelatoriosAlarmes.aspx" />
     <Content Include="Consulta\Usuario.aspx" />
     <Content Include="Consulta\UsuarioACT.aspx" />
     <Content Include="css\accordion.css" />
@@ -870,6 +871,13 @@
     </Compile>
     <Compile Include="Consulta\popupTrensOnline.aspx.designer.cs">
       <DependentUpon>popupTrensOnline.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Consulta\RelatoriosAlarmes.aspx.cs">
+      <DependentUpon>RelatoriosAlarmes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consulta\RelatoriosAlarmes.aspx.designer.cs">
+      <DependentUpon>RelatoriosAlarmes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Consulta\Usuario.aspx.cs">
       <DependentUpon>Usuario.aspx</DependentUpon>
