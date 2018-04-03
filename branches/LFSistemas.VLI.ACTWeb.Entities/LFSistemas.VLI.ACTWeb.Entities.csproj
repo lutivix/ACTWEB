@@ -90,6 +90,8 @@
     <Compile Include="ComboBox.cs" />
     <Compile Include="ComboInterdicao_Secao.cs" />
     <Compile Include="ComboRestricao_Secao.cs" />
+    <Compile Include="Estacao.cs" />
+    <Compile Include="FiltroRelatoriosAlarmes.cs" />
     <Compile Include="Importa_Corredor.cs" />
     <Compile Include="LocomotivasCorredor.cs" />
     <Compile Include="Maquinista.cs" />
@@ -129,6 +131,7 @@
     <Compile Include="Meta_PCTM.cs" />
     <Compile Include="PCTM.cs" />
     <Compile Include="QuemMaisAcessa.cs" />
+    <Compile Include="RelatorioAlarme.cs" />
     <Compile Include="RelatoriosPGOF.cs" />
     <Compile Include="Relatorio_THP.cs" />
     <Compile Include="Relatorio_PCTM.cs" />

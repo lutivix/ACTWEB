@@ -497,14 +497,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     if (Corredor != "")
                     {
-                        
+
                         query.Append(@"select es_id_efe as id, (es_id_efe || ' - ' || es_dsc_efe) as decricao from actpp.estacoes where nm_cor_id in (" + Corredor + ") order by es_dsc_efe");
                     }
                     else
                     {
                         query.Append(@"select es_id_efe as id, (es_id_efe || ' - ' || es_dsc_efe) as decricao from actpp.estacoes where nm_cor_id is null order by es_dsc_efe");
                     }
-                    
+
 
                     #endregion
 
@@ -552,7 +552,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     if (Corredor != "")
                     {
-                        
+
                         query.Append(@"SELECT DISTINCT UNIDADE_PRODUCAO, LOCAL_FERROVIARIO, PREFIXO, ID_TREM FROM (" + ServiceLocator.ObterQueryLocoTrem() + ") WHERE UNIDADE_PRODUCAO = (" + Corredor + ") ORDER BY LOCAL_FERROVIARIO");
                     }
                     else
@@ -588,7 +588,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
         public List<ComboBox> ComboBoxPerfis()
         {
-            
+
             #region [ PROPRIEDADES ]
 
             StringBuilder query = new StringBuilder();
@@ -820,7 +820,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         }
         public List<ComboBox> ComboBoxMotivoParadaTremCOMId()
         {
-            
+
             #region [ PROPRIEDADES ]
 
             StringBuilder query = new StringBuilder();
@@ -2027,6 +2027,162 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
+        public List<ComboBox> CarregaCombo_Estacoes()
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var itens = new List<ComboBox>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT ES_ID_NUM_EFE, ES_ID_EFE FROM ACTPP.ESTACOES ORDER BY ES_ID_NUM_EFE");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var item = PreencherPropriedadesComboBox(reader);
+                            itens.Add(item);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Combo Interdição Filtro Seção", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return itens.ToList();
+        }
+
+        public List<ComboBox> CarregaCombo_TipoAlarme()
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var itens = new List<ComboBox>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT TA_ID_TA FROM TIPOS_ALARMES");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var item = PreencherPropriedadesComboBoxTpAlarmes(reader);
+                            itens.Add(item);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Combo Interdição Filtro Seção", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return itens.ToList();
+        }
+
+        public List<ComboBox> CarregaCombo_Status()
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var itens = new List<ComboBox>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT CASE AL_SIT
+                                             WHEN 'R' THEN 'Reconhecido'
+                                             WHEN 'N' THEN 'Não Reconhecido'
+                                             WHEN 'E' THEN 'Encerrado'
+                                             WHEN 'A' THEN 'Aguardando Reconhecimento'
+                                          END
+                                             AS Status
+                                     FROM (  SELECT DISTINCT AL_SIT
+                                               FROM ACTPP.ALARMES
+                                           ORDER BY 1)");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var item = PreencherPropriedadesComboBoxStatus(reader);
+                            itens.Add(item);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Combo Interdição Filtro Seção", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return itens.ToList();
+        }
+
+        private ComboBox PreencherPropriedadesComboBoxStatus(OleDbDataReader reader)
+        {
+            var item = new ComboBox();
+
+            if (!reader.IsDBNull(00)) item.Descricao = reader.GetString(00);
+
+            return item;
+        }
+
         private ComboBox ComboBoxMotivoComID(OleDbDataReader reader)
         {
             var item = new ComboBox();
@@ -2066,6 +2222,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
+
+        private ComboBox PreencherPropriedadesComboBoxTpAlarmes(OleDbDataReader reader)
+        {
+            var item = new ComboBox();
+
+            if (!reader.IsDBNull(00)) item.Id = reader.GetValue(00).ToString();
+
+            return item;
+        } 
 
         #endregion
     }

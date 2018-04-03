@@ -100,6 +100,14 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ComboBoxSBs();
         }
+        public List<ComboBox> CarregaCombo_Estacoes()
+        {
+            return dao.CarregaCombo_Estacoes();
+        }
+        public List<ComboBox> CarregaCombo_Status()
+        {
+            return dao.CarregaCombo_Status();
+        }
         public List<ComboBox> ComboBoxTT_Corredores()
         {
             return dao.ComboBoxTT_Corredores();

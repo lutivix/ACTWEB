@@ -12,6 +12,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
     {
         #region [ PROPRIEDADES ]
         private Usuarios usuario;
+        private FiltroRelatoriosAlarmes filtro;
         public Usuarios Usuario
         {
             get
@@ -84,6 +85,107 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         }
 
         #region [ MÉTODOS DE CLICK DOS BOTÕES ]
+        protected void lnkCorredor_Click(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("Corredor " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("Corredor " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+        protected void lnkEstacao_Click(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("Corredor " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("Corredor " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+        protected void lnkDscEst_Click(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("Corredor " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("Corredor " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+        protected void lnkParametros_Click(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("Corredor " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("Corredor " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+        protected void lnkDtIni_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected void lnkReconhecido_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected void lnkDtFim_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected void lnkDscAlarme_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected void lnkStatus_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected void lnkPrimeiraPagina_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected void lnkPaginaAnterior_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected void lnkProximaPagina_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected void lnkUltimaPagina_Click(object sender, EventArgs e)
+        {
+
+        }
+        void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Fill repeater for Pager event
+            Pesquisar(null, Navigation.Pager);
+        }
         protected void lnkPesquisar_Click(object sender, EventArgs e)
         {
             Pesquisar(null, Navigation.None);
@@ -114,7 +216,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         {
             var pesquisa = new ComboBoxController();
 
-            var corredores = pesquisa.CarregaCombo_Corredores(origem, Usuario.Corredores);
+            var corredores = pesquisa.ComboBoxCorredoresACTPP();
             if (corredores.Count > 0)
             {
                 cblDadosCorredores.DataValueField = "ID";
@@ -122,9 +224,45 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 cblDadosCorredores.DataSource = corredores;
                 cblDadosCorredores.DataBind();
             }
+            var estacoes = pesquisa.CarregaCombo_Estacoes();
+            if (estacoes.Count > 0)
+            {
+                cblEstacoes.DataValueField = "ID";
+                cblEstacoes.DataTextField = "DESCRICAO";
+                cblEstacoes.DataSource = estacoes;
+                cblEstacoes.DataBind();
+            }
+            var status = pesquisa.CarregaCombo_Status();
+            if (status.Count > 0)
+            {
+                cblStatus.DataValueField = "ID";
+                cblStatus.DataTextField = "DESCRICAO";
+                cblStatus.DataSource = status;
+                cblStatus.DataBind();
+            }
+            var TpAlarme = pesquisa.CarregaCombo_TipoAlarme(origem, filtro.tipoAlarme);
+            //var TpAlarme = pesquisa.CarregaCombo_Status();
+            if (TpAlarme.Count > 0)
+            {
+                cblTipoAlarme.DataValueField = "ID";
+                cblTipoAlarme.DataTextField = "DESCRICAO";
+                cblTipoAlarme.DataSource = TpAlarme;
+                cblTipoAlarme.DataBind();
+            }
         }
         #endregion
 
+        #endregion
+
+        #region [ MÉTODOS DE APOIO ]
+        protected void Pesquisar(string ordenacao, Navigation navigation)
+        {
+
+        }
+        protected void Excel(string ordenacao, Navigation navigation)
+        {
+
+        }
         #endregion
     }
 }

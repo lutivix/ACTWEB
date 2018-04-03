@@ -72,19 +72,19 @@
             <div id="filtros">
             <table style="width: 100%; padding-left: 1em; padding-right: 1em;">
                 <tr>
-                    <td style="width: 30%; padding-top: 1em;">
+                    <td style="width: 15%; padding-top: 1em;">
                        <label for="perfil">Corredores:</label>
                             <asp:Panel runat="server" Width="80%" Height="110" ScrollBars="Vertical" CssClass="form-control">
                                 <asp:CheckBoxList runat="server" ID="cblDadosCorredores" />
                             </asp:Panel> 
                     </td>
-                    <td style="width: 30%; padding-top: 1em;">
+                    <td style="width: 15%; padding-top: 1em;">
                         <label for="perfil">Estações:</label>
                             <asp:Panel runat="server" Width="80%" Height="110" ScrollBars="Vertical" CssClass="form-control">
                                 <asp:CheckBoxList runat="server" ID="cblEstacoes" />
                             </asp:Panel> 
                     </td>
-                    <td style="width: 15%; padding-top: 1em;">
+                    <td style="width: 18%; padding-top: 1em;">
                         <label for="perfil">Status:</label>
                             <asp:Panel runat="server" Width="80%" Height="110" ScrollBars="Vertical" CssClass="form-control">
                                 <asp:CheckBoxList runat="server" ID="cblStatus" />
@@ -111,7 +111,7 @@
                     <td style="width: 100%; padding-top: 10px;" colspan="2">
                         <asp:LinkButton runat="server" ID="lnkPesquisar" CssClass="btn btn-success" OnClick="lnkPesquisar_Click" ToolTip="Pesquisa palavra conforme filtro informado." Width="150"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
                         <asp:LinkButton runat="server" ID="lnkLimpar" CssClass="btn btn-primary" OnClick="lnkLimpar_Click" ToolTip="Limpa os filtros de pesquisa." Width="150"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
-                        <asp:LinkButton ID="lnkExcel_Click" runat="server" CssClass="btn btn-default" OnClick="lnkExcel_Click" ToolTip="Exporta registros para o Excel." Width="150"><i class="fa fa-table"></i>&nbsp;Gerar Excel</asp:LinkButton>
+                        <asp:LinkButton ID="lnkExcel" runat="server" CssClass="btn btn-default" OnClick="lnkExcel_Click" ToolTip="Exporta registros para o Excel." Width="150"><i class="fa fa-table"></i>&nbsp;Gerar Excel</asp:LinkButton>
                     </td>
                 </tr>
             </table>
@@ -194,19 +194,6 @@
                                             &nbsp; 
                                     <asp:LinkButton ID="lnkPaginaAnterior" runat="server" OnClick="lnkPaginaAnterior_Click" ToolTip="Página anterior"><i class="fa fa-backward"></i></asp:LinkButton>&nbsp;
                                     &nbsp; Itens por página: &nbsp;
-                                    <asp:DropDownList ID="ddlPageSize" runat="server" AutoPostBack="true" Width="80" CssClass="form-control-single" OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
-                                        <asp:ListItem Text="10" Value="10" />
-                                        <asp:ListItem Text="20" Value="20" />
-                                        <asp:ListItem Text="30" Value="30" />
-                                        <asp:ListItem Text="40" Value="40" />
-                                        <asp:ListItem Text="50" Value="50" Selected="True" />
-                                        <asp:ListItem Text="100" Value="100" />
-                                        <asp:ListItem Text="200" Value="200" />
-                                        <asp:ListItem Text="300" Value="300" />
-                                        <asp:ListItem Text="400" Value="400" />
-                                        <asp:ListItem Text="500" Value="500" />
-                                        <asp:ListItem Text="1000" Value="1000" />
-                                    </asp:DropDownList>
                                             &nbsp;
                                     <asp:LinkButton ID="lnkProximaPagina" runat="server" OnClick="lnkProximaPagina_Click" ToolTip="Próxima página"><i class="fa fa-forward"></i></asp:LinkButton>
                                             &nbsp; 
