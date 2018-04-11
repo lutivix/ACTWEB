@@ -11,8 +11,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
     public class RelatoriosAlarmesDAO
     {
         #region [ METODOS DE BUSCA ]
-        
-        public List<RelatorioAlarme> consultaRelatorio(FiltroRelatoriosAlarmes filtro)
+
+        public List<RelatorioAlarme> consultaRelatorio(RelatorioAlarme filtro)
         {
 
             #region [ PROPRIEDADES ]
@@ -30,58 +30,57 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ FILTRA QTDES ]
 
-                    query.Append(@"SELECT AA.AL_ID_ALARME AS ID,
-                                         NM.NM_COR_NOME AS CORREDOR,
-                                         EE.ES_ID_EFE AS ESTAÇÃO,
-                                         EE.ES_DSC_EFE AS DESCRIÇÃO_ESTAÇÃO,
-                                         AA.AL_SIT AS STATUS_ALARME,
-                                         AA.AL_PARAM AS PARAMETROS,
-                                         AA.AL_DT_INI AS INÍCIO,
-                                         AA.AL_DT_REC AS RECONHECIDO,
-                                         AA.AL_DT_TER AS FIM,
-                                         TA.TA_MSG_TA AS DESCRIÇÃO_ALARME
-                                    FROM ALARMES AA
-                                    INNER JOIN TIPOS_ALARMES TA
+                    query.Append(@"SELECT AA.AL_ID_ALARME,
+                                         NM.NM_COR_NOME,
+                                         EE.ES_ID_EFE,
+                                         EE.ES_DSC_EFE,
+                                         AA.AL_SIT,
+                                         AA.AL_PARAM,
+                                         AA.AL_DT_INI,
+                                         AA.AL_DT_REC,
+                                         AA.AL_DT_TER,
+                                         TA.TA_MSG_TA
+                                    FROM ACTPP.ALARMES AA
+                                    INNER JOIN ACTPP.TIPOS_ALARMES TA
                                         ON TA.TA_ID_TA = AA.TA_ID_TA
-                                    INNER JOIN ESTACOES EE
+                                    INNER JOIN ACTPP.ESTACOES EE
                                         ON EE.ES_ID_NUM_EFE = AA.ES_ID_NUM_EFE
-                                    INNER JOIN NOME_CORREDOR NM
+                                    INNER JOIN ACTPP.NOME_CORREDOR NM
                                         ON NM.NM_COR_ID = EE.NM_COR_ID
-                                   WHERE EE.ES_ID_EFE IN ('AL2')
+                                   WHERE 1=1
                                          ${CORREDOR}
                                          ${DATA}
                                          ${STATUS}
                                          ${ESTACAO}
                                          ${TIPO_ALARME}
-                                -- AND AL_DT_INI > TO_DATE ('22/03/2018 04:10:00','DD/MM/YYYY HH24:MI:SS')
                                 ORDER BY AL_DT_INI");
 
                     #endregion
 
                     #region [ PARAMETROS ]
 
-                    if (filtro.corredor_id != null)
-                        query.Replace("${CORREDOR}", string.Format("AND NM.NM_COR_ID IN('{0}')", filtro.corredor_id));
+                    if (filtro.corredor != null && filtro.corredor != string.Empty)
+                        query.Replace("${CORREDOR}", string.Format("AND NM.NM_COR_ID IN('{0}')", filtro.corredor));
                     else
                         query.Replace("${CORREDOR}", "");
 
-                    if (filtro.data != null)
-                        query.Replace("${DATA}", string.Format("AND AL_DT_INI > TO_DATE ('{0}','DD/MM/YYYY HH24:MI:SS')", filtro.data));
+                    if (filtro.corredor == null && filtro.corredor == string.Empty || filtro.status_alarme == null && filtro.status_alarme == string.Empty || filtro.descricao_alarme == null && filtro.descricao_alarme == string.Empty || filtro.estacao == null && filtro.estacao == string.Empty)
+                        query.Replace("${DATA}", string.Format("AND AL_DT_INI > TO_DATE ('{0}','DD/MM/YYYY HH24:MI:SS')", filtro.dataINI.AddHours(-4)));
                     else
-                        query.Replace("${DATA}", "");
+                        query.Replace("${DATA}", string.Format("AND AL_DT_INI > TO_DATE ('{0}','DD/MM/YYYY HH24:MI:SS')", filtro.dataINI.AddHours(-24)));
 
-                    if (filtro.status != null)
-                        query.Replace("${STATUS}", string.Format("AND AA.AL_SIT IN('{0}')", filtro.status));
+                    if (filtro.status_alarme != null && filtro.status_alarme != string.Empty)
+                        query.Replace("${STATUS}", string.Format("AND AA.AL_SIT IN('{0}')", filtro.status_alarme));
                     else
                         query.Replace("${STATUS}", "");
 
-                    if (filtro.status != null)
-                        query.Replace("${TIPO_ALARME}", string.Format("AND AA.AL_SIT IN('{0}')", filtro.status));
+                    if (filtro.descricao_alarme != null && filtro.descricao_alarme != string.Empty)
+                        query.Replace("${TIPO_ALARME}", string.Format("AND AA.AL_SIT IN('{0}')", filtro.descricao_alarme));
                     else
                         query.Replace("${TIPO_ALARME}", "");
 
-                    if (filtro.estacao != null)
-                        query.Replace("${ESTACAO}", string.Format("AND EE.ES_ID_NUM_EFE IN('{0}')", filtro.status));
+                    if (filtro.estacao != null && filtro.estacao != string.Empty)
+                        query.Replace("${ESTACAO}", string.Format("AND EE.ES_ID_NUM_EFE IN('{0}')", filtro.estacao));
                     else
                         query.Replace("${ESTACAO}", "");
 
@@ -121,15 +120,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             var item = new RelatorioAlarme();
 
             if (!reader.IsDBNull(0)) item.alarme_id = reader.GetDouble(0);
-            if (!reader.IsDBNull(1)) item.corredor_nome = reader.GetString(1);
-            if (!reader.IsDBNull(2)) item.estacao = reader.GetDouble(2);
-            if (!reader.IsDBNull(3)) item.estacao_descricao = reader.GetString(3);
-            if (!reader.IsDBNull(4)) item.status_alame = reader.GetString(4);
-            if (!reader.IsDBNull(5)) item.paramentros = reader.GetString(5);
+            if (!reader.IsDBNull(1)) item.corredor = reader.GetString(1);
+            if (!reader.IsDBNull(2)) item.estacao = reader.GetString(2);
+            if (!reader.IsDBNull(3)) item.descricao_estacao = reader.GetString(3);
+            if (!reader.IsDBNull(4)) item.status_alarme = reader.GetString(4);
+            if (!reader.IsDBNull(5)) item.parametros = reader.GetString(5);
             if (!reader.IsDBNull(6)) item.dataINI = reader.GetDateTime(6);
             if (!reader.IsDBNull(7)) item.dataREC = reader.GetDateTime(7);
             if (!reader.IsDBNull(8)) item.dataFIM = reader.GetDateTime(8);
-            if (!reader.IsDBNull(9)) item.alarme_descricao = reader.GetString(9);
+            if (!reader.IsDBNull(9)) item.descricao_alarme = reader.GetString(9);
 
             return item;
         }

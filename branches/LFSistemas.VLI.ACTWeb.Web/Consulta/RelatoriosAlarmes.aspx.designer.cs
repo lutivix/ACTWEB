@@ -58,6 +58,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         protected global::System.Web.UI.WebControls.Label lblUsuarioMaleta;
         
         /// <summary>
+        /// Temporizador control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.Timer Temporizador;
+        
+        /// <summary>
         /// cblDadosCorredores control.
         /// </summary>
         /// <remarks>

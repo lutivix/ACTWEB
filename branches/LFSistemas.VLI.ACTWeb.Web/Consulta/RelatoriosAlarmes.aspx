@@ -27,6 +27,7 @@
     </table>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentMain" runat="server">
+    <asp:Timer ID="Temporizador" runat="server" OnTick="Temporizador_Tick" Interval="60000" />
     <script type="text/javascript">
         $(document).keydown(function (e) {
             if (e.which == 120) {
@@ -72,27 +73,27 @@
             <div id="filtros">
             <table style="width: 100%; padding-left: 1em; padding-right: 1em;">
                 <tr>
-                    <td style="width: 15%; padding-top: 1em;">
+                    <td style="width: 5%; padding-top: 1em; padding-right: 10px;">
                        <label for="perfil">Corredores:</label>
-                            <asp:Panel runat="server" Width="80%" Height="110" ScrollBars="Vertical" CssClass="form-control">
+                            <asp:Panel runat="server" Height="110" ScrollBars="Vertical" CssClass="form-control">
                                 <asp:CheckBoxList runat="server" ID="cblDadosCorredores" />
                             </asp:Panel> 
                     </td>
-                    <td style="width: 15%; padding-top: 1em;">
+                    <td style="width: 5%; padding-top: 1em; padding-right: 10px;">
                         <label for="perfil">Estações:</label>
-                            <asp:Panel runat="server" Width="80%" Height="110" ScrollBars="Vertical" CssClass="form-control">
+                            <asp:Panel runat="server" Height="110" ScrollBars="Vertical" CssClass="form-control">
                                 <asp:CheckBoxList runat="server" ID="cblEstacoes" />
                             </asp:Panel> 
                     </td>
-                    <td style="width: 18%; padding-top: 1em;">
+                    <td style="width: 8%; padding-top: 1em; padding-right: 10px;">
                         <label for="perfil">Status:</label>
-                            <asp:Panel runat="server" Width="80%" Height="110" ScrollBars="Vertical" CssClass="form-control">
+                            <asp:Panel runat="server" Height="110" ScrollBars="Vertical" CssClass="form-control">
                                 <asp:CheckBoxList runat="server" ID="cblStatus" />
                             </asp:Panel> 
                     </td>
-                    <td style="width: 15%; padding-top: 1em;">
+                    <td style="width: 5%; padding-top: 1em; padding-right: 10px;">
                         <label for="perfil">Tipo de Alarme:</label>
-                            <asp:Panel runat="server" Width="80%" Height="110" ScrollBars="Vertical" CssClass="form-control">
+                            <asp:Panel runat="server" Height="110" ScrollBars="Vertical" CssClass="form-control">
                                 <asp:CheckBoxList runat="server" ID="cblTipoAlarme" />
                             </asp:Panel> 
                     </td>
@@ -139,9 +140,9 @@
                                                         <asp:LinkButton runat="server" ID="lnkParametros" OnClick="lnkParametros_Click" Text="Parâmetros" ForeColor="White" /></th>
                                                     <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
                                                         <asp:LinkButton runat="server" ID="lnkDtIni" OnClick="lnkDtIni_Click" Text="Data Início" ForeColor="White" /></th>
-                                                    <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; background-color: rgb(55, 119, 188);">
+                                                    <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
                                                         <asp:LinkButton runat="server" ID="lnkReconhecido" OnClick="lnkReconhecido_Click" Text="Reconhecido" ForeColor="White" /></th>
-                                                    <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; background-color: rgb(55, 119, 188);">
+                                                    <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
                                                         <asp:LinkButton runat="server" ID="lnkDtFim" OnClick="lnkDtFim_Click" Text="Data Fim" ForeColor="White" /></th>
                                                     <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; background-color: rgb(55, 119, 188);">
                                                         <asp:LinkButton runat="server" ID="lnkDscAlarme" OnClick="lnkDscAlarme_Click" Text="Descrição Alarme" ForeColor="White" /></th>
@@ -156,8 +157,8 @@
                                             <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Descricao_Estacao")%>"><%# Eval("Descricao_Estacao")%> </td>
                                             <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Status_Alarme")%>"><%# Eval("Status_Alarme")%> </td>
                                             <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Parametros")%>"><%# Eval("Parametros")%> </td>
-                                            <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Data_Inicio")%>"><%# Eval("Data_Inicio")%> </td>                              <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Reconhecido")%>"><%# Eval("Reconhecido")%> </td>  
-                                            <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Data_Fim")%>"><%# Eval("Data_Fim")%> </td>        
+                                            <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("dataINI")%>"><%# Eval("dataINI")%> </td>                              <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("dataREC")%>"><%# Eval("dataREC")%> </td>  
+                                            <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("dataFIM")%>"><%# Eval("dataFIM")%> </td>        
                                             <td style="width: 10%; text-align: center; vertical-align: middle;" title="<%# Eval("Descricao_Alarme")%>"><%# Eval("Descricao_Alarme")%> </td> 
                                         </tr>
                                     </ItemTemplate>
@@ -168,8 +169,8 @@
                                             <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Descricao_Estacao")%>"><%# Eval("Descricao_Estacao")%> </td>
                                             <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Status_Alarme")%>"><%# Eval("Status_Alarme")%> </td>
                                             <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Parametros")%>"><%# Eval("Parametros")%> </td>
-                                            <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Data_Inicio")%>"><%# Eval("Data_Inicio")%> </td>                              <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Reconhecido")%>"><%# Eval("Reconhecido")%> </td>  
-                                            <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Data_Fim")%>"><%# Eval("Data_Fim")%> </td>        
+                                            <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("dataINI")%>"><%# Eval("dataINI")%> </td>                              <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("dataREC")%>"><%# Eval("dataREC")%> </td>  
+                                            <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("dataFIM")%>"><%# Eval("dataFIM")%> </td>        
                                             <td style="width: 10%; text-align: center; vertical-align: middle;" title="<%# Eval("Descricao_Alarme")%>"><%# Eval("Descricao_Alarme")%> </td> 
                                         </tr>
                                     </AlternatingItemTemplate>

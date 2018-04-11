@@ -2090,7 +2090,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TA_ID_TA FROM TIPOS_ALARMES");
+                    query.Append(@"SELECT TA_ID_TA FROM ACTPP.TIPOS_ALARMES");
 
                     #endregion
 

@@ -8,15 +8,18 @@ namespace LFSistemas.VLI.ACTWeb.Entities
 {
     public class RelatorioAlarme
     {
-        public double alarme_id;
-        public string corredor_nome;
-        public double estacao;
-        public string estacao_descricao;
-        public string status_alame;
-        public string paramentros;
-        public DateTime dataINI;
-        public DateTime dataREC;
-        public DateTime dataFIM;
-        public string alarme_descricao;
+        public double alarme_id { get; set; }
+        public string corredor { get; set; }
+        public string estacao { get; set; }
+        public string descricao_estacao { get; set; }
+        public string status_alarme { get; set; }
+        public string parametros { get; set; }
+        public DateTime? dataINI { get; set; }
+        public DateTime? dataREC { get; set; }
+        public DateTime? dataFIM { get; set; }
+        public string descricao_alarme { get; set; }
+        public string dt_inicial { get; set; }
+        public string dt_final { get; set; }
+        public string dt_reconhecido { get; set; }
     }
 }

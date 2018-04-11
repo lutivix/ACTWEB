@@ -28,6 +28,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             }
         }
         public string corredores { get; set; }
+        public string estacoes { get; set; }
+        public string status { get; set; }
+        public string TipoAlarme { get; set; }
         public string ulNome { get; set; }
         public string ulMatricula { get; set; }
         public string ulPerfil { get; set; }
@@ -59,6 +62,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             Pager,
             Sorting
         }
+
+        public List<RelatorioAlarme> itens { get; set; }
 
         #endregion
 
@@ -240,12 +245,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 cblStatus.DataSource = status;
                 cblStatus.DataBind();
             }
-            var TpAlarme = pesquisa.CarregaCombo_TipoAlarme(origem, filtro.tipoAlarme);
-            //var TpAlarme = pesquisa.CarregaCombo_Status();
+            var TpAlarme = pesquisa.CarregaCombo_TipoAlarme();
             if (TpAlarme.Count > 0)
             {
                 cblTipoAlarme.DataValueField = "ID";
-                cblTipoAlarme.DataTextField = "DESCRICAO";
+                //cblTipoAlarme.DataTextField = "DESCRICAO";
                 cblTipoAlarme.DataSource = TpAlarme;
                 cblTipoAlarme.DataBind();
             }
@@ -257,12 +261,137 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         #region [ MÉTODOS DE APOIO ]
         protected void Pesquisar(string ordenacao, Navigation navigation)
         {
+            var pesquisa = new RelatorioAlarmesController();
+            DateTime horaInicio = txtDataInicio.Text.Length > 0 ? DateTime.Parse(txtDataInicio.Text + " 00:00:00") : DateTime.Now;
 
+            var auxCorredor = new List<string>();
+            if (cblDadosCorredores.Items.Count > 0)
+            {
+                for (int i = 0; i < cblDadosCorredores.Items.Count; i++)
+                {
+                    if (cblDadosCorredores.Items[i].Selected)
+                    {
+                        auxCorredor.Add(string.Format("'{0}'", cblDadosCorredores.Items[i].Value));
+                    }
+                }
+                corredores = string.Join(",", auxCorredor);
+            }
+
+            var auxEstacao = new List<string>();
+            if (cblEstacoes.Items.Count > 0)
+            {
+                for (int i = 0; i < cblEstacoes.Items.Count; i++)
+                {
+                    if (cblEstacoes.Items[i].Selected)
+                    {
+                        auxEstacao.Add(string.Format("'{0}'", cblEstacoes.Items[i].Value));
+                    }
+                }
+                estacoes = string.Join(",", auxEstacao);
+            }
+
+            var auxStatus = new List<string>();
+            if (cblStatus.Items.Count > 0)
+            {
+                for (int i = 0; i < cblStatus.Items.Count; i++)
+                {
+                    if (cblStatus.Items[i].Selected)
+                    {
+                        auxStatus.Add(string.Format("'{0}'", cblStatus.Items[i].Value));
+                    }
+                }
+                status = string.Join(",", auxStatus);
+            }
+
+            var auxTpAlarme = new List<string>();
+            if (cblTipoAlarme.Items.Count > 0)
+            {
+                for (int i = 0; i < cblTipoAlarme.Items.Count; i++)
+                {
+                    if (cblTipoAlarme.Items[i].Selected)
+                    {
+                        auxTpAlarme.Add(string.Format("'{0}'", cblTipoAlarme.Items[i].Value));
+                    }
+                }
+                TipoAlarme = string.Join(",", auxTpAlarme);
+            }
+
+            itens = pesquisa.consultaRelatorio(new RelatorioAlarme()
+            {
+                dataINI = horaInicio,
+                corredor = corredores,
+                estacao = estacoes,
+                status_alarme = status,
+                descricao_alarme = TipoAlarme
+            });
+            if (itens.Count > 0)
+            {
+
+                switch (ordenacao)
+                {
+                    //case "Codigo_OS ASC":
+                    //    itens = itens.OrderBy(o => o.Codigo_OS).ToList();
+                    //    break;
+                    //case "Codigo_OS DESC":
+                    //    itens = itens.OrderByDescending(o => o.Codigo_OS).ToList();
+                    //    break;
+                    //case "Prefixo ASC":
+                    //    itens = itens.OrderBy(o => o.Prefixo).ToList();
+                    //    break;
+                    //case "Prefixo DESC":
+                    //    itens = itens.OrderByDescending(o => o.Prefixo).ToList();
+                    //    break;
+                    //case "Local ASC":
+                    //    itens = itens.OrderBy(o => o.Local).ToList();
+                    //    break;
+                    //case "Local DESC":
+                    //    itens = itens.OrderByDescending(o => o.Local).ToList();
+                    //    break;
+                    //case "Tempo ASC":
+                    //    itens = itens.OrderBy(o => o.Tempo).ToList();
+                    //    break;
+                    //case "Tempo DESC":
+                    //    itens = itens.OrderByDescending(o => o.Tempo).ToList();
+                    //    break;
+                    //case "Motivo ASC":
+                    //    itens = itens.OrderBy(o => o.Motivo).ToList();
+                    //    break;
+                    //case "Motivo DESC":
+                    //    itens = itens.OrderByDescending(o => o.Motivo).ToList();
+                    //    break;
+                    //case "Corredor ASC":
+                    //    itens = itens.OrderBy(o => o.Corredor).ToList();
+                    //    break;
+                    //case "Corredor DESC":
+                    //    itens = itens.OrderByDescending(o => o.Corredor).ToList();
+                    //    break;
+                    //default:
+                    //    itens = itens.OrderByDescending(o => o.TempoTotal).ToList();
+                    //    break;
+                }
+
+                RepeaterItens.DataSource = itens;
+                RepeaterItens.DataBind();
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A pesquisa não encontrou registros.' });", true);
+                RepeaterItens.DataSource = itens;
+                RepeaterItens.DataBind();
+            }
+
+            lblTotal.Text = string.Format("{0:0,0}", itens.Count); 
         }
         protected void Excel(string ordenacao, Navigation navigation)
         {
 
         }
+
+        protected void Temporizador_Tick(object sender, EventArgs e)
+        {
+            Pesquisar(null, Navigation.None);
+        }
+
         #endregion
     }
 }
