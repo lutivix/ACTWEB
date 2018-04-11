@@ -184,6 +184,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         protected global::System.Web.UI.WebControls.LinkButton lnkPaginaAnterior;
         
         /// <summary>
+        /// ddlPageSize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPageSize;
+        
+        /// <summary>
         /// lnkProximaPagina control.
         /// </summary>
         /// <remarks>
@@ -200,6 +209,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkUltimaPagina;
+        
+        /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
         /// lblTotal control.

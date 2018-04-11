@@ -3,6 +3,7 @@ using LFSistemas.VLI.ACTWeb.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -73,7 +74,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             ulNome = Usuario.Nome.ToString();
             ulMatricula = Usuario.Matricula.ToString();
             ulPerfil = Usuario.Perfil_Abreviado.ToString();
-            
+
             if (!Page.IsPostBack)
             {
                 lblUsuarioLogado.Text = ulNome.Length > 12 ? ulNome.Substring(0, 12).ToUpper() : ulNome;
@@ -84,116 +85,105 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 txtDataInicio.Text = dataIni.ToShortDateString();
 
                 ViewState["ordenacao"] = "ASC";
+                ViewState["colunaOrdem"] = "AA.AL_DT_INI";
                 CarregaCombos(null);
                 Pesquisar(null, Navigation.None);
             }
         }
 
         #region [ MÉTODOS DE CLICK DOS BOTÕES ]
-        protected void lnkCorredor_Click(object sender, EventArgs e)
+
+        private void preencherOrder(string coluna)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
+            ViewState["colunaOrdem"] = coluna;
 
             if (ordenacao == "ASC")
             {
                 ViewState["ordenacao"] = "DESC";
-                Pesquisar("Corredor " + ViewState["ordenacao"].ToString(), Navigation.None);
+                Pesquisar(coluna + " " + ViewState["ordenacao"].ToString(), Navigation.None);
             }
             else
             {
                 ViewState["ordenacao"] = "ASC";
-                Pesquisar("Corredor " + ViewState["ordenacao"].ToString(), Navigation.None);
+                Pesquisar(coluna + " " + ViewState["ordenacao"].ToString(), Navigation.None);
             }
+        }
+
+        protected void lnkCorredor_Click(object sender, EventArgs e)
+        {
+            preencherOrder("NM.NM_COR_NOME");
         }
         protected void lnkEstacao_Click(object sender, EventArgs e)
         {
-            var ordenacao = ViewState["ordenacao"].ToString();
-
-            if (ordenacao == "ASC")
-            {
-                ViewState["ordenacao"] = "DESC";
-                Pesquisar("Corredor " + ViewState["ordenacao"].ToString(), Navigation.None);
-            }
-            else
-            {
-                ViewState["ordenacao"] = "ASC";
-                Pesquisar("Corredor " + ViewState["ordenacao"].ToString(), Navigation.None);
-            }
+            preencherOrder("EE.ES_ID_EFE");
         }
         protected void lnkDscEst_Click(object sender, EventArgs e)
         {
-            var ordenacao = ViewState["ordenacao"].ToString();
-
-            if (ordenacao == "ASC")
-            {
-                ViewState["ordenacao"] = "DESC";
-                Pesquisar("Corredor " + ViewState["ordenacao"].ToString(), Navigation.None);
-            }
-            else
-            {
-                ViewState["ordenacao"] = "ASC";
-                Pesquisar("Corredor " + ViewState["ordenacao"].ToString(), Navigation.None);
-            }
+            preencherOrder("EE.ES_DSC_EFE");
         }
         protected void lnkParametros_Click(object sender, EventArgs e)
         {
-            var ordenacao = ViewState["ordenacao"].ToString();
-
-            if (ordenacao == "ASC")
-            {
-                ViewState["ordenacao"] = "DESC";
-                Pesquisar("Corredor " + ViewState["ordenacao"].ToString(), Navigation.None);
-            }
-            else
-            {
-                ViewState["ordenacao"] = "ASC";
-                Pesquisar("Corredor " + ViewState["ordenacao"].ToString(), Navigation.None);
-            }
+            preencherOrder("AA.AL_PARAM");
         }
         protected void lnkDtIni_Click(object sender, EventArgs e)
         {
-
+            preencherOrder("AA.AL_DT_INI");
         }
         protected void lnkReconhecido_Click(object sender, EventArgs e)
         {
-
+            preencherOrder("AA.AL_DT_REC");
         }
         protected void lnkDtFim_Click(object sender, EventArgs e)
         {
-
+            preencherOrder("AA.AL_DT_TER");
         }
         protected void lnkDscAlarme_Click(object sender, EventArgs e)
         {
-
+            preencherOrder("TA.TA_MSG_TA");
         }
         protected void lnkStatus_Click(object sender, EventArgs e)
         {
-
+            preencherOrder("STATUS");
         }
-        protected void lnkPrimeiraPagina_Click(object sender, EventArgs e)
+
+        private void paginacao(Navigation navigation)
         {
 
+            string order = null;
+            string ordenacao = ViewState["ordenacao"].ToString();
+            string coluna = ViewState["colunaOrdem"].ToString();
+
+            if (coluna.Length > 0 && ordenacao.Length > 0)
+            {
+                order = coluna + " " + ordenacao;
+            }
+            Pesquisar(order, navigation);
+        }
+
+        protected void lnkPrimeiraPagina_Click(object sender, EventArgs e)
+        {
+            paginacao(Navigation.Primeira);
         }
         protected void lnkPaginaAnterior_Click(object sender, EventArgs e)
         {
-
+            paginacao(Navigation.Anterior);
         }
         protected void lnkProximaPagina_Click(object sender, EventArgs e)
         {
-
+            paginacao(Navigation.Proxima);
         }
         protected void lnkUltimaPagina_Click(object sender, EventArgs e)
         {
-
+            paginacao(Navigation.Ultima);
         }
-        void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Fill repeater for Pager event
-            Pesquisar(null, Navigation.Pager);
+            paginacao(Navigation.Pager);
         }
         protected void lnkPesquisar_Click(object sender, EventArgs e)
         {
-            Pesquisar(null, Navigation.None);
+            paginacao(Navigation.None);
         }
         protected void lnkLimpar_Click(object sender, EventArgs e)
         {
@@ -259,64 +249,18 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         #endregion
 
         #region [ MÉTODOS DE APOIO ]
-        protected void Pesquisar(string ordenacao, Navigation navigation)
-        {
+
+        private List<RelatorioAlarme> consultaRelatorio(string ordenacao) {
+
             var pesquisa = new RelatorioAlarmesController();
             DateTime horaInicio = txtDataInicio.Text.Length > 0 ? DateTime.Parse(txtDataInicio.Text + " 00:00:00") : DateTime.Now;
 
-            var auxCorredor = new List<string>();
-            if (cblDadosCorredores.Items.Count > 0)
-            {
-                for (int i = 0; i < cblDadosCorredores.Items.Count; i++)
-                {
-                    if (cblDadosCorredores.Items[i].Selected)
-                    {
-                        auxCorredor.Add(string.Format("'{0}'", cblDadosCorredores.Items[i].Value));
-                    }
-                }
-                corredores = string.Join(",", auxCorredor);
-            }
+            corredores = getSelectedInComboBox(cblDadosCorredores);
+            estacoes = getSelectedInComboBox(cblEstacoes);
+            status = getSelectedInComboBox(cblStatus);
+            TipoAlarme = getSelectedInComboBox(cblTipoAlarme);
 
-            var auxEstacao = new List<string>();
-            if (cblEstacoes.Items.Count > 0)
-            {
-                for (int i = 0; i < cblEstacoes.Items.Count; i++)
-                {
-                    if (cblEstacoes.Items[i].Selected)
-                    {
-                        auxEstacao.Add(string.Format("'{0}'", cblEstacoes.Items[i].Value));
-                    }
-                }
-                estacoes = string.Join(",", auxEstacao);
-            }
-
-            var auxStatus = new List<string>();
-            if (cblStatus.Items.Count > 0)
-            {
-                for (int i = 0; i < cblStatus.Items.Count; i++)
-                {
-                    if (cblStatus.Items[i].Selected)
-                    {
-                        auxStatus.Add(string.Format("'{0}'", cblStatus.Items[i].Value));
-                    }
-                }
-                status = string.Join(",", auxStatus);
-            }
-
-            var auxTpAlarme = new List<string>();
-            if (cblTipoAlarme.Items.Count > 0)
-            {
-                for (int i = 0; i < cblTipoAlarme.Items.Count; i++)
-                {
-                    if (cblTipoAlarme.Items[i].Selected)
-                    {
-                        auxTpAlarme.Add(string.Format("'{0}'", cblTipoAlarme.Items[i].Value));
-                    }
-                }
-                TipoAlarme = string.Join(",", auxTpAlarme);
-            }
-
-            itens = pesquisa.consultaRelatorio(new RelatorioAlarme()
+            itens = pesquisa.consultaRelatorio(ordenacao, new RelatorioAlarme()
             {
                 dataINI = horaInicio,
                 corredor = corredores,
@@ -324,53 +268,51 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 status_alarme = status,
                 descricao_alarme = TipoAlarme
             });
+
+            return itens;
+        }
+        protected void Pesquisar(string ordenacao, Navigation navigation)
+        {
+            List<RelatorioAlarme> itens = consultaRelatorio(ordenacao);
+
             if (itens.Count > 0)
             {
 
-                switch (ordenacao)
-                {
-                    //case "Codigo_OS ASC":
-                    //    itens = itens.OrderBy(o => o.Codigo_OS).ToList();
-                    //    break;
-                    //case "Codigo_OS DESC":
-                    //    itens = itens.OrderByDescending(o => o.Codigo_OS).ToList();
-                    //    break;
-                    //case "Prefixo ASC":
-                    //    itens = itens.OrderBy(o => o.Prefixo).ToList();
-                    //    break;
-                    //case "Prefixo DESC":
-                    //    itens = itens.OrderByDescending(o => o.Prefixo).ToList();
-                    //    break;
-                    //case "Local ASC":
-                    //    itens = itens.OrderBy(o => o.Local).ToList();
-                    //    break;
-                    //case "Local DESC":
-                    //    itens = itens.OrderByDescending(o => o.Local).ToList();
-                    //    break;
-                    //case "Tempo ASC":
-                    //    itens = itens.OrderBy(o => o.Tempo).ToList();
-                    //    break;
-                    //case "Tempo DESC":
-                    //    itens = itens.OrderByDescending(o => o.Tempo).ToList();
-                    //    break;
-                    //case "Motivo ASC":
-                    //    itens = itens.OrderBy(o => o.Motivo).ToList();
-                    //    break;
-                    //case "Motivo DESC":
-                    //    itens = itens.OrderByDescending(o => o.Motivo).ToList();
-                    //    break;
-                    //case "Corredor ASC":
-                    //    itens = itens.OrderBy(o => o.Corredor).ToList();
-                    //    break;
-                    //case "Corredor DESC":
-                    //    itens = itens.OrderByDescending(o => o.Corredor).ToList();
-                    //    break;
-                    //default:
-                    //    itens = itens.OrderByDescending(o => o.TempoTotal).ToList();
-                    //    break;
-                }
+                PagedDataSource objPds = new PagedDataSource();
+                objPds.DataSource = itens;
+                objPds.AllowPaging = true;
+                objPds.PageSize = int.Parse(ddlPageSize.SelectedValue);
 
-                RepeaterItens.DataSource = itens;
+                switch (navigation)
+                {
+                    case Navigation.Proxima:
+                        NowViewing++;
+                        break;
+                    case Navigation.Anterior:
+                        NowViewing--;
+                        break;
+                    case Navigation.Ultima:
+                        NowViewing = objPds.PageCount - 1;
+                        break;
+                    case Navigation.Pager:
+                        if (int.Parse(ddlPageSize.SelectedValue) >= objPds.PageCount)
+                            NowViewing = objPds.PageCount - 1;
+                        break;
+                    case Navigation.Sorting:
+                        break;
+                    default:
+                        NowViewing = 0;
+                        break;
+                }
+                objPds.CurrentPageIndex = NowViewing;
+                lblCurrentPage.Text = "Página: " + (NowViewing + 1).ToString() + " de " + objPds.PageCount.ToString();
+                lnkPaginaAnterior.Enabled = !objPds.IsFirstPage;
+                lnkProximaPagina.Enabled = !objPds.IsLastPage;
+                lnkPrimeiraPagina.Enabled = !objPds.IsFirstPage;
+                lnkUltimaPagina.Enabled = !objPds.IsLastPage;
+
+
+                RepeaterItens.DataSource = objPds;
                 RepeaterItens.DataBind();
             }
             else
@@ -380,10 +322,63 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 RepeaterItens.DataBind();
             }
 
-            lblTotal.Text = string.Format("{0:0,0}", itens.Count); 
+            lblTotal.Text = string.Format("{0:0,0}", itens.Count);
         }
+
+        private string getSelectedInComboBox(CheckBoxList cbl)
+        {
+            var aux = new List<string>();
+            string auxSTRING = "";
+
+            if (cbl.Items.Count > 0)
+            {
+                for (int i = 0; i < cbl.Items.Count; i++)
+                {
+                    if (cbl.Items[i].Selected)
+                    {
+                        aux.Add(string.Format("'{0}'", cbl.Items[i].Value));
+                    }
+                }
+                auxSTRING = string.Join(",", aux);
+            }
+            return auxSTRING;
+        }
+
         protected void Excel(string ordenacao, Navigation navigation)
         {
+            List<RelatorioAlarme> itens = consultaRelatorio(ordenacao);
+
+            if (itens.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                try
+                {
+                    sb.AppendLine("ID_ALARME;CORREDOR;ESTAÇÃO;NOME_ESTAÇÃO;STATUS_ALARME;PARAMETRO;DATA_INICIO;DATA_RECONHECIMENTO;DATA_FIM;MENSAGEM");
+
+                    foreach (var item in itens)
+                    {
+                        sb.AppendLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9}", item.alarme_id, item.corredor, item.estacao, item.descricao_estacao, item.status_alarme, item.parametros, item.dataINI, item.dataREC, item.dataFIM, item.descricao_alarme));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    new Exception(ex.Message);
+                }
+
+                Response.Clear();
+                Response.ContentEncoding = Encoding.GetEncoding("iso-8859-1");
+                Response.AddHeader("content-disposition", "attachment; filename=alarme_evento.csv");
+                Response.Write(sb.ToString());
+                Response.End();
+            }
+            else
+            {
+                RepeaterItens.DataSource = itens;
+                RepeaterItens.DataBind();
+
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A pesquisa não retornou registros.' });", true);
+            }
+
 
         }
 

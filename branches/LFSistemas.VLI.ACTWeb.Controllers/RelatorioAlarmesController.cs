@@ -18,9 +18,9 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
 
         #region [ MÉTODOS DE BUSCA ]
 
-        public List<RelatorioAlarme> consultaRelatorio(RelatorioAlarme filtro)
+        public List<RelatorioAlarme> consultaRelatorio(string ordenacao, RelatorioAlarme filtro)
         {
-            return dao.consultaRelatorio(filtro);
+            return dao.consultaRelatorio(ordenacao, filtro);
         }
 
         #endregion

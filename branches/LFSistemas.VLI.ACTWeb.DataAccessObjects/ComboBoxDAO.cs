@@ -2044,7 +2044,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT ES_ID_NUM_EFE, ES_ID_EFE FROM ACTPP.ESTACOES ORDER BY ES_ID_NUM_EFE");
+                    query.Append(@"SELECT ES_ID_NUM_EFE, ES_ID_EFE FROM ACTPP.ESTACOES ORDER BY ES_ID_EFE");
 
                     #endregion
 
@@ -2136,16 +2136,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT CASE AL_SIT
-                                             WHEN 'R' THEN 'Reconhecido'
-                                             WHEN 'N' THEN 'Não Reconhecido'
-                                             WHEN 'E' THEN 'Encerrado'
-                                             WHEN 'A' THEN 'Aguardando Reconhecimento'
-                                          END
-                                             AS Status
-                                     FROM (  SELECT DISTINCT AL_SIT
-                                               FROM ACTPP.ALARMES
-                                           ORDER BY 1)");
+                    query.Append(@"SELECT  AL_SIT AS ID,
+                                           CASE AL_SIT
+                                              WHEN 'R' THEN 'Reconhecido'
+                                              WHEN 'N' THEN 'Não Reconhecido'
+                                              WHEN 'E' THEN 'Encerrado'
+                                              WHEN 'A' THEN 'Aguardando Reconhecimento'
+                                           END
+                                              AS DESCRICAO
+                                      FROM (SELECT DISTINCT AL_SIT
+                                              FROM ACTPP.ALARMES)");
 
                     #endregion
 
@@ -2178,7 +2178,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new ComboBox();
 
-            if (!reader.IsDBNull(00)) item.Descricao = reader.GetString(00);
+            if (!reader.IsDBNull(0)) item.Id = reader.GetString(0);
+            if (!reader.IsDBNull(1)) item.Descricao = reader.GetString(1);
 
             return item;
         }

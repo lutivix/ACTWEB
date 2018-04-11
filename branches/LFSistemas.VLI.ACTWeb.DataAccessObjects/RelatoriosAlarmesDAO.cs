@@ -12,7 +12,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
     {
         #region [ METODOS DE BUSCA ]
 
-        public List<RelatorioAlarme> consultaRelatorio(RelatorioAlarme filtro)
+        public List<RelatorioAlarme> consultaRelatorio(string ordenacao, RelatorioAlarme filtro)
         {
 
             #region [ PROPRIEDADES ]
@@ -34,7 +34,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          NM.NM_COR_NOME,
                                          EE.ES_ID_EFE,
                                          EE.ES_DSC_EFE,
-                                         AA.AL_SIT,
+                                         CASE AA.AL_SIT
+                                            WHEN 'R' THEN 'Reconhecido'
+                                            WHEN 'N' THEN 'Não Reconhecido'
+                                            WHEN 'E' THEN 'Encerrado'
+                                            WHEN 'A' THEN 'Aguardando Reconhecimento'
+                                            ELSE AA.AL_SIT
+                                         END
+                                            AS STATUS,
                                          AA.AL_PARAM,
                                          AA.AL_DT_INI,
                                          AA.AL_DT_REC,
@@ -49,40 +56,60 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ON NM.NM_COR_ID = EE.NM_COR_ID
                                    WHERE 1=1
                                          ${CORREDOR}
-                                         ${DATA}
+                                         ${DATA_INI}
+                                         ${DATA_FIM}
                                          ${STATUS}
                                          ${ESTACAO}
                                          ${TIPO_ALARME}
-                                ORDER BY AL_DT_INI");
+                                ORDER BY ${ORDENACAO}");
 
+                    if (ordenacao != null && ordenacao != string.Empty)
+                        query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
+                    else
+                        query.Replace("${ORDENACAO}", "AA.AL_DT_INI DESC");
                     #endregion
 
                     #region [ PARAMETROS ]
 
+                    // Converte DateTime? para DateTime
+                    DateTime dt = filtro.dataINI ?? DateTime.Now;
+
                     if (filtro.corredor != null && filtro.corredor != string.Empty)
-                        query.Replace("${CORREDOR}", string.Format("AND NM.NM_COR_ID IN('{0}')", filtro.corredor));
+                        query.Replace("${CORREDOR}", string.Format("AND NM.NM_COR_ID IN({0})", filtro.corredor));
                     else
                         query.Replace("${CORREDOR}", "");
 
-                    if (filtro.corredor == null && filtro.corredor == string.Empty || filtro.status_alarme == null && filtro.status_alarme == string.Empty || filtro.descricao_alarme == null && filtro.descricao_alarme == string.Empty || filtro.estacao == null && filtro.estacao == string.Empty)
-                        query.Replace("${DATA}", string.Format("AND AL_DT_INI > TO_DATE ('{0}','DD/MM/YYYY HH24:MI:SS')", filtro.dataINI.AddHours(-4)));
-                    else
-                        query.Replace("${DATA}", string.Format("AND AL_DT_INI > TO_DATE ('{0}','DD/MM/YYYY HH24:MI:SS')", filtro.dataINI.AddHours(-24)));
-
                     if (filtro.status_alarme != null && filtro.status_alarme != string.Empty)
-                        query.Replace("${STATUS}", string.Format("AND AA.AL_SIT IN('{0}')", filtro.status_alarme));
+                        query.Replace("${STATUS}", string.Format("AND AA.AL_SIT IN({0})", filtro.status_alarme));
                     else
                         query.Replace("${STATUS}", "");
 
                     if (filtro.descricao_alarme != null && filtro.descricao_alarme != string.Empty)
-                        query.Replace("${TIPO_ALARME}", string.Format("AND AA.AL_SIT IN('{0}')", filtro.descricao_alarme));
+                        query.Replace("${TIPO_ALARME}", string.Format("AND AA.TA_ID_TA IN({0})", filtro.descricao_alarme));
                     else
                         query.Replace("${TIPO_ALARME}", "");
 
                     if (filtro.estacao != null && filtro.estacao != string.Empty)
-                        query.Replace("${ESTACAO}", string.Format("AND EE.ES_ID_NUM_EFE IN('{0}')", filtro.estacao));
+                        query.Replace("${ESTACAO}", string.Format("AND EE.ES_ID_NUM_EFE IN({0})", filtro.estacao));
                     else
                         query.Replace("${ESTACAO}", "");
+
+                    // Exceção para caso nenhum filtro seja selecionado
+                    if (   (filtro.corredor == null || filtro.corredor.Length == 0)
+                        && (filtro.status_alarme == null || filtro.status_alarme.Length == 0)
+                        && (filtro.descricao_alarme == null || filtro.descricao_alarme.Length == 0)
+                        && (filtro.estacao == null || filtro.estacao.Length == 0))
+                    {
+                        query.Replace("${DATA_INI}", string.Format("AND AL_DT_INI < TO_DATE ('{0}','DD/MM/YYYY HH24:MI:SS')", dt));
+
+                        query.Replace("${DATA_FIM}", string.Format("AND AL_DT_INI > TO_DATE ('{0}','DD/MM/YYYY HH24:MI:SS')", dt.AddHours(-4)));
+                    }
+                    else
+                    {
+                        query.Replace("${DATA_INI}", string.Format("AND AL_DT_INI < TO_DATE ('{0}','DD/MM/YYYY HH24:MI:SS')", dt));
+
+                        query.Replace("${DATA_FIM}", string.Format("AND AL_DT_INI > TO_DATE ('{0}','DD/MM/YYYY HH24:MI:SS')", dt.AddHours(-24)));
+                    }
 
                     #endregion
 
