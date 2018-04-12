@@ -15,7 +15,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/24/2017 11:24:16</publishTime>
     </File>
     <File Include="ACTWEB.Master">
-      <publishTime>02/21/2018 15:45:40</publishTime>
+      <publishTime>04/12/2018 11:37:13</publishTime>
     </File>
     <File Include="Ajuda/Erro.aspx">
       <publishTime>07/07/2017 14:27:50</publishTime>
@@ -162,25 +162,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>02/21/2018 15:45:59</publishTime>
+      <publishTime>04/12/2018 11:37:26</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
       <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>02/21/2018 15:45:58</publishTime>
+      <publishTime>04/12/2018 11:37:25</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
       <publishTime>09/08/2016 12:55:17</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>02/08/2018 16:21:01</publishTime>
+      <publishTime>04/12/2018 11:37:24</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>02/21/2018 15:46:00</publishTime>
+      <publishTime>04/12/2018 11:37:27</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>
@@ -360,7 +360,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Consulta/ConsultaAlarmesParadas.aspx">
-      <publishTime>07/07/2017 14:27:50</publishTime>
+      <publishTime>03/28/2018 16:09:20</publishTime>
     </File>
     <File Include="Consulta/ConsultaAlarmesTelecomandadas.aspx">
       <publishTime>05/24/2017 11:24:16</publishTime>
@@ -476,6 +476,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Consulta/popupTrensOnline.aspx">
       <publishTime>07/07/2017 14:27:50</publishTime>
     </File>
+    <File Include="Consulta/RelatoriosAlarmes.aspx">
+      <publishTime>04/11/2018 16:08:29</publishTime>
+    </File>
     <File Include="Consulta/Termometro.aspx">
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
@@ -510,7 +513,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/24/2017 11:24:16</publishTime>
     </File>
     <File Include="css/main.css">
-      <publishTime>07/07/2017 14:27:50</publishTime>
+      <publishTime>03/29/2018 15:55:29</publishTime>
     </File>
     <File Include="css/processando.css">
       <publishTime>05/24/2017 11:24:16</publishTime>

@@ -188,6 +188,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         protected void lnkLimpar_Click(object sender, EventArgs e)
         {
             var dataIni = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+            txtDataInicio.Text = dataIni.ToShortDateString();
             CarregaCombos(null);
             Pesquisar(null, Navigation.None);
         }
@@ -254,6 +255,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
             var pesquisa = new RelatorioAlarmesController();
             DateTime horaInicio = txtDataInicio.Text.Length > 0 ? DateTime.Parse(txtDataInicio.Text + " 00:00:00") : DateTime.Now;
+
+            if((horaInicio.Day == DateTime.Now.Day)
+                && (horaInicio.Month == DateTime.Now.Month)
+                && (horaInicio.Year == DateTime.Now.Year)) {
+
+                horaInicio = DateTime.Now;
+            }
 
             corredores = getSelectedInComboBox(cblDadosCorredores);
             estacoes = getSelectedInComboBox(cblEstacoes);
