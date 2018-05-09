@@ -27,7 +27,7 @@
     </table>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentMain" runat="server">
-    <asp:Timer ID="Temporizador" runat="server" OnTick="Temporizador_Tick" Interval="60000" />
+    <!--<asp:Timer ID="Temporizador" runat="server" OnTick="Temporizador_Tick" Interval="60000" />-->
     <script type="text/javascript">
         $(document).keydown(function (e) {
             if (e.which == 120) {
@@ -71,43 +71,54 @@
             <a id="link1" data-toggle="collapse" title="Filtros" data-parent="#macros" href="macros#filtros" style="margin-left: 3px; font-size: 15px" accesskey="F9"><b>Filtros</b> <i class="fa fa-search"></i></a>
         </div>
         <div id="filtros">
-            <table style="width: 100%; padding-left: 1em; padding-right: 1em;">
+            <table style="width: 1200px; padding-left: 1em; padding-right: 1em;">
                 <tr>
-                    <td style="width: 5%; padding-top: 1em; padding-right: 10px;">
+                    <td style="position: relative; width: 8%">
+                        <label for="data_inicio">Data:</label>
+                        <asp:TextBox ID="txtDataInicio" runat="server" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
+                        <asp:CalendarExtender runat="server" ID="cetxtDataInicio" TargetControlID="txtDataInicio" />
+                    </td>
+                    <td style="width: 8%">
+                         <label for="hora_inicio">Hora:</label>
+                         <asp:TextBox ID="txtHoraInicio" runat="server" onKeyUp="formatar(this, '##:##')" CssClass="form-control" MaxLength="5" onkeypress="return fnValidaNroDoisPontos(event);" />
+                    </td>
+                    <td style="width: 7%">
+                         <label for="data_fim">Direção:</label>
+                         <br />
+                         <asp:RadioButton ID="rdParaFrente" runat="server" GroupName="Espaco" Text="&nbsp;&nbsp;Para frente" />
+                         <br />
+                         <asp:RadioButton ID="rdTras" runat="server" GroupName="Espaco" Text="&nbsp;&nbsp;Para Trás" Checked="true" />
+                    </td>
+                    <td style="width: 12%">
                         <label for="perfil">Corredores:</label>
-                        <asp:Panel runat="server" Height="110" ScrollBars="Vertical" CssClass="form-control">
+                        <asp:Panel runat="server" Height="110" CssClass="form-control" ScrollBars="Vertical">
                             <asp:CheckBoxList runat="server" ID="cblDadosCorredores" />
                         </asp:Panel>
                     </td>
-                    <td style="width: 5%; padding-top: 1em; padding-right: 10px;">
+                    <td style="width: 7%">
                         <label for="perfil">Estações:</label>
-                        <asp:Panel runat="server" Height="110" ScrollBars="Vertical" CssClass="form-control">
+                        <asp:Panel runat="server" Height="110" CssClass="form-control" style="" ScrollBars="Vertical">
                             <asp:CheckBoxList runat="server" ID="cblEstacoes" />
                         </asp:Panel>
                     </td>
-                    <td style="width: 8%; padding-top: 1em; padding-right: 10px;">
+                    <td style="width: 17%">
                         <label for="perfil">Status:</label>
                         <asp:Panel runat="server" Height="110" ScrollBars="Vertical" CssClass="form-control">
                             <asp:CheckBoxList runat="server" ID="cblStatus" />
                         </asp:Panel>
                     </td>
-                    <td style="width: 5%; padding-top: 1em; padding-right: 10px;">
+                    <td style="width: 5%">
                         <label for="perfil">Tipo de Alarme:</label>
-                        <asp:Panel runat="server" Height="110" ScrollBars="Vertical" CssClass="form-control">
+                        <asp:Panel runat="server" Height="110" CssClass="form-control" ScrollBars="Vertical">
                             <asp:CheckBoxList runat="server" ID="cblTipoAlarme" />
                         </asp:Panel>
                     </td>
-                </tr>
-                <tr>
-                    <td style="width: 170px;">
-                        <label for="data_inicio">Data:</label>
-                        <asp:TextBox ID="txtDataInicio" runat="server" Width="160" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
-                        <asp:CalendarExtender runat="server" ID="cetxtDataInicio" TargetControlID="txtDataInicio" />
+                    <td style="width: 23%">
                     </td>
-                    <td style="width: 100%; padding-top: 10px;" colspan="2"></td>
+
                 </tr>
                 <tr>
-                    <td style="width: 100%; padding-top: 10px;" colspan="2">
+                    <td style="width: 100%; padding-top: 10px;" colspan="5">
                         <asp:LinkButton runat="server" ID="lnkPesquisar" CssClass="btn btn-success" OnClick="lnkPesquisar_Click" ToolTip="Pesquisa palavra conforme filtro informado." Width="150"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
                         <asp:LinkButton runat="server" ID="lnkLimpar" CssClass="btn btn-primary" OnClick="lnkLimpar_Click" ToolTip="Limpa os filtros de pesquisa." Width="150"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
                         <asp:LinkButton ID="lnkExcel" runat="server" CssClass="btn btn-default" OnClick="lnkExcel_Click" ToolTip="Exporta registros para o Excel." Width="150"><i class="fa fa-table"></i>&nbsp;Gerar Excel</asp:LinkButton>
@@ -142,7 +153,7 @@
                                                 <asp:LinkButton runat="server" ID="lnkReconhecido" OnClick="lnkReconhecido_Click" Text="Reconhecido" ForeColor="White" /></th>
                                             <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
                                                 <asp:LinkButton runat="server" ID="lnkDtFim" OnClick="lnkDtFim_Click" Text="Data Fim" ForeColor="White" /></th>
-                                            <th style="width: 10%; text-align: center; vertical-align: middle; font-size: 12pt; background-color: rgb(55, 119, 188);">
+                                            <th style="width: 30%; text-align: center; vertical-align: middle; font-size: 12pt; background-color: rgb(55, 119, 188);">
                                                 <asp:LinkButton runat="server" ID="lnkDscAlarme" OnClick="lnkDscAlarme_Click" Text="Descrição Alarme" ForeColor="White" /></th>
                                         </tr>
                                     </thead>
@@ -158,7 +169,7 @@
                                     <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("dataINI")%>"><%# Eval("dataINI")%> </td>
                                     <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("dataREC")%>"><%# Eval("dataREC")%> </td>
                                     <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("dataFIM")%>"><%# Eval("dataFIM")%> </td>
-                                    <td style="width: 10%; text-align: center; vertical-align: middle;" title="<%# Eval("Descricao_Alarme")%>"><%# Eval("Descricao_Alarme")%> </td>
+                                    <td style="width: 30%; text-align: center; vertical-align: middle;" title="<%# Eval("Descricao_Alarme")%>"><%# Eval("Descricao_Alarme")%> </td>
                                 </tr>
                             </ItemTemplate>
                             <AlternatingItemTemplate>
@@ -171,7 +182,7 @@
                                     <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("dataINI")%>"><%# Eval("dataINI")%> </td>
                                     <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("dataREC")%>"><%# Eval("dataREC")%> </td>
                                     <td style="width: 10%; text-align: center; vertical-align: middle; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("dataFIM")%>"><%# Eval("dataFIM")%> </td>
-                                    <td style="width: 10%; text-align: center; vertical-align: middle;" title="<%# Eval("Descricao_Alarme")%>"><%# Eval("Descricao_Alarme")%> </td>
+                                    <td style="width: 30%; text-align: center; vertical-align: middle;" title="<%# Eval("Descricao_Alarme")%>"><%# Eval("Descricao_Alarme")%> </td>
                                 </tr>
                             </AlternatingItemTemplate>
                             <FooterTemplate>
