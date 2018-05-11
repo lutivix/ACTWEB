@@ -408,7 +408,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
                     foreach (var item in itens)
                     {
-                        sb.AppendLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10}", item.alarme_id, item.corredor, item.estacao, item.descricao_estacao, item.status_alarme, item.parametros, item.dataINI, item.dataREC, item.dataFIM, item.descricao_alarme, item.tp_alarme.ToString()));
+                        sb.AppendLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10}", item.alarme_id, item.corredor, item.estacao, item.descricao_estacao, item.status_alarme, item.parametros, item.dataINI, item.dataREC, item.dataFIM, item.descricao_alarme, item.tp_alarme));
                     }
                 }
                 catch (Exception ex)
