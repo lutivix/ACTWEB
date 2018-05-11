@@ -72,7 +72,7 @@
         </div>
         <div id="filtros">
             <table style="width: 1200px; padding-left: 1em; padding-right: 1em;">
-                <tr>
+                    <tr>
                     <td style="position: relative; width: 8%">
                         <label for="data_inicio">Data:</label>
                         <asp:TextBox ID="txtDataInicio" runat="server" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
@@ -81,6 +81,36 @@
                     <td style="width: 8%">
                          <label for="hora_inicio">Hora:</label>
                          <asp:TextBox ID="txtHoraInicio" runat="server" onKeyUp="formatar(this, '##:##')" CssClass="form-control" MaxLength="5" onkeypress="return fnValidaNroDoisPontos(event);" />
+                    </td>
+                    <td style="width: 5%;">
+                         <label for="data_fim">Mais Hora(s):</label>
+                         <br />
+                         <asp:DropDownList runat="server" ID="ddlMais" CssClass="form-control">
+                             <asp:ListItem Text="01" Value="1" />
+                             <asp:ListItem Text="02" Value="2" />
+                             <asp:ListItem Text="03" Value="3" />
+                             <asp:ListItem Text="04" Value="4" />
+                             <asp:ListItem Text="05" Value="5" />
+                             <asp:ListItem Text="06" Value="6" />
+                             <asp:ListItem Text="07" Value="7" />
+                             <asp:ListItem Text="08" Value="8" />
+                             <asp:ListItem Text="09" Value="9" />
+                             <asp:ListItem Text="10" Value="10" />
+                             <asp:ListItem Text="11" Value="11" />
+                             <asp:ListItem Text="12" Value="12" />
+                             <asp:ListItem Text="13" Value="13" />
+                             <asp:ListItem Text="14" Value="14" />
+                             <asp:ListItem Text="15" Value="15" />
+                             <asp:ListItem Text="16" Value="16" />
+                             <asp:ListItem Text="17" Value="17" />
+                             <asp:ListItem Text="18" Value="18" />
+                             <asp:ListItem Text="19" Value="19" />
+                             <asp:ListItem Text="20" Value="20" />
+                             <asp:ListItem Text="21" Value="21" />
+                             <asp:ListItem Text="22" Value="22" />
+                             <asp:ListItem Text="23" Value="23" />
+                             <asp:ListItem Text="24" Value="24" />
+                         </asp:DropDownList>
                     </td>
                     <td style="width: 7%">
                          <label for="data_fim">Direção:</label>
@@ -95,7 +125,7 @@
                             <asp:CheckBoxList runat="server" ID="cblDadosCorredores" />
                         </asp:Panel>
                     </td>
-                    <td style="width: 7%">
+                    <td style="width: 8%">
                         <label for="perfil">Estações:</label>
                         <asp:Panel runat="server" Height="110" CssClass="form-control" style="" ScrollBars="Vertical">
                             <asp:CheckBoxList runat="server" ID="cblEstacoes" />
@@ -107,16 +137,16 @@
                             <asp:CheckBoxList runat="server" ID="cblStatus" />
                         </asp:Panel>
                     </td>
-                    <td style="width: 5%">
+                    <td style="width: 7%">
                         <label for="perfil">Tipo de Alarme:</label>
                         <asp:Panel runat="server" Height="110" CssClass="form-control" ScrollBars="Vertical">
                             <asp:CheckBoxList runat="server" ID="cblTipoAlarme" />
                         </asp:Panel>
                     </td>
-                    <td style="width: 23%">
+                    <td style="width: 15%">
                     </td>
-
-                </tr>
+                    
+                    </tr>
                 <tr>
                     <td style="width: 100%; padding-top: 10px;" colspan="5">
                         <asp:LinkButton runat="server" ID="lnkPesquisar" CssClass="btn btn-success" OnClick="lnkPesquisar_Click" ToolTip="Pesquisa palavra conforme filtro informado." Width="150"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>

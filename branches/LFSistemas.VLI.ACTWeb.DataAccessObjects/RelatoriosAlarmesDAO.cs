@@ -46,7 +46,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          AA.AL_DT_INI,
                                          AA.AL_DT_REC,
                                          AA.AL_DT_TER,
-                                         TA.TA_MSG_TA
+                                         TA.TA_MSG_TA,
+                                         AA.TA_ID_TA
                                     FROM ACTPP.ALARMES AA
                                     INNER JOIN ACTPP.TIPOS_ALARMES TA
                                         ON TA.TA_ID_TA = AA.TA_ID_TA
@@ -56,8 +57,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ON NM.NM_COR_ID = EE.NM_COR_ID
                                    WHERE 1=1
                                          ${CORREDOR}
-                                         ${DATA_INI}
-                                         ${DATA_FIM}
+                                         ${DATA}
                                          ${STATUS}
                                          ${ESTACAO}
                                          ${TIPO_ALARME}
@@ -72,7 +72,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ PARAMETROS ]
 
                     // Converte DateTime? para DateTime
-                    DateTime dt = filtro.dataINI ?? DateTime.Now;
+                    //DateTime dt = filtro.dataINI ?? DateTime.Now;
 
                     if (filtro.corredor != null && filtro.corredor != string.Empty)
                         query.Replace("${CORREDOR}", string.Format("AND NM.NM_COR_ID IN({0})", filtro.corredor));
@@ -93,9 +93,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${ESTACAO}", string.Format("AND EE.ES_ID_NUM_EFE IN({0})", filtro.estacao));
                     else
                         query.Replace("${ESTACAO}", "");
+                    if (!string.IsNullOrEmpty(filtro.dataINI.ToString()) && !string.IsNullOrEmpty(filtro.dataFIM.ToString()))
+                        query.Replace("${DATA}", string.Format("AND AA.AL_DT_INI BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.dataINI, filtro.dataFIM));
+                    else
+                        query.Replace("${DATA}", "");
 
                     // Exceção para caso nenhum filtro seja selecionado
-                    if (   (filtro.corredor == null || filtro.corredor.Length == 0)
+                    /*if (   (filtro.corredor == null || filtro.corredor.Length == 0)
                         && (filtro.status_alarme == null || filtro.status_alarme.Length == 0)
                         && (filtro.descricao_alarme == null || filtro.descricao_alarme.Length == 0)
                         && (filtro.estacao == null || filtro.estacao.Length == 0))
@@ -109,7 +113,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${DATA_INI}", string.Format("AND AL_DT_INI < TO_DATE ('{0}','DD/MM/YYYY HH24:MI:SS')", dt));
 
                         query.Replace("${DATA_FIM}", string.Format("AND AL_DT_INI > TO_DATE ('{0}','DD/MM/YYYY HH24:MI:SS')", dt.AddHours(-24)));
-                    }
+                    }*/
 
                     #endregion
 
@@ -156,6 +160,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(7)) item.dataREC = reader.GetDateTime(7);
             if (!reader.IsDBNull(8)) item.dataFIM = reader.GetDateTime(8);
             if (!reader.IsDBNull(9)) item.descricao_alarme = reader.GetString(9);
+            if (!reader.IsDBNull(10)) item.tp_alarme = reader.GetDouble(10);
 
             return item;
         }
