@@ -20,6 +20,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Motivo { get; set; }
         public string Expressao { get; set; }
         public string Corredores { get; set; }
+        public string PrefixoTrem { get; set; }
 
         #endregion
     }

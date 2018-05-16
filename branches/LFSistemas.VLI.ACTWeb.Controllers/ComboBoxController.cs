@@ -108,6 +108,10 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.CarregaCombo_Status();
         }
+        public List<ComboBox> CarregaComboCanibes()
+        {
+            return dao.CarregaComboCanibes();
+        }
         public List<ComboBox> CarregaCombo_TipoAlarme()
         {
             return dao.CarregaCombo_TipoAlarme();

@@ -230,17 +230,19 @@ namespace LFSistemas.VLI.ACTWeb.Web
         }
         protected void lnkMacro50_Click(object sender, EventArgs e)
         {
-            Response.Write("<script> " +
-                            "   var wOpen; " +
-                            "   sOptions = 'status=no, menubar=no, scrollbars=yes, resizable=yes, toolbar=no'; " +
-                            "   sOptions = sOptions + ', width=' + (screen.availWidth - 10).toString(); " +
-                            "   sOptions = sOptions + ', height=' + (screen.availHeight - 122).toString(); " +
-                            "   sOptions = sOptions + ', screenX=0, screenY=0, left=0, top=0'; " +
-                            "   wOpen = window.open('/Consulta/ConsultaMacro50.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); " +
-                            "   wOpen.focus(); " +
-                            "   wOpen.moveTo( 0, 0 ); " +
-                            "   wOpen.resizeTo( screen.availWidth, screen.availHeight ); " +
-                            "</script>");
+            //Response.Write("<script> " +
+            //                "   var wOpen; " +
+            //                "   sOptions = 'status=no, menubar=no, scrollbars=yes, resizable=yes, toolbar=no'; " +
+            //                "   sOptions = sOptions + ', width=' + (screen.availWidth - 10).toString(); " +
+            //                "   sOptions = sOptions + ', height=' + (screen.availHeight - 122).toString(); " +
+            //                "   sOptions = sOptions + ', screenX=0, screenY=0, left=0, top=0'; " +
+            //                "   wOpen = window.open('/Consulta/ConsultaMacro50.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); " +
+            //                "   wOpen.focus(); " +
+            //                "   wOpen.moveTo( 0, 0 ); " +
+            //                "   wOpen.resizeTo( screen.availWidth, screen.availHeight ); " +
+            //                "</script>");
+
+            Response.Redirect("/Consulta/ConsultaMacro50.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
         }
         protected void lnkMacro61_Click(object sender, EventArgs e)
         {
