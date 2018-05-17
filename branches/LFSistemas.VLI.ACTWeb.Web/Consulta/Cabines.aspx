@@ -7,6 +7,7 @@
     <title>Cabines</title>
      <style>
          
+
             
         </style>
 </head>

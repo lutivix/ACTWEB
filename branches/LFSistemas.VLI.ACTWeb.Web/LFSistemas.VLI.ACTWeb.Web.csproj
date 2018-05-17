@@ -124,6 +124,7 @@
     <Content Include="Consulta\Abas\MetaTempo.ascx" />
     <Content Include="Consulta\Abas\QuadroTracao.ascx" />
     <Content Include="Consulta\Abas\THP.ascx" />
+    <Content Include="Consulta\Cabines.aspx" />
     <Content Include="Consulta\ConsultaAlarmesParadas.aspx" />
     <Content Include="Consulta\ConsultaAlarmesTelecomandadas.aspx" />
     <Content Include="Consulta\ConsultaBanners.aspx" />
@@ -617,6 +618,13 @@
     </Compile>
     <Compile Include="Consulta\Abas\THP.ascx.designer.cs">
       <DependentUpon>THP.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Consulta\Cabines.aspx.cs">
+      <DependentUpon>Cabines.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consulta\Cabines.aspx.designer.cs">
+      <DependentUpon>Cabines.aspx</DependentUpon>
     </Compile>
     <Compile Include="Consulta\ConsultaAlarmesParadas.aspx.cs">
       <DependentUpon>ConsultaAlarmesParadas.aspx</DependentUpon>

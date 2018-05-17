@@ -242,7 +242,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
             //                "   wOpen.resizeTo( screen.availWidth, screen.availHeight ); " +
             //                "</script>");
 
-            Response.Redirect("/Consulta/ConsultaMacro50.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
+            Response.Redirect("/Consulta/Cabines.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
         }
         protected void lnkMacro61_Click(object sender, EventArgs e)
         {

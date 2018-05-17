@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 {
     public partial class ConsultaMacro501 : System.Web.UI.Page
@@ -52,12 +53,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             //!chamar nova página com filtros de cabines
             if (!Page.IsPostBack)
             {
-                var usuarioLogado = Uteis.Descriptografar(Request.QueryString["lu"].ToString(), "a#3G6**@").ToUpper();
+              //  var a = Request.Querystring("cabines");
+                //var usuarioLogado = Uteis.Descriptografar(Request.QueryString["lu"].ToString(), "a#3G6**@").ToUpper();
 
-                lblUsuarioLogado.Text = usuarioLogado.Length > 12 ? usuarioLogado.Substring(0, 12).ToUpper() : usuarioLogado;
-                lblUsuarioMatricula.Text = Uteis.Descriptografar(Request.QueryString["mu"].ToString(), "a#3G6**@").ToUpper();
-                lblUsuarioPerfil.Text = Uteis.Descriptografar(Request.QueryString["pu"].ToString(), "a#3G6**@").ToUpper();
-                lblUsuarioMaleta.Text = Uteis.Descriptografar(Request.QueryString["mm"].ToString(), "a#3G6**@").ToUpper();
+                //lblUsuarioLogado.Text = usuarioLogado.Length > 12 ? usuarioLogado.Substring(0, 12).ToUpper() : usuarioLogado;
+                //lblUsuarioMatricula.Text = Uteis.Descriptografar(Request.QueryString["mu"].ToString(), "a#3G6**@").ToUpper();
+                //lblUsuarioPerfil.Text = Uteis.Descriptografar(Request.QueryString["pu"].ToString(), "a#3G6**@").ToUpper();
+                //lblUsuarioMaleta.Text = Uteis.Descriptografar(Request.QueryString["mm"].ToString(), "a#3G6**@").ToUpper();
 
                 ViewState["ordenacao"] = "ASC";
                 ViewState["corredor"] = "";
@@ -66,7 +68,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                
 
                 txtDataInicial.Text = dataInicial.ToShortDateString();
-                txtHoraInicio.Text = dataInicial.AddHours(-6).ToShortTimeString();
+                txtHoraInicio.Text = dataInicial.ToShortTimeString();
 
                 var dataFinal = txtHoraInicio;
                
@@ -338,11 +340,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 var macroController = new MacroController();
                 var itens = macroController.ObterMacros50(new Entities.FiltroMacro()
                 {
+
                     NumeroLocomotiva = string.Empty,
                     NumeroTrem = string.Empty,
                     CodigoOS = string.Empty,
-                    DataInicio = null,
-                    DataFim = null,
+                    DataInicio = DateTime.Now,
+                    DataFim = DateTime.Now.AddHours(-6),
                     NumeroMacro = "50",
                     Corredores = ViewState["corredor"].ToString()
 

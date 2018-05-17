@@ -10,7 +10,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 {
     public partial class Cabines : System.Web.UI.Page
     {
-
+        public string cabines { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -72,8 +72,28 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
         protected void lnkPesquisar_Click(object sender, EventArgs e)
         {
-           // Pesquisar(null);
+            Pesquisar(null, null);
 
+        }
+
+        protected void Pesquisar(object sender, EventArgs e)
+        {
+            var aux = new List<string>();
+            if (cblCabines.Items.Count > 0)
+            {
+                for (int i = 0; i < cblCabines.Items.Count; i++)
+                {
+                    if (cblCabines.Items[i].Selected)
+                    {
+                        aux.Add(string.Format("'{0}'", cblCabines.Items[i].Value));
+                    }
+
+                    cabines = string.Join(",", aux);
+                }
+            }
+
+          // System.Diagnostics.Process.Start("http://www.google.com?cabine=" + cabines);
+           Response.Redirect("/Consulta/ConsultaMacro50.aspx" + cabines);
         }
     }
 }

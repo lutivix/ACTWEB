@@ -71,6 +71,16 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         /// </summary>
         /// <param name="filtro">Objeto com o filtro a ser pesquisado</param>
         /// <returns>Retorna uma lista de macros recebidas de acordo com o filtro informado</returns>
+        public List<Macro50> ObterMacro50ComFiltrodeHoras(FiltroMacro filtro, string origem)
+        {
+            return dao.ObterMacro50ComFiltrodeHoras(filtro, origem);
+        }
+
+        /// <summary>
+        /// Obtem uma lista com as macros recebidas
+        /// </summary>
+        /// <param name="filtro">Objeto com o filtro a ser pesquisado</param>
+        /// <returns>Retorna uma lista de macros recebidas de acordo com o filtro informado</returns>
         public List<Macro50> ObterMacros50PorCabines(FiltroMacro filtro, string origem)
         {
             return dao.ObterMacro50PorCabines(filtro, origem);
