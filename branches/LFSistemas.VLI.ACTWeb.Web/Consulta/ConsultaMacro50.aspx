@@ -74,36 +74,36 @@
         <asp:Timer ID="Temporizador" runat="server" OnTick="Temporizador_Tick" Interval="60000" />
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
-      
-    <script>
-        $(function () {
-            $("#<%= txtDataInicial.ClientID %>").datepicker({
-                buttonText: "Data inicial",
-                showOn: "button",
-                showButtonPanel: true,
-                changeMonth: true,
-                changeYear: true,
-                buttonImage: "../img/calendario.gif",
-                buttonImageOnly: true,
 
-                closeText: 'Fechar',
-                prevText: '&#x3C;Anterior',
-                nextText: 'Próximo&#x3E;',
-                currentText: 'Hoje',
-                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
-                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-                dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-                weekHeader: 'Sm',
-                dateFormat: 'dd/mm/yy',
-                firstDay: 0,
-                isRTL: false,
-                showMonthAfterYear: false,
-                yearSuffix: ''
+        <script>
+            $(function () {
+                $("#<%= txtDataInicial.ClientID %>").datepicker({
+                    buttonText: "Data inicial",
+                    showOn: "button",
+                    showButtonPanel: true,
+                    changeMonth: true,
+                    changeYear: true,
+                    buttonImage: "../img/calendario.gif",
+                    buttonImageOnly: true,
+
+                    closeText: 'Fechar',
+                    prevText: '&#x3C;Anterior',
+                    nextText: 'Próximo&#x3E;',
+                    currentText: 'Hoje',
+                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
+                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                    dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                    weekHeader: 'Sm',
+                    dateFormat: 'dd/mm/yy',
+                    firstDay: 0,
+                    isRTL: false,
+                    showMonthAfterYear: false,
+                    yearSuffix: ''
+                });
             });
-        });
-    </script>
+        </script>
         <style>
             .tipo-E {
                 color: green;
@@ -190,14 +190,19 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    </table>
-                    <table class="nav-justified">
+            </table>
+            <table class="nav-justified">
+                <tr style="display: block;">
                     <td>
-                        <asp:LinkButton runat="server" ID="lnkMacro50" OnClick="lnkMacro50_Click" class="btn btn-success" Width="30%">
+                        <asp:LinkButton runat="server" ID="lnkMacro50" OnClick="lnkMacro50_Click" class="btn btn-success" Width="400px">
                             <span class="menu-item-label">Enviar Macro 50</span>
                         </asp:LinkButton>
                     </td>
+                    <td style="padding-left: 20px;">
+                        <asp:LinkButton runat="server" ID="lnkPesquisar" CssClass="btn btn-success" OnClick="lnkPesquisar_Click" ToolTip="Pesquisa conforme filtro informado." Width="150"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
+                    </td>
+                </tr>
+                <tr style="display: block;">
                     <td colspan="1">
                         <label for="data_fim">Corredor:</label>
                         <br />
@@ -210,71 +215,69 @@
                             <asp:ListItem Text="&nbsp;&nbsp;Minas Rio" Value="Minas Rio" />
                         </asp:CheckBoxList>
                     </td>
-                      <td colspan="1">
-                                    <label for="matricula">Trem:</label>
-                                    <asp:TextBox runat="server" ID="txtFiltroTrem" CssClass="form-control" Width="98%" ToolTip="Separe os trens desejados com vírgulas. Ex.: C001, M642, E050" />
-                                </td>
-                                <td style="width: 20%; padding-top: 10px;">
-                                    <label for="matricula">Loco:</label>
-                                    <asp:TextBox runat="server" ID="txtFiltroLoco" CssClass="form-control" Width="98%" ToolTip="Separe as locomotivas desejadas com vírgulas. Ex.: 2904, 0962, 7007" />
-                                </td>
-                        <td colspan="1">
-                                    <label for="matricula">Código OS:</label>
-                                    <asp:TextBox runat="server" ID="txtFiltroCodOS" CssClass="form-control" Width="98%" ToolTip="Separe as locomotivas desejadas com vírgulas. Ex.: 2904, 0962, 7007" />
-                                </>
-                            </td>
                     <td colspan="1">
-                                    <label for="matricula">Prefixo Trem:</label>
-                                    <asp:TextBox runat="server" ID="txtFiltroPrefTrem" CssClass="form-control" Width="98%" ToolTip="Separe as locomotivas desejadas com vírgulas. Ex.: 2904, 0962, 7007" />
-                                </td>
-                    <td style="width: 15%">
-                            <td style="width: 10%; vertical-align: top;">&nbsp;<label for="matricula">Data Inicial:</label>
-                            <asp:TextBox ID="txtDataInicial" runat="server" Width="90%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
-                        </td>
-                                 <td style="width: 15%">
-                            <label for="hora_inicio">Hora:</label>
-                            <asp:TextBox ID="txtHoraInicio" runat="server" Width="98%" onKeyUp="formatar(this, '##:##')" CssClass="form-control" MaxLength="5" onkeypress="return fnValidaNroDoisPontos(event);" />
-                        </td>
-                    <td style="width: 10%;">
-                                    <label for="data_fim">Mais Hora(s):</label>
-                                    <br />
-                                    <asp:DropDownList runat="server" Width="98%" ID="ddlMais" CssClass="form-control">
-                                        <asp:ListItem Text="01" Value="1" />
-                                        <asp:ListItem Text="02" Value="2" />
-                                        <asp:ListItem Text="03" Value="3" />
-                                        <asp:ListItem Text="04" Value="4" />
-                                        <asp:ListItem Text="05" Value="5" />
-                                        <asp:ListItem Text="06" Value="6" />
-                                        <asp:ListItem Text="07" Value="7" />
-                                        <asp:ListItem Text="08" Value="8" />
-                                        <asp:ListItem Text="09" Value="9" />
-                                        <asp:ListItem Text="10" Value="10" />
-                                        <asp:ListItem Text="11" Value="11" />
-                                        <asp:ListItem Text="12" Value="12" />
-                                        <asp:ListItem Text="13" Value="13" />
-                                        <asp:ListItem Text="14" Value="14" />
-                                        <asp:ListItem Text="15" Value="15" />
-                                        <asp:ListItem Text="16" Value="16" />
-                                        <asp:ListItem Text="17" Value="17" />
-                                        <asp:ListItem Text="18" Value="18" />
-                                        <asp:ListItem Text="19" Value="19" />
-                                        <asp:ListItem Text="20" Value="20" />
-                                        <asp:ListItem Text="21" Value="21" />
-                                        <asp:ListItem Text="22" Value="22" />
-                                        <asp:ListItem Text="23" Value="23" />
-                                        <asp:ListItem Text="24" Value="24" />
-                                    </asp:DropDownList>
-                                </td>
-                    <td style="width: 10%;">
-                            <label for="data_fim">Direção:</label>
-                            <br />
-                            <asp:RadioButton ID="rdParaFrente" runat="server" GroupName="Espaco" Text="&nbsp;&nbsp;Para frente" />
-                            <br />
-                            <asp:RadioButton ID="rdTras" runat="server" GroupName="Espaco" Text="&nbsp;&nbsp;Para Trás" Checked="true" />
-                        </td>
+                        <label for="matricula">Trem:</label>
+                        <asp:TextBox runat="server" ID="txtFiltroTrem" CssClass="form-control" Width="130px" ToolTip="Separe os trens desejados com vírgulas. Ex.: C001, M642, E050" />
+                        <br />
+                        <label for="matricula">Data Inicial:</label>
+                        <asp:TextBox ID="txtDataInicial" runat="server" Width="130px" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
+                    </td>
+                    <td style="padding-top: 10px;">
+                        <label for="matricula">Loco:</label>
+                        <asp:TextBox runat="server" ID="txtFiltroLoco" CssClass="form-control" Width="130px" ToolTip="Separe as locomotivas desejadas com vírgulas. Ex.: 2904, 0962, 7007" />
+                        <br />
+                        <label for="hora_inicio">Hora:</label>
+                        <asp:TextBox ID="txtHoraInicio" runat="server" Width="130px" onKeyUp="formatar(this, '##:##')" CssClass="form-control" MaxLength="5" onkeypress="return fnValidaNroDoisPontos(event);" />
+                    </td>
                     <td colspan="1">
-                            <asp:LinkButton runat="server" ID="lnkPesquisar" CssClass="btn btn-success" OnClick="lnkPesquisar_Click" ToolTip="Pesquisa conforme filtro informado." Width="150"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
-                        </td>
+                        <label for="matricula">Código OS:</label>
+                        <asp:TextBox runat="server" ID="txtFiltroCodOS" CssClass="form-control" Width="130px" ToolTip="Separe as locomotivas desejadas com vírgulas. Ex.: 2904, 0962, 7007" />
+                        <br />
+                        <label for="data_fim">Mais Hora(s):</label>
+                        <br />
+                        <asp:DropDownList runat="server" Width="130px" Height="33px" ID="ddlMais" CssClass="form-control">
+                            <asp:ListItem Text="01" Value="1" />
+                            <asp:ListItem Text="02" Value="2" />
+                            <asp:ListItem Text="03" Value="3" />
+                            <asp:ListItem Text="04" Value="4" />
+                            <asp:ListItem Text="05" Value="5" />
+                            <asp:ListItem Text="06" Value="6" />
+                            <asp:ListItem Text="07" Value="7" />
+                            <asp:ListItem Text="08" Value="8" />
+                            <asp:ListItem Text="09" Value="9" />
+                            <asp:ListItem Text="10" Value="10" />
+                            <asp:ListItem Text="11" Value="11" />
+                            <asp:ListItem Text="12" Value="12" />
+                            <asp:ListItem Text="13" Value="13" />
+                            <asp:ListItem Text="14" Value="14" />
+                            <asp:ListItem Text="15" Value="15" />
+                            <asp:ListItem Text="16" Value="16" />
+                            <asp:ListItem Text="17" Value="17" />
+                            <asp:ListItem Text="18" Value="18" />
+                            <asp:ListItem Text="19" Value="19" />
+                            <asp:ListItem Text="20" Value="20" />
+                            <asp:ListItem Text="21" Value="21" />
+                            <asp:ListItem Text="22" Value="22" />
+                            <asp:ListItem Text="23" Value="23" />
+                            <asp:ListItem Text="24" Value="24" />
+                        </asp:DropDownList>
+                    </td>
+                    <td colspan="1">
+                        <label for="matricula">Prefixo Trem:</label>
+                        <asp:TextBox runat="server" ID="txtFiltroPrefTrem" CssClass="form-control" Width="130px" ToolTip="Separe as locomotivas desejadas com vírgulas. Ex.: 2904, 0962, 7007" />
+                        <br />
+                        <label for="data_fim">Direção:</label>
+                        <br />
+                        <asp:RadioButton ID="rdParaFrente" runat="server" GroupName="Espaco" Text="&nbsp;&nbsp;Para frente" />
+                        <br />
+                        <asp:RadioButton ID="rdTras" runat="server" GroupName="Espaco" Text="&nbsp;&nbsp;Para Trás" Checked="true" />
+                    </td>
+                    <td style="width: 10%;">&nbsp;
+                            
+                    </td>
+                    <td style="width: 15%"></td>
+                    <td style="width: 10%;"></td>
+                    <td style="width: 10%;"></td>
                 </tr>
                 <tr>
                     <td>
@@ -369,10 +372,10 @@
                                     &nbsp; 
                                     <asp:LinkButton ID="lnkUltimaPagina" runat="server" OnClick="lnkUltimaPagina_Click" ToolTip="Última página"><i class="fa fa-fast-forward"></i></asp:LinkButton>
                                 </td>
-                                
+
                             </tr>
                         </table>
-                        
+
                     </td>
                 </tr>
                 <tr>

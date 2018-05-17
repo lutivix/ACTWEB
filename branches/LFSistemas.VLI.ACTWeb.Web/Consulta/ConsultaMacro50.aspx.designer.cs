@@ -94,6 +94,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         protected global::System.Web.UI.WebControls.LinkButton lnkMacro50;
         
         /// <summary>
+        /// lnkPesquisar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkPesquisar;
+        
+        /// <summary>
         /// clbCorredor control.
         /// </summary>
         /// <remarks>
@@ -112,33 +121,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         protected global::System.Web.UI.WebControls.TextBox txtFiltroTrem;
         
         /// <summary>
-        /// txtFiltroLoco control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFiltroLoco;
-        
-        /// <summary>
-        /// txtFiltroCodOS control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFiltroCodOS;
-        
-        /// <summary>
-        /// txtFiltroPrefTrem control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFiltroPrefTrem;
-        
-        /// <summary>
         /// txtDataInicial control.
         /// </summary>
         /// <remarks>
@@ -146,6 +128,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDataInicial;
+        
+        /// <summary>
+        /// txtFiltroLoco control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroLoco;
         
         /// <summary>
         /// txtHoraInicio control.
@@ -157,6 +148,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         protected global::System.Web.UI.WebControls.TextBox txtHoraInicio;
         
         /// <summary>
+        /// txtFiltroCodOS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroCodOS;
+        
+        /// <summary>
         /// ddlMais control.
         /// </summary>
         /// <remarks>
@@ -164,6 +164,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlMais;
+        
+        /// <summary>
+        /// txtFiltroPrefTrem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroPrefTrem;
         
         /// <summary>
         /// rdParaFrente control.
@@ -182,15 +191,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rdTras;
-        
-        /// <summary>
-        /// lnkPesquisar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkPesquisar;
         
         /// <summary>
         /// pnlGrid control.
