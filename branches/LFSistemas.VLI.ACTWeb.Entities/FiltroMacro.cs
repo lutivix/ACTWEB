@@ -21,6 +21,8 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Expressao { get; set; }
         public string Corredores { get; set; }
         public string PrefixoTrem { get; set; }
+        public bool naoLidas { get; set; }
+        public string cabines { get; set; }
 
         #endregion
     }

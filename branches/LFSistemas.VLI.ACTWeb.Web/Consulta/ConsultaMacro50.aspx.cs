@@ -54,12 +54,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             if (!Page.IsPostBack)
             {
               //  var a = Request.Querystring("cabines");
-                //var usuarioLogado = Uteis.Descriptografar(Request.QueryString["lu"].ToString(), "a#3G6**@").ToUpper();
+                string cabines = (Request.QueryString["cabines"]);
+                var usuarioLogado = Uteis.Descriptografar(Request.QueryString["lu"].ToString(), "a#3G6**@").ToUpper();
 
-                //lblUsuarioLogado.Text = usuarioLogado.Length > 12 ? usuarioLogado.Substring(0, 12).ToUpper() : usuarioLogado;
-                //lblUsuarioMatricula.Text = Uteis.Descriptografar(Request.QueryString["mu"].ToString(), "a#3G6**@").ToUpper();
-                //lblUsuarioPerfil.Text = Uteis.Descriptografar(Request.QueryString["pu"].ToString(), "a#3G6**@").ToUpper();
-                //lblUsuarioMaleta.Text = Uteis.Descriptografar(Request.QueryString["mm"].ToString(), "a#3G6**@").ToUpper();
+                lblUsuarioLogado.Text = usuarioLogado.Length > 12 ? usuarioLogado.Substring(0, 12).ToUpper() : usuarioLogado;
+                lblUsuarioMatricula.Text = Uteis.Descriptografar(Request.QueryString["mu"].ToString(), "a#3G6**@").ToUpper();
+                lblUsuarioPerfil.Text = Uteis.Descriptografar(Request.QueryString["pu"].ToString(), "a#3G6**@").ToUpper();
+                lblUsuarioMaleta.Text = Uteis.Descriptografar(Request.QueryString["mm"].ToString(), "a#3G6**@").ToUpper();
 
                 ViewState["ordenacao"] = "ASC";
                 ViewState["corredor"] = "";
@@ -71,8 +72,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 txtHoraInicio.Text = dataInicial.ToShortTimeString();
 
                 var dataFinal = txtHoraInicio;
-               
-               VerificaNovasMensagens();
+
+                VerificaNovasMensagensComHoras();
             }
         }
 
@@ -236,47 +237,49 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
         #region [ MÉTODOS DE ACESSO A DADOS ]
 
-        protected void VerificaNovasMensagens()
+        protected void VerificaNovasMensagensComHoras()
         {
             if (lblUsuarioMaleta.Text == "7000")
             {
-                var aux = new List<string>();
-                if (clbCorredor.Items.Count > 0)
-                {
-                    for (int i = 0; i < clbCorredor.Items.Count; i++)
-                    {
-                        if (clbCorredor.Items[i].Selected)
-                        {
-                            aux.Add(string.Format("'{0}'", clbCorredor.Items[i].Value));
-                        }
-                    }
-                    if (aux.Count <= 0)
-                    {
-                        aux.Add("'Baixada'");
-                        aux.Add("'Centro Leste'");
-                        aux.Add("'Centro Norte'");
-                        aux.Add("'Centro Sudeste'");
-                        aux.Add("'Minas Bahia'");
-                        aux.Add("'Minas Rio'");
-                        aux.Add("'-'");
-                        aux.Add("' '");
-                    }
-                    else
-                    {
-                        aux.Add("'-'");
-                        aux.Add("' '");
-                    }
+                //var aux = new List<string>();
+                //if (clbCorredor.Items.Count > 0)
+                //{
+                //    for (int i = 0; i < clbCorredor.Items.Count; i++)
+                //    {
+                //        if (clbCorredor.Items[i].Selected)
+                //        {
+                //            aux.Add(string.Format("'{0}'", clbCorredor.Items[i].Value));
+                //        }
+                //    }
+                //    if (aux.Count <= 0)
+                //    {
+                //        aux.Add("'Baixada'");
+                //        aux.Add("'Centro Leste'");
+                //        aux.Add("'Centro Norte'");
+                //        aux.Add("'Centro Sudeste'");
+                //        aux.Add("'Minas Bahia'");
+                //        aux.Add("'Minas Rio'");
+                //        aux.Add("'-'");
+                //        aux.Add("' '");
+                //    }
+                //    else
+                //    {
+                //        aux.Add("'-'");
+                //        aux.Add("' '");
+                //    }
 
-                    corredores = string.Join(",", aux);
+                //    corredores = string.Join(",", aux);
 
-                    ViewState["corredor"] = corredores;
-                }
+                //    ViewState["corredor"] = corredores;
+                //}
 
                 var macroController = new MacroController();
-                int qtde = macroController.ObterQtdeMacrosNaoLidas(corredores);
+
+                var qtde = macroController.ObterQtdeMacrosNaoLidas(corredores);
+            
                 if (qtde > 0)
                 {
-                    Pesquisar(null, Navigation.None);
+                    PesquisarComHoras(null, Navigation.None);
 
                     if (Request.Browser.Browser == "Firefox")
                     {
@@ -290,12 +293,72 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                         Response.Write("<script>alert('Existe(m) " + qtde.ToString() + " mensagem(ns) não lida(s)!');</script>");
                 }
                 else
+                    PesquisarComHoras(null, Navigation.None);
+            }
+        }
+
+        protected void VerificaNovasMensagens()
+        {
+            if (lblUsuarioMaleta.Text == "7000")
+            {
+                //var aux = new List<string>();
+                //if (clbCorredor.Items.Count > 0)
+                //{
+                //    for (int i = 0; i < clbCorredor.Items.Count; i++)
+                //    {
+                //        if (clbCorredor.Items[i].Selected)
+                //        {
+                //            aux.Add(string.Format("'{0}'", clbCorredor.Items[i].Value));
+                //        }
+                //    }
+                //    if (aux.Count <= 0)
+                //    {
+                //        aux.Add("'Baixada'");
+                //        aux.Add("'Centro Leste'");
+                //        aux.Add("'Centro Norte'");
+                //        aux.Add("'Centro Sudeste'");
+                //        aux.Add("'Minas Bahia'");
+                //        aux.Add("'Minas Rio'");
+                //        aux.Add("'-'");
+                //        aux.Add("' '");
+                //    }
+                //    else
+                //    {
+                //        aux.Add("'-'");
+                //        aux.Add("' '");
+                //    }
+
+                //    corredores = string.Join(",", aux);
+
+                //    ViewState["corredor"] = corredores;
+                //}
+
+                var macroController = new MacroController();
+
+                var qtde = macroController.ObterQtdeMacrosNaoLidas(corredores);
+
+                if (qtde > 0)
+                {
+                    Pesquisar(null, Navigation.None);
+
+                    if (Request.Browser.Browser == "Firefox")
+                    {
+
+                        Response.Write("<script>window.open('/popup_Mensagem.aspx?ico=" + Uteis.Criptografar("!", "a#3G6**@") + "&tit=" + Uteis.Criptografar("ATENÇÃO", "a#3G6**@") + "&men=" + Uteis.Criptografar("Existe(m) " + qtde.ToString() +
+                                        "   mensagem(ns) não lida(s)!", "a#3G6**@") + "','','width=500, height=180, scrollbars=yes, resizable=no, status=no, toolbar=no, location=no, durectirues=no,, left='+(screen.availWidth/2-235.5)+',top='+(screen.availHeight/2-136.5)+'');</script>");
+
+
+                    }
+                    else
+                        Response.Write("<script>alert('Existe(m) " + qtde.ToString() + " mensagem(ns) não lida(s)!');</script>");
+                }
+                else
                     Pesquisar(null, Navigation.None);
             }
         }
 
         protected void lnkPesquisar_Click(object sender, EventArgs e)
-        {
+        {       
             PesquisarBotao(null, Navigation.Pager);
 
         }
@@ -305,37 +368,37 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             {
                 DateTime horaFim = DateTime.Now;
 
-                var aux = new List<string>();
-                if (clbCorredor.Items.Count > 0)
-                {
-                    for (int i = 0; i < clbCorredor.Items.Count; i++)
-                    {
-                        if (clbCorredor.Items[i].Selected)
-                        {
-                            aux.Add(string.Format("'{0}'", clbCorredor.Items[i].Value));
-                        }
-                    }
-                    if (aux.Count <= 0)
-                    {
-                        aux.Add("'Baixada'");
-                        aux.Add("'Centro Leste'");
-                        aux.Add("'Centro Norte'");
-                        aux.Add("'Centro Sudeste'");
-                        aux.Add("'Minas Bahia'");
-                        aux.Add("'Minas Rio'");
-                        aux.Add("'-'");
-                        aux.Add("' '");
-                    }
-                    else
-                    {
-                        aux.Add("'-'");
-                        aux.Add("' '");
-                    }
+                //var aux = new List<string>();
+                //if (clbCorredor.Items.Count > 0)
+                //{
+                //    for (int i = 0; i < clbCorredor.Items.Count; i++)
+                //    {
+                //        if (clbCorredor.Items[i].Selected)
+                //        {
+                //            aux.Add(string.Format("'{0}'", clbCorredor.Items[i].Value));
+                //        }
+                //    }
+                //    if (aux.Count <= 0)
+                //    {
+                //        aux.Add("'Baixada'");
+                //        aux.Add("'Centro Leste'");
+                //        aux.Add("'Centro Norte'");
+                //        aux.Add("'Centro Sudeste'");
+                //        aux.Add("'Minas Bahia'");
+                //        aux.Add("'Minas Rio'");
+                //        aux.Add("'-'");
+                //        aux.Add("' '");
+                //    }
+                //    else
+                //    {
+                //        aux.Add("'-'");
+                //        aux.Add("' '");
+                //    }
 
-                    corredores = string.Join(",", aux);
+                //    corredores = string.Join(",", aux);
 
-                    ViewState["corredor"] = corredores;
-                }
+                //    ViewState["corredor"] = corredores;
+                //}
 
                 var macroController = new MacroController();
                 var itens = macroController.ObterMacros50(new Entities.FiltroMacro()
@@ -344,8 +407,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     NumeroLocomotiva = string.Empty,
                     NumeroTrem = string.Empty,
                     CodigoOS = string.Empty,
-                    DataInicio = DateTime.Now,
-                    DataFim = DateTime.Now.AddHours(-6),
+                    DataInicio = null,
+                    DataFim = null,
                     NumeroMacro = "50",
                     Corredores = ViewState["corredor"].ToString()
 
@@ -455,7 +518,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         {
             //DateTime horaFim = DateTime.Now;
             DateTime horaInicio = txtDataInicial.Text.Length > 0 ? DateTime.Parse(txtDataInicial.Text + " " + FormataHora(txtHoraInicio.Text)) : DateTime.Now;
-            DateTime horaFim = horaInicio;
+            DateTime horaFim = DateTime.Now.AddHours(-6);
             string corredores = null;
 
             //if ((int.Parse(txtHoraInicio.Text.Substring(0, 2)) == 24))
@@ -468,55 +531,57 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
             else if (rdTras.Checked)
             {
-                horaInicio = horaInicio.AddHours(-int.Parse(ddlMais.SelectedValue));
-                horaFim = txtDataInicial.Text.Length > 0 ? DateTime.Parse(txtDataInicial.Text + " " + FormataHora(txtHoraInicio.Text)) : DateTime.Now;
+                horaFim = horaInicio.AddHours(-int.Parse(ddlMais.SelectedValue));
+               
             }
 
-            var aux = new List<string>();
-            if (clbCorredor.Items.Count > 0)
-            {
-                for (int i = 0; i < clbCorredor.Items.Count; i++)
-                {
-                    if (clbCorredor.Items[i].Selected)
-                    {
-                        aux.Add(string.Format("'{0}'", clbCorredor.Items[i].Value));
-                    }
-                }
-                if (aux.Count <= 0)
-                {
-                    aux.Add("'Baixada'");
-                    aux.Add("'Centro Leste'");
-                    aux.Add("'Centro Norte'");
-                    aux.Add("'Centro Sudeste'");
-                    aux.Add("'Minas Bahia'");
-                    aux.Add("'Minas Rio'");
-                    aux.Add("'-'");
-                    aux.Add("' '");
-                }
-                else
-                {
-                    aux.Add("'-'");
-                    aux.Add("' '");
-                }
+            //var aux = new List<string>();
+            //if (clbCorredor.Items.Count > 0)
+            //{
+            //    for (int i = 0; i < clbCorredor.Items.Count; i++)
+            //    {
+            //        if (clbCorredor.Items[i].Selected)
+            //        {
+            //            aux.Add(string.Format("'{0}'", clbCorredor.Items[i].Value));
+            //        }
+            //    }
+            //    if (aux.Count <= 0)
+            //    {
+            //        aux.Add("'Baixada'");
+            //        aux.Add("'Centro Leste'");
+            //        aux.Add("'Centro Norte'");
+            //        aux.Add("'Centro Sudeste'");
+            //        aux.Add("'Minas Bahia'");
+            //        aux.Add("'Minas Rio'");
+            //        aux.Add("'-'");
+            //        aux.Add("' '");
+            //    }
+            //    else
+            //    {
+            //        aux.Add("'-'");
+            //        aux.Add("' '");
+            //    }
 
-                corredores = string.Join(",", aux);
+            //    corredores = string.Join(",", aux);
 
-                ViewState["corredor"] = corredores;
-            }
+            //    ViewState["corredor"] = corredores;
+            //}
 
             var macroController = new MacroController();
 
+            String cabines = (Request.QueryString["cabines"]);
 
-            var itens = macroController.ObterMacros50(new Entities.FiltroMacro()
+            var itens = macroController.ObterMacros50PorCabines(new Entities.FiltroMacro()
             {
                 NumeroLocomotiva = txtFiltroLoco.Text.Length > 0 ? txtFiltroLoco.Text : null,
                 NumeroTrem = string.Empty,
                 CodigoOS = txtFiltroCodOS.Text.Length > 0 ? txtFiltroCodOS.Text : null,
-                DataInicio = txtDataInicial.Text.Length > 0 ? DateTime.Parse(txtDataInicial.Text + " 00:00:00") : DateTime.Now.AddDays(-2),
+                DataInicio = horaInicio,
                 DataFim = horaFim,
                 NumeroMacro = "50",
                 PrefixoTrem = txtFiltroPrefTrem.Text.Length > 0 ? txtFiltroPrefTrem.Text : null,
-                Corredores = ViewState["corredor"].ToString()
+                Corredores = ViewState["corredor"].ToString(),
+                cabines = cabines
 
             }, "tela_consulta");
 
@@ -619,11 +684,182 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             lblTotal.Text = string.Format("{0:0,0}", itens.Count);
         }
 
+        protected void PesquisarComHoras(string ordenacao, Navigation navigation)
+        {
+            //DateTime horaFim = DateTime.Now;
+            DateTime horaInicio = DateTime.Now;
+            DateTime horaFim = DateTime.Now.AddHours(-6);
+            string corredores = null;
+
+            //if ((int.Parse(txtHoraInicio.Text.Substring(0, 2)) == 24))
+            // txtHoraInicio.Text = "00:00";
+
+            //if (rdParaFrente.Checked)
+            //{
+            //    horaFim = horaInicio.AddHours(int.Parse(ddlMais.SelectedValue));
+            //}
+
+            //else if (rdTras.Checked)
+            //{
+            //    horaInicio = horaInicio.AddHours(-int.Parse(ddlMais.SelectedValue));
+            //    horaFim = txtDataInicial.Text.Length > 0 ? DateTime.Parse(txtDataInicial.Text + " " + FormataHora(txtHoraInicio.Text)) : DateTime.Now;
+            //}
+
+            //var aux = new List<string>();
+            //if (clbCorredor.Items.Count > 0)
+            //{
+            //    for (int i = 0; i < clbCorredor.Items.Count; i++)
+            //    {
+            //        if (clbCorredor.Items[i].Selected)
+            //        {
+            //            aux.Add(string.Format("'{0}'", clbCorredor.Items[i].Value));
+            //        }
+            //    }
+            //    if (aux.Count <= 0)
+            //    {
+            //        aux.Add("'Baixada'");
+            //        aux.Add("'Centro Leste'");
+            //        aux.Add("'Centro Norte'");
+            //        aux.Add("'Centro Sudeste'");
+            //        aux.Add("'Minas Bahia'");
+            //        aux.Add("'Minas Rio'");
+            //        aux.Add("'-'");
+            //        aux.Add("' '");
+            //    }
+            //    else
+            //    {
+            //        aux.Add("'-'");
+            //        aux.Add("' '");
+            //    }
+
+            //    corredores = string.Join(",", aux);
+
+            //    ViewState["corredor"] = corredores;
+            //}
+
+            var macroController = new MacroController();
+
+            String cabines = (Request.QueryString["cabines"]);
+
+            var itens = macroController.ObterMacros50PorCabines(new Entities.FiltroMacro()
+            {
+                NumeroLocomotiva = txtFiltroLoco.Text.Length > 0 ? txtFiltroLoco.Text : null,
+                NumeroTrem = string.Empty,
+                CodigoOS = txtFiltroCodOS.Text.Length > 0 ? txtFiltroCodOS.Text : null,
+                DataInicio = horaInicio,
+                DataFim = horaFim,
+                NumeroMacro = "50",
+                PrefixoTrem = txtFiltroPrefTrem.Text.Length > 0 ? txtFiltroPrefTrem.Text : null,
+                Corredores = ViewState["corredor"].ToString(),
+                cabines = cabines
+
+            }, "tela_consulta");
+
+            if (itens.Count > 0)
+            {
+                switch (ordenacao)
+                {
+                    case "TIPO ASC":
+                        itens = itens.OrderBy(o => o.Tipo).ToList();
+                        break;
+                    case "TIPO DESC":
+                        itens = itens.OrderByDescending(o => o.Tipo).ToList();
+                        break;
+                    case "LOCO ASC":
+                        itens = itens.OrderBy(o => o.Locomotiva).ToList();
+                        break;
+                    case "LOCO DESC":
+                        itens = itens.OrderByDescending(o => o.Locomotiva).ToList();
+                        break;
+                    case "TREM ASC":
+                        itens = itens.OrderBy(o => o.Trem).ToList();
+                        break;
+                    case "TREM DESC":
+                        itens = itens.OrderByDescending(o => o.Trem).ToList();
+                        break;
+                    case "COD_OS ASC":
+                        itens = itens.OrderBy(o => o.CodigoOS).ToList();
+                        break;
+                    case "COD_OS DESC":
+                        itens = itens.OrderByDescending(o => o.CodigoOS).ToList();
+                        break;
+                    case "HORARIO ASC":
+                        itens = itens.OrderBy(o => o.Horario).ToList();
+                        break;
+                    case "HORARIO DESC":
+                        itens = itens.OrderByDescending(o => o.Horario).ToList();
+                        break;
+                    case "MACRO ASC":
+                        itens = itens.OrderBy(o => o.NumeroMacro).ToList();
+                        break;
+                    case "MACRO DESC":
+                        itens = itens.OrderByDescending(o => o.NumeroMacro).ToList();
+                        break;
+                    case "TEXTO ASC":
+                        itens = itens.OrderBy(o => o.Texto).ToList();
+                        break;
+                    case "TEXTO DESC":
+                        itens = itens.OrderByDescending(o => o.Texto).ToList();
+                        break;
+                    case "CORREDOR ASC":
+                        itens = itens.OrderBy(o => o.Corredor).ToList();
+                        break;
+                    case "CORREDOR DESC":
+                        itens = itens.OrderByDescending(o => o.Corredor).ToList();
+                        break;
+                    default:
+                        itens = itens.OrderByDescending(o => o.Horario).ToList();
+                        break;
+                }
+
+                PagedDataSource objPds = new PagedDataSource();
+                objPds.DataSource = itens;
+                objPds.AllowPaging = true;
+                objPds.PageSize = int.Parse(ddlPageSize.SelectedValue);
+
+                switch (navigation)
+                {
+                    case Navigation.Proxima:
+                        NowViewing++;
+                        break;
+                    case Navigation.Anterior:
+                        NowViewing--;
+                        break;
+                    case Navigation.Ultima:
+                        NowViewing = objPds.PageCount - 1;
+                        break;
+                    case Navigation.Pager:
+                        if (int.Parse(ddlPageSize.SelectedValue) >= objPds.PageCount)
+                            NowViewing = objPds.PageCount - 1;
+                        break;
+                    case Navigation.Sorting:
+                        break;
+                    default:
+                        NowViewing = 0;
+                        break;
+                }
+                objPds.CurrentPageIndex = NowViewing;
+                lblCurrentPage.Text = "Página: " + (NowViewing + 1).ToString() + " de " + objPds.PageCount.ToString();
+                lnkPaginaAnterior.Enabled = !objPds.IsFirstPage;
+                lnkProximaPagina.Enabled = !objPds.IsLastPage;
+                lnkPrimeiraPagina.Enabled = !objPds.IsFirstPage;
+                lnkUltimaPagina.Enabled = !objPds.IsLastPage;
+
+                this.RepeaterMacro50.DataSource = objPds;
+                this.RepeaterMacro50.DataBind();
+            }
+            else
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Registro não localizado.' });", true);
+
+            lblTotal.Text = string.Format("{0:0,0}", itens.Count);
+        }
+
+
         #endregion
 
         protected void Temporizador_Tick(object sender, EventArgs e)
         {
-            VerificaNovasMensagens();
+           VerificaNovasMensagens();
         }
 
         protected string FormataHora(string hora)

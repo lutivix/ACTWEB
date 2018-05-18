@@ -83,7 +83,7 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         /// <returns>Retorna uma lista de macros recebidas de acordo com o filtro informado</returns>
         public List<Macro50> ObterMacros50PorCabines(FiltroMacro filtro, string origem)
         {
-            return dao.ObterMacro50PorCabines(filtro, origem);
+            return dao.ObterMacros50PorCabines(filtro, origem);
         }
         /// <summary>
         /// Obtem registros da Macro 50
@@ -175,6 +175,11 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ObterQtdeMacrosNaoLidas(corredores);
         }
 
+        public int ObterQtdeMacrosNaoLidas2(FiltroMacro filtro, string corredores)
+        {
+            return dao.ObterQtdeMacrosNaoLidas2(filtro, corredores);
+        }
+
         /// <summary>
         /// Obtem texto binário
         /// </summary>
@@ -211,6 +216,11 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         public bool TemMacrosTemporarias(TMP_MACROS tmp, string usuarioLogado)
         {
             return dao.TemMacrosTemporarias(tmp, usuarioLogado);
+        }
+
+        public bool logMacro50(string cabines, string matricula)
+        {
+            return dao.logMacro50(cabines, matricula);
         }
 
         /// <summary>

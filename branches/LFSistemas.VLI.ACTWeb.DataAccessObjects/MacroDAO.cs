@@ -425,7 +425,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                               AND ME.ME_MAC_NUM = 50 
                                               AND SUBSTR(ME.ME_TEXT,2,4) = '7000'");
 
-                        
+
                     }
 
                     #endregion
@@ -481,7 +481,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="filtro">Objeto contendo os filtros a pesquisar</param>
         /// <returns>Retorna uma lista de macros enviadas e recebidas</returns>
-        public List<Macro50> ObterMacro50PorCabines(FiltroMacro filtro, string origem)
+        public List<Macro50> ObterMacros50PorCabines(FiltroMacro filtro, string origem)
         {
             #region [ PROPRIEDADES ]
 
@@ -498,10 +498,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ FILTRA MACROS ]
 
-                    if (origem == "tela_consulta")
-                    {
 
-                        query.Append(@"SELECT 'R' AS R_E,
+                    query.Append(@"SELECT 'R' AS R_E,
                                        MR.MR_GRMN AS ID,
                                        MR.MR_MSG_TIME AS Horário,
                                        MC.MCT_NOM_MCT AS Loco,
@@ -521,9 +519,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                   FROM ESTACOES
                                             WHERE EST_ID IN (SELECT EST_ID
                                   FROM REL_CAB_EST
-                                            WHERE CAB_ID IN (1))) B
+                                            WHERE CAB_ID IN (${CABINES_R}))) B
                                 ON     MR.MR_NOME_SB LIKE CONCAT (B.EST_NOME, '%')
-                                     AND MR.MR_MSG_TIME > '06/10/2017'
+                                     ${INTERVALO_R}
                                      AND MR.MR_MC_NUM = 50
                                      AND SUBSTR (MR.MR_TEXT, 2, 4) = '7000'
                                      ${LOCO_R}
@@ -550,72 +548,17 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     FROM ESTACOES
                                             WHERE EST_ID IN (SELECT EST_ID
                                     FROM REL_CAB_EST
-                                            WHERE CAB_ID IN (1))) B
+                                            WHERE CAB_ID IN (${CABINES_E}))) B
                                 ON     ME.ME_NOME_SB LIKE CONCAT (B.EST_NOME, '%')
-                                     AND ME.ME_MSG_TIME > '06/10/2017'
+                                     ${INTERVALO_E}
                                      AND ME.ME_MAC_NUM = 50
                                      AND SUBSTR (ME.ME_TEXT, 2, 4) = '7000' 
                                      ${LOCO_E}
                                      ${CODIGO_OS_E}
                                      ${PREFIXO_E}
                                     ");
-                    }
-                    else if (origem == "tela_relatorio")
-                    {
-                        query.Append(@"SELECT 'R' AS R_E, 
-                                              MR.MR_GRMN AS ID, 
-                                              MR.MR_MSG_TIME AS Horário, 
-                                              MC.MCT_NOM_MCT AS Loco, 
-                                              MR.MR_MC_NUM AS Macro, 
-                                              MR.MR_TEXT AS Mensagem, 
-                                              SUBSTR(MR.MR_TEXT, 1, 760) AS Texto, 
-                                              MR.MR_MCT_ADDR AS MCT, 
-                                              MR.MR_PRF_ACT AS Trem, 
-                                              MR.MR_COD_OF AS CodOS, 
-                                              PF.MFP_LEITURA AS Leitura, 
-                                              PF.MPF_ID AS Leitura_ID, 
-                                              US.NOME, 
-                                              MR.MR_MSG_LIDA, 
-                                              MR.MR_MSG_RESP, 
-                                              MR.MR_CORREDOR
-                                        FROM ACTPP.MENSAGENS_RECEBIDAS MR, 
-                                             ACTPP.MCTS MC, 
-                                             ACTPP.MSG_PF PF, 
-                                             ACTWEB.USUARIOS US 
-                                            WHERE MC.MCT_ID_MCT = MR.MR_MCT_ADDR 
-                                              AND PF.MFP_ID_MSG = MR.MR_GRMN
-                                              AND MR.MR_MAT_OPER = US.MATRICULA
-                                              ${INTERVALO_R}
-                                              ${CORREDOR_R}
-                                              AND MR.MR_MC_NUM = 50 
-                                              AND SUBSTR(MR.MR_TEXT,2,4) = '7000' 
-                                        UNION                                         
-                                        SELECT 'E' AS R_E, 
-                                               ME.ME_GFMN AS ID, 
-                                               ME.ME_MSG_TIME AS Horário, 
-                                               MC.MCT_NOM_MCT AS Loco, 
-                                               ME.ME_MAC_NUM AS Macro, 
-                                               ME.ME_TEXT AS Mensagem, 
-                                               SUBSTR(ME.ME_TEXT, 1, 760) AS Texto, 
-                                               ME.ME_MCT_ADDR AS MCT, 
-                                               ME.ME_PRF_ACT AS Trem, 
-                                               ME.ME_COD_OF AS CodOS, 
-                                               'T' AS Leitura, 
-                                               0 AS Leitura_ID, 
-                                               US.NOME, 
-                                               ME.ME_MSG_LIDA, 
-                                               ME.ME_MSG_RESP, 
-                                               ME.ME_CORREDOR 
-                                        FROM ACTPP.MENSAGENS_ENVIADAS ME, 
-                                             ACTPP.MCTS MC,
-                                             ACTWEB.USUARIOS US 
-                                            WHERE MC.MCT_ID_MCT = ME.ME_MCT_ADDR 
-                                              AND ME.ME_MAT_DES = US.MATRICULA
-                                              ${INTERVALO_E}
-                                              ${CORREDOR_E}
-                                              AND ME.ME_MAC_NUM = 50 
-                                              AND SUBSTR(ME.ME_TEXT,2,4) = '7000'");
-                    }
+
+
 
                     #endregion
 
@@ -633,8 +576,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     //FIltro de Locomotivas
                     if (!string.IsNullOrEmpty(filtro.NumeroLocomotiva))
                     {
-                        query.Replace("${LOCO_R}", string.Format("AND (MC.MCT_NOM_MCT IN ({0}) OR MR.MR_CORREDOR IS NULL)", filtro.Corredores));
-                        query.Replace("${LOCO_E}", string.Format("AND (MC.MCT_NOM_MCT IN ({0}) OR ME.ME_CORREDOR IS NULL)", filtro.Corredores));
+                        query.Replace("${LOCO_R}", string.Format("AND MC.MCT_NOM_MCT IN ('{0}')", filtro.NumeroLocomotiva));
+                        query.Replace("${LOCO_E}", string.Format("AND MC.MCT_NOM_MCT IN ('{0}')", filtro.NumeroLocomotiva));
                     }
                     else
                     {
@@ -644,8 +587,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     //FIltro de Código OS
                     if (!string.IsNullOrEmpty(filtro.CodigoOS))
                     {
-                        query.Replace("${CODIGO_OS_R}", string.Format("AND (MR.MR_COD_OF IN ({0}) MR.MR_COD_OF IS NULL)", filtro.CodigoOS));
-                        query.Replace("${CODIGO_OS_E}", string.Format("AND (ME.ME_COD_OF IN ({0}) ME.ME_COD_OF IS NULL)", filtro.CodigoOS));
+                        query.Replace("${CODIGO_OS_R}", string.Format("AND MR.MR_COD_OF IN ('{0}')", filtro.CodigoOS));
+                        query.Replace("${CODIGO_OS_E}", string.Format("AND ME.ME_COD_OF IN ('{0}')", filtro.CodigoOS));
                     }
                     else
                     {
@@ -656,25 +599,37 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     //FIltro de expressão
                     if (!string.IsNullOrEmpty(filtro.Expressao))
                     {
-                        query.Replace("${CODIGO_OS_R}", string.Format("AND (MR.MR_COD_OF IN ({0}) MR.MR_COD_OF IS NULL)", filtro.CodigoOS));
-                        query.Replace("${CODIGO_OS_E}", string.Format("AND (ME.ME_COD_OF IN ({0}) ME.ME_COD_OF IS NULL)", filtro.CodigoOS));
+                        query.Replace("${EXPRESSAO_R}", string.Format("AND (MR.MR_TEXT LIKE '%{0}%'", filtro.Expressao));
+                        query.Replace("${EXPRESSAO_E}", string.Format("AND (ME.ME_TEXT LIKE '%{0}%'", filtro.Expressao));
                     }
                     else
                     {
-                        query.Replace("${CODIGO_OS_R}", "");
-                        query.Replace("${CODIGO_OS_E}", "");
+                        query.Replace("${EXPRESSAO_R}", "");
+                        query.Replace("${EXPRESSAO_E}", "");
                     }
 
                     //FIltro Prefixo de trem
                     if (!string.IsNullOrEmpty(filtro.PrefixoTrem))
                     {
-                        query.Replace("${PREFIXO_R}", string.Format("AND (MR.MR_PRF_ACT IN ({0}) MR.MR_PRF_ACT IS NULL)", filtro.CodigoOS));
-                        query.Replace("${PREFIXO_R}", string.Format("AND (ME.MR_PRF_ACT IN ({0}) ME.MR_PRF_ACT IS NULL)", filtro.CodigoOS));
+                        query.Replace("${PREFIXO_R}", string.Format("AND MR.MR_PRF_ACT IN ('{0}')", filtro.PrefixoTrem));
+                        query.Replace("${PREFIXO_E}", string.Format("AND ME.ME_PRF_ACT IN ('{0}')", filtro.PrefixoTrem));
                     }
                     else
                     {
                         query.Replace("${PREFIXO_R}", "");
                         query.Replace("${PREFIXO_E}", "");
+                    }
+
+                    //FIltro cabines
+                    if (!string.IsNullOrEmpty(filtro.cabines))
+                    {
+                        query.Replace("${CABINES_R}", string.Format("{0}", filtro.cabines));
+                        query.Replace("${CABINES_E}", string.Format("{0}", filtro.cabines));
+                    }
+                    else
+                    {
+                        query.Replace("${{CABINES_R}}", "");
+                        query.Replace("${{CABINES_E}}", "");
                     }
 
                     #region [BUSCA NO BANCO E ADICIONA NA VARIAVEL ]
@@ -1533,6 +1488,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           AND MR.MR_MC_NUM = 50 
                                           AND SUBSTR(MR.MR_TEXT,2,4) = '7000'
                                           ${CORREDOR} 
+                                         
                                     ORDER BY MR.MR_GRMN DESC");
 
                     #endregion
@@ -1541,6 +1497,90 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${CORREDOR}", string.Format("AND (MR.MR_CORREDOR IN ({0}) OR MR.MR_CORREDOR IS NULL)", corredores));
                     else
                         query.Replace("${CORREDOR}", "");
+
+                    #region [BUSCA NO BANCO E ADICIONA NA VARIAVEL ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            qtde = int.Parse(reader[0].ToString());
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Obter qtde macros não lidas", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return qtde;
+        }
+
+        public int ObterQtdeMacrosNaoLidas2(FiltroMacro filtro, string corredores)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            int qtde = 0;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    var command = connection.CreateCommand();
+
+                    #region [ FILTRA QTDES ]
+
+                    query.Append(@"SELECT COUNT(*) QTDE 
+                                    FROM ACTPP.MENSAGENS_RECEBIDAS MR, ACTPP.MSG_PF PF
+                                        WHERE PF.MFP_ID_MSG = MR.MR_GRMN 
+                                          AND PF.MFP_LEITURA = 'F' 
+                                          AND MR.MR_MC_NUM = 50 
+                                          AND SUBSTR(MR.MR_TEXT,2,4) = '7000'
+                                          ${CORREDOR} 
+                                          ${CABINES} 
+                                          ${INTERVALO}
+                                    ORDER BY MR.MR_GRMN DESC");
+
+                    #endregion
+
+                    if (!string.IsNullOrEmpty(corredores))
+                        query.Replace("${CORREDOR}", string.Format("AND (MR.MR_CORREDOR IN ({0}) OR MR.MR_CORREDOR IS NULL)", corredores));
+                    else
+                        query.Replace("${CORREDOR}", "");
+
+                    //FIltro Periodo de tempo
+                    if (filtro.DataInicio.HasValue && filtro.DataFim.HasValue)
+                    {
+                        query.Replace("${INTERVALO}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                    
+                    }
+                    else
+                    {
+                        query.Replace("${INTERVALO}", "");
+                     
+                    }
+
+                    //FIltro cabines
+                    if (!string.IsNullOrEmpty(filtro.cabines))
+                    {
+                        query.Replace("${CABINES}", string.Format("AND (MR.MR_CORREDOR IN ({0}) OR MR.MR_CORREDOR IS NULL)", corredores));
+
+                    }
+                    else
+                    {
+                        query.Replace("${CABINES}", "");
+
+                    }
+
 
                     #region [BUSCA NO BANCO E ADICIONA NA VARIAVEL ]
 
@@ -2191,11 +2231,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         if (reader.Read())
                         {
-                            item.Prefixo7DID    = reader.GetValue(0).ToString();
-                            item.TremID         = reader.GetValue(1).ToString();
-                            item.Prefixo7D      = reader.GetValue(2).ToString();
-                            item.Prefixo4D      = reader.GetValue(3).ToString();
-                            item.Data           = reader.GetValue(4).ToString();
+                            item.Prefixo7DID = reader.GetValue(0).ToString();
+                            item.TremID = reader.GetValue(1).ToString();
+                            item.Prefixo7D = reader.GetValue(2).ToString();
+                            item.Prefixo4D = reader.GetValue(3).ToString();
+                            item.Data = reader.GetValue(4).ToString();
                         }
                     }
 
@@ -2285,15 +2325,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (item.Tratado != DateTime.MinValue) item.Tratado = reader.GetDateTime(12); else item.Tratado = null;
             }
             if (!reader.IsDBNull(13)) item.Localizacao = reader.GetString(13);
-       
+
             if (!reader.IsDBNull(14)) item.Prefixo7D = reader.GetValue(14).ToString();
 
             //if (!reader.IsDBNull(3)) item.TremID = reader.GetValue(3).ToString();
-      
-      
-            
 
-                item.DescricaoMacro = "DESCRICAO DE TESTE ";
+
+
+
+            item.DescricaoMacro = "DESCRICAO DE TESTE ";
 
 
             return item;
@@ -2355,8 +2395,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             }
             if (!reader.IsDBNull(11)) item.Corredor = reader.GetString(11);
             if (!reader.IsDBNull(12))
-            //if (!reader.IsDBNull(14)) item.Prefixo7D = reader.GetValue(14).ToString();  
-            //{
+                //if (!reader.IsDBNull(14)) item.Prefixo7D = reader.GetValue(14).ToString();  
+                //{
                 item.Prefixo7D = reader.GetValue(12).ToString();
             //    if (item.TremID != null)
             //    {
@@ -2758,6 +2798,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return retorno = true;
         }
 
+        public bool logMacro50(string cabines, string matricula)
+        {
+            LogDAO.GravaLogSistemaCabines(DateTime.Now, matricula, "Tela Cabines", "Selecionou cabines: " + cabines);
+            return true;
+        }
+
         /// <summary>
         /// Altera a tag de leitura da macro lida para R
         /// </summary>
@@ -2926,4 +2972,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
         #endregion
     }
+
+
+    
 }

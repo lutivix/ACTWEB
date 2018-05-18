@@ -104,6 +104,36 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             }
         }
 
+        public static void GravaLogSistemaCabines(DateTime data_hora, string matricula, string modulo, string texto)
+        {
+            string Path = "D:\\Projetos\\ACTWEB_DEV";
+            string arquivo = Path + "Cabines_LogSistema.log";
+            string linha = string.Empty;
+            try
+            {
+                linha = matricula != string.Empty ? data_hora + "   Matrícula: " + matricula + "   Módulo: " + modulo + "   Texto: " + texto : data_hora + "   Módulo: " + modulo + "   Texto: " + texto;
+
+                if (File.Exists(arquivo))
+                {
+                    using (StreamWriter sr = File.AppendText(arquivo))
+                    {
+                        sr.WriteLine(linha);
+                    }
+                }
+                else
+                {
+                    StreamWriter writer = new StreamWriter(arquivo);
+
+                    writer.WriteLine(linha);
+                    writer.Close();
+                    writer.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         #endregion
     }
 }

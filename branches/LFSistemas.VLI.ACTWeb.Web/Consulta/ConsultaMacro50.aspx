@@ -78,7 +78,7 @@
         <script>
             $(function () {
                 $("#<%= txtDataInicial.ClientID %>").datepicker({
-                    buttonText: "Data inicial",
+                    buttonText: "Data",
                     showOn: "button",
                     showButtonPanel: true,
                     changeMonth: true,
@@ -203,37 +203,33 @@
                     </td>
                 </tr>
                 <tr style="display: block;">
-                    <td colspan="1">
-                        <label for="data_fim">Corredor:</label>
-                        <br />
-                        <asp:CheckBoxList runat="server" ID="clbCorredor" Rows="7" CssClass="form-control" SelectionMode="Multiple" Width="160" Height="120">
-                            <asp:ListItem Text="&nbsp;&nbsp;Baixada" Value="Baixada" />
-                            <asp:ListItem Text="&nbsp;&nbsp;Centro Leste" Value="Centro Leste" />
-                            <asp:ListItem Text="&nbsp;&nbsp;Centro Norte" Value="Centro Norte" />
-                            <asp:ListItem Text="&nbsp;&nbsp;Centro Sudeste" Value="Centro Sudeste" />
-                            <asp:ListItem Text="&nbsp;&nbsp;Minas Bahia" Value="Minas Bahia" />
-                            <asp:ListItem Text="&nbsp;&nbsp;Minas Rio" Value="Minas Rio" />
-                        </asp:CheckBoxList>
-                    </td>
-                    <td colspan="1">
-                        <label for="matricula">Trem:</label>
-                        <asp:TextBox runat="server" ID="txtFiltroTrem" CssClass="form-control" Width="130px" ToolTip="Separe os trens desejados com vírgulas. Ex.: C001, M642, E050" />
-                        <br />
-                        <label for="matricula">Data Inicial:</label>
+                  
+                       <td colspan="1" style="width: 130px;">
+                        <label for="matricula">Data:</label>
                         <asp:TextBox ID="txtDataInicial" runat="server" Width="130px" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
-                    </td>
-                    <td style="padding-top: 10px;">
+                        </td>
+                  
+                    <td style="padding-top: 10px;" style="width: 130px;">
                         <label for="matricula">Loco:</label>
                         <asp:TextBox runat="server" ID="txtFiltroLoco" CssClass="form-control" Width="130px" ToolTip="Separe as locomotivas desejadas com vírgulas. Ex.: 2904, 0962, 7007" />
-                        <br />
-                        <label for="hora_inicio">Hora:</label>
-                        <asp:TextBox ID="txtHoraInicio" runat="server" Width="130px" onKeyUp="formatar(this, '##:##')" CssClass="form-control" MaxLength="5" onkeypress="return fnValidaNroDoisPontos(event);" />
                     </td>
-                    <td colspan="1">
+                    <td colspan="1" style="width: 130px;">
                         <label for="matricula">Código OS:</label>
-                        <asp:TextBox runat="server" ID="txtFiltroCodOS" CssClass="form-control" Width="130px" ToolTip="Separe as locomotivas desejadas com vírgulas. Ex.: 2904, 0962, 7007" />
+                        <asp:TextBox runat="server" ID="txtFiltroCodOS" CssClass="form-control" Width="130px" ToolTip="Separe os número de OS com vírgulas. Ex.: 41822214, 41822228, 418223244" />
                         <br />
-                        <label for="data_fim">Mais Hora(s):</label>
+                    </td>
+                    <td colspan="1" style="width: 130px;">
+                        <label for="matricula">Prefixo Trem:</label>
+                        <asp:TextBox runat="server" ID="txtFiltroPrefTrem" CssClass="form-control" Width="130px" ToolTip="Separe os Prefixos desejados com vírgulas. Ex.: V093, J693, C200" />
+                        <br />
+                        
+                    </td>
+                    <td style="width: 130px;" >&nbsp;
+                         <label for="hora_inicio">Hora:</label>
+                            <asp:TextBox ID="txtHoraInicio" runat="server" Width="130px" onKeyUp="formatar(this, '##:##')" CssClass="form-control" MaxLength="5" onkeypress="return fnValidaNroDoisPontos(event);" />   
+                    </td>
+                    <td style="width: 130px;" >
+                            <label for="data_fim">Mais Hora(s):</label>
                         <br />
                         <asp:DropDownList runat="server" Width="130px" Height="33px" ID="ddlMais" CssClass="form-control">
                             <asp:ListItem Text="01" Value="1" />
@@ -261,22 +257,13 @@
                             <asp:ListItem Text="23" Value="23" />
                             <asp:ListItem Text="24" Value="24" />
                         </asp:DropDownList>
+                        
                     </td>
-                    <td colspan="1">
-                        <label for="matricula">Prefixo Trem:</label>
-                        <asp:TextBox runat="server" ID="txtFiltroPrefTrem" CssClass="form-control" Width="130px" ToolTip="Separe as locomotivas desejadas com vírgulas. Ex.: 2904, 0962, 7007" />
-                        <br />
-                        <label for="data_fim">Direção:</label>
+                    <td style="width: 130px;"><label for="data_fim">Direção:</label>
                         <br />
                         <asp:RadioButton ID="rdParaFrente" runat="server" GroupName="Espaco" Text="&nbsp;&nbsp;Para frente" />
                         <br />
-                        <asp:RadioButton ID="rdTras" runat="server" GroupName="Espaco" Text="&nbsp;&nbsp;Para Trás" Checked="true" />
-                    </td>
-                    <td style="width: 10%;">&nbsp;
-                            
-                    </td>
-                    <td style="width: 15%"></td>
-                    <td style="width: 10%;"></td>
+                        <asp:RadioButton ID="rdTras" runat="server" GroupName="Espaco" Text="&nbsp;&nbsp;Para Trás" Checked="true" /></td>
                     <td style="width: 10%;"></td>
                 </tr>
                 <tr>
