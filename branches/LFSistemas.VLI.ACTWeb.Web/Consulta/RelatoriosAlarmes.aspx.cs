@@ -83,6 +83,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
                 var dataIni = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
                 txtDataInicio.Text = dataIni.ToShortDateString();
+                txtHoraInicio.Text = dataIni.ToShortTimeString();
 
                 ViewState["ordenacao"] = "ASC";
                 ViewState["colunaOrdem"] = "AA.AL_DT_INI";
@@ -189,6 +190,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         {
             var dataIni = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
             txtDataInicio.Text = dataIni.ToShortDateString();
+            txtHoraInicio.Text = dataIni.ToShortTimeString();
+            rdTras.Checked = true;
             CarregaCombos(null);
             Pesquisar(null, Navigation.None);
         }
@@ -254,23 +257,34 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         private List<RelatorioAlarme> consultaRelatorio(string ordenacao) {
 
             var pesquisa = new RelatorioAlarmesController();
-            DateTime horaInicio = txtDataInicio.Text.Length > 0 ? DateTime.Parse(txtDataInicio.Text + " 00:00:00") : DateTime.Now;
-
-            if((horaInicio.Day == DateTime.Now.Day)
-                && (horaInicio.Month == DateTime.Now.Month)
-                && (horaInicio.Year == DateTime.Now.Year)) {
-
-                horaInicio = DateTime.Now;
-            }
+            
+            if (txtHoraInicio.Text.Length != 5)
+                txtHoraInicio.Text = DateTime.Now.ToString("HH:mm");
+            else if (int.Parse(txtHoraInicio.Text.Substring(0, 2)) >= 24)
+                txtHoraInicio.Text = "00:00";
+            
+            DateTime horaInicio = txtDataInicio.Text.Length > 0 ? DateTime.Parse(txtDataInicio.Text + " " + FormataHora(txtHoraInicio.Text)) : DateTime.Now;
+            DateTime horaFim = horaInicio;
 
             corredores = getSelectedInComboBox(cblDadosCorredores);
             estacoes = getSelectedInComboBox(cblEstacoes);
             status = getSelectedInComboBox(cblStatus);
             TipoAlarme = getSelectedInComboBox(cblTipoAlarme);
 
+            if (rdParaFrente.Checked)
+            {
+                horaFim = horaInicio.AddHours(int.Parse(ddlMais.SelectedValue));
+            }
+            else if (rdTras.Checked)
+            {
+                horaInicio = horaInicio.AddHours(-int.Parse(ddlMais.SelectedValue));
+                horaFim = txtDataInicio.Text.Length > 0 ? DateTime.Parse(txtDataInicio.Text + " " + FormataHora(txtHoraInicio.Text)) : DateTime.Now;
+            }
+
             itens = pesquisa.consultaRelatorio(ordenacao, new RelatorioAlarme()
             {
                 dataINI = horaInicio,
+                dataFIM = horaFim,
                 corredor = corredores,
                 estacao = estacoes,
                 status_alarme = status,
@@ -352,6 +366,35 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             return auxSTRING;
         }
 
+        protected string FormataHora(string hora)
+        {
+            string Retorno = hora;
+
+
+            if (hora.Length == 1)
+            {
+                Retorno = "0" + hora + ":00";
+                txtHoraInicio.Text = Retorno;
+            }
+            if (hora.Length == 2)
+            {
+                Retorno = hora + ":00";
+                txtHoraInicio.Text = Retorno;
+            }
+            if (hora.Length == 3)
+            {
+                Retorno = hora + "00";
+                txtHoraInicio.Text = Retorno;
+            }
+            if (hora.Length == 4)
+            {
+                Retorno = hora + "0";
+                txtHoraInicio.Text = Retorno;
+            }
+
+            return Retorno;
+        }
+
         protected void Excel(string ordenacao, Navigation navigation)
         {
             List<RelatorioAlarme> itens = consultaRelatorio(ordenacao);
@@ -361,11 +404,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 StringBuilder sb = new StringBuilder();
                 try
                 {
-                    sb.AppendLine("ID_ALARME;CORREDOR;ESTAÇÃO;NOME_ESTAÇÃO;STATUS_ALARME;PARAMETRO;DATA_INICIO;DATA_RECONHECIMENTO;DATA_FIM;MENSAGEM");
+                    sb.AppendLine("ALARME_ID;CORREDOR;ESTAÇÃO;NOME_ESTAÇÃO;STATUS_ALARME;PARAMETRO;DATA_INICIO;DATA_RECONHECIMENTO;DATA_FIM;MENSAGEM;TIPO_ALARME");
 
                     foreach (var item in itens)
                     {
-                        sb.AppendLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9}", item.alarme_id, item.corredor, item.estacao, item.descricao_estacao, item.status_alarme, item.parametros, item.dataINI, item.dataREC, item.dataFIM, item.descricao_alarme));
+                        sb.AppendLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10}", item.alarme_id, item.corredor, item.estacao, item.descricao_estacao, item.status_alarme, item.parametros, item.dataINI, item.dataREC, item.dataFIM, item.descricao_alarme, item.tp_alarme));
                     }
                 }
                 catch (Exception ex)

@@ -18,6 +18,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public DateTime? dataREC { get; set; }
         public DateTime? dataFIM { get; set; }
         public string descricao_alarme { get; set; }
+        public Double tp_alarme { get; set; }
         public string dt_inicial { get; set; }
         public string dt_final { get; set; }
         public string dt_reconhecido { get; set; }

@@ -594,7 +594,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
         #region [ LDL DE PÁTIOS ]
         protected void lnkLdlPatios_Click(object sender, EventArgs e)
         {
-            Response.Write("<script> window.open('http://actldl.fcacco.br/', '', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); </script>");
+            Response.Write("<script> window.open('http://actldl.fcacco.br/'); </script>");
         }
 
         #endregion
@@ -602,12 +602,12 @@ namespace LFSistemas.VLI.ACTWeb.Web
         #region [ WAYSIDE ]
         protected void lnkFleetONE_Click(object sender, EventArgs e)
         {
-            Response.Write("<script> window.open('http://actwsd.fcacco.br/fleetone', '', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); </script>");
+            Response.Write("<script> window.open('http://actwsd.fcacco.br/fleetone'); </script>");
         }
 
         protected void lnkMonitoramentoWayside_Click(object sender, EventArgs e)
         {
-            Response.Write("<script> window.open('http://actmat.fcacco.br/', '', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); </script>");
+            Response.Write("<script> window.open('http://actmat.fcacco.br/'); </script>");
         }
 
         #endregion
