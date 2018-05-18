@@ -520,10 +520,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             WHERE EST_ID IN (SELECT EST_ID
                                   FROM REL_CAB_EST
                                             WHERE CAB_ID IN (${CABINES_R}))) B
-                                ON     MR.MR_NOME_SB LIKE CONCAT (B.EST_NOME, '%')
+                                ON MR.MR_TEXT LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
                                      ${INTERVALO_R}
                                      AND MR.MR_MC_NUM = 50
                                      AND SUBSTR (MR.MR_TEXT, 2, 4) = '7000'
+                                     ${EXPRESSAO_R}
                                      ${LOCO_R}
                                      ${CODIGO_OS_R} 
                                      ${PREFIXO_R}
@@ -549,10 +550,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             WHERE EST_ID IN (SELECT EST_ID
                                     FROM REL_CAB_EST
                                             WHERE CAB_ID IN (${CABINES_E}))) B
-                                ON     ME.ME_NOME_SB LIKE CONCAT (B.EST_NOME, '%')
+                                ON ME.ME_TEXT LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
                                      ${INTERVALO_E}
                                      AND ME.ME_MAC_NUM = 50
                                      AND SUBSTR (ME.ME_TEXT, 2, 4) = '7000' 
+                                     ${EXPRESSAO_E}
                                      ${LOCO_E}
                                      ${CODIGO_OS_E}
                                      ${PREFIXO_E}
@@ -599,8 +601,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     //FIltro de expressão
                     if (!string.IsNullOrEmpty(filtro.Expressao))
                     {
-                        query.Replace("${EXPRESSAO_R}", string.Format("AND (MR.MR_TEXT LIKE '%{0}%'", filtro.Expressao));
-                        query.Replace("${EXPRESSAO_E}", string.Format("AND (ME.ME_TEXT LIKE '%{0}%'", filtro.Expressao));
+                        query.Replace("${EXPRESSAO_R}", string.Format("AND MR.MR_TEXT LIKE '%{0}%'", filtro.Expressao));
+                        query.Replace("${EXPRESSAO_E}", string.Format("AND ME.ME_TEXT LIKE '%{0}%'", filtro.Expressao));
                     }
                     else
                     {

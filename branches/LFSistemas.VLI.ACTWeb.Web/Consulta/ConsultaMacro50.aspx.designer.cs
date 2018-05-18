@@ -139,6 +139,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         protected global::System.Web.UI.WebControls.TextBox txtFiltroPrefTrem;
         
         /// <summary>
+        /// txtExpressao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtExpressao;
+        
+        /// <summary>
         /// txtHoraInicio control.
         /// </summary>
         /// <remarks>

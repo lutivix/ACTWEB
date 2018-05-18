@@ -299,7 +299,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
         protected void VerificaNovasMensagens()
         {
-            if (lblUsuarioMaleta.Text == "7000")
+            //if (lblUsuarioMaleta.Text == "7000")
             {
                 //var aux = new List<string>();
                 //if (clbCorredor.Items.Count > 0)
@@ -580,9 +580,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 DataFim = horaFim,
                 NumeroMacro = "50",
                 PrefixoTrem = txtFiltroPrefTrem.Text.Length > 0 ? txtFiltroPrefTrem.Text : null,
-                Corredores = ViewState["corredor"].ToString(),
-                cabines = cabines
-
+                cabines = cabines,
+                Expressao = txtExpressao.Text.Length > 0 ? txtExpressao.Text : null,
+                
             }, "tela_consulta");
 
             if (itens.Count > 0)
@@ -750,8 +750,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 DataFim = horaFim,
                 NumeroMacro = "50",
                 PrefixoTrem = txtFiltroPrefTrem.Text.Length > 0 ? txtFiltroPrefTrem.Text : null,
-                Corredores = ViewState["corredor"].ToString(),
-                cabines = cabines
+                cabines = cabines,
+                Expressao = txtExpressao.Text.Length > 0 ? txtExpressao.Text : null
 
             }, "tela_consulta");
 

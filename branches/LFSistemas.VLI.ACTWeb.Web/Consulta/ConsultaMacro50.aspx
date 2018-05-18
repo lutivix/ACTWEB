@@ -224,6 +224,11 @@
                         <br />
                         
                     </td>
+                    <td colspan="1" style="width: 130px;">
+                        <label for="matricula">Expressão:</label>
+                        <asp:TextBox runat="server" ID="txtExpressao" CssClass="form-control" Width="130px" />
+                        <br />
+                    </td>
                     <td style="width: 130px;" >&nbsp;
                          <label for="hora_inicio">Hora:</label>
                             <asp:TextBox ID="txtHoraInicio" runat="server" Width="130px" onKeyUp="formatar(this, '##:##')" CssClass="form-control" MaxLength="5" onkeypress="return fnValidaNroDoisPontos(event);" />   
