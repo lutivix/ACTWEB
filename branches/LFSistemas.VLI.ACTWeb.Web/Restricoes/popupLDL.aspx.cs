@@ -94,6 +94,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 var dataFim = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy"));
                 txtDataInicial.Text = dataIni.ToShortDateString();
                 txtDataFinal.Text = dataFim.ToShortDateString();
+                txtAutorizacao.Visible = false;
 
                 ControleFormulario(StatusBarraComandos.Novo);
                 txtDadosDataAtual.Text = DateTime.Now.ToShortDateString();
@@ -242,9 +243,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             ControleFormulario(StatusBarraComandos.Novo);
             Pesquisar(null);
-        }
+        }        
+       
         protected void lnkEdite_Click(object sender, EventArgs e)
         {
+            Panel1.Visible = false;
+            txtAutorizacao.Visible = true;
+            //txtAutorizacao.Text = ;
+
             ControleFormulario(StatusBarraComandos.Edicao);
             LinkButton btn = (LinkButton)(sender);
 
@@ -264,7 +270,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 ddlDadosTipoDaManutencao.SelectedItem.Value = dados.Tipo_Manutencao_ID != null ? dados.Tipo_Manutencao_ID.ToString() : "0";
                 ddlDadosTipoDaManutencao.SelectedItem.Text = dados.Tipo_Manutencao_Nome != null ? dados.Tipo_Manutencao_Nome : string.Empty;
 
-                ddlDadosMotivo.SelectedItem.Value = dados.Motivo_ID.ToString(); 
+                ddlDadosMotivo.SelectedItem.Value = dados.Motivo_ID.ToString();
+
+                txtAutorizacao.Text = dados.Cod_Ldl;
 
                 if (dados.Tipo_Circulacao_ID > 0)
                 {
@@ -326,12 +334,20 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         }
         protected void lnkRetirar_Click(object sender, EventArgs e)
         {
+            
             try
             {
+
+                txtAutorizacao.Visible = false;
+
+                //chanar outra pag
+                Response.Redirect("<script>window.open('/Restricoes/popupConfirmacaoLDL.aspx</script>");
+
                 if (DLLSendSRI())
                 {
                     ControleFormulario(StatusBarraComandos.Novo);
                     Pesquisar(null);
+                    Panel1.Visible = true;
                 }
             }
 
@@ -340,6 +356,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 throw new Exception(ex.Message);
             }
         }
+
         protected void lnkNovoResponsavel_Click(object sender, EventArgs e)
         {
             Response.Write("<script> " +
@@ -357,6 +374,23 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             ControleFormulario(StatusBarraComandos.Novo);
             Pesquisar(null);
+            Panel1.Visible = true;
+            txtAutorizacao.Visible = false;
+        }
+        protected void lnkLdl_Click(object sender, EventArgs e)
+        {
+            //var ordenacao = ViewState["ordenacao"].ToString();
+
+            //if (ordenacao == "ASC")
+            //{
+            //    ViewState["ordenacao"] = "DESC";
+            //    Pesquisar("OL.LDL_CODIGOIDENT " + ViewState["ordenacao"].ToString() + ", SLT_DATA desc");
+            //}
+            //else
+            //{
+            //    ViewState["ordenacao"] = "ASC";
+            //    Pesquisar("OL.LDL_CODIGOIDENT " + ViewState["ordenacao"].ToString() + ", SLT_DATA desc");
+            //}
         }
         protected void lnkSituacao_Click(object sender, EventArgs e)
         {
@@ -478,7 +512,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 Pesquisar("II.SLT_DURACAO_AUTORIZADA " + ViewState["ordenacao"].ToString());
             }
         }
-        protected void lnkAutorizacao_Click(object sender, EventArgs e)
+        /*protected void lnkAutorizacao_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
 
@@ -492,7 +526,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 ViewState["ordenacao"] = "ASC";
                 Pesquisar("II.SLT_ID_ACT_AUT_INTER " + ViewState["ordenacao"].ToString() + ", SLT_DATA desc");
             }
-        }
+        }*/
 
         #endregion
 

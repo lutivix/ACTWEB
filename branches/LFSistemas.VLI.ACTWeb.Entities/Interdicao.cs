@@ -42,6 +42,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Usuario_Logado_Nome { get; set; }
         public double? Aut_Interdicao_Act { get; set; }
         public string Ativo_SN { get; set; }
+        public string Cod_Ldl { get; set; }
 
         #endregion
     }

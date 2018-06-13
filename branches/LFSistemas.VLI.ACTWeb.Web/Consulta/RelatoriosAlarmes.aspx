@@ -75,14 +75,14 @@
                     <tr>
                     <td style="position: relative; width: 8%">
                         <label for="data_inicio">Data:</label>
-                        <asp:TextBox ID="txtDataInicio" runat="server" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
+                        <asp:TextBox ID="txtDataInicio" runat="server" style="width: 120px" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
                         <asp:CalendarExtender runat="server" ID="cetxtDataInicio" TargetControlID="txtDataInicio" />
                     </td>
                     <td style="width: 8%">
                          <label for="hora_inicio">Hora:</label>
-                         <asp:TextBox ID="txtHoraInicio" runat="server" onKeyUp="formatar(this, '##:##')" CssClass="form-control" MaxLength="5" onkeypress="return fnValidaNroDoisPontos(event);" />
+                         <asp:TextBox ID="txtHoraInicio" runat="server" style="width: 120px" onKeyUp="formatar(this, '##:##')" CssClass="form-control" MaxLength="5" onkeypress="return fnValidaNroDoisPontos(event);" />
                     </td>
-                    <td style="width: 5%;">
+                    <td style="width: 7%;">
                          <label for="data_fim">Mais Hora(s):</label>
                          <br />
                          <asp:DropDownList runat="server" ID="ddlMais" CssClass="form-control">
@@ -112,38 +112,38 @@
                              <asp:ListItem Text="24" Value="24" />
                          </asp:DropDownList>
                     </td>
-                    <td style="width: 7%">
+                    <td style="width: 9%">
                          <label for="data_fim">Direção:</label>
                          <br />
                          <asp:RadioButton ID="rdParaFrente" runat="server" GroupName="Espaco" Text="&nbsp;&nbsp;Para frente" />
                          <br />
                          <asp:RadioButton ID="rdTras" runat="server" GroupName="Espaco" Text="&nbsp;&nbsp;Para Trás" Checked="true" />
                     </td>
-                    <td style="width: 12%">
+                    <td style="width: 16%">
                         <label for="perfil">Corredores:</label>
                         <asp:Panel runat="server" Height="110" CssClass="form-control" ScrollBars="Vertical">
                             <asp:CheckBoxList runat="server" ID="cblDadosCorredores" />
                         </asp:Panel>
                     </td>
-                    <td style="width: 8%">
+                    <td style="width: 10%">
                         <label for="perfil">Estações:</label>
                         <asp:Panel runat="server" Height="110" CssClass="form-control" style="" ScrollBars="Vertical">
                             <asp:CheckBoxList runat="server" ID="cblEstacoes" />
                         </asp:Panel>
                     </td>
-                    <td style="width: 17%">
+                    <td style="width: 23%">
                         <label for="perfil">Status:</label>
                         <asp:Panel runat="server" Height="110" ScrollBars="Vertical" CssClass="form-control">
                             <asp:CheckBoxList runat="server" ID="cblStatus" />
                         </asp:Panel>
                     </td>
-                    <td style="width: 7%">
+                    <td style="width: 8%">
                         <label for="perfil">Tipo de Alarme:</label>
                         <asp:Panel runat="server" Height="110" CssClass="form-control" ScrollBars="Vertical">
                             <asp:CheckBoxList runat="server" ID="cblTipoAlarme" />
                         </asp:Panel>
                     </td>
-                    <td style="width: 15%">
+                    <td style="width: 5%">
                     </td>
                     
                     </tr>
