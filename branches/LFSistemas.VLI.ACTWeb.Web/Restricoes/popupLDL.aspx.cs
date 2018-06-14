@@ -94,7 +94,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 var dataFim = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy"));
                 txtDataInicial.Text = dataIni.ToShortDateString();
                 txtDataFinal.Text = dataFim.ToShortDateString();
-                txtAutorizacao.Visible = false;
+                //txtAutorizacao.Visible = false;
 
                 ControleFormulario(StatusBarraComandos.Novo);
                 txtDadosDataAtual.Text = DateTime.Now.ToShortDateString();
@@ -248,8 +248,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         protected void lnkEdite_Click(object sender, EventArgs e)
         {
             Panel1.Visible = false;
-            txtAutorizacao.Visible = true;
-            //txtAutorizacao.Text = ;
+            //txtAutorizacao.Visible = true;
 
             ControleFormulario(StatusBarraComandos.Edicao);
             LinkButton btn = (LinkButton)(sender);
@@ -338,16 +337,17 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             try
             {
 
-                txtAutorizacao.Visible = false;
+                //txtAutorizacao.Visible = false;
 
                 //chanar outra pag
-                Response.Redirect("<script>window.open('/Restricoes/popupConfirmacaoLDL.aspx</script>");
+                //Response.Redirect("<script>window.open('/Restricoes/popupConfirmacaoLDL.aspx</script>");
 
                 if (DLLSendSRI())
                 {
                     ControleFormulario(StatusBarraComandos.Novo);
                     Pesquisar(null);
                     Panel1.Visible = true;
+                    txtAutorizacao.Text = string.Empty;
                 }
             }
 
@@ -375,7 +375,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             ControleFormulario(StatusBarraComandos.Novo);
             Pesquisar(null);
             Panel1.Visible = true;
-            txtAutorizacao.Visible = false;
+            txtAutorizacao.Text = string.Empty;
+            //txtAutorizacao.Visible = false;
         }
         protected void lnkLdl_Click(object sender, EventArgs e)
         {
@@ -846,6 +847,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     txtDadosEquipamentos.Enabled = true;
                     txtDadosMacro.Enabled = false;
                     txtDadosObsercacao.Enabled = true;
+                    //txtAutorizacao.Enabled = true;
 
                     txtDadosDuracaoSolicitada.Text = string.Empty;
                     txtDadosKm.Text = string.Empty;
@@ -897,6 +899,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     rdDadosMacro.Enabled = false;
                     txtDadosMacro.Enabled = false;
                     txtDadosObsercacao.Enabled = false;
+                    //txtAutorizacao.Enabled = true;
 
                     lnkCriar.Enabled = false;
                     lnkCriar.CssClass = "btn btn-success disabled";

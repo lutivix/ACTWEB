@@ -238,7 +238,7 @@
             <div id="Interdicao">
                 <table class="nav-justified" style="width: 100%">
                     <tr>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
+                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Autorização&nbsp;&nbsp;</td>
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:TextBox ID="txtAutorizacao" runat="server" CssClass="form-control" Enabled="false" Text="" />
                         </td>
