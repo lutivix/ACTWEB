@@ -130,34 +130,43 @@
             }
         }
 
-        function soufoda() {
+        //function soufoda()
+        {
             // We want the form above to be there still because it houses our buttons, but it also means our
             // code still works without js.  With js disabled the "hide" never runs so the form stays visible
             // and functioning
             //$("#warning").hide();
 
-            var id = '<%=this.ulNome %>';
-            var person = prompt("Are you sure?", "33")
-            id = "11";
-            person = "11";
-            if (person === id) 
+            var ret = '<%=this.retirando %>';
+            if (ret == "True")
             {
-                $.ajax({
-                    type: "POST",
-                    url: "popupLDL.aspx/DeleteRestriction",                    
-                    contentType: "application/json; charset=utf-8",
-                    success: function () {
-                        // if you want something to happen after the ajax call then
-                        // code it here
-                        alert("Product deleted");
-                    }
-                });
+                var id = '<%=this.ulMatricula %>';
+                var person = prompt("DIGITE MATRÍCULA?", "33")
+                if (person == id) {
+                    alert("Deleção foi!");
+                    $.ajax({
+                        type: "POST",
+                        url: "popupLDL.aspx/DeleteRestriction",
+                        data: "{id:'" + id + "'}",
+                        contentType: "application/json; charset=utf-8",
+                        success: function () {
+                            // if you want something to happen after the ajax call then
+                            // code it here
+                            document.getElementById('lnkRetirar').click();
+                            alert("Deleção da LDL " + person + " foi solicitada!");
+                        }
+                    });
+                }
+                else
+                {
+                    // If you want to run a server-function when the user cancels then just
+                    // do an ajax call here as above, likewise you can put general js here too
+                    alert("Deleção de LDL abortada!");
+                    alert(id);
+                    alert(person);
+                    alert(ret);
+                }
             }
-            else {                   
-                // If you want to run a server-function when the user cancels then just
-                // do an ajax call here as above, likewise you can put general js here too
-                alert("Deleção Abortada!");
-            }   
         }
 
     </script>
