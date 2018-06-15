@@ -431,6 +431,8 @@
     <Content Include="Relatorios\RelatorioAlarmesTelecomandadas.aspx" />
     <Content Include="Relatorios\RelatoriosPGOF.aspx" />
     <Content Include="Relatorios\VMA.aspx" />
+    <Content Include="Restricoes\confirmacaoRetirarLDL\HtmlPage1.html" />
+    <Content Include="Restricoes\confirmacaoRetirarLDL\WebForm1.aspx" />
     <Content Include="Restricoes\popupConfirmacaoLDL.aspx" />
     <Content Include="Restricoes\popupLDL.aspx" />
     <Content Include="Restricoes\popupRelatorioRestricoesTemperatura.aspx" />
@@ -1199,6 +1201,13 @@
     </Compile>
     <Compile Include="Relatorios\VMA.aspx.designer.cs">
       <DependentUpon>VMA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Restricoes\confirmacaoRetirarLDL\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Restricoes\confirmacaoRetirarLDL\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="Restricoes\popupConfirmacaoLDL.aspx.cs">
       <DependentUpon>popupConfirmacaoLDL.aspx</DependentUpon>

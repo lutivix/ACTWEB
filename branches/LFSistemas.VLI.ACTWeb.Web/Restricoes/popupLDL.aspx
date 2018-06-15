@@ -129,6 +129,37 @@
                 obj.value = obj.value.substring(0, mlength)
             }
         }
+
+        function soufoda() {
+            // We want the form above to be there still because it houses our buttons, but it also means our
+            // code still works without js.  With js disabled the "hide" never runs so the form stays visible
+            // and functioning
+            //$("#warning").hide();
+
+            var id = '<%=this.ulNome %>';
+            var person = prompt("Are you sure?", "33")
+            id = "11";
+            person = "11";
+            if (person === id) 
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "popupLDL.aspx/DeleteRestriction",                    
+                    contentType: "application/json; charset=utf-8",
+                    success: function () {
+                        // if you want something to happen after the ajax call then
+                        // code it here
+                        alert("Product deleted");
+                    }
+                });
+            }
+            else {                   
+                // If you want to run a server-function when the user cancels then just
+                // do an ajax call here as above, likewise you can put general js here too
+                alert("Deleção Abortada!");
+            }   
+        }
+
     </script>
 </head>
 <body onkeydown="tecla()">
@@ -377,7 +408,12 @@
                         <td style="width: 65%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="4">
                             <asp:LinkButton ID="lnkCriar" runat="server" OnClick="lnkCriar_Click" OnClientClick="javascript:return validaFormulario();" ToolTip="Solicitar criação de interdição de LDL."><i class="fa fa-plus"></i>&nbsp;Criar Interdição</asp:LinkButton>
                             &nbsp;&nbsp;
+                                    <%--<asp:LinkButton ID="lnkRetirar" runat="server" OnClick="soufoda()" ToolTip="Solicitar remoção de interdição de LDL."><i class="fa fa-minus"></i>&nbsp;Retirar Interdição</asp:LinkButton>--%>
                                     <asp:LinkButton ID="lnkRetirar" runat="server" OnClick="lnkRetirar_Click" ToolTip="Solicitar remoção de interdição de LDL."><i class="fa fa-minus"></i>&nbsp;Retirar Interdição</asp:LinkButton>
+                             <%--<asp:LinkButton runat="server" ID="lnkParadaImediata" OnClick="lnkParadaImediata_OnClick">
+                                        <span class="menu-item-icon"><i class="fa fa-envelope"></i></span>
+                                        <span class="menu-item-label" title="Parada Imediata">Parada Imediata</span>
+                                    </asp:LinkButton>--%>
                                     <asp:LinkButton ID="lnkAtualizarLista" runat="server" OnClick="lnkAtualizarLista_Click" ToolTip="Atualiza as informações do grid abaixo."><i class="fa fa-table"></i>&nbsp;Atualizar Lista</asp:LinkButton>
                             &nbsp;&nbsp;
                                     <asp:LinkButton ID="lnkLImpar" runat="server" OnClick="lnkLImpar_Click" ToolTip="Limpa os dados do formulário acima."><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
@@ -390,6 +426,15 @@
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                     </tr>
                 </table>
+            </div>
+            <div>
+
+
+
+            
+
+
+
             </div>
         </div>
         <%--[ FILTRO DE PESQUISA ]--%>
@@ -541,7 +586,8 @@
             <span>desenvolvido por </span>
             <a href="http://lfsistemas.net.br/" target="_blank" class="lfslogo-popup"></a>
         </div>
-        <%--        </asp:Panel>--%>
+        <%--        </asp:Panel>--%>            
     </form>
+
 </body>
 </html>

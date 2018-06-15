@@ -80,12 +80,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             txtDadosObsercacao.Attributes.Add("onkeyup", "return ismaxlength(this);");
 
-            var usuarioLogado = Uteis.Descriptografar(Request.QueryString["lu"].ToString(), "a#3G6**@").ToUpper();
+            //var usuarioLogado = Uteis.Descriptografar(Request.QueryString["lu"].ToString(), "a#3G6**@").ToUpper();
 
-            lblOperadorCCV_Nome.Text = lblUsuarioLogado.Text = ulNome = usuarioLogado.Length > 12 ? usuarioLogado.Substring(0, 12).ToUpper() : usuarioLogado;
-            txtDadosOperadorCCV.Text = lblUsuarioMatricula.Text = ulMatricula = Uteis.Descriptografar(Request.QueryString["mu"].ToString(), "a#3G6**@").ToUpper();
-            lblUsuarioPerfil.Text = ulPerfil = Uteis.Descriptografar(Request.QueryString["pu"].ToString(), "a#3G6**@").ToUpper();
-            lblUsuarioMaleta.Text = ulMaleta = Uteis.Descriptografar(Request.QueryString["mm"].ToString(), "a#3G6**@").ToUpper();
+            var usuarioLogado = "99";
+
+            //lblOperadorCCV_Nome.Text = lblUsuarioLogado.Text = ulNome = usuarioLogado.Length > 12 ? usuarioLogado.Substring(0, 12).ToUpper() : usuarioLogado;
+            //txtDadosOperadorCCV.Text = lblUsuarioMatricula.Text = ulMatricula = Uteis.Descriptografar(Request.QueryString["mu"].ToString(), "a#3G6**@").ToUpper();
+            //lblUsuarioPerfil.Text = ulPerfil = Uteis.Descriptografar(Request.QueryString["pu"].ToString(), "a#3G6**@").ToUpper();
+            //lblUsuarioMaleta.Text = ulMaleta = Uteis.Descriptografar(Request.QueryString["mm"].ToString(), "a#3G6**@").ToUpper();
 
             if (!IsPostBack)
             {
@@ -117,7 +119,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 //txtDadosObsercacao.Text = "Teste de solicitação de interdição";
 
                 ddlDadosSecao.Focus();
-            }
+
+                
+            }           
         }
 
         #endregion
@@ -342,13 +346,32 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 //chanar outra pag
                 //Response.Redirect("<script>window.open('/Restricoes/popupConfirmacaoLDL.aspx</script>");
 
-                if (DLLSendSRI())
-                {
-                    ControleFormulario(StatusBarraComandos.Novo);
-                    Pesquisar(null);
-                    Panel1.Visible = true;
-                    txtAutorizacao.Text = string.Empty;
-                }
+                //MessageBox
+
+                //ring teste = "<script>window.open('/Restricoes/confimacaoRetiradaLDL/PopupEnviarParadaImediata.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'width=680, height=330, scrollbars=yes, resusable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0'); </script>";
+                //sponse.Write("<script>window.open('/Restricoes/confimacaoRetiradaLDL/PopupEnviarParadaImediata.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'width=680, height=330, scrollbars=yes, resusable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0'); </script>");
+                //sponse.Write("<script>window.open('/Restricoes/confimacaoRetirarLDL/WebForm1.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'width=680, height=330, scrollbars=yes, resusable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0'); </script>");
+                //sponse.Write("/Restricoes/confimacaoRetirarLDL/WebForm1.aspx");
+                Response.Write("<script> " +
+                        " var url = '/Restricoes/confirmacaoRetirarLDL/WebForm1.aspx?id=22';" +
+                        " var newW = 800; " +
+                        " var newH = 260; " +
+                        " var left = (screen.width-newW)/2; " +
+                        " var top = (screen.height-newH)/2; " +
+                        " var newwindow = window.open(url, 'name', 'width='+newW+',height='+newH+',left='+left+',top='+top); " +
+                        " newwindow.resizeTo(newW, newH); " +
+                        " newwindow.moveTo(left, top); " +
+                        " newwindow.focus();</script>");
+
+                //Response.Write("<script>window.open('/Macros/PopupEnviarParadaImediata.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'width=680, height=330, scrollbars=yes, resusable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0'); </script>");
+
+                //if (DLLSendSRI())
+                //{
+                //    ControleFormulario(StatusBarraComandos.Novo);
+                //    Pesquisar(null);
+                //    Panel1.Visible = true;
+                //    txtAutorizacao.Text = string.Empty;
+                //}
             }
 
             catch (Exception ex)
@@ -782,6 +805,18 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             else
                 lblMensagem.Text = string.Format(" ");
             ddlDadosSecao.Focus();
+        }
+
+        public void DeleteRestriction()
+        {
+            // Complete the action
+            if (DLLSendSRI())
+            {
+                ControleFormulario(StatusBarraComandos.Novo);
+                Pesquisar(null);
+                Panel1.Visible = true;
+                txtAutorizacao.Text = string.Empty;
+            }
         }
 
         #endregion

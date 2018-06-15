@@ -106,7 +106,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
         public static void GravaLogSistemaCabines(DateTime data_hora, string matricula, string modulo, string texto)
         {
-            string Path = "D:\\Projetos\\ACTWEB_DEV";
+            string Path = "E:\\Projetos\\ACTWEB_DEV";
             string arquivo = Path + "Cabines_LogSistema.log";
             string linha = string.Empty;
             try
