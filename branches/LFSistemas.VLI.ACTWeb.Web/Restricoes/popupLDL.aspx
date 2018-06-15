@@ -508,7 +508,7 @@
                                         <td style="width: 02%; text-align: center; border-right: 1px solid rgb(0, 72, 89);">
                                             <asp:LinkButton ID="lnkEdite" runat="server" OnClick="lnkEdite_Click" CommandArgument='<%# Eval("Solicitacao_ID_ACTWEB") %>'><i class="fa fa-search-plus"></i></asp:LinkButton>
                                         </td>
-                                        <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Cod_Ldl") %>"><%# Eval("Cod_Ldl") %></td>
+                                        <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Aut_Interdicao_Act") %>"><%# Eval("Aut_Interdicao_Act") %></td>
                                         <td style="width: 05%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Situacao_Nome") %>"><%# Eval("Situacao_Nome") %></td>
                                         <td style="width: 07%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Secao_Nome") %>"><%# Eval("Secao_Nome") %></td>
                                         <td style="width: 07%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Tipo_Manutencao_Nome") %>"><%# Eval("Tipo_Manutencao_Nome") %></td>

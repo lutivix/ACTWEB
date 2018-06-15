@@ -896,7 +896,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(26)) item.Observacao = reader.GetString(26);
             if (!reader.IsDBNull(27)) item.Ativo_SN = reader.GetString(27);
             if (!reader.IsDBNull(28)) item.Aut_Interdicao_Act = reader.GetDouble(28);
-            if (!reader.IsDBNull(28)) item.Cod_Ldl = reader.GetString(06) + reader.GetDouble(28).ToString();
+            //if (!reader.IsDBNull(28)) item.Cod_Ldl = reader.GetString(06) + reader.GetDouble(28).ToString();
             if (!reader.IsDBNull(29)) item.Motivo_ID = reader.GetDouble(29);
 
             return item;
