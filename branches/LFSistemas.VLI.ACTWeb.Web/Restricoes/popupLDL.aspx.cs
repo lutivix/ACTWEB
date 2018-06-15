@@ -20,6 +20,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         public string ulPerfil { get; set; }
         public string ulMaleta { get; set; }
         public string verificaKm { get; set; }
+        public string id_aut { get; set; }
+        public string sb { get; set; }
 
         public bool retirando { get; set; }
 
@@ -98,7 +100,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 var dataFim = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy"));
                 txtDataInicial.Text = dataIni.ToShortDateString();
                 txtDataFinal.Text = dataFim.ToShortDateString();
-                //txtAutorizacao.Visible = false;
 
                 ControleFormulario(StatusBarraComandos.Novo);
                 txtDadosDataAtual.Text = DateTime.Now.ToShortDateString();
@@ -254,7 +255,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         protected void lnkEdite_Click(object sender, EventArgs e)
         {
             Panel1.Visible = false;
-            //txtAutorizacao.Visible = true;
 
             ControleFormulario(StatusBarraComandos.Edicao);
             LinkButton btn = (LinkButton)(sender);
@@ -277,8 +277,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                 ddlDadosMotivo.SelectedItem.Value = dados.Motivo_ID.ToString();
 
-                txtAutorizacao.Text = dados.Cod_Ldl;
-
+                txtAutorizacao.Text = dados.Aut_Interdicao_Act.ToString();
+                
+                
                 if (dados.Tipo_Circulacao_ID > 0)
                 {
                     if (dados.Situacao_Nome != "R - Retirada")
@@ -341,6 +342,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         protected void lnkRetirar_Click(object sender, EventArgs e)
         {
             retirando = true;
+            id_aut = txtAutorizacao.Text;
+            sb = ddlDadosSecao.SelectedItem.Text;
             
             try
             {

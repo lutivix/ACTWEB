@@ -140,14 +140,14 @@
             var ret = '<%=this.retirando %>';
             if (ret == "True")
             {
-                var id = '<%=this.ulMatricula %>';
-                var person = prompt("DIGITE MATRÍCULA?", "33")
-                if (person == id) {
-                    alert("Deleção foi!");
+                var id = '<%=this.id_aut %>';
+                var id2 = '<%=this.sb %>';
+                var person = prompt("CONFIRME O Nº DE AUTORIZAÇÃO (SB EM CAIXA ALTA + Nº autorização)", "")
+                if (person == id2 + id) {
                     $.ajax({
                         type: "POST",
                         url: "popupLDL.aspx/DeleteRestriction",
-                        data: "{id:'" + id + "'}",
+                        data: "{id:'" + id2 + id + "'}",
                         contentType: "application/json; charset=utf-8",
                         success: function () {
                             // if you want something to happen after the ajax call then
@@ -162,9 +162,6 @@
                     // If you want to run a server-function when the user cancels then just
                     // do an ajax call here as above, likewise you can put general js here too
                     alert("Deleção de LDL abortada!");
-                    alert(id);
-                    alert(person);
-                    alert(ret);
                 }
             }
         }
