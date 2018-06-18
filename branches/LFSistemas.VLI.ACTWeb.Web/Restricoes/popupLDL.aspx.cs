@@ -9,10 +9,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
-{
+{    
     public partial class popupLDL : System.Web.UI.Page
     {
-        #region [ PROPRIEDADES ]
+        #region [ PROPRIEDADES ]        
 
         double Data { get; set; }
         public string ulNome { get; set; }
@@ -20,6 +20,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         public string ulPerfil { get; set; }
         public string ulMaleta { get; set; }
         public string verificaKm { get; set; }
+        public string id_aut { get; set; }
+        public string sb { get; set; }
+
+        public bool retirando { get; set; }
+
+        public static bool podeSolRetirada;
         public enum StatusBarraComandos
         {
             Novo = 1,
@@ -116,7 +122,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 //txtDadosObsercacao.Text = "Teste de solicitação de interdição";
 
                 ddlDadosSecao.Focus();
-            }
+
+                
+            }           
         }
 
         #endregion
@@ -242,9 +250,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             ControleFormulario(StatusBarraComandos.Novo);
             Pesquisar(null);
-        }
+        }        
+       
         protected void lnkEdite_Click(object sender, EventArgs e)
         {
+            Panel1.Visible = false;
+
             ControleFormulario(StatusBarraComandos.Edicao);
             LinkButton btn = (LinkButton)(sender);
 
@@ -264,8 +275,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 ddlDadosTipoDaManutencao.SelectedItem.Value = dados.Tipo_Manutencao_ID != null ? dados.Tipo_Manutencao_ID.ToString() : "0";
                 ddlDadosTipoDaManutencao.SelectedItem.Text = dados.Tipo_Manutencao_Nome != null ? dados.Tipo_Manutencao_Nome : string.Empty;
 
-                ddlDadosMotivo.SelectedItem.Value = dados.Motivo_ID.ToString(); 
+                ddlDadosMotivo.SelectedItem.Value = dados.Motivo_ID.ToString();
 
+                txtAutorizacao.Text = dados.Aut_Interdicao_Act.ToString();
+                
+                
                 if (dados.Tipo_Circulacao_ID > 0)
                 {
                     if (dados.Situacao_Nome != "R - Retirada")
@@ -324,14 +338,51 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtDadosObsercacao.Text = dados.Observacao != null ? dados.Observacao : string.Empty;
             }
         }
+
         protected void lnkRetirar_Click(object sender, EventArgs e)
         {
+            retirando = true;
+            id_aut = txtAutorizacao.Text;
+            sb = ddlDadosSecao.SelectedItem.Text;
+            
             try
             {
-                if (DLLSendSRI())
+
+                if (podeSolRetirada)
                 {
-                    ControleFormulario(StatusBarraComandos.Novo);
-                    Pesquisar(null);
+                    podeSolRetirada = false;
+                    //txtAutorizacao.Visible = false;
+
+                    //chanar outra pag
+                    //Response.Redirect("<script>window.open('/Restricoes/popupConfirmacaoLDL.aspx</script>");
+
+                    //MessageBox
+
+                    //ring teste = "<script>window.open('/Restricoes/confimacaoRetiradaLDL/PopupEnviarParadaImediata.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'width=680, height=330, scrollbars=yes, resusable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0'); </script>";
+                    //sponse.Write("<script>window.open('/Restricoes/confimacaoRetiradaLDL/PopupEnviarParadaImediata.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'width=680, height=330, scrollbars=yes, resusable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0'); </script>");
+                    //sponse.Write("<script>window.open('/Restricoes/confimacaoRetirarLDL/WebForm1.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'width=680, height=330, scrollbars=yes, resusable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0'); </script>");
+                    //sponse.Write("/Restricoes/confimacaoRetirarLDL/WebForm1.aspx");
+                    //Response.Write("<script> " +
+                    //        " var url = '/Restricoes/confirmacaoRetirarLDL/WebForm1.aspx?id=22';" +
+                    //        " var newW = 800; " +
+                    //        " var newH = 260; " +
+                    //        " var left = (screen.width-newW)/2; " +
+                    //        " var top = (screen.height-newH)/2; " +
+                    //        " var newwindow = window.open(url, 'name', 'width='+newW+',height='+newH+',left='+left+',top='+top); " +
+                    //        " newwindow.resizeTo(newW, newH); " +
+                    //        " newwindow.moveTo(left, top); " +
+                    //        " newwindow.focus();</script>");
+
+                    //Response.Write("<script>window.open('/Macros/PopupEnviarParadaImediata.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'width=680, height=330, scrollbars=yes, resusable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0'); </script>");
+
+                    if (DLLSendSRI())
+                    {
+                        ControleFormulario(StatusBarraComandos.Novo);
+                        Pesquisar(null);
+                        Panel1.Visible = true;
+                        txtAutorizacao.Text = string.Empty;
+                    }
+                    retirando = false;
                 }
             }
 
@@ -340,6 +391,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 throw new Exception(ex.Message);
             }
         }
+
         protected void lnkNovoResponsavel_Click(object sender, EventArgs e)
         {
             Response.Write("<script> " +
@@ -357,6 +409,24 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             ControleFormulario(StatusBarraComandos.Novo);
             Pesquisar(null);
+            Panel1.Visible = true;
+            txtAutorizacao.Text = string.Empty;
+            //txtAutorizacao.Visible = false;
+        }
+        protected void lnkLdl_Click(object sender, EventArgs e)
+        {
+            //var ordenacao = ViewState["ordenacao"].ToString();
+
+            //if (ordenacao == "ASC")
+            //{
+            //    ViewState["ordenacao"] = "DESC";
+            //    Pesquisar("OL.LDL_CODIGOIDENT " + ViewState["ordenacao"].ToString() + ", SLT_DATA desc");
+            //}
+            //else
+            //{
+            //    ViewState["ordenacao"] = "ASC";
+            //    Pesquisar("OL.LDL_CODIGOIDENT " + ViewState["ordenacao"].ToString() + ", SLT_DATA desc");
+            //}
         }
         protected void lnkSituacao_Click(object sender, EventArgs e)
         {
@@ -478,7 +548,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 Pesquisar("II.SLT_DURACAO_AUTORIZADA " + ViewState["ordenacao"].ToString());
             }
         }
-        protected void lnkAutorizacao_Click(object sender, EventArgs e)
+        /*protected void lnkAutorizacao_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
 
@@ -492,7 +562,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 ViewState["ordenacao"] = "ASC";
                 Pesquisar("II.SLT_ID_ACT_AUT_INTER " + ViewState["ordenacao"].ToString() + ", SLT_DATA desc");
             }
-        }
+        }*/
 
         #endregion
 
@@ -749,6 +819,20 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             ddlDadosSecao.Focus();
         }
 
+        [System.Web.Services.WebMethod]
+        public static void DeleteRestriction(string id)
+        {
+            podeSolRetirada = true;
+            // Complete the action
+            //if (DLLSendSRI())
+            //{
+            //    ControleFormulario(StatusBarraComandos.Novo);
+            //    Pesquisar(null);
+            //    Panel1.Visible = true;
+            //    txtAutorizacao.Text = string.Empty;
+            //}           
+        }
+
         #endregion
 
         #region [ CONTROLE DE FORMULÁRIO ]
@@ -812,6 +896,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     txtDadosEquipamentos.Enabled = true;
                     txtDadosMacro.Enabled = false;
                     txtDadosObsercacao.Enabled = true;
+                    //txtAutorizacao.Enabled = true;
 
                     txtDadosDuracaoSolicitada.Text = string.Empty;
                     txtDadosKm.Text = string.Empty;
@@ -863,6 +948,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     rdDadosMacro.Enabled = false;
                     txtDadosMacro.Enabled = false;
                     txtDadosObsercacao.Enabled = false;
+                    //txtAutorizacao.Enabled = true;
 
                     lnkCriar.Enabled = false;
                     lnkCriar.CssClass = "btn btn-success disabled";

@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables_themeroller.css" />
     <link rel="stylesheet" type="text/css" href="../css/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-modal.min.css" />
 
     <script type="text/javascript" src="/js/mascara.js"></script>
     <script type="text/javascript" src="/js/myFunction.js"></script>
@@ -23,11 +24,13 @@
     <script type="text/javascript" src="/js/extensions/FixedHeader/js/dataTables.fixedHeader.js"></script>
     <script type="text/javascript" src="../js/jquery-1.8.2.js"></script>
     <script type="text/javascript" src="../js/jquery-ui.js"></script>
+    <script type="text/javascript" src="../js/jbootstrap-modal.min.js"></script>
 
     <link rel="grupo vli" href="logo-vli.ico">
 
     <script type="text/javascript">
         function tecla() {
+
             if (window.event.keyCode == 120) {
                 document.getElementById('link1').click();
             }
@@ -126,6 +129,43 @@
                 obj.value = obj.value.substring(0, mlength)
             }
         }
+
+        //function soufoda()
+        {
+            // We want the form above to be there still because it houses our buttons, but it also means our
+            // code still works without js.  With js disabled the "hide" never runs so the form stays visible
+            // and functioning
+            //$("#warning").hide();
+
+            var ret = '<%=this.retirando %>';
+            if (ret == "True")
+            {
+                var id = '<%=this.id_aut %>';
+                var id2 = '<%=this.sb %>';
+                var person = prompt("CONFIRME O Nº DE AUTORIZAÇÃO (SB EM CAIXA ALTA + Nº autorização)", "")
+                if (person == id2 + id) {
+                    $.ajax({
+                        type: "POST",
+                        url: "popupLDL.aspx/DeleteRestriction",
+                        data: "{id:'" + id2 + id + "'}",
+                        contentType: "application/json; charset=utf-8",
+                        success: function () {
+                            // if you want something to happen after the ajax call then
+                            // code it here
+                            document.getElementById('lnkRetirar').click();
+                            alert("Deleção da LDL " + person + " foi solicitada!");
+                        }
+                    });
+                }
+                else
+                {
+                    // If you want to run a server-function when the user cancels then just
+                    // do an ajax call here as above, likewise you can put general js here too
+                    alert("Deleção de LDL abortada!");
+                }
+            }
+        }
+
     </script>
 </head>
 <body onkeydown="tecla()">
@@ -137,55 +177,60 @@
                 background-color: rgb(240,230,140); /* A - ARetirar | Khaki | */
             }
 
-            .situacao-A:hover {
-                color: black;
-                background-color: white;
-            }
+                .situacao-A:hover {
+                    color: black;
+                    background-color: white;
+                }
 
             .situacao-S {
                 color: black;
                 background-color: rgb(255,255,255); /* S - Solicitada |  | */
             }
-            .situacao-S:hover {
-                color: black;
-                background-color: white;
-            }
+
+                .situacao-S:hover {
+                    color: black;
+                    background-color: white;
+                }
 
             .situacao-C {
                 color: black;
                 background-color: rgb(144,238,144); /* C - Confirmada | LightGreen | */
             }
-            .situacao-C:hover {
-                color: black;
-                background-color: white;
-            }
+
+                .situacao-C:hover {
+                    color: black;
+                    background-color: white;
+                }
 
             .situacao-N {
                 color: white;
                 background-color: rgb(255,0,0); /* N - Negada | Tomato | */
             }
-            .situacao-N:hover {
-                color: black;
-                background-color: white;
-            }
+
+                .situacao-N:hover {
+                    color: black;
+                    background-color: white;
+                }
 
             .situacao-R {
                 color: black;
                 background-color: rgb(192,192,192); /* R - Retirada | Silver | */
             }
-            .situacao-R:hover {
-                color: black;
-                background-color: white;
-            }
+
+                .situacao-R:hover {
+                    color: black;
+                    background-color: white;
+                }
 
             .situacao-X {
                 color: black;
                 background-color: rgb(218,112,214); /* X - Cancelada pelo Solicitante | Orchid | */
             }
-            .situacao-X:hover {
-                color: black;
-                background-color: white;
-            }
+
+                .situacao-X:hover {
+                    color: black;
+                    background-color: white;
+                }
 
             .grid {
                 width: 100%;
@@ -202,17 +247,18 @@
                 <tr>
                     <td style="width: 79%;">
                         <div class="alert alert-success">
-                            <h2><asp:Label ID="Label1" runat="server" Text="Solicitações de LDL" Font-Size="20px" style="color: rgb(0, 100, 0);" />&nbsp;</h2>
+                            <h2>
+                                <asp:Label ID="Label1" runat="server" Text="Solicitações de LDL" Font-Size="20px" Style="color: rgb(0, 100, 0);" />&nbsp;</h2>
                         </div>
                     </td>
                     <td style="width: 1%; text-align: left;"></td>
                     <td style="width: 20%; text-align: center;">
                         <div class="alert alert-info">
                             <h2>
-                                <asp:Label ID="lblUsuarioMatricula" runat="server" Font-Size="12px" style="color: rgb(0, 72, 89);" />,&nbsp;
-                                <asp:Label ID="lblUsuarioLogado" runat="server" Font-Size="12px" style="color: rgb(0, 72, 89);" />,&nbsp;
-                                <asp:Label ID="lblUsuarioPerfil" runat="server" Font-Size="12px" style="color: rgb(0, 72, 89);" />&nbsp;
-                                <asp:Label ID="lblUsuarioMaleta" runat="server" Font-Size="12px" style="color: rgb(0, 72, 89);" Visible="false" />
+                                <asp:Label ID="lblUsuarioMatricula" runat="server" Font-Size="12px" Style="color: rgb(0, 72, 89);" />,&nbsp;
+                                <asp:Label ID="lblUsuarioLogado" runat="server" Font-Size="12px" Style="color: rgb(0, 72, 89);" />,&nbsp;
+                                <asp:Label ID="lblUsuarioPerfil" runat="server" Font-Size="12px" Style="color: rgb(0, 72, 89);" />&nbsp;
+                                <asp:Label ID="lblUsuarioMaleta" runat="server" Font-Size="12px" Style="color: rgb(0, 72, 89);" Visible="false" />
                             </h2>
                         </div>
                     </td>
@@ -228,6 +274,13 @@
             </div>
             <div id="Interdicao">
                 <table class="nav-justified" style="width: 100%">
+                    <tr>
+                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Autorização&nbsp;&nbsp;</td>
+                        <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+                            <asp:TextBox ID="txtAutorizacao" runat="server" CssClass="form-control" Enabled="false" Text="" />
+                        </td>
+                        <td style="width: 40%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
+                    </tr>
                     <tr>
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Situação&nbsp;&nbsp;</td>
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
@@ -287,9 +340,8 @@
                                         <tr>
                                             <td style="width: 15%; padding: 1px;">
                                                 <asp:TextBox ID="txtDadosOperadorCCV" runat="server" CssClass="form-control" Enabled="false" MaxLength="11" onkeypress="return PermiteSomenteNumeros(event);" />
-                                            </td >
-                                            <td style="width: 40%; vertical-align: middle; text-align: left; padding: 1px; color: rgb(0, 72, 89);">
-                                                &nbsp;&nbsp;<asp:Label runat="server" ID="lblOperadorCCV_Nome" Font-Size="12" Font-Bold="true" />
+                                            </td>
+                                            <td style="width: 40%; vertical-align: middle; text-align: left; padding: 1px; color: rgb(0, 72, 89);">&nbsp;&nbsp;<asp:Label runat="server" ID="lblOperadorCCV_Nome" Font-Size="12" Font-Bold="true" />
                                             </td>
                                         </tr>
                                     </table>
@@ -347,8 +399,8 @@
                     <tr>
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Observação:&nbsp;&nbsp;</td>
                         <td style="width: 65%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="4">
-                            
-                            <asp:TextBox ID="txtDadosObsercacao" runat="server" CssClass="form-control" MaxLength="38" onkeyup="return ismaxlength(this);"  />
+
+                            <asp:TextBox ID="txtDadosObsercacao" runat="server" CssClass="form-control" MaxLength="38" onkeyup="return ismaxlength(this);" />
                         </td>
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                     </tr>
@@ -362,20 +414,33 @@
                         <td style="width: 65%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="4">
                             <asp:LinkButton ID="lnkCriar" runat="server" OnClick="lnkCriar_Click" OnClientClick="javascript:return validaFormulario();" ToolTip="Solicitar criação de interdição de LDL."><i class="fa fa-plus"></i>&nbsp;Criar Interdição</asp:LinkButton>
                             &nbsp;&nbsp;
+                                    <%--<asp:LinkButton ID="lnkRetirar" runat="server" OnClick="soufoda()" ToolTip="Solicitar remoção de interdição de LDL."><i class="fa fa-minus"></i>&nbsp;Retirar Interdição</asp:LinkButton>--%>
                                     <asp:LinkButton ID="lnkRetirar" runat="server" OnClick="lnkRetirar_Click" ToolTip="Solicitar remoção de interdição de LDL."><i class="fa fa-minus"></i>&nbsp;Retirar Interdição</asp:LinkButton>
-                            &nbsp;&nbsp;
+                             <%--<asp:LinkButton runat="server" ID="lnkParadaImediata" OnClick="lnkParadaImediata_OnClick">
+                                        <span class="menu-item-icon"><i class="fa fa-envelope"></i></span>
+                                        <span class="menu-item-label" title="Parada Imediata">Parada Imediata</span>
+                                    </asp:LinkButton>--%>
                                     <asp:LinkButton ID="lnkAtualizarLista" runat="server" OnClick="lnkAtualizarLista_Click" ToolTip="Atualiza as informações do grid abaixo."><i class="fa fa-table"></i>&nbsp;Atualizar Lista</asp:LinkButton>
                             &nbsp;&nbsp;
                                     <asp:LinkButton ID="lnkLImpar" runat="server" OnClick="lnkLImpar_Click" ToolTip="Limpa os dados do formulário acima."><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
                             &nbsp;&nbsp;
                                     <asp:LinkButton ID="lnkNovoResponsavel" runat="server" OnClick="lnkNovoResponsavel_Click" ToolTip="Cadastra um novo responsável no bando de dados."><i class="fa fa-file-o"></i>&nbsp;Novo Responsável</asp:LinkButton>
                             &nbsp;&nbsp;
-                                    <asp:LinkButton ID="lnkCancelar" runat="server" OnClick="lnkCancelar_Click"  ToolTip="Cancela a operação."><i class="fa fa-times"></i>&nbsp;Cancelar</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkCancelar" runat="server" OnClick="lnkCancelar_Click" ToolTip="Cancela a operação."><i class="fa fa-times"></i>&nbsp;Cancelar</asp:LinkButton>
                             &nbsp;&nbsp;
                         </td>
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                     </tr>
                 </table>
+            </div>
+            <div>
+
+
+
+            
+
+
+
             </div>
         </div>
         <%--[ FILTRO DE PESQUISA ]--%>
@@ -396,13 +461,13 @@
                             <label for="grupo">Situação:</label><br />
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:DropDownList ID="ddlFiltroTipoDaSituacao" runat="server"  Width="95%" CssClass="form-control" />
+                                    <asp:DropDownList ID="ddlFiltroTipoDaSituacao" runat="server" Width="95%" CssClass="form-control" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </td>
                         <td style="width: 15%; padding: 1px;">
                             <label for="grupo">Seção:</label><br />
-                            <asp:DropDownList runat="server" ID="ddlFiltroSecao"  Width="95%" CssClass="form-control" />
+                            <asp:DropDownList runat="server" ID="ddlFiltroSecao" Width="95%" CssClass="form-control" />
                         </td>
                         <td style="width: 10%; padding: 1px;">
                             <label for="data_inicio">Data Inicial:</label>
@@ -412,24 +477,20 @@
                             <label for="hora_inicio">Data Final:</label>
                             <asp:TextBox ID="txtDataFinal" runat="server" Width="95%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
                         </td>
-                        <td style="width: 45%; padding: 1px;">
-
-                        </td>
+                        <td style="width: 45%; padding: 1px;"></td>
 
                     </tr>
                     <tr>
-                        <td  style="width: 5%; padding: 1px;">
+                        <td style="width: 5%; padding: 1px;">
                             <label for="grupo">Km:</label><br />
-                            <asp:TextBox runat="server" ID="txtFiltroKm"  Width="95%" CssClass="form-control" onkeypress="return fnValidaNroVirgula(event);" />
+                            <asp:TextBox runat="server" ID="txtFiltroKm" Width="95%" CssClass="form-control" onkeypress="return fnValidaNroVirgula(event);" />
                         </td>
                         <td style="width: 50%; padding: 1px;" colspan="4">
                             <label for="grupo">Observação:</label><br />
-                            <asp:TextBox runat="server" ID="txtFiltroObservacao"  Width="99%" CssClass="form-control" />
+                            <asp:TextBox runat="server" ID="txtFiltroObservacao" Width="99%" CssClass="form-control" />
                         </td>
 
-                        <td style="width: 45%; padding: 1px;">
-
-                        </td>
+                        <td style="width: 45%; padding: 1px;"></td>
                     </tr>
                     <tr>
                         <td>
@@ -463,24 +524,32 @@
                                             <tr>
                                                 <th style="background-color: #fff; width: 02%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#"><i class="fa fa-search-plus"></a></th>
                                                 <th style="background-color: #fff; width: 05%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                    <asp:LinkButton ID="lnkSituacao" runat="server" OnClick="lnkSituacao_Click">Situação</asp:LinkButton> </th>
+                                                    <asp:LinkButton ID="lnkLdl" runat="server" OnClick="lnkLdl_Click">Autorização</asp:LinkButton>
+                                                </th>
+                                                <th style="background-color: #fff; width: 05%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                    <asp:LinkButton ID="lnkSituacao" runat="server" OnClick="lnkSituacao_Click">Situação</asp:LinkButton>
+                                                </th>
                                                 <th style="background-color: #fff; width: 07%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                     <asp:LinkButton ID="lnkSecao" runat="server" OnClick="lnkSecao_Click">Seção</asp:LinkButton></th>
                                                 <th style="background-color: #fff; width: 07%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                    <asp:LinkButton ID="lnkManutencao" runat="server" OnClick="lnkManutencao_Click">Manutenção</asp:LinkButton> </th>
+                                                    <asp:LinkButton ID="lnkManutencao" runat="server" OnClick="lnkManutencao_Click">Manutenção</asp:LinkButton>
+                                                </th>
                                                 <th style="background-color: #fff; width: 07%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                    <asp:LinkButton ID="lnkData" runat="server" OnClick="lnkData_Click">Data</asp:LinkButton> </th>
+                                                    <asp:LinkButton ID="lnkData" runat="server" OnClick="lnkData_Click">Data</asp:LinkButton>
+                                                </th>
                                                 <th style="background-color: #fff; width: 05%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                    <asp:LinkButton ID="lnkKM" runat="server" OnClick="lnkKM_Click">KM</asp:LinkButton> </th>
+                                                    <asp:LinkButton ID="lnkKM" runat="server" OnClick="lnkKM_Click">KM</asp:LinkButton>
+                                                </th>
                                                 <th style="background-color: #fff; width: 25%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                    <asp:LinkButton ID="lnkObservacao" runat="server" OnClick="lnkObservacao_Click">Observação</asp:LinkButton> </th>
+                                                    <asp:LinkButton ID="lnkObservacao" runat="server" OnClick="lnkObservacao_Click">Observação</asp:LinkButton>
+                                                </th>
                                                 <th style="background-color: #fff; width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                    <asp:LinkButton ID="lnkDuracaoSolicitada" runat="server" OnClick="lnkDuracaoSolicitada_OnClick">Solicitado <Font size="2">(hh:mm)</Font></asp:LinkButton> </th>
-                                                <th style="background-color: #fff; width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                    <asp:LinkButton ID="lnkDuracaoAutorizada" runat="server" OnClick="lnkDuracaoAutorizada_OnClick">Autorizado <Font size="2">(hh:mm)</Font> </asp:LinkButton> </th>
-                                                <th style="background-color: #fff; width: 05%; text-align: center; font-size: 12pt;" title="Autorização">
-                                                    <asp:LinkButton ID="lnkAutorizacao" runat="server" OnClick="lnkAutorizacao_Click">ATZ</asp:LinkButton> </th>
-                                                
+                                                    <asp:LinkButton ID="lnkDuracaoSolicitada" runat="server" OnClick="lnkDuracaoSolicitada_OnClick">Solicitado <Font size="2">(hh:mm)</Font></asp:LinkButton>
+                                                </th>
+                                                <th style="background-color: #fff; width: 10%; text-align: center; font-size: 12pt;">
+                                                    <asp:LinkButton ID="lnkDuracaoAutorizada" runat="server" OnClick="lnkDuracaoAutorizada_OnClick">Autorizado <Font size="2">(hh:mm)</Font> </asp:LinkButton>
+                                                </th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -490,6 +559,7 @@
                                         <td style="width: 02%; text-align: center; border-right: 1px solid rgb(0, 72, 89);">
                                             <asp:LinkButton ID="lnkEdite" runat="server" OnClick="lnkEdite_Click" CommandArgument='<%# Eval("Solicitacao_ID_ACTWEB") %>'><i class="fa fa-search-plus"></i></asp:LinkButton>
                                         </td>
+                                        <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Aut_Interdicao_Act") %>"><%# Eval("Aut_Interdicao_Act") %></td>
                                         <td style="width: 05%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Situacao_Nome") %>"><%# Eval("Situacao_Nome") %></td>
                                         <td style="width: 07%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Secao_Nome") %>"><%# Eval("Secao_Nome") %></td>
                                         <td style="width: 07%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Tipo_Manutencao_Nome") %>"><%# Eval("Tipo_Manutencao_Nome") %></td>
@@ -497,8 +567,7 @@
                                         <td style="width: 05%; text-align: right; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Km") %>"><%# Eval("Km") %></td>
                                         <td style="width: 25%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Observacao") %>"><%# Eval("Observacao") %></td>
                                         <td style="width: 10%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Duracao_Solicitada") %>"><%# double.Parse(Eval("Duracao_Solicitada").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}", (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Solicitada").ToString())).TotalHours, (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Solicitada").ToString())).Minutes) : ""%> </td>
-                                        <td style="width: 10%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Duracao_Autorizada") %>"><%# double.Parse(Eval("Duracao_Autorizada").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}", (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Autorizada").ToString())).TotalHours, (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Autorizada").ToString())).Minutes) : ""%> </td>
-                                        <td style="width: 05%; text-align: center; " title="<%# Eval("Aut_Interdicao_Act") %>"><%# Eval("Aut_Interdicao_Act") %></td>
+                                        <td style="width: 10%; text-align: center;" title="<%# Eval("Duracao_Autorizada") %>"><%# double.Parse(Eval("Duracao_Autorizada").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}", (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Autorizada").ToString())).TotalHours, (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Autorizada").ToString())).Minutes) : ""%> </td>
                                     </tr>
                                 </ItemTemplate>
                                 <FooterTemplate>
@@ -523,7 +592,8 @@
             <span>desenvolvido por </span>
             <a href="http://lfsistemas.net.br/" target="_blank" class="lfslogo-popup"></a>
         </div>
-        <%--        </asp:Panel>--%>
+        <%--        </asp:Panel>--%>            
     </form>
+
 </body>
 </html>
