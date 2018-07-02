@@ -18,6 +18,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
     {
         public string cabines { get; set; }
 
+        public string cabinesNome { get; set; }
+
         private Entities.Usuarios usuario;
 
         public Entities.Usuarios Usuario
@@ -159,8 +161,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 {
                     if (cblCabines.Items[i].Selected)
                     {
-                        aux.Add(string.Format("'{0}'", cblCabines.Items[i].Value));
-                        
+                        aux.Add(string.Format("'{0}'", cblCabines.Items[i].Value));    
                     }
 
                     cabines = string.Join(",", aux);

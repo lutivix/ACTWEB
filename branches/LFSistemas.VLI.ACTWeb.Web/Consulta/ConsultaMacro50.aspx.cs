@@ -43,6 +43,46 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             Sorting
         }
 
+        //public class Botao 
+        //{
+        //    bool pesquisaPorBotao;
+
+        //    DateTime ultimoDataIni;
+
+        //    DateTime ultimoDataFim;
+
+        //    public void Atualizar(int origem, DateTime ultimoDataIni, DateTime ultimoDataFim)
+        //    {
+
+        //        if (origem == 1)
+        //        {
+        //            pesquisaPorBotao = false;
+        //        }
+        //        else
+        //        {
+        //            pesquisaPorBotao = true;
+        //        }
+
+        //        ultimoDataIni = ultimoDataIni;
+        //        ultimoDataFim = ultimoDataFim;
+        
+        //    }
+
+        //    public int UltimaAtualizacaoOrigem()
+        //    {
+        //        if (pesquisaPorBotao)
+        //        {
+        //            return 1;
+        //        }
+        //        else
+        //        {
+        //            return 2;
+        //        }
+
+        //    }
+
+        //}
+
         #endregion
 
         #region [ EVENTOS DE PÁGINA ]
@@ -74,6 +114,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 var dataFinal = txtHoraInicio;
 
                 VerificaNovasMensagensComHoras();
+
             }
         }
 
@@ -90,90 +131,228 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         {
             var ordenacao = ViewState["ordenacao"].ToString();
 
+
             if (ordenacao == "ASC")
             {
                 ViewState["ordenacao"] = "DESC";
-                Pesquisar("TIPO " + ViewState["ordenacao"].ToString(), Navigation.None);
+
+                int origem = Botao.UltimaAtualizacaoOrigem();
+
+                if (origem == 1)
+                {
+                    PesquisarComHoras("TIPO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                else
+                {
+                    PesquisarBotao("TIPO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+
             }
             else
             {
                 ViewState["ordenacao"] = "ASC";
-                Pesquisar("TIPO " + ViewState["ordenacao"].ToString(), Navigation.None);
+
+                int origem = Botao.UltimaAtualizacaoOrigem();
+
+                if (origem == 1)
+                {
+                    PesquisarComHoras("TIPO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                else
+                {
+                    PesquisarBotao("TIPO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+
             }
         }
         protected void lnkLoco_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
 
+            
             if (ordenacao == "ASC")
-            {
+            { 
                 ViewState["ordenacao"] = "DESC";
-                Pesquisar("LOCO " + ViewState["ordenacao"].ToString(), Navigation.None);
+
+                int origem = Botao.UltimaAtualizacaoOrigem();
+
+                if (origem == 1)
+                {
+                    PesquisarComHoras("LOCO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                else
+                {
+                    PesquisarBotao("LOCO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                
             }
             else
-            {
+            {   
                 ViewState["ordenacao"] = "ASC";
-                Pesquisar("LOCO " + ViewState["ordenacao"].ToString(), Navigation.None);
+
+                int origem = Botao.UltimaAtualizacaoOrigem();
+
+                if (origem == 1)
+                {
+                    PesquisarComHoras("LOCO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                else
+                {
+                    PesquisarBotao("LOCO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+
             }
         }
         protected void lnkTrem_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
 
+
             if (ordenacao == "ASC")
             {
                 ViewState["ordenacao"] = "DESC";
-                Pesquisar("TREM " + ViewState["ordenacao"].ToString(), Navigation.None);
+
+                int origem = Botao.UltimaAtualizacaoOrigem();
+
+                if (origem == 1)
+                {
+                    PesquisarComHoras("TREM " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                else
+                {
+                    PesquisarBotao("TREM " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+
             }
             else
             {
                 ViewState["ordenacao"] = "ASC";
-                Pesquisar("TREM " + ViewState["ordenacao"].ToString(), Navigation.None);
+
+                int origem = Botao.UltimaAtualizacaoOrigem();
+
+                if (origem == 1)
+                {
+                    PesquisarComHoras("TREM " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                else
+                {
+                    PesquisarBotao("TREM " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+
             }
         }
         protected void lnkCodOS_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
 
+
             if (ordenacao == "ASC")
             {
                 ViewState["ordenacao"] = "DESC";
-                Pesquisar("COD_OS " + ViewState["ordenacao"].ToString(), Navigation.None);
+
+                int origem = Botao.UltimaAtualizacaoOrigem();
+
+                if (origem == 1)
+                {
+                    PesquisarComHoras("COD_OS " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                else
+                {
+                    PesquisarBotao("COD_OS " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+
             }
             else
             {
                 ViewState["ordenacao"] = "ASC";
-                Pesquisar("COD_OS " + ViewState["ordenacao"].ToString(), Navigation.None);
+
+                int origem = Botao.UltimaAtualizacaoOrigem();
+
+                if (origem == 1)
+                {
+                    PesquisarComHoras("COD_OS " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                else
+                {
+                    PesquisarBotao("COD_OS " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+
             }
         }
         protected void lnkHorario_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
 
+
             if (ordenacao == "ASC")
             {
                 ViewState["ordenacao"] = "DESC";
-                Pesquisar("HORARIO " + ViewState["ordenacao"].ToString(), Navigation.None);
+
+                int origem = Botao.UltimaAtualizacaoOrigem();
+
+                if (origem == 1)
+                {
+                    PesquisarComHoras("HORARIO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                else
+                {
+                    PesquisarBotao("HORARIO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+
             }
             else
             {
                 ViewState["ordenacao"] = "ASC";
-                Pesquisar("HORARIO " + ViewState["ordenacao"].ToString(), Navigation.None);
+
+                int origem = Botao.UltimaAtualizacaoOrigem();
+
+                if (origem == 1)
+                {
+                    PesquisarComHoras("HORARIO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                else
+                {
+                    PesquisarBotao("HORARIO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+
             }
         }
         protected void lnkMacro_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
 
+
             if (ordenacao == "ASC")
             {
                 ViewState["ordenacao"] = "DESC";
-                Pesquisar("MACRO " + ViewState["ordenacao"].ToString(), Navigation.None);
+
+                int origem = Botao.UltimaAtualizacaoOrigem();
+
+                if (origem == 1)
+                {
+                    PesquisarComHoras("MACRO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                else
+                {
+                    PesquisarBotao("MACRO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+
             }
             else
             {
                 ViewState["ordenacao"] = "ASC";
-                Pesquisar("MACRO " + ViewState["ordenacao"].ToString(), Navigation.None);
+
+                int origem = Botao.UltimaAtualizacaoOrigem();
+
+                if (origem == 1)
+                {
+                    PesquisarComHoras("MACRO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                else
+                {
+                    PesquisarBotao("MACRO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+
             }
         }
         protected void lnkTexto_Click(object sender, EventArgs e)
@@ -181,56 +360,148 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             var ordenacao = ViewState["ordenacao"].ToString();
 
             if (ordenacao == "ASC")
-            {
+            { 
                 ViewState["ordenacao"] = "DESC";
-                Pesquisar("TEXTO " + ViewState["ordenacao"].ToString(), Navigation.None);
+
+                int origem = Botao.UltimaAtualizacaoOrigem();
+
+                if (origem == 1)
+                {
+                    PesquisarComHoras("TEXTO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                else
+                {
+                    PesquisarBotao("TEXTO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                
             }
             else
-            {
+            {   
                 ViewState["ordenacao"] = "ASC";
-                Pesquisar("TEXTO " + ViewState["ordenacao"].ToString(), Navigation.None);
+
+                int origem = Botao.UltimaAtualizacaoOrigem();
+
+                if (origem == 1)
+                {
+                    PesquisarComHoras("TEXTO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                else
+                {
+                    PesquisarBotao("TEXTO " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+
             }
         }
         protected void lnkCorredor_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
 
+
             if (ordenacao == "ASC")
             {
                 ViewState["ordenacao"] = "DESC";
-                Pesquisar("CORREDOR " + ViewState["ordenacao"].ToString(), Navigation.None);
+
+                int origem = Botao.UltimaAtualizacaoOrigem();
+
+                if (origem == 1)
+                {
+                    PesquisarComHoras("CORREDOR " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                else
+                {
+                    PesquisarBotao("CORREDOR " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+
             }
             else
             {
                 ViewState["ordenacao"] = "ASC";
-                Pesquisar("CORREDOR " + ViewState["ordenacao"].ToString(), Navigation.None);
+
+                int origem = Botao.UltimaAtualizacaoOrigem();
+
+                if (origem == 1)
+                {
+                    PesquisarComHoras("CORREDOR " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+                else
+                {
+                    PesquisarBotao("CORREDOR " + ViewState["ordenacao"].ToString(), Navigation.None);
+                }
+
             }
         }
 
         protected void lnkPaginaAnterior_Click(object sender, EventArgs e)
         {
             //Fill repeater for Previous event
-            Pesquisar(null, Navigation.Anterior);
+            int origem = Botao.UltimaAtualizacaoOrigem();
+
+            if (origem == 1)
+            {
+                PesquisarComHoras(null, Navigation.Anterior);
+            }
+            else
+            {
+                PesquisarBotao(null, Navigation.Anterior);
+            }
+            
         }
         protected void lnkProximaPagina_Click(object sender, EventArgs e)
         {
             //Fill repeater for Next event
-            Pesquisar(null, Navigation.Proxima);
+            int origem = Botao.UltimaAtualizacaoOrigem();
+
+            if (origem == 1)
+            {
+                PesquisarComHoras(null, Navigation.Proxima);
+            }
+            else
+            {
+                PesquisarBotao(null, Navigation.Proxima);
+            }
         }
         protected void lnkPrimeiraPagina_Click(object sender, EventArgs e)
         {
             //Fill repeater for First event
-            Pesquisar(null, Navigation.Primeira);
+            int origem = Botao.UltimaAtualizacaoOrigem();
+
+            if (origem == 1)
+            {
+                PesquisarComHoras(null, Navigation.Primeira);
+            }
+            else
+            {
+                PesquisarBotao(null, Navigation.Primeira);
+            }
         }
         protected void lnkUltimaPagina_Click(object sender, EventArgs e)
         {
             //Fill repeater for Last event
-            Pesquisar(null, Navigation.Ultima);
+            int origem = Botao.UltimaAtualizacaoOrigem();
+
+            if (origem == 1)
+            {
+                PesquisarComHoras(null, Navigation.Ultima);
+            }
+            else
+            {
+                PesquisarBotao(null, Navigation.Ultima);
+            }
         }
         protected void rptUsers_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             ViewState["SortExpression"] = e.CommandName;
-            Pesquisar(null, Navigation.Anterior);
+
+            int origem = Botao.UltimaAtualizacaoOrigem();
+
+            if (origem == 1)
+            {
+                PesquisarComHoras(null, Navigation.Anterior);
+            }
+            else
+            {
+                PesquisarBotao(null, Navigation.Anterior);
+            }
         }
 
         #endregion
@@ -272,6 +543,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
                 //    ViewState["corredor"] = corredores;
                 //}
+                
 
                 var macroController = new MacroController();
 
@@ -298,7 +570,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         }
 
         protected void VerificaNovasMensagens()
-        {
+         {
             //if (lblUsuarioMaleta.Text == "7000")
             {
                 //var aux = new List<string>();
@@ -333,13 +605,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 //    ViewState["corredor"] = corredores;
                 //}
 
+                
+
                 var macroController = new MacroController();
 
                 var qtde = macroController.ObterQtdeMacrosNaoLidas(corredores);
 
                 if (qtde > 0)
                 {
-                    Pesquisar(null, Navigation.None);
+                    PesquisarComHoras(null, Navigation.None);
 
                     if (Request.Browser.Browser == "Firefox")
                     {
@@ -353,13 +627,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                         Response.Write("<script>alert('Existe(m) " + qtde.ToString() + " mensagem(ns) não lida(s)!');</script>");
                 }
                 else
-                    Pesquisar(null, Navigation.None);
+                    PesquisarComHoras(null, Navigation.None);
             }
         }
 
         protected void lnkPesquisar_Click(object sender, EventArgs e)
         {       
-            PesquisarBotao(null, Navigation.Pager);
+            PesquisarBotao(null, Navigation.Primeira);
 
         }
 
@@ -399,9 +673,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
                 //    ViewState["corredor"] = corredores;
                 //}
-
+                
                 var macroController = new MacroController();
-                var itens = macroController.ObterMacros50(new Entities.FiltroMacro()
+                var itens = macroController.ObterMacros50PorCabines(new Entities.FiltroMacro()
                 {
 
                     NumeroLocomotiva = string.Empty,
@@ -514,12 +788,168 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             }
         }
 
+
+        protected void PesquisarNovasMensagens(string ordenacao, Navigation navigation)
+        {
+            {
+                DateTime horaFim = DateTime.Now;
+
+                //var aux = new List<string>();
+                //if (clbCorredor.Items.Count > 0)
+                //{
+                //    for (int i = 0; i < clbCorredor.Items.Count; i++)
+                //    {
+                //        if (clbCorredor.Items[i].Selected)
+                //        {
+                //            aux.Add(string.Format("'{0}'", clbCorredor.Items[i].Value));
+                //        }
+                //    }
+                //    if (aux.Count <= 0)
+                //    {
+                //        aux.Add("'Baixada'");
+                //        aux.Add("'Centro Leste'");
+                //        aux.Add("'Centro Norte'");
+                //        aux.Add("'Centro Sudeste'");
+                //        aux.Add("'Minas Bahia'");
+                //        aux.Add("'Minas Rio'");
+                //        aux.Add("'-'");
+                //        aux.Add("' '");
+                //    }
+                //    else
+                //    {
+                //        aux.Add("'-'");
+                //        aux.Add("' '");
+                //    }
+
+                //    corredores = string.Join(",", aux);
+
+                //    ViewState["corredor"] = corredores;
+                //}
+                String cabines = (Request.QueryString["cabines"]);
+                var macroController = new MacroController();
+                var itens = macroController.ObterMacros50PorCabines(new Entities.FiltroMacro()
+                {
+
+                    NumeroLocomotiva = string.Empty,
+                    NumeroTrem = string.Empty,
+                    CodigoOS = string.Empty,
+                    DataInicio = null,
+                    DataFim = null,
+                    NumeroMacro = "50",
+                    cabines = cabines,
+                    Corredores = ViewState["corredor"].ToString()
+
+                }, "tela_consulta");
+
+                if (itens.Count > 0)
+                {
+                    switch (ordenacao)
+                    {
+                        case "TIPO ASC":
+                            itens = itens.OrderBy(o => o.Tipo).ToList();
+                            break;
+                        case "TIPO DESC":
+                            itens = itens.OrderByDescending(o => o.Tipo).ToList();
+                            break;
+                        case "LOCO ASC":
+                            itens = itens.OrderBy(o => o.Locomotiva).ToList();
+                            break;
+                        case "LOCO DESC":
+                            itens = itens.OrderByDescending(o => o.Locomotiva).ToList();
+                            break;
+                        case "TREM ASC":
+                            itens = itens.OrderBy(o => o.Trem).ToList();
+                            break;
+                        case "TREM DESC":
+                            itens = itens.OrderByDescending(o => o.Trem).ToList();
+                            break;
+                        case "COD_OS ASC":
+                            itens = itens.OrderBy(o => o.CodigoOS).ToList();
+                            break;
+                        case "COD_OS DESC":
+                            itens = itens.OrderByDescending(o => o.CodigoOS).ToList();
+                            break;
+                        case "HORARIO ASC":
+                            itens = itens.OrderBy(o => o.Horario).ToList();
+                            break;
+                        case "HORARIO DESC":
+                            itens = itens.OrderByDescending(o => o.Horario).ToList();
+                            break;
+                        case "MACRO ASC":
+                            itens = itens.OrderBy(o => o.NumeroMacro).ToList();
+                            break;
+                        case "MACRO DESC":
+                            itens = itens.OrderByDescending(o => o.NumeroMacro).ToList();
+                            break;
+                        case "TEXTO ASC":
+                            itens = itens.OrderBy(o => o.Texto).ToList();
+                            break;
+                        case "TEXTO DESC":
+                            itens = itens.OrderByDescending(o => o.Texto).ToList();
+                            break;
+                        case "CORREDOR ASC":
+                            itens = itens.OrderBy(o => o.Corredor).ToList();
+                            break;
+                        case "CORREDOR DESC":
+                            itens = itens.OrderByDescending(o => o.Corredor).ToList();
+                            break;
+                        default:
+                            itens = itens.OrderByDescending(o => o.Horario).ToList();
+                            break;
+                    }
+
+                    PagedDataSource objPds = new PagedDataSource();
+                    objPds.DataSource = itens;
+                    objPds.AllowPaging = true;
+                    objPds.PageSize = int.Parse(ddlPageSize.SelectedValue);
+
+                    switch (navigation)
+                    {
+                        case Navigation.Proxima:
+                            NowViewing++;
+                            break;
+                        case Navigation.Anterior:
+                            NowViewing--;
+                            break;
+                        case Navigation.Ultima:
+                            NowViewing = objPds.PageCount - 1;
+                            break;
+                        case Navigation.Pager:
+                            if (int.Parse(ddlPageSize.SelectedValue) >= objPds.PageCount)
+                                NowViewing = objPds.PageCount - 1;
+                            break;
+                        case Navigation.Sorting:
+                            break;
+                        default:
+                            NowViewing = 0;
+                            break;
+                    }
+                    objPds.CurrentPageIndex = NowViewing;
+                    lblCurrentPage.Text = "Página: " + (NowViewing + 1).ToString() + " de " + objPds.PageCount.ToString();
+                    lnkPaginaAnterior.Enabled = !objPds.IsFirstPage;
+                    lnkProximaPagina.Enabled = !objPds.IsLastPage;
+                    lnkPrimeiraPagina.Enabled = !objPds.IsFirstPage;
+                    lnkUltimaPagina.Enabled = !objPds.IsLastPage;
+
+                    this.RepeaterMacro50.DataSource = objPds;
+                    this.RepeaterMacro50.DataBind();
+                }
+                else
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Registro não localizado.' });", true);
+
+                lblTotal.Text = string.Format("{0:0,0}", itens.Count);
+            }
+        }
+
+
         protected void PesquisarBotao(string ordenacao, Navigation navigation)
         {
             //DateTime horaFim = DateTime.Now;
             DateTime horaInicio = txtDataInicial.Text.Length > 0 ? DateTime.Parse(txtDataInicial.Text + " " + FormataHora(txtHoraInicio.Text)) : DateTime.Now;
             DateTime horaFim = DateTime.Now.AddHours(-6);
             string corredores = null;
+
+            
 
             //if ((int.Parse(txtHoraInicio.Text.Substring(0, 2)) == 24))
             // txtHoraInicio.Text = "00:00";
@@ -570,6 +1000,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             var macroController = new MacroController();
 
             String cabines = (Request.QueryString["cabines"]);
+
+            Botao.Atualizar(2, horaInicio, horaFim, cabines);
 
             var itens = macroController.ObterMacros50PorCabines(new Entities.FiltroMacro()
             {
@@ -682,6 +1114,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Registro não localizado.' });", true);
 
             lblTotal.Text = string.Format("{0:0,0}", itens.Count);
+
+
         }
 
         protected void PesquisarComHoras(string ordenacao, Navigation navigation)
@@ -690,6 +1124,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             DateTime horaInicio = DateTime.Now;
             DateTime horaFim = DateTime.Now.AddHours(-6);
             string corredores = null;
+
+            
 
             //if ((int.Parse(txtHoraInicio.Text.Substring(0, 2)) == 24))
             // txtHoraInicio.Text = "00:00";
@@ -740,6 +1176,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             var macroController = new MacroController();
 
             String cabines = (Request.QueryString["cabines"]);
+
+            Botao.Atualizar(1, horaInicio, horaFim, cabines);
 
             var itens = macroController.ObterMacros50PorCabines(new Entities.FiltroMacro()
             {
@@ -890,6 +1328,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
             return Retorno;
         }
+
+        
         
     }
 }

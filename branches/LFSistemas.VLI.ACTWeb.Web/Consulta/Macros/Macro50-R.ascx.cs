@@ -84,12 +84,31 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
 
             var dados = new MacroController();
 
-            RepeaterItens.DataSource = dados.ObterConversas(new Conversas()
+            int origem = Botao.UltimaAtualizacaoOrigem();
+
+            if (origem == 1)
             {
-                Numero_Macro = numeroMacro,
-                Loco = loco
-            });
-            RepeaterItens.DataBind();
+                RepeaterItens.DataSource = dados.ObterConversasMacro50(new Conversas()
+                {
+                    Numero_Macro = numeroMacro,
+                    Loco = loco,
+                    cabinesSelecionadas = Botao.getcabinesSelecionadas()
+                });
+                RepeaterItens.DataBind();
+            }
+            else
+            {
+                RepeaterItens.DataSource = dados.ObterConversasMacro50ComFiltroData(new Conversas()
+                {
+                    Numero_Macro = numeroMacro,
+                    Loco = loco,
+                    DataInicio = Botao.getultimoDataIni(),
+                    DataFim = Botao.getultimoDataFim(),
+                    cabinesSelecionadas = Botao.getcabinesSelecionadas()
+                });
+
+                RepeaterItens.DataBind();
+            }
         }
 
         protected void lnkResponder_Click(object sender, EventArgs e)

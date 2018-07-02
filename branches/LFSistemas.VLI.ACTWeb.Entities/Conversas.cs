@@ -13,5 +13,9 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Tipo { get; set; }
         public DateTime? Horario { get; set; }
         public string Texto { get; set; }
+        public DateTime? DataInicio { get; set; }
+        public DateTime? DataFim { get; set; }
+        public string cabinesSelecionadas { get; set; }
+
     }
 }

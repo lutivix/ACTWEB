@@ -477,7 +477,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         }
 
         /// <summary>
-        /// Obtem registros da Macro 50 com status de: "Lidas" ou "Não"
+        /// Obtem registros da Macro 50 com status de: "Lidas" ou "Não" por cabines
         /// </summary>
         /// <param name="filtro">Objeto contendo os filtros a pesquisar</param>
         /// <returns>Retorna uma lista de macros enviadas e recebidas</returns>
@@ -520,7 +520,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             WHERE EST_ID IN (SELECT EST_ID
                                   FROM REL_CAB_EST
                                             WHERE CAB_ID IN (${CABINES_R}))) B
-                                ON MR.MR_TEXT LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                ON MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
                                      ${INTERVALO_R}
                                      AND MR.MR_MC_NUM = 50
                                      AND SUBSTR (MR.MR_TEXT, 2, 4) = '7000'
@@ -550,7 +550,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             WHERE EST_ID IN (SELECT EST_ID
                                     FROM REL_CAB_EST
                                             WHERE CAB_ID IN (${CABINES_E}))) B
-                                ON ME.ME_TEXT LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                ON ME.ME_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
                                      ${INTERVALO_E}
                                      AND ME.ME_MAC_NUM = 50
                                      AND SUBSTR (ME.ME_TEXT, 2, 4) = '7000' 
@@ -567,8 +567,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     //FIltro Periodo de tempo
                     if (filtro.DataInicio.HasValue && filtro.DataFim.HasValue)
                     {
-                        query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
-                        query.Replace("${INTERVALO_E}", string.Format("AND ME_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                        if (filtro.DataInicio > filtro.DataFim)
+                        {
+                            query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataFim, filtro.DataInicio));
+                            query.Replace("${INTERVALO_E}", string.Format("AND ME_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataFim, filtro.DataInicio));
+                        }
+                        else
+                        {
+                            query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                            query.Replace("${INTERVALO_E}", string.Format("AND ME_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                        }
                     }
                     else
                     {
@@ -658,6 +666,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return itens;
         }
+
         /// <summary>
         /// Obtem registros de macros enviadas e recebidas no banco
         /// </summary>
@@ -2165,14 +2174,186 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"select * from (
                                     select 'R', mr_grmn as macro, mr_loco as loco, mr_msg_time as horario, mr_text as texto
-                                        from actpp.mensagens_recebidas where mr_mc_num = ${mr_mc_num} and mr_loco = ${mr_loco} and mr_msg_time >= sysdate -1
+                                        from actpp.mensagens_recebidas
+                                   where mr_mc_num = ${mr_mc_num} and mr_loco = ${mr_loco} and mr_msg_time >= sysdate -1
                                     union
                                     select 'E', me_gfmn as macro, me_loco as loco, me_msg_time as horario, me_text as texto
-                                        from actpp.mensagens_enviadas where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysdate -1
+                                        from actpp.mensagens_enviadas
+                                    where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysdate -1
                                     ) where texto is not null order by horario desc");
 
                     query.Replace("${mr_mc_num}", string.Format("{0}", filtro.Numero_Macro));
                     query.Replace("${mr_loco}", string.Format("{0}", filtro.Loco));
+
+                    #endregion
+
+
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var iten = PreencherPropriedadesConversas(reader);
+                            conversas.Add(iten);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Obter Corredor Vazio", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return conversas;
+        }
+
+
+        /// <summary>
+        /// Obtem uma lista de conversas por número da macro e loco de macro 50
+        /// </summary>
+        /// <param name="filtro">Objeto contendo os filtros a pesquisar</param>
+        /// <returns>Retorna uma lista de conversas</returns>
+        public List<Conversas> ObterConversasMacro50(Conversas filtro)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var conversas = new List<Conversas>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    var command = connection.CreateCommand();
+
+                    #region [ FILTRA MACROS ]
+
+                    query.Append(@"select * from (
+                                    select 'R', mr_grmn as macro, mr_loco as loco, mr_msg_time as horario, mr_text as texto
+                                        from actpp.mensagens_recebidas 
+INNER JOIN (SELECT EST_NOME
+                                  FROM ESTACOES
+                                            WHERE EST_ID IN (SELECT EST_ID
+                                  FROM REL_CAB_EST
+                                            WHERE CAB_ID IN (${CABINES_R}))) B
+                                ON MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+where mr_mc_num = ${mr_mc_num} and mr_loco = ${mr_loco} and mr_msg_time >= sysdate -1
+                                    union
+                                    select 'E', me_gfmn as macro, me_loco as loco, me_msg_time as horario, me_text as texto
+                                        from actpp.mensagens_enviadas
+INNER JOIN (SELECT EST_NOME
+                                  FROM ESTACOES
+                                            WHERE EST_ID IN (SELECT EST_ID
+                                  FROM REL_CAB_EST
+                                            WHERE CAB_ID IN (${CABINES_E}))) B
+                                ON ME_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysdate -1
+                                    ) where texto is not null order by horario desc");
+
+                    query.Replace("${CABINES_R}", string.Format("{0}", filtro.cabinesSelecionadas));
+                    query.Replace("${CABINES_E}", string.Format("{0}", filtro.cabinesSelecionadas));
+
+                    query.Replace("${mr_mc_num}", string.Format("{0}", filtro.Numero_Macro));
+                    query.Replace("${mr_loco}", string.Format("{0}", filtro.Loco));
+
+                    #endregion
+
+
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var iten = PreencherPropriedadesConversas(reader);
+                            conversas.Add(iten);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Obter Corredor Vazio", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return conversas;
+        }
+        public List<Conversas> ObterConversasMacro50ComFiltroData(Conversas filtro)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var conversas = new List<Conversas>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    var command = connection.CreateCommand();
+
+                    #region [ FILTRA MACROS ]
+
+                    query.Append(@"select * from (
+                                    select 'R', mr_grmn as macro, mr_loco as loco, mr_msg_time as horario, mr_text as texto
+                                        from actpp.mensagens_recebidas
+                            INNER JOIN (SELECT EST_NOME
+                                  FROM ESTACOES
+                                            WHERE EST_ID IN (SELECT EST_ID
+                                  FROM REL_CAB_EST
+                                            WHERE CAB_ID IN (${CABINES_R}))) B
+                                ON MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                    
+                                     AND SUBSTR (MR_TEXT, 2, 4) = '7000'
+                                where mr_mc_num = ${mr_mc_num} and mr_loco = ${mr_loco}  ${INTERVALO_R}
+                                    union
+                                    select 'E', me_gfmn as macro, me_loco as loco, me_msg_time as horario, me_text as texto
+                                        from actpp.mensagens_enviadas
+                                INNER JOIN (SELECT EST_NOME
+                                  FROM ESTACOES
+                                            WHERE EST_ID IN (SELECT EST_ID
+                                  FROM REL_CAB_EST
+                                            WHERE CAB_ID IN (${CABINES_E}))) B
+                                ON ME_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                     
+                                     AND SUBSTR (ME_TEXT, 2, 4) = '7000'
+                                where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} ${INTERVALO_E}
+                                    ) where texto is not null order by horario desc");
+
+                    query.Replace("${mr_mc_num}", string.Format("{0}", filtro.Numero_Macro));
+                    query.Replace("${mr_loco}", string.Format("{0}", filtro.Loco));
+
+                    query.Replace("${CABINES_R}", string.Format("{0}", filtro.cabinesSelecionadas));
+                    query.Replace("${CABINES_E}", string.Format("{0}", filtro.cabinesSelecionadas));
+
+
+                    if (filtro.DataInicio > filtro.DataFim)
+                    {
+                        query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataFim, filtro.DataInicio));
+                        query.Replace("${INTERVALO_E}", string.Format("AND ME_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataFim, filtro.DataInicio));
+                    }
+                    else
+                    {
+                        query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                        query.Replace("${INTERVALO_E}", string.Format("AND ME_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                    }
+                  
 
                     #endregion
 
@@ -2802,7 +2983,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
         public bool logMacro50(string cabines, string matricula)
         {
-            LogDAO.GravaLogSistemaCabines(DateTime.Now, matricula, "Tela Cabines", "Selecionou cabines: " + cabines);
+            String cabinesFormat = cabines.Replace("'", "");
+
+            LogDAO.GravaLogBanco(DateTime.Now, matricula, "Macro 50", null, null, "Selecionou cabines: " + cabinesFormat, Uteis.OPERACAO.Pesquisou.ToString());
             return true;
         }
 

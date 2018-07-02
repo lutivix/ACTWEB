@@ -6,6 +6,7 @@ using System.Web.UI;
 
 namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 {
+   
     public partial class popupMacro50 : System.Web.UI.Page
     {
         
@@ -40,10 +41,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             this._horario = DateTime.Parse(Request.QueryString["horario"].ToString());
             this._trem = Request.QueryString["trem"].ToString();
             this._tag_leitura = Request.QueryString["tag_leitura"].ToString();
-
+            
             var macroController = new MacroController();
             var mascara = macroController.ObterMascara(_macro, _tipo);
-
+            
             if (_tipo == "E")
                 macroUserControl = LoadControl("/Consulta/Macros/Macro50-E.ascx") as IMacro50;
             else
@@ -75,7 +76,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             
             PanelMacro.Controls.Add((UserControl)macroUserControl);
         }
-
+        
         #endregion
     }
 }

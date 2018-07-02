@@ -246,7 +246,20 @@ namespace LFSistemas.VLI.ACTWeb.Web
 
             //Response.Redirect("/Consulta/Cabines.aspx");
 
-            Response.Write("<script>window.open('/Consulta/Cabines.aspx', 'popup','height=650,width=1309'); </script>");
+            //Response.Write("<script>window.open('/Consulta/Cabines.aspx', 'popup','height=full, width=full'); </script>");
+
+
+            Response.Write("<script> " +
+                             "   var wOpen; " +
+                             "   sOptions = 'status=no, menubar=no, scrollbars=yes, resizable=yes, toolbar=no'; " +
+                             "   sOptions = sOptions + ', width=' + (screen.availWidth - 10).toString(); " +
+                             "   sOptions = sOptions + ', height=' + (screen.availHeight - 122).toString(); " +
+                             "   sOptions = sOptions + ', screenX=0, screenY=0, left=0, top=0'; " +
+                             "   wOpen = window.open('/Consulta/Cabines.aspx', 'popup', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); " +
+                             "   wOpen.focus(); " +
+                             "   wOpen.moveTo( 0, 0 ); " +
+                             "   wOpen.resizeTo( screen.availWidth, screen.availHeight ); " +
+                             "</script>");
         }
         protected void lnkMacro61_Click(object sender, EventArgs e)
         {

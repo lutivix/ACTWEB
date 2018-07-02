@@ -85,6 +85,7 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ObterMacros50PorCabines(filtro, origem);
         }
+
         /// <summary>
         /// Obtem registros da Macro 50
         /// </summary>
@@ -231,6 +232,26 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         public List<Conversas> ObterConversas(Conversas filtro)
         {
             return dao.ObterConversas(filtro);
+        }
+        
+ 
+        /// <summary>
+        /// Obtem uma lista de conversas por número da macro e loco de macro 50
+        /// </summary>
+        /// <param name="filtro">Objeto contendo os filtros a pesquisar</param>
+        /// <returns>Retorna uma lista de conversas</returns>
+        public List<Conversas> ObterConversasMacro50(Conversas filtro)
+        {
+            return dao.ObterConversasMacro50(filtro);
+        }
+        /// <summary>
+        /// Obtem uma lista de conversas por número da macro e loco de macro 50 com filtro de data
+        /// </summary>
+        /// <param name="filtro">Objeto contendo os filtros a pesquisar</param>
+        /// <returns>Retorna uma lista de conversas</returns>
+        public List<Conversas> ObterConversasMacro50ComFiltroData(Conversas filtro)
+        {
+            return dao.ObterConversasMacro50ComFiltroData(filtro);
         }
 
         #endregion
