@@ -15,7 +15,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/19/2018 14:05:01</publishTime>
     </File>
     <File Include="ACTWEB.Master">
-      <publishTime>07/02/2018 16:26:42</publishTime>
+      <publishTime>07/03/2018 16:22:14</publishTime>
     </File>
     <File Include="Ajuda/Erro.aspx">
       <publishTime>03/19/2018 14:05:01</publishTime>
@@ -162,25 +162,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>07/02/2018 16:30:33</publishTime>
+      <publishTime>07/03/2018 16:22:32</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
       <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>07/02/2018 16:30:32</publishTime>
+      <publishTime>07/03/2018 16:22:32</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
       <publishTime>09/08/2016 12:55:17</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>07/02/2018 16:30:32</publishTime>
+      <publishTime>07/03/2018 16:22:31</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>07/02/2018 16:30:34</publishTime>
+      <publishTime>07/03/2018 16:22:34</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>
@@ -480,7 +480,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/19/2018 14:05:01</publishTime>
     </File>
     <File Include="Consulta/RelatoriosAlarmes.aspx">
-      <publishTime>06/21/2018 10:38:31</publishTime>
+      <publishTime>07/03/2018 15:27:02</publishTime>
     </File>
     <File Include="Consulta/Termometro.aspx">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -516,7 +516,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/19/2018 14:05:01</publishTime>
     </File>
     <File Include="css/main.css">
-      <publishTime>07/02/2018 16:42:30</publishTime>
+      <publishTime>07/03/2018 15:58:52</publishTime>
     </File>
     <File Include="css/processando.css">
       <publishTime>03/19/2018 14:05:01</publishTime>
@@ -1668,16 +1668,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/19/2018 14:05:01</publishTime>
     </File>
     <File Include="Restricoes/confirmacaoRetirarLDL/HtmlPage1.html">
-      <publishTime>06/18/2018 15:40:12</publishTime>
+      <publishTime>07/03/2018 16:19:10</publishTime>
     </File>
     <File Include="Restricoes/confirmacaoRetirarLDL/WebForm1.aspx">
-      <publishTime>06/18/2018 15:40:12</publishTime>
+      <publishTime>07/03/2018 16:19:10</publishTime>
     </File>
     <File Include="Restricoes/popupConfirmacaoLDL.aspx">
-      <publishTime>06/18/2018 15:40:12</publishTime>
+      <publishTime>07/03/2018 16:19:10</publishTime>
     </File>
     <File Include="Restricoes/popupLDL.aspx">
-      <publishTime>06/18/2018 15:40:12</publishTime>
+      <publishTime>07/03/2018 16:17:24</publishTime>
     </File>
     <File Include="Restricoes/popupRelatorioRestricoesPorData.aspx">
       <publishTime>03/19/2018 14:05:01</publishTime>
