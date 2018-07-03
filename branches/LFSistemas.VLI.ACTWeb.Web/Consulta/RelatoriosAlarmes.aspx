@@ -75,17 +75,17 @@
                     <tr>
                     <td style="position: relative; width: 8%">
                         <label for="data_inicio">Data:</label>
-                        <asp:TextBox ID="txtDataInicio" runat="server" style="width: 120px" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
+                        <asp:TextBox ID="txtDataInicio" runat="server" style="width: 100px" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
                         <asp:CalendarExtender runat="server" ID="cetxtDataInicio" TargetControlID="txtDataInicio" />
                     </td>
                     <td style="width: 8%">
                          <label for="hora_inicio">Hora:</label>
-                         <asp:TextBox ID="txtHoraInicio" runat="server" style="width: 120px" onKeyUp="formatar(this, '##:##')" CssClass="form-control" MaxLength="5" onkeypress="return fnValidaNroDoisPontos(event);" />
+                         <asp:TextBox ID="txtHoraInicio" runat="server" style="width: 100px" onKeyUp="formatar(this, '##:##')" CssClass="form-control" MaxLength="5" onkeypress="return fnValidaNroDoisPontos(event);" />
                     </td>
                     <td style="width: 7%;">
                          <label for="data_fim">Mais Hora(s):</label>
                          <br />
-                         <asp:DropDownList runat="server" ID="ddlMais" CssClass="form-control">
+                         <asp:DropDownList runat="server" ID="ddlMais" Width="75px" CssClass="form-control">
                              <asp:ListItem Text="01" Value="1" />
                              <asp:ListItem Text="02" Value="2" />
                              <asp:ListItem Text="03" Value="3" />
@@ -119,7 +119,7 @@
                          <br />
                          <asp:RadioButton ID="rdTras" runat="server" GroupName="Espaco" Text="&nbsp;&nbsp;Para Trás" Checked="true" />
                     </td>
-                    <td style="width: 16%">
+                    <td style="width: 13%">
                         <label for="perfil">Corredores:</label>
                         <asp:Panel runat="server" Height="110" CssClass="form-control" ScrollBars="Vertical">
                             <asp:CheckBoxList runat="server" ID="cblDadosCorredores" />
@@ -131,7 +131,7 @@
                             <asp:CheckBoxList runat="server" ID="cblEstacoes" />
                         </asp:Panel>
                     </td>
-                    <td style="width: 23%">
+                    <td style="width: 20%">
                         <label for="perfil">Status:</label>
                         <asp:Panel runat="server" Height="110" ScrollBars="Vertical" CssClass="form-control">
                             <asp:CheckBoxList runat="server" ID="cblStatus" />
@@ -143,7 +143,7 @@
                             <asp:CheckBoxList runat="server" ID="cblTipoAlarme" />
                         </asp:Panel>
                     </td>
-                    <td style="width: 5%">
+                    <td style="width: 23%">
                     </td>
                     
                     </tr>
