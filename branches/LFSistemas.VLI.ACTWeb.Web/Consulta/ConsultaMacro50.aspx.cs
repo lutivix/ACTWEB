@@ -112,7 +112,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 txtHoraInicio.Text = dataInicial.ToShortTimeString();
 
                 var dataFinal = txtHoraInicio;
-
                 VerificaNovasMensagensComHoras();
 
             }
@@ -933,11 +932,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
                     this.RepeaterMacro50.DataSource = objPds;
                     this.RepeaterMacro50.DataBind();
+
+                    Botao.registroNaoLocalizadoAtualização = false;
                 }
                 else
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Registro não localizado.' });", true);
 
                 lblTotal.Text = string.Format("{0:0,0}", itens.Count);
+
+                Botao.registroNaoLocalizadoAtualização = true;
             }
         }
 
@@ -1001,7 +1004,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
             String cabines = (Request.QueryString["cabines"]);
 
-            Botao.Atualizar(2, horaInicio, horaFim, cabines);
+            
 
             var itens = macroController.ObterMacros50PorCabines(new Entities.FiltroMacro()
             {
@@ -1109,12 +1112,20 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
                 this.RepeaterMacro50.DataSource = objPds;
                 this.RepeaterMacro50.DataBind();
+
+                Botao.Atualizar(horaInicio, horaFim, cabines);
+                Botao.Atualizar(2,cabines);
+                Botao.registroNaoLocalizadoBotao = false;
+
             }
-            else
+            else 
+            {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Registro não localizado.' });", true);
 
-            lblTotal.Text = string.Format("{0:0,0}", itens.Count);
-
+                lblTotal.Text = string.Format("{0:0,0}", itens.Count);
+                Botao.registroNaoLocalizadoBotao = true;
+            }
+                
 
         }
 
@@ -1177,7 +1188,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
             String cabines = (Request.QueryString["cabines"]);
 
-            Botao.Atualizar(1, horaInicio, horaFim, cabines);
+            
 
             var itens = macroController.ObterMacros50PorCabines(new Entities.FiltroMacro()
             {
@@ -1285,11 +1296,18 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
                 this.RepeaterMacro50.DataSource = objPds;
                 this.RepeaterMacro50.DataBind();
+
+                Botao.registroNaoLocalizadoAtualização = false;
+                Botao.Atualizar(1, cabines);
             }
             else
+            {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Registro não localizado.' });", true);
 
-            lblTotal.Text = string.Format("{0:0,0}", itens.Count);
+                lblTotal.Text = string.Format("{0:0,0}", itens.Count);
+
+                Botao.registroNaoLocalizadoAtualização = true;
+            }
         }
 
 

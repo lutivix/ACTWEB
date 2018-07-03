@@ -37,6 +37,9 @@ namespace LFSistemas.VLI.ACTWeb.Entities
 
         public static string cabinesSelecionadas;
 
+        public static bool registroNaoLocalizadoBotao;
+
+        public static bool registroNaoLocalizadoAtualização;
 
         public static DateTime getultimoDataIni()
         {
@@ -53,7 +56,25 @@ namespace LFSistemas.VLI.ACTWeb.Entities
             return cabinesSelecionadas;
         }
 
-        public static void Atualizar(int origem, DateTime di, DateTime df, string cabines)
+        public static bool getregistroNaoLocalizadoBotao()
+        {
+            return registroNaoLocalizadoBotao;
+        }
+
+        public static bool getregistroNaoLocalizadoAtualização()
+        {
+            return registroNaoLocalizadoAtualização;
+        }
+        public static void Atualizar(DateTime di, DateTime df, string cabines)
+        {
+
+            ultimoDataIni = di;
+            ultimoDataFim = df;
+            cabinesSelecionadas = cabines;
+
+        }
+
+        public static void Atualizar(int origem, string cabines)
         {
 
             if (origem == 1)
@@ -65,8 +86,6 @@ namespace LFSistemas.VLI.ACTWeb.Entities
                 pesquisaPorBotao = true;
             }
 
-            ultimoDataIni = di;
-            ultimoDataFim = df;
             cabinesSelecionadas = cabines;
 
         }

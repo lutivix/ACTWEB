@@ -84,20 +84,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
 
             var dados = new MacroController();
 
-            int origem = Botao.UltimaAtualizacaoOrigem();
-
-            if (origem == 1)
-            {
-                RepeaterItens.DataSource = dados.ObterConversasMacro50(new Conversas()
-                {
-                    Numero_Macro = numeroMacro,
-                    Loco = loco,
-                    cabinesSelecionadas = Botao.getcabinesSelecionadas()
-                });
-                RepeaterItens.DataBind();
-            }
-            else
-            {
+            
                 RepeaterItens.DataSource = dados.ObterConversasMacro50ComFiltroData(new Conversas()
                 {
                     Numero_Macro = numeroMacro,
@@ -108,7 +95,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
                 });
 
                 RepeaterItens.DataBind();
-            }
+            
         }
 
         protected void lnkResponder_Click(object sender, EventArgs e)

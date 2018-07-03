@@ -594,11 +594,24 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${LOCO_R}", "");
                         query.Replace("${LOCO_E}", "");
                     }
-                    //FIltro de Código OS
+                    //FIltro de Código OS 
+
                     if (!string.IsNullOrEmpty(filtro.CodigoOS))
                     {
-                        query.Replace("${CODIGO_OS_R}", string.Format("AND MR.MR_COD_OF IN ('{0}')", filtro.CodigoOS));
-                        query.Replace("${CODIGO_OS_E}", string.Format("AND ME.ME_COD_OF IN ('{0}')", filtro.CodigoOS));
+                        string OS = filtro.CodigoOS;
+
+                        System.Text.RegularExpressions.Regex num = new System.Text.RegularExpressions.Regex("[^0-9]");
+
+                        if (!num.IsMatch(OS))
+                        {
+                            query.Replace("${CODIGO_OS_R}", string.Format("AND MR.MR_COD_OF IN ('{0}')", filtro.CodigoOS));
+                            query.Replace("${CODIGO_OS_E}", string.Format("AND ME.ME_COD_OF IN ('{0}')", filtro.CodigoOS));
+                        }
+                        else
+                        {
+                            query.Replace("${CODIGO_OS_R}", string.Format("AND MR.MR_COD_OF IN ('9999999999999999999999999')"));
+                            query.Replace("${CODIGO_OS_E}", string.Format("AND ME.ME_COD_OF IN ('9999999999999999999999999')"));
+                        }
                     }
                     else
                     {
@@ -2310,51 +2323,132 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
 
                     #region [ FILTRA MACROS ]
 
-                    query.Append(@"select * from (
-                                    select 'R', mr_grmn as macro, mr_loco as loco, mr_msg_time as horario, mr_text as texto
-                                        from actpp.mensagens_recebidas
-                            INNER JOIN (SELECT EST_NOME
+                    query.Append(@"SELECT 'R' AS R_E,
+                                       MR.MR_GRMN AS macro,
+                                       MC.MCT_NOM_MCT AS loco,
+                                       MR.MR_MSG_TIME AS horario,
+                                       MR.MR_TEXT AS texto
+                                  FROM ACTPP.MENSAGENS_RECEBIDAS MR
+                                       INNER JOIN ACTPP.MCTS MC ON MC.MCT_ID_MCT = MR.MR_MCT_ADDR
+                                       INNER JOIN ACTPP.MSG_PF PF ON PF.MFP_ID_MSG = MR.MR_GRMN
+                                       INNER JOIN (SELECT EST_NOME
                                   FROM ESTACOES
                                             WHERE EST_ID IN (SELECT EST_ID
                                   FROM REL_CAB_EST
                                             WHERE CAB_ID IN (${CABINES_R}))) B
-                                ON MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
-                                    
-                                     AND SUBSTR (MR_TEXT, 2, 4) = '7000'
-                                where mr_mc_num = ${mr_mc_num} and mr_loco = ${mr_loco}  ${INTERVALO_R}
-                                    union
-                                    select 'E', me_gfmn as macro, me_loco as loco, me_msg_time as horario, me_text as texto
-                                        from actpp.mensagens_enviadas
-                                INNER JOIN (SELECT EST_NOME
-                                  FROM ESTACOES
-                                            WHERE EST_ID IN (SELECT EST_ID
-                                  FROM REL_CAB_EST
-                                            WHERE CAB_ID IN (${CABINES_E}))) B
-                                ON ME_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                ON MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                     ${INTERVALO_R}
+                                     AND MR.MR_MC_NUM = 50
+                                     AND SUBSTR (MR.MR_TEXT, 2, 4) = '7000'
+                                     ${LOCO_R}
+                                     AND MR.MR_TEXT is not null
                                      
-                                     AND SUBSTR (ME_TEXT, 2, 4) = '7000'
-                                where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} ${INTERVALO_E}
-                                    ) where texto is not null order by horario desc");
+             UNION
+                                       SELECT 'E' AS R_E, ME.ME_GFMN AS macro, 
+                                       MC.MCT_NOM_MCT AS loco,
+                                       ME.ME_MSG_TIME AS horario, 
+                                       ME.ME_TEXT AS texto
+                                    FROM ACTPP.MENSAGENS_ENVIADAS ME
+                                    
+                                            INNER JOIN ACTPP.MCTS MC ON MC.MCT_ID_MCT = ME.ME_MCT_ADDR
+                                        INNER JOIN (SELECT EST_NOME
+                                    FROM ESTACOES
+                                            WHERE EST_ID IN (SELECT EST_ID
+                                    FROM REL_CAB_EST
+                                            WHERE CAB_ID IN (${CABINES_E}))) B
+                                ON ME.ME_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                     ${INTERVALO_E}
+                                     AND ME.ME_MAC_NUM = 50
+                                     AND SUBSTR (ME.ME_TEXT, 2, 4) = '7000' 
+                                     ${LOCO_E}
+                                     AND ME.ME_TEXT is not null order by horario asc");
 
-                    query.Replace("${mr_mc_num}", string.Format("{0}", filtro.Numero_Macro));
-                    query.Replace("${mr_loco}", string.Format("{0}", filtro.Loco));
+                    //query.Replace("${CABINES_R}", string.Format("{0}", filtro.cabinesSelecionadas));
+                    //query.Replace("${CABINES_E}", string.Format("{0}", filtro.cabinesSelecionadas));
+
+                    //query.Replace("${mr_mc_num}", string.Format("{0}", filtro.Numero_Macro));
+                    //query.Replace("${mr_loco}", string.Format("{0}", filtro.Loco));
+
+
+                    //query.Replace("${mr_mc_num}", string.Format("{0}", filtro.Numero_Macro));
+                    //query.Replace("${mr_loco}", string.Format("{0}", filtro.Loco));
 
                     query.Replace("${CABINES_R}", string.Format("{0}", filtro.cabinesSelecionadas));
                     query.Replace("${CABINES_E}", string.Format("{0}", filtro.cabinesSelecionadas));
 
 
-                    if (filtro.DataInicio > filtro.DataFim)
+                    
+                    //FIltro Periodo de tempo
+                    int origem = Botao.UltimaAtualizacaoOrigem();
+
+                    if (origem == 2 && Botao.getregistroNaoLocalizadoAtualização() == true)
                     {
-                        query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataFim, filtro.DataInicio));
-                        query.Replace("${INTERVALO_E}", string.Format("AND ME_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataFim, filtro.DataInicio));
+                        if (filtro.DataInicio > filtro.DataFim)
+                        {
+                            query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataFim, filtro.DataInicio));
+                            query.Replace("${INTERVALO_E}", string.Format("AND ME_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataFim, filtro.DataInicio));
+                        }
+                        else
+                        {
+                            query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                            query.Replace("${INTERVALO_E}", string.Format("AND ME_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                        }                     
+                    }
+                    else if (origem == 2 && Botao.getregistroNaoLocalizadoBotao() == true)
+                    {
+
+                        if (filtro.DataInicio > filtro.DataFim)
+                        {
+                            query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataFim, filtro.DataInicio));
+                            query.Replace("${INTERVALO_E}", string.Format("AND ME_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataFim, filtro.DataInicio));
+                        }
+                        else
+                        {
+                            query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                            query.Replace("${INTERVALO_E}", string.Format("AND ME_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                        }   
+
+                    } else if(origem == 1 && Botao.getregistroNaoLocalizadoAtualização() == true)
+
+                    {
+                        query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME >= sysdate -1"));
+                        query.Replace("${INTERVALO_E}", string.Format("AND ME_MSG_TIME >= sysdate -1"));
+                    }
+                    else if (origem == 1 && Botao.getregistroNaoLocalizadoBotao() == true)
+                    {
+                        query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME >= sysdate -1"));
+                        query.Replace("${INTERVALO_E}", string.Format("AND ME_MSG_TIME >= sysdate -1"));
+                    }
+                    else if (origem == 1)
+                    {
+                        query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME >= sysdate -1"));
+                        query.Replace("${INTERVALO_E}", string.Format("AND ME_MSG_TIME >= sysdate -1"));
+                    }
+                    else if (origem == 2)
+                    {
+                        if (filtro.DataInicio > filtro.DataFim)
+                        {
+                            query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataFim, filtro.DataInicio));
+                            query.Replace("${INTERVALO_E}", string.Format("AND ME_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataFim, filtro.DataInicio));
+                        }
+                        else
+                        {
+                            query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                            query.Replace("${INTERVALO_E}", string.Format("AND ME_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                        }   
+                    }
+
+                    //FIltro de Locomotivas
+                    if (!string.IsNullOrEmpty(filtro.Loco))
+                    {
+                        query.Replace("${LOCO_R}", string.Format("AND MC.MCT_NOM_MCT IN ('{0}')", filtro.Loco));
+                        query.Replace("${LOCO_E}", string.Format("AND MC.MCT_NOM_MCT IN ('{0}')", filtro.Loco));
                     }
                     else
                     {
-                        query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
-                        query.Replace("${INTERVALO_E}", string.Format("AND ME_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
+                        query.Replace("${LOCO_R}", "");
+                        query.Replace("${LOCO_E}", "");
                     }
-                  
-
                     #endregion
 
 
