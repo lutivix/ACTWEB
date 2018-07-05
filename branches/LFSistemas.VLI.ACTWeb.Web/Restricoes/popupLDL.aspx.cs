@@ -428,6 +428,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             //    Pesquisar("OL.LDL_CODIGOIDENT " + ViewState["ordenacao"].ToString() + ", SLT_DATA desc");
             //}
         }
+        protected void lnkMotivo_Click(object sender, EventArgs e)
+        {
+
+        }
         protected void lnkSituacao_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();

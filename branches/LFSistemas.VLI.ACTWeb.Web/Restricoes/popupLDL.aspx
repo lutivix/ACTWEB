@@ -527,6 +527,9 @@
                                                     <asp:LinkButton ID="lnkLdl" runat="server" OnClick="lnkLdl_Click">Autorização</asp:LinkButton>
                                                 </th>
                                                 <th style="background-color: #fff; width: 05%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                    <asp:LinkButton ID="lnkMotivo" runat="server" OnClick="lnkMotivo_Click">Motivo</asp:LinkButton>
+                                                </th>
+                                                <th style="background-color: #fff; width: 05%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                     <asp:LinkButton ID="lnkSituacao" runat="server" OnClick="lnkSituacao_Click">Situação</asp:LinkButton>
                                                 </th>
                                                 <th style="background-color: #fff; width: 07%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
@@ -559,7 +562,8 @@
                                         <td style="width: 02%; text-align: center; border-right: 1px solid rgb(0, 72, 89);">
                                             <asp:LinkButton ID="lnkEdite" runat="server" OnClick="lnkEdite_Click" CommandArgument='<%# Eval("Solicitacao_ID_ACTWEB") %>'><i class="fa fa-search-plus"></i></asp:LinkButton>
                                         </td>
-                                        <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Aut_Interdicao_Act") %>"><%# Eval("Aut_Interdicao_Act") %></td>
+                                        <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Cod_Interdicao") %>"><%# Eval("Cod_Interdicao") %></td>
+                                        <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Motivo_Desc") %>"><%# Eval("Motivo_Desc") %></td>
                                         <td style="width: 05%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Situacao_Nome") %>"><%# Eval("Situacao_Nome") %></td>
                                         <td style="width: 07%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Secao_Nome") %>"><%# Eval("Secao_Nome") %></td>
                                         <td style="width: 07%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Tipo_Manutencao_Nome") %>"><%# Eval("Tipo_Manutencao_Nome") %></td>

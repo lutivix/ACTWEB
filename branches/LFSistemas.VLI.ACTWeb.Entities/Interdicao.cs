@@ -24,7 +24,9 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Tipo_Circulacao_Nome { get; set; }
         public double Motivo_ID { get; set; }
         public string Motivo { get; set; }
-
+        public string Motivo_Desc { get; set; }
+        public double Interdicao_Motivo { get; set; }
+        public string Cod_Interdicao { get; set; }
         public string Responsavel_Matricula { get; set; }
         public string Responsavel_Nome { get; set; }
         public DateTime Data { get; set; }
