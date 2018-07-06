@@ -277,7 +277,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                 ddlDadosMotivo.SelectedItem.Value = dados.Motivo_ID.ToString();
 
-                txtAutorizacao.Text = dados.Aut_Interdicao_Act.ToString();
+                txtAutorizacao.Text = dados.Interdicao_Motivo.ToString();
                 
                 
                 if (dados.Tipo_Circulacao_ID > 0)
