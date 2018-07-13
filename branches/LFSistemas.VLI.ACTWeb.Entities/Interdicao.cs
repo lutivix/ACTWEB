@@ -25,7 +25,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public double Motivo_ID { get; set; }
         public string Motivo { get; set; }
         public string Motivo_Desc { get; set; }
-        public double Interdicao_Motivo { get; set; }
+        public double? Interdicao_Motivo { get; set; }
         public string Cod_Interdicao { get; set; }
         public string Responsavel_Matricula { get; set; }
         public string Responsavel_Nome { get; set; }
