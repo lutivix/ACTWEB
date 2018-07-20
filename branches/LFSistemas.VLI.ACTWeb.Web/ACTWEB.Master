@@ -799,8 +799,16 @@
                         <%----------------------  LDL DE PÁTIO  ----------------------%>
                         <li class="" id="mnLdlPatios" runat="server">
                             <asp:LinkButton runat="server" ID="lnkLdlPatios" OnClick="lnkLdlPatios_Click">
-                                <span class="menu-item-icon menu-icon-ldlpatios"></span>
+                                <span c0lass="menu-item-icon menu-icon-ldlpatios"></span>
                                 <span class="menu-item-label" title="LDL de Pátio">LDL de Pátio</span>
+                            </asp:LinkButton>
+                        </li>
+
+                        <%----------------------  PAINEL VP  ----------------------%>
+                        <li class="" id="Li1" runat="server">
+                            <asp:LinkButton runat="server" ID="LinkPainelVP" OnClick="lnkPainelVP_Click">
+                                <span class="menu-item-icon menu-icon-gop"></span>
+                                <span class="menu-item-label" title="VP">VP</span>
                             </asp:LinkButton>
                         </li>
                     </ul>

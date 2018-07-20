@@ -448,6 +448,7 @@
     <Content Include="THP\popupSubparadas.aspx" />
     <Content Include="THP\popupTHP.aspx" />
     <Content Include="THP\popupTHP_Relatorios.aspx" />
+    <Content Include="VP\Consultar_Faixas.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1313,6 +1314,13 @@
     </Compile>
     <Compile Include="THP\popupTHP_Relatorios.aspx.designer.cs">
       <DependentUpon>popupTHP_Relatorios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VP\Consultar_Faixas.aspx.cs">
+      <DependentUpon>Consultar_Faixas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VP\Consultar_Faixas.aspx.designer.cs">
+      <DependentUpon>Consultar_Faixas.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
