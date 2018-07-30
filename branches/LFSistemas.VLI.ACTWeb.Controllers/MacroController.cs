@@ -176,9 +176,9 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ObterQtdeMacrosNaoLidas(corredores);
         }
 
-        public int ObterQtdeMacrosNaoLidas2(FiltroMacro filtro, string corredores)
+        public int ObterQtdeMacrosNaoLidas2(DateTime horaInicio, DateTime horaFim,string cabines)
         {
-            return dao.ObterQtdeMacrosNaoLidas2(filtro, corredores);
+            return dao.ObterQtdeMacrosNaoLidas2(horaInicio, horaFim, cabines);
         }
 
         /// <summary>

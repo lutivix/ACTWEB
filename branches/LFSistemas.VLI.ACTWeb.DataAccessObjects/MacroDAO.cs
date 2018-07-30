@@ -1546,7 +1546,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return qtde;
         }
 
-        public int ObterQtdeMacrosNaoLidas2(FiltroMacro filtro, string corredores)
+        public int ObterQtdeMacrosNaoLidas2(DateTime DataInicio, DateTime DataFim, string cabines)
         {
             #region [ PROPRIEDADES ]
 
@@ -1564,46 +1564,46 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA QTDES ]
 
                     query.Append(@"SELECT COUNT(*) QTDE 
-                                    FROM ACTPP.MENSAGENS_RECEBIDAS MR, ACTPP.MSG_PF PF
-                                        WHERE PF.MFP_ID_MSG = MR.MR_GRMN 
+                                    FROM ACTPP.MENSAGENS_RECEBIDAS MR
+                                       INNER JOIN ACTPP.MSG_PF PF ON PF.MFP_ID_MSG = MR.MR_GRMN
+                                    INNER JOIN (SELECT EST_NOME
+                                  FROM ESTACOES
+                                            WHERE EST_ID IN (SELECT EST_ID
+                                  FROM REL_CAB_EST
+                                            WHERE CAB_ID IN (${CABINES_R}))) B
+                                ON MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                        AND PF.MFP_ID_MSG = MR.MR_GRMN 
+                                          ${INTERVALO_R}
                                           AND PF.MFP_LEITURA = 'F' 
                                           AND MR.MR_MC_NUM = 50 
                                           AND SUBSTR(MR.MR_TEXT,2,4) = '7000'
-                                          ${CORREDOR} 
-                                          ${CABINES} 
-                                          ${INTERVALO}
+                                        
+                                         
                                     ORDER BY MR.MR_GRMN DESC");
 
                     #endregion
 
-                    if (!string.IsNullOrEmpty(corredores))
-                        query.Replace("${CORREDOR}", string.Format("AND (MR.MR_CORREDOR IN ({0}) OR MR.MR_CORREDOR IS NULL)", corredores));
-                    else
-                        query.Replace("${CORREDOR}", "");
 
                     //FIltro Periodo de tempo
-                    if (filtro.DataInicio.HasValue && filtro.DataFim.HasValue)
+                    if (DataInicio > DataFim)
+                        {
+                            query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", DataFim, DataInicio));
+                        }
+                        else
+                        {
+                            query.Replace("${INTERVALO_R}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", DataInicio, DataFim));
+                        }
+
+
+                    if (!string.IsNullOrEmpty(cabines))
                     {
-                        query.Replace("${INTERVALO}", string.Format("AND MR_MSG_TIME BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicio, filtro.DataFim));
-                    
+                        query.Replace("${CABINES_R}", string.Format("{0}", cabines));
                     }
                     else
                     {
-                        query.Replace("${INTERVALO}", "");
-                     
+                        query.Replace("${{CABINES_R}}", "");
                     }
 
-                    //FIltro cabines
-                    if (!string.IsNullOrEmpty(filtro.cabines))
-                    {
-                        query.Replace("${CABINES}", string.Format("AND (MR.MR_CORREDOR IN ({0}) OR MR.MR_CORREDOR IS NULL)", corredores));
-
-                    }
-                    else
-                    {
-                        query.Replace("${CABINES}", "");
-
-                    }
 
 
                     #region [BUSCA NO BANCO E ADICIONA NA VARIAVEL ]
