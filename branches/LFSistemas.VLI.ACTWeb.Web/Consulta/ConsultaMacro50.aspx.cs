@@ -542,11 +542,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
                 //    ViewState["corredor"] = corredores;
                 //}
-                
+
+                DateTime horaInicio = txtDataInicial.Text.Length > 0 ? DateTime.Parse(txtDataInicial.Text + " " + FormataHora(txtHoraInicio.Text)) : DateTime.Now;
+                DateTime horaFim = DateTime.Now.AddHours(-6);
+
+                String cabines = (Request.QueryString["cabines"]);
 
                 var macroController = new MacroController();
 
-                var qtde = macroController.ObterQtdeMacrosNaoLidas(corredores);
+                var qtde = macroController.ObterQtdeMacrosNaoLidas2(horaInicio, horaFim, cabines);
             
                 if (qtde > 0)
                 {
@@ -604,11 +608,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 //    ViewState["corredor"] = corredores;
                 //}
 
-                
+                DateTime horaInicio = DateTime.Now;
+                DateTime horaFim = DateTime.Now.AddHours(-6);
+
+                String cabines = (Request.QueryString["cabines"]);
 
                 var macroController = new MacroController();
 
-                var qtde = macroController.ObterQtdeMacrosNaoLidas(corredores);
+                var qtde = macroController.ObterQtdeMacrosNaoLidas2(horaInicio, horaFim, cabines);
 
                 if (qtde > 0)
                 {
