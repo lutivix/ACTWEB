@@ -11,10 +11,10 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
     public class VpController
     {
         FaixaDAO faixaDao = new FaixaDAO();
-
-        public List<FaixaVP> ObterTodos(string ordenacao)
+        
+        public List<FaixaVP> ObterTodos(string ordenacao, string prefixo, string local, string data, string reacao, string execucao, string adeReacao, string adeExecucao, string status, string corredor)
         {
-            return faixaDao.ObterTodos(ordenacao);
+            return faixaDao.ObterTodos(ordenacao, prefixo, local, data, reacao, execucao, adeReacao, adeExecucao, status, corredor);
         }
     }
 }

@@ -71,12 +71,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.VP
             ulPerfil = Usuario.Perfil_Abreviado.ToString();
             ulMaleta = Usuario.CodigoMaleta.ToString();
 
+            //if(txtData.Text == null || txtData.Text.Length == 0) {
+            //    txtData.Text = DateTime.Today.ToShortDateString();
+            //}
+
             if (!Page.IsPostBack)
             {
-                lblUsuarioLogado.Text = ulNome.Length > 12 ? ulNome.Substring(0, 12).ToUpper() : ulNome;
-                lblUsuarioMatricula.Text = ulMatricula.ToUpper();
-                lblUsuarioPerfil.Text = ulPerfil.ToUpper();
-                lblUsuarioMaleta.Text = ulMaleta.ToUpper();
+                //lblUsuarioLogado.Text = ulNome.Length > 12 ? ulNome.Substring(0, 12).ToUpper() : ulNome;
+                //lblUsuarioMatricula.Text = ulMatricula.ToUpper();
+                //lblUsuarioPerfil.Text = ulPerfil.ToUpper();
+                //lblUsuarioMaleta.Text = ulMaleta.ToUpper();
 
                 ViewState["ordenacao"] = "ASC";
                 Pesquisar(null, Navigation.None);
@@ -116,7 +120,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.VP
         #region [ BOTOÕES DE ORDENAÇÃO ]
         protected void lnkID_Click(object sender, EventArgs e)
         {
-            ordernar("VP_ID");
+            ordernar("VP_FAIXA_ID");
         }
         protected void lnkLoco_Click(object sender, EventArgs e)
         {
@@ -264,12 +268,44 @@ namespace LFSistemas.VLI.ACTWeb.Web.VP
         {
             var acao = new VpController();
 
-            string ativo = null;
+            string prefixo = txtFiltroPrefixo.Text;
+            string local = txtFiltroLocal.Text;
+            string data = txtData.Text;
+            string reacao = txtTreacao.Text;
+            string execucao = txtTexecucao.Text;
 
-            //if (rdAtivo.Checked) ativo = "S";
-            //if (rdInativo.Checked) ativo = "N";
+            string adeReacao = txtTadeReacao.Text;
+            string adeExecucao = txtTadeExecucao.Text;
 
-            itens = acao.ObterTodos(ordenacao);
+            string status = "";
+            List<string> aux = new List<string>();
+            if (clbStatus.Items.Count > 0)
+            {
+                for (int i = 0; i < clbStatus.Items.Count; i++)
+                {
+                    if (clbStatus.Items[i].Selected)
+                    {
+                        aux.Add(string.Format("'{0}'", clbStatus.Items[i].Value));
+                    }
+                }
+                status = string.Join(",", aux);
+            }
+
+            string corredor = "";
+            List<string> aux2 = new List<string>();
+            if (clbCorredor.Items.Count > 0)
+            {
+                for (int i = 0; i < clbCorredor.Items.Count; i++)
+                {
+                    if (clbCorredor.Items[i].Selected)
+                    {
+                        aux2.Add(string.Format("'{0}'", clbCorredor.Items[i].Value.ToUpper()));
+                    }
+                }
+                corredor = string.Join(",", aux2);
+            }
+
+            itens = acao.ObterTodos(ordenacao, prefixo, local, data, reacao, execucao, adeReacao, adeExecucao, status, corredor);
 
             if (itens.Count > 0)
             {

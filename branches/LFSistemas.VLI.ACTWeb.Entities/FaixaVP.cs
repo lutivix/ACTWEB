@@ -36,5 +36,10 @@ namespace LFSistemas.VLI.ACTWeb.Entities
 
         public double? tempoReacao { get; set; }
         public double? tempoExecucao { get; set; }
+
+        public double? tempoAdesaoReacao { get; set; }
+        public double? tempoAdesaoExecucao { get; set; }
+
+        public int? faixa_id { get; set; }
     }
 }

@@ -13,49 +13,112 @@ namespace LFSistemas.VLI.ACTWeb.Web.VP {
     public partial class Consultar_Faixas {
         
         /// <summary>
-        /// Label1 control.
+        /// Content2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Content2;
         
         /// <summary>
-        /// lblUsuarioMatricula control.
+        /// txtFiltroPrefixo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuarioMatricula;
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroPrefixo;
         
         /// <summary>
-        /// lblUsuarioLogado control.
+        /// txtFiltroLocal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuarioLogado;
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroLocal;
         
         /// <summary>
-        /// lblUsuarioPerfil control.
+        /// txtData control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuarioPerfil;
+        protected global::System.Web.UI.WebControls.TextBox txtData;
         
         /// <summary>
-        /// lblUsuarioMaleta control.
+        /// txtTreacao control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuarioMaleta;
+        protected global::System.Web.UI.WebControls.TextBox txtTreacao;
+        
+        /// <summary>
+        /// txtTexecucao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTexecucao;
+        
+        /// <summary>
+        /// txtTadeReacao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTadeReacao;
+        
+        /// <summary>
+        /// txtTadeExecucao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTadeExecucao;
+        
+        /// <summary>
+        /// clbCorredor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList clbCorredor;
+        
+        /// <summary>
+        /// clbStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList clbStatus;
+        
+        /// <summary>
+        /// lnkPesquisar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkPesquisar;
+        
+        /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
         /// upRegistros control.
