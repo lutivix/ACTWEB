@@ -153,6 +153,12 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ObtemIdRestricaoCirculacao();
         }
 
+        public double ObterLimiteTempoRestricao()
+        {
+            var dao = new RestricaoDAO();
+            return dao.ObterLimiteTempoRestricao();
+        }
+
         #region [ MÉTODOS DE CRUD ]
 
         /// <summary>
