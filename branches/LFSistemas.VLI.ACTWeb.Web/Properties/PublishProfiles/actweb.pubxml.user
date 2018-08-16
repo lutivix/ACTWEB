@@ -15,7 +15,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/19/2018 14:05:01</publishTime>
     </File>
     <File Include="ACTWEB.Master">
-      <publishTime>07/20/2018 16:48:25</publishTime>
+      <publishTime>08/16/2018 11:47:42</publishTime>
     </File>
     <File Include="Ajuda/Erro.aspx">
       <publishTime>03/19/2018 14:05:01</publishTime>
@@ -162,25 +162,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>07/20/2018 16:48:51</publishTime>
+      <publishTime>08/16/2018 11:48:06</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
       <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>07/20/2018 16:48:51</publishTime>
+      <publishTime>08/16/2018 11:48:05</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
       <publishTime>09/08/2016 12:55:17</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>07/20/2018 16:48:50</publishTime>
+      <publishTime>08/01/2018 17:10:54</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>07/20/2018 16:48:53</publishTime>
+      <publishTime>08/16/2018 11:48:08</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>
@@ -1728,10 +1728,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/19/2018 14:05:01</publishTime>
     </File>
     <File Include="VP/Consultar_Faixas.aspx">
-      <publishTime>07/20/2018 15:04:32</publishTime>
+      <publishTime>08/01/2018 16:59:53</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/20/2018 16:48:54</publishTime>
+      <publishTime>08/01/2018 17:11:00</publishTime>
     </File>
   </ItemGroup>
 </Project>
