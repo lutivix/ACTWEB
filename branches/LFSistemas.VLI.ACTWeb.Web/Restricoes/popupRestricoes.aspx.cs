@@ -331,7 +331,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 verificaKmFinal = restricaoController.VerificaKM(double.Parse(txtDadosKm_Final.Text), double.Parse(ddlDadosSecoes.SelectedItem.Value));
             }
 
-            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
+            Data1 = null;
+            Data2 = null;
+
+            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF"
+                || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
             {
                 string dataInicial = txtDadosDataInicial.Text.Trim();
                 string dataFinal = txtDadosDataFinal.Text.Trim();
@@ -343,7 +347,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
 
                 if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR"
-                   && Data1 != null && Data2 != null) {
+                   && Data1 != null && Data2 != null)
+                {
                     DateTime tempData1 = (DateTime)Data1;
                     DateTime tempData2 = (DateTime)Data2;
 
@@ -356,35 +361,38 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                     TimeSpan duration = tempData2 - tempData1;
                     double duracaoLimite = new RestricaoController().ObterLimiteTempoRestricao();
-                    if (duracaoLimite < duration.TotalMinutes)
+                    if (duracaoLimite != 0 && duracaoLimite < duration.TotalMinutes)
                     {
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não é possivel criar uma restrição deste tipo com a duração acima de " + duracaoLimite + " minutos.' });", true);
                         return;
                     }
                 }
             }
-            else
-            {
-                Data1 = null;
-                Data2 = null;
-            }
 
             if (txtDadosKm_Inicio.Text != string.Empty)
             {
-                Km1 = decimal.Parse(Uteis.TocarVirgulaPorPonto(txtDadosKm_Inicio.Text)); 
-            } else {
+                Km1 = decimal.Parse(Uteis.TocarVirgulaPorPonto(txtDadosKm_Inicio.Text));
+            }
+            else
+            {
                 Km1 = null;
             }
-            if (txtDadosKm_Final.Text != string.Empty) {
-                Km2 = decimal.Parse(Uteis.TocarVirgulaPorPonto(txtDadosKm_Final.Text)); 
-            } else {
+            if (txtDadosKm_Final.Text != string.Empty)
+            {
+                Km2 = decimal.Parse(Uteis.TocarVirgulaPorPonto(txtDadosKm_Final.Text));
+            }
+            else
+            {
                 Km2 = null;
             }
             if (txtDadosVelocidade.Text != string.Empty
                 && txtDadosVelocidade.Text != "VR"
-                && txtDadosVelocidade.Text != "IF") {
+                && txtDadosVelocidade.Text != "IF")
+            {
                 Vel = double.Parse(txtDadosVelocidade.Text);
-            } else {
+            }
+            else
+            {
                 Vel = null;
             }
 
