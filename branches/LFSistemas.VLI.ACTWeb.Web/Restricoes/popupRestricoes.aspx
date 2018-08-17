@@ -426,7 +426,7 @@
                                 <asp:TextBox runat="server" ID="txtDadosDataInicial" Width="100%" CssClass="form-control" onKeyUp="formatar(this, '##/##/####')" onkeypress="return PermiteSomenteNumeros(event);" ToolTip="Informe a data inicial da restrição." MaxLength="10" /></td>
                             <td style="width: 07%; text-align: right; vertical-align: top; padding-top: 10px;">Hora Inicio&nbsp;&nbsp;</td>
                             <td style="width: 15%; text-align: left; vertical-align: central;">
-                                <asp:TextBox runat="server" ID="txtDadosHoraInicial" Width="50%" CssClass="form-control" onKeyUp="formatar(this, '##:##')" onkeypress="return fnValidaNroDoisPontos(event);" ToolTip="Informe a hora inicial da restrição." MaxLength="5" /></td>
+                                <asp:TextBox runat="server" ID="txtDadosHoraInicial" Width="50%" CssClass="form-control" onKeyUp="formatar(this, '##:##')" onkeypress="return fnValidaNroDoisPontos(event);" ToolTip="Informe a hora inicial da restrição." MaxLength="5" OnSelectedIndexChanged="ddlDadosHoraInicial_SelectedIndexChanged"/></td>
                             <td style="width: 10%; text-align: right; vertical-align: top; padding-top: 10px;">Data Final&nbsp;&nbsp;</td>
                             <td style="width: 15%; text-align: left; vertical-align: central;">
                                 <asp:TextBox runat="server" ID="txtDadosDataFinal" Width="100%" CssClass="form-control" onKeyUp="formatar(this, '##/##/####')" onkeypress="return PermiteSomenteNumeros(event);" ToolTip="Informe a data final da restrição." MaxLength="10" /></td>

@@ -352,6 +352,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     DateTime tempData1 = (DateTime)Data1;
                     DateTime tempData2 = (DateTime)Data2;
 
+
+                    // Restrição de tempo anterior a data atual
+                    if (DateTime.Compare(tempData1, DateTime.Now.AddMinutes(-30)) < 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não é possivel criar uma restrição com a data e hora inicial 30 minutos antes do horário.' });", true);
+                        return;
+                    }
+
+                    // Data final inferior a data inicial ou a data atual
                     if (DateTime.Compare(tempData1, tempData2) > 0
                         || DateTime.Compare(tempData2, DateTime.Now) < 0)
                     {
@@ -359,8 +368,19 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         return;
                     }
 
+                    LimitesRestricao limite = new RestricaoController().ObterLimiteTempoRestricao();
+
+                    // Inicio muito tarde
+                    double tempoAceitavel = limite.tempoParaInicio;
+                    if (tempoAceitavel != 0 && DateTime.Compare(tempData1, DateTime.Now.AddMinutes(tempoAceitavel)) >= 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não é possivel criar uma restrição após " + DateTime.Now.AddMinutes(tempoAceitavel).ToString() + "' });", true);
+                        return;
+                    }
+
+                    // Duração acima do desejado
                     TimeSpan duration = tempData2 - tempData1;
-                    double duracaoLimite = new RestricaoController().ObterLimiteTempoRestricao();
+                    double duracaoLimite = limite.duracaoMaxima;
                     if (duracaoLimite != 0 && duracaoLimite < duration.TotalMinutes)
                     {
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não é possivel criar uma restrição deste tipo com a duração acima de " + duracaoLimite + " minutos.' });", true);
@@ -940,6 +960,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             }
             ddlDadosTipoRestricao.Focus();
         }
+
         protected string FormataHora(string hora)
         {
             string Retorno = hora;

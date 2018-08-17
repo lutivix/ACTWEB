@@ -1133,12 +1133,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return itens;
         }
 
-        public double ObterLimiteTempoRestricao()
+        public LimitesRestricao ObterLimiteTempoRestricao()
         {
             #region [ PROPRIEDADES ]
 
             StringBuilder query = new StringBuilder();
-            double limiteTempo = 0;
+            LimitesRestricao limite = new LimitesRestricao();
+
 
             #endregion
 
@@ -1150,7 +1151,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TLR_LIMITE FROM TEMPO_LIMITE_RESTRICOES WHERE UPPER(TLR_TIPO) = UPPER('VR')");
+                    query.Append(@"SELECT TLR_LIMITE, TLR_INI_LIMITE
+                                   FROM TEMPO_LIMITE_RESTRICOES WHERE UPPER(TLR_TIPO) = UPPER('VR')");
 
                     #endregion
 
@@ -1163,7 +1165,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         {
                             if (!reader.IsDBNull(0))
                             {
-                                limiteTempo = reader.GetDouble(0);
+                                limite.duracaoMaxima = reader.GetDouble(0);
+                                limite.tempoParaInicio = (double)reader.GetDecimal(1);
                             }
                         }
                     }
@@ -1178,7 +1181,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 throw new Exception(ex.Message);
             }
 
-            return limiteTempo;
+            return limite;
         }
 
         #endregion
