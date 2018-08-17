@@ -323,11 +323,19 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
 
             if (txtDadosKm_Inicio.Text != string.Empty && ddlDadosSecoes.SelectedItem.Value != "0")
+            {
                 verificaKmInicio = restricaoController.VerificaKM(double.Parse(txtDadosKm_Inicio.Text), double.Parse(ddlDadosSecoes.SelectedItem.Value));
+            }
             if (txtDadosKm_Final.Text != string.Empty && ddlDadosSecoes.SelectedItem.Value != "0")
+            {
                 verificaKmFinal = restricaoController.VerificaKM(double.Parse(txtDadosKm_Final.Text), double.Parse(ddlDadosSecoes.SelectedItem.Value));
+            }
 
-            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
+            Data1 = null;
+            Data2 = null;
+
+            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF"
+                || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
             {
                 string dataInicial = txtDadosDataInicial.Text.Trim();
                 string dataFinal = txtDadosDataFinal.Text.Trim();
@@ -336,21 +344,57 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                 Data1 = Uteis.ConverteStringParaDateTime(dataInicial, horaInicial);
                 Data2 = Uteis.ConverteStringParaDateTime(dataFinal, horaFinal);
+
+
+                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR"
+                   && Data1 != null && Data2 != null)
+                {
+                    DateTime tempData1 = (DateTime)Data1;
+                    DateTime tempData2 = (DateTime)Data2;
+
+                    if (DateTime.Compare(tempData1, tempData2) > 0
+                        || DateTime.Compare(tempData2, DateTime.Now) < 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não é possivel criar restrição com a data final inferior a data inicial ou data final inferior a data atual.' });", true);
+                        return;
+                    }
+
+                    TimeSpan duration = tempData2 - tempData1;
+                    double duracaoLimite = new RestricaoController().ObterLimiteTempoRestricao();
+                    if (duracaoLimite != 0 && duracaoLimite < duration.TotalMinutes)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não é possivel criar uma restrição deste tipo com a duração acima de " + duracaoLimite + " minutos.' });", true);
+                        return;
+                    }
+                }
+            }
+
+            if (txtDadosKm_Inicio.Text != string.Empty)
+            {
+                Km1 = decimal.Parse(Uteis.TocarVirgulaPorPonto(txtDadosKm_Inicio.Text));
             }
             else
             {
-                Data1 = null;
-                Data2 = null;
+                Km1 = null;
             }
-
-
-            if (txtDadosKm_Inicio.Text != string.Empty) Km1 = decimal.Parse(Uteis.TocarVirgulaPorPonto(txtDadosKm_Inicio.Text)); else Km1 = null;
-            if (txtDadosKm_Final.Text != string.Empty) Km2 = decimal.Parse(Uteis.TocarVirgulaPorPonto(txtDadosKm_Final.Text)); else Km2 = null;
-            if (txtDadosVelocidade.Text != string.Empty)
-                if (txtDadosVelocidade.Text != "VR")
-                    if (txtDadosVelocidade.Text != "IF") Vel = double.Parse(txtDadosVelocidade.Text); else Vel = null;
-                else Vel = null;
-            else Vel = null;
+            if (txtDadosKm_Final.Text != string.Empty)
+            {
+                Km2 = decimal.Parse(Uteis.TocarVirgulaPorPonto(txtDadosKm_Final.Text));
+            }
+            else
+            {
+                Km2 = null;
+            }
+            if (txtDadosVelocidade.Text != string.Empty
+                && txtDadosVelocidade.Text != "VR"
+                && txtDadosVelocidade.Text != "IF")
+            {
+                Vel = double.Parse(txtDadosVelocidade.Text);
+            }
+            else
+            {
+                Vel = null;
+            }
 
 
             #endregion
@@ -410,7 +454,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 }
             }
             else
+            {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " já existe.' });", true);
+            }
         }
         protected void lnkDadosLimpar_Click(object sender, EventArgs e)
         {
