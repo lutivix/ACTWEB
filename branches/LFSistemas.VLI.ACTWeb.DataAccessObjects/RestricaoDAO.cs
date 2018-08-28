@@ -1166,7 +1166,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             if (!reader.IsDBNull(0))
                             {
                                 limite.duracaoMaxima = reader.GetDouble(0);
-                                limite.tempoParaInicio = (double)reader.GetDecimal(1);
+                                limite.tempoParaInicio = reader.GetDouble(1);
                             }
                         }
                     }
