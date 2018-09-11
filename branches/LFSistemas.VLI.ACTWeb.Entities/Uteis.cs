@@ -382,6 +382,18 @@ namespace LFSistemas.VLI.ACTWeb.Entities
             decimal result = grau + minuto + segundo;
             return result;
         }
+        public static string RemoveCRLFFromString(string pString)
+        {
+            if (String.IsNullOrEmpty(pString))
+            {
+                return pString;
+            }
+            string lineSep = ((char)0x2028).ToString();
+            string paragraphSep = ((char)0x2029).ToString();
+
+            return pString.Replace("\r\n", string.Empty).Replace("\n", string.Empty).Replace("\r", string.Empty).Replace(lineSep, string.Empty).Replace(paragraphSep, string.Empty);
+        }
+
         public static double ConverteGrausParaDouble(string graus)
         {
             decimal grau = int.Parse(graus.Substring(0, 3));

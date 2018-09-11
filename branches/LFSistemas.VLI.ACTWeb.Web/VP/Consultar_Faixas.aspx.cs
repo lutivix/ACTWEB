@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text;
 
 namespace LFSistemas.VLI.ACTWeb.Web.VP
 {
@@ -210,7 +211,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.VP
             ordernar("TEMPO_EXECUCAO");
         }
 
-        
+        protected void lnkExcel_Click(object sender, EventArgs e)
+        {
+            Excel(null, Navigation.None);
+        }
 
         private void ordernar(string propriedade)
         {
@@ -364,6 +368,86 @@ namespace LFSistemas.VLI.ACTWeb.Web.VP
         {
             base.OnInitComplete(e);
             ddlPageSize.SelectedIndexChanged += new EventHandler(ddlPageSize_SelectedIndexChanged);
+        }
+        protected void Excel(string ordenacao, Navigation navigation)
+        {
+            // List<RelatorioAlarme> itens = consultaRelatorio(ordenacao);
+            var acao = new VpController();
+
+            string prefixo = txtFiltroPrefixo.Text;
+            string local = txtFiltroLocal.Text;
+            string data = txtData.Text;
+            string reacao = txtTreacao.Text;
+            string execucao = txtTexecucao.Text;
+
+            string adeReacao = txtTadeReacao.Text;
+            string adeExecucao = txtTadeExecucao.Text;
+
+            string status = "";
+            List<string> aux = new List<string>();
+            if (clbStatus.Items.Count > 0)
+            {
+                for (int i = 0; i < clbStatus.Items.Count; i++)
+                {
+                    if (clbStatus.Items[i].Selected)
+                    {
+                        aux.Add(string.Format("'{0}'", clbStatus.Items[i].Value));
+                    }
+                }
+                status = string.Join(",", aux);
+            }
+
+            string corredor = "";
+            List<string> aux2 = new List<string>();
+            if (clbCorredor.Items.Count > 0)
+            {
+                for (int i = 0; i < clbCorredor.Items.Count; i++)
+                {
+                    if (clbCorredor.Items[i].Selected)
+                    {
+                        aux2.Add(string.Format("'{0}'", clbCorredor.Items[i].Value.ToUpper()));
+                    }
+                }
+                corredor = string.Join(",", aux2);
+            }
+
+            itens = acao.ObterTodos(ordenacao, prefixo, local, data, reacao, execucao, adeReacao, adeExecucao, status, corredor);
+
+            if (itens.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                try
+                {                    
+                    sb.AppendLine("FAIXA_ID;LOCOMOTIVA;DATA;PREFIXO;LOCAL DE EXECUCAO;RESIDENCIA;DURAÇÃO;CORREDOR;DE;PARA;DESCRIÇÃO;ORIGEM;PERNOITE;STATUS;ID_SOLICITACAO;STATUS_SOLICITACAO;DATA_SOLICITACAO;ID_AUTORIZACAO;DATA_AUTORIZACAO;DATA_ENCERRAMENTO;TEMPO_REACAO;TEMPO_EXECUCAO;TEMPO_AD_REACAO;TEMPO_AD_EXECUCAO;FAIXA_ID_SISPROG");
+
+                    foreach (var item in itens)
+                    {
+                        sb.AppendLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14};{15};{16};{17};{18};{19};{20};{21};{22};{23}",
+                            item.vp_id, item.Locomotiva, item.Data, item.PrefixoTrem, item.LocalExecucao, item.Residencia, item.Duracao, item.Corredor, item.De, item.Para, Uteis.RemoveCRLFFromString(item.DescricaoServico), 
+                            item.Origem, item.Pernoite, item.ServicoStatus, item.solicitacao_id, item.solicitacao_status, item.solicitacao_data, item.autorizacao_id, item.autorizacao_data, 
+                            item.encerramento, item.tempoReacao,item.tempoExecucao,item.tempoAdesaoReacao,item.tempoAdesaoExecucao,item.faixa_id));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    new Exception(ex.Message);
+                }
+
+                Response.Clear();
+                Response.ContentEncoding = Encoding.GetEncoding("iso-8859-1");
+                Response.AddHeader("content-disposition", "attachment; filename=FAIXA_VP.csv");
+                Response.Write(sb.ToString());
+                Response.End();
+            }
+            else
+            {
+                RepeaterItens.DataSource = itens;
+                RepeaterItens.DataBind();
+
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A pesquisa não retornou registros.' });", true);
+            }
+
+
         }
 
         #endregion

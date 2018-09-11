@@ -131,6 +131,7 @@
                 <br />
                 <div style="width: 100%; margin-top: 180px">
                     <asp:LinkButton runat="server" ID="lnkPesquisar" CssClass="btn btn-success" OnClick="lnkPesquisar_Click" ToolTip="Pesquisa palavra conforme filtro informado." Width="150"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
+                    <asp:LinkButton ID="lnkExcel" runat="server" CssClass="btn btn-default" OnClick="lnkExcel_Click" ToolTip="Exporta registros para o Excel." Width="150"><i class="fa fa-table"></i>&nbsp;Gerar Excel</asp:LinkButton>
                 </div>
             </div>
         </div>
@@ -154,61 +155,61 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="width: 05%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="lnkID" OnClick="lnkID_Click" Text="Faixa ID" ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="lnkID" OnClick="lnkID_Click" ToolTip="Id da Faixa no Sisprog" Text="Faixa ID" ForeColor="White" />
                                                         </th>
                                                         <th style="width: 05%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton2" OnClick="lnkData_Click" Text="Data" ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton2" OnClick="lnkData_Click" ToolTip="Data da Faixa" Text="Data" ForeColor="White" />
                                                         </th>
                                                         <th style="width: 05%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton3" OnClick="lnkPrefixo_Click" Text="PRF." ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton3" ToolTip="Prefixo de Trem da Faixa" OnClick="lnkPrefixo_Click" Text="PRF." ForeColor="White" />
                                                         </th>
                                                         <th style="width: 5%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton4" OnClick="lnkSB_Click" Text="SB" ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton4" OnClick="lnkSB_Click" ToolTip="SB - Seção de Bloqueio e Local de Execução da Faixa" Text="SB" ForeColor="White" />
                                                         </th>
                                                         <th style="width: 05%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton6" OnClick="lnkDuracao_Click" Text="Duração" ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton6" OnClick="lnkDuracao_Click" ToolTip="Duração Programada da Faixa" Text="Duração" ForeColor="White" />
                                                         </th>
                                                         <th style="width: 05%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton7" OnClick="lnkCorredor_Click" Text="COR." ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton7" OnClick="lnkCorredor_Click" ToolTip="Corredor" Text="COR." ForeColor="White" />
                                                         </th>
                                                         <th style="width: 05%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton8" OnClick="lnkDe_Click" Text="De" ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton8" OnClick="lnkDe_Click" ToolTip="Local DE origem da Faixa" Text="De" ForeColor="White" />
                                                         </th>
                                                         <th style="width: 05%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton9" OnClick="lnkPara_Click" Text="Para" ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton9" OnClick="lnkPara_Click" ToolTip="Local de Destino da Faixa" Text="Para" ForeColor="White" />
                                                         </th>
                                                         <th style="width: 05%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton10" OnClick="lnkDescricao_Click" Text="Descrição" ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton10" OnClick="lnkDescricao_Click" ToolTip="Breve descrição da Faixa" Text="Descrição" ForeColor="White" />
                                                         </th>
                                                         <th style="width: 05%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton17" OnClick="lnkOrigem_Click" Text="Plano" ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton17" OnClick="lnkOrigem_Click" ToolTip="Tipo de Planejamento: Semanal ou diário" Text="Plano" ForeColor="White" />
                                                         </th>
                                                         <th style="width: 05%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton19" OnClick="lnkStatus_Click" Text="Status" ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton19" OnClick="lnkStatus_Click" ToolTip="Status da Faixa: Reprovado, Aprovado ou Enviado para aprovação" Text="Status" ForeColor="White" />
                                                         </th>
                                                         <th style="width: 05%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton12" OnClick="lnkSolSit_Click" Text="Sol. Sit." ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton12" OnClick="lnkSolSit_Click" ToolTip="Situação de Solicitação da Faixa" Text="Sol. Sit." ForeColor="White" />
                                                         </th>
                                                         <th style="width: 5%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton13" OnClick="lnkSolData_Click" Text="Sol. Data" ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton13" OnClick="lnkSolData_Click" ToolTip="Data da Solicitação da Faixa" Text="Sol. Data" ForeColor="White" />
                                                         </th>
                                                         <th style="width: 5%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton15" OnClick="lnkAutData_Click" Text="Aut. Data" ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton15" OnClick="lnkAutData_Click" ToolTip="Data da autorização da Faixa" Text="Aut. Data" ForeColor="White" />
                                                         </th>
                                                         <th style="width: 5%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton16" OnClick="lnkEncerramento_Click" Text="Enc." ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton16" OnClick="lnkEncerramento_Click" ToolTip="Horário de Encerramento da Faixa" Text="Enc." ForeColor="White" />
                                                         </th>
                                                         <th style="width: 5%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton20" OnClick="lnkTempoReacao_Click" Text="T. Reação" ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton20" OnClick="lnkTempoReacao_Click" ToolTip="Tempo de reação: intervalo entre o horário inicial pré-estabelecido para solicitações e seu horário efetivo" Text="T. Reação" ForeColor="White" />
                                                         </th>
                                                         <th style="width: 5%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton21" OnClick="lnkTempoExecucao_Click" Text="T. Exec." ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton21" OnClick="lnkTempoExecucao_Click" ToolTip="Tempo de execução: intervalo entre o horário inicial pré-estabelecido das faixas e seu horário término" Text="T. Exec." ForeColor="White" />
                                                         </th>
                                                         <th style="width: 5%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton1" OnClick="lnkTempoReacao_Click" Text="T. Ad. Reação" ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton1" OnClick="lnkTempoReacao_Click" ToolTip="Tempo de aderência a Reação: tempo relativo da solicitação efetiva e o horário base de Solicitação" Text="T. Ad. Reação" ForeColor="White" />
                                                         </th>
                                                         <th style="width: 5%; text-align: center; font-size: 12pt; background-color: rgb(55, 119, 188); border-right: 1px solid rgb(0, 72, 89);">
-                                                            <asp:LinkButton runat="server" ID="LinkButton5" OnClick="lnkTempoExecucao_Click" Text="T. Ad. Exec." ForeColor="White" />
+                                                            <asp:LinkButton runat="server" ID="LinkButton5" OnClick="lnkTempoExecucao_Click" ToolTip="Tempo de aderência de execução: tempo relativo da execução da faixa e os tempos base para execução da faixa." Text="T. Ad. Exec." ForeColor="White" />
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -282,7 +283,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="14" style="text-align: left; color: rgb(0, 72, 89);">
+                                <td style="text-align: left; color: rgb(0, 72, 89);">
                                     <hr style="color: rgb(0, 72, 89); padding: 0px 5px 0px 5px;" />
                                     <asp:Label runat="server" Text="Registros: " Font-Bold="true" Font-Size="12" Style="color: rgb(153, 153, 153);" />
                                     <asp:Label runat="server" ID="lblTotal" Font-Bold="true" Font-Size="12" Style="color: rgb(0, 72, 89);" />
