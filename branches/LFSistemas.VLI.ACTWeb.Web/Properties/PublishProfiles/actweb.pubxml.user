@@ -15,7 +15,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/24/2017 11:24:16</publishTime>
     </File>
     <File Include="ACTWEB.Master">
-      <publishTime>08/28/2018 14:37:29</publishTime>
+      <publishTime>09/14/2018 09:48:44</publishTime>
     </File>
     <File Include="Ajuda/Erro.aspx">
       <publishTime>07/07/2017 14:27:50</publishTime>
@@ -162,25 +162,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>08/28/2018 14:40:23</publishTime>
+      <publishTime>09/14/2018 09:55:36</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
       <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>08/28/2018 14:40:23</publishTime>
+      <publishTime>09/14/2018 09:55:36</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
       <publishTime>09/08/2016 12:55:17</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>08/28/2018 14:40:22</publishTime>
+      <publishTime>08/30/2018 10:26:10</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>08/28/2018 14:40:25</publishTime>
+      <publishTime>09/14/2018 09:55:38</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>
@@ -414,7 +414,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/07/2017 14:26:57</publishTime>
     </File>
     <File Include="Consulta/ConsultaTermometros.aspx">
-      <publishTime>05/24/2017 11:24:16</publishTime>
+      <publishTime>09/13/2018 17:31:40</publishTime>
     </File>
     <File Include="Consulta/ConsultaTHP.aspx">
       <publishTime>02/06/2018 15:06:07</publishTime>
@@ -1731,7 +1731,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/17/2018 09:25:22</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/18/2018 17:01:16</publishTime>
+      <publishTime>09/14/2018 09:55:39</publishTime>
     </File>
   </ItemGroup>
 </Project>

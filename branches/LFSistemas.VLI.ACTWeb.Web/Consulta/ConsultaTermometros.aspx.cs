@@ -75,6 +75,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     aux.Add("3");
                     aux.Add("6");
                     aux.Add("7");
+                    aux.Add("8");
                 }
             }
 
@@ -116,6 +117,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
                 lblTotal.Text = string.Format("{0:0,0}", total); 
             }
+        }
+        protected void lnkLimpar_Click(object sender, EventArgs e)
+        {
+            clbCorredor.ClearSelection();
+            Pesquisar(null);
         }
     }
 }

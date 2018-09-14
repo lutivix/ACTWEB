@@ -97,19 +97,20 @@
                         <td style="width: 30%;"></td>
                         <td style="width: 70%;" rowspan="2">
                             <label for="data_fim">Corredor:</label>
-                            <asp:CheckBoxList runat="server" ID="clbCorredor" Rows="6" CssClass="form-control" SelectionMode="Multiple" Width="160" Height="90">
+                            <asp:CheckBoxList runat="server" ID="clbCorredor" Rows="6" CssClass="form-control" SelectionMode="Multiple" Width="160" Height="100">
                                 <asp:ListItem Text="&nbsp;&nbsp;Centro Leste" Value="1" />
                                 <asp:ListItem Text="&nbsp;&nbsp;Centro Sudeste" Value="6" />
                                 <asp:ListItem Text="&nbsp;&nbsp;Minas Bahia" Value="7" />
                                 <asp:ListItem Text="&nbsp;&nbsp;Minas Rio" Value="3" />
+                                <asp:ListItem Text="&nbsp;&nbsp;Centro Norte" Value="8" />
                             </asp:CheckBoxList>
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 30%; vertical-align: bottom;">
+                        <td style="width: 40%; vertical-align: bottom;">
                             <asp:LinkButton ID="lnkPesquisar" runat="server" OnClick="lnkPesquisar_Click" Width="30%" CssClass="btn btn-success"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
                             &nbsp;&nbsp;
-                            <asp:LinkButton ID="lnkLImpar" runat="server" Width="30%" CssClass="btn btn-primary"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
+                            <asp:LinkButton ID="lnkLimpar" runat="server" OnClick="lnkLimpar_Click" Width="30%" CssClass="btn btn-primary"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
                             &nbsp;&nbsp;
                             <asp:LinkButton ID="lnkGerarExcel" runat="server" Width="30%" CssClass="btn btn-default"><i class="fa fa-table"></i>&nbsp;Gerar Excel</asp:LinkButton>
                         </td>
