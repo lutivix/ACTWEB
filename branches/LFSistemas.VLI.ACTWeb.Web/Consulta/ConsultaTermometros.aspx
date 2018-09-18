@@ -132,7 +132,7 @@
                                     <ItemTemplate>
                                         <table style="width: 100%; background-color: rgb(0, 72, 89); color: white; ">
                                             <tr <%-- class="meta-<%# Eval ("RMeta_NSD")%>"--%>>
-                                                <th style="width: 95%; background-color: rgb(0, 72, 89); color: white; height: 7px; font-size: 1.3em; text-align: left;"><%# Eval("Corredor") %></th>
+                                                <th style="width: 100%; background-color: rgb(0, 72, 89); color: white; height: 7px; font-size: 1.3em; text-align: left;"><%# Eval("Corredor") %></th>
                                                 <th style="width: 05%; background-color: rgb(0, 72, 89); color: white; height: 7px; font-size: 1.3em; text-align: left;">Qtde:&nbsp;&nbsp;<%# Eval("Qtde") %></th>
                                             </tr>
                                         </table>
