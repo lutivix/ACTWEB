@@ -211,23 +211,182 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT II.SLT_ID_SLT, II.SLT_ID_SLT_ACT, II.SLT_ID_TP_SITUACAO, TS.TP_SIT_NOME, II.SLT_DATA, II.SLT_ID_SECAO, EV.EV_NOM_MAC, 
-                                          II.SLT_ID_TP_INTERDICAO, TI.TP_INT_NOME, II.SLT_DURACAO_SOLICITADA, II.SLT_DURACAO_AUTORIZADA, II.SLT_ID_TP_MANUTENCAO, TM.TP_MNT_NOME, II.SLT_ID_TP_CIRCULACAO, 
-                                          TC.TP_CIR_NOME, II.SLT_KM, II.SLT_USUARIO_LOGADO, OP.NOME, II.SLT_TELEFONE_SN, II.SLT_TELEFONE_NUMERO, II.SLT_MAT_RESPONSAVEL, 
-                                          RR.OP_NM, II.SLT_RADIO_SN, II.SLT_EQUIPAMENTOS, II.SLT_MACRO_SN, II.SLT_MACRO_NUMERO, II.SLT_OBSERVACAO, II.SLT_ATIVO_SN, II.SLT_ID_ACT_AUT_INTER, II.SLT_ID_MOTIVO, RD.RD_DSC_RDE, IM.IM_ID_IM, case when IM.im_tp = 1 then 'LDL' WHEN IM.IM_TP = 2 THEN 'BLQ' ELSE 'INT' END || IM.IM_ID_IM CODIGO
-                                      FROM SOLICITACAO_INTERDICAO II, ACTPP.ELEM_VIA EV, TIPO_SITUACAO TS, TIPO_INTERDICAO TI, TIPO_MANUTENCAO TM, TIPO_CIRCULACAO TC, USUARIOS OP, ACTPP.OPERADORES RR, ACTPP.RESTRICOES_DESCRICOES RD, actpp.interdicao_motivo im, actpp.solicitacoes_ldl sldl
-                                      WHERE II.SLT_ID_SECAO = EV.EV_ID_ELM
-                                      AND II.SLT_ID_TP_SITUACAO = TS.TP_SIT_CODIGO
-                                      AND II.SLT_ID_TP_INTERDICAO = TI.TP_INT_CODIGO
-                                      AND II.SLT_ID_TP_MANUTENCAO = TM.TP_MNT_CODIGO
-                                      AND II.SLT_ID_TP_CIRCULACAO = TC.TP_CIR_CODIGO
-                                      AND II.SLT_USUARIO_LOGADO = OP.MATRICULA
-                                      AND II.SLT_MAT_RESPONSAVEL = RR.OP_CPF
-                                      ${SLT_ID_SLT}
-                                      AND II.SLT_ATIVO_SN = 'S'
-                                      AND II.SLT_ID_MOTIVO = RD.RD_ID_RDE
-                                      and SLDL.SO_LDL_ID_WEB = II.SLT_ID_SLT
-                                      and SLDL.SO_LDL_ID = IM.SI_ID_SI");
+                          query.Append(@"SELECT II.SLT_ID_SLT,
+                                       II.SLT_ID_SLT_ACT,
+                                       II.SLT_ID_TP_SITUACAO,
+                                       TS.TP_SIT_NOME,
+                                       II.SLT_DATA,
+                                       II.SLT_ID_SECAO,
+                                       EV.EV_NOM_MAC,
+                                       II.SLT_ID_TP_INTERDICAO,
+                                       TI.TP_INT_NOME,
+                                       II.SLT_DURACAO_SOLICITADA,
+                                       II.SLT_DURACAO_AUTORIZADA,
+                                       II.SLT_ID_TP_MANUTENCAO,
+                                       TM.TP_MNT_NOME,
+                                       II.SLT_ID_TP_CIRCULACAO,
+                                       TC.TP_CIR_NOME,
+                                       II.SLT_KM,
+                                       II.SLT_USUARIO_LOGADO,
+                                       OP.NOME,
+                                       II.SLT_TELEFONE_SN,
+                                       II.SLT_TELEFONE_NUMERO,
+                                       II.SLT_MAT_RESPONSAVEL,
+                                       RR.OP_NM,
+                                       II.SLT_RADIO_SN,
+                                       II.SLT_EQUIPAMENTOS,
+                                       II.SLT_MACRO_SN,
+                                       II.SLT_MACRO_NUMERO,
+                                       II.SLT_OBSERVACAO,
+                                       II.SLT_ATIVO_SN,
+                                       II.SLT_ID_ACT_AUT_INTER,
+                                       II.SLT_ID_MOTIVO,
+                                       RD.RD_DSC_RDE,
+                                       IMH.IM_ID_IM,
+                                          CASE
+                                             WHEN IMH.im_tp = 1 THEN 'LDL'
+                                             WHEN IMH.IM_TP = 2 THEN 'BLQ'
+                                             ELSE 'INT'
+                                          END
+                                       || IMH.IM_ID_IM
+                                          CODIGO
+                                  FROM SOLICITACAO_INTERDICAO II,
+                                       ACTPP.ELEM_VIA EV,
+                                       TIPO_SITUACAO TS,
+                                       TIPO_INTERDICAO TI,
+                                       TIPO_MANUTENCAO TM,
+                                       TIPO_CIRCULACAO TC,
+                                       USUARIOS OP,
+                                       ACTPP.OPERADORES RR,
+                                       ACTPP.RESTRICOES_DESCRICOES RD,
+                                       actpp.interdicao_motivo_hist imh,
+                                       actpp.solicitacoes_ldl sldl
+                                 WHERE     II.SLT_ID_SECAO = EV.EV_ID_ELM
+                                       AND II.SLT_ID_TP_SITUACAO = TS.TP_SIT_CODIGO
+                                       AND II.SLT_ID_TP_INTERDICAO = TI.TP_INT_CODIGO
+                                       AND II.SLT_ID_TP_MANUTENCAO = TM.TP_MNT_CODIGO
+                                       AND II.SLT_ID_TP_CIRCULACAO = TC.TP_CIR_CODIGO
+                                       AND II.SLT_USUARIO_LOGADO = OP.MATRICULA
+                                       AND II.SLT_MAT_RESPONSAVEL = RR.OP_CPF
+                                       ${SLT_ID_SLT}
+                                       AND II.SLT_ATIVO_SN = 'S'
+                                       AND II.SLT_ID_MOTIVO = RD.RD_ID_RDE
+                                       AND SLDL.SO_LDL_ID_WEB = II.SLT_ID_SLT
+                                       AND SLDL.SO_LDL_ID = IMH.SI_ID_SI
+                                UNION
+                                SELECT II.SLT_ID_SLT,
+                                       II.SLT_ID_SLT_ACT,
+                                       II.SLT_ID_TP_SITUACAO,
+                                       TS.TP_SIT_NOME,
+                                       II.SLT_DATA,
+                                       II.SLT_ID_SECAO,
+                                       EV.EV_NOM_MAC,
+                                       II.SLT_ID_TP_INTERDICAO,
+                                       TI.TP_INT_NOME,
+                                       II.SLT_DURACAO_SOLICITADA,
+                                       II.SLT_DURACAO_AUTORIZADA,
+                                       II.SLT_ID_TP_MANUTENCAO,
+                                       TM.TP_MNT_NOME,
+                                       II.SLT_ID_TP_CIRCULACAO,
+                                       TC.TP_CIR_NOME,
+                                       II.SLT_KM,
+                                       II.SLT_USUARIO_LOGADO,
+                                       OP.NOME,
+                                       II.SLT_TELEFONE_SN,
+                                       II.SLT_TELEFONE_NUMERO,
+                                       II.SLT_MAT_RESPONSAVEL,
+                                       RR.OP_NM,
+                                       II.SLT_RADIO_SN,
+                                       II.SLT_EQUIPAMENTOS,
+                                       II.SLT_MACRO_SN,
+                                       II.SLT_MACRO_NUMERO,
+                                       II.SLT_OBSERVACAO,
+                                       II.SLT_ATIVO_SN,
+                                       II.SLT_ID_ACT_AUT_INTER,
+                                       II.SLT_ID_MOTIVO,
+                                       NULL AS RD_DSC_RDE,
+                                       NULL AS IM_ID_IM,
+                                       NULL AS CODIGO       
+                                  FROM SOLICITACAO_INTERDICAO II,
+                                       ACTPP.ELEM_VIA EV,
+                                       TIPO_SITUACAO TS,
+                                       TIPO_INTERDICAO TI,
+                                       TIPO_MANUTENCAO TM,
+                                       TIPO_CIRCULACAO TC,
+                                       USUARIOS OP,
+                                       ACTPP.OPERADORES RR
+                                 WHERE     II.SLT_ID_SECAO = EV.EV_ID_ELM
+                                       AND II.SLT_ID_TP_SITUACAO = TS.TP_SIT_CODIGO
+                                       AND II.SLT_ID_TP_INTERDICAO = TI.TP_INT_CODIGO
+                                       AND II.SLT_ID_TP_MANUTENCAO = TM.TP_MNT_CODIGO
+                                       AND II.SLT_ID_TP_CIRCULACAO = TC.TP_CIR_CODIGO
+                                       AND II.SLT_USUARIO_LOGADO = OP.MATRICULA
+                                       AND II.SLT_MAT_RESPONSAVEL = RR.OP_CPF
+                                       ${SLT_ID_SLT}
+                                       AND II.SLT_ATIVO_SN = 'S'
+                                UNION
+                                SELECT II.SLT_ID_SLT,
+                                       II.SLT_ID_SLT_ACT,
+                                       II.SLT_ID_TP_SITUACAO,
+                                       TS.TP_SIT_NOME,
+                                       II.SLT_DATA,
+                                       II.SLT_ID_SECAO,
+                                       EV.EV_NOM_MAC,
+                                       II.SLT_ID_TP_INTERDICAO,
+                                       TI.TP_INT_NOME,
+                                       II.SLT_DURACAO_SOLICITADA,
+                                       II.SLT_DURACAO_AUTORIZADA,
+                                       II.SLT_ID_TP_MANUTENCAO,
+                                       TM.TP_MNT_NOME,
+                                       II.SLT_ID_TP_CIRCULACAO,
+                                       TC.TP_CIR_NOME,
+                                       II.SLT_KM,
+                                       II.SLT_USUARIO_LOGADO,
+                                       OP.NOME,
+                                       II.SLT_TELEFONE_SN,
+                                       II.SLT_TELEFONE_NUMERO,
+                                       II.SLT_MAT_RESPONSAVEL,
+                                       RR.OP_NM,
+                                       II.SLT_RADIO_SN,
+                                       II.SLT_EQUIPAMENTOS,
+                                       II.SLT_MACRO_SN,
+                                       II.SLT_MACRO_NUMERO,
+                                       II.SLT_OBSERVACAO,
+                                       II.SLT_ATIVO_SN,
+                                       II.SLT_ID_ACT_AUT_INTER,
+                                       II.SLT_ID_MOTIVO,
+                                       RD.RD_DSC_RDE,
+                                       IM.IM_ID_IM,
+                                          CASE
+                                             WHEN IM.im_tp = 1 THEN 'LDL'
+                                             WHEN IM.IM_TP = 2 THEN 'BLQ'
+                                             ELSE 'INT'
+                                          END
+                                       || IM.IM_ID_IM
+                                          CODIGO
+                                  FROM SOLICITACAO_INTERDICAO II,
+                                       ACTPP.ELEM_VIA EV,
+                                       TIPO_SITUACAO TS,
+                                       TIPO_INTERDICAO TI,
+                                       TIPO_MANUTENCAO TM,
+                                       TIPO_CIRCULACAO TC,
+                                       USUARIOS OP,
+                                       ACTPP.OPERADORES RR,
+                                       ACTPP.RESTRICOES_DESCRICOES RD,
+                                       actpp.interdicao_motivo im,
+                                       actpp.solicitacoes_ldl sldl
+                                 WHERE     II.SLT_ID_SECAO = EV.EV_ID_ELM
+                                       AND II.SLT_ID_TP_SITUACAO = TS.TP_SIT_CODIGO
+                                       AND II.SLT_ID_TP_INTERDICAO = TI.TP_INT_CODIGO
+                                       AND II.SLT_ID_TP_MANUTENCAO = TM.TP_MNT_CODIGO
+                                       AND II.SLT_ID_TP_CIRCULACAO = TC.TP_CIR_CODIGO
+                                       AND II.SLT_USUARIO_LOGADO = OP.MATRICULA
+                                       AND II.SLT_MAT_RESPONSAVEL = RR.OP_CPF
+                                       ${SLT_ID_SLT}
+                                       AND II.SLT_ATIVO_SN = 'S'
+                                       AND II.SLT_ID_MOTIVO = RD.RD_ID_RDE
+                                       AND SLDL.SO_LDL_ID_WEB = II.SLT_ID_SLT
+                                       AND SLDL.SO_LDL_ID = IM.SI_ID_SI");
 
                     if (ID != null)
                         query.Replace("${SLT_ID_SLT}", string.Format(" AND SLT_ID_SLT = {0}", ID));
@@ -873,44 +1032,46 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         private Interdicao PreencherPropriedadesInterdicao(OleDbDataReader reader)
         {
             var item = new Interdicao();
-
-            if (!reader.IsDBNull(00)) item.Solicitacao_ID_ACTWEB = reader.GetDouble(00);
-            if (!reader.IsDBNull(01)) item.Solicitacao_ID_ACT = reader.GetDouble(01);
-            if (!reader.IsDBNull(02)) item.Tipo_Situacao_ID = reader.GetDouble(02);
-            if (!reader.IsDBNull(03)) item.Situacao_Nome = reader.GetString(03);
-            if (!reader.IsDBNull(04)) item.Data = reader.GetDateTime(04);
-            if (!reader.IsDBNull(05)) item.Secao_ID = reader.GetDouble(05);
-            if (!reader.IsDBNull(06)) item.Secao_Nome = reader.GetString(06);
-            if (!reader.IsDBNull(07)) item.Tipo_Interdicao_ID = reader.GetDouble(07);
-            if (!reader.IsDBNull(08)) item.Tipo_Interdicao_Nome = reader.GetString(08);
-            if (!reader.IsDBNull(09)) item.Duracao_Solicitada = reader.GetDouble(09); else item.Duracao_Solicitada = 0;
-            if (!reader.IsDBNull(10)) item.Duracao_Autorizada = reader.GetDouble(10); else item.Duracao_Autorizada = 0;
-            if (!reader.IsDBNull(11)) item.Tipo_Manutencao_ID = reader.GetDouble(11);
-            if (!reader.IsDBNull(12)) item.Tipo_Manutencao_Nome = reader.GetString(12);
-            if (!reader.IsDBNull(13)) item.Tipo_Circulacao_ID = reader.GetDouble(13);
-            if (!reader.IsDBNull(14)) item.Tipo_Circulacao_Nome = reader.GetString(14);
-            if (!reader.IsDBNull(15)) item.Km = reader.GetDecimal(15);
-            if (!reader.IsDBNull(16)) item.Usuario_Logado_Matricula = reader.GetString(16);
-            if (!reader.IsDBNull(17)) item.Usuario_Logado_Nome = reader.GetString(17);
-            if (!reader.IsDBNull(18)) item.Telefone_SN = reader.GetString(18);
-            if (!reader.IsDBNull(19)) item.Telefone_Numero = reader.GetString(19);
-            if (!reader.IsDBNull(20)) item.Responsavel_Matricula = reader.GetString(20);
-            if (!reader.IsDBNull(21)) item.Responsavel_Nome = reader.GetString(21);
-            if (!reader.IsDBNull(22)) item.Radio_SN = reader.GetString(22);
-            if (!reader.IsDBNull(23)) item.Equipamentos = reader.GetString(23);
-            if (!reader.IsDBNull(24)) item.Macro_SN = reader.GetString(24);
-            if (!reader.IsDBNull(25)) item.Macro_Numero = reader.GetString(25);
-            if (!reader.IsDBNull(26)) item.Observacao = reader.GetString(26);
-            if (!reader.IsDBNull(27)) item.Ativo_SN = reader.GetString(27);
-            if (!reader.IsDBNull(28)) item.Aut_Interdicao_Act = reader.GetDouble(28);
-            //if (!reader.IsDBNull(28)) item.Cod_Ldl = reader.GetString(06) + reader.GetDouble(28).ToString();
-            if (!reader.IsDBNull(29)) item.Motivo_ID = reader.GetDouble(29);
-            if (!reader.IsDBNull(30)) item.Motivo_Desc = reader.GetString(30);
-            if (!reader.IsDBNull(31)) item.Interdicao_Motivo = reader.GetDouble(31);
-            if (!reader.IsDBNull(32)) item.Cod_Interdicao = reader.GetString(32);
+           
+                if (!reader.IsDBNull(00)) item.Solicitacao_ID_ACTWEB = reader.GetDouble(00);
+                if (!reader.IsDBNull(01)) item.Solicitacao_ID_ACT = reader.GetDouble(01);
+                if (!reader.IsDBNull(02)) item.Tipo_Situacao_ID = reader.GetDouble(02);
+                if (!reader.IsDBNull(03)) item.Situacao_Nome = reader.GetString(03);
+                if (!reader.IsDBNull(04)) item.Data = reader.GetDateTime(04);
+                if (!reader.IsDBNull(05)) item.Secao_ID = reader.GetDouble(05);
+                if (!reader.IsDBNull(06)) item.Secao_Nome = reader.GetString(06);
+                if (!reader.IsDBNull(07)) item.Tipo_Interdicao_ID = reader.GetDouble(07);
+                if (!reader.IsDBNull(08)) item.Tipo_Interdicao_Nome = reader.GetString(08);
+                if (!reader.IsDBNull(09)) item.Duracao_Solicitada = reader.GetDouble(09); else item.Duracao_Solicitada = 0;
+                if (!reader.IsDBNull(10)) item.Duracao_Autorizada = reader.GetDouble(10); else item.Duracao_Autorizada = 0;
+                if (!reader.IsDBNull(11)) item.Tipo_Manutencao_ID = reader.GetDouble(11);
+                if (!reader.IsDBNull(12)) item.Tipo_Manutencao_Nome = reader.GetString(12);
+                if (!reader.IsDBNull(13)) item.Tipo_Circulacao_ID = reader.GetDouble(13);
+                if (!reader.IsDBNull(14)) item.Tipo_Circulacao_Nome = reader.GetString(14);
+                if (!reader.IsDBNull(15)) item.Km = reader.GetDecimal(15);
+                if (!reader.IsDBNull(16)) item.Usuario_Logado_Matricula = reader.GetString(16);
+                if (!reader.IsDBNull(17)) item.Usuario_Logado_Nome = reader.GetString(17);
+                if (!reader.IsDBNull(18)) item.Telefone_SN = reader.GetString(18);
+                if (!reader.IsDBNull(19)) item.Telefone_Numero = reader.GetString(19);
+                if (!reader.IsDBNull(20)) item.Responsavel_Matricula = reader.GetString(20);
+                if (!reader.IsDBNull(21)) item.Responsavel_Nome = reader.GetString(21);
+                if (!reader.IsDBNull(22)) item.Radio_SN = reader.GetString(22);
+                if (!reader.IsDBNull(23)) item.Equipamentos = reader.GetString(23);
+                if (!reader.IsDBNull(24)) item.Macro_SN = reader.GetString(24);
+                if (!reader.IsDBNull(25)) item.Macro_Numero = reader.GetString(25);
+                if (!reader.IsDBNull(26)) item.Observacao = reader.GetString(26);
+                if (!reader.IsDBNull(27)) item.Ativo_SN = reader.GetString(27);
+                if (!reader.IsDBNull(28)) item.Aut_Interdicao_Act = reader.GetDouble(28);
+                //if (!reader.IsDBNull(28)) item.Cod_Ldl = reader.GetString(06) + reader.GetDouble(28).ToString();
+                if (!reader.IsDBNull(29)) item.Motivo_ID = reader.GetDouble(29);
+                if (!reader.IsDBNull(30)) item.Motivo_Desc = reader.GetString(30);
+                if (!reader.IsDBNull(31)) item.Interdicao_Motivo = reader.GetDouble(31);
+                if (!reader.IsDBNull(32)) item.Cod_Interdicao = reader.GetString(32);
+            
 
             return item;
         }
+
         /// <summary>
         /// Obtem lista de seção
         /// </summary>
