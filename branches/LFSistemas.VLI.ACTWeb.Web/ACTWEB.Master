@@ -823,7 +823,7 @@
                                 </li>
                                 <li class="" id="Li3" runat="server">
                                     <asp:LinkButton runat="server" ID="LinkPainelVP2" OnClick="lnkPainelVP_Click">
-                                        <span class="menu-item-icon"><i class="fa fa-print"></i></span>
+                                        <span class="menu-item-icon"><i class="fa fa-subway"></i></span>
                                         <span class="menu-item-label" title="Relatório VP">Painel VP</span>
                                     </asp:LinkButton>
                                 </li>
@@ -848,7 +848,7 @@
                             </div>
                         </div>
                         <div class="footer-lf" style="padding-right: 10px;">
-                            <span>(20.218.475.29)desenvolvido por </span>
+                            <span>(21.218.475.30)desenvolvido por </span>
                             <a href="http://lfsistemas.net.br/" target="_blank" class="lfslogo"></a>
                         </div>
                     </div>
