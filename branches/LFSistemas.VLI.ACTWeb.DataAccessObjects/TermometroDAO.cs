@@ -598,6 +598,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (item.Corredor_ID == "3") item.Corredor = "Minas Rio";
                 if (item.Corredor_ID == "6") item.Corredor = "Centro Sudeste";
                 if (item.Corredor_ID == "7") item.Corredor = "Minas Bahia";
+                if (item.Corredor_ID == "8") item.Corredor = "Centro Norte";
             }
             if (!reader.IsDBNull(2)) item.Estacao = reader.GetValue(2).ToString();
             if (!reader.IsDBNull(3)) item.Trecho = reader.GetValue(3).ToString();

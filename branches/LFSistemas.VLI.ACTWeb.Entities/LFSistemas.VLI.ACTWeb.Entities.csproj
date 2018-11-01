@@ -94,6 +94,7 @@
     <Compile Include="FaixaVP.cs" />
     <Compile Include="FiltroRelatoriosAlarmes.cs" />
     <Compile Include="Importa_Corredor.cs" />
+    <Compile Include="LimitesRestricao.cs" />
     <Compile Include="LocomotivasCorredor.cs" />
     <Compile Include="Maquinista.cs" />
     <Compile Include="MetaTempo.cs" />
