@@ -1,0 +1,13 @@
+{
+"companyName": "LFSolutions",
+"productName": "PainelVP",
+"dataUrl": "BuildWGL.data.unityweb",
+"wasmCodeUrl": "BuildWGL.wasm.code.unityweb",
+"wasmFrameworkUrl": "BuildWGL.wasm.framework.unityweb",
+"TOTAL_MEMORY": 268435456,
+"graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"backgroundUrl": "BuildWGL.jpg",
+"splashScreenStyle": "Dark",
+"backgroundColor": "#FFFFFF"
+}

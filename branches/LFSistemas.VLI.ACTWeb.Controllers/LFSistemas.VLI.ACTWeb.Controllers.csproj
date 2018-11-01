@@ -124,6 +124,7 @@
     <Compile Include="UsuarioACTController.cs" />
     <Compile Include="VelocidadePorPrefixoController.cs" />
     <Compile Include="VMAController.cs" />
+    <Compile Include="VpController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LFSistemas.VLI.ACTWeb.DataAccessObjects\LFSistemas.VLI.ACTWeb.DataAccessObjects.csproj">
