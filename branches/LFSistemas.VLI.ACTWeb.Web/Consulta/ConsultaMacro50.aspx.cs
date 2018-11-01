@@ -545,7 +545,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                  DateTime horaInicio = txtDataInicial.Text.Length > 0 ? DateTime.Parse(txtDataInicial.Text + " " + FormataHora(txtHoraInicio.Text)) : DateTime.Now;
                  DateTime horaFim = DateTime.Now.AddHours(-6);
 
-                 String cabines = (Request.QueryString["cabines"]);
+                DateTime horaFim = DateTime.Now.AddHours(-6);
+
+                String cabines = (Request.QueryString["cabines"]);
 
                 var macroController = new MacroController();
 
@@ -607,6 +609,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 //    ViewState["corredor"] = corredores;
                 //}
 
+                DateTime horaInicio = DateTime.Now;
+                DateTime horaFim = DateTime.Now.AddHours(-6);
+
+                String cabines = (Request.QueryString["cabines"]);
 
 
                 DateTime horaInicio = DateTime.Now;

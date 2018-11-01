@@ -1150,7 +1150,6 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TLR_LIMITE FROM TEMPO_LIMITE_RESTRICOES WHERE UPPER(TLR_TIPO) = UPPER('VR')");
 
                     #endregion
 
@@ -1163,7 +1162,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         {
                             if (!reader.IsDBNull(0))
                             {
-                                limiteTempo = reader.GetDouble(0);
+                                limite.duracaoMaxima = reader.GetDouble(0);
                             }
                         }
                     }
@@ -1178,7 +1177,6 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 throw new Exception(ex.Message);
             }
 
-            return limiteTempo;
         }
 
         #endregion
