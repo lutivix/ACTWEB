@@ -803,6 +803,34 @@
                                 <span class="menu-item-label" title="LDL de Pátio">LDL de Pátio</span>
                             </asp:LinkButton>
                         </li>
+
+                        <%----------------------  PAINEL VP  ----------------------%>
+                       
+
+                        <li class="" id="Li1" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_vp" title="Faixas VP">
+                                <span class="menu-item-icon menu-icon-gop"></span>
+                                <span class="menu-item-label" title="Consulta VMA">Faixas VP <i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_vp">
+                            <ul class="submenu">
+                                <li class="" id="Li2" runat="server">
+                                    <asp:LinkButton runat="server" ID="LinkPainelVP1" OnClick="lnkRelVP_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-search"></i></span>
+                                        <span class="menu-item-label" title="Consulta">Consulta VP</span>
+                                    </asp:LinkButton>
+                                </li>
+                                <li class="" id="Li3" runat="server">
+                                    <asp:LinkButton runat="server" ID="LinkPainelVP2" OnClick="lnkPainelVP_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-subway"></i></span>
+                                        <span class="menu-item-label" title="Relatório VP">Painel VP</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+                        <%---------------------- FIM PAINEL VP  ----------------------%>
+
                     </ul>
                 </div>
                 <div class="main-content">
@@ -820,7 +848,7 @@
                             </div>
                         </div>
                         <div class="footer-lf" style="padding-right: 10px;">
-                            <span>(20.221.532.29)desenvolvido por </span>
+                            <span>(21.218.475.30)desenvolvido por </span>
                             <a href="http://lfsistemas.net.br/" target="_blank" class="lfslogo"></a>
                         </div>
                     </div>
