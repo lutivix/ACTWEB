@@ -126,6 +126,7 @@
     <Compile Include="TermometroDAO.cs" />
     <Compile Include="THPDAO.cs" />
     <Compile Include="TipoOperadorDAO.cs" />
+    <Compile Include="FaixaDAO.cs" />
     <Compile Include="TremDAO.cs" />
     <Compile Include="UsuarioDAO.cs" />
     <Compile Include="UsuarioACTDAO.cs" />

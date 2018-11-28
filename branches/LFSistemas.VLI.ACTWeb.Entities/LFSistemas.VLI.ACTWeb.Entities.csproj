@@ -91,6 +91,7 @@
     <Compile Include="ComboInterdicao_Secao.cs" />
     <Compile Include="ComboRestricao_Secao.cs" />
     <Compile Include="Estacao.cs" />
+    <Compile Include="FaixaVP.cs" />
     <Compile Include="FiltroRelatoriosAlarmes.cs" />
     <Compile Include="Importa_Corredor.cs" />
     <Compile Include="LimitesRestricao.cs" />
