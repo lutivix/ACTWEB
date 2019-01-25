@@ -425,6 +425,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 {
                     try
                     {
+                        if ((ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR") && (restricaoController.ExisteInterdicao(double.Parse(ddlDadosSecoes.SelectedItem.Value))))
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido haver uma interdiçao na Seção de Bloqueio.' });", true);
+                            return;
+                        }
                         var retorno = SendMessageCRE();
                         if (retorno == true)
                         {

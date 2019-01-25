@@ -44,6 +44,10 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ExisteRestricao(IdElementoVia, IdTipoRestricao, IdSubtipoRestricao, DataInicio, DataFim, VelocidadeMaxima, KmInicio, KmFim);
         }
+        public bool ExisteInterdicao(double Secao)
+        {
+            return dao.ExisteInterdicao(Secao);
+        }
         public Restricao ObterRestricaoPorID(string tipo, double id)
         {
             return dao.ObterRestricaoPorID(tipo, id);

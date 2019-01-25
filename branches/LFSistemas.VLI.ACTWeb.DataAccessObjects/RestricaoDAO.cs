@@ -297,6 +297,60 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return retorno;
         }
 
+        public bool ExisteInterdicao(double SB)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            bool retorno = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT * FROM actpp.interdicao_motivo im, actpp.ocupacoes_ldl oldl, actpp.restricoes_circulacao rc
+                                            WHERE     OLDL.LDL_ID = IM.OL_ID_OL
+                                                      AND RC.AI_ID_AI = IM.AI_ID_AI
+                                                      AND RC.EV_ID_ELM IN (${SB})");
+
+                    if (SB != null)
+                        query.Replace("${SB}", string.Format("{0}", SB));
+                    else
+                        query.Replace("${SB}", " ");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            retorno = true;
+                        }
+                    }
+
+                    #endregion
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Restrição", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return retorno;
+        }
+
 
         /// <summary>
         /// Obtem um objeto restrição pelo id
