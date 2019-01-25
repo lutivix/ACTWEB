@@ -831,6 +831,27 @@
                         </div>
                         <%---------------------- FIM PAINEL VP  ----------------------%>
 
+                          <%----------------------  PAINEL DE MÁQUINAS  ----------------------%>
+                       
+
+                        <li class="" id="Li5" runat="server">
+                            <a data-toggle="collapse" data-parent="#menu" href="#sub_painel_maquinas" title="CG">
+                                <span class="menu-item-icon menu-icon-gop"></span>
+                                <span class="menu-item-label" title="Consulta VMA">CG<i class="fa fa-caret-down"></i></span>
+                            </a>
+                        </li>
+                        <div class="collapse" id="sub_painel_maquinas">
+                            <ul class="submenu">
+                                <li class="" id="Li8" runat="server">
+                                    <asp:LinkButton runat="server" ID="LinkPainelMaquinas" OnClick="lnkPainelMaquinas_Click">
+                                        <span class="menu-item-icon"><i class="fa fa-subway"></i></span>
+                                        <span class="menu-item-label" title="Painel de Máquinas">Painel de Máquinas</span>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                        </div>
+                        <%---------------------- FIM PAINEL DE MÁQUINAS  ----------------------%>
+
                     </ul>
                 </div>
                 <div class="main-content">
@@ -848,7 +869,7 @@
                             </div>
                         </div>
                         <div class="footer-lf" style="padding-right: 10px;">
-                            <span>(21.218.475.31)desenvolvido por </span>
+                            <span>(22.226.475.32)desenvolvido por </span>
                             <a href="http://lfsistemas.net.br/" target="_blank" class="lfslogo"></a>
                         </div>
                     </div>

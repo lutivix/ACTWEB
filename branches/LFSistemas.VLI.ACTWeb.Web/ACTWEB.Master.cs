@@ -662,6 +662,23 @@ namespace LFSistemas.VLI.ACTWeb.Web
             //Response.Write("<script> window.open('https://app2.clarizen.com/Clarizen/Ext/WidgetRoadmapPage.aspx?wt=Roadmap&uid=9.6097377.1412357&wid=8ZsD5PZ6SEKMY9hZ~DY8qg&si=6.295390213.1412357&df=351.92.0&rp=1&xf=1&el=0&CSig=45E83206FB0D5B06D7A4CD76B3231F384E8ED7D2', 'ACTWEB - Projetos FCA na LF Sistemas', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); </script>");
         }
 
+        protected void lnkPainelMaquinas_Click(object sender, EventArgs e)
+        {
+            Response.Write("<script> " +
+                             "   var wOpen; " +
+                             "   sOptions = 'status=no, menubar=no, scrollbars=no, resizable=no, toolbar=no'; " +
+                             "   sOptions = sOptions + ', width=' + (screen.availWidth - 10).toString(); " +
+                             "   sOptions = sOptions + ', height=' + (screen.availHeight - 122).toString(); " +
+                             "   sOptions = sOptions + ', screenX=0, screenY=0, left=0, top=0'; " +
+                             "   wOpen = window.open('/PainelMaquinas/', '', 'scrollbars=no, resizable=no, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); " +
+                             "   wOpen.focus(); " +
+                             "   wOpen.moveTo( 0, 0 ); " +
+                             "   wOpen.resizeTo( screen.availWidth, screen.availHeight ); " +
+                             "</script>");
+
+        }
+        
+
         #endregion
 
         protected void lnkAlteraSenha_Click(object sender, EventArgs e)
