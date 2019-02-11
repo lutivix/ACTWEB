@@ -45,7 +45,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           M.MCT_EST_HAB ,     
                                           L.LOC_ID_NUM_LOCO , 
                                           L.LOC_TP_LOCO,       
-                                          L.LOC_TP_VEIC        
+                                          L.LOC_TP_VEIC,
+                                          L.PP_LOC_ID        
                                         FROM ACTPP.MCTS M FULL OUTER JOIN ACTPP.LOCOMOTIVAS L ON M.MCT_ID_MCT = L.MCT_ID_MCT
                                         ${MCT_EST_HAB}
                                         ${MCT_IND_OBC}
@@ -766,6 +767,20 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(16)) item.LOC_ID_NUM_LOCO = reader.GetDouble(16).ToString();
             if (!reader.IsDBNull(17)) item.LOC_TP_LOCO = reader.GetString(17);
             if (!reader.IsDBNull(18)) item.LOC_TP_VEIC = reader.GetString(18);
+            if (!reader.IsDBNull(19)) item.PP_LOC_ID = reader.GetDouble(19);
+                if(item.PP_LOC_ID == 1)
+                {
+                    item.proprietario = "FCA";
+                }
+                else if (item.PP_LOC_ID == 2)
+                {
+                    item.proprietario = "RUMO";
+                }
+                else
+                {
+                    item.proprietario = "";
+                }
+                    
 
             return item;
         }

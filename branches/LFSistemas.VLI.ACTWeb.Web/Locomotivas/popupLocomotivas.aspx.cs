@@ -69,6 +69,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                 ViewState["Operacao"] = "Inicio";
                 HabilitaDesabilita(ViewState["Operacao"].ToString());
                 divProcess.Visible = false;
+                
             }
         }
 
@@ -118,6 +119,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
         }
         protected void btnIncluirLoco_Click(object sender, EventArgs e)
         {
+            ddlProprietarioLocomotiva.Visible = true;
             ViewState["Operacao"] = "IncluirLoco";
             HabilitaDesabilita(ViewState["Operacao"].ToString());
         }
@@ -172,6 +174,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
         }
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
+            ddlProprietarioLocomotiva.Visible = false;
             ViewState["Operacao"] = "Inicio";
             HabilitaDesabilita(ViewState["Operacao"].ToString());
             LimpaDados();
@@ -857,6 +860,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     break;
                 case "IncluirMCT":
@@ -882,6 +886,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     txtAtualiza_MCT.Focus();
 
@@ -909,6 +914,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     txtAtualiza_Locomotiva.Focus();
 
@@ -936,6 +942,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     btnConfirmar.Focus();
                     break;
@@ -962,6 +969,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     btnConfirmar.Focus();
                     break;
@@ -988,6 +996,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     btnConfirmar.Focus();
                     break;
@@ -1014,6 +1023,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = true;
 
                     txtAtualiza_Locomotiva.Focus();
 
@@ -1042,6 +1052,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = true;
 
                     txtAtualiza_Locomotiva.Focus();
 
@@ -1070,6 +1081,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     btnConfirmar.Focus();
                     break;
@@ -1098,6 +1110,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     btnConfirmar.Focus();
                     break;
@@ -1125,6 +1138,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_Locomotiva.Enabled =
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled =  false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     txtAtualiza_VersaoMCI.Focus();
                     break;
@@ -1151,6 +1165,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_MCT.Enabled =
                     txtAtualiza_Locomotiva.Enabled =
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     txtAtualiza_VersaoMapa.Focus();
                     break;
