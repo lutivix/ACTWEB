@@ -227,13 +227,14 @@
                                                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                                         <ContentTemplate>
                                                             <asp:LinkButton ID="lnkEdite" runat="server" OnClick="Detalhes_Click"
-                                                                CommandArgument='<%# string.Format("p{0}:p{1}:p{2}:p{3}:p{4}:p{5}", 
+                                                                CommandArgument='<%# string.Format("p{0}:p{1}:p{2}:p{3}:p{4}:p{5}:p{6}", 
                                                                                                       Eval("MCT_IND_OBC"),      // Tem OBC
                                                                                                       Eval("MCT_ID_MCT"),       // MCT
                                                                                                       Eval("LOC_ID_NUM_LOCO"),  // Locomotiva
                                                                                                       Eval("MCT_OBC_VERSAO"),   // Versão OBC
                                                                                                       Eval("MCT_MAP_VERSAO"),   // Versão Mapa
-                                                                                                      Eval("MCT_IND_MCI")       // Versão MCI
+                                                                                                      Eval("MCT_IND_MCI"),       // Versão MCI
+                                                                                                      Eval("proprietario")      //Qual Proprietário
                                                                                                       ) %>'><i class="fa fa-search-plus"></i></asp:LinkButton>
                                                         </ContentTemplate>
                                                     </asp:UpdatePanel>

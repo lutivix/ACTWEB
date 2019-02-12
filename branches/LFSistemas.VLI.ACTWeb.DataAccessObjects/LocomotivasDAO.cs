@@ -163,7 +163,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             M.MCT_EST_HAB ,     
                                             L.LOC_ID_NUM_LOCO , 
                                             L.LOC_TP_LOCO,       
-                                            L.LOC_TP_VEIC        
+                                            L.LOC_TP_VEIC,
+                                            L.PP_LOC_ID        
                                         FROM ACTPP.MCTS M FULL OUTER JOIN ACTPP.LOCOMOTIVAS L   
                                         ON M.MCT_ID_MCT = L.MCT_ID_MCT
                                         ${MCT_ID_MCT}");

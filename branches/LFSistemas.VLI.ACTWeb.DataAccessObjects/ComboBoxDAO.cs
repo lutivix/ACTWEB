@@ -1138,6 +1138,53 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return itens.ToList();
         }
+
+        public List<ComboBox> CarregaCombo_Proprietario(string origem)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var itens = new List<ComboBox>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT * FROM ACTPP.PROPRIETARIO_LOCOMOTIVA");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var item = PreencherComboBoxProprietario(reader);
+                            itens.Add(item);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Combo Interdição Filtro Seção", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return itens.ToList();
+        }
+
         public List<ComboBox> ComboBoxTT_SubRotas()
         {
             #region [ PROPRIEDADES ]
@@ -2320,6 +2367,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             if (!reader.IsDBNull(00)) item.Id = reader.GetValue(00).ToString();
             if (!reader.IsDBNull(01)) item.Descricao = reader.GetString(01);
+
+            return item;
+        }
+
+        private ComboBox PreencherComboBoxProprietario(OleDbDataReader reader)
+        {
+            var item = new ComboBox();
+
+            if (!reader.IsDBNull(00)) item.Id = reader.GetValue(00).ToString();
+            if (!reader.IsDBNull(01)) item.Descricao = reader.GetValue(00).ToString() + " - " + reader.GetString(01);
 
             return item;
         }

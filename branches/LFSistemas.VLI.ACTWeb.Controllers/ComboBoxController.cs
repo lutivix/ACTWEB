@@ -196,8 +196,11 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ComboBoxGruposComMotivosID(motivos_id);
         }
+        public List<ComboBox> CarregaCombo_Proprietario(string origem)
+        {
+            return dao.CarregaCombo_Proprietario(origem);
+        }
 
         #endregion
-
     }
 }
