@@ -84,6 +84,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
         }
         protected void btnAlterarMCT_Click(object sender, EventArgs e)
         {
+            ddlProprietarioLocomotiva.Enabled = true;
             if (txtAtualiza_MCT.Text != string.Empty)
             {
                 ViewState["Operacao"] = "AlterarMCT";
@@ -976,7 +977,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
-                    ddlProprietarioLocomotiva.Visible = false;
+                    ddlProprietarioLocomotiva.Visible = true;
 
                     txtAtualiza_Locomotiva.Focus();
 
