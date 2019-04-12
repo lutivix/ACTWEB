@@ -422,7 +422,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                             proprietario = 0;
                         }
 
-                        if (!Loco.existeMCTName(txtAtualiza_Locomotiva.Text))
+                        if (!Loco.existeMCTName(txtAtualiza_Locomotiva.Text) || proprietario == 2)
                         {
                             DLLSendCML(idMCT, nomemct, usuario, 'W', proprietario);
                             LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Locomotivas", null, idMCT.ToString(), "A inclusão da nova Locomotiva "+ txtAtualiza_Locomotiva.Text +" foi solicitada ao ACT.", Uteis.OPERACAO.Solicitou.ToString());
