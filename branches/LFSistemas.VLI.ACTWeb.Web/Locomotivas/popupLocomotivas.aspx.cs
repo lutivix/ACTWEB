@@ -492,6 +492,19 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                 {
                     try
                     {
+                        if (ddlProprietarioLocomotiva.SelectedValue == "1")
+                        {
+                            proprietario = 1;
+                        }
+                        else if (ddlProprietarioLocomotiva.SelectedValue == "2")
+                        {
+                            proprietario = 2;
+                        }
+                        else
+                        {
+                            proprietario = 0;
+                        }
+                        
                         if (txtAtualiza_Locomotiva.Text.Trim().Length <= 0)
                         {
                             Response.Write("<script>alert('Por Favor digite uma Locomotiva!');</script>");
@@ -502,7 +515,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                             Response.Write("<script>alert('O MCT " + txtAtualiza_MCT.Text + " não existe mais.');</script>");
                             return Retorno = false;
                         }
-                        if (Loco.LocomotivaAssociadaMCT(idLoco) && txtAtualiza_Locomotiva.Text != string.Empty) //Se NÂO está havendo troca de locomotiva do MCT.
+                        if ((Loco.LocomotivaAssociadaMCT(idLoco) && txtAtualiza_Locomotiva.Text != string.Empty) && (proprietario != 2)) //Se NÂO está havendo troca de locomotiva do MCT.
                         {
                             Response.Write("<script>alert('Já existe um MCT associado à Locomotiva " + txtAtualiza_Locomotiva.Text + ".');</script>");
                             return Retorno = false;
@@ -512,13 +525,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                             Response.Write("<script>alert('O MCT " + txtAtualiza_MCT.Text + " está \"circulando\" com a Locomotiva " + txtAtualiza_Locomotiva.Text + " no Trem " + Loco.MCTCirculando(idMCT) + ".');</script>");
                             return Retorno = false;
                         }
-                        if (Loco.existeMCTName(txtAtualiza_Locomotiva.Text))    //Se já existe a nova locomotiva em algum MCT.
+                        if ((Loco.existeMCTName(txtAtualiza_Locomotiva.Text)) && (proprietario != 2))    //Se já existe a nova locomotiva em algum MCT.
                         {
                             Response.Write("<script>alert('Já existe a Locomotiva  " + txtAtualiza_Locomotiva.Text + " e ele esta no MCT " + txtAtualiza_MCT.Text + ".');</script>");
                             return Retorno = false;
                         }
 
-                        DLLSendMML(idMCT, nomemct, operacao, usuario, 'W', 0);
+                        DLLSendMML(idMCT, nomemct, operacao, usuario, 'W', proprietario);
                         LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Locomotivas", null, idMCT.ToString(), "A alteração do MCT " + txtAtualiza_Locomotiva.Text + " foi solicitada ao ACT.", Uteis.OPERACAO.Solicitou.ToString());
                     }
                     catch (Exception ex)
