@@ -351,6 +351,94 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return retorno;
         }
 
+        public DateTime ExisteVRmesmoTipo(double secao, double subtipo)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+
+            var item = new Restricao();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT * FROM
+                                     (select rp_dt_ini, rp_dt_fim from actpp.RESTRICOES_PROGRAMADAS 
+                                      WHERE EV_ID_ELM IN (${IdElementoVia}) 
+                                        ${IdSubtipoRestricao}
+                                        ${DataInicio}
+                                        ${DataFim}
+                                        ${KmInicio}
+                                        ${KmFim}
+                                        AND RP_ST_RP != 'C'
+                                         ORDER BY rp_dt_fim desc)
+                                          where rownum = 1");
+
+                    if (secao != null)
+                        query.Replace("${IdElementoVia}", string.Format("{0}", secao));
+                    else
+                        query.Replace("${IdElementoVia}", " ");
+
+                    if (subtipo != null)
+                        query.Replace("${IdSubtipoRestricao}", string.Format(" AND SR_ID_STR IN ({0})", subtipo));
+                    else
+                        query.Replace("${IdSubtipoRestricao}", " ");
+
+                    //if (DataInicio != null)
+                    //    query.Replace("${DataInicio}", string.Format(" AND RP_DT_INI = to_date('{0}', 'dd/mm/yyyy hh24:mi:ss')", DataInicio));
+                    //else
+                    query.Replace("${DataInicio}", " ");
+
+                    //if (DataFim != null)
+                    //    query.Replace("${DataFim}", string.Format(" AND RP_DT_FIM =  to_date('{0}', 'dd/mm/yyyy hh24:mi:ss')", DataFim));
+                    //else
+                    query.Replace("${DataFim}", " ");
+
+                    //if (kmInicial != null)
+                    //    query.Replace("${KmInicio}", string.Format(" AND RP_KM_INI IN ({0})", kmInicial));
+                    //else
+                        query.Replace("${KmInicio}", " ");
+
+                    //if (kmFinal != null)
+                    //    query.Replace("${KmFim}", string.Format(" AND RP_KM_FIM IN ({0})", kmFinal));
+                    //else
+                        query.Replace("${KmFim}", " ");
+
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                           //return PreencherPropriedadesRestricoesProgramadas(reader);
+
+                           return reader.GetDateTime(1);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Restrição", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return DateTime.Now;
+        }
 
         /// <summary>
         /// Obtem um objeto restrição pelo id
@@ -1373,6 +1461,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 item.Tipo = "PC";
 
             return item;
+        }
+
+        private DateTime? PreencherPropriedadesRestricoesProgramadas(OleDbDataReader reader)
+        {
+            //var item = new Restricao();
+
+            //if (!reader.IsDBNull(0)) item.Data_Inicial = reader.GetDateTime(0);
+            //if (!reader.IsDBNull(1)) item.Data_Final = reader.GetDateTime(1);
+
+            return reader.GetDateTime(1);
         }
 
         /// <summary>

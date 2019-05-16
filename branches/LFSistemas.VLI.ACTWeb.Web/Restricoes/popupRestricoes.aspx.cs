@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using LFSistemas.VLI.ACTWeb.DataAccessObjects;
 using System.Text;
-
+using System.Globalization;
 namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 {
     public partial class popupRestricoes : System.Web.UI.Page
@@ -430,6 +430,26 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido haver uma interdiçao na Seção de Bloqueio.' });", true);
                             return;
                         }
+                        #region [VERIFICA DUPLICAÇÃO DE SUBTIPO]
+
+                        //Verifica se o boletim de serviço é tipo velocidade restrita
+                        if ((ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR"))
+                        {
+                            //verifica se é do subtipo que entra na regra de não duplicação
+                            //os subtipos são RL, PP, US, e EE
+                            switch (Convert.ToInt32(ddlDadosSubTipoVR.Text))
+                            {
+                                case 1:
+                                case 2:
+                                case 5:
+                                case 6:
+                                    //método de verificação
+                                    VerificaDupSubtipo();
+                                    break;
+                            }
+                        }
+                        #endregion
+
                         var retorno = SendMessageCRE();
                         if (retorno == true)
                         {
@@ -947,6 +967,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             var NovaData = DataAtual.AddHours(8);
             var NovaHora = NovaData.ToShortTimeString();
 
+
             if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
             {
                 txtDadosDataInicial.Text = DataAtual.ToShortDateString();
@@ -1052,6 +1073,45 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 var dias = Data1 - Data2;
 
 
+            }
+        }
+
+        //método de verificação de duplicação de subtipos de VR
+        protected void VerificaDupSubtipo()
+        {
+
+            var restricaoController = new RestricaoController();
+
+            //recebe data do término de programação da última VR para esse subtipo dentro da seção de bloqueio
+            DateTime? dataUltimaRestProg = restricaoController.ExisteVRmesmoTipo(double.Parse(ddlDadosSecoes.SelectedItem.Value), double.Parse(ddlDadosSubTipoVR.SelectedItem.Value));
+            
+            //verifica se a data dessa VR já expirou, se sim, segue com a criação da VR
+            if (dataUltimaRestProg > DateTime.Now)
+            {
+                string dataInicial = txtDadosDataInicial.Text.Trim();
+                string horaInicial = txtDadosHoraInicial.Text.Trim() + ":00";
+                string datafinalaux = dataUltimaRestProg.ToString();
+                string datafinal = datafinalaux.Substring(0, 10);
+                string horafinal = datafinalaux.Substring(11);
+
+
+                //data de inicio programado para a VR a ser inserida
+                DateTime d1 = Uteis.ConverteStringParaDateTime(dataInicial, horaInicial);
+
+                //data de término da última VR programada para esse subtipo na seção de bloqueio
+                DateTime d2 = Uteis.ConverteStringParaDateTime(datafinal, horafinal);
+
+                //intervalo de tempo entre o término da última VR programada, e o início da VR a ser programada
+                TimeSpan intervalo = d1 - d2;
+
+                int horas = intervalo.Hours;
+
+                //caso esse intervalo seja de no mínimo 1 hora, ele segue com a criação da VR, se não ele impede a criação do mesmo
+                if (horas < 1)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido já existir uma restrição do mesmo subtipo na seção.' });", true);
+                    return;
+                }
             }
         }
     }

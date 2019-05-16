@@ -48,6 +48,13 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ExisteInterdicao(Secao);
         }
+
+        //verifica no banco de dados se existe uma VR com mesmo subtipo na mesma sb 
+        public DateTime? ExisteVRmesmoTipo(double secao, double subtipo)
+        {
+            return dao.ExisteVRmesmoTipo(secao, subtipo);
+        }
+
         public Restricao ObterRestricaoPorID(string tipo, double id)
         {
             return dao.ObterRestricaoPorID(tipo, id);
