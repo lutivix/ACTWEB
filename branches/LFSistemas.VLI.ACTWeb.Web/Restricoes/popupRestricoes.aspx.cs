@@ -439,7 +439,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     {
                         if (subtipoVR == "HT")
                         {
-                            if(restricaoController.ExisteHTProgramada((double.Parse(ddlDadosSecoes.SelectedItem.Value)), Km1, Km2))
+                            if ((restricaoController.ExisteHTProgramada((double.Parse(ddlDadosSecoes.SelectedItem.Value)), Km1, Km2)) || (restricaoController.ExisteHTCircualacao((double.Parse(ddlDadosSecoes.SelectedItem.Value)), Km1, Km2)))
                             {
                                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido haver uma restrição no mesmo KM informado na Seção de Bloqueio.' });", true);
                                 return;

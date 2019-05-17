@@ -49,6 +49,12 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ExisteHTProgramada(IdElementoVia, KmInicio, KmFim);
         }
+
+        public bool ExisteHTCircualacao(double IdElementoVia, decimal? KmInicio, decimal? KmFim)
+        {
+            return dao.ExisteHTCircualacao(IdElementoVia, KmInicio, KmFim);
+        }
+
         public bool ExisteInterdicao(double Secao)
         {
             return dao.ExisteInterdicao(Secao);

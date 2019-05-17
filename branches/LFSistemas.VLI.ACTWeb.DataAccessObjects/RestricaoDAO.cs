@@ -349,7 +349,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         while (reader.Read())
                         {
-                            var item = PreencherPropriedadesKMHT(reader);
+                            var item = PreencherPropriedadesKMHTProg(reader);
                             itens.Add(item);
                         }
                     }
@@ -401,12 +401,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         }
                         else
                         {
-                            if (((double)KmFim >= dblKm1) && ((double)KmFim <= dblKm2))
+                            if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
                             {
                                 retorno = true;
                                 return retorno;
                             }
-                            else if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
+                            else if (((double)KmFim >= dblKm1) && ((double)KmFim <= dblKm2))
                             {
                                 retorno = true;
                                 return retorno;
@@ -472,7 +472,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         while (reader.Read())
                         {
-                            var item = PreencherPropriedadesKMHT(reader);
+                            var item = PreencherPropriedadesKMHTCirc(reader);
                             itens.Add(item);
                         }
                     }
@@ -524,12 +524,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         }
                         else
                         {
-                            if (((double)KmFim >= dblKm1) && ((double)KmFim <= dblKm2))
+                            if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
                             {
                                 retorno = true;
                                 return retorno;
                             }
-                            else if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
+                            else if (((double)KmFim >= dblKm1) && ((double)KmFim <= dblKm2))
                             {
                                 retorno = true;
                                 return retorno;
@@ -1588,13 +1588,24 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private Restricao PreencherPropriedadesKMHT(OleDbDataReader reader)
+        private Restricao PreencherPropriedadesKMHTProg(OleDbDataReader reader)
         {
             var item = new Restricao();
 
             
             if (!reader.IsDBNull(07)) item.Km_Inicial       = reader.GetDecimal(07);
             if (!reader.IsDBNull(08)) item.Km_Final         = reader.GetDecimal(08);
+
+            return item;
+        }
+
+        private Restricao PreencherPropriedadesKMHTCirc(OleDbDataReader reader)
+        {
+            var item = new Restricao();
+
+
+            if (!reader.IsDBNull(09)) item.Km_Inicial = reader.GetDecimal(09);
+            if (!reader.IsDBNull(10)) item.Km_Final = reader.GetDecimal(10);
 
             return item;
         }
