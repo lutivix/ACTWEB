@@ -21,6 +21,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         public DateTime? Data2 { get; set; }
         public decimal? Km1 { get; set; }
         public decimal? Km2 { get; set; }
+        public decimal? KmSB1 { get; set; }
+        public decimal? KmSB2 { get; set; }
         public double? Vel { get; set; }
         public string ulNome { get; set; }
         public string ulMatricula { get; set; }
@@ -391,7 +393,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             if (txtDadosKm_Inicio.Text != string.Empty)
             {
-                Km1 = decimal.Parse(Uteis.TocarVirgulaPorPonto(txtDadosKm_Inicio.Text));
+                //Km1 = decimal.Parse(Uteis.TocarVirgulaPorPonto(txtDadosKm_Inicio.Text));
+                Km1 = txtDadosKm_Inicio.Text != string.Empty ? decimal.Parse(txtDadosKm_Inicio.Text) : 0;
             }
             else
             {
@@ -399,7 +402,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             }
             if (txtDadosKm_Final.Text != string.Empty)
             {
-                Km2 = decimal.Parse(Uteis.TocarVirgulaPorPonto(txtDadosKm_Final.Text));
+                //Km2 = decimal.Parse(Uteis.TocarVirgulaPorPonto(txtDadosKm_Final.Text));
+                Km2 = txtDadosKm_Final.Text != string.Empty ? decimal.Parse(txtDadosKm_Final.Text) : 0;
             }
             else
             {
@@ -416,6 +420,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 Vel = null;
             }
 
+            string subtipoVR = ddlDadosSubTipoVR.SelectedItem.Text.Substring(0, 2);
+            var kms = restricaoController.ObtemKmDaSecao(double.Parse(ddlDadosSecoes.SelectedItem.Value));
+            if (kms != null)
+            {
+                KmSB1 = decimal.Parse(kms[0]);
+                KmSB2 = decimal.Parse(kms[1]);
+            }
+
 
             #endregion
 
@@ -425,6 +437,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 {
                     try
                     {
+                        if (subtipoVR == "HT")
+                        {
+                            if(!restricaoController.ExisteHTProgramada((double.Parse(ddlDadosSecoes.SelectedItem.Value)), Km1, Km2))
+                            {
+
+                            }
+                        }
                         if ((ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR") && (restricaoController.ExisteInterdicao(double.Parse(ddlDadosSecoes.SelectedItem.Value))))
                         {
                             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido haver uma interdiçao na Seção de Bloqueio.' });", true);
