@@ -389,7 +389,130 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         }
                         else if(eParcial)
                         {
-                            if (((double)KmInicio >= dblKm1) && ((double)KmFim <= dblKm1))
+                            if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
+                            {
+                                retorno = true;
+                                return retorno;
+                            }
+                            else
+                            {
+                                retorno = false;
+                            }
+                        }
+                        else
+                        {
+                            if (((double)KmFim >= dblKm1) && ((double)KmFim <= dblKm2))
+                            {
+                                retorno = true;
+                                return retorno;
+                            }
+                            else if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
+                            {
+                                retorno = true;
+                                return retorno;
+                            }
+                            else
+                            {
+                                retorno = false;
+                            }
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Restrição", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return retorno;
+        }
+
+        public bool ExisteHTCircualacao(double IdElementoVia, decimal? KmInicio, decimal? KmFim)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            bool retorno = false;
+            var itens = new List<Restricao>();
+            bool eCrescente = false;
+            bool eParcial = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"select * from actpp.RESTRICOES_CIRCULACAO 
+                                      WHERE EV_ID_ELM IN (${IdElementoVia})
+                                        AND TR_ID_TP IN (26)
+                                        AND SR_ID_STR IN (3) 
+                                        AND RC_ST != 'R'");
+
+                    if (IdElementoVia != null)
+                        query.Replace("${IdElementoVia}", string.Format("{0}", IdElementoVia));
+                    else
+                        query.Replace("${IdElementoVia}", " ");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+                    query.Replace('#', '.');
+                    command.CommandText = query.ToString();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var item = PreencherPropriedadesKMHT(reader);
+                            itens.Add(item);
+                        }
+                    }
+                    for (int i = 0; i < itens.Count; i++)
+                    {
+                        double dblKm1 = Convert.ToDouble(itens[i].Km_Inicial);
+                        double dblKm2 = Convert.ToDouble(itens[i].Km_Final);
+
+                        if (KmInicio < KmFim)
+                        {
+                            eCrescente = true;
+                        }
+                        else if (KmInicio == KmFim)
+                        {
+                            eParcial = true;
+                        }
+                        else
+                        {
+                            eCrescente = false;
+                        }
+                        if (eCrescente)
+                        {
+                            if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
+                            {
+                                retorno = true;
+                                return retorno;
+                            }
+                            else if (((double)KmFim >= dblKm1) && ((double)KmFim <= dblKm2))
+                            {
+                                retorno = true;
+                                return retorno;
+                            }
+                            else
+                            {
+                                retorno = false;
+                            }
+                        }
+                        else if (eParcial)
+                        {
+                            if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
                             {
                                 retorno = true;
                                 return retorno;
