@@ -375,10 +375,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
                             {
                                 retorno = true;
+                                return retorno;
                             }
                             else if (((double)KmFim >= dblKm1) && ((double)KmFim <= dblKm2))
                             {
                                 retorno = true;
+                                return retorno;
                             }
                             else
                             {
@@ -390,6 +392,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             if (((double)KmInicio >= dblKm1) && ((double)KmFim <= dblKm1))
                             {
                                 retorno = true;
+                                return retorno;
                             }
                             else
                             {
@@ -401,10 +404,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             if (((double)KmFim >= dblKm1) && ((double)KmFim <= dblKm2))
                             {
                                 retorno = true;
+                                return retorno;
                             }
                             else if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
                             {
                                 retorno = true;
+                                return retorno;
                             }
                             else
                             {
