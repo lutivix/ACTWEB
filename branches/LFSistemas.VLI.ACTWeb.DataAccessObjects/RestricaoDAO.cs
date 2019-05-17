@@ -358,11 +358,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         double dblKm1 = Convert.ToDouble(itens[i].Km_Inicial);
                         double dblKm2 = Convert.ToDouble(itens[i].Km_Final);
 
-                        if(dblKm1 < dblKm2)
+                        if (KmInicio < KmFim)
                         {
                             eCrescente = true;
                         }
-                        else if (dblKm1 == dblKm2)
+                        else if (KmInicio == KmFim)
                         {
                             eParcial = true;
                         }
