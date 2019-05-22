@@ -444,7 +444,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                 case 5:
                                 case 6:
                                     //método de verificação
-                                    VerificaDupSubtipo();
+                                    if (VerificaDupSubtipo())
+                                    {
+                                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show        ({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text +           " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido          já existir uma restrição do mesmo subtipo na seção.' });", true);
+                                        return;
+                                    }
+                                    
                                     break;
                             }
                         }
@@ -458,7 +463,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                             else
                                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição criada com sucesso. " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
 
-                            LimpaCampos();
+                            //LimpaCampos();
                             AtualizarListaDeRestricoes();
                             HabilitaDesabilitaCombos(true);
                         }
@@ -1077,42 +1082,26 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         }
 
         //método de verificação de duplicação de subtipos de VR
-        protected void VerificaDupSubtipo()
+        protected bool VerificaDupSubtipo()
         {
 
             var restricaoController = new RestricaoController();
 
-            //recebe data do término de programação da última VR para esse subtipo dentro da seção de bloqueio
-            DateTime? dataUltimaRestProg = restricaoController.ExisteVRmesmoTipo(double.Parse(ddlDadosSecoes.SelectedItem.Value), double.Parse(ddlDadosSubTipoVR.SelectedItem.Value));
+            double secao = double.Parse(ddlDadosSecoes.SelectedItem.Value);
+            double subtipo = double.Parse(ddlDadosSubTipoVR.SelectedItem.Value);
+            string dataFinal = txtDadosDataFinal.Text.Trim();
+            string horaFinal = txtDadosHoraFinal.Text.Trim() + ":00";
+            DateTime d1 = Uteis.ConverteStringParaDateTime(dataFinal, horaFinal);
+            DateTime dataFim = d1.AddHours(1);
+            DateTime dataAtual = dataFim.Date;
+            bool temBSmesmoSubtipo = restricaoController.ExisteVRmesmoSubTipo(secao, subtipo, dataFim, dataAtual);
             
-            //verifica se a data dessa VR já expirou, se sim, segue com a criação da VR
-            if (dataUltimaRestProg > DateTime.Now)
+            if (temBSmesmoSubtipo)
             {
-                string dataInicial = txtDadosDataInicial.Text.Trim();
-                string horaInicial = txtDadosHoraInicial.Text.Trim() + ":00";
-                string datafinalaux = dataUltimaRestProg.ToString();
-                string datafinal = datafinalaux.Substring(0, 10);
-                string horafinal = datafinalaux.Substring(11);
-
-
-                //data de inicio programado para a VR a ser inserida
-                DateTime d1 = Uteis.ConverteStringParaDateTime(dataInicial, horaInicial);
-
-                //data de término da última VR programada para esse subtipo na seção de bloqueio
-                DateTime d2 = Uteis.ConverteStringParaDateTime(datafinal, horafinal);
-
-                //intervalo de tempo entre o término da última VR programada, e o início da VR a ser programada
-                TimeSpan intervalo = d1 - d2;
-
-                int horas = intervalo.Hours;
-
-                //caso esse intervalo seja de no mínimo 1 hora, ele segue com a criação da VR, se não ele impede a criação do mesmo
-                if (horas < 1)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido já existir uma restrição do mesmo subtipo na seção.' });", true);
-                    return;
-                }
+                  return true;
             }
+
+            return false;
         }
     }
 }

@@ -351,13 +351,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return retorno;
         }
 
-        public DateTime ExisteVRmesmoTipo(double secao, double subtipo)
+        public bool ExisteVRmesmoSubTipo(double secao, double subtipo, DateTime dataEntrada, DateTime dataFim, DateTime dataAtual)
         {
             #region [ PROPRIEDADES ]
 
             StringBuilder query = new StringBuilder();
 
-            var item = new Restricao();
+            var itens = new List<Restricao>();
 
             #endregion
 
@@ -369,17 +369,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT * FROM
-                                     (select rp_dt_ini, rp_dt_fim from actpp.RESTRICOES_PROGRAMADAS 
-                                      WHERE EV_ID_ELM IN (${IdElementoVia}) 
-                                        ${IdSubtipoRestricao}
-                                        ${DataInicio}
-                                        ${DataFim}
-                                        ${KmInicio}
-                                        ${KmFim}
-                                        AND RP_ST_RP != 'C'
-                                         ORDER BY rp_dt_fim desc)
-                                          where rownum = 1");
+                    query.Append(@"SELECT RP_DT_INI
+                                      FROM actpp.RESTRICOES_PROGRAMADAS
+                                        WHERE     EV_ID_ELM IN (${IdElementoVia})
+                                           ${IdSubtipoRestricao}
+                                            ${DataAtual}
+                                            ${DataFim}");
 
                     if (secao != null)
                         query.Replace("${IdElementoVia}", string.Format("{0}", secao));
@@ -391,27 +386,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     else
                         query.Replace("${IdSubtipoRestricao}", " ");
 
-                    //if (DataInicio != null)
-                    //    query.Replace("${DataInicio}", string.Format(" AND RP_DT_INI = to_date('{0}', 'dd/mm/yyyy hh24:mi:ss')", DataInicio));
-                    //else
-                    query.Replace("${DataInicio}", " ");
+                    if (dataAtual != null)
+                        query.Replace("${DataAtual}", string.Format(" AND RP_DT_INI >  to_date('{0}', 'dd/mm/yyyy hh24:mi:ss')", dataAtual));
+                    else
+                        query.Replace("${DataAtual}", " ");
 
-                    //if (DataFim != null)
-                    //    query.Replace("${DataFim}", string.Format(" AND RP_DT_FIM =  to_date('{0}', 'dd/mm/yyyy hh24:mi:ss')", DataFim));
-                    //else
-                    query.Replace("${DataFim}", " ");
-
-                    //if (kmInicial != null)
-                    //    query.Replace("${KmInicio}", string.Format(" AND RP_KM_INI IN ({0})", kmInicial));
-                    //else
-                        query.Replace("${KmInicio}", " ");
-
-                    //if (kmFinal != null)
-                    //    query.Replace("${KmFim}", string.Format(" AND RP_KM_FIM IN ({0})", kmFinal));
-                    //else
-                        query.Replace("${KmFim}", " ");
-
-
+                    if (dataFim != null)
+                        query.Replace("${DataFim}", string.Format(" AND RP_DT_INI < to_date('{0}', 'dd/mm/yyyy hh24:mi:ss')", dataFim));
+                    else
+                        query.Replace("${DataFim}", " ");
                     #endregion
 
                     #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
@@ -419,11 +402,19 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     command.CommandText = query.ToString();
                     using (var reader = command.ExecuteReader())
                     {
-                        if (reader.Read())
+                        while (reader.Read())
                         {
-                           //return PreencherPropriedadesRestricoesProgramadas(reader);
+                            var item = PreencherPropriedadesRestricoesProgramadas(reader);
+                            itens.Add(item);
 
-                           return reader.GetDateTime(1);
+                        }
+
+                        for (int i = 0; i < itens.Count; i++)
+                        {
+                            TimeSpan intervalo = TimeSpan.FromHours(1);
+                            DateTime aux = itens[i].DataFinalProg;
+                            DateTime dataFinal = aux.Subtract(intervalo);
+
                         }
                     }
 
@@ -437,7 +428,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 throw new Exception(ex.Message);
             }
 
-            return DateTime.Now;
+            return false;
         }
 
         /// <summary>
@@ -1463,14 +1454,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private DateTime? PreencherPropriedadesRestricoesProgramadas(OleDbDataReader reader)
+        private Restricao PreencherPropriedadesRestricoesProgramadas(OleDbDataReader reader)
         {
-            //var item = new Restricao();
+            var item = new Restricao();
 
-            //if (!reader.IsDBNull(0)) item.Data_Inicial = reader.GetDateTime(0);
-            //if (!reader.IsDBNull(1)) item.Data_Final = reader.GetDateTime(1);
+            if (!reader.IsDBNull(0)) item.DataFinalProg = reader.GetDateTime(0);
 
-            return reader.GetDateTime(1);
+            return item;
         }
 
         /// <summary>

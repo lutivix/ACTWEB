@@ -29,6 +29,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Situacao { get; set; }
         public string Responsavel { get; set; }
         public double? Duracao { get; set; }
+        public DateTime DataFinalProg { get; set; }
 
         
         #endregion
