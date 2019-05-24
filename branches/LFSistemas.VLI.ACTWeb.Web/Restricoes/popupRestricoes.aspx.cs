@@ -431,6 +431,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             #endregion
 
+            /*if(!restricaoController.PermiteBS(double.Parse(ddlBS.selectedItem.value)))
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido o CPF informado não ter permissão para criação de BS.' });", true);
+                return;
+            }*/
+
             if (!restricaoController.ExisteRestricao(double.Parse(ddlDadosSecoes.SelectedItem.Value), double.Parse(ddlDadosTipoRestricao.SelectedItem.Value), double.Parse(ddlDadosSubTipoVR.SelectedItem.Value), Data1, Data2, Vel, Km1, Km2))
             {
                 if (verificaKmInicio == "ok" && verificaKmFinal == "ok")
@@ -441,7 +447,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         {
                             if ((restricaoController.ExisteHTProgramada((double.Parse(ddlDadosSecoes.SelectedItem.Value)), Km1, Km2)) || (restricaoController.ExisteHTCircualacao((double.Parse(ddlDadosSecoes.SelectedItem.Value)), Km1, Km2)))
                             {
-                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido haver uma restrição no mesmo KM informado na Seção de Bloqueio.' });", true);
+                               ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido haver uma restrição no mesmo KM informado na Seção de Bloqueio.' });", true);
                                 return;
                             }
                         }

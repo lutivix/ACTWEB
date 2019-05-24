@@ -59,6 +59,10 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ExisteInterdicao(Secao);
         }
+        public bool PermiteBS(double cpf)
+        {
+            return dao.PermiteBS(cpf);
+        }
         public Restricao ObterRestricaoPorID(string tipo, double id)
         {
             return dao.ObterRestricaoPorID(tipo, id);
