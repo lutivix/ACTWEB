@@ -444,7 +444,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                 case 5:
                                 case 6:
                                     //método de verificação
-                                    if (VerificaDupSubtipo())
+                                    if (!PodeCriarBS())
                                     {
                                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show        ({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text +           " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido          já existir uma restrição do mesmo subtipo na seção.' });", true);
                                         return;
@@ -463,7 +463,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                             else
                                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição criada com sucesso. " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
 
-                            //LimpaCampos();
+                            LimpaCampos();
                             AtualizarListaDeRestricoes();
                             HabilitaDesabilitaCombos(true);
                         }
@@ -1082,7 +1082,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         }
 
         //método de verificação de duplicação de subtipos de VR
-        protected bool VerificaDupSubtipo()
+        protected bool PodeCriarBS()
         {
 
             var restricaoController = new RestricaoController();
@@ -1091,12 +1091,18 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             double subtipo = double.Parse(ddlDadosSubTipoVR.SelectedItem.Value);
             string dataFinal = txtDadosDataFinal.Text.Trim();
             string horaFinal = txtDadosHoraFinal.Text.Trim() + ":00";
-            DateTime d1 = Uteis.ConverteStringParaDateTime(dataFinal, horaFinal);
-            DateTime dataFim = d1.AddHours(1);
-            DateTime dataAtual = dataFim.Date;
-            bool temBSmesmoSubtipo = restricaoController.ExisteVRmesmoSubTipo(secao, subtipo, dataFim, dataAtual);
-            
-            if (temBSmesmoSubtipo)
+            string dataInicial = txtDadosDataInicial.Text.Trim();
+            string horaInicial = txtDadosHoraInicial.Text.Trim() + ":00";
+            DateTime dataEntrada = Uteis.ConverteStringParaDateTime(dataInicial, horaInicial);
+            DateTime dataFinalBSAtual = Uteis.ConverteStringParaDateTime(dataFinal, horaFinal);
+            DateTime dataAtual = dataFinalBSAtual.Date;
+
+            //Adiciona 23 horas 59 minutos e 59 segundos a data final de programação da BS
+            DateTime dataFim = dataAtual.AddSeconds(86399);
+
+            bool podeCriar = restricaoController.VerificaBSmesmoTipo(secao, subtipo, dataFinalBSAtual, dataFim, dataAtual);
+
+            if (podeCriar)
             {
                   return true;
             }

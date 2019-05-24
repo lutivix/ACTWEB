@@ -351,13 +351,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return retorno;
         }
 
-        public bool ExisteVRmesmoSubTipo(double secao, double subtipo, DateTime dataEntrada, DateTime dataFim, DateTime dataAtual)
+        public bool VerificaBSmesmoTipo(double secao, double subtipo, DateTime dataFinalBSAtual, DateTime dataFim, DateTime dataAtual)
         {
             #region [ PROPRIEDADES ]
 
             StringBuilder query = new StringBuilder();
 
             var itens = new List<Restricao>();
+
+            bool podeCriarBS = false;
 
             #endregion
 
@@ -412,10 +414,31 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         for (int i = 0; i < itens.Count; i++)
                         {
                             TimeSpan intervalo = TimeSpan.FromHours(1);
-                            DateTime aux = itens[i].DataFinalProg;
-                            DateTime dataFinal = aux.Subtract(intervalo);
+                            DateTime aux = itens[i].DataIniProg;
+                            DateTime dataIniProg = aux.Subtract(intervalo);
 
+                            int resultado = DateTime.Compare(dataFinalBSAtual, dataIniProg);
+                            
+                            //Data final programada da BS a entrar é anterior  a final da programada
+                            if (resultado < 0)
+                            {
+                                podeCriarBS = true;
+                            }
+                            //Data final programada da BS a entrar é posterior a final programada
+                            else if(resultado > 0)
+                            {
+                                podeCriarBS = false;
+                                return podeCriarBS;
+                            }
+                            //Datas são iguais
+                            else if(resultado == 0)
+                            {
+                                podeCriarBS = false;
+                                return podeCriarBS;
+                            }
                         }
+
+                        return podeCriarBS;
                     }
 
                     #endregion
@@ -427,8 +450,6 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
                 throw new Exception(ex.Message);
             }
-
-            return false;
         }
 
         /// <summary>
@@ -1458,7 +1479,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new Restricao();
 
-            if (!reader.IsDBNull(0)) item.DataFinalProg = reader.GetDateTime(0);
+            if (!reader.IsDBNull(0)) item.DataIniProg = reader.GetDateTime(0);
 
             return item;
         }
