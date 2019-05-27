@@ -49,6 +49,7 @@
             txtDadosKm_Inicio = document.getElementById('<%=txtDadosKm_Inicio.ClientID %>');
             txtDadosKm_Final = document.getElementById('<%=txtDadosKm_Final.ClientID %>');
             txtDadosResponsavel = document.getElementById('<%=txtDadosResponsavel.ClientID %>');
+            txtDadosCpf = document.getElementById('<%=txtDadosCpf.ClientID %>')
             txtDadosObs = document.getElementById('<%=txtDadosObs.ClientID %>');
             txtDadosDuracao = document.getElementById('<%=txtDadosDuracao.ClientID %>');
             txtDadosVelocidade = document.getElementById('<%=txtDadosVelocidade.ClientID %>');
@@ -96,6 +97,7 @@
                 txtDadosKm_Inicio.disabled = false;
                 txtDadosKm_Final.disabled = false;
                 txtDadosResponsavel.disabled = false;
+                txtDadosCpf.disabled = false;
                 txtDadosObs.disabled = false;
 
                 if (SelectedText == 'VR') {
@@ -130,6 +132,7 @@
                 txtDadosDataFinal.disabled = true;
                 txtDadosHoraFinal.disabled = true;
                 txtDadosResponsavel.disabled = true;
+                txtDadosCpf.disabled = true;
 
                 document.getElementById('<%=txtDadosDataInicial.ClientID %>').value = '';
                 document.getElementById('<%=txtDadosHoraInicial.ClientID %>').value = '';
@@ -137,6 +140,7 @@
                 document.getElementById('<%=txtDadosHoraFinal.ClientID %>').value = '';
                 document.getElementById('<%=txtDadosVelocidade.ClientID %>').value = '';
                 document.getElementById('<%=txtDadosResponsavel.ClientID %>').value = '';
+                document.getElementById('<%=txtDadosCpf.ClientID %>').value = '';
                 document.getElementById('<%=ddlDadosSubTipoVR.ClientID %>').value = '';
                 document.getElementById('<%=ddlDadosSubTipoVR.ClientID %>').textContent = '';
             }
@@ -167,6 +171,7 @@
             txtDadosKm_Inicio = document.getElementById('<%=txtDadosKm_Inicio.ClientID %>').value;
             txtDadosKm_Final = document.getElementById('<%=txtDadosKm_Final.ClientID %>').value;
             txtDadosResponsavel = document.getElementById('<%=txtDadosResponsavel.ClientID %>').value;
+            txtDadosCpf = document.getElementById('<%=txtDadosCpf.ClientID %>').value;
             txtDadosObs = document.getElementById('<%=txtDadosObs.ClientID %>').value;
             txtDadosDuracao = document.getElementById('<%=txtDadosDuracao.ClientID %>').value;
             txtDadosVelocidade = document.getElementById('<%=txtDadosVelocidade.ClientID %>').value;
@@ -217,6 +222,10 @@
                     msg += "RESPONSÁVEL; \n";
                     if (item.length > 0) item += ":txtDadosResponsavel"; else item += "txtDadosResponsavel";
                     retorno = false;
+                }
+                if (txtDadosCpf == '') {
+                    msg += "CPF; \n"
+                    if (item.length > 0) item += ":txtDadosCpf"; else item += "txtDadosCpf";
                 }
                 if (txtDadosObs == '') {
                     msg += "OBSERVAÇÃO; \n";
@@ -455,8 +464,9 @@
                             <td style="width: 10%; text-align: right; vertical-align: top; padding-top: 10px;">Responsável&nbsp;&nbsp;</td>
                             <td style="width: 15%; text-align: left; vertical-align: central;">
                                 <asp:TextBox runat="server" ID="txtDadosResponsavel" Width="100%" CssClass="form-control" ToolTip="Informe o responsável pela restrição" MaxLength="10" /></td>
-                            <td style="width: 07%; text-align: right; vertical-align: central;">&nbsp;</td>
-                            <td style="width: 10%; text-align: left; vertical-align: central;"></td>
+                            <td style="width: 07%; text-align: right; vertical-align: top; padding-top: 10px;">CPF&nbsp;</td>
+                            <td style="width: 10%; text-align: left; vertical-align: central;">
+                                <asp:TextBox runat="server" ID="txtDadosCpf" Width="100%" CssClass="form-control" ToolTip="Informe o CPF do responsável" MaxLength="11" /></td>
                         </tr>
                         <tr>
                             <td style="width: 10%; text-align: right; vertical-align: top; padding-top: 10px;">Observação&nbsp;&nbsp;</td>

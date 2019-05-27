@@ -608,7 +608,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return retorno;
         }
 
-        public bool PermiteBS(double cpf)
+        public bool PermiteBS(double cpf, double subtipoVR)
         {
             #region [ PROPRIEDADES ]
 
@@ -625,14 +625,20 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select OP_PERMITE_LDL from actpp.OPERADORES_BS 
+                    query.Append(@"select * from actpp.OPERADORES_BS OBS, actpp.bs_operador BO 
                                       WHERE OP_CPF IN (${cpf}) 
-                                        AND OP_PERMITE_LDL = 'S'");
+                                        AND OBS.OP_BS_ID = BO.OP_BS_ID
+                                        AND BO.SR_ID_STR IN (${subtipoVR})");
 
                     if (cpf != null)
                         query.Replace("${cpf}", string.Format("{0}", cpf));
                     else
                         query.Replace("${cpf}", " ");
+
+                    if (subtipoVR != null)
+                        query.Replace("${subtipoVR}", string.Format("{0}", subtipoVR));
+                    else
+                        query.Replace("${subtipoVR}", " ");
 
 
                     #endregion
