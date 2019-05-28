@@ -12,7 +12,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
     {
         #region [ PROPRIEDADES ]
 
-       public List<UsuarioAutorizado> itens { get; set; }
+        public List<UsuarioAutorizado> itens { get; set; }
         public string ulNome { get; set; }
         public string ulMatricula { get; set; }
         public string ulPerfil { get; set; }
@@ -308,12 +308,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     case "CPF DESC":
                         itens = itens.OrderByDescending(o => o.CPF).ToList();
                         break;
-                    case "LDL ASC":
-                        itens = itens.OrderBy(o => o.LDL).ToList();
-                        break;
-                    case "LDL DESC":
-                        itens = itens.OrderByDescending(o => o.LDL).ToList();
-                        break;
+                    //case "LDL ASC":
+                    //    itens = itens.OrderBy(o => o.LDL).ToList();
+                    //    break;
+                    //case "LDL DESC":
+                    //    itens = itens.OrderByDescending(o => o.LDL).ToList();
+                    //    break;
                     case "PERFIL ASC":
                         itens = itens.OrderBy(o => o.Perfil).ToList();
                         break;

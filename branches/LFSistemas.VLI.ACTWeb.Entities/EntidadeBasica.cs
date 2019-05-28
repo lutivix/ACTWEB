@@ -11,7 +11,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public int CriadoPorId { get; set; }
         public int? AlteradoPorId { get; set; }
         public int? ExcluidoPorId { get; set; }
-        public bool Ativo { get; set; }
+        public string Ativo { get; set; }
         public int Acessos { get; set; }
         public string Perfil { get; set; }
 

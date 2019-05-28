@@ -62,7 +62,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             txtMatriculaACT.Text = usuario.Matricula.Trim().ToUpper();
             //txtSenhaACT.Attributes.Add("value", usuario.Senha);
             //ddlPerfil.SelectedValue = usuario.Prefil_ID.ToString();
-            txtCPFACT.Text = usuario.CPF != null ? usuario.CPF.Trim() : string.Empty;
+            txtCPF.Text = usuario.CPF != null ? usuario.CPF.Trim() : string.Empty;
             //chkPermiteLDLACT.Checked = usuario.LDL == "S" ? true : false;
             txtMatriculaACT.Enabled = false;
 
@@ -74,29 +74,43 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
         protected void ButtonSalvar_Click(object sender, EventArgs e)
         {
-            var usuarioController = new UsuarioAutController();
+            var usuarioAutController = new UsuarioAutController();
 
-            usuarioController.InserirUsuario(new UsuarioAutorizado()
+            UsuarioAutorizado usuario = new UsuarioAutorizado();
 
-            Nome = txtNomeACT.Text.Trim();
             usuario.Matricula = txtMatriculaACT.Text.Trim();
+            usuario.Nome = txtNomeACT.Text.Trim();
             usuario.CPF = txtCPF.Text.Trim();
-            if(checkboxListPermissoes.SelectedItem.Value.Equals("LDL")){
-                usuario.PermissaoLDL = true;
+            usuario.ID_Corredor = int.Parse(ddlCorredores.SelectedValue);
+            usuario.Supervisao = txtSupervisao.Text.Trim();
+            usuario.Gerencia = txtGerencia.Text.Trim();
+            usuario.Empresa = txtEmpresa.Text.Trim();
+
+            if (int.Parse(cblPermissoes.SelectedValue) == 1)
+            {
+                usuario.PermissaoLDL = "S";
             }
-            if(checkboxListPermissoes.SelectedItem.Value.Equals("BS")){
-                usuario.PermissaoBS = true;
+            else
+            {
+                usuario.PermissaoLDL = "N";
             }
-            
-            //usuario.Prefil_ID = ddlPerfil.SelectedItem.Value.ToString();
+
+            if (int.Parse(cblPermissoes.SelectedValue) == 2)
+            {
+                usuario.PermissaoBS = "S";
+            }
+            else
+            {
+                usuario.PermissaoBS = "N";
+            }
 
             if (Matricula == "NOVO")
             {
-                var existeCPF = new UsuarioACTController().ObterUsuarioACTporCPF(txtCPFACT.Text);
+                var existeCPF = new UsuarioACTController().ObterUsuarioACTporCPF(txtCPF.Text);
                 var existeMatricula = new UsuarioACTController().ObterUsuarioACTporMatricula(txtMatriculaACT.Text);
                 if (!existeCPF && !existeMatricula)
                 {
-                    if (usuarioController.Inserir(usuario, ulMatricula))
+                    if (usuarioAutController.SalvarUsuario(usuario, ulMatricula))
                     {
                         LabelMensagem.Visible = true;
                         limparCampos();
@@ -108,17 +122,17 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             }
             else
             {
-                usuario.Usuario_ID = usuarioController.ObterPorMatricula(Matricula).Usuario_ID;
-                if (usuarioController.Atualizar(usuario, ulMatricula))
-                {
-                    limparCampos();
-                    if (Flag == "alterasenha")
-                        Response.Write("<script>alert('Usuário salvo com sucesso, por " + ulMatricula + " - " + ulTipoOperador + "'); window.location='/Default.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'</script>");
-                    else
-                        Response.Write("<script>alert('Usuário salvo com sucesso, por " + ulMatricula + " - " + ulTipoOperador + "'); window.location='/Consulta/UsuarioACT.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'</script>");
-                }
-                else
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não foi possível realizar esta operação, tente novamente mais tarde.' }); window.location='/Default.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'", true);
+                //usuario.Usuario_ID = usuarioController.ObterPorMatricula(Matricula).Usuario_ID;
+                //if (usuarioController.Atualizar(usuario, ulMatricula))
+                //{
+                //    limparCampos();
+                //    if (Flag == "alterasenha")
+                //        Response.Write("<script>alert('Usuário salvo com sucesso, por " + ulMatricula + " - " + ulTipoOperador + "'); window.location='/Default.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'</script>");
+                //    else
+                //        Response.Write("<script>alert('Usuário salvo com sucesso, por " + ulMatricula + " - " + ulTipoOperador + "'); window.location='/Consulta/UsuarioACT.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'</script>");
+                //}
+                //else
+                //    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não foi possível realizar esta operação, tente novamente mais tarde.' }); window.location='/Default.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'", true);
             }
         }
         protected void btnExcluir_Click(object sender, EventArgs e)

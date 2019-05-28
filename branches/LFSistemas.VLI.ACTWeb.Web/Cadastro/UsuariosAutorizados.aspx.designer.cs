@@ -103,31 +103,22 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro {
         protected global::System.Web.UI.WebControls.TextBox txtGerencia;
         
         /// <summary>
-        /// TextBox1 control.
+        /// txtSupervisao control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox txtSupervisao;
         
         /// <summary>
-        /// TextBox2 control.
+        /// txtEmpresa control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
-        
-        /// <summary>
-        /// checkboxListPermissoes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList checkboxListPermissoes;
+        protected global::System.Web.UI.WebControls.TextBox txtEmpresa;
         
         /// <summary>
         /// cblSubtipos control.
@@ -139,13 +130,22 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro {
         protected global::System.Web.UI.WebControls.CheckBoxList cblSubtipos;
         
         /// <summary>
-        /// cblCorredor control.
+        /// cblPermissoes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList cblCorredor;
+        protected global::System.Web.UI.WebControls.CheckBoxList cblPermissoes;
+        
+        /// <summary>
+        /// ddlCorredores control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCorredores;
         
         /// <summary>
         /// ButtonSalvar control.

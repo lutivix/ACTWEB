@@ -39,10 +39,9 @@
         </div>
         <div class="form-group col-sm-6">
             <label for="cpf">CPF:</label>
-            <asp:TextBox runat="server" ID="txtCPF" CssClass="form-control" OnTextChanged="txtCPF_TextChanged" onkeypress="return PermiteSomenteNumeros(event);" MaxLength="11" AutoPostBack="true" />
+            <asp:TextBox runat="server" ID="txtCPF" CssClass="form-control"  onkeypress="return PermiteSomenteNumeros(event);" MaxLength="11" AutoPostBack="true" />
         </div>
-    </div>
-    <div class="row">
+
         <div class="form-group col-sm-6">
 
             <label for="gerencia">Gerência:</label>
@@ -54,7 +53,7 @@
         <div class="form-group col-sm-6">
 
             <label for="supervisao">Supervisão:</label>
-            <asp:TextBox runat="server" ID="TextBox1" CssClass="form-control"/>
+            <asp:TextBox runat="server" ID="txtSupervisao" CssClass="form-control"/>
 
             
         </div>
@@ -62,20 +61,12 @@
         <div class="form-group col-sm-6">
 
             <label for="empresa">Empresa:</label>
-            <asp:TextBox runat="server" ID="TextBox2" CssClass="form-control"/>
+            <asp:TextBox runat="server" ID="txtEmpresa" CssClass="form-control"/>
 
             
         </div>
-
-        <div class="form-group col-sm-1">
-            <label for="permiteldl">Permite:</label><br />
-
-            <asp:CheckBoxList ID="checkboxListPermissoes" runat="server" CssClass="form-control" Checked="false" Width="80px" height="50px">
-                <asp:ListItem Text="LDL" Value="1"></asp:ListItem>
-                <asp:ListItem Text="BS" Value="2"></asp:ListItem>
-            </asp:CheckBoxList>    
-
-        </div>   
+        
+        
 
         <div class="form-group col-sm-1">
                <td style="width: 30%" rowspan="2">
@@ -85,19 +76,35 @@
                             </asp:Panel>
                         </td>   
         </div> 
-        <div class="form-group col-sm-1">
+
+         <div class="form-group col-sm-1">
+            <label for="permiteldl">Permite:</label><br />
+
+            <asp:CheckBoxList ID="cblPermissoes" runat="server" CssClass="form-control" Checked="false" Width="80px" height="50px">
+                <asp:ListItem Text="LDL" Value="1"></asp:ListItem>
+                <asp:ListItem Text="BS" Value="2"></asp:ListItem>
+            </asp:CheckBoxList>    
+
+        </div> 
+
+        <div class="form-group col-sm-2 ">
                                 <label for="matricula">Corredor:</label>
-                                    <asp:CheckBoxList runat="server" ID="cblCorredor" CssClass="form-control" SelectionMode="multiple" Width="160" Height="127" AutoPostBack="true">
+                                    <asp:DropDownList runat="server" ID="ddlCorredores" CssClass="form-control" Width="170" Height="30">
+                                        <asp:ListItem Text="&nbsp;&nbsp;Selecione um Corredor" Value="0" />
                                         <asp:ListItem Text="&nbsp;&nbsp;Baixada" Value="6" />
                                         <asp:ListItem Text="&nbsp;&nbsp;Centro Leste" Value="1" />
                                         <asp:ListItem Text="&nbsp;&nbsp;Centro Norte" Value="3" />
                                         <asp:ListItem Text="&nbsp;&nbsp;Centro Sudeste" Value="2" />
                                         <asp:ListItem Text="&nbsp;&nbsp;Minas Bahia" Value="5" />
                                         <asp:ListItem Text="&nbsp;&nbsp;Minas Rio" Value="4" />
-                                    </asp:CheckBoxList>
+                                    </asp:DropDownList>
         </div> 
+         
+        
                 
     </div>
+
+    
     
     <div class="row" style="margin-left: 02px;">
         <asp:Button ID="ButtonSalvar" type="button" CssClass="btn btn-success" runat="server" Text="Salvar" OnClick="ButtonSalvar_Click" OnClientClick="javascript:return validaFormulario();" />
