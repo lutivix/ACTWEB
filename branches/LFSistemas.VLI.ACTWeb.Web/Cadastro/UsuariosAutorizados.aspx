@@ -70,7 +70,7 @@
 
         <div class="form-group col-sm-1">
                <td style="width: 30%" rowspan="2">
-                            Subtipos<label for="perfil">:</label>
+                            <label for="subtipos">Subtipos:</label><br />
                             <asp:Panel runat="server" Width="80px" Height="127px" ScrollBars="Vertical" CssClass="form-control">
                                 <asp:CheckBoxList runat="server" ID="cblSubtipos" />
                             </asp:Panel>
@@ -80,9 +80,8 @@
          <div class="form-group col-sm-1">
             <label for="permiteldl">Permite:</label><br />
 
-            <asp:CheckBoxList ID="cblPermissoes" runat="server" CssClass="form-control" Checked="false" Width="80px" height="50px">
+            <asp:CheckBoxList ID="cblPermissoes" runat="server" CssClass="form-control" Checked="false" Width="80px" height="30px">
                 <asp:ListItem Text="LDL" Value="1"></asp:ListItem>
-                <asp:ListItem Text="BS" Value="2"></asp:ListItem>
             </asp:CheckBoxList>    
 
         </div> 
@@ -90,13 +89,6 @@
         <div class="form-group col-sm-2 ">
                                 <label for="matricula">Corredor:</label>
                                     <asp:DropDownList runat="server" ID="ddlCorredores" CssClass="form-control" Width="170" Height="30">
-                                        <asp:ListItem Text="&nbsp;&nbsp;Selecione um Corredor" Value="0" />
-                                        <asp:ListItem Text="&nbsp;&nbsp;Baixada" Value="6" />
-                                        <asp:ListItem Text="&nbsp;&nbsp;Centro Leste" Value="1" />
-                                        <asp:ListItem Text="&nbsp;&nbsp;Centro Norte" Value="3" />
-                                        <asp:ListItem Text="&nbsp;&nbsp;Centro Sudeste" Value="2" />
-                                        <asp:ListItem Text="&nbsp;&nbsp;Minas Bahia" Value="5" />
-                                        <asp:ListItem Text="&nbsp;&nbsp;Minas Rio" Value="4" />
                                     </asp:DropDownList>
         </div> 
          

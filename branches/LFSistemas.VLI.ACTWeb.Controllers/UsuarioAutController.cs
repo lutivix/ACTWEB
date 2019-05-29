@@ -17,9 +17,14 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.SalvarUsuario(usuario, usuarioLogado);
         }
 
-        //public UsuarioAutorizado ObterPorMatricula(string matricula)
-        //{
-        //    return true;
-        //}
+        public UsuarioAutorizado ObterPorMatricula(string matricula)
+        {
+            return dao.ObterPorMatricula(matricula);
+        }
+
+        public bool Atualizar(UsuarioAutorizado usuario, string usuariologado)
+        {
+            return dao.Atualizar(usuario, usuariologado);
+        }
     }
 }

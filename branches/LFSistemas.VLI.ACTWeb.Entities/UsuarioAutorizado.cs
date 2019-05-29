@@ -11,13 +11,14 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Usuario_ID { get; set; }
         public string Matricula { get; set; }
         public string Nome { get; set; }
-        public double ID_Corredor { get; set; }
+        public int ID_Corredor { get; set; }
+        public string Nome_Corredor { get; set; }
         public string Supervisao { get; set; }
         public string Gerencia { get; set; }
         public string Empresa { get; set; }
         public string PermissaoLDL { get; set; }
         public string PermissaoBS { get; set; }
-        public DateTime UltSolicitacao { get; set; }
+        public DateTime? UltSolicitacao { get; set; }
         public string SituacaoAtividade { get; set; }
         public string Senha { get; set; }
         public DateTime Cadastro { get; set; }

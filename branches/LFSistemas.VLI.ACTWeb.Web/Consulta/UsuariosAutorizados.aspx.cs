@@ -131,6 +131,119 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 Pesquisar("NOME " + ViewState["ordenacao"].ToString(), Navigation.None);
             }
         }
+
+        protected void lnkCor_Click(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("CORREDOR " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("CORREDOR " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+
+        protected void lnkSuperv_Click(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("SUPERVISAO " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("SUPERVISAO " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+
+        protected void lnkGer_Click(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("GERENCIA " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("GERENCIA " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+
+        protected void lnkEmpresa_Click(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("EMPRESA " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("EMPRESA " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+
+        protected void lnkPerLDL_Click(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("PERMISSAOLDL " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("PERMISSAOLDL " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+
+        protected void lnkUltSol_Click(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("ULTSOL " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("ULTSOL " + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+
+        protected void lnkAtivo_Click1(object sender, EventArgs e)
+        {
+            var ordenacao = ViewState["ordenacao"].ToString();
+
+            if (ordenacao == "ASC")
+            {
+                ViewState["ordenacao"] = "DESC";
+                Pesquisar("ATIVO" + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+            else
+            {
+                ViewState["ordenacao"] = "ASC";
+                Pesquisar("ATIVO" + ViewState["ordenacao"].ToString(), Navigation.None);
+            }
+        }
+
         protected void lnkPerfil_Click(object sender, EventArgs e)
         {
 
@@ -308,18 +421,49 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     case "CPF DESC":
                         itens = itens.OrderByDescending(o => o.CPF).ToList();
                         break;
-                    //case "LDL ASC":
-                    //    itens = itens.OrderBy(o => o.LDL).ToList();
-                    //    break;
-                    //case "LDL DESC":
-                    //    itens = itens.OrderByDescending(o => o.LDL).ToList();
-                    //    break;
-                    case "PERFIL ASC":
-                        itens = itens.OrderBy(o => o.Perfil).ToList();
+                    case "CORREDOR ASC":
+                        itens = itens.OrderBy(o => o.Nome_Corredor).ToList();
                         break;
-                    case "PERFIL DESC":
-                        itens = itens.OrderByDescending(o => o.Perfil).ToList();
+                    case "CORREDOR DESC":
+                        itens = itens.OrderByDescending(o => o.Nome_Corredor).ToList();
                         break;
+                    case "SUPERVISAO ASC":
+                        itens = itens.OrderBy(o => o.Supervisao).ToList();
+                        break;
+                    case "SUPERVISAO DESC":
+                        itens = itens.OrderByDescending(o => o.Supervisao).ToList();
+                        break;
+                    case "GERENCIA ASC":
+                        itens = itens.OrderBy(o => o.Gerencia).ToList();
+                        break;
+                    case "GERENCIA DESC":
+                        itens = itens.OrderByDescending(o => o.Gerencia).ToList();
+                        break;
+                    case "EMPRESA ASC":
+                        itens = itens.OrderBy(o => o.Gerencia).ToList();
+                        break;
+                    case "EMPRESA DESC":
+                        itens = itens.OrderByDescending(o => o.Gerencia).ToList();
+                        break;
+                    case "PERMISSAOLDL ASC":
+                        itens = itens.OrderBy(o => o.PermissaoLDL).ToList();
+                        break;
+                    case "PERMISSAOLDL DESC":
+                        itens = itens.OrderByDescending(o => o.PermissaoLDL).ToList();
+                        break;
+                    case "ULTSOL ASC":
+                        itens = itens.OrderBy(o => o.UltSolicitacao).ToList();
+                        break;
+                    case "ULTSOL DESC":
+                        itens = itens.OrderByDescending(o => o.UltSolicitacao).ToList();
+                        break;
+                    case "ATIVO ASC":
+                        itens = itens.OrderBy(o => o.SituacaoAtividade).ToList();
+                        break;
+                    case "ATIVO DESC":
+                        itens = itens.OrderByDescending(o => o.SituacaoAtividade).ToList();
+                        break;
+
                     default:
                         itens = itens.OrderBy(o => o.Nome).ToList();
                         break;

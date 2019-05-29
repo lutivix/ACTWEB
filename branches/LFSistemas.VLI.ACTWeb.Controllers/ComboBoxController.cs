@@ -43,6 +43,10 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ComboBoxSubtiposACTPP();
         }
 
+        //public List<ComboBox> ComboBoxCorredores()
+        //{
+        //    return dao.ComboBoxCorredoresACTPP();
+        //}
     
         public List<ComboBox> ComboBoxPostosTrabalhoACTPP()
         {

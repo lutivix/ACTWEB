@@ -55,15 +55,20 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
         public void CarregaDados(string matricula)
         {
-            var usuarioController = new UsuarioACTController();
+            var usuarioController = new UsuarioAutController();
             var usuario = usuarioController.ObterPorMatricula(matricula);
 
             txtNomeACT.Text = usuario.Nome.Trim();
             txtMatriculaACT.Text = usuario.Matricula.Trim().ToUpper();
-            //txtSenhaACT.Attributes.Add("value", usuario.Senha);
-            //ddlPerfil.SelectedValue = usuario.Prefil_ID.ToString();
+            txtGerencia.Text = usuario.Gerencia.Trim();
+            txtEmpresa.Text = usuario.Empresa.Trim();
             txtCPF.Text = usuario.CPF != null ? usuario.CPF.Trim() : string.Empty;
-            //chkPermiteLDLACT.Checked = usuario.LDL == "S" ? true : false;
+            txtSupervisao.Text = usuario.Supervisao.Trim();
+            ddlCorredores.SelectedIndex = ddlCorredores.Items.IndexOf(ddlCorredores.Items.FindByText(usuario.Nome_Corredor));
+            if (usuario.PermissaoLDL.Equals("Sim"))
+            {
+                cblPermissoes.SelectedValue = "1";
+            }
             txtMatriculaACT.Enabled = false;
 
         }
@@ -81,27 +86,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             usuario.Matricula = txtMatriculaACT.Text.Trim();
             usuario.Nome = txtNomeACT.Text.Trim();
             usuario.CPF = txtCPF.Text.Trim();
-            usuario.ID_Corredor = int.Parse(ddlCorredores.SelectedValue);
+            if (ddlCorredores.SelectedValue != null)
+            {
+                usuario.ID_Corredor = int.Parse(ddlCorredores.SelectedValue);
+            }           
             usuario.Supervisao = txtSupervisao.Text.Trim();
             usuario.Gerencia = txtGerencia.Text.Trim();
             usuario.Empresa = txtEmpresa.Text.Trim();
 
-            if (int.Parse(cblPermissoes.SelectedValue) == 1)
+            if (cblPermissoes.Items[0].Selected == true)
             {
                 usuario.PermissaoLDL = "S";
             }
             else
             {
                 usuario.PermissaoLDL = "N";
-            }
-
-            if (int.Parse(cblPermissoes.SelectedValue) == 2)
-            {
-                usuario.PermissaoBS = "S";
-            }
-            else
-            {
-                usuario.PermissaoBS = "N";
             }
 
             if (Matricula == "NOVO")
@@ -122,17 +121,17 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             }
             else
             {
-                //usuario.Usuario_ID = usuarioController.ObterPorMatricula(Matricula).Usuario_ID;
-                //if (usuarioController.Atualizar(usuario, ulMatricula))
-                //{
-                //    limparCampos();
-                //    if (Flag == "alterasenha")
-                //        Response.Write("<script>alert('Usuário salvo com sucesso, por " + ulMatricula + " - " + ulTipoOperador + "'); window.location='/Default.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'</script>");
-                //    else
-                //        Response.Write("<script>alert('Usuário salvo com sucesso, por " + ulMatricula + " - " + ulTipoOperador + "'); window.location='/Consulta/UsuarioACT.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'</script>");
-                //}
-                //else
-                //    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não foi possível realizar esta operação, tente novamente mais tarde.' }); window.location='/Default.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'", true);
+                usuario.Usuario_ID = usuarioAutController.ObterPorMatricula(Matricula).Usuario_ID;
+                if (usuarioAutController.Atualizar(usuario, ulMatricula))
+                {
+                    limparCampos();
+                    if (Flag == "alterasenha")
+                        Response.Write("<script>alert('Usuário salvo com sucesso, por " + ulMatricula + " - " + ulTipoOperador + "'); window.location='/Default.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'</script>");
+                    else
+                        Response.Write("<script>alert('Usuário salvo com sucesso, por " + ulMatricula + " - " + ulTipoOperador + "'); window.location='/Consulta/UsuariosAutorizados.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'</script>");
+                }
+                else
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não foi possível realizar esta operação, tente novamente mais tarde.' }); window.location='/Default.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'", true);
             }
         }
         protected void btnExcluir_Click(object sender, EventArgs e)
@@ -146,7 +145,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             //if (txtMatricula.Text != null && ddlPerfil != null)
             {
                 if (this.Flag == "consulta" || this.Flag == "novousuario")
-                    Response.Redirect("/Consulta/UsuarioACT.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
+                    Response.Redirect("/Consulta/UsuariosAutorizados.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
                 else
                     Response.Redirect("/Default.aspx");
             }
@@ -242,6 +241,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             var pesquisa = new ComboBoxController();
 
             var subtipos = pesquisa.ComboBoxSubtipos();
+
             if (subtipos.Count > 0)
             {
                 cblSubtipos.DataValueField = "ID";
@@ -250,6 +250,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                 cblSubtipos.DataBind();
             }
 
+            var corredores = pesquisa.ComboBoxCorredores();
+
+            if (corredores.Count > 0)
+            {
+                ddlCorredores.DataValueField = "ID";
+                ddlCorredores.DataTextField = "DESCRICAO";
+                ddlCorredores.DataSource = corredores;
+                ddlCorredores.DataBind();
+                ddlCorredores.Items.Insert(0, "Selecione um Corredor");
+            }
         }
 
         #endregion

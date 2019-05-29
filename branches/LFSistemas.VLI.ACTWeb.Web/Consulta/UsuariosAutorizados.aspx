@@ -107,9 +107,6 @@
                                     <tr>
                                         <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#"><span><i class="fa fa-search-plus"></i></span></a></th>
 
-
-                                        
-
                                         <!--Matricula-->
                                         <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                             <asp:LinkButton runat="server" ID="lnkMatricula" OnClick="lnkMatricula_Click" Text="Matricula" /></th>
@@ -124,34 +121,34 @@
                                   
                                         <!--Corredores-->
                                         <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                            <asp:LinkButton runat="server" ID="lnkCorredores" Text="Corredor" /></th>            
+                                            <asp:LinkButton runat="server" ID="lnkCorredores" OnClick="lnkCor_Click" Text="Corredor" /></th>            
 
                                         <!--Supervisao-->
                                         <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                            <asp:LinkButton runat="server" ID="lnkSuperv"  Text="Supervisão" /></th>
+                                            <asp:LinkButton runat="server" ID="lnkSuperv" OnClick="lnkSuperv_Click"  Text="Supervisão" /></th>
 
                                         <!--Gerencia-->
                                         <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                            <asp:LinkButton runat="server" ID="lnkGer"  Text="Gerência" /></th>
+                                            <asp:LinkButton runat="server" ID="lnkGer" OnClick="lnkGer_Click" Text="Gerência" /></th>
 
                                         <!--Empresa-->
                                         <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                            <asp:LinkButton runat="server" ID="lnkEmpresa"  Text="Empresa" /></th>
+                                            <asp:LinkButton runat="server" ID="lnkEmpresa" OnClick="lnkEmpresa_Click" Text="Empresa" /></th>
 
 
                                         <!--Permite LDL-->
                                         <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                            <asp:LinkButton runat="server" ID="lnkPerLDL"  Text="Perm. LDL" /></th>
+                                            <asp:LinkButton runat="server" ID="lnkPerLDL" OnClick="lnkPerLDL_Click" Text="Perm. LDL" /></th>
 
 
                                         <!--Ultima solicitação-->
                                         <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                            <asp:LinkButton runat="server" ID="lnkUltSol"  Text="Ult. Sol." /></th>
+                                            <asp:LinkButton runat="server" ID="lnkUltSol" OnClick="lnkUltSol_Click" Text="Ult. Sol." /></th>
 
 
                                         <!--Ativo-->
                                         <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                            <asp:LinkButton runat="server" ID="lnkAtivo"  Text="Ativo" /></th>
+                                            <asp:LinkButton runat="server" ID="lnkAtivo" OnClick="lnkAtivo_Click1" Text="Ativo" /></th>
 
                                         
                                     </tr>
@@ -173,7 +170,7 @@
 
                                 <td style="width: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); " title="<%# Eval("CPF")%>"><%# Eval("CPF")%> </td> 
 
-                                <td style="width: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("ID_Corredor")%>"><%# Eval("ID_Corredor")%> </td>
+                                <td style="width: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Nome_Corredor")%>"><%# Eval("Nome_Corredor")%> </td>
 
                                 <td style="width: 20px; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Supervisao")%>"><%# Eval("Supervisao")%> </td>
 

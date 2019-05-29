@@ -178,86 +178,141 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return true;
         }
 
-//        public UsuarioAutorizado ObterPorMatricula(string matricula)
-//        {
-//            #region [ PROPRIEDADES ]
+        public UsuarioAutorizado ObterPorMatricula(string matricula)
+        {
+            #region [ PROPRIEDADES ]
 
-//            StringBuilder query = new StringBuilder();
-//            UsuarioAutorizado item = null;
+            StringBuilder query = new StringBuilder();
+            UsuarioAutorizado item = null;
 
-//            #endregion
+            #endregion
 
-//            try
-//            {
-//                using (var connection = ServiceLocator.ObterConexaoACTWEB())
-//                {
-//                    #region [ FILTRA USUÁRIO PELO ID ]
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA USUÁRIO PELO ID ]
 
-//                    var command = connection.CreateCommand();
+                    var command = connection.CreateCommand();
 
-//                    query.Append(@"SELECT OP.OP_ID_OP,
-//                                          OP.OP_MAT,
-//                                          OP.OP_NM,
-//                                          OP.OP_SENHA,
-//                                          OP.OP_DT_SENHA,
-//                                          DECODE ( SUBSTR(UPPER(OP.OP_PERMITE_LDL), 1, 1),'S', 'S','N') AS OP_PERMITE_LDL, 
-//                                          TOP.TO_DSC_OP,
-//                                          OP.OP_CPF,
-//                                          TOP.TO_ID_OP
-//                                     FROM actpp.OPERADORES OP,
-//                                          actpp.TIPO_OPERADOR TOP
-//                                    WHERE TOP.TO_ID_OP = OP.TO_ID_OP
-//                                          AND UPPER(OP.OP_MAT) = ${MATRICULA}");
+                    query.Append(@"SELECT * FROM ACTPP.OPERADORES_BS WHERE OP_BS_MAT = ${MATRICULA}");
 
-//                    #endregion
+                    #endregion
 
-//                    #region [ PARÂMETROS ]
+                    #region [ PARÂMETROS ]
 
-//                    query.Replace("${MATRICULA}", string.Format("'{0}'", matricula.ToUpper()));
+                    query.Replace("${MATRICULA}", string.Format("'{0}'", matricula.ToUpper()));
 
-//                    #endregion
+                    #endregion
 
-//                    #region [BUSCA NO BANCO E ADICIONA NO OBJETO ]
+                    #region [BUSCA NO BANCO E ADICIONA NO OBJETO ]
 
-//                    command.CommandText = query.ToString();
-//                    using (var reader = command.ExecuteReader())
-//                    {
-//                        if (reader.Read())
-//                        {
-//                            item = PreencherPropriedadesPorID(reader);
-//                        }
-//                    }
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            item = PreencherPropriedadesFiltro(reader);
+                        }
+                    }
 
-//                    #endregion
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
-//                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
-//                throw new Exception(ex.Message);
-//            }
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
 
-//            return item;
-//        }
+            return item;
+        }
+
+        public bool Atualizar(UsuarioAutorizado usuario, string usuarioLogado)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ INSERE USUÁRIO NO BANCO ]
+
+                    var command = connection.CreateCommand();
+                    query.Append(@"UPDATE ACTPP.OPERADORES_BS SET OP_BS_MAT = ${MATRICULA}
+                                    ${NOME}                                   
+                                    ${CPF}  
+                                    ${CORREDOR}
+                                    ${SUPERVISAO}
+                                    ${GERENCIA}
+                                    ${EMPRESA}
+                                    ${PERMITE_LDL}
+                                    WHERE OP_BS_ID = ${ID}");
+
+                    #endregion
+
+                    #region [ PARÂMETRO ]
+
+                    query.Replace("${ID}", string.Format("{0}", usuario.Usuario_ID));
+                    query.Replace("${MATRICULA}", string.Format("'{0}'", usuario.Matricula));
+                    query.Replace("${NOME}", string.Format(", OP_BS_NM = '{0}'", usuario.Nome));
+                    query.Replace("${CPF}", string.Format(", OP_CPF = '{0}'", usuario.CPF));
+                    query.Replace("${CORREDOR}", string.Format(", NM_COR_ID = '{0}'", usuario.ID_Corredor));
+                    query.Replace("${SUPERVISAO}", string.Format(", OP_BS_SUP = '{0}'", usuario.Supervisao));
+                    query.Replace("${GERENCIA}", string.Format(", OP_BS_GERENCIA = '{0}'", usuario.Gerencia));
+                    query.Replace("${EMPRESA}", string.Format(", OP_BS_EMPRESA = '{0}'", usuario.Empresa));
+                    query.Replace("${PERMITE_LDL}", string.Format(", OP_PERMITE_LDL = '{0}'", usuario.PermissaoLDL.Substring(0,1)));
+
+                    #endregion
+
+                    #region [ RODA A QUERY NO BANCO ]
+
+                    command.CommandText = query.ToString();
+                    command.ExecuteNonQuery();
+
+                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", usuario.Usuario_ID.ToString(), null, "Usuário: " + usuario.Nome + " - Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF, Uteis.OPERACAO.Atualizou.ToString());
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return true;
+        }
 
         private UsuarioAutorizado PreencherPropriedadesFiltro(OleDbDataReader reader)
         {
             var item = new UsuarioAutorizado();
+            double corredorID = new double();
 
             try
             {
+                
+
                 if (!reader.IsDBNull(0)) item.Usuario_ID = reader.GetDouble(0).ToString();
                 if (!reader.IsDBNull(1)) item.Matricula = reader.GetString(1);
                 if (!reader.IsDBNull(2)) item.Nome = reader.GetString(2);
                 if (!reader.IsDBNull(3)) item.CPF = reader.GetString(3);
-                if (!reader.IsDBNull(4)) item.ID_Corredor = reader.GetDouble(4);
+                if (!reader.IsDBNull(4)) corredorID = reader.GetDouble(4);
+                if (!reader.IsDBNull(4)) item.ID_Corredor= (int)reader.GetDouble(4);
                 if (!reader.IsDBNull(5)) item.Supervisao = reader.GetString(5);
                 if (!reader.IsDBNull(6)) item.Gerencia = reader.GetString(6);
                 if (!reader.IsDBNull(7)) item.Empresa = reader.GetString(7);
                 if (!reader.IsDBNull(8)) item.PermissaoLDL = reader.GetString(8) == "S" ? "Sim" : "Não";
                 if (!reader.IsDBNull(9)) item.UltSolicitacao = reader.GetDateTime(9);
                 if (!reader.IsDBNull(10)) item.Ativo = reader.GetString(10) == "S" ? "Sim" : "Não";
+
+                item.Nome_Corredor = VerificaCorredor((int)corredorID);
                 
             }
             catch (Exception ex)
@@ -268,6 +323,32 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             }
 
             return item;
+        }
+
+        public string VerificaCorredor(int id_corredor)
+        {
+            switch (id_corredor)
+            {
+                case 1:
+                    return "Centro Leste";
+
+                case 2:
+                    return "Centro Sudeste";
+
+                case 3:
+                    return "Centro Norte";
+
+                case 4:
+                    return "Minas Rio";
+
+                case 5:
+                    return "Minas Bahia";
+
+                case 6:
+                    return "Baixada";
+
+                default: return "";
+            }
         }
     }
 
