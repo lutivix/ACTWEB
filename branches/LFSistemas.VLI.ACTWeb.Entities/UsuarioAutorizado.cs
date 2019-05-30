@@ -17,7 +17,8 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Gerencia { get; set; }
         public string Empresa { get; set; }
         public string PermissaoLDL { get; set; }
-        public string PermissaoBS { get; set; }
+        //public List<string> Subtipos_BS = new List<string>();
+        public string Subtipos_BS { get; set; }
         public DateTime? UltSolicitacao { get; set; }
         public string SituacaoAtividade { get; set; }
         public string Senha { get; set; }

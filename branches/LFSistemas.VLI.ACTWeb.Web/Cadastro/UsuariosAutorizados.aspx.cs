@@ -57,6 +57,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
         {
             var usuarioController = new UsuarioAutController();
             var usuario = usuarioController.ObterPorMatricula(matricula);
+            List<string> subtipos = new List<string>();
+            subtipos = usuarioController.ObterSubtiposAut(usuario.Usuario_ID);
 
             txtNomeACT.Text = usuario.Nome.Trim();
             txtMatriculaACT.Text = usuario.Matricula.Trim().ToUpper();
@@ -70,6 +72,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                 cblPermissoes.SelectedValue = "1";
             }
             txtMatriculaACT.Enabled = false;
+
+            for (int i = 0; i < subtipos.Count; i++)
+            {
+                int index = cblSubtipos.Items.IndexOf(cblSubtipos.Items.FindByValue(subtipos[i]));
+
+                cblSubtipos.Items[index].Selected = true;
+            }
+
 
         }
 
@@ -103,36 +113,55 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                 usuario.PermissaoLDL = "N";
             }
 
-            if (Matricula == "NOVO")
+            var grupoSubtiposVR = new List<string>();
+
+            for (int i = 0; i < cblSubtipos.Items.Count; i++)
             {
-                var existeCPF = new UsuarioACTController().ObterUsuarioACTporCPF(txtCPF.Text);
-                var existeMatricula = new UsuarioACTController().ObterUsuarioACTporMatricula(txtMatriculaACT.Text);
-                if (!existeCPF && !existeMatricula)
+                if (cblSubtipos.Items[i].Selected)
                 {
-                    if (usuarioAutController.SalvarUsuario(usuario, ulMatricula))
+                    grupoSubtiposVR.Add(string.Format("'{0}'", cblSubtipos.Items[i].Value));
+                }
+            }
+
+                if (Matricula == "NOVO")
+                {
+                    var existeCPF = new UsuarioACTController().ObterUsuarioACTporCPF(txtCPF.Text);
+                    var existeMatricula = new UsuarioACTController().ObterUsuarioACTporMatricula(txtMatriculaACT.Text);
+                    if (!existeCPF && !existeMatricula)
                     {
-                        LabelMensagem.Visible = true;
-                        limparCampos();
-                        Response.Write("<script>alert('Usuário salvo com sucesso, por " + ulMatricula + " - " + ulTipoOperador + "'); window.location='/Consulta/UsuarioACT.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'</script>");
+                        if (usuarioAutController.SalvarUsuario(usuario, ulMatricula))
+                        {
+                            UsuarioAutorizado usuarioAux = usuarioAutController.ObterPorMatricula(usuario.Matricula);
+
+                            usuarioAutController.AssociarSubtipos(grupoSubtiposVR, usuarioAux, ulMatricula);
+
+                            LabelMensagem.Visible = true;
+                            limparCampos();
+                            Response.Write("<script>alert('Usuário salvo com sucesso, por " + ulMatricula + " - " + ulTipoOperador + "'); window.location='/Consulta/UsuariosAutorizados.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'</script>");
+                        }
                     }
-                }
-                else
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Já existe um usuário cadastrado no banco de dados com o CPF/Matrícula informado.' });", true);
-            }
-            else
-            {
-                usuario.Usuario_ID = usuarioAutController.ObterPorMatricula(Matricula).Usuario_ID;
-                if (usuarioAutController.Atualizar(usuario, ulMatricula))
-                {
-                    limparCampos();
-                    if (Flag == "alterasenha")
-                        Response.Write("<script>alert('Usuário salvo com sucesso, por " + ulMatricula + " - " + ulTipoOperador + "'); window.location='/Default.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'</script>");
                     else
-                        Response.Write("<script>alert('Usuário salvo com sucesso, por " + ulMatricula + " - " + ulTipoOperador + "'); window.location='/Consulta/UsuariosAutorizados.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'</script>");
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Já existe um usuário cadastrado no banco de dados com o CPF/Matrícula informado.' });", true);
                 }
                 else
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não foi possível realizar esta operação, tente novamente mais tarde.' }); window.location='/Default.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'", true);
-            }
+                {
+                    usuario.Usuario_ID = usuarioAutController.ObterPorMatricula(Matricula).Usuario_ID;
+
+                    if (usuarioAutController.Atualizar(usuario, ulMatricula))
+                    {
+                        UsuarioAutorizado usuarioAux = usuarioAutController.ObterPorMatricula(usuario.Matricula);
+
+                        usuarioAutController.AssociarSubtipos(grupoSubtiposVR, usuarioAux, ulMatricula);
+
+                        limparCampos();
+                        if (Flag == "alterasenha")
+                            Response.Write("<script>alert('Usuário salvo com sucesso, por " + ulMatricula + " - " + ulTipoOperador + "'); window.location='/Default.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'</script>");
+                        else
+                            Response.Write("<script>alert('Usuário salvo com sucesso, por " + ulMatricula + " - " + ulTipoOperador + "'); window.location='/Consulta/UsuariosAutorizados.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'</script>");
+                    }
+                    else
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não foi possível realizar esta operação, tente novamente mais tarde.' }); window.location='/Default.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'", true);
+                }
         }
         protected void btnExcluir_Click(object sender, EventArgs e)
         {

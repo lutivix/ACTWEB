@@ -17,6 +17,11 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.SalvarUsuario(usuario, usuarioLogado);
         }
 
+        public bool AssociarSubtipos(List<string>grupos, UsuarioAutorizado usuario, string usuarioLogado){
+
+            return dao.AssociarSubtipos(grupos, usuario, usuarioLogado);
+        }
+
         public UsuarioAutorizado ObterPorMatricula(string matricula)
         {
             return dao.ObterPorMatricula(matricula);
@@ -25,6 +30,11 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         public bool Atualizar(UsuarioAutorizado usuario, string usuariologado)
         {
             return dao.Atualizar(usuario, usuariologado);
+        }
+
+        public List<string> ObterSubtiposAut(string usuario_id)
+        {
+            return dao.ObterSubtiposAut(usuario_id);
         }
     }
 }

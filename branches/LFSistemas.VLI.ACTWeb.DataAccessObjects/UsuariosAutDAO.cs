@@ -178,6 +178,56 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return true;
         }
 
+        public bool AssociarSubtipos(List<string>grupos, UsuarioAutorizado usuario, string usuarioLogado)
+        {
+                try
+                {
+                    for (int i = 0; i < grupos.Count; i++)
+                    {
+
+                        StringBuilder query = new StringBuilder();
+
+                        if (grupos[i] != null)
+                        {
+                            usuario.Subtipos_BS = grupos[i];
+                        }
+                        
+                        using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                        {
+                            #region [ FILTRA OS USUÁRIOS ]
+
+                            var command = connection.CreateCommand();
+                            query.Append(@"INSERT INTO ACTPP.BS_OPERADOR
+                                    (OP_BS_ID, SR_ID_STR)
+                                     VALUES
+                                     (${ID}, ${SUBTIPOS})");
+
+                            query.Replace("${ID}", usuario.Usuario_ID);
+                            query.Replace("${SUBTIPOS}", usuario.Subtipos_BS);
+
+
+                            #endregion
+
+                            command.CommandText = query.ToString();
+                            var reader = command.ExecuteNonQuery();
+
+                            if (reader == 1)
+                            {
+                                LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Permite LDL: " + usuario.PermissaoLDL, Uteis.OPERACAO.Inseriu.ToString());
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                    if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                    throw new Exception(ex.Message);
+                }
+
+            return true;
+        }
+
         public UsuarioAutorizado ObterPorMatricula(string matricula)
         {
             #region [ PROPRIEDADES ]
@@ -213,6 +263,59 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         if (reader.Read())
                         {
                             item = PreencherPropriedadesFiltro(reader);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return item;
+        }
+
+        public List<string> ObterSubtiposAut(string usuario_id)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+
+            List<string> item = new List<string>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA SUBTIPOS PELO ID ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT * FROM ACTPP.BS_OPERADOR
+                                    WHERE OP_BS_ID = ${ID}");
+                    #endregion
+
+                    #region [ PARÂMETROS ]
+
+                    query.Replace("${ID}", string.Format("{0}", usuario_id));
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NO OBJETO ]
+
+                    command.CommandText = query.ToString();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            item.Add(PreencherPropriedadesSubtipos(reader));
                         }
                     }
 
@@ -290,6 +393,68 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return true;
         }
 
+        public bool DeletarSubtiposAssociados(UsuarioAutorizado usuario, string usuarioLogado)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ INSERE USUÁRIO NO BANCO ]
+
+                    var command = connection.CreateCommand();
+                    query.Append(@"DELETE * FROM ACTPP.BS_OPERADORES 
+                                    WHERE 
+                                    ${NOME}                                   
+                                    ${CPF}  
+                                    ${CORREDOR}
+                                    ${SUPERVISAO}
+                                    ${GERENCIA}
+                                    ${EMPRESA}
+                                    ${PERMITE_LDL}
+                                    WHERE OP_BS_ID = ${ID}");
+
+                    #endregion
+
+                    #region [ PARÂMETRO ]
+
+                    query.Replace("${ID}", string.Format("{0}", usuario.Usuario_ID));
+                    query.Replace("${MATRICULA}", string.Format("'{0}'", usuario.Matricula));
+                    query.Replace("${NOME}", string.Format(", OP_BS_NM = '{0}'", usuario.Nome));
+                    query.Replace("${CPF}", string.Format(", OP_CPF = '{0}'", usuario.CPF));
+                    query.Replace("${CORREDOR}", string.Format(", NM_COR_ID = '{0}'", usuario.ID_Corredor));
+                    query.Replace("${SUPERVISAO}", string.Format(", OP_BS_SUP = '{0}'", usuario.Supervisao));
+                    query.Replace("${GERENCIA}", string.Format(", OP_BS_GERENCIA = '{0}'", usuario.Gerencia));
+                    query.Replace("${EMPRESA}", string.Format(", OP_BS_EMPRESA = '{0}'", usuario.Empresa));
+                    query.Replace("${PERMITE_LDL}", string.Format(", OP_PERMITE_LDL = '{0}'", usuario.PermissaoLDL.Substring(0, 1)));
+
+                    #endregion
+
+                    #region [ RODA A QUERY NO BANCO ]
+
+                    command.CommandText = query.ToString();
+                    command.ExecuteNonQuery();
+
+                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", usuario.Usuario_ID.ToString(), null, "Usuário: " + usuario.Nome + " - Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF, Uteis.OPERACAO.Atualizou.ToString());
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return true;
+        }
+
         private UsuarioAutorizado PreencherPropriedadesFiltro(OleDbDataReader reader)
         {
             var item = new UsuarioAutorizado();
@@ -323,6 +488,23 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             }
 
             return item;
+        }
+
+        private string PreencherPropriedadesSubtipos(OleDbDataReader reader)
+        {
+            string subtipo = "";
+            try
+            {
+                if (!reader.IsDBNull(1))subtipo = reader.GetDouble(1).ToString();
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return subtipo;
         }
 
         public string VerificaCorredor(int id_corredor)
