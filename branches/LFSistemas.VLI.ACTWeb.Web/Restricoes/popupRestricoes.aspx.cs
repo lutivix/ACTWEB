@@ -248,6 +248,31 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtDadosDuracao.Enabled =
                     txtDadosVelocidade.Enabled = !habilita;
             }
+            else if ((lblUsuarioPerfil.Text == "CCM") || (lblUsuarioPerfil.Text == "CTD") || (lblUsuarioPerfil.Text == "CTD - LOCO") || (lblUsuarioPerfil.Text == "CTD - VAG"))
+            {
+                ddlDadosTipoRestricao.SelectedItem.Text = "Boletim de Serviço";
+                ddlDadosTipoRestricao.SelectedItem.Value = "26";
+                txtDadosVelocidade.Text = "VR";
+
+                ddlFiltroTipo.SelectedItem.Text = "VR";
+                ddlFiltroTipo.SelectedItem.Value = "26";
+
+                ddlDadosSecoes.Enabled =
+                    ddlDadosSubTipoVR.Enabled =
+                    txtDadosDataInicial.Enabled =
+                    txtDadosHoraInicial.Enabled =
+                    txtDadosDataFinal.Enabled =
+                    txtDadosHoraFinal.Enabled =
+                    txtDadosKm_Inicio.Enabled =
+                    txtDadosKm_Final.Enabled =
+                    txtDadosResponsavel.Enabled =
+                    txtDadosCpf.Enabled =
+                    txtDadosObs.Enabled = habilita;
+
+                ddlDadosTipoRestricao.Enabled =
+                txtDadosDuracao.Enabled =
+                    txtDadosVelocidade.Enabled = !habilita;
+            }
             else if (lblUsuarioPerfil.Text == "OP ELE")
             {
                 ddlDadosTipoRestricao.SelectedItem.Text = "VR";
