@@ -105,7 +105,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                              ${ATIVO})");
 
                     if (!string.IsNullOrEmpty(usuario.Matricula))
-                        query.Replace("${MATRICULA}", usuario.Matricula);
+                        query.Replace("${MATRICULA}",string.Format("'{0}'", usuario.Matricula));
                     else
                         query.Replace("${MATRICULA}", string.Format(" "));
 
@@ -178,10 +178,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return true;
         }
 
-        public bool AssociarSubtipos(List<string>grupos, UsuarioAutorizado usuario, string usuarioLogado)
+        public bool AssociarSubtipos(List<string>grupos, UsuarioAutorizado usuario, string usuarioLogado, string origem)
         {
                 try
                 {
+                    List<string> subtiposLog = new List<string>();
+
                     for (int i = 0; i < grupos.Count; i++)
                     {
 
@@ -213,10 +215,23 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                             if (reader == 1)
                             {
-                                LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Permite LDL: " + usuario.PermissaoLDL, Uteis.OPERACAO.Inseriu.ToString());
+                                subtiposLog.Add(VerificaSubtipo(usuario.Subtipos_BS.Replace("'", "")));
                             }
                         }
                     }
+
+                    string listaSubtipos = string.Join(",", subtiposLog);
+
+                    if (origem.Equals("Inserir"))
+                    {
+                        LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Subtipos BS Autorizados: " + listaSubtipos, Uteis.OPERACAO.Inseriu.ToString());
+                    }
+                    else if(origem.Equals("Atualizar"))
+                    {
+                        LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Subtipos BS Autorizados: " + listaSubtipos, Uteis.OPERACAO.Atualizou.ToString());
+                    }
+
+                    
                 }
                 catch (Exception ex)
                 {
@@ -245,7 +260,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT * FROM ACTPP.OPERADORES_BS WHERE OP_BS_MAT = ${MATRICULA}");
+                    query.Append(@"SELECT * FROM ACTPP.OPERADORES_BS WHERE UPPER (OP_BS_MAT) = ${MATRICULA}");
 
                     #endregion
 
@@ -378,7 +393,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     command.CommandText = query.ToString();
                     command.ExecuteNonQuery();
 
-                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", usuario.Usuario_ID.ToString(), null, "Usuário: " + usuario.Nome + " - Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF, Uteis.OPERACAO.Atualizou.ToString());
+                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", usuario.Usuario_ID.ToString(), null, "Usuário: " + usuario.Nome + " - Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Permite LDL: " + usuario.PermissaoLDL, Uteis.OPERACAO.Atualizou.ToString());
 
                     #endregion
                 }
@@ -408,30 +423,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ INSERE USUÁRIO NO BANCO ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"DELETE * FROM ACTPP.BS_OPERADORES 
-                                    WHERE 
-                                    ${NOME}                                   
-                                    ${CPF}  
-                                    ${CORREDOR}
-                                    ${SUPERVISAO}
-                                    ${GERENCIA}
-                                    ${EMPRESA}
-                                    ${PERMITE_LDL}
+                    query.Append(@"DELETE FROM ACTPP.BS_OPERADOR
                                     WHERE OP_BS_ID = ${ID}");
 
                     #endregion
 
                     #region [ PARÂMETRO ]
 
-                    query.Replace("${ID}", string.Format("{0}", usuario.Usuario_ID));
-                    query.Replace("${MATRICULA}", string.Format("'{0}'", usuario.Matricula));
-                    query.Replace("${NOME}", string.Format(", OP_BS_NM = '{0}'", usuario.Nome));
-                    query.Replace("${CPF}", string.Format(", OP_CPF = '{0}'", usuario.CPF));
-                    query.Replace("${CORREDOR}", string.Format(", NM_COR_ID = '{0}'", usuario.ID_Corredor));
-                    query.Replace("${SUPERVISAO}", string.Format(", OP_BS_SUP = '{0}'", usuario.Supervisao));
-                    query.Replace("${GERENCIA}", string.Format(", OP_BS_GERENCIA = '{0}'", usuario.Gerencia));
-                    query.Replace("${EMPRESA}", string.Format(", OP_BS_EMPRESA = '{0}'", usuario.Empresa));
-                    query.Replace("${PERMITE_LDL}", string.Format(", OP_PERMITE_LDL = '{0}'", usuario.PermissaoLDL.Substring(0, 1)));
+                    query.Replace("${ID}", string.Format("{0}", usuario.Usuario_ID));    
 
                     #endregion
 
@@ -439,8 +438,6 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     command.CommandText = query.ToString();
                     command.ExecuteNonQuery();
-
-                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", usuario.Usuario_ID.ToString(), null, "Usuário: " + usuario.Nome + " - Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF, Uteis.OPERACAO.Atualizou.ToString());
 
                     #endregion
                 }
@@ -512,28 +509,60 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             switch (id_corredor)
             {
                 case 1:
-                    return "Centro Leste";
+                    return "Baixada" ;
 
                 case 2:
-                    return "Centro Sudeste";
+                    return "Centro Leste";
 
                 case 3:
                     return "Centro Norte";
 
                 case 4:
-                    return "Minas Rio";
+                    return "Centro Sudeste";
 
                 case 5:
                     return "Minas Bahia";
 
                 case 6:
-                    return "Baixada";
+                    return "Minas Rio";
 
                 default: return "";
             }
         }
+
+        public string VerificaSubtipo(string subtipo_id)
+        {
+            if(subtipo_id.Equals("1"))
+            {
+                return "US";
+            }
+            else if(subtipo_id.Equals("2"))
+            {
+                return "RL";
+            }  
+            else if(subtipo_id.Equals("3"))
+            {
+                return "HT";
+            }      
+            else if(subtipo_id.Equals("4"))
+            {
+                return "HL";
+            }     
+            else if(subtipo_id.Equals("5"))
+            {
+                return "EE";
+            }  
+            else if(subtipo_id.Equals("6"))
+            {
+                return "PP";
+            }
+            else
+            {
+                return "";
+            }
+
+        }
+
+      }
     }
 
-    
-
-}

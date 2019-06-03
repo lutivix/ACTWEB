@@ -58,6 +58,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             var usuarioController = new UsuarioAutController();
             var usuario = usuarioController.ObterPorMatricula(matricula);
             List<string> subtipos = new List<string>();
+            bool subtiposVazio = false;
+
             subtipos = usuarioController.ObterSubtiposAut(usuario.Usuario_ID);
 
             txtNomeACT.Text = usuario.Nome.Trim();
@@ -73,14 +75,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             }
             txtMatriculaACT.Enabled = false;
 
-            for (int i = 0; i < subtipos.Count; i++)
+            if (!subtiposVazio)
             {
-                int index = cblSubtipos.Items.IndexOf(cblSubtipos.Items.FindByValue(subtipos[i]));
+                for (int i = 0; i < subtipos.Count; i++)
+                {
+                    int index = cblSubtipos.Items.IndexOf(cblSubtipos.Items.FindByValue(subtipos[i]));
 
-                cblSubtipos.Items[index].Selected = true;
-            }
-
-
+                    cblSubtipos.Items[index].Selected = true;
+                }
+            } 
         }
 
         #endregion
@@ -96,7 +99,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             usuario.Matricula = txtMatriculaACT.Text.Trim();
             usuario.Nome = txtNomeACT.Text.Trim();
             usuario.CPF = txtCPF.Text.Trim();
-            if (ddlCorredores.SelectedValue != null)
+            if (ddlCorredores.Items[0].Selected)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Selecione um corredor.' });", true);
+                return;
+            }
+            else
             {
                 usuario.ID_Corredor = int.Parse(ddlCorredores.SelectedValue);
             }           
@@ -133,7 +141,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                         {
                             UsuarioAutorizado usuarioAux = usuarioAutController.ObterPorMatricula(usuario.Matricula);
 
-                            usuarioAutController.AssociarSubtipos(grupoSubtiposVR, usuarioAux, ulMatricula);
+                            usuarioAutController.AssociarSubtipos(grupoSubtiposVR, usuarioAux, ulMatricula, "Inserir");
 
                             LabelMensagem.Visible = true;
                             limparCampos();
@@ -151,7 +159,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                     {
                         UsuarioAutorizado usuarioAux = usuarioAutController.ObterPorMatricula(usuario.Matricula);
 
-                        usuarioAutController.AssociarSubtipos(grupoSubtiposVR, usuarioAux, ulMatricula);
+                        usuarioAutController.DeletarSubtiposAssociados(usuarioAux, ulMatricula);
+
+                        usuarioAutController.AssociarSubtipos(grupoSubtiposVR, usuarioAux, ulMatricula, "Atualizar");
 
                         limparCampos();
                         if (Flag == "alterasenha")
