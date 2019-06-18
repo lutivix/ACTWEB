@@ -120,8 +120,10 @@
     <Compile Include="THPController.cs" />
     <Compile Include="TipoOperadorController.cs" />
     <Compile Include="TremController.cs" />
+    <Compile Include="UsuarioAutController.cs" />
     <Compile Include="UsuarioController.cs" />
     <Compile Include="UsuarioACTController.cs" />
+    <Compile Include="UsuariosAutController.cs" />
     <Compile Include="VelocidadePorPrefixoController.cs" />
     <Compile Include="VMAController.cs" />
     <Compile Include="VpController.cs" />

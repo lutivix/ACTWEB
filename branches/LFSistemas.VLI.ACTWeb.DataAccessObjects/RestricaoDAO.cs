@@ -261,12 +261,21 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${VelocidadeMaxima}", " ");
 
                     if (KmInicio != null)
-                        query.Replace("${KmInicio}", string.Format(" AND RP_KM_INI IN ({0})", KmInicio));
+                    {
+                        string kma = KmInicio.ToString();
+                        string km1 = kma.Replace(',', '#');
+                        query.Replace("${KmInicio}", string.Format(" AND RP_KM_INI IN ({0})", km1));
+                    }
                     else
                         query.Replace("${KmInicio}", " ");
 
                     if (KmFim != null)
-                        query.Replace("${KmFim}", string.Format(" AND RP_KM_FIM IN ({0})", KmFim));
+                    {
+                        string km = KmFim.ToString();
+                        string km2 = km.Replace(',', '#');
+                        query.Replace("${KmFim}", string.Format(" AND RP_KM_FIM IN ({0})", km2));
+                    }
+                       
                     else
                         query.Replace("${KmFim}", " ");
 
@@ -274,13 +283,261 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #endregion
 
                     #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
-
+                    query.Replace('#', '.');
                     command.CommandText = query.ToString();
+                    
                     using (var reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
                             retorno = true;
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Restrição", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return retorno;
+        }
+
+        public bool ExisteHTProgramada(double IdElementoVia, decimal? KmInicio, decimal? KmFim)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            bool retorno = false;
+            var itens = new List<Restricao>();
+            bool eCrescente = false;
+            bool eParcial = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"select * from actpp.RESTRICOES_PROGRAMADAS 
+                                      WHERE EV_ID_ELM IN (${IdElementoVia})
+                                        AND TR_ID_TP IN (26)
+                                        AND SR_ID_STR IN (3) 
+                                        AND RP_ST_RP != 'C'
+                                        AND RP_ST_RP != 'R'");
+
+                    if (IdElementoVia != null)
+                        query.Replace("${IdElementoVia}", string.Format("{0}", IdElementoVia));
+                    else
+                        query.Replace("${IdElementoVia}", " ");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+                    query.Replace('#', '.');
+                    command.CommandText = query.ToString();
+                    
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var item = PreencherPropriedadesKMHTProg(reader);
+                            itens.Add(item);
+                        }
+                    }
+                    for (int i = 0; i < itens.Count; i++)
+                    {
+                        double dblKm1 = Convert.ToDouble(itens[i].Km_Inicial);
+                        double dblKm2 = Convert.ToDouble(itens[i].Km_Final);
+
+                        if (KmInicio < KmFim)
+                        {
+                            eCrescente = true;
+                        }
+                        else if (KmInicio == KmFim)
+                        {
+                            eParcial = true;
+                        }
+                        else
+                        {
+                            eCrescente = false;
+                        }
+                        if(eCrescente)
+                        {
+                            if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
+                            {
+                                retorno = true;
+                                return retorno;
+                            }
+                            else if (((double)KmFim >= dblKm1) && ((double)KmFim <= dblKm2))
+                            {
+                                retorno = true;
+                                return retorno;
+                            }
+                            else
+                            {
+                                retorno = false;
+                            }
+                        }
+                        else if(eParcial)
+                        {
+                            if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
+                            {
+                                retorno = true;
+                                return retorno;
+                            }
+                            else
+                            {
+                                retorno = false;
+                            }
+                        }
+                        else
+                        {
+                            if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
+                            {
+                                retorno = true;
+                                return retorno;
+                            }
+                            else if (((double)KmFim >= dblKm1) && ((double)KmFim <= dblKm2))
+                            {
+                                retorno = true;
+                                return retorno;
+                            }
+                            else
+                            {
+                                retorno = false;
+                            }
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Restrição", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return retorno;
+        }
+
+        public bool ExisteHTCircualacao(double IdElementoVia, decimal? KmInicio, decimal? KmFim)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            bool retorno = false;
+            var itens = new List<Restricao>();
+            bool eCrescente = false;
+            bool eParcial = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"select * from actpp.RESTRICOES_CIRCULACAO 
+                                      WHERE EV_ID_ELM IN (${IdElementoVia})
+                                        AND TR_ID_TP IN (26)
+                                        AND SR_ID_STR IN (3) 
+                                        AND RC_ST != 'R'");
+
+                    if (IdElementoVia != null)
+                        query.Replace("${IdElementoVia}", string.Format("{0}", IdElementoVia));
+                    else
+                        query.Replace("${IdElementoVia}", " ");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+                    query.Replace('#', '.');
+                    command.CommandText = query.ToString();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var item = PreencherPropriedadesKMHTCirc(reader);
+                            itens.Add(item);
+                        }
+                    }
+                    for (int i = 0; i < itens.Count; i++)
+                    {
+                        double dblKm1 = Convert.ToDouble(itens[i].Km_Inicial);
+                        double dblKm2 = Convert.ToDouble(itens[i].Km_Final);
+
+                        if (KmInicio < KmFim)
+                        {
+                            eCrescente = true;
+                        }
+                        else if (KmInicio == KmFim)
+                        {
+                            eParcial = true;
+                        }
+                        else
+                        {
+                            eCrescente = false;
+                        }
+                        if (eCrescente)
+                        {
+                            if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
+                            {
+                                retorno = true;
+                                return retorno;
+                            }
+                            else if (((double)KmFim >= dblKm1) && ((double)KmFim <= dblKm2))
+                            {
+                                retorno = true;
+                                return retorno;
+                            }
+                            else
+                            {
+                                retorno = false;
+                            }
+                        }
+                        else if (eParcial)
+                        {
+                            if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
+                            {
+                                retorno = true;
+                                return retorno;
+                            }
+                            else
+                            {
+                                retorno = false;
+                            }
+                        }
+                        else
+                        {
+                            if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
+                            {
+                                retorno = true;
+                                return retorno;
+                            }
+                            else if (((double)KmFim >= dblKm1) && ((double)KmFim <= dblKm2))
+                            {
+                                retorno = true;
+                                return retorno;
+                            }
+                            else
+                            {
+                                retorno = false;
+                            }
                         }
                     }
 
@@ -1431,11 +1688,33 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
+        private Restricao PreencherPropriedadesKMHTProg(OleDbDataReader reader)
+        {
+            var item = new Restricao();
+
+            
+            if (!reader.IsDBNull(07)) item.Km_Inicial       = reader.GetDecimal(07);
+            if (!reader.IsDBNull(08)) item.Km_Final         = reader.GetDecimal(08);
+
+            return item;
+        }
+
+        private Restricao PreencherPropriedadesKMHTCirc(OleDbDataReader reader)
+        {
+            var item = new Restricao();
+
+
+            if (!reader.IsDBNull(09)) item.Km_Inicial = reader.GetDecimal(09);
+            if (!reader.IsDBNull(10)) item.Km_Final = reader.GetDecimal(10);
+
+            return item;
+        }
+
         private Restricao PreencherPropriedades(OleDbDataReader reader)
         {
             var item = new Restricao();
 
-            if (!reader.IsDBNull(00)) item.Tipo             = reader.GetString(00);
+            if (!reader.IsDBNull(00)) item.Tipo = reader.GetString(00);
             if (!reader.IsDBNull(01))
             {
                 item.ProgramadaID = reader.GetValue(01).ToString();
@@ -1450,20 +1729,20 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 else
                     item.RestricaoID = item.CirculacaoID;
             }
-            if (!reader.IsDBNull(03)) item.Secao_Elemento   = reader.GetString(03) != string.Empty ? reader.GetString(03).Trim() : string.Empty;
+            if (!reader.IsDBNull(03)) item.Secao_Elemento = reader.GetString(03) != string.Empty ? reader.GetString(03).Trim() : string.Empty;
             if (!reader.IsDBNull(04)) item.Secao_ElementoID = reader.GetDouble(04) != 0 ? reader.GetDouble(04) : 0;
-            if (!reader.IsDBNull(05)) item.Tipo_Restricao   = reader.GetString(05) != string.Empty ? reader.GetString(05).Trim() : string.Empty;
+            if (!reader.IsDBNull(05)) item.Tipo_Restricao = reader.GetString(05) != string.Empty ? reader.GetString(05).Trim() : string.Empty;
             if (!reader.IsDBNull(06)) item.Tipo_RestricaoID = reader.GetDouble(06) != 0 ? reader.GetDouble(06) : 0;
-            if (!reader.IsDBNull(07)) item.SubTipo_VR       = reader.GetString(07) != string.Empty ? reader.GetString(07).Trim() : string.Empty;
-            if (!reader.IsDBNull(08)) item.SubTipo_VRID     = reader.GetDouble(08) != 0 ? reader.GetDouble(08) : 0;
-            if (!reader.IsDBNull(09)) item.Data_Inicial     = reader.GetDateTime(09);
-            if (!reader.IsDBNull(10)) item.Data_Final       = reader.GetDateTime(10);
-            if (!reader.IsDBNull(11)) item.Velocidade       = reader.GetDouble(11);
-            if (!reader.IsDBNull(12)) item.Km_Inicial       = reader.GetDecimal(12);
-            if (!reader.IsDBNull(13)) item.Km_Final         = reader.GetDecimal(13);
-            if (!reader.IsDBNull(14)) item.Observacao       = reader.GetString(14);
-            if (!reader.IsDBNull(15)) item.Situacao         = reader.GetString(15);
-            if (!reader.IsDBNull(16)) item.Responsavel      = reader.GetString(16);
+            if (!reader.IsDBNull(07)) item.SubTipo_VR = reader.GetString(07) != string.Empty ? reader.GetString(07).Trim() : string.Empty;
+            if (!reader.IsDBNull(08)) item.SubTipo_VRID = reader.GetDouble(08) != 0 ? reader.GetDouble(08) : 0;
+            if (!reader.IsDBNull(09)) item.Data_Inicial = reader.GetDateTime(09);
+            if (!reader.IsDBNull(10)) item.Data_Final = reader.GetDateTime(10);
+            if (!reader.IsDBNull(11)) item.Velocidade = reader.GetDouble(11);
+            if (!reader.IsDBNull(12)) item.Km_Inicial = reader.GetDecimal(12);
+            if (!reader.IsDBNull(13)) item.Km_Final = reader.GetDecimal(13);
+            if (!reader.IsDBNull(14)) item.Observacao = reader.GetString(14);
+            if (!reader.IsDBNull(15)) item.Situacao = reader.GetString(15);
+            if (!reader.IsDBNull(16)) item.Responsavel = reader.GetString(16);
 
             if (!string.IsNullOrEmpty(item.ProgramadaID) && string.IsNullOrEmpty(item.CirculacaoID))
                 item.Tipo = "PP";
