@@ -28,6 +28,8 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Observacao { get; set; }
         public string Situacao { get; set; }
         public string Responsavel { get; set; }
+        public string Cpf { get; set; }
+        public string Telefone { get; set; }
         public double? Duracao { get; set; }
         public DateTime DataIniProg { get; set; }
 

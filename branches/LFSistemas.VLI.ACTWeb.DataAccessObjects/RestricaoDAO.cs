@@ -607,8 +607,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return retorno;
         }
-
-        public bool VerificaBSmesmoTipo(double secao, double subtipo, DateTime dataFinalBSAtual, DateTime dataFim, DateTime dataAtual)
+		
+		public bool VerificaBSmesmoTipo(double secao, double subtipo, DateTime dataFinalBSAtual, DateTime dataFim, DateTime dataAtual)
         {
             #region [ PROPRIEDADES ]
 
@@ -708,6 +708,67 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 throw new Exception(ex.Message);
             }
         }
+
+
+        public bool PermiteBS(double cpf, double subtipoVR)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            bool retorno = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"select * from actpp.OPERADORES_BS OBS, actpp.bs_operador BO 
+                                      WHERE OP_CPF IN (${cpf}) 
+                                        AND OBS.OP_BS_ID = BO.OP_BS_ID
+                                        AND BO.SR_ID_STR IN (${subtipoVR})");
+
+                    if (cpf != null)
+                        query.Replace("${cpf}", string.Format("{0}", cpf));
+                    else
+                        query.Replace("${cpf}", " ");
+
+                    if (subtipoVR != null)
+                        query.Replace("${subtipoVR}", string.Format("{0}", subtipoVR));
+                    else
+                        query.Replace("${subtipoVR}", " ");
+
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+                    command.CommandText = query.ToString();
+                    
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            retorno = true;
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Restrição", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return retorno;
+        }
+
 
         /// <summary>
         /// Obtem um objeto restrição pelo id
