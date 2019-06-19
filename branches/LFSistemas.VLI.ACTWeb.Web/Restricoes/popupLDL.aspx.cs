@@ -781,12 +781,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             if (txtDadosResponsavel.Text.Length > 0)
             {
-                ResponsavelController responsavel = new ResponsavelController();
-                var dados = responsavel.ObterResponsavelPorMatricula(txtDadosResponsavel.Text);
+                RestricaoController responsavel = new RestricaoController();
+
+                var dados = responsavel.PermiteLDL(txtDadosResponsavel.Text);
 
                 if (dados.Matricula != null)
                 {
-                    if (dados.LDL != "N")
+                    if (dados.LDL != "Não")
                     {
                         lblResponsavel_Nome.Text = dados.Nome.Trim();
                     }

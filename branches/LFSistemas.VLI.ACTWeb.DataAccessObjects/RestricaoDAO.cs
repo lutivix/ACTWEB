@@ -665,36 +665,42 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         {
                             var item = PreencherPropriedadesRestricoesProgramadas(reader);
                             itens.Add(item);
-
                         }
 
-                        for (int i = 0; i < itens.Count; i++)
+                        if (itens.Count > 0)
                         {
-                            TimeSpan intervalo = TimeSpan.FromHours(1);
-                            DateTime aux = itens[i].DataIniProg;
-                            DateTime dataIniProg = aux.Subtract(intervalo);
+                            for (int i = 0; i < itens.Count; i++)
+                            {
+                                TimeSpan intervalo = TimeSpan.FromHours(1);
+                                DateTime aux = itens[i].DataIniProg;
+                                DateTime dataIniProg = aux.Subtract(intervalo);
 
-                            int resultado = DateTime.Compare(dataFinalBSAtual, dataIniProg);
-                            
-                            //Data final programada da BS a entrar é anterior  a final da programada
-                            if (resultado < 0)
-                            {
-                                podeCriarBS = true;
-                            }
-                            //Data final programada da BS a entrar é posterior a final programada
-                            else if(resultado > 0)
-                            {
-                                podeCriarBS = false;
-                                return podeCriarBS;
-                            }
-                            //Datas são iguais
-                            else if(resultado == 0)
-                            {
-                                podeCriarBS = false;
-                                return podeCriarBS;
+                                int resultado = DateTime.Compare(dataFinalBSAtual, dataIniProg);
+
+                                //Data final programada da BS a entrar é anterior  a final da programada
+                                if (resultado < 0)
+                                {
+                                    podeCriarBS = true;
+                                }
+                                //Data final programada da BS a entrar é posterior a final programada
+                                else if (resultado > 0)
+                                {
+                                    podeCriarBS = false;
+                                    return podeCriarBS;
+                                }
+                                //Datas são iguais
+                                else if (resultado == 0)
+                                {
+                                    podeCriarBS = false;
+                                    return podeCriarBS;
+                                }
                             }
                         }
-
+                        else
+                        {
+                            podeCriarBS = true;
+                        }
+                        
                         return podeCriarBS;
                     }
 
@@ -767,6 +773,57 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             }
 
             return retorno;
+        }
+
+        public Responsavel PermiteLDL(string cpf)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+
+            Responsavel responsavel = new Responsavel();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT OP_BS_MAT, OP_BS_NM, OP_PERMITE_LDL FROM ACTPP.OPERADORES_BS WHERE OP_CPF = ${CPF}");
+
+                    if (cpf != null)
+                        query.Replace("${CPF}", string.Format("'{0}'", cpf));
+                    else
+                        query.Replace("${CPF}", " ");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+                    command.CommandText = query.ToString();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                           responsavel = PreencherPropriedadesLDL(reader);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Restrição", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return responsavel;
         }
 
 
@@ -1813,6 +1870,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 item.Tipo = "PC";
 
             return item;
+        }
+        private Responsavel PreencherPropriedadesLDL(OleDbDataReader reader)
+        {
+            Responsavel responsavel = new Responsavel();
+
+            if (!reader.IsDBNull(00)) responsavel.Matricula = reader.GetString(00);
+            if (!reader.IsDBNull(01)) responsavel.Nome = reader.GetString(01);
+            if (!reader.IsDBNull(02)) responsavel.LDL = reader.GetString(02) == "S" ? "Sim" : "Não";
+
+            return responsavel;
         }
 
         private Restricao PreencherPropriedadesRestricoesProgramadas(OleDbDataReader reader)

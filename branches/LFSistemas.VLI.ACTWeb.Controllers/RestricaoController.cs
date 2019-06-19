@@ -65,6 +65,11 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.PermiteBS(cpf, subtipoVR);
         }
 
+        public Responsavel PermiteLDL(string cpf)
+        {
+            return dao.PermiteLDL(cpf);
+        }
+
         //verifica no banco de dados se existe uma VR com mesmo subtipo na mesma sb 
         public bool VerificaBSmesmoTipo(double secao, double subtipo, DateTime dataFinalBSAtual, DateTime dataFim, DateTime dataAtual)
         {

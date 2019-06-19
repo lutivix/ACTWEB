@@ -408,6 +408,52 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return true;
         }
 
+        public bool AtualizarDataUltSol(string cpf, string matricula, string usuarioID, string acao)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ INSERE USUÁRIO NO BANCO ]
+
+                    var command = connection.CreateCommand();
+                    query.Append(@"UPDATE ACTPP.OPERADORES_BS SET OP_ULTIMA_SOLICIT = SYSDATE
+                                    WHERE OP_CPF = ${CPF}");
+
+                    #endregion
+
+                    #region [ PARÂMETRO ]
+
+                    query.Replace("${CPF}", string.Format("{0}", cpf));
+
+                    #endregion
+
+                    #region [ RODA A QUERY NO BANCO ]
+
+                    command.CommandText = query.ToString();
+                    command.ExecuteNonQuery();
+
+                    LogDAO.GravaLogBanco(DateTime.Now, matricula, "Usuários", usuarioID, null, "Usuário CPF: " + cpf + ", atualizado campo OP_ULTIMA_SOLICIT na tabela OPERADORES_BS devido a " + acao + " de novo Boletim de Serviço. ", Uteis.OPERACAO.Atualizou.ToString());
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return true;
+        }
+
         public bool DeletarSubtiposAssociados(UsuarioAutorizado usuario, string usuarioLogado)
         {
             #region [ PROPRIEDADES ]

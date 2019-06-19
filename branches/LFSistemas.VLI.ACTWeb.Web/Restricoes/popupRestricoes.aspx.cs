@@ -465,9 +465,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             #endregion
 
+            if (txtDadosCpf.Text.Length <= 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Informa o CPF.' });", true);
+                return;
+            }
+
             if (!restricaoController.PermiteBS(double.Parse(txtDadosCpf.Text), double.Parse(ddlDadosSubTipoVR.SelectedItem.Value)))
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido o CPF informado não ter permissão para criação de BS.' });", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido o CPF informado não ter permissão para criação desse subtipo de BS.' });", true);
                 return;
             }
 
@@ -519,13 +525,32 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         if (retorno == true)
                         {
                             if ((int.Parse(ddlDadosTipoRestricao.SelectedItem.Value) == 26) || (int.Parse(ddlDadosTipoRestricao.SelectedItem.Value) == 27))
+                            {
+                                UsuarioAutController usuario = new UsuarioAutController();
+                                string CPF = txtDadosCpf.Text.Trim();
+                                string matricula = lblUsuarioMatricula.Text.Trim();
+                                string usuarioID = lblUsuarioLogado.Text.Trim();
+                                string acao = "programação";
+                                usuario.AtualizarDataUltSol(CPF, matricula, usuarioID, acao);
+
                                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição programada com sucesso. " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
+                            }
                             else
+                            {
+
+                                UsuarioAutController usuario = new UsuarioAutController();
+                                string CPF = txtDadosCpf.Text.Trim();
+                                string matricula = lblUsuarioMatricula.Text.Trim();
+                                string usuarioID = lblUsuarioLogado.Text.Trim();
+                                string acao = "criação";
+                                usuario.AtualizarDataUltSol(CPF, matricula, usuarioID, acao);
+
                                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição criada com sucesso. " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
 
-                            LimpaCampos();
-                            AtualizarListaDeRestricoes();
-                            HabilitaDesabilitaCombos(true);
+                                LimpaCampos();
+                                AtualizarListaDeRestricoes();
+                                HabilitaDesabilitaCombos(true);
+                            }
                         }
                         else
                         {
@@ -846,7 +871,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         if (restricaoController.ChecaVR(IdConfirmacao))
                         {
                             retorno = programouRestricao = true;
-                            LogDAO.GravaLogBanco(dataHoraEnvio, lblUsuarioMatricula.Text, "Restrições", null, IdConfirmacao.ToString(), "Restrição programada com sucesso. SB: " + rr.Secao_Elemento + " - TR: " + rr.Tipo_Restricao + " - STR: " + rr.SubTipo_VR + " - DTI: " + DateTime.FromOADate(DataIni) + " - DTF: " + DateTime.FromOADate(DataFim) + " - KMI: " + rr.Km_Inicial + " - KMF: " + rr.Km_Final + " - RESP: " + rr.Responsavel + " - OBS: " + rr.Observacao, Uteis.OPERACAO.Programou.ToString());
+                            LogDAO.GravaLogBanco(dataHoraEnvio, lblUsuarioMatricula.Text, "Restrições", null, IdConfirmacao.ToString(), "Restrição programada com sucesso. SB: " + rr.Secao_Elemento + " - ID: " + rr.ProgramadaID + " - TR: " + rr.Tipo_Restricao + " - STR: " + rr.SubTipo_VR + " - DTI: " + DateTime.FromOADate(DataIni) + " - DTF: " + DateTime.FromOADate(DataFim) + " - KMI: " + rr.Km_Inicial + " - KMF: " + rr.Km_Final + " - RESP: " + rr.Responsavel + " - CPF: " + rr.Cpf + " - OBS: " + rr.Observacao, Uteis.OPERACAO.Programou.ToString());
                         }
                         else
                             msg = "A Restrição não pode ser programada.";
@@ -857,9 +882,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         {
                             retorno = programouRestricao = true;
                             if (DataIni != 0 && DataFim != 0)
-                                LogDAO.GravaLogBanco(dataHoraEnvio, lblUsuarioMatricula.Text, "Restrições", null, IdConfirmacao.ToString(), "Restrição criada com sucesso. SB: " + rr.Secao_Elemento + " - TR: " + rr.Tipo_Restricao + " - STR: " + rr.SubTipo_VR + " - DTI: " + DateTime.FromOADate(DataIni) + " - DTF: " + DateTime.FromOADate(DataFim) + " - KMI: " + rr.Km_Inicial + " - KMF: " + rr.Km_Final + " - RESP: " + rr.Responsavel + " - OBS: " + rr.Observacao, Uteis.OPERACAO.Criou.ToString());
+                                LogDAO.GravaLogBanco(dataHoraEnvio, lblUsuarioMatricula.Text, "Restrições", null, IdConfirmacao.ToString(), "Restrição criada com sucesso. SB: " + rr.Secao_Elemento + " - ID: " + rr.CirculacaoID + " - TR: " + rr.Tipo_Restricao + " - STR: " + rr.SubTipo_VR + " - DTI: " + DateTime.FromOADate(DataIni) + " - DTF: " + DateTime.FromOADate(DataFim) + " - KMI: " + rr.Km_Inicial + " - KMF: " + rr.Km_Final + " - RESP: " + rr.Responsavel + " - CPF: " + rr.Cpf + " - OBS: " + rr.Observacao, Uteis.OPERACAO.Criou.ToString());
                             else
-                                LogDAO.GravaLogBanco(dataHoraEnvio, lblUsuarioMatricula.Text, "Restrições", null, IdConfirmacao.ToString(), "Restrição criada com sucesso. SB: " + rr.Secao_Elemento + " - TR: " + rr.Tipo_Restricao + " - STR: " + rr.SubTipo_VR + " - KMI: " + rr.Km_Inicial + " - KMF: " + rr.Km_Final + " - RESP: " + rr.Responsavel + " - OBS: " + rr.Observacao, Uteis.OPERACAO.Solicitou.ToString());
+                                LogDAO.GravaLogBanco(dataHoraEnvio, lblUsuarioMatricula.Text, "Restrições", null, IdConfirmacao.ToString(), "Restrição criada com sucesso. SB: " + rr.Secao_Elemento + " - ID: " + rr.CirculacaoID + " - TR: " + rr.Tipo_Restricao + " - STR: " + rr.SubTipo_VR + " - KMI: " + rr.Km_Inicial + " - KMF: " + rr.Km_Final + " - RESP: " + rr.Responsavel + " - CPF: " + rr.Cpf + " - OBS: " + rr.Observacao, Uteis.OPERACAO.Solicitou.ToString());
                         }
                         else
                             msg = "A Restrição não pode ser criada.";
