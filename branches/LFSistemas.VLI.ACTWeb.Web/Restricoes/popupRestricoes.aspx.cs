@@ -100,7 +100,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                       char[] prmResponsavel,
                                       int prmConfirmacao,
                                       char[] prmMatricula,
-                                      char prmTpUser);
+                                      char prmTpUser,
+                                      char[] prmCpf,
+                                      char[] prmTel);
 
 
         /// <summary>
@@ -471,6 +473,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 return;
             }
 
+            if (txtTelefone.Text.Length <= 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Informa o Telefone.' });", true);
+                return;
+            }
+
             if (!restricaoController.PermiteBS(double.Parse(txtDadosCpf.Text), double.Parse(ddlDadosSubTipoVR.SelectedItem.Value)))
             {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido o CPF informado não ter permissão para criação desse subtipo de BS.' });", true);
@@ -831,6 +839,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 char[] responsavel = new char[20];
                 char[] usuario = new char[10];
                 char[] obs = new char[36];
+                char[] tel = new char[11];
+                char[] cpf = new char[11];
 
                 for (int i = 0; i <= 35; i++)
                 {
@@ -856,11 +866,27 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         responsavel[i] = char.MinValue;
                 }
 
+                for (int i = 0; i <= 10; i++)
+                {
+                    if (i < rr.Cpf.Length)
+                        cpf[i] = rr.Cpf[i];
+                    else
+                        cpf[i] = char.MinValue;
+                }
+
+                for (int i = 0; i <= 10; i++)
+                {
+                    if (i < rr.Telefone.Length)
+                        tel[i] = rr.Telefone[i];
+                    else
+                        tel[i] = char.MinValue;
+                }
+
                 var dataHoraEnvio = DateTime.Now;
 
                 DLLSendCRA((int)rr.Secao_ElementoID, (int)rr.Duracao, (int)rr.Tipo_RestricaoID, (int)rr.SubTipo_VRID,
                     (int)rr.Velocidade, (double)rr.Km_Inicial, (double)rr.Km_Final, obs, DataIni,
-                    DataFim, responsavel, IdConfirmacao, usuario, 'W');
+                    DataFim, responsavel, IdConfirmacao, usuario, 'W', cpf, tel);
 
                 TimeSpan horaCriacao = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
