@@ -476,6 +476,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido o CPF informado não ter permissão para criação desse subtipo de BS.' });", true);
                 return;
             }
+            if (!restricaoController.PermiteAtivo(double.Parse(txtDadosCpf.Text)))
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido o CPF informado não estar ativo.' });", true);
+                return;
+            }
 
             if (!restricaoController.ExisteRestricao(double.Parse(ddlDadosSecoes.SelectedItem.Value), double.Parse(ddlDadosTipoRestricao.SelectedItem.Value), double.Parse(ddlDadosSubTipoVR.SelectedItem.Value), Data1, Data2, Vel, Km1, Km2))
             {

@@ -775,6 +775,72 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return retorno;
         }
 
+        public bool PermiteAtivo(double cpf)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            bool retorno = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"select OP_PERFIL_ATIVO from actpp.OPERADORES_BS OBS 
+                                      WHERE OP_CPF IN (${cpf})");
+
+                    if (cpf != null)
+                        query.Replace("${cpf}", string.Format("{0}", cpf));
+                    else
+                        query.Replace("${cpf}", " ");
+
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+                    command.CommandText = query.ToString();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            if (!reader.IsDBNull(00))
+                            {
+                                if (reader.GetString(00) == "S")
+                                {
+                                    retorno = true;
+                                }
+                                else
+                                {
+                                    retorno = false;
+                                }
+                            }
+                            else
+                            {
+                                retorno = false;
+                            }
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Restrição", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return retorno;
+        }
+
         public Responsavel PermiteLDL(string cpf)
         {
             #region [ PROPRIEDADES ]

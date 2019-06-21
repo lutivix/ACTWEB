@@ -182,7 +182,7 @@
 
                                 <td style="width: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); " title="<%# Eval("UltSolicitacao")%>"><%# Eval("UltSolicitacao")%> </td>
 
-                                <td style="width: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); " title="<%# Eval("Ativo")%>"><%# Eval("Ativo")%> </td>
+                                <td style="width: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); " title="<%# Eval("Ativo_SN")%>"><%# Eval("Ativo_SN")%> </td>
                             </tr>
                         </ItemTemplate>
                         <FooterTemplate>

@@ -69,6 +69,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             txtCPF.Text = usuario.CPF != null ? usuario.CPF.Trim() : string.Empty;
             txtSupervisao.Text = usuario.Supervisao.Trim();
             ddlCorredores.SelectedIndex = ddlCorredores.Items.IndexOf(ddlCorredores.Items.FindByText(usuario.Nome_Corredor));
+            chkAtivo.Checked = usuario.Ativo_SN == "Sim" ? true : false;
             if (usuario.PermissaoLDL.Equals("Sim"))
             {
                 cblPermissoes.SelectedValue = "1";
@@ -111,6 +112,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             usuario.Supervisao = txtSupervisao.Text.Trim();
             usuario.Gerencia = txtGerencia.Text.Trim();
             usuario.Empresa = txtEmpresa.Text.Trim();
+            usuario.Ativo_SN = chkAtivo.Checked ? "S" : "N";
 
             if (cblPermissoes.Items[0].Selected == true)
             {
@@ -247,7 +249,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                 case "consulta":
                     lblTitulo.Text = "Alteração de Usuário";
                     txtMatriculaACT.Enabled = false;
-                    //txtNome.Enabled = txtSenha.Enabled = ddlPerfil.Enabled = txtMaleta.Enabled = txtEmail.Enabled = chkAtivo.Enabled = true;
+                    //txtNome.Enabled = txtSenha.Enabled = ddlPerfil.Enabled = txtMaleta.Enabled = txtEmail.Enabled = true;
+                    chkAtivo.Enabled = true;
                     ButtonSalvar.Visible = ButtonCancelar.Visible = true;
                     CarregaDados(Matricula);
 
@@ -256,6 +259,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                     lblTitulo.Text = "Alteração de Senha de Usuário";
                     //txtSenhaACT.Enabled = true;
                     //txtMatricula.Enabled = txtNome.Enabled = ddlPerfil.Enabled = txtMaleta.Enabled = txtEmail.Enabled = chkAtivo.Enabled = false;
+                    chkAtivo.Enabled = false;
                     ButtonSalvar.Visible = ButtonCancelar.Visible = true;
                     CarregaDados(ulMatricula);
                     break;
@@ -264,6 +268,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                     lblTitulo.Text = "Exibindo dados de Usuário";
 
                     //txtMatricula.Enabled = txtNome.Enabled = ddlPerfil.Enabled = txtMaleta.Enabled = txtEmail.Enabled = txtSenha.Enabled = chkAtivo.Enabled = false;
+                    chkAtivo.Enabled = false;
                     ButtonSalvar.Visible = false;
                     ButtonCancelar.Visible = true;
                     CarregaDados(ulMatricula);

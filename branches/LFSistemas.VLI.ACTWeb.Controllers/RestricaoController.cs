@@ -65,6 +65,11 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.PermiteBS(cpf, subtipoVR);
         }
 
+        public bool PermiteAtivo(double cpf)
+        {
+            return dao.PermiteAtivo(cpf);
+        }
+
         public Responsavel PermiteLDL(string cpf)
         {
             return dao.PermiteLDL(cpf);

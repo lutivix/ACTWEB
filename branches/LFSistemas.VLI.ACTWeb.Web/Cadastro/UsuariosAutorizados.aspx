@@ -27,10 +27,14 @@
    
     <p id="LabelMensagem" runat="server" class="bg-success">Registro adicionado com sucesso!</p>
     <div class="row">
-        <div class="form-group col-sm-12">
+        <div class="form-group col-sm-6">
             <label for="nome">Nome:</label>
             <asp:TextBox runat="server" ID="txtNomeACT" CssClass="form-control" MaxLength="30" />
         </div>
+        <div class="form-group col-sm-1">
+            <label for="email">Ativo:</label><br />
+            <asp:CheckBox runat="server" ID="chkAtivo" CssClass="form-control" Checked="true" Width="40px" />
+        </div> 
     </div>
     <div class="row">
         <div class="form-group col-sm-6">
@@ -41,7 +45,8 @@
             <label for="cpf">CPF:</label>
             <asp:TextBox runat="server" ID="txtCPF" CssClass="form-control"  onkeypress="return PermiteSomenteNumeros(event);" MaxLength="11" AutoPostBack="true" />
         </div>
-
+    </div>
+    <div class="row">
         <div class="form-group col-sm-6">
 
             <label for="gerencia">Gerência:</label>
@@ -49,7 +54,6 @@
 
             
         </div>
-
         <div class="form-group col-sm-6">
 
             <label for="supervisao">Supervisão:</label>
@@ -57,7 +61,8 @@
 
             
         </div>
-
+    </div>
+    <div class="row">
         <div class="form-group col-sm-6">
 
             <label for="empresa">Empresa:</label>
@@ -65,9 +70,6 @@
 
             
         </div>
-        
-        
-
         <div class="form-group col-sm-1">
                <td style="width: 30%" rowspan="2">
                             <label for="subtipos">Subtipos:</label><br />
@@ -75,8 +77,7 @@
                                 <asp:CheckBoxList runat="server" ID="cblSubtipos" />
                             </asp:Panel>
                         </td>   
-        </div> 
-
+        </div>
          <div class="form-group col-sm-1">
             <label for="permiteldl">Permite:</label><br />
 
@@ -84,17 +85,13 @@
                 <asp:ListItem Text="LDL" Value="1"></asp:ListItem>
             </asp:CheckBoxList>    
 
-        </div> 
-
+        </div>
         <div class="form-group col-sm-2 ">
                                 <label for="matricula">Corredor:</label>
                                     <asp:DropDownList runat="server" ID="ddlCorredores" CssClass="form-control" Width="170" Height="30">
                                     </asp:DropDownList>
-        </div> 
-         
-        
-                
-    </div>
+        </div>
+    </div>      
 
     
     

@@ -26,6 +26,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Prefil_ID { get; set; }
         public string Perfil { get; set; }
         public string CPF { get; set; }
+        public string Ativo_SN { get; set; }
 
     }
 }

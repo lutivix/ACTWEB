@@ -370,6 +370,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     ${GERENCIA}
                                     ${EMPRESA}
                                     ${PERMITE_LDL}
+                                    ${ATIVO_SN}
                                     WHERE OP_BS_ID = ${ID}");
 
                     #endregion
@@ -385,6 +386,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Replace("${GERENCIA}", string.Format(", OP_BS_GERENCIA = '{0}'", usuario.Gerencia));
                     query.Replace("${EMPRESA}", string.Format(", OP_BS_EMPRESA = '{0}'", usuario.Empresa));
                     query.Replace("${PERMITE_LDL}", string.Format(", OP_PERMITE_LDL = '{0}'", usuario.PermissaoLDL.Substring(0,1)));
+                    query.Replace("${ATIVO_SN}", string.Format(", OP_PERFIL_ATIVO = '{0}'", usuario.Ativo_SN));
 
                     #endregion
 
@@ -518,7 +520,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(7)) item.Empresa = reader.GetString(7);
                 if (!reader.IsDBNull(8)) item.PermissaoLDL = reader.GetString(8) == "S" ? "Sim" : "Não";
                 if (!reader.IsDBNull(9)) item.UltSolicitacao = reader.GetDateTime(9);
-                if (!reader.IsDBNull(10)) item.Ativo = reader.GetString(10) == "S" ? "Sim" : "Não";
+                if (!reader.IsDBNull(10)) item.Ativo_SN = reader.GetString(10) == "S" ? "Sim" : "Não";
 
                 item.Nome_Corredor = VerificaCorredor((int)corredorID);
                 

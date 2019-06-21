@@ -29,7 +29,10 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
 
         public bool Atualizar(UsuarioAutorizado usuario, string usuariologado)
         {
-            return dao.Atualizar(usuario, usuariologado);
+            bool retorno = false;
+            if (dao.Atualizar(usuario, usuariologado))
+                return retorno = true;
+            else return retorno;
         }
 
         public bool AtualizarDataUltSol(string cpf, string matricula, string usuarioID, string acao)
