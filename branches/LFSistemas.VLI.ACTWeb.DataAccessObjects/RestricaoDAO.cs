@@ -1012,7 +1012,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
 
 
-                    query.Append(@"SELECT tr_cod_tp TIPO, ev_nom_mac SB, rc_dt_ini_rlz DATA, rc_vel_max VEL, rc_km_ini KM_INI, rc_km_fim KM_FIM, rc_obs OBSERVACAO 
+                    query.Append(@"SELECT tr_cod_tp TIPO, ev_nom_mac SB, rc_dt_ini_rlz DATA, rc_vel_max VEL, rc_km_ini KM_INI, rc_km_fim KM_FIM, rc_obs OBSERVACAO, nm_cor_id CORREDOR 
                                     from ACTPP.restricoes_circulacao rc, ACTPP.elem_via ev, ACTPP.tipos_restricao tr 
                                         where rc_st = 'E' and ev.ev_id_elm = rc.ev_id_elm and rc.tr_id_tp=tr.tr_id_Tp");
 
@@ -1044,7 +1044,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return itens.ToList();
         }
 
-        public List<Restricao> ObterListaRestricoesPorData(string dataInicial, string dataFinal)
+        public List<Restricao> ObterListaRestricoesPorData(string dataInicial, string dataFinal, string corredores, string SB, string TipoRest)
         {
             #region [ PROPRIEDADES ]
 
@@ -1063,11 +1063,26 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
 
 
-                    query.Append(@"SELECT tr_cod_tp TIPO, ev_nom_mac SB, rc_dt_ini_rlz DATA_INICIO, rc_dt_fim_rlz DATA_FIM, rc_vel_max VEL, rc_km_ini KM_INI, rc_km_fim KM_FIM, rc_obs OBSERVACAO, rc_st STATUS 
+                    query.Append(@"SELECT tr_cod_tp TIPO, ev_nom_mac SB, rc_dt_ini_rlz DATA_INICIO, rc_dt_fim_rlz DATA_FIM, rc_vel_max VEL, rc_km_ini KM_INI, rc_km_fim KM_FIM, rc_obs OBSERVACAO, rc_st STATUS, rc_id_rc ID, nm_cor_id CORREDOR 
                                     from ACTPP.restricoes_circulacao rc, ACTPP.elem_via ev, ACTPP.tipos_restricao tr 
                                         where ev.ev_id_elm = rc.ev_id_elm 
                                             and rc.tr_id_tp=tr.tr_id_Tp 
-                                            and rc_dt_ini_rlz > to_date('" + dataInicial + "','dd/mm/yyyy hh24:mi') and rc_dt_ini_rlz < to_date('" + dataFinal + "','dd/mm/yyyy hh24:mi') ORDER BY rc_dt_ini_rlz desc");
+                                            and rc_dt_ini_rlz > to_date('" + dataInicial + "','dd/mm/yyyy hh24:mi') and rc_dt_ini_rlz < to_date('" + dataFinal + "','dd/mm/yyyy hh24:mi') ${CORREDOR} ${SECAO} ${TR_COD_TP} ORDER BY rc_dt_ini_rlz desc");
+
+                    if (!string.IsNullOrEmpty(corredores))
+                        query.Replace("${CORREDOR}", string.Format("AND NM_COR_ID IN ({0})", corredores));
+                    else
+                        query.Replace("${CORREDOR}", "");
+
+                    if (SB != null)
+                        query.Replace("${SECAO}", string.Format(" AND EV_NOM_MAC = '{0}'", SB));
+                    else
+                        query.Replace("${SECAO}", " ");
+
+                    if (TipoRest != null)
+                        query.Replace("${TR_COD_TP}", string.Format(" AND TR_COD_TP = '{0}'", TipoRest));
+                    else
+                        query.Replace("${TR_COD_TP}", " ");
 
                     #endregion
 
@@ -1973,6 +1988,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(4)) item.Km_Inicial = reader.GetDecimal(4);
             if (!reader.IsDBNull(5)) item.Km_Final = reader.GetDecimal(5);
             if (!reader.IsDBNull(6)) item.Observacao = reader.GetString(6);
+            if (!reader.IsDBNull(7)) item.Corredor_id = reader.GetDouble(7);
+
+            item.Nome_Corredor = VerificaCorredor((int)item.Corredor_id);
 
             return item;
         }
@@ -1995,7 +2013,10 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(6)) item.Km_Final = reader.GetDecimal(6);
             if (!reader.IsDBNull(7)) item.Observacao = reader.GetString(7);
             if (!reader.IsDBNull(8)) item.Situacao = reader.GetString(8);
+            if (!reader.IsDBNull(9)) item.Restricao_id = reader.GetDouble(9);
+            if (!reader.IsDBNull(10)) item.Corredor_id = reader.GetDouble(10);
 
+            item.Nome_Corredor = VerificaCorredor((int)item.Corredor_id);
 
             return item;
         }
@@ -2050,6 +2071,32 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(1)) item.Tipo_RestricaoNome = reader.GetString(1) != string.Empty ? string.Format("{0} - {1}", reader.GetString(1).Trim(), reader.GetString(2).Trim()) : string.Empty;
 
             return item;
+        }
+
+        public string VerificaCorredor(int id_corredor)
+        {
+            switch (id_corredor)
+            {
+                case 1:
+                    return "Centro Leste";
+
+                case 2:
+                    return "Centro Sudeste";
+
+                case 3:
+                    return "Centro Norte";
+
+                case 4:
+                    return "Minas Rio";
+
+                case 5:
+                    return "Minas Bahia";
+
+                case 6:
+                    return "Baixada";
+
+                default: return "";
+            }
         }
 
         #endregion

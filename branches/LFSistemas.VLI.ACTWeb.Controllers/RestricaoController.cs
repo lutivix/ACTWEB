@@ -120,10 +120,10 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         /// <param name="dataInicial">[ DateTime ]: - Data Inicial</param>
         /// <param name="dataFinal">[ DateTime ]: - Data Final</param>
         /// <returns>Retorna uma lista de restrições conforme parâmentros indicados</returns>
-        public List<Restricao> ObterListaRestricoesPorData(string dataInicial, string dataFinal)
+        public List<Restricao> ObterListaRestricoesPorData(string dataInicial, string dataFinal, string corredores, string SB, string TipoRest)
         {
             var dao = new RestricaoDAO();
-            return dao.ObterListaRestricoesPorData(dataInicial, dataFinal);
+            return dao.ObterListaRestricoesPorData(dataInicial, dataFinal, corredores, SB, TipoRest);
         }
 
         /// <summary>

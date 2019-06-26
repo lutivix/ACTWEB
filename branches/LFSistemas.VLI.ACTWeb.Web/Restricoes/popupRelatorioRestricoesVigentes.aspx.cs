@@ -32,11 +32,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             ListaRestricoes = ObterListaDeRestricoes();
 
-            sb.AppendLine("TIPO;ELEMENTO;DATA;VELOCIDADE;KM INICIAL;KM FINAL;OBSERVAÇÃO");
+            sb.AppendLine("TIPO;ELEMENTO;DATA;VELOCIDADE;KM INICIAL;KM FINAL;CORREDOR;OBSERVAÇÃO");
 
             foreach (var macro in ListaRestricoes)
             {
-                sb.AppendLine(string.Format("{0};{1};{2};{3};{4};{5};{6}", macro.Tipo_Restricao, macro.Secao_Elemento, macro.Data_Inicial, macro.Velocidade, macro.Km_Inicial, macro.Km_Final, macro.Observacao));
+                sb.AppendLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7}", macro.Tipo_Restricao, macro.Secao_Elemento, macro.Data_Inicial, macro.Velocidade, macro.Km_Inicial, macro.Km_Final, macro.Nome_Corredor, macro.Observacao));
             }
 
             Response.Clear();

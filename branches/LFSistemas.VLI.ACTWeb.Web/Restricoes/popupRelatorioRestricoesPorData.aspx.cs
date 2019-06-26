@@ -3,6 +3,7 @@ using LFSistemas.VLI.ACTWeb.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Web.UI.WebControls;
 
 namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 {
@@ -11,6 +12,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         #region [ PROPRIEDADES ]
 
         public List<Restricao> ListaRestricoes { get; set; }
+        public string corredores { get; set; }
 
         #endregion
 
@@ -31,6 +33,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtFiltroDataFinal.Text = DateTime.Now.ToShortDateString();
                 txtFiltroHoraInicial.Text = DateTime.Now.ToShortTimeString();
                 txtFiltroHoraFinal.Text = DateTime.Now.ToShortTimeString();
+
+                CarregaCombos(null);
             }
         }
 
@@ -58,6 +62,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtFiltroDataFinal.Text =
                 txtFiltroHoraInicial.Text =
                 txtFiltroHoraFinal.Text = string.Empty;
+
+            CarregaCombos(null);
         }
 
         protected void bntGerarExcel_Click(object sender, EventArgs e)
@@ -66,11 +72,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             ListaRestricoes = ObterListaDeRestricoesPorData(string.Format("{0}", txtFiltroDataInicial.Text + txtFiltroHoraInicial.Text), string.Format("{0}", txtFiltroDataFinal.Text + txtFiltroHoraFinal.Text));
 
-            sb.AppendLine("TIPO;ELEMENTO;DATA INICIAL;DATA FINAL;VELOCIDADE;KM INICIAL;KM FINAL;OBSERVAÇÃO");
+            sb.AppendLine("ID;TIPO;ELEMENTO;DATA INICIAL;DATA FINAL;VELOCIDADE;KM INICIAL;KM FINAL;CORREDOR;OBSERVAÇÃO");
 
             foreach (var macro in ListaRestricoes)
             {
-                sb.AppendLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7}", macro.Tipo_Restricao, macro.Secao_Elemento, macro.Data_Inicial, macro.Data_Final, macro.Velocidade, macro.Km_Inicial, macro.Km_Final, macro.Observacao));
+                sb.AppendLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9}", macro.Restricao_id, macro.Tipo_Restricao, macro.Secao_Elemento, macro.Data_Inicial, macro.Data_Final, macro.Velocidade, macro.Km_Inicial, macro.Km_Final, macro.Nome_Corredor, macro.Observacao));
             }
 
             Response.Clear();
@@ -102,9 +108,54 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         protected List<Restricao> ObterListaDeRestricoesPorData(string dataInicial, string dataFinal)
         {
             var restricaoController = new RestricaoController();
-            var dados = restricaoController.ObterListaRestricoesPorData(dataInicial, dataFinal);
+            var aux = new List<string>();
+            if (cblDadosCorredores.Items.Count > 0)
+            {
+                for (int i = 0; i < cblDadosCorredores.Items.Count; i++)
+                {
+                    if (cblDadosCorredores.Items[i].Selected)
+                    {
+                        aux.Add(string.Format("{0}", cblDadosCorredores.Items[i].Value));
+                    }
+                }
+                if (aux.Count <= 0)
+                {
+                    for (int i = 0; i < cblDadosCorredores.Items.Count; i++)
+                    {
+
+                        aux.Add(string.Format("{0}", cblDadosCorredores.Items[i].Value));
+                    }
+                }
+                corredores = string.Join(",", aux);
+            }
+            var SB = ddlDadosSecoes.SelectedItem.Value != string.Empty ? ddlDadosSecoes.SelectedItem.Value : null;
+            var TipoRest = ddlDadosTipoRestricao.SelectedItem.Value != string.Empty ? ddlDadosTipoRestricao.SelectedItem.Value : null;
+            var dados = restricaoController.ObterListaRestricoesPorData(dataInicial, dataFinal, corredores, SB, TipoRest);
 
             return dados;
+        }
+        protected void CarregaCombos(string origem)
+        {
+            var pesquisa = new ComboBoxController();
+
+            var corredores = pesquisa.ComboBoxCorredoresACTPP();
+            if (corredores.Count > 0)
+            {
+                cblDadosCorredores.DataValueField = "ID";
+                cblDadosCorredores.DataTextField = "DESCRICAO";
+                cblDadosCorredores.DataSource = corredores;
+                cblDadosCorredores.DataBind();
+            }
+
+            var restricaoController = new RestricaoController();
+            ddlDadosSecoes.DataSource = restricaoController.ObterFiltroSB();
+            ddlDadosSecoes.DataBind();
+            ddlDadosSecoes.Items.Insert(0, new ListItem("Selecione", ""));
+
+            ddlDadosTipoRestricao.DataSource = restricaoController.ObterFiltroTipo();
+            ddlDadosTipoRestricao.DataBind();
+            ddlDadosTipoRestricao.Items.Insert(0, new ListItem("Selecione", ""));
+
         }
 
         #endregion

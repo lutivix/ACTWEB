@@ -30,6 +30,9 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Responsavel { get; set; }
         public string Cpf { get; set; }
         public string Telefone { get; set; }
+        public string Nome_Corredor { get; set; }
+        public double Corredor_id { get; set; }
+        public double Restricao_id { get; set; }
         public double? Duracao { get; set; }
         public DateTime DataIniProg { get; set; }
 
