@@ -19,6 +19,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         public string ulPerfil { get; set; }
         public string ulMaleta { get; set; }
         public int UserListCount { get; set; }
+        public string subtiposFiltro = "";
         public int NowViewing
         {
             get
@@ -70,8 +71,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 lblUsuarioMaleta.Text = ulMaleta = Uteis.Descriptografar(Request.QueryString["mm"].ToString(), "a#3G6**@").ToUpper();
                 ViewState["ordenacao"] = "ASC";
 
-                //CarregarPerfis();
-                
+                CarregaCombos(null);
                 Pesquisar(null, Navigation.None);
             }
         }
@@ -399,10 +399,29 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         {
             var usuarioController = new UsuariosAutController();
 
+            List<string> subtipos = new List<string>();
+
+            for (int i = 0; i <= cblSubtipos.Items.Count - 1; i++)
+            {
+                if (cblSubtipos.Items[i].Selected)
+                {
+                    subtipos.Add(cblSubtipos.Items[i].Text);
+                }
+
+            }
+
+            if (subtipos.Count > 0)
+            {
+                subtiposFiltro = string.Join(",", subtipos);
+            }
+
             itens = usuarioController.ObterTodos(new UsuarioAutorizado()
             {
                 Matricula = txtMatricula.Text.Length > 0 ? txtMatricula.Text.Trim() : string.Empty,
-                Nome = txtNome.Text
+                Nome = txtNome.Text,   
+                ID_Corredor = int.Parse(cblCorredores.SelectedItem.Value)
+                
+
             });
 
             if (itens.Count > 0)
@@ -569,6 +588,31 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             }
 
 
+        }
+
+        protected void CarregaCombos(string origem)
+        {
+            var pesquisa = new ComboBoxController();
+
+            var subtipos = pesquisa.ComboBoxSubtipos();
+
+            if (subtipos.Count > 0)
+            {
+                cblSubtipos.DataValueField = "ID";
+                cblSubtipos.DataTextField = "DESCRICAO";
+                cblSubtipos.DataSource = subtipos;
+                cblSubtipos.DataBind();
+            }
+
+            var corredores = pesquisa.ComboBoxCorredores();
+
+            if (corredores.Count > 0)
+            {
+                cblCorredores.DataValueField = "ID";
+                cblCorredores.DataTextField = "DESCRICAO";
+                cblCorredores.DataSource = corredores;
+                cblCorredores.DataBind();
+            }
         }
 
 

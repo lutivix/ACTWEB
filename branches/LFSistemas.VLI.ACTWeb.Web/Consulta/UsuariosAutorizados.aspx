@@ -80,6 +80,42 @@
                     <label for="nome">Nome:</label>
                     <asp:TextBox runat="server" ID="txtNome" CssClass="form-control" />
                 </div>
+
+                <div class="form-group col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                    <label for="CPF">CPF:</label>
+                    <asp:TextBox runat="server" ID="txtCPF" CssClass="form-control" />
+                </div>
+
+                
+
+                </div>
+            <div class="row">
+
+                            <div class="form-group col-sm-1">
+               <td style="width: 30%" rowspan="2">
+                            <label for="subtipos">Subtipos:</label><br />
+                            <asp:Panel runat="server" Width="80px" Height="127px" ScrollBars="Vertical" CssClass="form-control">
+                                <asp:CheckBoxList runat="server" ID="cblSubtipos" />
+                            </asp:Panel>
+                        </td>   
+        </div>
+
+                 <div class="form-group col-sm-2">
+               <td style="width: 30%" rowspan="2">
+                            <label for="subtipos">Corredores:</label><br />
+                            <asp:Panel runat="server" Width="170px" Height="127px" ScrollBars="Vertical" CssClass="form-control">
+                                <asp:CheckBoxList runat="server" ID="cblCorredores" />
+                            </asp:Panel>
+                        </td>   
+        </div>
+
+                <div class="form-group col-sm-2">
+            <label for="permiteldl">Permite:</label><br />
+            <asp:CheckBoxList ID="cblPermissoes" runat="server" CssClass="form-control" Checked="false" Width="80px" height="30px">
+                <asp:ListItem Text="LDL" Value="1"></asp:ListItem>
+            </asp:CheckBoxList>    
+             </div>
+
             </div>
             <div class="row">
                 <div class="form-group col-md-12">
@@ -239,7 +275,7 @@
             <div class="Processando">
                 <table class="Texto_Processando">
                     <tr>
-                        <td>
+                        <td>    
                             <asp:Image runat="server" ID="imgProcess" ImageUrl="~/img/process.gif" Width="50" />
                         </td>
                         <td>
