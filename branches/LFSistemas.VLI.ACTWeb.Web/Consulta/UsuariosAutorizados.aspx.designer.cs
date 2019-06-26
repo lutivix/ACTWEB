@@ -103,6 +103,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         protected global::System.Web.UI.WebControls.LinkButton lnkNovo;
         
         /// <summary>
+        /// lnkExcel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkExcel;
+        
+        /// <summary>
         /// upRegistros control.
         /// </summary>
         /// <remarks>

@@ -86,6 +86,7 @@
                     <asp:LinkButton runat="server" ID="lnkPesquisar" CssClass="btn btn-success" OnClick="lnkPesquisar_Click" ToolTip="Pesquisa palavra conforme filtro informado." Width="150"><i class="fa fa-search"></i>&nbsp;Pesquisar</asp:LinkButton>
                     <asp:LinkButton runat="server" ID="lnkLimpar" CssClass="btn btn-default" OnClick="lnkLimpar_Click" ToolTip="Limpa os filtros de pesquisa." Width="150"><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
                     <asp:LinkButton runat="server" ID="lnkNovo" CssClass="btn btn-primary" OnClick="lnkNovo_Click" ToolTip="Cadastra novo registro." Width="150"><i class="fa fa-plus"></i>&nbsp;Novo</asp:LinkButton>
+                    <asp:LinkButton ID="lnkExcel" runat="server" CssClass="btn btn-default" OnClick="lnkExcel_Click" ToolTip="Exporta registros para o Excel." Width="150"><i class="fa fa-table"></i>&nbsp;Gerar Excel</asp:LinkButton>
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@ using LFSistemas.VLI.ACTWeb.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -99,6 +100,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             LinkButton btn = (LinkButton)(sender);
             string matricula = btn.CommandArgument;
             Response.Redirect("/Cadastro/UsuariosAutorizados.aspx?matricula=" + Uteis.Criptografar(matricula.ToLower(), "a#3G6**@") + "&flag=consulta&lu=" + Uteis.Criptografar(ViewState["ulNome"].ToString().ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ViewState["uMatricula"].ToString().ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ViewState["uPerfil"].ToString().ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ViewState["ulMaleta"].ToString().ToLower(), "a#3G6**@"));
+        }
+
+        protected void lnkExcel_Click(object sender, EventArgs e)
+        {
+            Excel(null, Navigation.None);
         }
 
         protected void lnkMatricula_Click(object sender, EventArgs e)
@@ -521,6 +527,48 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         {
             base.OnInitComplete(e);
             ddlPageSize.SelectedIndexChanged += new EventHandler(ddlPageSize_SelectedIndexChanged);
+        }
+
+        protected void Excel(string ordenacao, Navigation navigation)
+        {
+            UsuariosAutController usuarios = new UsuariosAutController();
+
+            UsuarioAutorizado usuario = new UsuarioAutorizado();
+
+            List<UsuarioAutorizado> itens = usuarios.ObterTodos(usuario);
+
+            if (itens.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                try
+                {
+                    sb.AppendLine("ID;MATRICULA;NOME;CPF;CORREDOR_ID;SUPERVISAO;GERENCIA;EMPRESA;PERMITE_LDL;ULTIMA_SOLICITACAO;ATIVO");
+
+                    foreach (var item in itens)
+                    {
+                        sb.AppendLine(string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10}", item.Usuario_ID, item.Matricula, item.Nome, item.CPF, item.ID_Corredor, item.Supervisao, item.Gerencia, item.Empresa, item.PermissaoLDL, item.UltSolicitacao, item.Ativo_SN));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    new Exception(ex.Message);
+                }
+
+                Response.Clear();
+                Response.ContentEncoding = Encoding.GetEncoding("iso-8859-1");
+                Response.AddHeader("content-disposition", "attachment; filename=Usuarios_Autorizados.csv");
+                Response.Write(sb.ToString());
+                Response.End();
+            }
+            else
+            {
+                RepeaterItens.DataSource = itens;
+                RepeaterItens.DataBind();
+
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A pesquisa não retornou registros.' });", true);
+            }
+
+
         }
 
 
