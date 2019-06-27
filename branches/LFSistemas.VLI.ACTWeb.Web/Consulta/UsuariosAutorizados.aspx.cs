@@ -19,7 +19,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         public string ulPerfil { get; set; }
         public string ulMaleta { get; set; }
         public int UserListCount { get; set; }
-        public string subtiposFiltro = "";
         public int NowViewing
         {
             get
@@ -82,7 +81,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
         protected void lnkPesquisar_Click(object sender, EventArgs e)
         {
-            Pesquisar(null, Navigation.None);
+            var usuarioFiltro = PreencherFiltro();
+
+            Pesquisar(null, Navigation.None, usuarioFiltro);
         }
         protected void lnkLimpar_Click(object sender, EventArgs e)
         {
@@ -104,7 +105,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
         protected void lnkExcel_Click(object sender, EventArgs e)
         {
-            Excel(null, Navigation.None);
+            var usuarioFiltro = PreencherFiltro();
+            Excel(null, Navigation.None, usuarioFiltro);
         }
 
         protected void lnkMatricula_Click(object sender, EventArgs e)
@@ -399,29 +401,137 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         {
             var usuarioController = new UsuariosAutController();
 
-            List<string> subtipos = new List<string>();
-
-            for (int i = 0; i <= cblSubtipos.Items.Count - 1; i++)
-            {
-                if (cblSubtipos.Items[i].Selected)
-                {
-                    subtipos.Add(cblSubtipos.Items[i].Text);
-                }
-
-            }
-
-            if (subtipos.Count > 0)
-            {
-                subtiposFiltro = string.Join(",", subtipos);
-            }
-
             itens = usuarioController.ObterTodos(new UsuarioAutorizado()
             {
                 Matricula = txtMatricula.Text.Length > 0 ? txtMatricula.Text.Trim() : string.Empty,
-                Nome = txtNome.Text,   
-                ID_Corredor = int.Parse(cblCorredores.SelectedItem.Value)
-                
+                Nome = txtNome.Text
+            });
 
+            if (itens.Count > 0)
+            {
+                switch (ordenacao)
+                {
+                    case "NOME ASC":
+                        itens = itens.OrderBy(o => o.Nome).ToList();
+                        break;
+                    case "NOME DESC":
+                        itens = itens.OrderByDescending(o => o.Nome).ToList();
+                        break;
+                    case "MATRICULA ASC":
+                        itens = itens.OrderBy(o => o.Matricula).ToList();
+                        break;
+                    case "MATRICULA DESC":
+                        itens = itens.OrderByDescending(o => o.Matricula).ToList();
+                        break;
+                    case "CPF ASC":
+                        itens = itens.OrderBy(o => o.CPF).ToList();
+                        break;
+                    case "CPF DESC":
+                        itens = itens.OrderByDescending(o => o.CPF).ToList();
+                        break;
+                    case "CORREDOR ASC":
+                        itens = itens.OrderBy(o => o.Nome_Corredor).ToList();
+                        break;
+                    case "CORREDOR DESC":
+                        itens = itens.OrderByDescending(o => o.Nome_Corredor).ToList();
+                        break;
+                    case "SUPERVISAO ASC":
+                        itens = itens.OrderBy(o => o.Supervisao).ToList();
+                        break;
+                    case "SUPERVISAO DESC":
+                        itens = itens.OrderByDescending(o => o.Supervisao).ToList();
+                        break;
+                    case "GERENCIA ASC":
+                        itens = itens.OrderBy(o => o.Gerencia).ToList();
+                        break;
+                    case "GERENCIA DESC":
+                        itens = itens.OrderByDescending(o => o.Gerencia).ToList();
+                        break;
+                    case "EMPRESA ASC":
+                        itens = itens.OrderBy(o => o.Gerencia).ToList();
+                        break;
+                    case "EMPRESA DESC":
+                        itens = itens.OrderByDescending(o => o.Gerencia).ToList();
+                        break;
+                    case "PERMISSAOLDL ASC":
+                        itens = itens.OrderBy(o => o.PermissaoLDL).ToList();
+                        break;
+                    case "PERMISSAOLDL DESC":
+                        itens = itens.OrderByDescending(o => o.PermissaoLDL).ToList();
+                        break;
+                    case "ULTSOL ASC":
+                        itens = itens.OrderBy(o => o.UltSolicitacao).ToList();
+                        break;
+                    case "ULTSOL DESC":
+                        itens = itens.OrderByDescending(o => o.UltSolicitacao).ToList();
+                        break;
+                    case "ATIVO ASC":
+                        itens = itens.OrderBy(o => o.SituacaoAtividade).ToList();
+                        break;
+                    case "ATIVO DESC":
+                        itens = itens.OrderByDescending(o => o.SituacaoAtividade).ToList();
+                        break;
+
+                    default:
+                        itens = itens.OrderBy(o => o.Nome).ToList();
+                        break;
+                }
+
+                PagedDataSource objPds = new PagedDataSource();
+                objPds.DataSource = itens;
+                objPds.AllowPaging = true;
+                objPds.PageSize = int.Parse(ddlPageSize.SelectedValue);
+
+                switch (navigation)
+                {
+                    case Navigation.Proxima:
+                        NowViewing++;
+                        break;
+                    case Navigation.Anterior:
+                        NowViewing--;
+                        break;
+                    case Navigation.Ultima:
+                        NowViewing = objPds.PageCount - 1;
+                        break;
+                    case Navigation.Pager:
+                        if (int.Parse(ddlPageSize.SelectedValue) >= objPds.PageCount)
+                            NowViewing = objPds.PageCount - 1;
+                        break;
+                    case Navigation.Sorting:
+                        break;
+                    default:
+                        NowViewing = 0;
+                        break;
+                }
+                objPds.CurrentPageIndex = NowViewing;
+                lblCurrentPage.Text = "Página: " + (NowViewing + 1).ToString() + " de " + objPds.PageCount.ToString();
+                lnkPaginaAnterior.Enabled = !objPds.IsFirstPage;
+                lnkProximaPagina.Enabled = !objPds.IsLastPage;
+                lnkPrimeiraPagina.Enabled = !objPds.IsFirstPage;
+                lnkUltimaPagina.Enabled = !objPds.IsLastPage;
+
+                this.RepeaterItens.DataSource = objPds;
+                this.RepeaterItens.DataBind();
+
+                lblTotal.Text = string.Format("{0:0,0}", itens.Count);
+            }
+            else
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Registro não localizado.' });", true);
+
+        }
+
+        protected void Pesquisar(string ordenacao, Navigation navigation, UsuarioAutorizado usuarioFiltro)
+        {
+            var usuarioController = new UsuariosAutController();
+
+            itens = usuarioController.ObterTodosfiltro(new UsuarioAutorizado()
+            {
+                Matricula = txtMatricula.Text.Length > 0 ? txtMatricula.Text.Trim() : string.Empty,
+                Nome = txtNome.Text,
+                Subtipos_BS = usuarioFiltro.Subtipos_BS,
+                corredores_id = usuarioFiltro.corredores_id,
+                CPF = usuarioFiltro.CPF,
+                PermissaoLDL = usuarioFiltro.PermissaoLDL
             });
 
             if (itens.Count > 0)
@@ -548,13 +658,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             ddlPageSize.SelectedIndexChanged += new EventHandler(ddlPageSize_SelectedIndexChanged);
         }
 
-        protected void Excel(string ordenacao, Navigation navigation)
+        protected void Excel(string ordenacao, Navigation navigation, UsuarioAutorizado usuarioFiltro)
         {
             UsuariosAutController usuarios = new UsuariosAutController();
 
-            UsuarioAutorizado usuario = new UsuarioAutorizado();
-
-            List<UsuarioAutorizado> itens = usuarios.ObterTodos(usuario);
+            List<UsuarioAutorizado> itens = usuarios.ObterTodosfiltro(usuarioFiltro);
 
             if (itens.Count > 0)
             {
@@ -613,6 +721,64 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 cblCorredores.DataSource = corredores;
                 cblCorredores.DataBind();
             }
+        }
+
+        public UsuarioAutorizado PreencherFiltro()
+        {
+            UsuarioAutorizado usuarioFiltro = new UsuarioAutorizado();
+
+            string subtiposFiltro = "";
+            string corredoresFiltro = "";
+            string permiteLDLFiltro = "";
+            string cpfFiltro = "";
+
+            List<string> subtipos = new List<string>();
+            List<string> corredores_id = new List<string>();
+
+            for (int i = 0; i <= cblSubtipos.Items.Count - 1; i++)
+            {
+                if (cblSubtipos.Items[i].Selected)
+                {
+                    subtipos.Add(cblSubtipos.Items[i].Value);
+                }
+            }
+
+            for (int i = 0; i <= cblCorredores.Items.Count - 1; i++)
+            {
+                if (cblCorredores.Items[i].Selected)
+                {
+                    corredores_id.Add(cblCorredores.Items[i].Value);
+                }
+            }
+
+            if (subtipos.Count > 0)
+            {
+                subtiposFiltro = string.Join(",", subtipos);
+            }
+
+            if (corredores_id.Count > 0)
+            {
+                corredoresFiltro = string.Join(",", corredores_id);
+            }
+
+            if (cblPermissoes.Items[0].Selected == true)
+            {
+                permiteLDLFiltro = "S";
+            }
+            else
+            {
+                permiteLDLFiltro = "N";
+            }
+
+            cpfFiltro = txtCPF.Text.Trim();
+
+            usuarioFiltro.Subtipos_BS = subtiposFiltro;
+            usuarioFiltro.corredores_id = corredoresFiltro;
+            usuarioFiltro.PermissaoLDL = permiteLDLFiltro;
+            usuarioFiltro.CPF = cpfFiltro;
+
+            return usuarioFiltro;
+            
         }
 
 

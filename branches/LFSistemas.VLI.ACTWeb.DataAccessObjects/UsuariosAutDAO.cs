@@ -75,6 +75,155 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return itens;
         }
 
+        public List<UsuarioAutorizado> ObterTodosfiltro(UsuarioAutorizado filtro)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var itens = new List<UsuarioAutorizado>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA OS USUÁRIOS 
+
+                    bool inicial = false;
+
+                    var command = connection.CreateCommand();
+                    query.Append(@"SELECT * FROM ACTPP.OPERADORES_BS
+                                     ${MATRICULA}
+                                     ${NOME}
+                                     ${CPF}
+                                     ${SUBTIPOS}
+                                     ${CORREDORES}
+                                     ${PERMITE_LDL}");
+
+                    if (!string.IsNullOrEmpty(filtro.Matricula))
+                    {
+                        query.Replace("${MATRICULA}", string.Format(" WHERE UPPER(OP_BS_MAT) LIKE '%{0}%'", filtro.Matricula.ToUpper()));
+                        inicial = true;
+                    } 
+                    else
+                    {
+                        query.Replace("${MATRICULA}", string.Format(" "));
+                    }
+                        
+                    if (!string.IsNullOrEmpty(filtro.Nome))
+                    {
+                        if (inicial == true)
+                        {
+                            query.Replace("${NOME}", string.Format(" AND UPPER(OP_BS_NM) LIKE '%{0}%'", filtro.Nome.ToUpper()));
+                        }
+                        else
+                        {
+                            query.Replace("${NOME}", string.Format(" WHERE UPPER(OP_BS_NM) LIKE '%{0}%'", filtro.Nome.ToUpper()));
+                            inicial = true;
+                        }
+                    }
+                    else
+                    {
+                        query.Replace("${NOME}", string.Format(" "));
+                    }
+
+                    if (!string.IsNullOrEmpty(filtro.CPF))
+                    {
+                        if (inicial == true)
+                        {
+                            query.Replace("${CPF}", string.Format(" AND UPPER(OP_CPF) = '{0}'", filtro.CPF.ToUpper()));
+                        }
+                        else
+                        {
+                            query.Replace("${CPF}", string.Format(" WHERE UPPER(OP_CPF) = '{0}'", filtro.CPF.ToUpper()));
+                            inicial = true;
+                        }
+                    }
+                    else
+                    {
+                        query.Replace("${CPF}", string.Format(" "));
+                    }
+
+                    if (!string.IsNullOrEmpty(filtro.Subtipos_BS))
+                    {
+                        if (inicial == true)
+                        {
+                            query.Replace("${SUBTIPOS}", string.Format(" AND OP_BS_ID IN(SELECT OP_BS_ID FROM  ACTPP.BS_OPERADOR WHERE SR_ID_STR IN ({0}))", filtro.Subtipos_BS));
+                        }
+                        else
+                        {
+                            query.Replace("${SUBTIPOS}", string.Format(" WHERE OP_BS_ID IN(SELECT OP_BS_ID FROM  ACTPP.BS_OPERADOR WHERE SR_ID_STR IN ({0}))", filtro.Subtipos_BS));
+                            inicial = true;
+                        }
+                    }
+                    else
+                    {
+                        query.Replace("${SUBTIPOS}", string.Format(" "));
+                    }
+
+                    if (!string.IsNullOrEmpty(filtro.corredores_id))
+                    {
+                        if (inicial == true)
+                        {
+                            query.Replace("${CORREDORES}", string.Format(" AND NM_COR_ID IN ({0})", filtro.corredores_id));
+                        }
+                        else
+                        {
+                            query.Replace("${CORREDORES}", string.Format(" WHERE NM_COR_ID IN ({0})", filtro.corredores_id));
+                            inicial = true;
+                        }
+                    }
+                    else
+                    {
+                        query.Replace("${CORREDORES}", string.Format(" "));
+                    }
+
+                    if (!string.IsNullOrEmpty(filtro.PermissaoLDL))
+                    {
+                        if (inicial == true)
+                        {
+                            query.Replace("${PERMITE_LDL}", string.Format(" AND OP_PERMITE_LDL = '{0}'", filtro.PermissaoLDL.ToUpper()));
+                        }
+                        else
+                        {
+                            query.Replace("${PERMITE_LDL}", string.Format("  WHERE OP_PERMITE_LDL = '{0}'", filtro.PermissaoLDL.ToUpper()));
+                            inicial = true;
+                        }
+                    }
+                    else
+                    {
+                        query.Replace("${PERMITE_LDL}", string.Format(" "));
+                    }
+                        
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var item = PreencherPropriedadesFiltro(reader);
+                            itens.Add(item);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return itens;
+        }
+
         public bool SalvarUsuario(UsuarioAutorizado usuario, string usuarioLogado)
         {
             #region [ PROPRIEDADES ]

@@ -17,7 +17,10 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         public List<UsuarioAutorizado> ObterTodos(UsuarioAutorizado filtro)
         {
             return dao.ObterTodos(filtro);
+        }
+        public List<UsuarioAutorizado> ObterTodosfiltro(UsuarioAutorizado filtro)
+        {
+            return dao.ObterTodosfiltro(filtro);
         } 
-
     }
 }
