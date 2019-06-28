@@ -72,6 +72,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
                 CarregaCombos(null);
                 Pesquisar(null, Navigation.None);
+                HabilitaDesabilitaFuncoes();
             }
         }
 
@@ -779,6 +780,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
             return usuarioFiltro;
             
+        }
+
+        public void HabilitaDesabilitaFuncoes()
+        {
+            if (lblUsuarioPerfil.Text == "INSP")
+            {
+                lnkNovo.Enabled = false;
+            }
         }
 
 

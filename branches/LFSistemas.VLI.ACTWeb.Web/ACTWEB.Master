@@ -733,8 +733,8 @@
                                         <span class="menu-item-label" title="Usuários Web">Usuários Web</span>
                                     </asp:LinkButton>
                                 </li>
-                                <li class="" id="Li4" runat="server">
-                                    <asp:LinkButton runat="server" ID="LinkButton1" OnClick="lnkUsuarios_Aut_Click">
+                                <li class="" id="sub_consultarusuariosautorizados" runat="server">
+                                    <asp:LinkButton runat="server" ID="lnkUsuariosAutorizados" OnClick="lnkUsuarios_Aut_Click">
                                         <span class="menu-item-icon"><i class="fa fa-search"></i></span>
                                         <span class="menu-item-label" title="Usuários Web">Usuários Autorizados</span>
                                     </asp:LinkButton>

@@ -1291,22 +1291,22 @@ namespace LFSistemas.VLI.ACTWeb.Web {
         protected global::System.Web.UI.WebControls.LinkButton lnkUsuarios;
         
         /// <summary>
-        /// Li4 control.
+        /// sub_consultarusuariosautorizados control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li4;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub_consultarusuariosautorizados;
         
         /// <summary>
-        /// LinkButton1 control.
+        /// lnkUsuariosAutorizados control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.LinkButton lnkUsuariosAutorizados;
         
         /// <summary>
         /// sub_acessos control.
