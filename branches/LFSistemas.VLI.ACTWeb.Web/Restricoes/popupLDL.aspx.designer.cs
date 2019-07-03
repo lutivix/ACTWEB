@@ -193,6 +193,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         protected global::System.Web.UI.WebControls.Label lblOperadorCCV_Nome;
         
         /// <summary>
+        /// lblCanalCom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCanalCom;
+        
+        /// <summary>
         /// rdDadosTelefone control.
         /// </summary>
         /// <remarks>
@@ -227,6 +236,24 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblResponsavel_Nome;
+        
+        /// <summary>
+        /// txtTelefoneResponsavel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTelefoneResponsavel;
+        
+        /// <summary>
+        /// txtPrefixo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPrefixo;
         
         /// <summary>
         /// rdDadosRadio control.

@@ -348,6 +348,8 @@
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </td>
+                        <td style="width: 20%; vertical-align: middle; text-align: left; padding: 1px; color: rgb(0, 72, 89);">&nbsp;&nbsp;<asp:Label runat="server" ID="lblCanalCom" Font-Size="12" Font-Bold="true" />
+                                            </td>
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:RadioButton ID="rdDadosTelefone" runat="server" Text="Telefone:" GroupName="rdContato" TextAlign="Left" Checked="true" onchange="getRadioButtonSelectedTelefone();" />&nbsp;&nbsp;</td>
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
@@ -357,7 +359,7 @@
                     </tr>
                     <tr>
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">CPF Responsável:&nbsp;&nbsp;</td>
-                        <td style="width: 55%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">
+                        <td style="width: 35%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
                                     <table style="width: 100%;">
@@ -365,13 +367,24 @@
                                             <td style="width: 15%; padding: 1px;">
                                                 <asp:TextBox ID="txtDadosResponsavel" runat="server" CssClass="form-control" OnTextChanged="txtDadosResponsavel_TextChanged" AutoPostBack="true" />
                                             </td>
-                                            <td style="width: 40%; vertical-align: middle; text-align: left; padding: 1px; color: rgb(0, 72, 89);">&nbsp;&nbsp;<asp:Label runat="server" ID="lblResponsavel_Nome" Font-Size="12" Font-Bold="true" />
+                                            <td style="width: 20%; vertical-align: middle; text-align: left; padding: 1px; color: rgb(0, 72, 89);">&nbsp;&nbsp;<asp:Label runat="server" ID="lblResponsavel_Nome" Font-Size="12" Font-Bold="true" />
                                             </td>
                                         </tr>
                                     </table>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </td>
+
+                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Telefone Responsável:&nbsp;&nbsp;</td>
+                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">
+                            <asp:TextBox ID="txtTelefoneResponsavel" runat="server" CssClass="form-control" />
+                        </td>
+
+                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Prefixo:&nbsp;&nbsp;</td>
+                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">
+                            <asp:TextBox ID="txtPrefixo" runat="server" CssClass="form-control" />
+                        </td>
+                       
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:RadioButton ID="rdDadosRadio" runat="server" Text="Rádio:" GroupName="rdContato" TextAlign="Left" onchange="getRadioButtonSelectedRadio();" />&nbsp;&nbsp;</td>
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
