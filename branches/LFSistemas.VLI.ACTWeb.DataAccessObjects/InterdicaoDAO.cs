@@ -1190,7 +1190,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"INSERT INTO SOLICITACAO_INTERDICAO (SLT_ID_SLT, SLT_ID_SLT_ACT, SLT_ID_SECAO, SLT_ID_TP_SITUACAO, SLT_ID_TP_INTERDICAO, 
                                                                        SLT_ID_TP_MANUTENCAO, SLT_ID_TP_CIRCULACAO, SLT_ID_MOTIVO, SLT_MAT_RESPONSAVEL, SLT_DATA, SLT_DURACAO_SOLICITADA, 
                                                                        SLT_KM, SLT_TELEFONE_SN, SLT_TELEFONE_NUMERO, SLT_RADIO_SN, SLT_MACRO_SN, SLT_MACRO_NUMERO, 
-                                                                       SLT_EQUIPAMENTOS, SLT_OBSERVACAO, SLT_USUARIO_LOGADO, SLT_ATIVO_SN)
+                                                                       SLT_EQUIPAMENTOS, SLT_OBSERVACAO, SLT_USUARIO_LOGADO, SLT_ATIVO_SN, SLT_TELEFONE_RESP, SLT_PREFIXO)
                                                VALUES (/*SLT_ID_SLT*/ ${SLT_ID_SLT},
                                                 /*SLT_ID_INTERDICAO*/ ${SLT_ID_SLT_ACT}, 
                                                      /*SLT_ID_SECAO*/ ${SLT_ID_SECAO},
@@ -1211,7 +1211,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                  /*SLT_EQUIPAMENTOS*/ ${SLT_EQUIPAMENTOS},
                                                    /*SLT_OBSERVACAO*/ ${SLT_OBSERVACAO},
                                                /*SLT_USUARIO_LOGADO*/ ${SLT_USUARIO_LOGADO},
-                                                     /*SLT_ATIVO_SN*/ ${SLT_ATIVO_SN})");
+                                                     /*SLT_ATIVO_SN*/ ${SLT_ATIVO_SN},
+                                                    /*SLT_TELEFONE*/ ${SLT_TELEFONE},
+                                                    /*SLT_PREFIXO*/ ${SLT_PREFIXO})");
 
 
                     #endregion
@@ -1239,7 +1241,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     if (interdicao.Observacao != null || interdicao.Observacao != "") query.Replace("${SLT_OBSERVACAO}", string.Format("'{0}'", interdicao.Observacao)); else query.Replace("${SLT_OBSERVACAO}", null);
                     if (interdicao.Usuario_Logado_Matricula != null) query.Replace("${SLT_USUARIO_LOGADO}", string.Format("'{0}'", interdicao.Usuario_Logado_Matricula));
                     if (interdicao.Ativo_SN != null || interdicao.Ativo_SN != "") query.Replace("${SLT_ATIVO_SN}", string.Format("'{0}'", interdicao.Ativo_SN)); else query.Replace("${SLT_ATIVO_SN}", string.Format("'{0}'", "S"));
-
+                    if (interdicao.Telefone_responsavel != null) query.Replace("${SLT_TELEFONE}", string.Format("'{0}'", interdicao.Telefone_responsavel));
+                    if (interdicao.Prefixo != null) query.Replace("${SLT_PREFIXO}", string.Format("'{0}'", interdicao.Prefixo)); 
 
                     #endregion
 

@@ -359,7 +359,7 @@
                                             </td>
                                              <td style="width: 20%; vertical-align: middle; text-align: left; padding: 1px; color: rgb(0, 72, 89); >
 											                         	<asp:Label runat="server" ID="lblCanalCom" Font-Size="12" Font-Bold="true" />
-											                         		MARCA TÍTULO xx&nbsp;&nbsp;
+											                         		&nbsp;&nbsp;
 											                       </td>											                      
                                         </tr>
                                     </table>
