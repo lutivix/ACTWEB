@@ -274,141 +274,201 @@
             </div>
             <div id="Interdicao">
                 <table class="nav-justified" style="width: 100%">
+                    
+                    <!--LINHA DA AUTORIZAÇÃO-->
                     <tr>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Autorização&nbsp;&nbsp;</td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Autorização&nbsp;&nbsp;</td>
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:TextBox ID="txtAutorizacao" runat="server" CssClass="form-control" Enabled="false" Text="" />
                         </td>
-                        <td style="width: 40%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
+                        <td style="width: 40%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
                     </tr>
+
+                    <!--LINHA DA SITUAÇÃO-->
                     <tr>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Situação&nbsp;&nbsp;</td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Situação&nbsp;&nbsp;</td>
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:DropDownList ID="ddlDadosTipoDaSituacao" runat="server" CssClass="form-control" Enabled="false" />
                         </td>
-                        <td style="width: 40%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Data&nbsp;&nbsp;</td>
+                        <td style="width: 20%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Data&nbsp;&nbsp;</td>
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:TextBox ID="txtDadosDataAtual" runat="server" CssClass="form-control" Enabled="false" Text="" />
                         </td>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:Label runat="server" ID="lblIdentificador" Visible="false" />
                         </td>
                     </tr>
+
+                    <!--LINHA DA SEÇÃO-->
                     <tr>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Seção:&nbsp;&nbsp;</td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Seção:&nbsp;&nbsp;</td>
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:DropDownList ID="ddlDadosSecao" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDadosSecao_SelectedIndexChanged" AutoPostBack="true" />
                         </td>
-                        <td style="width: 40%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblMensagem" Text="&nbsp;&nbsp;" Font-Size="14.5px" ForeColor="Red" /></td>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Tipo da Interdição:&nbsp;&nbsp;</td>
+                        <td style="width: 20%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblMensagem" Text="&nbsp;&nbsp;" Font-Size="14.5px" ForeColor="Red" /></td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Tipo da Interdição:&nbsp;&nbsp;</td>
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:DropDownList ID="ddlDadosTipoDaInterdicao" runat="server" CssClass="form-control" />
                         </td>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                     </tr>
+
+                    <!--LINHA DA DURAÇÃO-->
                     <tr>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Duração (Min.):&nbsp;&nbsp;</td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Duração (Min.):&nbsp;&nbsp;</td>
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:TextBox ID="txtDadosDuracaoSolicitada" runat="server" CssClass="form-control" />
                         </td>
-                        <td style="width: 40%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Tipo da Manutenção:&nbsp;&nbsp;</td>
+                        <td style="width: 20%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Tipo da Manutenção:&nbsp;&nbsp;</td>
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:DropDownList ID="ddlDadosTipoDaManutencao" runat="server" CssClass="form-control" />
                         </td>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                     </tr>
+
+                    <!--LINHA DA CIRCULAÇÃO-->
                     <tr>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Circulação:&nbsp;&nbsp;</td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Circulação:&nbsp;&nbsp;</td>
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:DropDownList ID="ddlDadosTipoDaCirculacao" runat="server" CssClass="form-control" Enabled="false" />
                         </td>
-                        <td style="width: 40%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Km:&nbsp;&nbsp;</td>
+                        <td style="width: 40%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Km:&nbsp;&nbsp;</td>
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:TextBox ID="txtDadosKm" runat="server" CssClass="form-control" />
                         </td>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                     </tr>
+
+                    <!--LINHA DO OPERADOR CVV-->
                     <tr>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Operador CCV:&nbsp;&nbsp;</td>
-                        <td style="width: 55%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Operador CCV:&nbsp;&nbsp;</td>
+                        <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+                            <asp:TextBox ID="txtDadosOperadorCCV" runat="server" CssClass="form-control" Enabled="false" MaxLength="11" onkeypress="return PermiteSomenteNumeros(event);" />
+                        </td>
+
+                        <td style="width: 25%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" >
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
                                     <table style="width: 100%;">
-                                        <tr>
-                                            <td style="width: 15%; padding: 1px;">
-                                                <asp:TextBox ID="txtDadosOperadorCCV" runat="server" CssClass="form-control" Enabled="false" MaxLength="11" onkeypress="return PermiteSomenteNumeros(event);" />
+                                        <tr>                                            
+                                            <td style="width: 40%; vertical-align: middle; text-align: left; padding: 1px; color: rgb(0, 72, 89);">&nbsp;&nbsp;
+                                                <asp:Label runat="server" ID="lblOperadorCCV_Nome" Font-Size="12" Font-Bold="true" />
                                             </td>
-                                            <td style="width: 40%; vertical-align: middle; text-align: left; padding: 1px; color: rgb(0, 72, 89);">&nbsp;&nbsp;<asp:Label runat="server" ID="lblOperadorCCV_Nome" Font-Size="12" Font-Bold="true" />
-                                            </td>
+                                             <td style="width: 20%; vertical-align: middle; text-align: left; padding: 1px; color: rgb(0, 72, 89); >
+											                         	<asp:Label runat="server" ID="lblCanalCom" Font-Size="12" Font-Bold="true" />
+											                         		&nbsp;&nbsp;
+											                       </td>											                      
                                         </tr>
                                     </table>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </td>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-                            <asp:RadioButton ID="rdDadosTelefone" runat="server" Text="Telefone:" GroupName="rdContato" TextAlign="Left" Checked="true" onchange="getRadioButtonSelectedTelefone();" />&nbsp;&nbsp;</td>
+                                                                   
+                        <!-- ACHO QUE O ELBERTH DUPLICO.. O QUE TÁ ACIMA TAVA NA LINHA DE BAIXO (CPF)
+                        <td style="width: 20%; vertical-align: middle; text-align: left; padding: 1px; color: rgb(0, 72, 89);">MARCA TÍTULO&nbsp;&nbsp;<asp:Label runat="server" ID="Label2" Font-Size="12" Font-Bold="true" />
+                        </td>
+                        -->                        
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>                                                
+                    </tr>
+
+                    <!--LINHA DO CPF RESPONSÁVEL-->
+                    <tr>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">CPF Responsável:&nbsp;&nbsp;</td>
+                        <td style="width: 15%; padding: 1px;">
+                            <asp:TextBox ID="txtDadosResponsavel" runat="server" CssClass="form-control" OnTextChanged="txtDadosResponsavel_TextChanged" AutoPostBack="true" />
+                        </td>
+
+                        <td style="width: 15%; vertical-align: bottom; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" ><!--</td>                           
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">-->
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 5%; vertical-align: middle; text-align: left;" >Telefone Responsável:&nbsp;&nbsp;</td>
+                                    <td style="width: 20%; vertical-align: middle; text-align: left;" >
+                                        <asp:TextBox ID="txtTelefoneResponsavel" runat="server" CssClass="form-control" />
+                                    </td>
+                                    <td style="width: 35%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" >
+                                        <asp:UpdatePanel runat="server">
+                                            <ContentTemplate>
+                                                <table style="width: 100%;">
+                                                    <tr>                                            
+                                                        <td style="width: 20%; vertical-align: middle; text-align: left; padding: 1px; color: rgb(0, 72, 89);">&nbsp;&nbsp;<asp:Label runat="server" ID="lblResponsavel_Nome" Font-Size="12" Font-Bold="true" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </td>  
+                                </tr>
+                            </table>
+                        </td>
+                        
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px; padding-left:20px;">
+                            <asp:RadioButton ID="rdDadosTelefone" runat="server" Text="Telefone:" GroupName="rdContato" TextAlign="Left" Checked="true" onchange="getRadioButtonSelectedTelefone();" />&nbsp;&nbsp;
+                        </td>
+
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:TextBox ID="txtDadosTelefone" runat="server" CssClass="form-control" />
-                        </td>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
+                        </td>                                                                    
+
+                        <td style="width: 15%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>                          
                     </tr>
+
+                    <!--LINHA DOS EQUIPAMENTOS-->
                     <tr>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">CPF Responsável:&nbsp;&nbsp;</td>
-                        <td style="width: 55%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">
-                            <asp:UpdatePanel runat="server">
-                                <ContentTemplate>
-                                    <table style="width: 100%;">
-                                        <tr>
-                                            <td style="width: 15%; padding: 1px;">
-                                                <asp:TextBox ID="txtDadosResponsavel" runat="server" CssClass="form-control" OnTextChanged="txtDadosResponsavel_TextChanged" AutoPostBack="true" />
-                                            </td>
-                                            <td style="width: 40%; vertical-align: middle; text-align: left; padding: 1px; color: rgb(0, 72, 89);">&nbsp;&nbsp;<asp:Label runat="server" ID="lblResponsavel_Nome" Font-Size="12" Font-Bold="true" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </td>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-                            <asp:RadioButton ID="rdDadosRadio" runat="server" Text="Rádio:" GroupName="rdContato" TextAlign="Left" onchange="getRadioButtonSelectedRadio();" />&nbsp;&nbsp;</td>
-                        <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Equipamentos:&nbsp;&nbsp;</td>
-                        <td style="width: 55%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Equipamentos:&nbsp;&nbsp;</td>
+                        <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:TextBox ID="txtDadosEquipamentos" runat="server" CssClass="form-control" />
                         </td>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-                            <asp:RadioButton ID="rdDadosMacro" runat="server" Text="Macro:" GroupName="rdContato" TextAlign="Left" onchange="getRadioButtonSelectedMacro();" />&nbsp;&nbsp;</td>
-                        <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+                        <td style="width: 15%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px; padding-left:20px; ">
+                            <asp:RadioButton ID="rdDadosRadio" runat="server" Text="Rádio:" GroupName="rdContato" TextAlign="Left" onchange="getRadioButtonSelectedRadio();" />&nbsp;&nbsp;
+                        </td>
+                                              
+                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
+                    </tr>
+
+                    <!--LINHA DO MOTIVO-->
+                    <tr>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Motivo:&nbsp;&nbsp;</td>
+                        <td style="width: 35%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">
+                            <asp:DropDownList ID="ddlDadosMotivo" runat="server" CssClass="form-control" />
+                        </td>
+
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px; padding-left:20px;">
+                            <asp:RadioButton ID="rdDadosMacro" runat="server" Text="Macro:" GroupName="rdContato" TextAlign="Left" onchange="getRadioButtonSelectedMacro();" />&nbsp;&nbsp;
+                        </td> 
+
+                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:TextBox ID="txtDadosMacro" runat="server" CssClass="form-control" Enabled="false" />
                         </td>
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                     </tr>
-                    <tr>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Motivo:&nbsp;&nbsp;</td>
-                        <td style="width: 65%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="4">
-                            <asp:DropDownList ID="ddlDadosMotivo" runat="server" CssClass="form-control" />
-                        </td>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Observação:&nbsp;&nbsp;</td>
-                        <td style="width: 65%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="4">
 
+                    <!--LINHA DA OBSERVAÇÃO-->
+                    <tr>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Observação:&nbsp;&nbsp;</td>
+                        <td style="width: 65%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">
                             <asp:TextBox ID="txtDadosObsercacao" runat="server" CssClass="form-control" MaxLength="38" onkeyup="return ismaxlength(this);" />
                         </td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;  padding-left:20px; ">Prefixo:&nbsp;&nbsp;</td>
+                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+                            <asp:TextBox ID="txtPrefixo" runat="server" CssClass="form-control" />
+                        </td>  
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                     </tr>
+
+                    <!--LINHA EM BRANCO DE ESPAÇANENTO-->
                     <tr>
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <br />
                         </td>
                     </tr>
+
+                    <!--BOTÕES-->
                     <tr>
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                         <td style="width: 65%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="4">

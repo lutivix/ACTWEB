@@ -27,6 +27,8 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Perfil { get; set; }
         public string CPF { get; set; }
         public string Ativo_SN { get; set; }
+        //lista de corredores por string
+        public string corredores_id { get; set; }
 
     }
 }

@@ -60,7 +60,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                       char[] prmMat_Responsavel,
                                       char[] prmObservacoes,
                                       char[] prmMat_Usuario,
-                                      char prmTpUser);
+                                      char prmTpUser,
+                                      char[]prmTelefone_responsavel,
+                                      char[]prmPrefixo);
 
         [DllImport(@"DLLMQWeb.dll")]
         /// <summary>
@@ -100,6 +102,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 var dataFim = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy"));
                 txtDataInicial.Text = dataIni.ToShortDateString();
                 txtDataFinal.Text = dataFim.ToShortDateString();
+                lblCanalCom.Text = "Canal de comunicação de Entrada";
 
                 ControleFormulario(StatusBarraComandos.Novo);
                 txtDadosDataAtual.Text = DateTime.Now.ToShortDateString();
@@ -344,6 +347,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             retirando = true;
             id_aut = txtAutorizacao.Text;
             sb = ddlDadosSecao.SelectedItem.Text;
+            lblCanalCom.Text = "Canal de comunicação de retirada";
             
             try
             {
@@ -656,10 +660,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     inter.Observacao = txtDadosObsercacao.Text.Length > 0 ? txtDadosObsercacao.Text : null;
                     inter.Usuario_Logado_Matricula = lblUsuarioMatricula.Text.Length > 0 ? inter.Usuario_Logado_Matricula = lblUsuarioMatricula.Text : null;
                     inter.Ativo_SN = "S";
+                    inter.Telefone_responsavel = txtTelefoneResponsavel.Text.Length > 0 ? txtTelefoneResponsavel.Text : null;
+                    inter.Prefixo = txtPrefixo.Text.Length > 0 ? txtPrefixo.Text : null;
 
                     char[] usuariologado = new char[10];
                     char[] responsavel = new char[12];
                     char[] observacao = new char[38];
+                    char[] Telefone_responsavel = new char[11];
+                    char[] Prefixo = new char[4];
 
                     for (int i = 0; i <= 35; i++)
                     {
@@ -685,14 +693,30 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                             responsavel[i] = char.MinValue;
                     }
 
-                    inter.Usuario_Logado_Nome = lblUsuarioLogado.Text;
+                    for (int i = 0; i <= 10; i++)
+                    {
+                        if (i < inter.Telefone_responsavel.Length)
+                            Telefone_responsavel[i] = inter.Telefone_responsavel[i];
+                        else
+                            Telefone_responsavel[i] = char.MinValue;
+                    }
+
+                    for (int i = 0; i <= 3; i++)
+                    {
+                        if (i < inter.Prefixo.Length)
+                            Prefixo[i] = inter.Prefixo[i];
+                        else
+                            Prefixo[i] = char.MinValue;
+                    }
+
+                        inter.Usuario_Logado_Nome = lblUsuarioLogado.Text;
 
                     inter.Solicitacao_ID_ACT = (int)interdicaoController.ObterIdInterdicao();   // Pega o ID na tabela SOLICITACOES_LDL no ACT
                     inter.Solicitacao_ID_ACTWEB = (int)interdicaoController.ObterIdSolicitacao(); // Pega o ID na tabela SOLICITACAO_INTERDICAO no ACTWEB
 
                     DLLSendSOI((int)inter.Solicitacao_ID_ACTWEB, (int)inter.Tipo_Situacao_ID, inter.Data.ToOADate(), (int)inter.Secao_ID,
                                 (int)inter.Tipo_Interdicao_ID, (int)inter.Duracao_Solicitada, (int)inter.Tipo_Manutencao_ID, (double)inter.Km, responsavel,
-                                observacao, usuariologado, 'W');
+                                observacao, usuariologado, 'W', Telefone_responsavel, Prefixo);
 
                     if (interdicaoController.Inserir(inter, ulMatricula))
                     {
