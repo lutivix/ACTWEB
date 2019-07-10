@@ -661,7 +661,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     inter.Usuario_Logado_Matricula = lblUsuarioMatricula.Text.Length > 0 ? inter.Usuario_Logado_Matricula = lblUsuarioMatricula.Text : null;
                     inter.Ativo_SN = "S";
                     inter.Telefone_responsavel = txtTelefoneResponsavel.Text.Length > 0 ? txtTelefoneResponsavel.Text : null;
-                    inter.Prefixo = txtPrefixo.Text.Length > 0 ? txtPrefixo.Text : null;
+                    inter.Prefixo = txtPrefixo.Text.Length > 0 ? txtPrefixo.Text : string.Empty;
 
                     char[] usuariologado = new char[10];
                     char[] responsavel = new char[12];

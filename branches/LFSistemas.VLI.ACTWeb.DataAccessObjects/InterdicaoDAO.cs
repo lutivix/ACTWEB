@@ -36,9 +36,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT II.SLT_ID_SLT, II.SLT_ID_SLT_ACT, II.SLT_ID_TP_SITUACAO, TS.TP_SIT_NOME, II.SLT_DATA, II.SLT_ID_SECAO, EV.EV_NOM_MAC, 
                                           II.SLT_ID_TP_INTERDICAO, TI.TP_INT_NOME, II.SLT_DURACAO_SOLICITADA, II.SLT_DURACAO_AUTORIZADA, II.SLT_ID_TP_MANUTENCAO, TM.TP_MNT_NOME, II.SLT_ID_TP_CIRCULACAO, 
                                           TC.TP_CIR_NOME, II.SLT_KM, II.SLT_USUARIO_LOGADO, OP.NOME, II.SLT_TELEFONE_SN, II.SLT_TELEFONE_NUMERO, II.SLT_MAT_RESPONSAVEL, 
-                                          RR.OP_NM, II.SLT_RADIO_SN, II.SLT_EQUIPAMENTOS, II.SLT_MACRO_SN, II.SLT_MACRO_NUMERO, II.SLT_OBSERVACAO, II.SLT_ATIVO_SN, II.SLT_ID_ACT_AUT_INTER, II.SLT_ID_MOTIVO, RD.RD_DSC_RDE, IM.IM_ID_IM,
+                                          RR.OP_BS_NM AS OP_NM, II.SLT_RADIO_SN, II.SLT_EQUIPAMENTOS, II.SLT_MACRO_SN, II.SLT_MACRO_NUMERO, II.SLT_OBSERVACAO, II.SLT_ATIVO_SN, II.SLT_ID_ACT_AUT_INTER, II.SLT_ID_MOTIVO, RD.RD_DSC_RDE, IM.IM_ID_IM,
                                  case when IM.im_tp = 1 then 'LDL' WHEN IM.IM_TP = 2 THEN 'BLQ' when im.im_tp is null then '' else 'INT' END || IM.IM_ID_IM CODIGO
-                                      FROM SOLICITACAO_INTERDICAO II, ACTPP.ELEM_VIA EV, TIPO_SITUACAO TS, TIPO_INTERDICAO TI, TIPO_MANUTENCAO TM, TIPO_CIRCULACAO TC, USUARIOS OP, ACTPP.OPERADORES RR, ACTPP.RESTRICOES_DESCRICOES RD, actpp.interdicao_motivo im, actpp.solicitacoes_ldl sldl
+                                      FROM SOLICITACAO_INTERDICAO II, ACTPP.ELEM_VIA EV, TIPO_SITUACAO TS, TIPO_INTERDICAO TI, TIPO_MANUTENCAO TM, TIPO_CIRCULACAO TC, USUARIOS OP, ACTPP.OPERADORES_BS RR, ACTPP.RESTRICOES_DESCRICOES RD, actpp.interdicao_motivo im, actpp.solicitacoes_ldl sldl
                                       WHERE II.SLT_ID_SECAO = EV.EV_ID_ELM
                                       AND II.SLT_ID_TP_SITUACAO = TS.TP_SIT_CODIGO
                                       AND II.SLT_ID_TP_INTERDICAO = TI.TP_INT_CODIGO
@@ -232,7 +232,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        II.SLT_TELEFONE_SN,
                                        II.SLT_TELEFONE_NUMERO,
                                        II.SLT_MAT_RESPONSAVEL,
-                                       RR.OP_NM,
+                                       RR.OP_BS_NM,
                                        II.SLT_RADIO_SN,
                                        II.SLT_EQUIPAMENTOS,
                                        II.SLT_MACRO_SN,
@@ -257,7 +257,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        TIPO_MANUTENCAO TM,
                                        TIPO_CIRCULACAO TC,
                                        USUARIOS OP,
-                                       ACTPP.OPERADORES RR,
+                                       ACTPP.OPERADORES_BS RR,
                                        ACTPP.RESTRICOES_DESCRICOES RD,
                                        actpp.interdicao_motivo_hist imh,
                                        actpp.solicitacoes_ldl sldl
@@ -295,7 +295,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        II.SLT_TELEFONE_SN,
                                        II.SLT_TELEFONE_NUMERO,
                                        II.SLT_MAT_RESPONSAVEL,
-                                       RR.OP_NM,
+                                       RR.OP_BS_NM,
                                        II.SLT_RADIO_SN,
                                        II.SLT_EQUIPAMENTOS,
                                        II.SLT_MACRO_SN,
@@ -314,7 +314,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        TIPO_MANUTENCAO TM,
                                        TIPO_CIRCULACAO TC,
                                        USUARIOS OP,
-                                       ACTPP.OPERADORES RR
+                                       ACTPP.OPERADORES_BS RR
                                  WHERE     II.SLT_ID_SECAO = EV.EV_ID_ELM
                                        AND II.SLT_ID_TP_SITUACAO = TS.TP_SIT_CODIGO
                                        AND II.SLT_ID_TP_INTERDICAO = TI.TP_INT_CODIGO
