@@ -58,7 +58,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             public uint velocidade;
             public double kminicio;
             public double kmfinal;
-            public fixed char observacoes[36];    // [TAMOBSERVACAO]
+            public fixed char observacoes[250];    // [TAMOBSERVACAO]
             public fixed char latitudeinicio[8];  // [TAMCOORDENADA]
             public fixed char longitudeinicio[8]; // [TAMCOORDENADA]
             public fixed char latitudefim[8];     // [TAMCOORDENADA]
@@ -838,11 +838,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                 char[] responsavel = new char[20];
                 char[] usuario = new char[10];
-                char[] obs = new char[36];
+                char[] obs = new char[250];
                 char[] tel = new char[11];
                 char[] cpf = new char[11];
 
-                for (int i = 0; i <= 35; i++)
+                for (int i = 0; i <= 249; i++)
                 {
                     if (i < rr.Observacao.Length)
                         obs[i] = rr.Observacao[i];

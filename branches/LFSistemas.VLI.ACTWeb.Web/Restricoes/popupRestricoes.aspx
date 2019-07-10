@@ -480,7 +480,7 @@
                         <tr>
                             <td style="width: 10%; text-align: right; vertical-align: top; padding-top: 10px;">Observação&nbsp;&nbsp;</td>
                             <td style="text-align: left; vertical-align: central;" colspan="5">
-                                <asp:TextBox runat="server" ID="txtDadosObs" Width="100%" CssClass="form-control" ToolTip="Informe as observações necessárias sobre a restrição a ser colocada na seção." MaxLength="36" /></td>
+                                <asp:TextBox runat="server" ID="txtDadosObs" Width="100%" CssClass="form-control" ToolTip="Informe as observações necessárias sobre a restrição a ser colocada na seção." MaxLength="250" /></td>
                             <td style="width: 07%; text-align: right; vertical-align: top; padding-top: 10px;">Telefone&nbsp;</td>
                             <td style="width: 10%; text-align: left; vertical-align: central;">
                                 <asp:TextBox runat="server" ID="txtTelefone" Width="100%" CssClass="form-control" ToolTip="Informe o Telefone do responsável" MaxLength="11" /></td>
