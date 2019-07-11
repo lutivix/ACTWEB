@@ -324,6 +324,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        AND II.SLT_MAT_RESPONSAVEL = RR.OP_CPF
                                        ${SLT_ID_SLT}
                                        AND II.SLT_ATIVO_SN = 'S'
+                                       and not exists (select SI_ID_SI from actpp.interdicao_motivo where SI_ID_SI = II.SLT_ID_SLT_act+1 )--tem que ter mais um por conta da sequence
+                                       and not exists (select SI_ID_SI from actpp.interdicao_motivo_hist where SI_ID_SI = II.SLT_ID_SLT_act+1 )--tem que ter mais um por conta da sequence
                                 UNION
                                 SELECT II.SLT_ID_SLT,
                                        II.SLT_ID_SLT_ACT,
@@ -346,7 +348,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        II.SLT_TELEFONE_SN,
                                        II.SLT_TELEFONE_NUMERO,
                                        II.SLT_MAT_RESPONSAVEL,
-                                       RR.OP_NM,
+                                       RR.OP_BS_NM,
                                        II.SLT_RADIO_SN,
                                        II.SLT_EQUIPAMENTOS,
                                        II.SLT_MACRO_SN,
@@ -371,7 +373,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        TIPO_MANUTENCAO TM,
                                        TIPO_CIRCULACAO TC,
                                        USUARIOS OP,
-                                       ACTPP.OPERADORES RR,
+                                       ACTPP.OPERADORES_BS RR,
                                        ACTPP.RESTRICOES_DESCRICOES RD,
                                        actpp.interdicao_motivo im,
                                        actpp.solicitacoes_ldl sldl
