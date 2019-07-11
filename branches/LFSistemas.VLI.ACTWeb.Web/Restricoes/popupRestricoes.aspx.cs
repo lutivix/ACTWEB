@@ -227,7 +227,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             if (lblUsuarioPerfil.Text == "OP VP")
             {
-                ddlDadosTipoRestricao.SelectedItem.Text = "VR";
+                ddlDadosTipoRestricao.SelectedItem.Text = "Boletim de Serviço";
                 ddlDadosTipoRestricao.SelectedItem.Value = "26";
                 txtDadosVelocidade.Text = "VR";
 
@@ -279,7 +279,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             }
             else if (lblUsuarioPerfil.Text == "OP ELE")
             {
-                ddlDadosTipoRestricao.SelectedItem.Text = "VR";
+                ddlDadosTipoRestricao.SelectedItem.Text = "Boletim de Serviço";
                 ddlDadosTipoRestricao.SelectedItem.Value = "26";
                 txtDadosVelocidade.Text = "VR";
                 ddlDadosSubTipoVR.SelectedItem.Text = "EE";
