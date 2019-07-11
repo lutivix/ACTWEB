@@ -232,6 +232,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        II.SLT_TELEFONE_SN,
                                        II.SLT_TELEFONE_NUMERO,
                                        II.SLT_MAT_RESPONSAVEL,
+                                       II.SLT_PREFIXO,
+                                       II.SLT_TELEFONE_RESP,
                                        RR.OP_BS_NM,
                                        II.SLT_RADIO_SN,
                                        II.SLT_EQUIPAMENTOS,
@@ -295,6 +297,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        II.SLT_TELEFONE_SN,
                                        II.SLT_TELEFONE_NUMERO,
                                        II.SLT_MAT_RESPONSAVEL,
+                                       II.SLT_PREFIXO,
+                                       II.SLT_TELEFONE_RESP,
                                        RR.OP_BS_NM,
                                        II.SLT_RADIO_SN,
                                        II.SLT_EQUIPAMENTOS,
@@ -348,6 +352,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        II.SLT_TELEFONE_SN,
                                        II.SLT_TELEFONE_NUMERO,
                                        II.SLT_MAT_RESPONSAVEL,
+                                       II.SLT_PREFIXO,
+                                       II.SLT_TELEFONE_RESP,
                                        RR.OP_BS_NM,
                                        II.SLT_RADIO_SN,
                                        II.SLT_EQUIPAMENTOS,
@@ -404,7 +410,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         if (reader.Read())
                         {
-                            item = PreencherPropriedadesInterdicao(reader);
+                            item = PreencherPropriedadesInterdicaoPorID(reader);
                         }
                     }
 
@@ -1073,6 +1079,52 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
+
+        private Interdicao PreencherPropriedadesInterdicaoPorID(OleDbDataReader reader)
+        {
+            var item = new Interdicao();
+
+            if (!reader.IsDBNull(00)) item.Solicitacao_ID_ACTWEB = reader.GetDouble(00);
+            if (!reader.IsDBNull(01)) item.Solicitacao_ID_ACT = reader.GetDouble(01);
+            if (!reader.IsDBNull(02)) item.Tipo_Situacao_ID = reader.GetDouble(02);
+            if (!reader.IsDBNull(03)) item.Situacao_Nome = reader.GetString(03);
+            if (!reader.IsDBNull(04)) item.Data = reader.GetDateTime(04);
+            if (!reader.IsDBNull(05)) item.Secao_ID = reader.GetDouble(05);
+            if (!reader.IsDBNull(06)) item.Secao_Nome = reader.GetString(06);
+            if (!reader.IsDBNull(07)) item.Tipo_Interdicao_ID = reader.GetDouble(07);
+            if (!reader.IsDBNull(08)) item.Tipo_Interdicao_Nome = reader.GetString(08);
+            if (!reader.IsDBNull(09)) item.Duracao_Solicitada = reader.GetDouble(09); else item.Duracao_Solicitada = 0;
+            if (!reader.IsDBNull(10)) item.Duracao_Autorizada = reader.GetDouble(10); else item.Duracao_Autorizada = 0;
+            if (!reader.IsDBNull(11)) item.Tipo_Manutencao_ID = reader.GetDouble(11);
+            if (!reader.IsDBNull(12)) item.Tipo_Manutencao_Nome = reader.GetString(12);
+            if (!reader.IsDBNull(13)) item.Tipo_Circulacao_ID = reader.GetDouble(13);
+            if (!reader.IsDBNull(14)) item.Tipo_Circulacao_Nome = reader.GetString(14);
+            if (!reader.IsDBNull(15)) item.Km = reader.GetDecimal(15);
+            if (!reader.IsDBNull(16)) item.Usuario_Logado_Matricula = reader.GetString(16);
+            if (!reader.IsDBNull(17)) item.Usuario_Logado_Nome = reader.GetString(17);
+            if (!reader.IsDBNull(18)) item.Telefone_SN = reader.GetString(18);
+            if (!reader.IsDBNull(19)) item.Telefone_Numero = reader.GetString(19);
+            if (!reader.IsDBNull(20)) item.Responsavel_Matricula = reader.GetString(20);
+            if (!reader.IsDBNull(21)) item.Prefixo = reader.GetString(21);
+            if (!reader.IsDBNull(22)) item.Telefone_responsavel = reader.GetString(22);
+            if (!reader.IsDBNull(23)) item.Responsavel_Nome = reader.GetString(23);
+            if (!reader.IsDBNull(24)) item.Radio_SN = reader.GetString(24);
+            if (!reader.IsDBNull(25)) item.Equipamentos = reader.GetString(25);
+            if (!reader.IsDBNull(26)) item.Macro_SN = reader.GetString(26);
+            if (!reader.IsDBNull(27)) item.Macro_Numero = reader.GetString(27);
+            if (!reader.IsDBNull(28)) item.Observacao = reader.GetString(28);
+            if (!reader.IsDBNull(29)) item.Ativo_SN = reader.GetString(29);
+            if (!reader.IsDBNull(30)) item.Aut_Interdicao_Act = reader.GetDouble(30);
+            //if (!reader.IsDBNull(28)) item.Cod_Ldl = reader.GetString(06) + reader.GetDouble(28).ToString();
+            if (!reader.IsDBNull(31)) item.Motivo_ID = reader.GetDouble(31);
+            if (!reader.IsDBNull(32)) item.Motivo_Desc = reader.GetString(32);
+            if (!reader.IsDBNull(33)) item.Interdicao_Motivo = reader.GetDouble(33);
+            if (!reader.IsDBNull(34)) item.Cod_Interdicao = reader.GetString(34);
+
+
+            return item;
+        }
+
 
         /// <summary>
         /// Obtem lista de seção

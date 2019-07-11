@@ -97,12 +97,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             if (!IsPostBack)
             {
+                txtPrefixo.Visible = false;
+                lblPrefixo.Visible = false;
+        
                 ViewState["ordenacao"] = "ASC";
                 var dataIni = DateTime.Parse(DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy"));
                 var dataFim = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy"));
                 txtDataInicial.Text = dataIni.ToShortDateString();
                 txtDataFinal.Text = dataFim.ToShortDateString();
                 lblCanalCom.Text = "Canal de comunicação de Entrada";
+                lblPrefixo.Text = "Prefixo:";
 
                 ControleFormulario(StatusBarraComandos.Novo);
                 txtDadosDataAtual.Text = DateTime.Now.ToShortDateString();
@@ -259,6 +263,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             Panel1.Visible = false;
 
+            lblCanalCom.Text = "Canal de comunicação de retirada";
+
             ControleFormulario(StatusBarraComandos.Edicao);
             LinkButton btn = (LinkButton)(sender);
 
@@ -281,6 +287,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 ddlDadosMotivo.SelectedItem.Value = dados.Motivo_ID.ToString();
 
                 txtAutorizacao.Text = dados.Interdicao_Motivo.ToString();
+
+                txtTelefoneResponsavel.Text = dados.Telefone_responsavel != null ? dados.Telefone_responsavel : string.Empty;
+
+                txtPrefixo.Text = dados.Prefixo != null ? dados.Prefixo : string.Empty;
                 
                 
                 if (dados.Tipo_Circulacao_ID > 0)
@@ -347,7 +357,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             retirando = true;
             id_aut = txtAutorizacao.Text;
             sb = ddlDadosSecao.SelectedItem.Text;
-            lblCanalCom.Text = "Canal de comunicação de retirada";
             
             try
             {

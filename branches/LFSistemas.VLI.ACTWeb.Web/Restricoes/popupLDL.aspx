@@ -65,6 +65,8 @@
             document.getElementById('<%=txtDadosMacro.ClientID %>').value = '';
             txtDadosMacro.disabled = false;
             txtDadosTelefone.disabled = true;
+
+          
             document.getElementById("<%=txtDadosMacro.ClientID%>").focus();
         }
 
@@ -454,7 +456,9 @@
                         <td style="width: 65%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">
                             <asp:TextBox ID="txtDadosObsercacao" runat="server" CssClass="form-control" MaxLength="38" onkeyup="return ismaxlength(this);" />
                         </td>
-                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;  padding-left:20px; ">Prefixo:&nbsp;&nbsp;</td>
+
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;  padding-left:20px; "><asp:Label runat="server" ID="lblPrefixo" Font-Size="9" Font-Bold="true" /></td>
+                        	
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:TextBox ID="txtPrefixo" runat="server" CssClass="form-control" />
                         </td>  
