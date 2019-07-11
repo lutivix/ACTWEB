@@ -648,19 +648,19 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     if (txtDadosKm.Text.Length > 0)
                         inter.Km = decimal.Parse(txtDadosKm.Text);
                     inter.Telefone_SN = rdDadosTelefone.Checked ? "S" : "N";
-                    inter.Telefone_Numero = txtDadosTelefone.Text.Length > 0 ? txtDadosTelefone.Text : null;
+                    inter.Telefone_Numero = txtDadosTelefone.Text.Length > 0 ? txtDadosTelefone.Text : string.Empty;
                     inter.Radio_SN = rdDadosRadio.Checked ? "S" : "N";
                     inter.Macro_SN = rdDadosMacro.Checked ? "S" : "N";
-                    inter.Macro_Numero = txtDadosMacro.Text.Length > 0 ? txtDadosMacro.Text : null;
-                    inter.Responsavel_Matricula = txtDadosResponsavel.Text.Length > 0 ? txtDadosResponsavel.Text : null;
-                    inter.Responsavel_Nome = lblResponsavel_Nome.Text.Length > 0 ? lblResponsavel_Nome.Text : null;
-                    inter.Equipamentos = txtDadosEquipamentos.Text.Length > 0 ? txtDadosEquipamentos.Text : null;
+                    inter.Macro_Numero = txtDadosMacro.Text.Length > 0 ? txtDadosMacro.Text : string.Empty;
+                    inter.Responsavel_Matricula = txtDadosResponsavel.Text.Length > 0 ? txtDadosResponsavel.Text : string.Empty;
+                    inter.Responsavel_Nome = lblResponsavel_Nome.Text.Length > 0 ? lblResponsavel_Nome.Text : string.Empty;
+                    inter.Equipamentos = txtDadosEquipamentos.Text.Length > 0 ? txtDadosEquipamentos.Text : string.Empty;
                     if (ddlDadosMotivo.SelectedItem.Value.Length > 0)
                         inter.Motivo_ID = double.Parse(ddlDadosMotivo.SelectedItem.Value);
-                    inter.Observacao = txtDadosObsercacao.Text.Length > 0 ? txtDadosObsercacao.Text : null;
-                    inter.Usuario_Logado_Matricula = lblUsuarioMatricula.Text.Length > 0 ? inter.Usuario_Logado_Matricula = lblUsuarioMatricula.Text : null;
+                    inter.Observacao = txtDadosObsercacao.Text.Length > 0 ? txtDadosObsercacao.Text : string.Empty;
+                    inter.Usuario_Logado_Matricula = lblUsuarioMatricula.Text.Length > 0 ? inter.Usuario_Logado_Matricula = lblUsuarioMatricula.Text : string.Empty;
                     inter.Ativo_SN = "S";
-                    inter.Telefone_responsavel = txtTelefoneResponsavel.Text.Length > 0 ? txtTelefoneResponsavel.Text : null;
+                    inter.Telefone_responsavel = txtTelefoneResponsavel.Text.Length > 0 ? txtTelefoneResponsavel.Text : string.Empty;
                     inter.Prefixo = txtPrefixo.Text.Length > 0 ? txtPrefixo.Text : string.Empty;
 
                     char[] usuariologado = new char[10];
