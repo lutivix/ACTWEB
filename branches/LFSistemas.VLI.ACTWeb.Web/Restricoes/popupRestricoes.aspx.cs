@@ -467,16 +467,19 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             #endregion
 
-            if (txtDadosCpf.Text.Length <= 0)
+            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Informa o CPF.' });", true);
-                return;
-            }
+                if (txtDadosCpf.Text.Length <= 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Informa o CPF.' });", true);
+                    return;
+                }
 
-            if (txtTelefone.Text.Length <= 0)
-            {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Informa o Telefone.' });", true);
-                return;
+                if (txtTelefone.Text.Length <= 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Informa o Telefone.' });", true);
+                    return;
+                }
             }
 
             if (!restricaoController.PermiteBS(double.Parse(txtDadosCpf.Text), double.Parse(ddlDadosSubTipoVR.SelectedItem.Value)))
