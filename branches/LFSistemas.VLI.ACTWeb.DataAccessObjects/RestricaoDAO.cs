@@ -859,7 +859,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT OP_BS_MAT, OP_BS_NM, OP_PERMITE_LDL FROM ACTPP.OPERADORES_BS WHERE OP_CPF = ${CPF}");
+                    query.Append(@"SELECT OP_BS_MAT, OP_BS_NM, OP_PERMITE_LDL, OP_PERFIL_ATIVO FROM ACTPP.OPERADORES_BS WHERE OP_CPF = ${CPF}");
 
                     if (cpf != null)
                         query.Replace("${CPF}", string.Format("'{0}'", cpf));
@@ -1959,6 +1959,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(00)) responsavel.Matricula = reader.GetString(00);
             if (!reader.IsDBNull(01)) responsavel.Nome = reader.GetString(01);
             if (!reader.IsDBNull(02)) responsavel.LDL = reader.GetString(02) == "S" ? "Sim" : "Não";
+            if (!reader.IsDBNull(03)) responsavel.Ativo = reader.GetString(03) == "S" ? true : false;
 
             return responsavel;
         }

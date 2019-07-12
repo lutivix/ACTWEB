@@ -97,8 +97,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             if (!IsPostBack)
             {
-                txtPrefixo.Visible = false;
-                lblPrefixo.Visible = false;
+                txtPrefixo.Enabled = false;
+                lblPrefixo.Enabled = false;
         
                 ViewState["ordenacao"] = "ASC";
                 var dataIni = DateTime.Parse(DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy"));
@@ -820,7 +820,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                 if (dados.Matricula != null)
                 {
-                    if (dados.LDL != "Não")
+                    if (dados.LDL != "Não" && dados.Ativo == true)
                     {
                         lblResponsavel_Nome.Text = dados.Nome.Trim();
                     }
@@ -856,6 +856,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 lblMensagem.Text = string.Format(" ");
             ddlDadosSecao.Focus();
         }
+
+        //protected void RadioButton_CheckedChanged(Object sender, EventArgs e)
+        //{
+        //    txtPrefixo.eb = true;
+        //    lblPrefixo.Visible = true;
+        //}
 
         [System.Web.Services.WebMethod]
         public static void DeleteRestriction(string id)
@@ -945,6 +951,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     txtDadosMacro.Text = string.Empty;
                     txtDadosObsercacao.Text = string.Empty;
                     lblMensagem.Text = string.Empty;
+                    txtPrefixo.Text = string.Empty;
+                    txtTelefoneResponsavel.Text = string.Empty;
 
 
 
@@ -1000,6 +1008,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     lnkLImpar.CssClass = "btn btn-primary disabled";
                     lnkNovoResponsavel.Enabled = false;
                     lnkNovoResponsavel.CssClass = "btn btn-info disabled";
+                    txtPrefixo.Text = string.Empty;
+                    txtTelefoneResponsavel.Text = string.Empty;
 
                     if (ulPerfil != "ADM")
                     {

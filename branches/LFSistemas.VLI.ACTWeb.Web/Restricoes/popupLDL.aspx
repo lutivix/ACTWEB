@@ -46,6 +46,8 @@
             document.getElementById('<%=txtDadosMacro.ClientID %>').value = '';
             txtDadosTelefone.disabled = false;
             txtDadosMacro.disabled = true;
+            lblPrefixo.disabled = true;
+            txtPrefixo.disabled = true;
             document.getElementById("<%=txtDadosTelefone.ClientID%>").focus();
         }
         function getRadioButtonSelectedRadio() {
@@ -56,15 +58,21 @@
             document.getElementById('<%=txtDadosMacro.ClientID %>').value = '';
             txtDadosTelefone.disabled = true;
             txtDadosMacro.disabled = true;
+            lblPrefixo.disabled = true;
+            txtPrefixo.disabled = true;
         }
         function getRadioButtonSelectedMacro() {
             txtDadosTelefone = document.getElementById('<%=txtDadosTelefone.ClientID %>');
             txtDadosMacro = document.getElementById('<%=txtDadosMacro.ClientID %>');
+            txtPrefixo = document.getElementById('<%=txtPrefixo.ClientID %>');
+            lblPrefixo = document.getElementById('<%=lblPrefixo.ClientID %>');
 
             document.getElementById('<%=txtDadosTelefone.ClientID %>').value = '';
             document.getElementById('<%=txtDadosMacro.ClientID %>').value = '';
             txtDadosMacro.disabled = false;
             txtDadosTelefone.disabled = true;
+            lblPrefixo.disabled = false;
+            txtPrefixo.disabled = false;
 
           
             document.getElementById("<%=txtDadosMacro.ClientID%>").focus();
@@ -408,7 +416,7 @@
                         </td>
                         
                         <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px; padding-left:20px;">
-                            <asp:RadioButton ID="rdDadosTelefone" runat="server" Text="Telefone:" GroupName="rdContato" TextAlign="Left" Checked="true" onchange="getRadioButtonSelectedTelefone();" />&nbsp;&nbsp;
+                            <asp:RadioButton ID="rdDadosTelefone" runat="server"  Text="Telefone:" GroupName="rdContato" TextAlign="Left" Checked="true" onchange="getRadioButtonSelectedTelefone();" />&nbsp;&nbsp;
                         </td>
 
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
