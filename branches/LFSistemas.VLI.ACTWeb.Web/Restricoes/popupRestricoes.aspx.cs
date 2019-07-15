@@ -155,7 +155,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                 //ddlDadosSecoes.SelectedItem.Text = "ETHET2";
                 //ddlDadosSecoes.SelectedItem.Value = "5103";
-                //ddlDadosTipoRestricao.SelectedItem.Text = "VR";
+                //ddlDadosTipoRestricao.SelectedItem.Text = "BS";
                 //ddlDadosTipoRestricao.SelectedItem.Value = "26";
                 //ddlDadosSubTipoVR.SelectedItem.Text = "HL - Homens trabalhando as margens da linha";
                 //ddlDadosSubTipoVR.SelectedItem.Value = "4";
@@ -163,7 +163,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 //txtDadosDuracao.Text = "9";
                 //txtDadosKm_Inicio.Text = "679";
                 //txtDadosKm_Final.Text = "690";
-                //txtDadosVelocidade.Text = "VR";
+                //txtDadosVelocidade.Text = "BS";
                 //txtDadosResponsavel.Text = "Teste";
                 //txtDadosObs.Text = "Teste";
 
@@ -229,9 +229,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             {
                 ddlDadosTipoRestricao.SelectedItem.Text = "Boletim de Serviço";
                 ddlDadosTipoRestricao.SelectedItem.Value = "26";
-                txtDadosVelocidade.Text = "VR";
+                txtDadosVelocidade.Text = "BS";
 
-                ddlFiltroTipo.SelectedItem.Text = "VR";
+                ddlFiltroTipo.SelectedItem.Text = "BS";
                 ddlFiltroTipo.SelectedItem.Value = "26";
 
                 ddlDadosSecoes.Enabled =
@@ -255,9 +255,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             {
                 ddlDadosTipoRestricao.SelectedItem.Text = "Boletim de Serviço";
                 ddlDadosTipoRestricao.SelectedItem.Value = "26";
-                txtDadosVelocidade.Text = "VR";
+                txtDadosVelocidade.Text = "BS";
 
-                ddlFiltroTipo.SelectedItem.Text = "VR";
+                ddlFiltroTipo.SelectedItem.Text = "BS";
                 ddlFiltroTipo.SelectedItem.Value = "26";
 
                 ddlDadosSecoes.Enabled =
@@ -281,11 +281,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             {
                 ddlDadosTipoRestricao.SelectedItem.Text = "Boletim de Serviço";
                 ddlDadosTipoRestricao.SelectedItem.Value = "26";
-                txtDadosVelocidade.Text = "VR";
+                txtDadosVelocidade.Text = "BS";
                 ddlDadosSubTipoVR.SelectedItem.Text = "EE";
                 ddlDadosSubTipoVR.SelectedItem.Value = "5";
 
-                ddlFiltroTipo.SelectedItem.Text = "VR";
+                ddlFiltroTipo.SelectedItem.Text = "BS";
                 ddlFiltroTipo.SelectedItem.Value = "26";
 
                 ddlDadosSecoes.Enabled =
@@ -307,7 +307,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             }
             else
             {
-                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF")
+                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF")
                 {
                     ddlDadosSecoes.Enabled =
                         ddlDadosTipoRestricao.Enabled =
@@ -373,7 +373,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             Data2 = null;
 
             if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF"
-                || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
+                || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS")
             {
                 string dataInicial = txtDadosDataInicial.Text.Trim();
                 string dataFinal = txtDadosDataFinal.Text.Trim();
@@ -384,7 +384,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 Data2 = Uteis.ConverteStringParaDateTime(dataFinal, horaFinal);
 
 
-                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR"
+                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS"
                    && Data1 != null && Data2 != null)
                 {
                     DateTime tempData1 = (DateTime)Data1;
@@ -446,7 +446,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 Km2 = null;
             }
             if (txtDadosVelocidade.Text != string.Empty
-                && txtDadosVelocidade.Text != "VR"
+                && txtDadosVelocidade.Text != "BS"
                 && txtDadosVelocidade.Text != "IF")
             {
                 Vel = double.Parse(txtDadosVelocidade.Text);
@@ -467,7 +467,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             #endregion
 
-            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
+            //Verifica se o boletim de serviço é tipo velocidade restrita
+            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS")
             {
                 if (txtDadosCpf.Text.Length <= 0)
                 {
@@ -480,17 +481,52 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Informa o Telefone.' });", true);
                     return;
                 }
-            }
 
-            if (!restricaoController.PermiteBS(double.Parse(txtDadosCpf.Text), double.Parse(ddlDadosSubTipoVR.SelectedItem.Value)))
-            {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido o CPF informado não ter permissão para criação desse subtipo de BS.' });", true);
-                return;
-            }
-            if (!restricaoController.PermiteAtivo(double.Parse(txtDadosCpf.Text)))
-            {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido o CPF informado não estar ativo.' });", true);
-                return;
+                if (!restricaoController.PermiteBS(double.Parse(txtDadosCpf.Text), double.Parse(ddlDadosSubTipoVR.SelectedItem.Value)))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido o CPF informado não ter permissão para criação desse subtipo de BS.' });", true);
+                    return;
+                }
+                if (!restricaoController.PermiteAtivo(double.Parse(txtDadosCpf.Text)))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido o CPF informado não estar ativo.' });", true);
+                    return;
+                }
+
+                if (subtipoVR == "HT")
+                {
+                    if ((restricaoController.ExisteHTProgramada((double.Parse(ddlDadosSecoes.SelectedItem.Value)), Km1, Km2)) || (restricaoController.ExisteHTCircualacao((double.Parse(ddlDadosSecoes.SelectedItem.Value)), Km1, Km2)))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido haver uma restrição no mesmo KM informado na Seção de Bloqueio.' });", true);
+                        return;
+                    }
+                }
+                if ((ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS") && (restricaoController.ExisteInterdicao(double.Parse(ddlDadosSecoes.SelectedItem.Value))))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido haver uma interdiçao na Seção de Bloqueio.' });", true);
+                    return;
+                }
+                #region [VERIFICA DUPLICAÇÃO DE SUBTIPO]
+
+                
+                    //verifica se é do subtipo que entra na regra de não duplicação
+                    //os subtipos são RL, PP, US, e EE
+                    switch (Convert.ToInt32(ddlDadosSubTipoVR.Text))
+                    {
+                        case 1:
+                        case 2:
+                        case 5:
+                        case 6:
+                            //método de verificação
+                            if (!PodeCriarBS())
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show        ({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido          já existir uma restrição do mesmo subtipo na seção.' });", true);
+                                return;
+                            }
+
+                            break;
+                    }
+                #endregion
             }
 
             if (!restricaoController.ExisteRestricao(double.Parse(ddlDadosSecoes.SelectedItem.Value), double.Parse(ddlDadosTipoRestricao.SelectedItem.Value), double.Parse(ddlDadosSubTipoVR.SelectedItem.Value), Data1, Data2, Vel, Km1, Km2))
@@ -499,68 +535,35 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 {
                     try
                     {
-                        if (subtipoVR == "HT")
-                        {
-                            if ((restricaoController.ExisteHTProgramada((double.Parse(ddlDadosSecoes.SelectedItem.Value)), Km1, Km2)) || (restricaoController.ExisteHTCircualacao((double.Parse(ddlDadosSecoes.SelectedItem.Value)), Km1, Km2)))
-                            {
-                               ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido haver uma restrição no mesmo KM informado na Seção de Bloqueio.' });", true);
-                                return;
-                            }
-                        }
-                        if ((ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR") && (restricaoController.ExisteInterdicao(double.Parse(ddlDadosSecoes.SelectedItem.Value))))
-                        {
-                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido haver uma interdiçao na Seção de Bloqueio.' });", true);
-                            return;
-                        }
-                        #region [VERIFICA DUPLICAÇÃO DE SUBTIPO]
-
-                        //Verifica se o boletim de serviço é tipo velocidade restrita
-                        if ((ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR"))
-                        {
-                            //verifica se é do subtipo que entra na regra de não duplicação
-                            //os subtipos são RL, PP, US, e EE
-                            switch (Convert.ToInt32(ddlDadosSubTipoVR.Text))
-                            {
-                                case 1:
-                                case 2:
-                                case 5:
-                                case 6:
-                                    //método de verificação
-                                    if (!PodeCriarBS())
-                                    {
-                                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show        ({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text +           " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido          já existir uma restrição do mesmo subtipo na seção.' });", true);
-                                        return;
-                                    }
-                                    
-                                    break;
-                            }
-                        }
-                        #endregion
-
                         var retorno = SendMessageCRE();
                         if (retorno == true)
                         {
                             if ((int.Parse(ddlDadosTipoRestricao.SelectedItem.Value) == 26) || (int.Parse(ddlDadosTipoRestricao.SelectedItem.Value) == 27))
                             {
-                                UsuarioAutController usuario = new UsuarioAutController();
-                                string CPF = txtDadosCpf.Text.Trim();
-                                string matricula = lblUsuarioMatricula.Text.Trim();
-                                string usuarioID = lblUsuarioLogado.Text.Trim();
-                                string acao = "programação";
-                                usuario.AtualizarDataUltSol(CPF, matricula, usuarioID, acao);
-
+                                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS")
+                                {
+                                    UsuarioAutController usuario = new UsuarioAutController();
+                                    string CPF = txtDadosCpf.Text.Trim();
+                                    string matricula = lblUsuarioMatricula.Text.Trim();
+                                    string usuarioID = lblUsuarioLogado.Text.Trim();
+                                    string acao = "programação";
+                                    usuario.AtualizarDataUltSol(CPF, matricula, usuarioID, acao);
+                                }
+                               
                                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição programada com sucesso. " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
                             }
                             else
                             {
-
-                                UsuarioAutController usuario = new UsuarioAutController();
-                                string CPF = txtDadosCpf.Text.Trim();
-                                string matricula = lblUsuarioMatricula.Text.Trim();
-                                string usuarioID = lblUsuarioLogado.Text.Trim();
-                                string acao = "criação";
-                                usuario.AtualizarDataUltSol(CPF, matricula, usuarioID, acao);
-
+                                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS")
+                                {
+                                    UsuarioAutController usuario = new UsuarioAutController();
+                                    string CPF = txtDadosCpf.Text.Trim();
+                                    string matricula = lblUsuarioMatricula.Text.Trim();
+                                    string usuarioID = lblUsuarioLogado.Text.Trim();
+                                    string acao = "criação";
+                                    usuario.AtualizarDataUltSol(CPF, matricula, usuarioID, acao);
+                                }
+                                
                                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição criada com sucesso. " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
 
                                 LimpaCampos();
@@ -750,7 +753,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 else
                     lblMensagem.Text = string.Format(" ");
 
-                if (dados.Tipo_Restricao == "VR" || dados.Tipo_Restricao == "IF")
+                if (dados.Tipo_Restricao == "BS" || dados.Tipo_Restricao == "IF")
                 {
                     txtDadosDuracao.Enabled = txtDadosVelocidade.Enabled = false;
                     ddlDadosSubTipoVR.Enabled = txtDadosDataInicial.Enabled = txtDadosHoraInicial.Enabled =
@@ -805,7 +808,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 rr.Tipo_Restricao = ddlDadosTipoRestricao.SelectedItem.Value != "0" ? ddlDadosTipoRestricao.SelectedItem.Text : string.Empty;
                 rr.Tipo_RestricaoID = ddlDadosTipoRestricao.SelectedItem.Value != "0" ? double.Parse(ddlDadosTipoRestricao.SelectedItem.Value) : 0;
 
-                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
+                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS")
                 {
                     string dataInicial = txtDadosDataInicial.Text.Trim();
                     string dataFinal = txtDadosDataFinal.Text.Trim();
@@ -834,7 +837,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 rr.Lon_Inicial = string.Empty;
                 rr.Lon_Final = string.Empty;
                 rr.Duracao = txtDadosDuracao.Text != string.Empty ? double.Parse(txtDadosDuracao.Text) : 0;
-                rr.Velocidade = (txtDadosVelocidade.Text != string.Empty && txtDadosVelocidade.Text != "IF" && txtDadosVelocidade.Text != "VR") ? double.Parse(txtDadosVelocidade.Text) : 0;
+                rr.Velocidade = (txtDadosVelocidade.Text != string.Empty && txtDadosVelocidade.Text != "IF" && txtDadosVelocidade.Text != "BS") ? double.Parse(txtDadosVelocidade.Text) : 0;
                 rr.Observacao = txtDadosObs.Text != string.Empty ? Uteis.RetirarAcentosCaracteresEspeciais(txtDadosObs.Text) : string.Empty;
 
                 int IdConfirmacao = (int)restricaoController.ObtemIdRestricaoCirculacao();
@@ -1096,7 +1099,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             var NovaHora = NovaData.ToShortTimeString();
 
 
-            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
+            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS")
             {
                 txtDadosDataInicial.Text = DataAtual.ToShortDateString();
                 txtDadosHoraInicial.Text = HoraAtual;
@@ -1152,7 +1155,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             if (txtFiltroKm_Final.Text.Length > 0) _kmFim = decimal.Parse(txtFiltroKm_Final.Text); else _kmFim = null;
             if (txtFiltroNumeroRestricao.Text.Length > 0) _RestricaoID = double.Parse(txtFiltroNumeroRestricao.Text); else _RestricaoID = null;
 
-            var _perfil = ulPerfil == "OP VP" ? "VR" : ddlFiltroTipo.SelectedItem.Value != string.Empty ? ddlFiltroTipo.SelectedItem.Value : null;
+            var _perfil = ulPerfil == "OP VP" ? "BS" : ddlFiltroTipo.SelectedItem.Value != string.Empty ? ddlFiltroTipo.SelectedItem.Value : null;
             var _subTipo = ulPerfil == "OP ELE" ? "EE" : ddlDadosSubTipoVR.SelectedItem.Value != "0" ? ddlDadosSubTipoVR.SelectedItem.Value : null;
             var _sb = ddlFiltroSB.SelectedItem.Value != string.Empty ? ddlFiltroSB.SelectedItem.Value : null;
             var _obs = txtFiltroObs.Text != string.Empty ? txtFiltroObs.Text : null;
@@ -1180,7 +1183,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         protected void txtDadosDataFinal_TextChanged(object sender, EventArgs e)
         {
 
-            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
+            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS")
             {
                 string dataInicial = txtDadosDataInicial.Text.Trim();
                 string dataFinal = txtDadosDataFinal.Text.Trim();

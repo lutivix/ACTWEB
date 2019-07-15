@@ -190,7 +190,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
         }
         protected void lnkProjetosFcaNaFca_Click(object sender, EventArgs e)
         {
-            Response.Write("<script> window.open('https://app2.clarizen.com/Clarizen/Ext/WidgetRoadmapPage.aspx?wt=Roadmap&uid=9.6097377.1412357&wid=hE12Ekv81U6UFcG6CfbQew&si=6.295391729.1412357&df=351.435925.1412357&rp=1&xf=1&el=0&CSig=190CAF029CE411C7F864905C42B747BC2CE30CA7', 'ACTWEB - Projetos FCA na FCA', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); </script>");
+            Response.Write("<script> window.openf('https://app2.clarizen.com/Clarizen/Ext/WidgetRoadmapPage.aspx?wt=Roadmap&uid=9.6097377.1412357&wid=hE12Ekv81U6UFcG6CfbQew&si=6.295391729.1412357&df=351.435925.1412357&rp=1&xf=1&el=0&CSig=190CAF029CE411C7F864905C42B747BC2CE30CA7', 'ACTWEB - Projetos FCA na FCA', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); </script>");
         }
         protected void lnkTodosProjetos_Click(object sender, EventArgs e)
         {
