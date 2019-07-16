@@ -522,7 +522,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/12/2019 11:24:01</publishTime>
     </File>
     <File Include="css/main.css">
-      <publishTime>05/28/2019 14:23:39</publishTime>
+      <publishTime>07/16/2019 10:37:03</publishTime>
     </File>
     <File Include="css/processando.css">
       <publishTime>03/12/2019 11:24:01</publishTime>
@@ -1737,7 +1737,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/12/2019 11:24:01</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/15/2019 16:21:29</publishTime>
+      <publishTime>07/16/2019 10:40:34</publishTime>
     </File>
   </ItemGroup>
 </Project>
