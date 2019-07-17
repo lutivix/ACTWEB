@@ -954,7 +954,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Append(@" select * from ( SELECT 'CC' AS TIPO, A.RP_ID_RP AS PROGRAMADA_ID, A.RC_ID_RC AS CIRCULACAO_ID, C.EV_NOM_MAC as Secao_Elemento, C.EV_ID_ELM as Secao_ElementoID, B.TR_COD_TP as Tipo_Restricao, A.TR_ID_TP as Tipo_RestricaoID, S.SR_COD_STR as SubTipo_VR, S.SR_ID_STR as SubTipo_VRID, 
                                                         A.RC_DT_INI_PRV as Data_inicial, 
                                                         A.RC_DT_FIM_PRV as Data_final, A.RC_VEL_MAX as Velocidade, A.RC_KM_INI as Km_inicial, A.RC_KM_FIM as Km_final, 
-                                                        A.RC_OBS as Obs, A.RC_ST as Situacao, A.RC_RESPONSAVEL as resp 
+                                                        A.RC_OBS as Obs, A.RC_ST as Situacao, A.RC_RESPONSAVEL as resp,
+                                                        A.RC_TELEFONE AS telefone,
+                                                        A.RC_CPF AS cpf 
                                                         FROM ACTPP.RESTRICOES_CIRCULACAO A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B 
                                                         WHERE A.TR_ID_TP = B.TR_ID_TP 
                                                           AND A.EV_ID_ELM = C.EV_ID_ELM 
@@ -976,7 +978,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         if (reader.Read())
                         {
-                            item = PreencherPropriedades(reader);
+                            item = PreencherPropriedadesRestricaoPorID(reader);
                         }
                     }
 
@@ -1942,6 +1944,52 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(14)) item.Observacao = reader.GetString(14);
             if (!reader.IsDBNull(15)) item.Situacao = reader.GetString(15);
             if (!reader.IsDBNull(16)) item.Responsavel = reader.GetString(16);
+
+            if (!string.IsNullOrEmpty(item.ProgramadaID) && string.IsNullOrEmpty(item.CirculacaoID))
+                item.Tipo = "PP";
+            else if (string.IsNullOrEmpty(item.ProgramadaID) && !string.IsNullOrEmpty(item.CirculacaoID))
+                item.Tipo = "CC";
+            else
+                item.Tipo = "PC";
+
+            return item;
+        }
+
+        private Restricao PreencherPropriedadesRestricaoPorID(OleDbDataReader reader)
+        {
+            var item = new Restricao();
+
+            if (!reader.IsDBNull(00)) item.Tipo = reader.GetString(00);
+            if (!reader.IsDBNull(01))
+            {
+                item.ProgramadaID = reader.GetValue(01).ToString();
+                item.RestricaoID = item.ProgramadaID;
+            }
+            if (!reader.IsDBNull(02))
+            {
+                item.CirculacaoID = reader.GetValue(02).ToString();
+
+                if (!string.IsNullOrEmpty(item.ProgramadaID) && !string.IsNullOrEmpty(item.CirculacaoID))
+                    item.RestricaoID = item.ProgramadaID;
+                else
+                    item.RestricaoID = item.CirculacaoID;
+            }
+            if (!reader.IsDBNull(03)) item.Secao_Elemento = reader.GetString(03) != string.Empty ? reader.GetString(03).Trim() : string.Empty;
+            if (!reader.IsDBNull(04)) item.Secao_ElementoID = reader.GetDouble(04) != 0 ? reader.GetDouble(04) : 0;
+            if (!reader.IsDBNull(05)) item.Tipo_Restricao = reader.GetString(05) != string.Empty ? reader.GetString(05).Trim() : string.Empty;
+            if (!reader.IsDBNull(06)) item.Tipo_RestricaoID = reader.GetDouble(06) != 0 ? reader.GetDouble(06) : 0;
+            if (!reader.IsDBNull(07)) item.SubTipo_VR = reader.GetString(07) != string.Empty ? reader.GetString(07).Trim() : string.Empty;
+            if (!reader.IsDBNull(08)) item.SubTipo_VRID = reader.GetDouble(08) != 0 ? reader.GetDouble(08) : 0;
+            if (!reader.IsDBNull(09)) item.Data_Inicial = reader.GetDateTime(09);
+            if (!reader.IsDBNull(10)) item.Data_Final = reader.GetDateTime(10);
+            if (!reader.IsDBNull(11)) item.Velocidade = reader.GetDouble(11);
+            if (!reader.IsDBNull(12)) item.Km_Inicial = reader.GetDecimal(12);
+            if (!reader.IsDBNull(13)) item.Km_Final = reader.GetDecimal(13);
+            if (!reader.IsDBNull(14)) item.Observacao = reader.GetString(14);
+            if (!reader.IsDBNull(15)) item.Situacao = reader.GetString(15);
+            if (!reader.IsDBNull(16)) item.Responsavel = reader.GetString(16);
+            if (!reader.IsDBNull(17)) item.Telefone = reader.GetString(17);
+            if (!reader.IsDBNull(18)) item.Cpf = reader.GetString(18);
 
             if (!string.IsNullOrEmpty(item.ProgramadaID) && string.IsNullOrEmpty(item.CirculacaoID))
                 item.Tipo = "PP";

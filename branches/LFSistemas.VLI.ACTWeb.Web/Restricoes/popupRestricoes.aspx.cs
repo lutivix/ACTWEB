@@ -565,11 +565,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                 }
                                 
                                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição criada com sucesso. " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
-
-                                LimpaCampos();
-                                AtualizarListaDeRestricoes();
-                                HabilitaDesabilitaCombos(true);
                             }
+
+                            LimpaCampos();
+                            AtualizarListaDeRestricoes();
+                            HabilitaDesabilitaCombos(true);
                         }
                         else
                         {
@@ -736,6 +736,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 ddlDadosSecoes.SelectedItem.Value = dados.Secao_ElementoID.ToString();
                 ddlDadosTipoRestricao.SelectedItem.Text = dados.Tipo_Restricao.ToString();
                 ddlDadosTipoRestricao.SelectedItem.Value = dados.Tipo_RestricaoID.ToString();
+
+                txtTelefone.Text = dados.Telefone != null ? dados.Telefone : string.Empty;
+
+                txtDadosCpf.Text = dados.Cpf != null ? dados.Cpf : string.Empty;
+
+
                 if (dados.SubTipo_VR != null)
                 {
                     ddlDadosSubTipoVR.SelectedItem.Text = dados.SubTipo_VR.ToString();
