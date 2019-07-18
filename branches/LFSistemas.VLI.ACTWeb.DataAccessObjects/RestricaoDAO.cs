@@ -677,12 +677,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                                 int resultado = DateTime.Compare(dataFinalBSAtual, dataIniProg);
 
-                                //Data final programada da BS a entrar é anterior  a final da programada
+                                //Data final programada da BS a entrar é anterior ao início da programada
                                 if (resultado < 0)
                                 {
                                     podeCriarBS = true;
                                 }
-                                //Data final programada da BS a entrar é posterior a final programada
+                                //Data final programada da BS a entrar é posterior ao início programada
                                 else if (resultado > 0)
                                 {
                                     podeCriarBS = false;

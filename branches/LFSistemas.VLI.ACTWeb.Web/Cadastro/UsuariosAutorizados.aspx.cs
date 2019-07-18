@@ -47,6 +47,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
                 LabelMensagem.Visible = false;
             }
+
+            HabilitaDesabilitaCombos();
         }
 
         #endregion
@@ -304,6 +306,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                 ddlCorredores.DataBind();
                 ddlCorredores.Items.Insert(0, "Selecione um Corredor");
             }
+        }
+
+        protected void HabilitaDesabilitaCombos()
+        {
+            if (lblUsuarioPerfil.Text != "ADM")
+            {
+                ButtonSalvar.Enabled = false;
+
+            }      
         }
 
         #endregion

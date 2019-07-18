@@ -784,9 +784,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
         public void HabilitaDesabilitaFuncoes()
         {
-            if (lblUsuarioPerfil.Text == "INSP")
+            if (lblUsuarioPerfil.Text != "ADM")
             {
                 lnkNovo.Enabled = false;
+
             }
         }
 
