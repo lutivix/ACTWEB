@@ -368,7 +368,7 @@
                         <td style="width: 79%;">
                             <div class="alert alert-success">
                                 <h2>
-                                    <asp:Label ID="lblTitulo" runat="server" Text="Restrições" Font-Size="20px" Style="color: rgb(0, 100, 0);" />&nbsp;</h2>
+                                    <asp:Label ID="lblTitulo" runat="server" Text="Restrições e Boletins de Serviço" Font-Size="20px" Style="color: rgb(0, 100, 0);" />&nbsp;</h2>
                             </div>
                         </td>
                         <td style="width: 1%; text-align: left;"></td>
@@ -389,7 +389,7 @@
                 <table style="width: 100%; background-color: red;">
                     <tr>
                         <td style="width: 100%; font-size: 25pt; text-align: center">
-                            <asp:Label runat="server" Text="As restrições do tipo BS serão retiradas automaticamente de acordo com a data e hora da programação! Fique Atento ao preecher os campos!" Font-Size="20" ForeColor="White" />
+                            <asp:Label runat="server" Text="BOLETIM DE SERVIÇO - As restrições do tipo VR serão retiradas automaticamente de acordo com a data e hora da programação! Fique Atento ao preecher os campos!" Font-Size="20" ForeColor="White" />
                         </td>
                     </tr>
                 </table>
@@ -432,7 +432,7 @@
                                 <asp:TextBox runat="server" ID="txtDadosDuracao" Width="100%" CssClass="form-control" onkeypress="return fnValidaNroVirgula(event);" MaxLength="5" ToolTip="Informe a duração da restrição." /></td>
                             <td style="width: 07%; text-align: right; vertical-align: central;">&nbsp;</td>
                             <td style="width: 10%; text-align: left; vertical-align: central;"></td>
-                            <td style="width: 10%; text-align: right; vertical-align: top; padding-top: 10px;">Subtipo BS&nbsp;&nbsp;</td>
+                            <td style="width: 10%; text-align: right; vertical-align: top; padding-top: 10px;">Subtipo VR&nbsp;&nbsp;</td>
                             <td style="width: 15%; text-align: left; vertical-align: central;">
                                 <asp:DropDownList runat="server" ID="ddlDadosSubTipoVR" Width="100%" CssClass="form-control" ToolTip="Informe o subtipo da restrição." /></td>
                             <td style="width: 07%; text-align: right; vertical-align: central;">&nbsp;</td>
