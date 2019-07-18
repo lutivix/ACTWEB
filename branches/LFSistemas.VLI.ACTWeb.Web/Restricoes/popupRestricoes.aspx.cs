@@ -155,7 +155,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                 //ddlDadosSecoes.SelectedItem.Text = "ETHET2";
                 //ddlDadosSecoes.SelectedItem.Value = "5103";
-                //ddlDadosTipoRestricao.SelectedItem.Text = "BS";
+                //ddlDadosTipoRestricao.SelectedItem.Text = "VR";
                 //ddlDadosTipoRestricao.SelectedItem.Value = "26";
                 //ddlDadosSubTipoVR.SelectedItem.Text = "HL - Homens trabalhando as margens da linha";
                 //ddlDadosSubTipoVR.SelectedItem.Value = "4";
@@ -163,7 +163,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 //txtDadosDuracao.Text = "9";
                 //txtDadosKm_Inicio.Text = "679";
                 //txtDadosKm_Final.Text = "690";
-                //txtDadosVelocidade.Text = "BS";
+                //txtDadosVelocidade.Text = "VR";
                 //txtDadosResponsavel.Text = "Teste";
                 //txtDadosObs.Text = "Teste";
 
@@ -229,9 +229,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             {
                 ddlDadosTipoRestricao.SelectedItem.Text = "Boletim de Serviço";
                 ddlDadosTipoRestricao.SelectedItem.Value = "26";
-                txtDadosVelocidade.Text = "BS";
+                txtDadosVelocidade.Text = "VR";
 
-                ddlFiltroTipo.SelectedItem.Text = "BS";
+                ddlFiltroTipo.SelectedItem.Text = "VR";
                 ddlFiltroTipo.SelectedItem.Value = "26";
 
                 ddlDadosSecoes.Enabled =
@@ -255,9 +255,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             {
                 ddlDadosTipoRestricao.SelectedItem.Text = "Boletim de Serviço";
                 ddlDadosTipoRestricao.SelectedItem.Value = "26";
-                txtDadosVelocidade.Text = "BS";
+                txtDadosVelocidade.Text = "VR";
 
-                ddlFiltroTipo.SelectedItem.Text = "BS";
+                ddlFiltroTipo.SelectedItem.Text = "VR";
                 ddlFiltroTipo.SelectedItem.Value = "26";
 
                 ddlDadosSecoes.Enabled =
@@ -281,11 +281,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             {
                 ddlDadosTipoRestricao.SelectedItem.Text = "Boletim de Serviço";
                 ddlDadosTipoRestricao.SelectedItem.Value = "26";
-                txtDadosVelocidade.Text = "BS";
+                txtDadosVelocidade.Text = "VR";
                 ddlDadosSubTipoVR.SelectedItem.Text = "EE";
                 ddlDadosSubTipoVR.SelectedItem.Value = "5";
 
-                ddlFiltroTipo.SelectedItem.Text = "BS";
+                ddlFiltroTipo.SelectedItem.Text = "VR";
                 ddlFiltroTipo.SelectedItem.Value = "26";
 
                 ddlDadosSecoes.Enabled =
@@ -307,7 +307,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             }
             else
             {
-                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF")
+                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF")
                 {
                     ddlDadosSecoes.Enabled =
                         ddlDadosTipoRestricao.Enabled =
@@ -373,7 +373,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             Data2 = null;
 
             if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF"
-                || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS")
+                || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
             {
                 string dataInicial = txtDadosDataInicial.Text.Trim();
                 string dataFinal = txtDadosDataFinal.Text.Trim();
@@ -384,7 +384,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 Data2 = Uteis.ConverteStringParaDateTime(dataFinal, horaFinal);
 
 
-                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS"
+                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR"
                    && Data1 != null && Data2 != null)
                 {
                     DateTime tempData1 = (DateTime)Data1;
@@ -446,7 +446,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 Km2 = null;
             }
             if (txtDadosVelocidade.Text != string.Empty
-                && txtDadosVelocidade.Text != "BS"
+                && txtDadosVelocidade.Text != "VR"
                 && txtDadosVelocidade.Text != "IF")
             {
                 Vel = double.Parse(txtDadosVelocidade.Text);
@@ -468,7 +468,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             #endregion
 
             //Verifica se o boletim de serviço é tipo velocidade restrita
-            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS")
+            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
             {
                 if (txtDadosCpf.Text.Length <= 0)
                 {
@@ -501,7 +501,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         return;
                     }
                 }
-                if ((ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS") && (restricaoController.ExisteInterdicao(double.Parse(ddlDadosSecoes.SelectedItem.Value))))
+                if ((ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR") && (restricaoController.ExisteInterdicao(double.Parse(ddlDadosSecoes.SelectedItem.Value))))
                 {
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido haver uma interdiçao na Seção de Bloqueio.' });", true);
                     return;
@@ -540,7 +540,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         {
                             if ((int.Parse(ddlDadosTipoRestricao.SelectedItem.Value) == 26) || (int.Parse(ddlDadosTipoRestricao.SelectedItem.Value) == 27))
                             {
-                                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS")
+                                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
                                 {
                                     UsuarioAutController usuario = new UsuarioAutController();
                                     string CPF = txtDadosCpf.Text.Trim();
@@ -554,7 +554,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                             }
                             else
                             {
-                                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS")
+                                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
                                 {
                                     UsuarioAutController usuario = new UsuarioAutController();
                                     string CPF = txtDadosCpf.Text.Trim();
@@ -759,7 +759,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 else
                     lblMensagem.Text = string.Format(" ");
 
-                if (dados.Tipo_Restricao == "BS" || dados.Tipo_Restricao == "IF")
+                if (dados.Tipo_Restricao == "VR" || dados.Tipo_Restricao == "IF")
                 {
                     txtDadosDuracao.Enabled = txtDadosVelocidade.Enabled = false;
                     ddlDadosSubTipoVR.Enabled = txtDadosDataInicial.Enabled = txtDadosHoraInicial.Enabled =
@@ -814,7 +814,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 rr.Tipo_Restricao = ddlDadosTipoRestricao.SelectedItem.Value != "0" ? ddlDadosTipoRestricao.SelectedItem.Text : string.Empty;
                 rr.Tipo_RestricaoID = ddlDadosTipoRestricao.SelectedItem.Value != "0" ? double.Parse(ddlDadosTipoRestricao.SelectedItem.Value) : 0;
 
-                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS")
+                if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
                 {
                     string dataInicial = txtDadosDataInicial.Text.Trim();
                     string dataFinal = txtDadosDataFinal.Text.Trim();
@@ -843,7 +843,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 rr.Lon_Inicial = string.Empty;
                 rr.Lon_Final = string.Empty;
                 rr.Duracao = txtDadosDuracao.Text != string.Empty ? double.Parse(txtDadosDuracao.Text) : 0;
-                rr.Velocidade = (txtDadosVelocidade.Text != string.Empty && txtDadosVelocidade.Text != "IF" && txtDadosVelocidade.Text != "BS") ? double.Parse(txtDadosVelocidade.Text) : 0;
+                rr.Velocidade = (txtDadosVelocidade.Text != string.Empty && txtDadosVelocidade.Text != "IF" && txtDadosVelocidade.Text != "VR") ? double.Parse(txtDadosVelocidade.Text) : 0;
                 rr.Observacao = txtDadosObs.Text != string.Empty ? Uteis.RetirarAcentosCaracteresEspeciais(txtDadosObs.Text) : string.Empty;
 
                 int IdConfirmacao = (int)restricaoController.ObtemIdRestricaoCirculacao();
@@ -1105,7 +1105,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             var NovaHora = NovaData.ToShortTimeString();
 
 
-            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS")
+            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
             {
                 txtDadosDataInicial.Text = DataAtual.ToShortDateString();
                 txtDadosHoraInicial.Text = HoraAtual;
@@ -1161,7 +1161,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             if (txtFiltroKm_Final.Text.Length > 0) _kmFim = decimal.Parse(txtFiltroKm_Final.Text); else _kmFim = null;
             if (txtFiltroNumeroRestricao.Text.Length > 0) _RestricaoID = double.Parse(txtFiltroNumeroRestricao.Text); else _RestricaoID = null;
 
-            var _perfil = ulPerfil == "OP VP" ? "BS" : ddlFiltroTipo.SelectedItem.Value != string.Empty ? ddlFiltroTipo.SelectedItem.Value : null;
+            var _perfil = ulPerfil == "OP VP" ? "VR" : ddlFiltroTipo.SelectedItem.Value != string.Empty ? ddlFiltroTipo.SelectedItem.Value : null;
             var _subTipo = ulPerfil == "OP ELE" ? "EE" : ddlDadosSubTipoVR.SelectedItem.Value != "0" ? ddlDadosSubTipoVR.SelectedItem.Value : null;
             var _sb = ddlFiltroSB.SelectedItem.Value != string.Empty ? ddlFiltroSB.SelectedItem.Value : null;
             var _obs = txtFiltroObs.Text != string.Empty ? txtFiltroObs.Text : null;
@@ -1189,7 +1189,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         protected void txtDadosDataFinal_TextChanged(object sender, EventArgs e)
         {
 
-            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS")
+            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF" || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
             {
                 string dataInicial = txtDadosDataInicial.Text.Trim();
                 string dataFinal = txtDadosDataFinal.Text.Trim();
