@@ -44,6 +44,7 @@
 
             document.getElementById('<%=txtDadosTelefone.ClientID %>').value = '';
             document.getElementById('<%=txtDadosMacro.ClientID %>').value = '';
+            document.getElementById('<%=txtPrefixo.ClientID %>').value = '';
             txtDadosTelefone.disabled = false;
             txtDadosMacro.disabled = true;
             lblPrefixo.disabled = true;
@@ -56,6 +57,7 @@
 
             document.getElementById('<%=txtDadosTelefone.ClientID %>').value = '';
             document.getElementById('<%=txtDadosMacro.ClientID %>').value = '';
+            document.getElementById('<%=txtPrefixo.ClientID %>').value = '';
             txtDadosTelefone.disabled = true;
             txtDadosMacro.disabled = true;
             lblPrefixo.disabled = true;
@@ -69,6 +71,8 @@
 
             document.getElementById('<%=txtDadosTelefone.ClientID %>').value = '';
             document.getElementById('<%=txtDadosMacro.ClientID %>').value = '';
+            document.getElementById('<%=txtPrefixo.ClientID %>').value = '';
+                
             txtDadosMacro.disabled = false;
             txtDadosTelefone.disabled = true;
             lblPrefixo.disabled = false;
