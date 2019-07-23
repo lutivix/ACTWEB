@@ -401,7 +401,7 @@
                                 <tr>
                                     <td style="width: 5%; vertical-align: middle; text-align: left;" >Telefone Responsável:&nbsp;&nbsp;</td>
                                     <td style="width: 20%; vertical-align: middle; text-align: left;" >
-                                        <asp:TextBox ID="txtTelefoneResponsavel" runat="server" CssClass="form-control" />
+                                        <asp:TextBox ID="txtTelefoneResponsavel" runat="server" MaxLength="11" CssClass="form-control" />
                                     </td>
                                     <td style="width: 35%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" >
                                         <asp:UpdatePanel runat="server">
@@ -472,7 +472,7 @@
                         <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;  padding-left:20px; "><asp:Label runat="server" ID="lblPrefixo" Font-Size="9" Font-Bold="true" /></td>
                         	
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-                            <asp:TextBox ID="txtPrefixo" runat="server" CssClass="form-control" />
+                            <asp:TextBox ID="txtPrefixo" MaxLength="4" runat="server" CssClass="form-control" />
                         </td>  
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                     </tr>
