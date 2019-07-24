@@ -732,6 +732,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             string corredoresFiltro = "";
             string permiteLDLFiltro = "";
             string cpfFiltro = "";
+            string nomeFiltro = "";
+            string matriculaFiltro = "";
 
             List<string> subtipos = new List<string>();
             List<string> corredores_id = new List<string>();
@@ -772,11 +774,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             }
 
             cpfFiltro = txtCPF.Text.Trim();
+            nomeFiltro = txtNome.Text.Trim();
+            matriculaFiltro = txtMatricula.Text.Trim();
 
             usuarioFiltro.Subtipos_BS = subtiposFiltro;
             usuarioFiltro.corredores_id = corredoresFiltro;
             usuarioFiltro.PermissaoLDL = permiteLDLFiltro;
             usuarioFiltro.CPF = cpfFiltro;
+            usuarioFiltro.Nome = nomeFiltro;
+            usuarioFiltro.Matricula = matriculaFiltro;
+            
 
             return usuarioFiltro;
             
