@@ -793,7 +793,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         {
             if (lblUsuarioPerfil.Text != "ADM")
             {
-                lnkNovo.Enabled = false;
+                lnkNovo.Visible = false;
 
             }
         }
