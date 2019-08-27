@@ -183,12 +183,36 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         if (inicial == true)
                         {
-                            query.Replace("${PERMITE_LDL}", string.Format(" AND OP_PERMITE_LDL = '{0}'", filtro.PermissaoLDL.ToUpper()));
+                            if (filtro.PermissaoLDL.Equals("S"))
+                            {
+                                query.Replace("${PERMITE_LDL}", " AND OP_PERMITE_LDL = 'S'");
+                            }
+                            else if (filtro.PermissaoLDL.Equals("N"))
+                            {
+                                query.Replace("${PERMITE_LDL}", " AND OP_PERMITE_LDL = 'N'");
+                            }
+                            else
+                            {
+                                query.Replace("${PERMITE_LDL}", " AND OP_PERMITE_LDL IN (S, N)");
+                            }
+                            
                         }
                         else
                         {
-                            query.Replace("${PERMITE_LDL}", string.Format("  WHERE OP_PERMITE_LDL = '{0}'", filtro.PermissaoLDL.ToUpper()));
-                            inicial = true;
+                            if (filtro.PermissaoLDL.Equals("S"))
+                            {
+                                query.Replace("${PERMITE_LDL}", string.Format("  WHERE OP_PERMITE_LDL = '{0}'", 'S'));
+                                inicial = true;
+
+                            }
+                            else if (filtro.PermissaoLDL.Equals("N"))
+                            {
+                                query.Replace("${PERMITE_LDL}", string.Format("  WHERE OP_PERMITE_LDL = '{0}'", 'N'));
+                            } 
+                            else
+                            {
+                                query.Replace("${PERMITE_LDL}", string.Format("  WHERE OP_PERMITE_LDL = '{0}'", 'T'));
+                            }
                         }
                     }
                     else
