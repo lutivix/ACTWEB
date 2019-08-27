@@ -103,6 +103,11 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ObterUsuarioACTporCPF(cpf);
         }
 
+        public bool ObterUsuarioACTporCPF2(string cpf)
+        {
+            return dao.ObterUsuarioACTporCPF2(cpf);
+        }
+
         /// <summary>
         /// Obtem um usuário do sistema ACT pela Matrícula
         /// </summary>
@@ -111,6 +116,11 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         public bool ObterUsuarioACTporMatricula(string matricula)
         {
             return dao.ObterUsuarioACTporMatricula(matricula);
+        }
+
+        public bool ObterUsuarioACTporMatricula2(string matricula)
+        {
+            return dao.ObterUsuarioACTporMatricula2(matricula);
         }
 
         #endregion

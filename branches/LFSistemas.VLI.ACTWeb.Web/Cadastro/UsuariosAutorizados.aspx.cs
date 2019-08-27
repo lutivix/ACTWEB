@@ -141,8 +141,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
                 if (Matricula == "NOVO")
                 {
-                    var existeCPF = new UsuarioACTController().ObterUsuarioACTporCPF(txtCPF.Text);
-                    var existeMatricula = new UsuarioACTController().ObterUsuarioACTporMatricula(txtMatriculaACT.Text);
+                    var existeCPF = new UsuarioACTController().ObterUsuarioACTporCPF2(txtCPF.Text);
+                    var existeMatricula = new UsuarioACTController().ObterUsuarioACTporMatricula2(txtMatriculaACT.Text);
                     if (!existeCPF && !existeMatricula)
                     {
                         if (usuarioAutController.SalvarUsuario(usuario, ulMatricula))
@@ -200,7 +200,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
         protected void txtCPFACT_TextChanged(object sender, EventArgs e)
         {
-            var existe = new UsuarioACTController().ObterUsuarioACTporCPF(txtCPF.Text);
+            var existe = new UsuarioACTController().ObterUsuarioACTporCPF2(txtCPF.Text);
             if (existe)
             {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Já existe um usuário cadastrado no banco de dados com o CPF: " + txtCPF.Text.Trim() + "' });", true);
@@ -209,7 +209,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
         protected void txtMatriculaACT_TextChanged(object sender, EventArgs e)
         {
-            var existe = new UsuarioACTController().ObterUsuarioACTporMatricula(txtMatriculaACT.Text);
+            var existe = new UsuarioACTController().ObterUsuarioACTporMatricula2(txtMatriculaACT.Text);
             if (existe)
             {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Já existe um usuário cadastrado no banco de dados com a Matrícula: " + txtMatriculaACT.Text.Trim() + "' });", true);

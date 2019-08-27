@@ -91,6 +91,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             //ddlPerfis.SelectedIndex = 0;
             txtMatricula.Text = string.Empty;
             txtNome.Text = string.Empty;
+            ddlPermissoes.SelectedValue = "2";
+            CarregaCombos(null);
             Pesquisar(null, Navigation.None);
         }
         protected void lnkNovo_Click(object sender, EventArgs e)

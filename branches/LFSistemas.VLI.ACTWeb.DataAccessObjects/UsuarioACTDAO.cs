@@ -627,6 +627,56 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return Retorno;
         }
 
+        public bool ObterUsuarioACTporCPF2(string cpf)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            bool Retorno = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA TOTAL DE ACESSOS ]
+
+                    var command = connection.CreateCommand();
+                    query.Append(@"SELECT OP_BS_ID AS ID, OP_BS_MAT AS MATRICULA, OP_BS_NM AS NOME, OP_PERMITE_LDL AS LDL, OP_CPF AS CPF FROM ACTPP.OPERADORES_BS WHERE OP_CPF = ${OP_CPF}");
+
+                    #endregion
+
+                    #region [ PARÂMETROS ]
+
+                    query.Replace("${OP_CPF}", string.Format("'{0}'", cpf));
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NO CONTADOR ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            Retorno = true;
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return Retorno;
+        }
+
         /// <summary>
         /// Obtem um usuário do sistema ACT pela Matrícula
         /// </summary>
@@ -649,6 +699,56 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
                     query.Append(@"SELECT OP_ID_OP AS ID, OP_MAT AS MATRICULA, OP_NM AS NOME, OP_SENHA AS SENHA, OP_DT_SENHA AS CADASTRO, OP_PERMITE_LDL AS LDL, TO_ID_OP AS PERFIL_ID, OP_CPF AS CPF FROM ACTPP.OPERADORES WHERE UPPER(OP_MAT) = ${OP_MAT}");
+
+                    #endregion
+
+                    #region [ PARÂMETROS ]
+
+                    query.Replace("${OP_MAT}", string.Format("'{0}'", matricula.ToUpper()));
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NO CONTADOR ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            Retorno = true;
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return Retorno;
+        }
+
+        public bool ObterUsuarioACTporMatricula2(string matricula)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            bool Retorno = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA TOTAL DE ACESSOS ]
+
+                    var command = connection.CreateCommand();
+                    query.Append(@"SELECT OP_BS_ID AS ID, OP_BS_MAT AS MATRICULA, OP_BS_NM AS NOME, OP_PERMITE_LDL AS LDL, OP_CPF AS CPF FROM ACTPP.OPERADORES_BS WHERE UPPER(OP_BS_MAT) = ${OP_MAT}");
 
                     #endregion
 
