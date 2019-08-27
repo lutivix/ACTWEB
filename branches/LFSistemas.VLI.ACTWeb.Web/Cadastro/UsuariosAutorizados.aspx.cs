@@ -74,7 +74,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             chkAtivo.Checked = usuario.Ativo_SN == "Sim" ? true : false;
             if (usuario.PermissaoLDL.Equals("Sim"))
             {
-                cblPermissoes.SelectedValue = "1";
+                ddlPermissoes.SelectedValue = "0";
+            }
+            else
+            {
+                ddlPermissoes.SelectedValue = "1";
             }
             txtMatriculaACT.Enabled = false;
 
@@ -116,7 +120,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             usuario.Empresa = txtEmpresa.Text.Trim();
             usuario.Ativo_SN = chkAtivo.Checked ? "S" : "N";
 
-            if (cblPermissoes.Items[0].Selected == true)
+            if (ddlPermissoes.Items[0].Selected == true)
             {
                 usuario.PermissaoLDL = "S";
             }

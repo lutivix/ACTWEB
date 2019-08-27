@@ -28,7 +28,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
                     query.Append(@"SELECT * FROM ACTPP.OPERADORES_BS 
                                      ${MATRICULA}
-                                     ${NOME}");
+                                     ${NOME}
+                                     ORDER BY 1");
 
                     if (!string.IsNullOrEmpty(filtro.Matricula))
                         query.Replace("${MATRICULA}", string.Format(" WHERE UPPER(OP_BS_MAT) LIKE '%{0}%'", filtro.Matricula.ToUpper()));
@@ -99,7 +100,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                      ${CPF}
                                      ${SUBTIPOS}
                                      ${CORREDORES}
-                                     ${PERMITE_LDL}");
+                                     ${PERMITE_LDL}
+                                     ORDER BY 1");
 
                     if (!string.IsNullOrEmpty(filtro.Matricula))
                     {
@@ -193,7 +195,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             }
                             else
                             {
-                                query.Replace("${PERMITE_LDL}", " AND OP_PERMITE_LDL IN (S, N)");
+                                query.Replace("${PERMITE_LDL}", string.Format(" "));
                             }
                             
                         }
@@ -211,7 +213,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             } 
                             else
                             {
-                                query.Replace("${PERMITE_LDL}", string.Format("  WHERE OP_PERMITE_LDL = '{0}'", 'T'));
+                                query.Replace("${PERMITE_LDL}", string.Format(" "));
                             }
                         }
                     }
