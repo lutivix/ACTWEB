@@ -111,9 +111,11 @@
 
                 <div class="form-group col-sm-2">
             <label for="permiteldl">Permite:</label><br />
-            <asp:CheckBoxList ID="cblPermissoes" runat="server" CssClass="form-control" Checked="false" Width="80px" height="30px">
-                <asp:ListItem Text="LDL" Value="1"></asp:ListItem>
-            </asp:CheckBoxList>    
+            <asp:DropDownList ID="ddlPermissoes" runat="server" CssClass="form-control" Checked="false" Width="80px" height="30px">
+                                        <asp:ListItem Text="Sim" Value="0" />
+                                        <asp:ListItem Text="Não" Value="1" />
+                                        <asp:ListItem Text="Todos" Value="2" Selected="True" />
+            </asp:DropDownList>    
              </div>
 
             </div>

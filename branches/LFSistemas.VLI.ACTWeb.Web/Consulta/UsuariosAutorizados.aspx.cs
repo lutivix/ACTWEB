@@ -764,13 +764,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 corredoresFiltro = string.Join(",", corredores_id);
             }
 
-            if (cblPermissoes.Items[0].Selected == true)
+            if (ddlPermissoes.Items[0].Selected == true)
             {
                 permiteLDLFiltro = "S";
             }
-            else
+            else if (ddlPermissoes.Items[1].Selected == true)
             {
                 permiteLDLFiltro = "N";
+            }
+            else {
+                permiteLDLFiltro = "T";
             }
 
             cpfFiltro = txtCPF.Text.Trim();
