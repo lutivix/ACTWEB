@@ -43,7 +43,7 @@
         </div>
         <div class="form-group col-sm-6">
             <label for="cpf">CPF:</label>
-            <asp:TextBox runat="server" ID="txtCPF" CssClass="form-control"  onkeypress="return PermiteSomenteNumeros(event);" MaxLength="11" AutoPostBack="true" />
+            <asp:TextBox runat="server" ID="txtCPF" CssClass="form-control"  onkeypress="return PermiteSomenteNumeros(event);" MaxLength="11" OnTextChanged="txtCPF_TextChanged" AutoPostBack="true" />
         </div>
     </div>
     <div class="row">

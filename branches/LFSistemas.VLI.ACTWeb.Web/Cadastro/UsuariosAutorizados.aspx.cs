@@ -198,7 +198,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             }
         }
 
-        protected void txtCPFACT_TextChanged(object sender, EventArgs e)
+        protected void txtCPF_TextChanged(object sender, EventArgs e)
         {
             var existe = new UsuarioACTController().ObterUsuarioACTporCPF2(txtCPF.Text);
             if (existe)
