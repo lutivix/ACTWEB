@@ -688,6 +688,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"SELECT EV_ID_ELM, EV_NOM_MAC FROM ACTPP.ELEM_VIA       
                                        WHERE TE_ID_TP = 3 and ev_nom_mac != 'SBERRADA' 
+                                        AND EV_IND_IN <> 'E'
                                        ORDER BY EV_NOM_MAC");
 
                     #endregion
