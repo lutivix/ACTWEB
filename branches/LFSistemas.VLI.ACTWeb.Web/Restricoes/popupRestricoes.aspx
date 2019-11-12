@@ -651,7 +651,7 @@
         <br />
         <div class="footer-lf-popup">
             <span>desenvolvido por </span>
-            <a href="http://lfsistemas.net.br/" target="_blank" class="lfslogo-popup"></a>
+            <a href="http://lfsolutions.net.br/" target="_blank" class="lfslogo-popup"></a>
         </div>
     </form>
 </body>

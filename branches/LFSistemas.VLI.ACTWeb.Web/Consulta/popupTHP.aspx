@@ -297,7 +297,7 @@
             </div>
             <div class="footer-lf-popup" style="background-color: rgb(160, 160, 160);">
                 <span>desenvolvido por </span>
-                <a href="http://lfsistemas.net.br/" target="_blank" class="lfslogo"></a>
+                <a href="http://lfsolutions.net.br/" target="_blank" class="lfslogo"></a>
             </div>
         </div>
     </form>

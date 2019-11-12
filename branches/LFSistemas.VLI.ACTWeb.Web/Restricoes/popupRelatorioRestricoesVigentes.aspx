@@ -120,7 +120,7 @@
             </div>
             <div style="float: right; margin-top: 1%; margin-left: 4%; margin-right: 4%; margin-bottom: 1%; text-align: left;">
                 <span>desenvolvido por </span>
-                <a href="http://lfsistemas.net.br/" target="_blank" class="lfslogo"></a>
+                <a href="http://lfsolutions.net.br/" target="_blank" class="lfslogo"></a>
             </div>
         </asp:Panel>
     </form>

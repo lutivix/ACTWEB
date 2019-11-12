@@ -136,7 +136,7 @@
             </table>
             <div style="float: right;">
                 <span>desenvolvido por </span>
-                <a href="http://lfsistemas.net.br/" target="_blank" class="lfslogo"></a>
+                <a href="http://lfsolutions.net.br/" target="_blank" class="lfslogo"></a>
             </div>
         </div>
     </form>
