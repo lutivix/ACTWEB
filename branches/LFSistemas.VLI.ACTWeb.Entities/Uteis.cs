@@ -94,6 +94,34 @@ namespace LFSistemas.VLI.ACTWeb.Entities
             return senha.ToString();
         }
 
+        public static string CampoMacro(string macro, int numcampo)
+        {
+            string SEPARADOR = "_";
+            for (int i = 0; i < (numcampo - 1); i++)
+            {
+               
+                macro = macro.Remove(macro.IndexOf(SEPARADOR), 1);
+            }
+            int posicao = macro.IndexOf(SEPARADOR);
+
+            if (posicao == -1)
+            {
+                return "";
+            }
+
+            macro = macro.Remove(macro.IndexOf(SEPARADOR), 1);
+            if (macro.IndexOf(SEPARADOR) == 0)
+            {
+                macro = macro.Substring(posicao, macro.Length + 1 - posicao);
+                return macro.Trim();
+            }
+            else
+            {
+                macro = macro.Substring(posicao, macro.IndexOf(SEPARADOR) - posicao);
+                return macro.Trim();
+            }
+        }
+
         /// <summary>
         /// Método que retorna o texto da macro formatado no padrão de 38 caracteres por linha
         /// </summary>

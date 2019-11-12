@@ -17,7 +17,7 @@
 </style>
 <div class="panel panel-default" style="margin: 10px; height: 100%; font-family: Courier New, Courier, monospace;">
     <div class="panel-heading">
-        <h3 class="panel-title"><asp:Image runat="server" ImageUrl="/img/macro-b.png" />Macro
+        <h3 class="panel-title"><asp:Image runat="server" ImageUrl="/img/macro-b.png" />
             <asp:Literal ID="LabelNumeroMacro" runat="server"></asp:Literal></h3>
     </div>
     <div class="panel-body">

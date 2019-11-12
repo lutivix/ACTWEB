@@ -109,11 +109,105 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
             this.Mascara = this.Mascara.Replace("\\", "<br>");
 
             if (String.IsNullOrEmpty(this.Mascara))
-            {
-                this.Mascara = EntidadeMacro.Texto;
+            {   //Macros 0's e mensagens RDC
+                if (EntidadeMacro.NumeroMacro != 0)
+                {
+                    if(EntidadeMacro.NumeroMacro > 999)
+                    {
+                        string strComplementoMsgRDC = "";
+                        switch ((int)EntidadeMacro.NumeroMacro)
+                        {
+                            case 9999:
+                                {
+                                    strComplementoMsgRDC = strComplementoMsgRDC + "DESCONHECIDA OU COM FALHA<BR><BR>";                                   
+                                    break;
+                                }
+                            case 1030:
+                                {
+                                    strComplementoMsgRDC = strComplementoMsgRDC + "RESPOSTA DE LICENÇA<BR><BR>";
+                                    strComplementoMsgRDC = strComplementoMsgRDC +
+                                                            "Resposta: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>"    +
+                                                            "Licenca: " + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "<br>"     ;
+                                    break;
+                                }
+                            case 1034:
+                                {
+                                    strComplementoMsgRDC = strComplementoMsgRDC + "RESPOSTA DE CANCELAMENTO DE LICENÇA<BR><BR>";
+                                    strComplementoMsgRDC = strComplementoMsgRDC +
+                                                            "Resposta: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>" +
+                                                            "Licenca: " + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "<br>";
+                                    break;
+                                }
+                            case 1043:
+                                {
+                                    strComplementoMsgRDC = strComplementoMsgRDC + "RESPOSTA DE ALTERAÇÃO DE LICENÇA<BR><BR>";
+                                    strComplementoMsgRDC = strComplementoMsgRDC +
+                                                            "Resposta: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>" +
+                                                            "Licenca: " + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "<br>";
+                                    break;
+                                }
+                            case 1036:
+                                {
+                                    strComplementoMsgRDC = strComplementoMsgRDC + "RESPOSTA DE ENTENDIMENTO DE TREM NA CAUDA<BR><BR>";
+                                    strComplementoMsgRDC = strComplementoMsgRDC +
+                                                            "Resposta: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>" +
+                                                            "Locomotiva: " + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "<br>" +
+                                                            "Trem: " + Uteis.CampoMacro(EntidadeMacro.Texto, 3) + "<br>";
+                                    break;
+                                }
+                            case 1039:
+                                {
+                                    strComplementoMsgRDC = strComplementoMsgRDC + "RESPOSTA DE PARADA IMEDIATA<BR><BR>";
+                                    strComplementoMsgRDC = strComplementoMsgRDC +
+                                                            "Resposta: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>";
+                                    break;
+                                }
+                            case 1284:
+                                {
+                                    strComplementoMsgRDC = strComplementoMsgRDC + "RESPOSTA DE CANCELAMENTO DE RESTRIÇÃO<BR><BR>";
+                                    strComplementoMsgRDC = strComplementoMsgRDC +
+                                                            "Resposta: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>" +
+                                                            "Licenca: " + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "<br>";
+                                    break;
+                                }
+                            case 1282:
+                                {
+                                    strComplementoMsgRDC = strComplementoMsgRDC + "RESPOSTA DE CRIAÇÃO DE RESTRIÇÃO<BR><BR>";
+                                    strComplementoMsgRDC = strComplementoMsgRDC +
+                                                            "Resposta: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>" +
+                                                            "Licenca: " + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "<br>";
+                                    break;
+                                }
+                            case 1541:
+                                {
+                                    strComplementoMsgRDC = strComplementoMsgRDC + "RESPOSTA DE PERCENTUAL DE VELOCIDADE<BR><BR>";
+                                    strComplementoMsgRDC = strComplementoMsgRDC +
+                                                            "Resposta: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>" +
+                                                            "Percentual: " + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "<br>";
+                                    break;
+                                }
+                            default: strComplementoMsgRDC = strComplementoMsgRDC + "DESCARTE<BR><BR>"; break;                           
+                        }
+                        this.Mascara = strComplementoMsgRDC + "Parametros: " + EntidadeMacro.Texto;
+                        this.LabelNumeroMacro.Text = "Mensagem RDC " + Convert.ToString(EntidadeMacro.NumeroMacro);
+                    }
+                    else
+                    {
+                        this.Mascara = EntidadeMacro.Texto;
+                        this.LabelNumeroMacro.Text = "Macro " + Convert.ToString(EntidadeMacro.NumeroMacro);
+                    }
+                    
+                }                    
+                else
+                {
+                    this.Mascara = EntidadeMacro.Texto;
+                    this.LabelNumeroMacro.Text = "Macro " + Convert.ToString(EntidadeMacro.NumeroMacro);
+                }                
             }
+            else
+                this.LabelNumeroMacro.Text = "Macro " + Convert.ToString(EntidadeMacro.NumeroMacro);
          
-            this.LabelNumeroMacro.Text = Convert.ToString(EntidadeMacro.NumeroMacro);
+            //this.LabelNumeroMacro.Text = Convert.ToString(EntidadeMacro.NumeroMacro);
             this.LabelMascara.Text = this.Mascara;
         }
 
