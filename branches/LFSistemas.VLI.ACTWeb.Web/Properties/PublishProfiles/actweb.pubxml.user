@@ -15,7 +15,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/08/2019 13:53:51</publishTime>
     </File>
     <File Include="ACTWEB.Master">
-      <publishTime>11/12/2019 10:43:40</publishTime>
+      <publishTime>11/12/2019 11:03:13</publishTime>
     </File>
     <File Include="Ajuda/Erro.aspx">
       <publishTime>04/08/2019 13:53:51</publishTime>
@@ -162,25 +162,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>11/12/2019 10:46:43</publishTime>
+      <publishTime>11/21/2019 10:37:33</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
       <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>11/12/2019 10:46:43</publishTime>
+      <publishTime>11/21/2019 10:37:32</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
       <publishTime>09/08/2016 12:55:17</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>11/12/2019 10:46:42</publishTime>
+      <publishTime>11/21/2019 10:37:32</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>11/12/2019 10:46:45</publishTime>
+      <publishTime>11/21/2019 10:37:34</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>
@@ -357,7 +357,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/02/2016 08:31:14</publishTime>
     </File>
     <File Include="Consulta/Cabines.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:33</publishTime>
     </File>
     <File Include="Consulta/Consulta OBC.aspx">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -381,7 +381,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/08/2019 13:53:51</publishTime>
     </File>
     <File Include="Consulta/ConsultaMacro50.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:32</publishTime>
     </File>
     <File Include="Consulta/ConsultaMaquinistas.aspx">
       <publishTime>04/08/2019 13:53:51</publishTime>
@@ -423,16 +423,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/08/2019 13:53:51</publishTime>
     </File>
     <File Include="Consulta/EnviarMacro200.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:32</publishTime>
     </File>
     <File Include="Consulta/EnviarMacro50.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:32</publishTime>
     </File>
     <File Include="Consulta/EnviarMacro50000.aspx">
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Consulta/EnviarMacro61.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:32</publishTime>
     </File>
     <File Include="Consulta/EnviarMacro61000.aspx">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -441,7 +441,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/08/2019 13:53:51</publishTime>
     </File>
     <File Include="Consulta/Informacao_OBC.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:32</publishTime>
     </File>
     <File Include="Consulta/Macro.aspx">
       <publishTime>04/08/2019 13:53:51</publishTime>
@@ -471,10 +471,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/08/2019 13:53:51</publishTime>
     </File>
     <File Include="Consulta/popupTermometros.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:31</publishTime>
     </File>
     <File Include="Consulta/popupTHP.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:31</publishTime>
     </File>
     <File Include="Consulta/popupTrensOnline.aspx">
       <publishTime>04/08/2019 13:53:51</publishTime>
@@ -516,7 +516,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/08/2019 13:53:51</publishTime>
     </File>
     <File Include="css/main.css">
-      <publishTime>07/17/2019 11:59:52</publishTime>
+      <publishTime>11/12/2019 11:15:39</publishTime>
     </File>
     <File Include="css/processando.css">
       <publishTime>04/08/2019 13:53:51</publishTime>
@@ -1530,7 +1530,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/02/2015 13:22:10</publishTime>
     </File>
     <File Include="Locomotivas/popupLocomotivas.aspx">
-      <publishTime>11/12/2019 09:35:07</publishTime>
+      <publishTime>11/12/2019 11:12:31</publishTime>
     </File>
     <File Include="Login.aspx">
       <publishTime>04/08/2019 13:53:51</publishTime>
@@ -1539,7 +1539,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/08/2019 13:53:52</publishTime>
     </File>
     <File Include="Macros/PopupEnviarParadaImediata.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:33</publishTime>
     </File>
     <File Include="maps/.gitattributes">
       <publishTime>04/08/2019 13:53:52</publishTime>
@@ -1602,28 +1602,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/08/2019 13:53:52</publishTime>
     </File>
     <File Include="Painel/PainelAraguariBoaVista.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:31</publishTime>
     </File>
     <File Include="Painel/PainelBaixada.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:31</publishTime>
     </File>
     <File Include="Painel/PainelBarraMansaGarças.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:31</publishTime>
     </File>
     <File Include="Painel/PainelCat.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:31</publishTime>
     </File>
     <File Include="Painel/PainelCCO.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:30</publishTime>
     </File>
     <File Include="Painel/PainelEFVM.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:30</publishTime>
     </File>
     <File Include="Painel/PainelEldoradoAraguari.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:30</publishTime>
     </File>
     <File Include="Painel/PainelGen.CarneiroMontesClaros.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:30</publishTime>
     </File>
     <File Include="Plus.aspx">
       <publishTime>04/08/2019 13:53:51</publishTime>
@@ -1674,22 +1674,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/08/2019 14:05:19</publishTime>
     </File>
     <File Include="Restricoes/popupConfirmacaoLDL.aspx">
-      <publishTime>04/08/2019 14:05:19</publishTime>
+      <publishTime>11/12/2019 11:12:29</publishTime>
     </File>
     <File Include="Restricoes/popupLDL.aspx">
-      <publishTime>11/12/2019 09:35:07</publishTime>
+      <publishTime>11/12/2019 11:12:29</publishTime>
     </File>
     <File Include="Restricoes/popupRelatorioRestricoesPorData.aspx">
-      <publishTime>11/12/2019 09:35:07</publishTime>
+      <publishTime>11/12/2019 11:12:29</publishTime>
     </File>
     <File Include="Restricoes/popupRelatorioRestricoesTemperatura.aspx">
       <publishTime>04/08/2019 13:53:51</publishTime>
     </File>
     <File Include="Restricoes/popupRelatorioRestricoesVigentes.aspx">
-      <publishTime>11/12/2019 09:35:07</publishTime>
+      <publishTime>11/12/2019 11:12:29</publishTime>
     </File>
     <File Include="Restricoes/popupRestricoes.aspx">
-      <publishTime>11/12/2019 09:35:07</publishTime>
+      <publishTime>11/12/2019 11:12:29</publishTime>
     </File>
     <File Include="slide/slide01.png">
       <publishTime>02/07/2015 14:49:54</publishTime>
@@ -1719,10 +1719,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/08/2019 13:53:51</publishTime>
     </File>
     <File Include="THP/popupSubparadas.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:33</publishTime>
     </File>
     <File Include="THP/popupTHP.aspx">
-      <publishTime>04/08/2019 13:53:51</publishTime>
+      <publishTime>11/12/2019 11:12:26</publishTime>
     </File>
     <File Include="THP/popupTHP_Relatorios.aspx">
       <publishTime>04/08/2019 13:53:51</publishTime>

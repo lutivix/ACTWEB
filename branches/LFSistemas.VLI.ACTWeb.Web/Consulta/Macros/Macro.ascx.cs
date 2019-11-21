@@ -167,7 +167,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
                                     strComplementoMsgRDC = strComplementoMsgRDC + "RESPOSTA DE CANCELAMENTO DE RESTRIÇÃO<BR><BR>";
                                     strComplementoMsgRDC = strComplementoMsgRDC +
                                                             "Resposta: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>" +
-                                                            "Licenca: " + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "<br>";
+                                                            "Restrição: " + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "<br>";
                                     break;
                                 }
                             case 1282:
@@ -175,7 +175,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
                                     strComplementoMsgRDC = strComplementoMsgRDC + "RESPOSTA DE CRIAÇÃO DE RESTRIÇÃO<BR><BR>";
                                     strComplementoMsgRDC = strComplementoMsgRDC +
                                                             "Resposta: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>" +
-                                                            "Licenca: " + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "<br>";
+                                                            "Restrição: " + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "<br>";
                                     break;
                                 }
                             case 1541:
@@ -184,6 +184,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
                                     strComplementoMsgRDC = strComplementoMsgRDC +
                                                             "Resposta: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>" +
                                                             "Percentual: " + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "<br>";
+                                    break;
+                                }
+                            case 1283:
+                                {
+                                    strComplementoMsgRDC = strComplementoMsgRDC + "REQISUIÇÃO DE REMOÇÃO DE RESTRIÇÃO<BR><BR>";
+                                    strComplementoMsgRDC = strComplementoMsgRDC +
+                                                            "Restrição: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>" ;
                                     break;
                                 }
                             default: strComplementoMsgRDC = strComplementoMsgRDC + "DESCARTE<BR><BR>"; break;                           
