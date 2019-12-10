@@ -40,13 +40,22 @@ namespace LFSistemas.VLI.ACTWeb.Web.VP {
         protected global::System.Web.UI.WebControls.TextBox txtFiltroLocal;
         
         /// <summary>
-        /// txtData control.
+        /// txtDataIni control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtData;
+        protected global::System.Web.UI.WebControls.TextBox txtDataIni;
+        
+        /// <summary>
+        /// txtDataFim control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDataFim;
         
         /// <summary>
         /// txtTreacao control.

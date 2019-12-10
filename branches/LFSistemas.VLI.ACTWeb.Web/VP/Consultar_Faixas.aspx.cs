@@ -274,7 +274,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.VP
 
             string prefixo = txtFiltroPrefixo.Text;
             string local = txtFiltroLocal.Text;
-            string data = txtData.Text;
+            string dataini = txtDataIni.Text;
+            string datafim = txtDataFim.Text;
             string reacao = txtTreacao.Text;
             string execucao = txtTexecucao.Text;
 
@@ -309,7 +310,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.VP
                 corredor = string.Join(",", aux2);
             }
 
-            itens = acao.ObterTodos(ordenacao, prefixo, local, data, reacao, execucao, adeReacao, adeExecucao, status, corredor);
+            itens = acao.ObterTodos(ordenacao, prefixo, local, dataini, datafim, reacao, execucao, adeReacao, adeExecucao, status, corredor);
 
             if (itens.Count > 0)
             {
@@ -376,7 +377,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.VP
 
             string prefixo = txtFiltroPrefixo.Text;
             string local = txtFiltroLocal.Text;
-            string data = txtData.Text;
+            string datai = txtDataIni.Text;
+            string dataf = txtDataFim.Text;
             string reacao = txtTreacao.Text;
             string execucao = txtTexecucao.Text;
 
@@ -411,7 +413,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.VP
                 corredor = string.Join(",", aux2);
             }
 
-            itens = acao.ObterTodos(ordenacao, prefixo, local, data, reacao, execucao, adeReacao, adeExecucao, status, corredor);
+            itens = acao.ObterTodos(ordenacao, prefixo, local, datai, dataf, reacao, execucao, adeReacao, adeExecucao, status, corredor);
 
             if (itens.Count > 0)
             {

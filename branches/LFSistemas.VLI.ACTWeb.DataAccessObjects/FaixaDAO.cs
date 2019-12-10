@@ -13,7 +13,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
     {
         #region [ MÉTODOS DE BUSCA ]
 
-        public List<FaixaVP> ObterTodos(string ordenacao, string prefixo, string local, string dataPlanejada, string reacao, string execucao, string adeReacao, string adeExecucao, string status, string corredor)
+        public List<FaixaVP> ObterTodos(string ordenacao, string prefixo, string local, string datai, string dataf, string reacao, string execucao, string adeReacao, string adeExecucao, string status, string corredor)
         {
             #region [ PROPRIEDADES ]
 
@@ -199,7 +199,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                      WHERE 1 = 1
                                                     ${PREFIXO}
                                                     ${LOCAL}
-                                                    ${DATA}
+                                                    ${DATAI}
+                                                    ${DATAF}
                                                     ${REACAO}
                                                     ${EXECUCAO}
                                                     ${ADE_REACAO}
@@ -222,10 +223,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     else
                         query.Replace("${LOCAL}", string.Format(""));
 
-                    if (dataPlanejada != null && dataPlanejada.Length > 0)
-                        query.Replace("${DATA}", string.Format("AND VP_DATE = '{0}'", dataPlanejada));
+                    if (datai != null && datai.Length > 0)
+                        query.Replace("${DATAI}", string.Format("AND VP_DATE >= '{0}'", datai));
                     else
-                        query.Replace("${DATA}", string.Format(""));
+                        query.Replace("${DATAI}", string.Format(""));
+
+                    if (dataf != null && dataf.Length > 0)
+                        query.Replace("${DATAF}", string.Format("AND VP_DATE <= '{0}'", dataf));
+                    else
+                        query.Replace("${DATAF}", string.Format(""));
 
                     if (reacao != null && reacao.Length > 0)
                         query.Replace("${REACAO}", string.Format("AND TEMPO_REACAO > {0}", double.Parse(reacao).ToString()));

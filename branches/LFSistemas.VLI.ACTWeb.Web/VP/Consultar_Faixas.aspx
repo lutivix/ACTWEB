@@ -68,7 +68,7 @@
                 <a id="link1" data-toggle="collapse" title="Filtros" data-parent="#macros" href="macros#filtros" style="margin-left: 3px; font-size: 15px" accesskey="F9"><b>Filtros</b> <i class="fa fa-search"></i></a>
             </div>
 
-            <div id="filtros" style="height: 250px;">
+            <div id="filtros" style="height: 300px; ">
                 <div style="margin: 10px; display: inline-block; float: left">
                     <div style="width: 100px; padding-top: 10px; display: inline-block;">
                         <label for="prefixo">Prefixo:</label>
@@ -78,31 +78,34 @@
                         <label for="local">Local:</label>
                         <asp:TextBox runat="server" ID="txtFiltroLocal" CssClass="form-control" />
                     </div>
-                    <div style="width: 100px; margin-top: 10px; vertical-align: top; display: inline-block;">
-                        <label for="data_inicio">Data Planejada:</label>
-                        <asp:TextBox ID="txtData" runat="server" Width="100%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
+                    <br>
+                    <div style="width: 150px; padding-top: 10px; vertical-align: top; display: inline-block; ">                    
+                            <label for="matricula">Data Inicial:</label>
+                            <asp:TextBox runat="server" ID="txtDataIni" Width="100%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);"  />
+                     </div>
+                     <div style="width: 150px; padding-top: 10px; vertical-align: top; display: inline-block;">
+                            <label for="data_inicio">Data Final:</label>
+                            <asp:TextBox ID="txtDataFim" runat="server"  Width="100%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />                     
                     </div>
                     <br />
                     <div style="width: 150px; padding-top: 10px; display: inline-block;">
-                        <label for="local">Tempo de reação Acima de:</label>
+                        <label for="local"; style="vertical-align:top; text-align:right; height:35px">Tempo de reação Acima de:</label>
                         <asp:TextBox type="number" runat="server" ID="txtTreacao" CssClass="form-control" />
                     </div>
                     <div style="width: 150px; padding-top: 10px; display: inline-block;">
-                        <label for="local">Tempo de Execução Acima de:</label>
+                        <label for="local"; style="vertical-align:top; text-align:right;height:35px">Tempo de Execução Acima de:</label>
                         <asp:TextBox type="number" runat="server" ID="txtTexecucao" CssClass="form-control" />
                     </div>
-                    <br />
+                    <br>
                     <div style="width: 150px; padding-top: 10px; display: inline-block;">
-                        <label for="local">Tempo de Adesão reação Acima de:</label>
+                        <label for="local";style="vertical-align:top; text-align:left; height:35px">Tempo de Adesão reação Acima de:</label>
                         <asp:TextBox type="number" runat="server" ID="txtTadeReacao" CssClass="form-control" />
                     </div>
                     <div style="width: 150px; padding-top: 10px; display: inline-block;">
-                        <label for="local">Tempo de Adesão Execução Acima de:</label>
+                        <label for="local";style="vertical-align:top; text-align:left; height:35px">Tempo de Adesão Execução Acima de:</label>
                         <asp:TextBox type="number" runat="server" ID="txtTadeExecucao" CssClass="form-control" />
-                    </div>
-
-                    
-                </div>
+                    </div>   
+                </div>                            
                 <div style="display: inline-block; float: left">
                     <div style="width: 200px; margin: 10px; vertical-align: top; display: inline-block;">
                         <label for="corredor">Corredor:</label>
