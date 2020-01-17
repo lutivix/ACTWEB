@@ -112,11 +112,18 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
             {   //Macros 0's e mensagens RDC
                 if (EntidadeMacro.NumeroMacro != 0)
                 {
-                    if(EntidadeMacro.NumeroMacro > 999)
+                    if(EntidadeMacro.NumeroMacro > 499)
                     {
                         string strComplementoMsgRDC = "";
                         switch ((int)EntidadeMacro.NumeroMacro)
                         {
+                            case 517:
+                                {
+                                    strComplementoMsgRDC = strComplementoMsgRDC + "RESPOSTA DE INCLUSÃO DE LOCOMOTIVA<BR><BR>";
+                                    strComplementoMsgRDC = strComplementoMsgRDC +
+                                                            "Resposta: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>";
+                                    break;
+                                }
                             case 9999:
                                 {
                                     strComplementoMsgRDC = strComplementoMsgRDC + "DESCONHECIDA OU COM FALHA<BR><BR>";                                   
