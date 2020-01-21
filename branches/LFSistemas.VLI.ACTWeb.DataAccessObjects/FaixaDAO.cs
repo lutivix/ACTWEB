@@ -107,8 +107,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                              INNER JOIN
                                                              (  SELECT VP_FAIXA_ID, MAX (VP_TIMESTAMP_ID) AS TIMESTAMP_ATUAL
                                                                   FROM VP_MENSAGENS_RECEBIDAS
-                                                                 WHERE     VP_DATE = TO_DATE (SYSDATE)
-                                                                       AND VP_PREFIXO_TREM IS NULL
+                                                                 WHERE     VP_PREFIXO_TREM IS NULL
                                                               GROUP BY VP_FAIXA_ID) B
                                                                 ON     A.VP_FAIXA_ID = B.VP_FAIXA_ID
                                                                    AND A.VP_TIMESTAMP_ID = B.TIMESTAMP_ATUAL) VPMR
@@ -175,8 +174,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                      LEFT JOIN ACTPP.INTERDICAO_MOTIVO_HIST OLDL
                                                         ON     SLDL.SO_LDL_ID = OLDL.SI_ID_SI
                                                            AND TO_DATE (SLDL.SO_LDL_DATA) = TO_DATE (OLDL.IM_DTINI)
-                                               WHERE     TO_DATE (SLDL.SO_LDL_DATA) = TO_DATE (SYSDATE)
-                                                     AND SLDL.SO_LDL_ID NOT IN (SELECT SLDL.SO_LDL_ID
+                                               WHERE     SLDL.SO_LDL_ID NOT IN (SELECT SLDL.SO_LDL_ID
                                                                                   FROM (SELECT A.*
                                                                                           FROM VP_MENSAGENS_RECEBIDAS A
                                                                                                INNER JOIN
@@ -189,9 +187,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                B
                                                                                                   ON A.VP_ID = B.VP_ID
                                                                                          WHERE     VP_PREFIXO_TREM IS NULL
-                                                                                               AND VP_DATE =
-                                                                                                      TO_DATE (SYSDATE))
-                                                                                       VPMR
+                                                                                               ) VPMR
                                                                                        INNER JOIN ACTPP.ELEM_VIA EV
                                                                                           ON EV.EV_NOM_MAC =
                                                                                                 VPMR.VP_LOCAL_EXECUCAO
@@ -242,8 +238,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                              INNER JOIN
                                                              (  SELECT VP_FAIXA_ID, MAX (VP_TIMESTAMP_ID) AS TIMESTAMP_ATUAL
                                                                   FROM VP_MENSAGENS_RECEBIDAS
-                                                                 WHERE     VP_DATE = TO_DATE (SYSDATE)
-                                                                       AND VP_PREFIXO_TREM IS NOT NULL
+                                                                 WHERE     VP_PREFIXO_TREM IS NOT NULL
                                                               GROUP BY VP_FAIXA_ID) B
                                                                 ON     A.VP_FAIXA_ID = B.VP_FAIXA_ID
                                                                    AND A.VP_TIMESTAMP_ID = B.TIMESTAMP_ATUAL) VPMR
@@ -260,21 +255,19 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                      ACTPP.SOLICITACOES_ENTRADA_VIA SVE
                                                                WHERE     EVE.EV_ID_ELM = SVE.EV_ID_ELM
                                                                      AND EVE.ES_ID_NUM_EFE = E.ES_ID_NUM_EFE
-                                                                     AND TO_DATE (SVE.SL_DT_SOL_EN_VIA) = TO_DATE (SYSDATE))
+                                                                     )
                                                              MYS
                                                        WHERE MYNUM = 1) SLDL
                                                         ON     SLDL.ESTACAO = VPMR.VP_DE
                                                            --AND SLDL.SL_SIT_SOL IN ('A')
                                                            AND SLDL.SL_PREFIXO = VPMR.VP_PREFIXO_TREM
-                                                           AND VPMR.VP_DATE = TO_DATE (SLDL.SL_DT_SOL_EN_VIA)
-                                                           AND TO_DATE (SLDL.SL_DT_SOL_EN_VIA) = TO_DATE (SYSDATE)
+                                                           AND VPMR.VP_DATE = TO_DATE (SLDL.SL_DT_SOL_EN_VIA)                                                           
                                                      LEFT JOIN ACTPP.TRENS AUTT
                                                         ON     VPMR.VP_PREFIXO_TREM = AUTT.TM_PRF_ACT
                                                            AND TO_DATE (AUTT.TM_HR_REA_PRT) = VPMR.VP_DATE
                                                            AND TO_DATE (AUTT.TM_HR_PRV_CHG_DST) >= VPMR.VP_DATE
                                                            AND SLDL.SL_ID_SL = AUTT.TM_ID_SOL
-                                               WHERE     VPMR.VP_DATE = TO_DATE (SYSDATE)
-                                                     AND VPMR.VP_PREFIXO_TREM IS NOT NULL
+                                               WHERE     VPMR.VP_PREFIXO_TREM IS NOT NULL
                                                      AND VPMR.VP_LOCAL_EXECUCAO IS NOT NULL
                                             UNION
                                             -- PREFIXOS NÁO PLANEJADOS
@@ -317,15 +310,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                      LEFT JOIN VP_MENSAGENS_RECEBIDAS VPMR
                                                         ON     VPMR.VP_DE = ES.ES_ID_EFE
                                                            AND VPMR.VP_PREFIXO_TREM = SEV.SL_PREFIXO
-                                               WHERE     TO_DATE (SEV.SL_DT_SOL_EN_VIA) = TO_DATE (SYSDATE)
-                                                     AND VPMR.VP_ID IS NULL
+                                               WHERE     VPMR.VP_ID IS NULL
                                                      AND SUBSTR (SEV.SL_PREFIXO, 1, 1) IN ('F',
                                                                                            'V',
                                                                                            'R',
                                                                                            'A',
                                                                                            'B')
                                       )
-                                      WHERE 1 = 1  
+                                      WHERE 1 = 1   
                                         ${PREFIXO}
                                         ${LOCAL}
                                         ${DATAI}
