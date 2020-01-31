@@ -200,6 +200,17 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
                                                             "Restrição: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>" ;
                                     break;
                                 }
+                            case 4353:
+                                {
+                                    strComplementoMsgRDC = strComplementoMsgRDC + "ATUAÇÃO DE DETECTOR DE DESCARRILAMENTO<BR><BR>";
+                                    strComplementoMsgRDC = strComplementoMsgRDC +
+                                                            "Detector: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>" +
+                                                            "Detector: " + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "<br>" +
+                                                            "SB: " + Uteis.CampoMacro(EntidadeMacro.Texto, 3) + "-" 
+                                                                   + Uteis.CampoMacro(EntidadeMacro.Texto, 4) + "-" 
+                                                                   + Uteis.CampoMacro(EntidadeMacro.Texto, 5) + "<br>" ;
+                                    break;
+                                }
                             default: strComplementoMsgRDC = strComplementoMsgRDC + "DESCARTE<BR><BR>"; break;                           
                         }
                         this.Mascara = strComplementoMsgRDC + "Parametros: " + EntidadeMacro.Texto;
