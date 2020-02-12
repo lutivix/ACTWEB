@@ -13,7 +13,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public DateTime? Data  { get; set; }
         public String De  { get; set; }
         public String DescricaoServico  { get; set; }
-        public DateTime? Duracao  { get; set; }
+        public String Duracao  { get; set; }
         public int? vp_id  { get; set; }
         public String LocalExecucao  { get; set; }
         public String Locomotiva  { get; set; }

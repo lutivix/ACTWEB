@@ -205,7 +205,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
                                     strComplementoMsgRDC = strComplementoMsgRDC + "ATUAÇÃO DE DETECTOR DE DESCARRILAMENTO<BR><BR>";
                                     strComplementoMsgRDC = strComplementoMsgRDC +
                                                             "Detector: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>" +
-                                                            "Detector: " + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "<br>" +
+                                                            "Velocidade: " + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "<br>" +
                                                             "SB: " + Uteis.CampoMacro(EntidadeMacro.Texto, 3) + "-" 
                                                                    + Uteis.CampoMacro(EntidadeMacro.Texto, 4) + "-" 
                                                                    + Uteis.CampoMacro(EntidadeMacro.Texto, 5) + "<br>" ;
