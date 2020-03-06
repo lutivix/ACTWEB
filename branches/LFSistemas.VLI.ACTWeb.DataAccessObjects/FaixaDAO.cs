@@ -54,7 +54,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                      TEMPO_EXECUCAO,
                                      FAIXA_ID,
                                      TEMPO_ADE_REACAO,
-                                     TEMPO_ADE_EXECUCAO
+                                     TEMPO_ADE_EXECUCAO/*,
+                                     CLASSE */
                                 FROM (-- LDL PLANEJADA
                                       SELECT VPMR.VP_ID,
                                              VPMR.VP_LOCOMOTIVA,
@@ -102,7 +103,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 * 60
                                                 * 24,
                                                 2)
-                                                TEMPO_ADE_EXECUCAO
+                                                TEMPO_ADE_EXECUCAO/*,,
+                                                'LDLPE' CLASSE*/
                                         FROM (SELECT A.*
                                                 FROM VP_MENSAGENS_RECEBIDAS A
                                                      INNER JOIN
@@ -121,7 +123,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                    AND VPMR.VP_SERVICO_STATUS = 'Aprovado'
                                              LEFT JOIN ACTPP.INTERDICAO_MOTIVO_HIST OLDL
                                                 ON     SLDL.SO_LDL_ID = OLDL.SI_ID_SI
-                                                   AND SLDL.SO_LDL_SITUACAO IN (2, 4, 5)
+                                                   AND SLDL.SO_LDL_SITUACAO IN (1, 2, 3, 4, 5)
                                       UNION
                                       -- FAIXAS DE LDL NÃO PLANEJADAS ENCERRADAS
                                       SELECT NULL AS VP_ID,
@@ -173,7 +175,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 * 60
                                                 * 24,
                                                 2)
-                                                TEMPO_ADE_EXECUCAO
+                                                TEMPO_ADE_EXECUCAO/*,
+                                                'LDLNPE' CLASSE*/
                                         FROM ACTPP.SOLICITACOES_LDL SLDL
                                              INNER JOIN ACTPP.ELEM_VIA EV
                                                 ON SLDL.SO_LDL_ID_ELM = EV.EV_ID_ELM
@@ -214,7 +217,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                OR TO_DATE (
                                                                                      SLDL.SO_LDL_DATA) =
                                                                                      VPMR.VP_DATE)
-                                             AND SLDL.SO_LDL_SITUACAO IN (5)
+                                             AND SLDL.SO_LDL_SITUACAO IN (3, 5)
                                       UNION
                                       -- FAIXAS LDL PLANEJADAS EM ANDAMENTO
                                       SELECT VPMR.VP_ID,
@@ -263,7 +266,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 * 60
                                                 * 24,
                                                 2)
-                                                TEMPO_ADE_EXECUCAO
+                                                TEMPO_ADE_EXECUCAO/*,,
+                                                'LDLPA' CLASSE*/
                                         FROM (SELECT A.*
                                                 FROM VP_MENSAGENS_RECEBIDAS A
                                                      INNER JOIN
@@ -282,7 +286,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                    AND VPMR.VP_SERVICO_STATUS = 'Aprovado'
                                              LEFT JOIN ACTPP.INTERDICAO_MOTIVO OLDL
                                                 ON     SLDL.SO_LDL_ID = OLDL.SI_ID_SI
-                                                   AND SLDL.SO_LDL_SITUACAO IN (2, 4)
+                                                   AND SLDL.SO_LDL_SITUACAO IN (1, 2, 4)
                                       UNION
                                       -- FAIXAS DE LDL NÃO PLANEJADAS EM ANDAMENTO
                                       SELECT NULL AS VP_ID,
@@ -334,7 +338,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 * 60
                                                 * 24,
                                                 2)
-                                                TEMPO_ADE_EXECUCAO
+                                                TEMPO_ADE_EXECUCAO/*,,
+                                                'LDLNPA' CLASSE*/
                                         FROM ACTPP.SOLICITACOES_LDL SLDL
                                              INNER JOIN ACTPP.ELEM_VIA EV
                                                 ON SLDL.SO_LDL_ID_ELM = EV.EV_ID_ELM
@@ -375,7 +380,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                OR TO_DATE (
                                                                                      SLDL.SO_LDL_DATA) =
                                                                                      VPMR.VP_DATE)
-                                             AND SLDL.SO_LDL_SITUACAO NOT IN (5)
+                                             AND SLDL.SO_LDL_SITUACAO NOT IN (3, 5)
                                       UNION
                                       -- PREFIXOS PLANEJADOS
                                       SELECT VPMR.VP_ID,
@@ -427,7 +432,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 * 60
                                                 * 24,
                                                 2)
-                                                TEMPO_ADE_EXECUCAO
+                                                TEMPO_ADE_EXECUCAO/*,,
+                                                'PRFP' CLASSE*/
                                         FROM (SELECT A.*
                                                 FROM VP_MENSAGENS_RECEBIDAS A
                                                      INNER JOIN
@@ -441,7 +447,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                              LEFT JOIN
                                              (SELECT *
                                                 FROM (SELECT ROW_NUMBER ()
-                                                             OVER (PARTITION BY SVE.SL_PREFIXO
+                                                             OVER (PARTITION BY TO_DATE(SVE.SL_DT_SOL_EN_VIA),SVE.SL_PREFIXO
                                                                    ORDER BY SVE.SL_DT_SOL_EN_VIA)
                                                                 AS MYNUM,
                                                              SVE.*,
@@ -513,7 +519,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 * 60
                                                 * 24,
                                                 2)
-                                                TEMPO_ADE_EXECUCAO
+                                                TEMPO_ADE_EXECUCAO/*,,
+                                                'PRFNP' CLASSE*/
                                         FROM ACTPP.SOLICITACOES_ENTRADA_VIA SEV
                                              INNER JOIN ACTPP.ELEM_VIA EV ON SEV.EV_ID_ELM = EV.EV_ID_ELM
                                              INNER JOIN ACTPP.ELEM_VIA_ESTACOES EVE
