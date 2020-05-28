@@ -198,6 +198,7 @@
                                                         <th style="width: 050px; height: 22px; background-color: #4682B4; color: white; text-align: center;">Loco</a></th>
                                                         <th style="width: 200px; height: 22px; background-color: #4682B4; color: white; text-align: center;">Tipo Loco</a></th>
                                                         <th style="width: 225px; height: 22px; background-color: #4682B4; color: white; text-align: center;">Veículo</a></th>
+                                                        <th style="width: 050px; height: 22px; background-color: #4682B4; color: white; text-align: center;">Proprietário</a></th>
                                                         <th style="width: 010px; height: 22px; background-color: #4682B4; color: white; text-align: center;">&nbsp;</a></th>
                                                     </tr>
                                                     <tr>
@@ -221,17 +222,19 @@
                                                 <td style="width: 50px; text-align: right; background-color: #ffffff;"><%# Eval("LOC_ID_NUM_LOCO")%> </td>
                                                 <td style="width: 200px; text-align: left; background-color: #ffffff;"><%# Eval("LOC_TP_LOCO")%> </td>
                                                 <td style="width: 200px; text-align: left; background-color: #ffffff;"><%# Eval("LOC_TP_VEIC")%> </td>
+                                                <td style="width: 50px; text-align: center; background-color: #ffffff;"><%# Eval("proprietario")%> </td>
                                                 <td style="width: 10px; background-color: #ffffff;">
                                                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                                         <ContentTemplate>
                                                             <asp:LinkButton ID="lnkEdite" runat="server" OnClick="Detalhes_Click"
-                                                                CommandArgument='<%# string.Format("p{0}:p{1}:p{2}:p{3}:p{4}:p{5}", 
+                                                                CommandArgument='<%# string.Format("p{0}:p{1}:p{2}:p{3}:p{4}:p{5}:p{6}", 
                                                                                                       Eval("MCT_IND_OBC"),      // Tem OBC
                                                                                                       Eval("MCT_ID_MCT"),       // MCT
                                                                                                       Eval("LOC_ID_NUM_LOCO"),  // Locomotiva
                                                                                                       Eval("MCT_OBC_VERSAO"),   // Versão OBC
                                                                                                       Eval("MCT_MAP_VERSAO"),   // Versão Mapa
-                                                                                                      Eval("MCT_IND_MCI")       // Versão MCI
+                                                                                                      Eval("MCT_IND_MCI"),       // Versão MCI
+                                                                                                      Eval("proprietario")      //Qual Proprietário
                                                                                                       ) %>'><i class="fa fa-search-plus"></i></asp:LinkButton>
                                                         </ContentTemplate>
                                                     </asp:UpdatePanel>
@@ -332,7 +335,9 @@
                                     <asp:Button ID="btnExcluirMCT" Width="95%" CssClass="btn btn-default" runat="server" OnClick="btnExcluirMCT_Click" Text="Excluir MCT" />
                                 </td>
                                 <td style="width: 20%"></td>
-                                <td style="width: 20%"></td>
+                                <td style="width: 20%">
+                                    <asp:DropDownList ID="ddlProprietarioLocomotiva" Width="95%" runat="server" CssClass="btn btn-default" />
+                                </td>
                                 <td style="width: 20%; text-align: right; vertical-align: top; padding-top: 10px;">
                                     <label for="txtAtualiza_VersaoMapa">Versão Mapa:&nbsp;&nbsp;</label>
                                 </td>

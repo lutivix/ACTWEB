@@ -193,6 +193,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         protected global::System.Web.UI.WebControls.TextBox txtDadosResponsavel;
         
         /// <summary>
+        /// txtDadosCpf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDadosCpf;
+        
+        /// <summary>
         /// txtDadosObs control.
         /// </summary>
         /// <remarks>
@@ -200,6 +209,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDadosObs;
+        
+        /// <summary>
+        /// txtTelefone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTelefone;
         
         /// <summary>
         /// lnkCriarRestricao control.

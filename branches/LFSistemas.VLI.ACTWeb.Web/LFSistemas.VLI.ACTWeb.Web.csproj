@@ -120,6 +120,7 @@
     <Content Include="Cadastro\Responsavel_LDL.aspx" />
     <Content Include="Cadastro\Usuario.aspx" />
     <Content Include="Cadastro\UsuarioACT.aspx" />
+    <Content Include="Cadastro\UsuariosAutorizados.aspx" />
     <Content Include="Consulta\Abas\Maquinista.ascx" />
     <Content Include="Consulta\Abas\MetaTempo.ascx" />
     <Content Include="Consulta\Abas\QuadroTracao.ascx" />
@@ -164,6 +165,7 @@
     <Content Include="Consulta\RelatoriosAlarmes.aspx" />
     <Content Include="Consulta\Usuario.aspx" />
     <Content Include="Consulta\UsuarioACT.aspx" />
+    <Content Include="Consulta\UsuariosAutorizados.aspx" />
     <Content Include="css\accordion.css" />
     <Content Include="css\help.css" />
     <Content Include="css\jquery-ui-timepicker-addon.css" />
@@ -595,6 +597,13 @@
     <Compile Include="Cadastro\UsuarioACT.aspx.designer.cs">
       <DependentUpon>UsuarioACT.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Cadastro\UsuariosAutorizados.aspx.cs">
+      <DependentUpon>UsuariosAutorizados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cadastro\UsuariosAutorizados.aspx.designer.cs">
+      <DependentUpon>UsuariosAutorizados.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Consulta\Abas\Maquinista.ascx.cs">
       <DependentUpon>Maquinista.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -904,6 +913,13 @@
     </Compile>
     <Compile Include="Consulta\UsuarioACT.aspx.designer.cs">
       <DependentUpon>UsuarioACT.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Consulta\UsuariosAutorizados.aspx.cs">
+      <DependentUpon>UsuariosAutorizados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consulta\UsuariosAutorizados.aspx.designer.cs">
+      <DependentUpon>UsuariosAutorizados.aspx</DependentUpon>
     </Compile>
     <Compile Include="DadosApoio\Abas\VelocidadePorPrefixo.ascx.cs">
       <DependentUpon>VelocidadePorPrefixo.ascx</DependentUpon>

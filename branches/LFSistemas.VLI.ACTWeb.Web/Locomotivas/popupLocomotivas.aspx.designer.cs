@@ -355,6 +355,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas {
         protected global::System.Web.UI.WebControls.Button btnExcluirMCT;
         
         /// <summary>
+        /// ddlProprietarioLocomotiva control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlProprietarioLocomotiva;
+        
+        /// <summary>
         /// txtAtualiza_VersaoMapa control.
         /// </summary>
         /// <remarks>

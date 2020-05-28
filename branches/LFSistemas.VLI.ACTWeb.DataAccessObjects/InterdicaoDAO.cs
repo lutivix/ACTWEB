@@ -36,9 +36,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT II.SLT_ID_SLT, II.SLT_ID_SLT_ACT, II.SLT_ID_TP_SITUACAO, TS.TP_SIT_NOME, II.SLT_DATA, II.SLT_ID_SECAO, EV.EV_NOM_MAC, 
                                           II.SLT_ID_TP_INTERDICAO, TI.TP_INT_NOME, II.SLT_DURACAO_SOLICITADA, II.SLT_DURACAO_AUTORIZADA, II.SLT_ID_TP_MANUTENCAO, TM.TP_MNT_NOME, II.SLT_ID_TP_CIRCULACAO, 
                                           TC.TP_CIR_NOME, II.SLT_KM, II.SLT_USUARIO_LOGADO, OP.NOME, II.SLT_TELEFONE_SN, II.SLT_TELEFONE_NUMERO, II.SLT_MAT_RESPONSAVEL, 
-                                          RR.OP_NM, II.SLT_RADIO_SN, II.SLT_EQUIPAMENTOS, II.SLT_MACRO_SN, II.SLT_MACRO_NUMERO, II.SLT_OBSERVACAO, II.SLT_ATIVO_SN, II.SLT_ID_ACT_AUT_INTER, II.SLT_ID_MOTIVO, RD.RD_DSC_RDE, IM.IM_ID_IM,
+                                          RR.OP_BS_NM AS OP_NM, II.SLT_RADIO_SN, II.SLT_EQUIPAMENTOS, II.SLT_MACRO_SN, II.SLT_MACRO_NUMERO, II.SLT_OBSERVACAO, II.SLT_ATIVO_SN, II.SLT_ID_ACT_AUT_INTER, II.SLT_ID_MOTIVO, RD.RD_DSC_RDE, IM.IM_ID_IM,
                                  case when IM.im_tp = 1 then 'LDL' WHEN IM.IM_TP = 2 THEN 'BLQ' when im.im_tp is null then '' else 'INT' END || IM.IM_ID_IM CODIGO
-                                      FROM SOLICITACAO_INTERDICAO II, ACTPP.ELEM_VIA EV, TIPO_SITUACAO TS, TIPO_INTERDICAO TI, TIPO_MANUTENCAO TM, TIPO_CIRCULACAO TC, USUARIOS OP, ACTPP.OPERADORES RR, ACTPP.RESTRICOES_DESCRICOES RD, actpp.interdicao_motivo im, actpp.solicitacoes_ldl sldl
+                                      FROM SOLICITACAO_INTERDICAO II, ACTPP.ELEM_VIA EV, TIPO_SITUACAO TS, TIPO_INTERDICAO TI, TIPO_MANUTENCAO TM, TIPO_CIRCULACAO TC, USUARIOS OP, ACTPP.OPERADORES_BS RR, ACTPP.RESTRICOES_DESCRICOES RD, actpp.interdicao_motivo im, actpp.solicitacoes_ldl sldl
                                       WHERE II.SLT_ID_SECAO = EV.EV_ID_ELM
                                       AND II.SLT_ID_TP_SITUACAO = TS.TP_SIT_CODIGO
                                       AND II.SLT_ID_TP_INTERDICAO = TI.TP_INT_CODIGO
@@ -232,7 +232,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        II.SLT_TELEFONE_SN,
                                        II.SLT_TELEFONE_NUMERO,
                                        II.SLT_MAT_RESPONSAVEL,
-                                       RR.OP_NM,
+                                       II.SLT_PREFIXO,
+                                       II.SLT_TELEFONE_RESP,
+                                       RR.OP_BS_NM,
                                        II.SLT_RADIO_SN,
                                        II.SLT_EQUIPAMENTOS,
                                        II.SLT_MACRO_SN,
@@ -257,7 +259,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        TIPO_MANUTENCAO TM,
                                        TIPO_CIRCULACAO TC,
                                        USUARIOS OP,
-                                       ACTPP.OPERADORES RR,
+                                       ACTPP.OPERADORES_BS RR,
                                        ACTPP.RESTRICOES_DESCRICOES RD,
                                        actpp.interdicao_motivo_hist imh,
                                        actpp.solicitacoes_ldl sldl
@@ -295,7 +297,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        II.SLT_TELEFONE_SN,
                                        II.SLT_TELEFONE_NUMERO,
                                        II.SLT_MAT_RESPONSAVEL,
-                                       RR.OP_NM,
+                                       II.SLT_PREFIXO,
+                                       II.SLT_TELEFONE_RESP,
+                                       RR.OP_BS_NM,
                                        II.SLT_RADIO_SN,
                                        II.SLT_EQUIPAMENTOS,
                                        II.SLT_MACRO_SN,
@@ -314,7 +318,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        TIPO_MANUTENCAO TM,
                                        TIPO_CIRCULACAO TC,
                                        USUARIOS OP,
-                                       ACTPP.OPERADORES RR
+                                       ACTPP.OPERADORES_BS RR
                                  WHERE     II.SLT_ID_SECAO = EV.EV_ID_ELM
                                        AND II.SLT_ID_TP_SITUACAO = TS.TP_SIT_CODIGO
                                        AND II.SLT_ID_TP_INTERDICAO = TI.TP_INT_CODIGO
@@ -324,6 +328,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        AND II.SLT_MAT_RESPONSAVEL = RR.OP_CPF
                                        ${SLT_ID_SLT}
                                        AND II.SLT_ATIVO_SN = 'S'
+                                       and not exists (select SI_ID_SI from actpp.interdicao_motivo where SI_ID_SI = II.SLT_ID_SLT_act+1 )--tem que ter mais um por conta da sequence
+                                       and not exists (select SI_ID_SI from actpp.interdicao_motivo_hist where SI_ID_SI = II.SLT_ID_SLT_act+1 )--tem que ter mais um por conta da sequence
                                 UNION
                                 SELECT II.SLT_ID_SLT,
                                        II.SLT_ID_SLT_ACT,
@@ -346,7 +352,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        II.SLT_TELEFONE_SN,
                                        II.SLT_TELEFONE_NUMERO,
                                        II.SLT_MAT_RESPONSAVEL,
-                                       RR.OP_NM,
+                                       II.SLT_PREFIXO,
+                                       II.SLT_TELEFONE_RESP,
+                                       RR.OP_BS_NM,
                                        II.SLT_RADIO_SN,
                                        II.SLT_EQUIPAMENTOS,
                                        II.SLT_MACRO_SN,
@@ -371,7 +379,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        TIPO_MANUTENCAO TM,
                                        TIPO_CIRCULACAO TC,
                                        USUARIOS OP,
-                                       ACTPP.OPERADORES RR,
+                                       ACTPP.OPERADORES_BS RR,
                                        ACTPP.RESTRICOES_DESCRICOES RD,
                                        actpp.interdicao_motivo im,
                                        actpp.solicitacoes_ldl sldl
@@ -402,7 +410,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         if (reader.Read())
                         {
-                            item = PreencherPropriedadesInterdicao(reader);
+                            item = PreencherPropriedadesInterdicaoPorID(reader);
                         }
                     }
 
@@ -1073,6 +1081,52 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
+        private Interdicao PreencherPropriedadesInterdicaoPorID(OleDbDataReader reader)
+        {
+            var item = new Interdicao();
+
+            if (!reader.IsDBNull(00)) item.Solicitacao_ID_ACTWEB = reader.GetDouble(00);
+            if (!reader.IsDBNull(01)) item.Solicitacao_ID_ACT = reader.GetDouble(01);
+            if (!reader.IsDBNull(02)) item.Tipo_Situacao_ID = reader.GetDouble(02);
+            if (!reader.IsDBNull(03)) item.Situacao_Nome = reader.GetString(03);
+            if (!reader.IsDBNull(04)) item.Data = reader.GetDateTime(04);
+            if (!reader.IsDBNull(05)) item.Secao_ID = reader.GetDouble(05);
+            if (!reader.IsDBNull(06)) item.Secao_Nome = reader.GetString(06);
+            if (!reader.IsDBNull(07)) item.Tipo_Interdicao_ID = reader.GetDouble(07);
+            if (!reader.IsDBNull(08)) item.Tipo_Interdicao_Nome = reader.GetString(08);
+            if (!reader.IsDBNull(09)) item.Duracao_Solicitada = reader.GetDouble(09); else item.Duracao_Solicitada = 0;
+            if (!reader.IsDBNull(10)) item.Duracao_Autorizada = reader.GetDouble(10); else item.Duracao_Autorizada = 0;
+            if (!reader.IsDBNull(11)) item.Tipo_Manutencao_ID = reader.GetDouble(11);
+            if (!reader.IsDBNull(12)) item.Tipo_Manutencao_Nome = reader.GetString(12);
+            if (!reader.IsDBNull(13)) item.Tipo_Circulacao_ID = reader.GetDouble(13);
+            if (!reader.IsDBNull(14)) item.Tipo_Circulacao_Nome = reader.GetString(14);
+            if (!reader.IsDBNull(15)) item.Km = reader.GetDecimal(15);
+            if (!reader.IsDBNull(16)) item.Usuario_Logado_Matricula = reader.GetString(16);
+            if (!reader.IsDBNull(17)) item.Usuario_Logado_Nome = reader.GetString(17);
+            if (!reader.IsDBNull(18)) item.Telefone_SN = reader.GetString(18);
+            if (!reader.IsDBNull(19)) item.Telefone_Numero = reader.GetString(19);
+            if (!reader.IsDBNull(20)) item.Responsavel_Matricula = reader.GetString(20);
+            if (!reader.IsDBNull(21)) item.Prefixo = reader.GetString(21);
+            if (!reader.IsDBNull(22)) item.Telefone_responsavel = reader.GetString(22);
+            if (!reader.IsDBNull(23)) item.Responsavel_Nome = reader.GetString(23);
+            if (!reader.IsDBNull(24)) item.Radio_SN = reader.GetString(24);
+            if (!reader.IsDBNull(25)) item.Equipamentos = reader.GetString(25);
+            if (!reader.IsDBNull(26)) item.Macro_SN = reader.GetString(26);
+            if (!reader.IsDBNull(27)) item.Macro_Numero = reader.GetString(27);
+            if (!reader.IsDBNull(28)) item.Observacao = reader.GetString(28);
+            if (!reader.IsDBNull(29)) item.Ativo_SN = reader.GetString(29);
+            if (!reader.IsDBNull(30)) item.Aut_Interdicao_Act = reader.GetDouble(30);
+            //if (!reader.IsDBNull(28)) item.Cod_Ldl = reader.GetString(06) + reader.GetDouble(28).ToString();
+            if (!reader.IsDBNull(31)) item.Motivo_ID = reader.GetDouble(31);
+            if (!reader.IsDBNull(32)) item.Motivo_Desc = reader.GetString(32);
+            if (!reader.IsDBNull(33)) item.Interdicao_Motivo = reader.GetDouble(33);
+            if (!reader.IsDBNull(34)) item.Cod_Interdicao = reader.GetString(34);
+
+
+            return item;
+        }
+
+
         /// <summary>
         /// Obtem lista de seção
         /// </summary>
@@ -1191,7 +1245,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"INSERT INTO SOLICITACAO_INTERDICAO (SLT_ID_SLT, SLT_ID_SLT_ACT, SLT_ID_SECAO, SLT_ID_TP_SITUACAO, SLT_ID_TP_INTERDICAO, 
                                                                        SLT_ID_TP_MANUTENCAO, SLT_ID_TP_CIRCULACAO, SLT_ID_MOTIVO, SLT_MAT_RESPONSAVEL, SLT_DATA, SLT_DURACAO_SOLICITADA, 
                                                                        SLT_KM, SLT_TELEFONE_SN, SLT_TELEFONE_NUMERO, SLT_RADIO_SN, SLT_MACRO_SN, SLT_MACRO_NUMERO, 
-                                                                       SLT_EQUIPAMENTOS, SLT_OBSERVACAO, SLT_USUARIO_LOGADO, SLT_ATIVO_SN)
+                                                                       SLT_EQUIPAMENTOS, SLT_OBSERVACAO, SLT_USUARIO_LOGADO, SLT_ATIVO_SN, SLT_TELEFONE_RESP, SLT_PREFIXO)
                                                VALUES (/*SLT_ID_SLT*/ ${SLT_ID_SLT},
                                                 /*SLT_ID_INTERDICAO*/ ${SLT_ID_SLT_ACT}, 
                                                      /*SLT_ID_SECAO*/ ${SLT_ID_SECAO},
@@ -1212,7 +1266,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                  /*SLT_EQUIPAMENTOS*/ ${SLT_EQUIPAMENTOS},
                                                    /*SLT_OBSERVACAO*/ ${SLT_OBSERVACAO},
                                                /*SLT_USUARIO_LOGADO*/ ${SLT_USUARIO_LOGADO},
-                                                     /*SLT_ATIVO_SN*/ ${SLT_ATIVO_SN})");
+                                                     /*SLT_ATIVO_SN*/ ${SLT_ATIVO_SN},
+                                                    /*SLT_TELEFONE*/ ${SLT_TELEFONE},
+                                                    /*SLT_PREFIXO*/ ${SLT_PREFIXO})");
 
 
                     #endregion
@@ -1240,7 +1296,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     if (interdicao.Observacao != null || interdicao.Observacao != "") query.Replace("${SLT_OBSERVACAO}", string.Format("'{0}'", interdicao.Observacao)); else query.Replace("${SLT_OBSERVACAO}", null);
                     if (interdicao.Usuario_Logado_Matricula != null) query.Replace("${SLT_USUARIO_LOGADO}", string.Format("'{0}'", interdicao.Usuario_Logado_Matricula));
                     if (interdicao.Ativo_SN != null || interdicao.Ativo_SN != "") query.Replace("${SLT_ATIVO_SN}", string.Format("'{0}'", interdicao.Ativo_SN)); else query.Replace("${SLT_ATIVO_SN}", string.Format("'{0}'", "S"));
-
+                    if (interdicao.Telefone_responsavel != null) query.Replace("${SLT_TELEFONE}", string.Format("'{0}'", interdicao.Telefone_responsavel));
+                    if (interdicao.Prefixo != null) query.Replace("${SLT_PREFIXO}", string.Format("'{0}'", interdicao.Prefixo)); 
 
                     #endregion
 

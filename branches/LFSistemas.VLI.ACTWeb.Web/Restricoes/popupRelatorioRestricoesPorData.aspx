@@ -187,8 +187,21 @@
                                 <td style="width: 10%;">
                                     <label for="grupo">hs</label>
                                     <asp:TextBox runat="server" ID="txtFiltroHoraFinal" Width="95%" CssClass="form-control" onKeyUp="formatar(this, '##:##')" MaxLength="5" onkeypress="return fnValidaNroDoisPontos(event);" ToolTip="Clique no relógio abaixo para inserir a hora final." />
+                                </td>                                
+                                <td style="width: 13%" rowspan="2">
+                                    <label for="perfil">Corredores:</label>
+                                        <asp:Panel runat="server" Width="95%" Height="110" ScrollBars="Vertical" CssClass="form-control">
+                                            <asp:CheckBoxList runat="server" ID="cblDadosCorredores" />
+                                        </asp:Panel>
                                 </td>
-                                <td style="width: 40%;"></td>
+                                <td style="width: 12%;">
+                                    <label for="perfil">Seção:</label>
+                                    <asp:DropDownList ID="ddlDadosSecoes" runat="server" CssClass="form-control" Width="100%" AutoPostBack="true" ToolTip="Informe a Seção onde será colocada a restrição. " />
+                                </td>
+                                <td style="width: 14%;">
+                                    <label for="perfil">Tipo Restrição:</label>
+                                    <asp:DropDownList ID="ddlDadosTipoRestricao" runat="server" CssClass="form-control" Width="85%" AutoPostBack="true" ToolTip="Informe o tipo de restrição. " />
+                                </td> 
                             </tr>
                             <tr>
                                 <td colspan="4">
@@ -223,6 +236,7 @@
                                                 <table class="table table-hover table-curved pro-table " id="macros">
                                                     <thead>
                                                         <tr style="vertical-align: bottom;">
+                                                            <th style="background-color: white; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">ID</a></th>
                                                             <th style="background-color: white; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">Tipo</a></th>
                                                             <th style="background-color: white; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">Elemento</a></th>
                                                             <th style="background-color: white; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">Data Inicial</a></th>
@@ -230,6 +244,7 @@
                                                             <th style="background-color: white; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">Velocidade</a></th>
                                                             <th style="background-color: white; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">Km Inicial</a></th>
                                                             <th style="background-color: white; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">Km Final</a></th>
+                                                            <th style="background-color: white; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">Corredor</a></th>
                                                             <th style="background-color: white; text-align: center; font-size: 12pt; "><a href="#">Observação</a></th>
                                                             <th></th>
                                                         </tr>
@@ -238,6 +253,7 @@
                                             </HeaderTemplate>
                                             <ItemTemplate>
                                                 <tr style="font-size: 09px;" class="situacao-<%# Eval("Situacao")%>">
+                                                    <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Restricao_id")%>"><%# Eval("Restricao_id")%> </td>
                                                     <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Tipo_Restricao")%>"><%# Eval("Tipo_Restricao")%> </td>
                                                     <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Secao_Elemento")%>"><%# Eval("Secao_Elemento")%> </td>
                                                     <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Data_Inicial")%>"><%# Eval ("Data_Inicial")%></td>
@@ -245,6 +261,7 @@
                                                     <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="><%# Eval ("Velocidade")%>"><%# Eval ("Velocidade")%></td>
                                                     <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="><%# Eval ("Km_Inicial")%>"><%# Eval ("Km_Inicial")%></td>
                                                     <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="><%# Eval ("Km_Final")%>"><%# Eval ("Km_Final")%></td>
+                                                    <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="><%# Eval ("Nome_Corredor")%>"><%# Eval ("Nome_Corredor")%></td>
                                                     <td style="text-align: left; " title="><%# Eval ("Observacao")%>"><%# Eval ("Observacao")%></td>
                                                 </tr>
                                             </ItemTemplate>

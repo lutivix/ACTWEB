@@ -60,7 +60,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                       char[] prmMat_Responsavel,
                                       char[] prmObservacoes,
                                       char[] prmMat_Usuario,
-                                      char prmTpUser);
+                                      char prmTpUser,
+                                      char[]prmTelefone_responsavel,
+                                      char[]prmPrefixo);
 
         [DllImport(@"DLLMQWeb.dll")]
         /// <summary>
@@ -95,11 +97,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             if (!IsPostBack)
             {
+                txtPrefixo.Enabled = false;
+                lblPrefixo.Enabled = false;
+        
                 ViewState["ordenacao"] = "ASC";
                 var dataIni = DateTime.Parse(DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy"));
                 var dataFim = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy"));
                 txtDataInicial.Text = dataIni.ToShortDateString();
                 txtDataFinal.Text = dataFim.ToShortDateString();
+                lblCanalCom.Text = "Canal de comunicação de Entrada";
+                lblPrefixo.Text = "Prefixo:";
 
                 ControleFormulario(StatusBarraComandos.Novo);
                 txtDadosDataAtual.Text = DateTime.Now.ToShortDateString();
@@ -256,6 +263,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             Panel1.Visible = false;
 
+            lblCanalCom.Text = "Canal de comunicação de retirada";
+
             ControleFormulario(StatusBarraComandos.Edicao);
             LinkButton btn = (LinkButton)(sender);
 
@@ -278,6 +287,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 ddlDadosMotivo.SelectedItem.Value = dados.Motivo_ID.ToString();
 
                 txtAutorizacao.Text = dados.Interdicao_Motivo.ToString();
+
+                txtTelefoneResponsavel.Text = dados.Telefone_responsavel != null ? dados.Telefone_responsavel : string.Empty;
+
+                txtPrefixo.Text = dados.Prefixo != null ? dados.Prefixo : string.Empty;
                 
                 
                 if (dados.Tipo_Circulacao_ID > 0)
@@ -644,22 +657,26 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     if (txtDadosKm.Text.Length > 0)
                         inter.Km = decimal.Parse(txtDadosKm.Text);
                     inter.Telefone_SN = rdDadosTelefone.Checked ? "S" : "N";
-                    inter.Telefone_Numero = txtDadosTelefone.Text.Length > 0 ? txtDadosTelefone.Text : null;
+                    inter.Telefone_Numero = txtDadosTelefone.Text.Length > 0 ? txtDadosTelefone.Text : string.Empty;
                     inter.Radio_SN = rdDadosRadio.Checked ? "S" : "N";
                     inter.Macro_SN = rdDadosMacro.Checked ? "S" : "N";
-                    inter.Macro_Numero = txtDadosMacro.Text.Length > 0 ? txtDadosMacro.Text : null;
-                    inter.Responsavel_Matricula = txtDadosResponsavel.Text.Length > 0 ? txtDadosResponsavel.Text : null;
-                    inter.Responsavel_Nome = lblResponsavel_Nome.Text.Length > 0 ? lblResponsavel_Nome.Text : null;
-                    inter.Equipamentos = txtDadosEquipamentos.Text.Length > 0 ? txtDadosEquipamentos.Text : null;
+                    inter.Macro_Numero = txtDadosMacro.Text.Length > 0 ? txtDadosMacro.Text : string.Empty;
+                    inter.Responsavel_Matricula = txtDadosResponsavel.Text.Length > 0 ? txtDadosResponsavel.Text : string.Empty;
+                    inter.Responsavel_Nome = lblResponsavel_Nome.Text.Length > 0 ? lblResponsavel_Nome.Text : string.Empty;
+                    inter.Equipamentos = txtDadosEquipamentos.Text.Length > 0 ? txtDadosEquipamentos.Text : string.Empty;
                     if (ddlDadosMotivo.SelectedItem.Value.Length > 0)
                         inter.Motivo_ID = double.Parse(ddlDadosMotivo.SelectedItem.Value);
-                    inter.Observacao = txtDadosObsercacao.Text.Length > 0 ? txtDadosObsercacao.Text : null;
-                    inter.Usuario_Logado_Matricula = lblUsuarioMatricula.Text.Length > 0 ? inter.Usuario_Logado_Matricula = lblUsuarioMatricula.Text : null;
+                    inter.Observacao = txtDadosObsercacao.Text.Length > 0 ? txtDadosObsercacao.Text : string.Empty;
+                    inter.Usuario_Logado_Matricula = lblUsuarioMatricula.Text.Length > 0 ? inter.Usuario_Logado_Matricula = lblUsuarioMatricula.Text : string.Empty;
                     inter.Ativo_SN = "S";
+                    inter.Telefone_responsavel = txtTelefoneResponsavel.Text.Length > 0 ? txtTelefoneResponsavel.Text : string.Empty;
+                    inter.Prefixo = txtPrefixo.Text.Length > 0 ? txtPrefixo.Text : string.Empty;
 
                     char[] usuariologado = new char[10];
                     char[] responsavel = new char[12];
                     char[] observacao = new char[38];
+                    char[] Telefone_responsavel = new char[11];
+                    char[] Prefixo = new char[4];
 
                     for (int i = 0; i <= 35; i++)
                     {
@@ -685,14 +702,30 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                             responsavel[i] = char.MinValue;
                     }
 
-                    inter.Usuario_Logado_Nome = lblUsuarioLogado.Text;
+                    for (int i = 0; i <= 10; i++)
+                    {
+                        if (i < inter.Telefone_responsavel.Length)
+                            Telefone_responsavel[i] = inter.Telefone_responsavel[i];
+                        else
+                            Telefone_responsavel[i] = char.MinValue;
+                    }
+
+                    for (int i = 0; i <= 3; i++)
+                    {
+                        if (i < inter.Prefixo.Length)
+                            Prefixo[i] = inter.Prefixo[i];
+                        else
+                            Prefixo[i] = char.MinValue;
+                    }
+
+                        inter.Usuario_Logado_Nome = lblUsuarioLogado.Text;
 
                     inter.Solicitacao_ID_ACT = (int)interdicaoController.ObterIdInterdicao();   // Pega o ID na tabela SOLICITACOES_LDL no ACT
                     inter.Solicitacao_ID_ACTWEB = (int)interdicaoController.ObterIdSolicitacao(); // Pega o ID na tabela SOLICITACAO_INTERDICAO no ACTWEB
 
                     DLLSendSOI((int)inter.Solicitacao_ID_ACTWEB, (int)inter.Tipo_Situacao_ID, inter.Data.ToOADate(), (int)inter.Secao_ID,
                                 (int)inter.Tipo_Interdicao_ID, (int)inter.Duracao_Solicitada, (int)inter.Tipo_Manutencao_ID, (double)inter.Km, responsavel,
-                                observacao, usuariologado, 'W');
+                                observacao, usuariologado, 'W', Telefone_responsavel, Prefixo);
 
                     if (interdicaoController.Inserir(inter, ulMatricula))
                     {
@@ -781,12 +814,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             if (txtDadosResponsavel.Text.Length > 0)
             {
-                ResponsavelController responsavel = new ResponsavelController();
-                var dados = responsavel.ObterResponsavelPorMatricula(txtDadosResponsavel.Text);
+                RestricaoController responsavel = new RestricaoController();
+
+                var dados = responsavel.PermiteLDL(txtDadosResponsavel.Text);
 
                 if (dados.Matricula != null)
                 {
-                    if (dados.LDL != "N")
+                    if (dados.LDL != "Não" && dados.Ativo == true)
                     {
                         lblResponsavel_Nome.Text = dados.Nome.Trim();
                     }
@@ -822,6 +856,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 lblMensagem.Text = string.Format(" ");
             ddlDadosSecao.Focus();
         }
+
+        //protected void RadioButton_CheckedChanged(Object sender, EventArgs e)
+        //{
+        //    txtPrefixo.eb = true;
+        //    lblPrefixo.Visible = true;
+        //}
 
         [System.Web.Services.WebMethod]
         public static void DeleteRestriction(string id)
@@ -911,6 +951,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     txtDadosMacro.Text = string.Empty;
                     txtDadosObsercacao.Text = string.Empty;
                     lblMensagem.Text = string.Empty;
+                    txtPrefixo.Text = string.Empty;
+                    txtTelefoneResponsavel.Text = string.Empty;
 
 
 
@@ -966,6 +1008,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     lnkLImpar.CssClass = "btn btn-primary disabled";
                     lnkNovoResponsavel.Enabled = false;
                     lnkNovoResponsavel.CssClass = "btn btn-info disabled";
+                    txtPrefixo.Text = string.Empty;
+                    txtTelefoneResponsavel.Text = string.Empty;
 
                     if (ulPerfil != "ADM")
                     {

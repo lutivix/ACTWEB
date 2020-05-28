@@ -190,7 +190,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
         }
         protected void lnkProjetosFcaNaFca_Click(object sender, EventArgs e)
         {
-            Response.Write("<script> window.open('https://app2.clarizen.com/Clarizen/Ext/WidgetRoadmapPage.aspx?wt=Roadmap&uid=9.6097377.1412357&wid=hE12Ekv81U6UFcG6CfbQew&si=6.295391729.1412357&df=351.435925.1412357&rp=1&xf=1&el=0&CSig=190CAF029CE411C7F864905C42B747BC2CE30CA7', 'ACTWEB - Projetos FCA na FCA', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); </script>");
+            Response.Write("<script> window.openf('https://app2.clarizen.com/Clarizen/Ext/WidgetRoadmapPage.aspx?wt=Roadmap&uid=9.6097377.1412357&wid=hE12Ekv81U6UFcG6CfbQew&si=6.295391729.1412357&df=351.435925.1412357&rp=1&xf=1&el=0&CSig=190CAF029CE411C7F864905C42B747BC2CE30CA7', 'ACTWEB - Projetos FCA na FCA', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); </script>");
         }
         protected void lnkTodosProjetos_Click(object sender, EventArgs e)
         {
@@ -577,6 +577,10 @@ namespace LFSistemas.VLI.ACTWeb.Web
         {
             Response.Redirect("/Consulta/Usuario.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
         }
+        protected void lnkUsuarios_Aut_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/Consulta/UsuariosAutorizados.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
+        }
         protected void lnkAcessos_Click(object sender, EventArgs e)
         {
             Response.Redirect("/Desenvolvimento.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString());
@@ -708,7 +712,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnRestricoes.Visible = mnIndicadores.Visible = mnGOP.Visible = mnVMA.Visible = mnTelecomandadas.Visible = sub_relatorio_CCO.Visible =
                 lnkImportaOBC.Visible = mnDadosApoio.Visible = sub_interdicoes.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible =
                 sub_relatorio_VMA.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnRadios.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible =
-                sub_dadosapoio_plus.Visible = sub_macros_macrofrota.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = sub_macros_parada_imediata.Visible = sub_baixada.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = true;
+                sub_dadosapoio_plus.Visible = sub_macros_macrofrota.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = sub_macros_parada_imediata.Visible = sub_baixada.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = true;
 
                 mnSistema.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = false;
                 //sub_relatorio_MACROS.Visible =  false;
@@ -723,7 +727,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnRestricoes.Visible = mnRestricoes.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible = sub_interdicoes.Visible = lnkImportaOBC.Visible =
                 mnDadosApoio.Visible = mnSistema.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible =
                 sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnRelatorios.Visible = mnLocomotivas.Visible =
-                sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+                sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
             if (usuario.Perfil_ID == "3") // Perfil: CENTRO DE APOIO AO TREM - CAT
             {
@@ -734,28 +738,27 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnRestricoes.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible = sub_interdicoes.Visible = lnkImportaOBC.Visible =
                 mnDadosApoio.Visible = mnSistema.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible =
                 sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnLocomotivas.Visible =
-                mnRelatorios.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+                mnRelatorios.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
             if (usuario.Perfil_ID == "4") // Perfil: CENTRO DE TOMADA DE DECISÃO / HELPDESK - CTD
             {
                 sub_locomotivas_trocaloco.Visible = sub_macros_consulta.Visible = sub_macros_macro61.Visible = mnPainel.Visible =
-                mnTermometros.Visible = mnTelecomandadas.Visible = mnVMA.Visible = mnLocomotivas.Visible = 
+                mnTermometros.Visible = mnRestricoes.Visible = mnTelecomandadas.Visible = mnVMA.Visible = mnLocomotivas.Visible = sub_interdicoes.Visible =
                 lnkImportaOBC.Visible = sub_relatorio_VMA.Visible = mnGOP.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = mnRadios.Visible = sub_baixada.Visible = true;
 
-                mnUsuarios.Visible = mnRestricoes.Visible = sub_macros_macro50.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible =
-                sub_interdicoes.Visible = sub_macros_macro200.Visible = mnDadosApoio.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible =
+                mnUsuarios.Visible = sub_macros_macro50.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible =
+                sub_macros_macro200.Visible = mnDadosApoio.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible =
                 sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible =
-                mnRelatorios.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = sub_pgof_RelatoriosPGOF.Visible = mnPgof.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+                mnRelatorios.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = sub_pgof_RelatoriosPGOF.Visible = mnPgof.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
             if (usuario.Perfil_ID == "5") // Perfil: INSPETOR - INSP
             {
                 sub_locomotivas_trocaloco.Visible = sub_macros_consulta.Visible = sub_macros_macro200.Visible = mnVMA.Visible = mnPainel.Visible =
-                mnTelecomandadas.Visible = mnTermometros.Visible = mnGOP.Visible = sub_relatorio_VMA.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = mnRadios.Visible = sub_baixada.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = true;
+                mnTelecomandadas.Visible = mnTermometros.Visible = mnGOP.Visible = sub_relatorio_VMA.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = mnRadios.Visible = sub_baixada.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = mnUsuarios.Visible = true;
 
                 mnRestricoes.Visible = mnIndicadores.Visible = sub_macros_macro50.Visible = sub_macros_macro61.Visible = sub_relatorio_CCO.Visible =
                 sub_interdicoes.Visible = lnkImportaOBC.Visible = mnDadosApoio.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible =
-                sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible =
-                mnUsuarios.Visible = mnRelatorios.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = false;
+                sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnRelatorios.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_consultarusuariosWeb.Visible = sub_consultarusuarios.Visible = sub_acessos.Visible = sub_estatisticas.Visible = false;
             }
             if (usuario.Perfil_ID == "6") // Perfil: OPERADOR DE VIA PERMANENTE - OP VP
             {
@@ -766,7 +769,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 sub_relatorio_CCO.Visible = sub_interdicoes.Visible = lnkImportaOBC.Visible = mnDadosApoio.Visible =
                 sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible =
                 sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnRelatorios.Visible = mnLocomotivas.Visible =
-                sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+                sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
             if (usuario.Perfil_ID == "7") // Perfil: OPERADOR ELETROELETRÔNICO - OP ELE
             {
@@ -778,7 +781,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 sub_relatorio_CCO.Visible = sub_interdicoes.Visible = lnkImportaOBC.Visible = mnDadosApoio.Visible = sub_dadosapoio_abreviaturas.Visible =
                 sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible =
                 sub_dadosapoio_logs.Visible = mnRelatorios.Visible = mnLocomotivas.Visible = sub_macros_macrofrota.Visible =
-                sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+                sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
             if (usuario.Perfil_ID == "8") // Perfil: CENTRO DE CONTROLE DE EMERGÊNCIA - CCE
             {
@@ -790,7 +793,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 sub_alarmes.Visible = sub_relatorio.Visible = mnRestricoes.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible = lnkImportaOBC.Visible =
                 mnDadosApoio.Visible = mnUsuarios.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_dadosapoio_meta_pctm.Visible =
                 sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnLocomotivas.Visible = sub_relatorio_MACROS.Visible =
-                sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+                sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
             if (usuario.Perfil_ID == "9") // Perfil: PROGRAMAÇÃO E CONTROLE DE MANUTENÇÃO - PCM
             {
@@ -801,7 +804,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnRestricoes.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible = sub_interdicoes.Visible = lnkImportaOBC.Visible =
                 mnDadosApoio.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible =
                 sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnRelatorios.Visible = mnLocomotivas.Visible =
-                sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+                sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
             if (usuario.Perfil_ID == "10") // Perfil: ADMINISTRADOR DE VIA PERMANENTE - ADM VP
             {
@@ -813,7 +816,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnIndicadores.Visible = sub_relatorio_CCO.Visible = lnkImportaOBC.Visible = mnDadosApoio.Visible =
                 sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible =
                 sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnLocomotivas.Visible = sub_macros_macrofrota.Visible =
-                sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+                sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
             if (usuario.Perfil_ID == "11") // Perfil: ADMINISTRADOR ELETROELETRÔNICO - ADM ELE
             {
@@ -824,7 +827,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnUsuarios.Visible = sub_locomotivas_trocaloco.Visible = sub_macros_macro50.Visible = sub_macros_macro200.Visible = mnRestricoes.Visible =
                 mnIndicadores.Visible = sub_interdicoes.Visible = lnkImportaOBC.Visible = mnDadosApoio.Visible = sub_dadosapoio_abreviaturas.Visible =
                 sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible =
-                sub_dadosapoio_logs.Visible = mnLocomotivas.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+                sub_dadosapoio_logs.Visible = mnLocomotivas.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
             if (usuario.Perfil_ID == "12") // Perfil: OPERADOR VITORIA MINAS - OP VM
             {
@@ -836,7 +839,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 sub_relatorio_CCO.Visible = mnGraficoTrens.Visible = sub_macros_macro61.Visible = lnkImportaOBC.Visible = mnDadosApoio.Visible =
                 sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible =
                 sub_dadosapoio_logs.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = sub_dadosapoio_abreviaturas.Visible =
-                mnRelatorios.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+                mnRelatorios.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
             if (usuario.Perfil_ID == "13") // Perfil: ADMINISTRADOR TELECON - ADM TEL
             {
@@ -847,7 +850,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnRestricoes.Visible = mnRestricoes.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible = sub_interdicoes.Visible = lnkImportaOBC.Visible =
                 mnDadosApoio.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible =
                 sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnRelatorios.Visible = mnLocomotivas.Visible =
-                sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+                sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
             if (usuario.Perfil_ID == "14") // CENTRO DE APOIO AO TREM - ADM - ADM CAT
             {
@@ -860,7 +863,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible =
                 sub_dadosapoio_logs.Visible = mnLocomotivas.Visible = sub_dadosapoio_display.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible =
                 sub_dadosapoio_banners.Visible = mnSistema.Visible = sub_macros_parada_imediata.Visible = mnDadosApoio.Visible =
-                sub_dadosapoio_meta_pctm.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+                sub_dadosapoio_meta_pctm.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
             if (usuario.Perfil_ID == "15") // Perfil: SUPERVISOR - SUP
             {
@@ -870,7 +873,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnRestricoes.Visible = mnIndicadores.Visible = sub_macros_macro50.Visible = sub_relatorio_CCO.Visible =
                 sub_interdicoes.Visible = lnkImportaOBC.Visible = mnDadosApoio.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible =
                 sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible =
-                mnUsuarios.Visible = mnRelatorios.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+                mnUsuarios.Visible = mnRelatorios.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
             if (usuario.Perfil_ID == "16") // Perfil: ESPECIALISTA - ESP
             {
@@ -882,29 +885,29 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnRestricoes.Visible = mnRestricoes.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible = sub_interdicoes.Visible = lnkImportaOBC.Visible =
                 mnDadosApoio.Visible = mnSistema.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible =
                 sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnRelatorios.Visible = mnLocomotivas.Visible =
-                sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+                sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
             if (usuario.Perfil_ID == "17") // Perfil: CENTRO DE TOMADA DE DECISÃO / LOCOMOTIVAS - CTD - LOCO
             {
-                sub_locomotivas_trocaloco.Visible = sub_macros_consulta.Visible = sub_macros_macro61.Visible = mnPainel.Visible =
+                sub_locomotivas_trocaloco.Visible = sub_macros_consulta.Visible = sub_macros_macro61.Visible = mnPainel.Visible = mnRestricoes.Visible = sub_interdicoes.Visible =
                 mnTermometros.Visible = mnTelecomandadas.Visible = mnVMA.Visible = mnLocomotivas.Visible =
                 lnkImportaOBC.Visible = sub_relatorio_VMA.Visible = mnGOP.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = mnRadios.Visible = sub_baixada.Visible = true;
 
-                mnUsuarios.Visible = mnRestricoes.Visible = sub_macros_macro50.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible =
-                sub_interdicoes.Visible = sub_macros_macro200.Visible = mnDadosApoio.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible =
+                mnUsuarios.Visible = sub_macros_macro50.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible =
+                sub_macros_macro200.Visible = mnDadosApoio.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible =
                 sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible =
-                mnRelatorios.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = sub_pgof_RelatoriosPGOF.Visible = mnPgof.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+                mnRelatorios.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = sub_pgof_RelatoriosPGOF.Visible = mnPgof.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
             if (usuario.Perfil_ID == "18") // Perfil: CENTRO DE TOMADA DE DECISÃO / LOCOMOTIVAS - CTD - VAG
             {
-                sub_locomotivas_trocaloco.Visible = sub_macros_consulta.Visible = sub_macros_macro61.Visible = mnPainel.Visible =
+                sub_locomotivas_trocaloco.Visible = sub_macros_consulta.Visible = sub_macros_macro61.Visible = mnPainel.Visible = mnRestricoes.Visible = sub_interdicoes.Visible =
                 mnTermometros.Visible = mnTelecomandadas.Visible = mnVMA.Visible = mnLocomotivas.Visible =
                 lnkImportaOBC.Visible = sub_relatorio_VMA.Visible = mnGOP.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = mnRadios.Visible = sub_baixada.Visible = true;
 
-                mnUsuarios.Visible = mnRestricoes.Visible = sub_macros_macro50.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible =
-                sub_interdicoes.Visible = sub_macros_macro200.Visible = mnDadosApoio.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible =
+                mnUsuarios.Visible = sub_macros_macro50.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible =
+                sub_macros_macro200.Visible = mnDadosApoio.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible =
                 sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible =
-                mnRelatorios.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = sub_pgof_RelatoriosPGOF.Visible = mnPgof.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+                mnRelatorios.Visible = sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = sub_pgof_RelatoriosPGOF.Visible = mnPgof.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
             if (usuario.Perfil_ID == "19") // Perfil: DESPACHADOR - DSP
             {
@@ -915,7 +918,17 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 mnRestricoes.Visible = mnRestricoes.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible = sub_interdicoes.Visible = lnkImportaOBC.Visible =
                 mnDadosApoio.Visible = mnSistema.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible =
                 sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnRelatorios.Visible = mnLocomotivas.Visible =
-                sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = false;
+                sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_consultarusuariosautorizados.Visible = false;
+            }
+            if (usuario.Perfil_ID == "20") // Perfil: CENTRO DE CONTROLE MANUTENÇÃO - CCM
+            {
+                sub_macros_consulta.Visible = mnPainel.Visible = mnTermometros.Visible = mnGOP.Visible = sub_macros_macro61.Visible = mnVMA.Visible = mnRestricoes.Visible = sub_interdicoes.Visible =
+                mnTelecomandadas.Visible = sub_relatorio_VMA.Visible = mnRadios.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = sub_baixada.Visible = true;
+
+                mnUsuarios.Visible = sub_locomotivas_trocaloco.Visible = sub_macros_macro50.Visible = sub_macros_macro61.Visible = sub_macros_macro200.Visible = mnIndicadores.Visible = sub_relatorio_CCO.Visible = lnkImportaOBC.Visible =
+                mnDadosApoio.Visible = mnSistema.Visible = sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible =
+                sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnRelatorios.Visible = mnLocomotivas.Visible =
+                sub_macros_macrofrota.Visible = sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible = submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
         }
 

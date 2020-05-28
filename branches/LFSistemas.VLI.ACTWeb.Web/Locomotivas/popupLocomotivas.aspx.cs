@@ -32,13 +32,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
         };
 
         [DllImport(@"DLLMQWeb.dll")]
-        static extern void DLLSendCML(int idMCT, char[] nomeMCT, char[]  prmMatricula, char tpuser);
+        static extern void DLLSendCML(int idMCT, char[] nomeMCT, char[]  prmMatricula, char tpuser, int proprietario);
 
         [DllImport(@"DLLMQWeb.dll")]
         static extern void DLLSendRML(int idMCT, char[] nomeMCT, char[] mat, char tpuser);
 
         [DllImport(@"DLLMQWeb.dll")]
-        static extern void DLLSendMML(int idMCT, char[] nomeMCT, int tipoMensagem, char[] mat, char tpuser);
+        static extern void DLLSendMML(int idMCT, char[] nomeMCT, int tipoMensagem, char[] mat, char tpuser, int proprietario);
 
         [DllImport(@"DLLMQWeb.dlll")]
         static extern void DLLSendAMC(int idMCT, int versaoMCI, int blnOBC, char[] mat, char tpuser);
@@ -69,6 +69,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                 ViewState["Operacao"] = "Inicio";
                 HabilitaDesabilita(ViewState["Operacao"].ToString());
                 divProcess.Visible = false;
+                
             }
         }
 
@@ -83,6 +84,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
         }
         protected void btnAlterarMCT_Click(object sender, EventArgs e)
         {
+            ddlProprietarioLocomotiva.Enabled = true;
             if (txtAtualiza_MCT.Text != string.Empty)
             {
                 ViewState["Operacao"] = "AlterarMCT";
@@ -118,11 +120,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
         }
         protected void btnIncluirLoco_Click(object sender, EventArgs e)
         {
+            ddlProprietarioLocomotiva.Visible = true;
+            CarregaCombos("locomotivas");
             ViewState["Operacao"] = "IncluirLoco";
             HabilitaDesabilita(ViewState["Operacao"].ToString());
         }
         protected void btnAlterarLoco_Click(object sender, EventArgs e)
         {
+            ddlProprietarioLocomotiva.Enabled = true;
             if (txtAtualiza_MCT.Text != string.Empty)
             {
                 ViewState["Operacao"] = "AlterarLoco";
@@ -172,6 +177,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
         }
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
+            ddlProprietarioLocomotiva.Visible = false;
             ViewState["Operacao"] = "Inicio";
             HabilitaDesabilita(ViewState["Operacao"].ToString());
             LimpaDados();
@@ -208,8 +214,26 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
             txtAtualiza_VersaoOBC.Text  = dados[3].Length <= 1 ? string.Empty : dados[3].Substring(1, dados[3].Length - 1);
             txtAtualiza_VersaoMapa.Text = dados[4].Length <= 1 ? string.Empty : dados[4].Substring(1, dados[4].Length - 1);
             txtAtualiza_VersaoMCI.Text  = dados[5].Length <= 1 ? string.Empty : dados[5].Substring(1, dados[5].Length - 1);
-            
+            string prop = dados[6].Length <= 1 ? string.Empty : dados[6].Substring(1, dados[6].Length - 1);
 
+            CarregaCombos("locomotivas");
+            
+            if(prop == "RUMO")
+            {
+                ddlProprietarioLocomotiva.SelectedValue = "2";
+            }
+            else if (prop == "FCA")
+            {
+                ddlProprietarioLocomotiva.SelectedValue = "1";
+            }
+            else
+            {
+                ddlProprietarioLocomotiva.ClearSelection();
+            }
+
+            ddlProprietarioLocomotiva.Visible = true;
+            ddlProprietarioLocomotiva.Enabled = false;
+            
             btnCancelar.Enabled = true;
         }
         protected void btnConfirmar_Click(object sender, EventArgs e)
@@ -327,6 +351,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
             Operacao = ViewState["Operacao"].ToString();
             bool Retorno = false;
             int idMCT = 0;
+            int proprietario = 0;
             char[] usuario = new char[10];
             char[] nomemct = new char [4];
 
@@ -358,7 +383,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                         idMCT = int.Parse(txtAtualiza_MCT.Text.ToString());
                         if (!Loco.existeMCT(idMCT))
                         {
-                            DLLSendCML(idMCT, nomemct, usuario, 'W');
+                            DLLSendCML(idMCT, nomemct, usuario, 'W', 0);
                             LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Locomotivas", null, idMCT.ToString(), "A inclusão do novo MCT "+ txtAtualiza_MCT.Text +" foi solicitada ao ACT. ", Uteis.OPERACAO.Solicitou.ToString());
                             Retorno = true;
                         }
@@ -384,10 +409,22 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     if (txtAtualiza_Locomotiva.Text.Trim().Length > 0)
                     {
                         idMCT = txtAtualiza_MCT.Text.Trim().Length > 0 ? int.Parse(txtAtualiza_MCT.Text.ToString()) : 0;
-
-                        if (!Loco.existeMCTName(txtAtualiza_Locomotiva.Text))
+                        if(ddlProprietarioLocomotiva.SelectedValue == "1")
                         {
-                            DLLSendCML(idMCT, nomemct, usuario, 'W');
+                            proprietario = 1;
+                        }
+                        else if (ddlProprietarioLocomotiva.SelectedValue == "2")
+                        {
+                            proprietario = 2;
+                        }
+                        else
+                        {
+                            proprietario = 0;
+                        }
+
+                        if (!Loco.existeMCTName(txtAtualiza_Locomotiva.Text) || proprietario == 2)
+                        {
+                            DLLSendCML(idMCT, nomemct, usuario, 'W', proprietario);
                             LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Locomotivas", null, idMCT.ToString(), "A inclusão da nova Locomotiva "+ txtAtualiza_Locomotiva.Text +" foi solicitada ao ACT.", Uteis.OPERACAO.Solicitou.ToString());
                             Retorno = true;
                         }
@@ -422,6 +459,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
             bool Retorno = false;
             int idMCT = 0;
             int idLoco = 0;
+            int proprietario = 0;
             char[] usuario = new char[10];
             char[] nomemct = new char[4];
 
@@ -454,6 +492,19 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                 {
                     try
                     {
+                        if (ddlProprietarioLocomotiva.SelectedValue == "1")
+                        {
+                            proprietario = 1;
+                        }
+                        else if (ddlProprietarioLocomotiva.SelectedValue == "2")
+                        {
+                            proprietario = 2;
+                        }
+                        else
+                        {
+                            proprietario = 0;
+                        }
+                        
                         if (txtAtualiza_Locomotiva.Text.Trim().Length <= 0)
                         {
                             Response.Write("<script>alert('Por Favor digite uma Locomotiva!');</script>");
@@ -464,7 +515,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                             Response.Write("<script>alert('O MCT " + txtAtualiza_MCT.Text + " não existe mais.');</script>");
                             return Retorno = false;
                         }
-                        if (Loco.LocomotivaAssociadaMCT(idLoco) && txtAtualiza_Locomotiva.Text != string.Empty) //Se NÂO está havendo troca de locomotiva do MCT.
+                        if ((Loco.LocomotivaAssociadaMCT(idLoco) && txtAtualiza_Locomotiva.Text != string.Empty) && (proprietario != 2)) //Se NÂO está havendo troca de locomotiva do MCT.
                         {
                             Response.Write("<script>alert('Já existe um MCT associado à Locomotiva " + txtAtualiza_Locomotiva.Text + ".');</script>");
                             return Retorno = false;
@@ -474,13 +525,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                             Response.Write("<script>alert('O MCT " + txtAtualiza_MCT.Text + " está \"circulando\" com a Locomotiva " + txtAtualiza_Locomotiva.Text + " no Trem " + Loco.MCTCirculando(idMCT) + ".');</script>");
                             return Retorno = false;
                         }
-                        if (Loco.existeMCTName(txtAtualiza_Locomotiva.Text))    //Se já existe a nova locomotiva em algum MCT.
+                        if ((Loco.existeMCTName(txtAtualiza_Locomotiva.Text)) && (proprietario != 2))    //Se já existe a nova locomotiva em algum MCT.
                         {
                             Response.Write("<script>alert('Já existe a Locomotiva  " + txtAtualiza_Locomotiva.Text + " e ele esta no MCT " + txtAtualiza_MCT.Text + ".');</script>");
                             return Retorno = false;
                         }
 
-                        DLLSendMML(idMCT, nomemct, operacao, usuario, 'W');
+                        DLLSendMML(idMCT, nomemct, operacao, usuario, 'W', proprietario);
                         LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Locomotivas", null, idMCT.ToString(), "A alteração do MCT " + txtAtualiza_Locomotiva.Text + " foi solicitada ao ACT.", Uteis.OPERACAO.Solicitou.ToString());
                     }
                     catch (Exception ex)
@@ -498,6 +549,19 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     try
                     {
                         idMCT = txtAtualiza_MCT.Text.Trim().Length > 0 ? int.Parse(txtAtualiza_MCT.Text.ToString()) : 0;
+                        if (ddlProprietarioLocomotiva.SelectedValue == "1")
+                        {
+                            proprietario = 1;
+                        }
+                        else if (ddlProprietarioLocomotiva.SelectedValue == "2")
+                        {
+                            proprietario = 2;
+                        }
+                        else
+                        {
+                            proprietario = 0;
+                        }
+
 
                         if (txtAtualiza_MCT.Text.Trim().Length <= 0)
                         {
@@ -515,7 +579,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                             return Retorno = false;
                         }
 
-                        DLLSendMML(idMCT, nomemct, operacao, usuario, 'W');
+                        DLLSendMML(idMCT, nomemct, operacao, usuario, 'W', proprietario);
                         LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Locomotivas", null, idMCT.ToString(), "A alteração do MCT " + txtAtualiza_MCT.Text + " foi solicitada ao ACT.", Uteis.OPERACAO.Solicitou.ToString());
                     }
                     catch (Exception ex)
@@ -555,7 +619,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                             return Retorno = false;
                         }
 
-                        DLLSendMML(idMCT, nomemct, operacao, usuario, 'W');
+                        DLLSendMML(idMCT, nomemct, operacao, usuario, 'W', 0);
                         LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Locomotivas", null, idMCT.ToString(), "A habilitação do MCT " + txtAtualiza_MCT.Text + " foi solicitada ao ACT.", Uteis.OPERACAO.Solicitou.ToString());
                     }
                     catch (Exception ex)
@@ -595,7 +659,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                             return Retorno = false;
                         }
 
-                        DLLSendMML(idMCT, nomemct, operacao, usuario, 'W');
+                        DLLSendMML(idMCT, nomemct, operacao, usuario, 'W', 0);
                         LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Locomotivas", null, idMCT.ToString(), "A desabilitação do MCT " + txtAtualiza_MCT.Text + " foi solicitada ao ACT.", Uteis.OPERACAO.Solicitou.ToString());
                     }
                     catch (Exception ex)
@@ -774,7 +838,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
             {
                 #region [  ]
 
-                DLLSendCML(idMCT, nomemct, usuario, 'W');
+                DLLSendCML(idMCT, nomemct, usuario, 'W', 0);
                 Retorno = true;
 
                 #endregion
@@ -824,6 +888,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
             lblTotal.Text = string.Format("{0:0,0}", itens.Count);
         }
 
+        protected void CarregaCombos(string origem)
+        {
+            var pesquisa = new ComboBoxController();
+
+            var proprietario = pesquisa.CarregaCombo_Proprietario(origem);
+            if (proprietario.Count > 0)
+            {
+                ddlProprietarioLocomotiva.DataValueField = "ID";
+                ddlProprietarioLocomotiva.DataTextField = "DESCRICAO";
+                ddlProprietarioLocomotiva.DataSource = proprietario;
+                ddlProprietarioLocomotiva.DataBind();
+                ddlProprietarioLocomotiva.Items.Insert(0, new ListItem("Selecione", ""));
+            }
+        }
+
         #endregion
 
         #region [ MÉTODOS DE CONTROLE DE TELA ]
@@ -857,6 +936,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     break;
                 case "IncluirMCT":
@@ -882,6 +962,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     txtAtualiza_MCT.Focus();
 
@@ -909,6 +990,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = true;
 
                     txtAtualiza_Locomotiva.Focus();
 
@@ -936,6 +1018,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     btnConfirmar.Focus();
                     break;
@@ -962,6 +1045,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     btnConfirmar.Focus();
                     break;
@@ -988,6 +1072,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     btnConfirmar.Focus();
                     break;
@@ -1014,6 +1099,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = true;
 
                     txtAtualiza_Locomotiva.Focus();
 
@@ -1042,6 +1128,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = true;
 
                     txtAtualiza_Locomotiva.Focus();
 
@@ -1070,6 +1157,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     btnConfirmar.Focus();
                     break;
@@ -1098,6 +1186,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled = 
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     btnConfirmar.Focus();
                     break;
@@ -1125,6 +1214,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_Locomotiva.Enabled =
                     txtAtualiza_VersaoOBC.Enabled = 
                     txtAtualiza_VersaoMapa.Enabled =  false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     txtAtualiza_VersaoMCI.Focus();
                     break;
@@ -1151,6 +1241,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Locomotivas
                     txtAtualiza_MCT.Enabled =
                     txtAtualiza_Locomotiva.Enabled =
                     txtAtualiza_VersaoMCI.Enabled = false;
+                    ddlProprietarioLocomotiva.Visible = false;
 
                     txtAtualiza_VersaoMapa.Focus();
                     break;

@@ -38,6 +38,16 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ComboBoxCorredoresACTPP();
         }
+        public List<ComboBox> ComboBoxSubtipos()
+        {
+            return dao.ComboBoxSubtiposACTPP();
+        }
+
+        //public List<ComboBox> ComboBoxCorredores()
+        //{
+        //    return dao.ComboBoxCorredoresACTPP();
+        //}
+    
         public List<ComboBox> ComboBoxPostosTrabalhoACTPP()
         {
             return dao.ComboBoxPostosTrabalhoACTPP();
@@ -196,8 +206,11 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ComboBoxGruposComMotivosID(motivos_id);
         }
+        public List<ComboBox> CarregaCombo_Proprietario(string origem)
+        {
+            return dao.CarregaCombo_Proprietario(origem);
+        }
 
         #endregion
-
     }
 }

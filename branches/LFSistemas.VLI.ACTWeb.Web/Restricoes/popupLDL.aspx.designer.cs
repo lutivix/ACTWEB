@@ -193,6 +193,51 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         protected global::System.Web.UI.WebControls.Label lblOperadorCCV_Nome;
         
         /// <summary>
+        /// lblCanalCom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCanalCom;
+        
+        /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
+        /// txtDadosResponsavel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDadosResponsavel;
+        
+        /// <summary>
+        /// txtTelefoneResponsavel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTelefoneResponsavel;
+        
+        /// <summary>
+        /// lblResponsavel_Nome control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblResponsavel_Nome;
+        
+        /// <summary>
         /// rdDadosTelefone control.
         /// </summary>
         /// <remarks>
@@ -211,22 +256,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         protected global::System.Web.UI.WebControls.TextBox txtDadosTelefone;
         
         /// <summary>
-        /// txtDadosResponsavel control.
+        /// txtDadosEquipamentos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDadosResponsavel;
-        
-        /// <summary>
-        /// lblResponsavel_Nome control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblResponsavel_Nome;
+        protected global::System.Web.UI.WebControls.TextBox txtDadosEquipamentos;
         
         /// <summary>
         /// rdDadosRadio control.
@@ -238,13 +274,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         protected global::System.Web.UI.WebControls.RadioButton rdDadosRadio;
         
         /// <summary>
-        /// txtDadosEquipamentos control.
+        /// ddlDadosMotivo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDadosEquipamentos;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDadosMotivo;
         
         /// <summary>
         /// rdDadosMacro control.
@@ -265,15 +301,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         protected global::System.Web.UI.WebControls.TextBox txtDadosMacro;
         
         /// <summary>
-        /// ddlDadosMotivo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDadosMotivo;
-        
-        /// <summary>
         /// txtDadosObsercacao control.
         /// </summary>
         /// <remarks>
@@ -281,6 +308,24 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDadosObsercacao;
+        
+        /// <summary>
+        /// lblPrefixo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPrefixo;
+        
+        /// <summary>
+        /// txtPrefixo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPrefixo;
         
         /// <summary>
         /// lnkCriar control.

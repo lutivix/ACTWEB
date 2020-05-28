@@ -89,6 +89,7 @@
                                                             <th style="background-color: white; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">Velocidade</a></th>
                                                             <th style="background-color: white; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">Km Inicial</a></th>
                                                             <th style="background-color: white; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">Km Final</a></th>
+                                                            <th style="background-color: white; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);"><a href="#">Corredor</a></th>
                                                             <th style="background-color: white; text-align: center; font-size: 12pt;"><a href="#">Observação</a></th>
                                                             <th></th>
                                                         </tr>
@@ -103,6 +104,7 @@
                                                     <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="><%# Eval ("Velocidade")%>"><%# Eval ("Velocidade")%></td>
                                                     <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="><%# Eval ("Km_Inicial")%>"><%# Eval ("Km_Inicial")%></td>
                                                     <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="><%# Eval ("Km_Final")%>"><%# Eval ("Km_Final")%></td>
+                                                    <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="><%# Eval ("Nome_Corredor")%>"><%# Eval ("Nome_Corredor")%></td>
                                                     <td style="text-align: left;" title="><%# Eval ("Observacao")%>"><%# Eval ("Observacao")%></td>
                                                 </tr>
                                             </ItemTemplate>

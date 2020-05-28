@@ -44,10 +44,43 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ExisteRestricao(IdElementoVia, IdTipoRestricao, IdSubtipoRestricao, DataInicio, DataFim, VelocidadeMaxima, KmInicio, KmFim);
         }
+
+        public bool ExisteHTProgramada(double IdElementoVia, decimal? KmInicio, decimal? KmFim)
+        {
+            return dao.ExisteHTProgramada(IdElementoVia, KmInicio, KmFim);
+        }
+
+        public bool ExisteHTCircualacao(double IdElementoVia, decimal? KmInicio, decimal? KmFim)
+        {
+            return dao.ExisteHTCircualacao(IdElementoVia, KmInicio, KmFim);
+        }
+
         public bool ExisteInterdicao(double Secao)
         {
             return dao.ExisteInterdicao(Secao);
         }
+		
+		public bool PermiteBS(double cpf, double subtipoVR)
+        {
+            return dao.PermiteBS(cpf, subtipoVR);
+        }
+
+        public bool PermiteAtivo(double cpf)
+        {
+            return dao.PermiteAtivo(cpf);
+        }
+
+        public Responsavel PermiteLDL(string cpf)
+        {
+            return dao.PermiteLDL(cpf);
+        }
+
+        //verifica no banco de dados se existe uma VR com mesmo subtipo na mesma sb 
+        public bool VerificaBSmesmoTipo(double secao, double subtipo, DateTime dataFinalBSAtual, DateTime dataFim, DateTime dataAtual)
+        {
+            return dao.VerificaBSmesmoTipo(secao, subtipo, dataFinalBSAtual, dataFim, dataAtual);
+        }
+
         public Restricao ObterRestricaoPorID(string tipo, double id)
         {
             return dao.ObterRestricaoPorID(tipo, id);
@@ -87,10 +120,10 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         /// <param name="dataInicial">[ DateTime ]: - Data Inicial</param>
         /// <param name="dataFinal">[ DateTime ]: - Data Final</param>
         /// <returns>Retorna uma lista de restrições conforme parâmentros indicados</returns>
-        public List<Restricao> ObterListaRestricoesPorData(string dataInicial, string dataFinal)
+        public List<Restricao> ObterListaRestricoesPorData(string dataInicial, string dataFinal, string corredores, string SB, string TipoRest)
         {
             var dao = new RestricaoDAO();
-            return dao.ObterListaRestricoesPorData(dataInicial, dataFinal);
+            return dao.ObterListaRestricoesPorData(dataInicial, dataFinal, corredores, SB, TipoRest);
         }
 
         /// <summary>
