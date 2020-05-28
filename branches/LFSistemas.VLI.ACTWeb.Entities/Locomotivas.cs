@@ -24,8 +24,6 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string LOC_ID_NUM_LOCO { get; set; }
         public string LOC_TP_LOCO { get; set; }
         public string LOC_TP_VEIC { get; set; }
-        public double PP_LOC_ID { get; set; }
-        public string proprietario { get; set; }
 
 
     }
