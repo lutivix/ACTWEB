@@ -375,13 +375,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                             var command = connection.CreateCommand();
                             query.Append(@"INSERT INTO ACTPP.BS_OPERADOR
-                                    (OP_BS_ID, SR_ID_STR)
-                                     VALUES
-                                     (${ID}, ${SUBTIPOS})");
+                                            (BSO_ID, OP_BS_ID, SR_ID_STR, BS_OP_DT, BS_OP_ID_PAR, BS_OP_VLR_PAR, BS_OP_MAT, BS_OP_DT_ANT, BS_OP_ATIVO)
+                                            SELECT ACTPP.BS_OPERADOR_ID.NEXTVAL,OPBS.OP_BS_ID, PBS_ID, SYSDATE,PBS_ID, PBS_VALOR, OPBS.OP_BS_MAT , ULT_SOL,'S' 
+                                                FROM ACTPP.PARAMETROS_BS PBS, ACTPP.OPERADORES_BS OPBS, (select max(bs_op_DT) AS ULT_SOL 
+                                                                                                FROM ACTPP.BS_OPERADOR WHERE OP_BS_ID = ${ID} 
+                                                                                                    AND SR_ID_STR = ${SUBTIPOS}) TESTE 
+                                                    WHERE PBS_ID = ${SUBTIPOS} AND OPBS.OP_BS_ID = ${ID}");
 
                             query.Replace("${ID}", usuario.Usuario_ID);
                             query.Replace("${SUBTIPOS}", usuario.Subtipos_BS);
-
 
                             #endregion
 
@@ -488,7 +490,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
                     query.Append(@"SELECT * FROM ACTPP.BS_OPERADOR
-                                    WHERE OP_BS_ID = ${ID}");
+                                    WHERE OP_BS_ID = ${ID} AND BS_OP_ATIVO = 'S'");
                     #endregion
 
                     #region [ PARÂMETROS ]
@@ -631,6 +633,56 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return true;
         }
 
+        //p714
+        public bool AtualizarDataUltSolBSOP(string matricula, string usuarioID, string subtipo)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ INSERE USUÁRIO NO BANCO ]
+
+                    var command = connection.CreateCommand();
+                    query.Append(@"UPDATE BS_OPERADOR SET BS_OP_ATIVO = 'N' 
+                                    WHERE SR_ID_STR = ${SRT} AND OP_BS_ID = ${ID} 
+                                    AND BS_OP_ATIVO = 'S'");
+
+                    #endregion
+
+                    #region [ PARÂMETRO ]
+
+                    query.Replace("${ID}", string.Format("{0}", usuarioID));
+                    query.Replace("${SRT}", string.Format("{0}", subtipo));
+                    query.Replace("${MAT}", string.Format("{0}", matricula));
+
+                    #endregion
+
+                    #region [ RODA A QUERY NO BANCO ]
+
+                    command.CommandText = query.ToString();
+                    command.ExecuteNonQuery();
+
+                    //LogDAO.GravaLogBanco(DateTime.Now, matricula, "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado campo OP_ULTIMA_SOLICIT na tabela OPERADORES_BS devido a " + acao + " de novo Boletim de Serviço. ", Uteis.OPERACAO.Atualizou.ToString());
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return true;
+        }
+
         public bool DeletarSubtiposAssociados(UsuarioAutorizado usuario, string usuarioLogado)
         {
             #region [ PROPRIEDADES ]
@@ -646,7 +698,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ INSERE USUÁRIO NO BANCO ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"DELETE FROM ACTPP.BS_OPERADOR
+                    query.Append(@"UPDATE ACTPP.BS_OPERADOR SET BS_OP_ATIVO = 'N'
                                     WHERE OP_BS_ID = ${ID}");
 
                     #endregion
@@ -715,7 +767,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             string subtipo = "";
             try
             {
-                if (!reader.IsDBNull(1))subtipo = reader.GetDouble(1).ToString();
+                if (!reader.IsDBNull(2))subtipo = reader.GetDouble(2).ToString();
             }
             catch (Exception ex)
             {

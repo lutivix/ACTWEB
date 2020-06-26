@@ -360,7 +360,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT SR_ID_STR, SR_COD_STR FROM ACTPP.SUBTIPOS_RESTRICAO");
+                    query.Append(@"SELECT PBS_ID,PBS_SUBTIPO FROM ACTPP.PARAMETROS_BS");
 
                     #endregion
 

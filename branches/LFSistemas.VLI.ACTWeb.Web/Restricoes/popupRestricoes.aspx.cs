@@ -482,12 +482,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     return;
                 }
 
-                if (!restricaoController.PermiteBS(double.Parse(txtDadosCpf.Text), double.Parse(ddlDadosSubTipoVR.SelectedItem.Value)))
+                if (!restricaoController.PermiteBS(txtDadosCpf.Text, int.Parse(ddlDadosSubTipoVR.SelectedItem.Value)) )
                 {
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido o CPF informado não ter permissão para criação desse subtipo de BS.' });", true);
                     return;
                 }
-                if (!restricaoController.PermiteAtivo(double.Parse(txtDadosCpf.Text)))
+                if (!restricaoController.PermiteAtivo(txtDadosCpf.Text, int.Parse(ddlDadosSubTipoVR.SelectedItem.Value)))
                 {
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido o CPF informado não estar ativo.' });", true);
                     return;
@@ -548,6 +548,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                     string usuarioID = lblUsuarioLogado.Text.Trim();
                                     string acao = "programação";
                                     usuario.AtualizarDataUltSol(CPF, matricula, usuarioID, acao);
+                                    usuario.AtualizarDataUltSolBSOP(matricula, usuarioID, ddlDadosSubTipoVR.SelectedItem.Value);
                                 }
                                
                                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição programada com sucesso. " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);

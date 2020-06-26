@@ -40,6 +40,12 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.AtualizarDataUltSol(cpf, matricula, usuarioID, acao);
         }
 
+        //p714
+        public bool AtualizarDataUltSolBSOP(string matricula, string usuarioID, string subtipo)
+        {
+            return dao.AtualizarDataUltSolBSOP(matricula, usuarioID, subtipo);
+        }
+
         public bool DeletarSubtiposAssociados(UsuarioAutorizado usuario, string usuariologado)
         {
             return dao.DeletarSubtiposAssociados(usuario, usuariologado);

@@ -716,7 +716,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         }
 
 
-        public bool PermiteBS(double cpf, double subtipoVR)
+        public bool PermiteBS(string cpf, int subtipoVR)
         {
             #region [ PROPRIEDADES ]
 
@@ -736,7 +736,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"select * from actpp.OPERADORES_BS OBS, actpp.bs_operador BO 
                                       WHERE OP_CPF IN (${cpf}) 
                                         AND OBS.OP_BS_ID = BO.OP_BS_ID
-                                        AND BO.SR_ID_STR IN (${subtipoVR})");
+                                        AND BO.SR_ID_STR IN (${subtipoVR})
+                                        AND BO.BS_OP_ATIVO = 'S'");
 
                     if (cpf != null)
                         query.Replace("${cpf}", string.Format("{0}", cpf));
@@ -775,7 +776,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return retorno;
         }
 
-        public bool PermiteAtivo(double cpf)
+        public bool PermiteAtivo(string cpf, int subtipoVR)
         {
             #region [ PROPRIEDADES ]
 
@@ -791,14 +792,23 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA AS RESTRIÇÕES ]
 
                     var command = connection.CreateCommand();
-
-                    query.Append(@"select OP_PERFIL_ATIVO from actpp.OPERADORES_BS OBS 
-                                      WHERE OP_CPF IN (${cpf})");
+                   
+                    query.Append(@"select * from actpp.OPERADORES_BS OBS, actpp.bs_operador BO 
+                                      WHERE OP_CPF IN (${cpf}) 
+                                        AND OBS.OP_BS_ID = BO.OP_BS_ID
+                                        AND BO.SR_ID_STR IN (${subtipoVR})
+                                        AND BO.BS_OP_ATIVO = 'S'
+                                        AND (bs_op_vlr_par - (sysdate - bs_op_dt)) > 0 ");
 
                     if (cpf != null)
                         query.Replace("${cpf}", string.Format("{0}", cpf));
                     else
                         query.Replace("${cpf}", " ");
+
+                    if (subtipoVR != null)
+                        query.Replace("${subtipoVR}", string.Format("{0}", subtipoVR));
+                    else
+                        query.Replace("${subtipoVR}", " ");
 
 
                     #endregion
@@ -809,22 +819,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     using (var reader = command.ExecuteReader())
                     {
                         if (reader.Read())
-                        {
-                            if (!reader.IsDBNull(00))
-                            {
-                                if (reader.GetString(00) == "S")
-                                {
-                                    retorno = true;
-                                }
-                                else
-                                {
-                                    retorno = false;
-                                }
-                            }
-                            else
-                            {
-                                retorno = false;
-                            }
+                        {    
+                            retorno = true;
                         }
                     }
 

@@ -60,14 +60,14 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ExisteInterdicao(Secao);
         }
 		
-		public bool PermiteBS(double cpf, double subtipoVR)
+		public bool PermiteBS(string cpf, int subtipoVR)
         {
             return dao.PermiteBS(cpf, subtipoVR);
         }
 
-        public bool PermiteAtivo(double cpf)
+        public bool PermiteAtivo(string cpf, int subtipoVR)
         {
-            return dao.PermiteAtivo(cpf);
+            return dao.PermiteAtivo(cpf, subtipoVR);
         }
 
         public Responsavel PermiteLDL(string cpf)

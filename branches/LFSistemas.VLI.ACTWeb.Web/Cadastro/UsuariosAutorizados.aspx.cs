@@ -167,6 +167,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                     {
                         UsuarioAutorizado usuarioAux = usuarioAutController.ObterPorMatricula(usuario.Matricula);
 
+                        //P714 - Vai ser tabela de histórico e não pode delEtar nada/ só desativa :D
+                        //Luciano 18/06/2020                        
                         usuarioAutController.DeletarSubtiposAssociados(usuarioAux, ulMatricula);
 
                         usuarioAutController.AssociarSubtipos(grupoSubtiposVR, usuarioAux, ulMatricula, "Atualizar");
