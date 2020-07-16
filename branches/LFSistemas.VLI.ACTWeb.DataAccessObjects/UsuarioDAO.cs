@@ -624,7 +624,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(1))
                 todos.Nome = reader.GetString(1);
             if (!reader.IsDBNull(2))
-                todos.Acessos = reader.GetDouble(2);
+                todos.Acessos = DbUtils.ParseDouble(reader, 2);
 
             return todos;
         }
@@ -640,11 +640,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.Id = reader.GetDouble(0);
+                if (!reader.IsDBNull(0)) item.Id = DbUtils.ParseDouble(reader, 0);
                 if (!reader.IsDBNull(1)) item.Matricula = reader.GetString(1);
                 if (!reader.IsDBNull(2)) item.Nome = reader.GetString(2);
-                if (!reader.IsDBNull(3)) item.Perfil_ID = reader.GetDouble(3).ToString();
-                if (!reader.IsDBNull(4)) item.CodigoMaleta = reader.GetDouble(4);
+                if (!reader.IsDBNull(3)) item.Perfil_ID = DbUtils.ParseDouble(reader, 3).ToString();
+                if (!reader.IsDBNull(4)) item.CodigoMaleta = DbUtils.ParseDouble(reader, 4);
                 if (!reader.IsDBNull(5)) item.Email = reader.GetString(5);
                 if (!reader.IsDBNull(6)) item.Senha = Uteis.Descriptografar(reader.GetString(6), "a#3G6**@").ToUpper();
                 if (!reader.IsDBNull(7)) item.Qtde_MC61 = double.Parse(reader.GetValue(7).ToString());
@@ -672,11 +672,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.Id = reader.GetDouble(0);
+                if (!reader.IsDBNull(0)) item.Id = DbUtils.ParseDouble(reader, 0);
                 if (!reader.IsDBNull(1)) item.Matricula = reader.GetString(1);
                 if (!reader.IsDBNull(2)) item.Nome = reader.GetString(2);
                 if (!reader.IsDBNull(3)) item.Perfil_Abreviado = reader.GetString(3);
-                if (!reader.IsDBNull(4)) item.CodigoMaleta = reader.GetDouble(4);
+                if (!reader.IsDBNull(4)) item.CodigoMaleta = DbUtils.ParseDouble(reader, 4);
                 if (!reader.IsDBNull(5)) item.Email = reader.GetString(5);
                 if (!reader.IsDBNull(6)) item.Senha = reader.GetString(6);
                 if (!reader.IsDBNull(7)) item.Ativo_SN = reader.GetString(7) == "S" ? "Sim" : "Não";
@@ -703,11 +703,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.Id = reader.GetDouble(0);
+                if (!reader.IsDBNull(0)) item.Id = DbUtils.ParseDouble(reader, 0);
                 if (!reader.IsDBNull(1)) item.Matricula = reader.GetString(1);
                 if (!reader.IsDBNull(2)) item.Nome = reader.GetString(2);
-                if (!reader.IsDBNull(3)) item.Perfil_ID = reader.GetDouble(3).ToString();
-                if (!reader.IsDBNull(4)) item.CodigoMaleta = reader.GetDouble(4);
+                if (!reader.IsDBNull(3)) item.Perfil_ID = DbUtils.ParseDouble(reader, 3).ToString();
+                if (!reader.IsDBNull(4)) item.CodigoMaleta = DbUtils.ParseDouble(reader, 4);
                 if (!reader.IsDBNull(5)) item.Email = reader.GetString(5);
                 if (!reader.IsDBNull(6)) item.Senha = reader.GetString(6);
                 if (!reader.IsDBNull(7)) item.Perfil_Abreviado = reader.GetString(7);
@@ -760,13 +760,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var itens = new Usuarios();
 
-            if (!reader.IsDBNull(0)) itens.Id = reader.GetDouble(0);
+            if (!reader.IsDBNull(0)) itens.Id = DbUtils.ParseDouble(reader, 0);
             if (!reader.IsDBNull(1)) itens.Nome = reader.GetString(1);
             if (!reader.IsDBNull(2)) itens.Matricula = reader.GetString(2);
             if (!reader.IsDBNull(3)) itens.Senha = reader.GetString(3);
-            if (!reader.IsDBNull(4)) itens.Perfil_ID = reader.GetDouble(4).ToString();
+            if (!reader.IsDBNull(4)) itens.Perfil_ID = DbUtils.ParseDouble(reader, 4).ToString();
             if (!reader.IsDBNull(5)) itens.Perfil_Abreviado = reader.GetString(5);
-            if (!reader.IsDBNull(6)) itens.CodigoMaleta = reader.GetDouble(6);
+            if (!reader.IsDBNull(6)) itens.CodigoMaleta = DbUtils.ParseDouble(reader, 6);
             if (!reader.IsDBNull(7)) itens.Qtde_MC61 = double.Parse(reader.GetValue(7).ToString());
             if (!reader.IsDBNull(8)) itens.Ativo_SN = reader.GetString(8);
 
@@ -782,7 +782,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var itens = new Responsavel();
 
-            if (!reader.IsDBNull(0)) itens.ID = reader.GetDouble(0);
+            if (!reader.IsDBNull(0)) itens.ID = DbUtils.ParseDouble(reader, 0);
             if (!reader.IsDBNull(1)) itens.Matricula = reader.GetString(1);
             if (!reader.IsDBNull(2)) itens.Nome = reader.GetString(2);
             if (!reader.IsDBNull(3)) itens.Cargo = reader.GetString(3);

@@ -103,7 +103,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.Log_ID = reader.GetDouble(0);
+                if (!reader.IsDBNull(0)) item.Log_ID = DbUtils.ParseDouble(reader, 0);
                 if (!reader.IsDBNull(1)) item.Publicacao = reader.GetDateTime(1);
                 if (!reader.IsDBNull(2)) item.Usuario = reader.GetString(2);
                 if (!reader.IsDBNull(3)) item.Modulo = reader.GetString(3);

@@ -88,6 +88,7 @@
     <Compile Include="AlarmesDAO.cs" />
     <Compile Include="BannersDAO.cs" />
     <Compile Include="ComboBoxDAO.cs" />
+    <Compile Include="DbUtils.cs" />
     <Compile Include="IDDAO.cs" />
     <Compile Include="ImportacaoDAO.cs" />
     <Compile Include="MaquinistasDAO.cs" />

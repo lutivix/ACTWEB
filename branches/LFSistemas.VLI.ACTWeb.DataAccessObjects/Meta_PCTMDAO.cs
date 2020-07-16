@@ -380,15 +380,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.Meta_ID = reader.GetDouble(0);
-                if (!reader.IsDBNull(1)) item.Corredor_ID = reader.GetDouble(1);
+                if (!reader.IsDBNull(0)) item.Meta_ID = DbUtils.ParseDouble(reader, 0);
+                if (!reader.IsDBNull(1)) item.Corredor_ID = DbUtils.ParseDouble(reader, 1);
                 if (!reader.IsDBNull(2)) item.Corredor_Nome = reader.GetString(2);
-                if (!reader.IsDBNull(3)) item.Rota_ID = reader.GetDouble(3);
+                if (!reader.IsDBNull(3)) item.Rota_ID = DbUtils.ParseDouble(reader, 3);
                 if (!reader.IsDBNull(4)) item.Rota_Nome = reader.GetString(4);
                 if (!reader.IsDBNull(5)) item.Tipos_Trens = reader.GetString(5);
                 if (!reader.IsDBNull(6)) item.Publicacao = reader.GetDateTime(6);
                 if (!reader.IsDBNull(7)) item.Validade = reader.GetDateTime(7);
-                if (!reader.IsDBNull(8)) item.Meta = reader.GetDouble(8);
+                if (!reader.IsDBNull(8)) item.Meta = DbUtils.ParseDouble(reader, 8);
                 if (!reader.IsDBNull(9)) item.Ativo_SN = reader.GetString(9) == "S" ? "Sim" : "Não";
             }
             catch (Exception ex)
@@ -405,7 +405,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new ComboBox();
 
-            if (!reader.IsDBNull(0)) item.Id = reader.GetDouble(0).ToString();
+            if (!reader.IsDBNull(0)) item.Id = DbUtils.ParseDouble(reader, 0).ToString();
             if (!reader.IsDBNull(1)) item.Descricao = reader.GetString(1);
 
             return item;

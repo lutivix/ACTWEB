@@ -181,7 +181,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(0)) item.Corredor_ID = int.Parse(reader.GetValue(0).ToString());
                 if (!reader.IsDBNull(1)) item.Localidade_ID = reader.GetString(1);
                 if (!reader.IsDBNull(2)) item.Localidade_DS = reader.GetString(2);
-                if (!reader.IsDBNull(3)) item.Tempo_Min_QT = reader.GetDouble(3);
+                if (!reader.IsDBNull(3)) item.Tempo_Min_QT = DbUtils.ParseDouble(reader, 3);
 
                 item.Corredor_DS = "";
                 switch (item.Corredor_ID)

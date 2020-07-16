@@ -643,8 +643,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             try
             {
                 // Faixa WS
-                if (!reader.IsDBNull(0)) item.vp_id = (int)reader.GetDouble(0);
-                if (!reader.IsDBNull(1)) item.Locomotiva = reader.GetDouble(1).ToString();
+                if (!reader.IsDBNull(0)) item.vp_id = (int)DbUtils.ParseDouble(reader, 0);
+                if (!reader.IsDBNull(1)) item.Locomotiva = DbUtils.ParseDouble(reader, 1).ToString();
                 if (!reader.IsDBNull(2)) item.Data = reader.GetDateTime(2);
                 if (!reader.IsDBNull(3)) item.PrefixoTrem = reader.GetString(3);
                 if (!reader.IsDBNull(4)) item.LocalExecucao = reader.GetString(4);
@@ -659,12 +659,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(13)) item.ServicoStatus = reader.GetString(13);
 
                 // Solicitação
-                if (!reader.IsDBNull(14)) item.solicitacao_id = (int)reader.GetDouble(14);
+                if (!reader.IsDBNull(14)) item.solicitacao_id = (int)DbUtils.ParseDouble(reader, 14);
                 if (!reader.IsDBNull(15)) item.solicitacao_status = reader.GetString(15);
                 if (!reader.IsDBNull(16)) item.solicitacao_data = reader.GetDateTime(16);
 
                 // Autorização
-                if (!reader.IsDBNull(17)) item.autorizacao_id = (int)reader.GetDouble(17);
+                if (!reader.IsDBNull(17)) item.autorizacao_id = (int)DbUtils.ParseDouble(reader, 17);
                 if (!reader.IsDBNull(18)) item.autorizacao_data = reader.GetDateTime(18);
 
                 // Encerramento
@@ -684,9 +684,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                 if (!reader.IsDBNull(23)) item.tempoAdesaoReacao = (double)reader.GetValue(23);
                 if (!reader.IsDBNull(24)) item.tempoAdesaoExecucao = (double)reader.GetValue(24);
-                
 
-                if (!reader.IsDBNull(22)) item.faixa_id = (int)reader.GetDouble(22);
+
+                if (!reader.IsDBNull(22)) item.faixa_id = (int)DbUtils.ParseDouble(reader, 22);
             }
             catch (Exception ex)
             {

@@ -39,9 +39,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         if (reader.Read())
                         {
-                            if (!reader.IsDBNull(0)) obc.Obc_ID = reader.GetDouble(0); else obc.Obc_ID = null;
+                            if (!reader.IsDBNull(0)) obc.Obc_ID = DbUtils.ParseDouble(reader, 0); else obc.Obc_ID = null;
                             if (!reader.IsDBNull(1)) obc.Versao_Firm = reader.GetDecimal(1); else obc.Versao_Firm = null;
-                            if (!reader.IsDBNull(2)) obc.Versao_Mapa = reader.GetDouble(2); else obc.Versao_Mapa = null;
+                            if (!reader.IsDBNull(2)) obc.Versao_Mapa = DbUtils.ParseDouble(reader, 2); else obc.Versao_Mapa = null;
                             if (!reader.IsDBNull(3)) obc.Atualizacao_Firm = reader.GetString(3); else obc.Atualizacao_Firm = null;
                             if (!reader.IsDBNull(4)) obc.Atualizacao_Mapa = reader.GetString(4); else obc.Atualizacao_Mapa = null;
                             if (!reader.IsDBNull(5)) obc.Liberado_Download = reader.GetString(5); else obc.Liberado_Download = null;
@@ -463,9 +463,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         if (reader.Read())
                         {
-                            if (!reader.IsDBNull(0)) item.Obc_ID = reader.GetDouble(0);
+                            if (!reader.IsDBNull(0)) item.Obc_ID = DbUtils.ParseDouble(reader, 0);
                             if (!reader.IsDBNull(1)) item.Versao_Firm = reader.GetDecimal(1);
-                            if (!reader.IsDBNull(2)) item.Versao_Mapa = reader.GetDouble(2);
+                            if (!reader.IsDBNull(2)) item.Versao_Mapa = DbUtils.ParseDouble(reader, 2);
                             if (!reader.IsDBNull(3)) item.Atualizacao_Firm = reader.GetString(3);
                             if (!reader.IsDBNull(4)) item.Atualizacao_Mapa = reader.GetString(4);
                             if (!reader.IsDBNull(5)) item.Data_Atualizacao = reader.GetDateTime(5).ToShortDateString();
@@ -734,9 +734,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.Obc_ID = reader.GetDouble(0);
+                if (!reader.IsDBNull(0)) item.Obc_ID = DbUtils.ParseDouble(reader, 0);
                 if (!reader.IsDBNull(1)) item.Versao_Firm = reader.GetDecimal(1);
-                if (!reader.IsDBNull(2)) item.Versao_Mapa = reader.GetDouble(2);
+                if (!reader.IsDBNull(2)) item.Versao_Mapa = DbUtils.ParseDouble(reader, 2);
                 if (!reader.IsDBNull(3)) item.Atualizacao_Firm = reader.GetString(3);
                 if (!reader.IsDBNull(4)) item.Atualizacao_Mapa = reader.GetString(4);
                 if (!reader.IsDBNull(5)) item.Data_Atualizacao = reader.GetDateTime(5).ToShortDateString();

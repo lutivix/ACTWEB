@@ -384,7 +384,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(2)) item.Estacao_Orig_ID = reader.GetString(2);
                 if (!reader.IsDBNull(3)) item.Estacao_Dest_ID = reader.GetString(3);
                 if (!reader.IsDBNull(4)) item.Ida_Volta_ID = int.Parse(reader.GetValue(4).ToString());
-                if (!reader.IsDBNull(5)) item.Capac_Tracao_QT = reader.GetDouble(5);
+                if (!reader.IsDBNull(5)) item.Capac_Tracao_QT = DbUtils.ParseDouble(reader, 5);
                 if (!reader.IsDBNull(6)) item.Corredor_ID = int.Parse(reader.GetValue(6).ToString());
                 if (!reader.IsDBNull(7)) item.Rota_ID = int.Parse(reader.GetValue(7).ToString());
                 if (!reader.IsDBNull(8)) item.Rota_DS = reader.GetString(8);

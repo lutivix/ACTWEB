@@ -233,11 +233,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             var item = new PontosDeTroca();
 
             if (!reader.IsDBNull(0)) item.SB_Nome = reader.GetString(0);
-            if (!reader.IsDBNull(1)) item.Ultima_Licenca = reader.GetDouble(1).ToString();
+            if (!reader.IsDBNull(1)) item.Ultima_Licenca = DbUtils.ParseDouble(reader, 1).ToString();
             if (!reader.IsDBNull(3)) item.Latitude = reader.GetString(3);
             if (!reader.IsDBNull(4)) item.Longitude = reader.GetString(4);
             if (!reader.IsDBNull(5)) item.Km_Troca = reader.GetDecimal(5).ToString();
-            if (!reader.IsDBNull(6)) item.Velocidade = reader.GetDouble(6).ToString();
+            if (!reader.IsDBNull(6)) item.Velocidade = DbUtils.ParseDouble(reader, 6).ToString();
 
 
             return item;
@@ -247,13 +247,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             var item = new VMA();
 
             if (!reader.IsDBNull(1)) item.SB_Nome = reader.GetString(1);
-            if (!reader.IsDBNull(2)) item.Velocidade = reader.GetDouble(2).ToString();
+            if (!reader.IsDBNull(2)) item.Velocidade = DbUtils.ParseDouble(reader, 2).ToString();
             if (!reader.IsDBNull(3)) item.Sentido = reader.GetString(3) == "E" ? "Esquerdo" : "Direito";
             if (!reader.IsDBNull(4)) item.km_Inicial_Final = reader.GetDecimal(4).ToString();
             if (!reader.IsDBNull(5)) item.Inicio_Fim = reader.GetString(5);
             if (!reader.IsDBNull(6)) item.Latitude_VMA = reader.GetString(6);
             if (!reader.IsDBNull(7)) item.Longitude_VMA = reader.GetString(7);
-            if (!reader.IsDBNull(8)) item.Tamanho_Patio = reader.GetDouble(8).ToString();
+            if (!reader.IsDBNull(8)) item.Tamanho_Patio = DbUtils.ParseDouble(reader, 8).ToString();
             if (!reader.IsDBNull(9)) item.Status = reader.GetString(9) == "L" ? "Livre" : "Bloqueada";
             if (!reader.IsDBNull(10)) item.Reducao = reader.GetString(10);
             if (!reader.IsDBNull(11)) item.Corredor = reader.GetString(11);
@@ -267,7 +267,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.Id = reader.GetDouble(0).ToString();
+                if (!reader.IsDBNull(0)) item.Id = DbUtils.ParseDouble(reader, 0).ToString();
                 if (!reader.IsDBNull(1)) item.Descricao = reader.GetString(1);
             }
             catch (Exception ex)

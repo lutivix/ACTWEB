@@ -556,13 +556,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         private TMP_SUBPARADAS PreencherPropriedadesTMP(OleDbDataReader reader)
         {
             var item = new TMP_SUBPARADAS();
-            if (!reader.IsDBNull(0)) item.UTP_ID = reader.GetDouble(0);
-            if (!reader.IsDBNull(1)) item.UTPS_ID = reader.GetDouble(1);
-            if (!reader.IsDBNull(2)) item.COD_MOTIVO = reader.GetDouble(2);
+            if (!reader.IsDBNull(0)) item.UTP_ID = DbUtils.ParseDouble(reader, 0);
+            if (!reader.IsDBNull(1)) item.UTPS_ID = DbUtils.ParseDouble(reader, 1);
+            if (!reader.IsDBNull(2)) item.COD_MOTIVO = DbUtils.ParseDouble(reader, 2);
             if (!reader.IsDBNull(3)) item.DT_INI_PARADA= reader.GetDateTime(3);
             if (!reader.IsDBNull(4)) item.DT_FIM_PARADA = reader.GetDateTime(4);
-            if (!reader.IsDBNull(5)) item.TempoSubparada = reader.GetDouble(5);
-            if (!reader.IsDBNull(6)) item.USU_ID = reader.GetDouble(6);
+            if (!reader.IsDBNull(5)) item.TempoSubparada = DbUtils.ParseDouble(reader, 5);
+            if (!reader.IsDBNull(6)) item.USU_ID = DbUtils.ParseDouble(reader, 6);
             if (!reader.IsDBNull(7)) item.DT_REGISTRO = reader.GetDateTime(7);
             if (!reader.IsDBNull(8)) item.Motivo = reader.GetString(8);
             if (!reader.IsDBNull(9)) item.Origem = reader.GetString(9);
@@ -575,7 +575,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             var item = new TempoParadaSubParadas();
 
             if (!reader.IsDBNull(0)) item.Prefixo = reader.GetString(0);
-            if (!reader.IsDBNull(1)) item.OS = reader.GetDouble(1).ToString();
+            if (!reader.IsDBNull(1)) item.OS = DbUtils.ParseDouble(reader, 1).ToString();
             if (!reader.IsDBNull(2)) item.Local = reader.GetString(2).ToString();
             if (!reader.IsDBNull(3)) item.InicioParada = reader.GetDateTime(3).ToString();
             if (!reader.IsDBNull(4)) item.FimParada = reader.GetDateTime(4).ToString();
@@ -585,7 +585,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(8)) item.MotivoParadaMaquinista = reader.GetString(8);
             if (!reader.IsDBNull(9)) item.MotivoParadaDespachador = reader.GetString(9);
             if (!reader.IsDBNull(10)) item.Despachador = reader.GetString(10);
-            if (!reader.IsDBNull(11)) item.PostoTrabalho = reader.GetDouble(11).ToString();
+            if (!reader.IsDBNull(11)) item.PostoTrabalho = DbUtils.ParseDouble(reader, 11).ToString();
             if (!reader.IsDBNull(12)) item.ID =  reader.GetValue(12).ToString();
             if (!reader.IsDBNull(13))
             {

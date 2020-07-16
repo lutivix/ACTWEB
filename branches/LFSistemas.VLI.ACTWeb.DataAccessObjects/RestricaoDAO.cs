@@ -1773,8 +1773,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         {
                             if (!reader.IsDBNull(0))
                             {
-                                limite.duracaoMaxima = reader.GetDouble(0);
-                                limite.tempoParaInicio = reader.GetDouble(1);
+                                limite.duracaoMaxima = DbUtils.ParseDouble(reader, 0);
+                                limite.tempoParaInicio = DbUtils.ParseDouble(reader, 1);
                             }
                         }
                     }
@@ -1827,7 +1827,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     command1.CommandText = query1.ToString();
                     var reader = command1.ExecuteReader();
                     if (reader.Read())
-                        aux_RestricaoID = reader.GetDouble(0);
+                        aux_RestricaoID = DbUtils.ParseDouble(reader, 0);
 
                     #endregion
 
@@ -1927,14 +1927,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     item.RestricaoID = item.CirculacaoID;
             }
             if (!reader.IsDBNull(03)) item.Secao_Elemento = reader.GetString(03) != string.Empty ? reader.GetString(03).Trim() : string.Empty;
-            if (!reader.IsDBNull(04)) item.Secao_ElementoID = reader.GetDouble(04) != 0 ? reader.GetDouble(04) : 0;
+            if (!reader.IsDBNull(04)) item.Secao_ElementoID = DbUtils.ParseDouble(reader, 4) != 0 ? DbUtils.ParseDouble(reader, 4) : 0;
             if (!reader.IsDBNull(05)) item.Tipo_Restricao = reader.GetString(05) != string.Empty ? reader.GetString(05).Trim() : string.Empty;
-            if (!reader.IsDBNull(06)) item.Tipo_RestricaoID = reader.GetDouble(06) != 0 ? reader.GetDouble(06) : 0;
+            if (!reader.IsDBNull(06)) item.Tipo_RestricaoID = DbUtils.ParseDouble(reader, 6) != 0 ? DbUtils.ParseDouble(reader, 6) : 0;
             if (!reader.IsDBNull(07)) item.SubTipo_VR = reader.GetString(07) != string.Empty ? reader.GetString(07).Trim() : string.Empty;
-            if (!reader.IsDBNull(08)) item.SubTipo_VRID = reader.GetDouble(08) != 0 ? reader.GetDouble(08) : 0;
+            if (!reader.IsDBNull(08)) item.SubTipo_VRID = DbUtils.ParseDouble(reader, 8) != 0 ? DbUtils.ParseDouble(reader, 8) : 0;
             if (!reader.IsDBNull(09)) item.Data_Inicial = reader.GetDateTime(09);
             if (!reader.IsDBNull(10)) item.Data_Final = reader.GetDateTime(10);
-            if (!reader.IsDBNull(11)) item.Velocidade = reader.GetDouble(11);
+            if (!reader.IsDBNull(11)) item.Velocidade = DbUtils.ParseDouble(reader, 11);
             if (!reader.IsDBNull(12)) item.Km_Inicial = reader.GetDecimal(12);
             if (!reader.IsDBNull(13)) item.Km_Final = reader.GetDecimal(13);
             if (!reader.IsDBNull(14)) item.Observacao = reader.GetString(14);
@@ -1971,14 +1971,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     item.RestricaoID = item.CirculacaoID;
             }
             if (!reader.IsDBNull(03)) item.Secao_Elemento = reader.GetString(03) != string.Empty ? reader.GetString(03).Trim() : string.Empty;
-            if (!reader.IsDBNull(04)) item.Secao_ElementoID = reader.GetDouble(04) != 0 ? reader.GetDouble(04) : 0;
+            if (!reader.IsDBNull(04)) item.Secao_ElementoID = DbUtils.ParseDouble(reader, 4) != 0 ? DbUtils.ParseDouble(reader, 4) : 0;
             if (!reader.IsDBNull(05)) item.Tipo_Restricao = reader.GetString(05) != string.Empty ? reader.GetString(05).Trim() : string.Empty;
-            if (!reader.IsDBNull(06)) item.Tipo_RestricaoID = reader.GetDouble(06) != 0 ? reader.GetDouble(06) : 0;
+            if (!reader.IsDBNull(06)) item.Tipo_RestricaoID = DbUtils.ParseDouble(reader, 6) != 0 ? DbUtils.ParseDouble(reader, 6) : 0;
             if (!reader.IsDBNull(07)) item.SubTipo_VR = reader.GetString(07) != string.Empty ? reader.GetString(07).Trim() : string.Empty;
-            if (!reader.IsDBNull(08)) item.SubTipo_VRID = reader.GetDouble(08) != 0 ? reader.GetDouble(08) : 0;
+            if (!reader.IsDBNull(08)) item.SubTipo_VRID = DbUtils.ParseDouble(reader, 8) != 0 ? DbUtils.ParseDouble(reader, 8) : 0;
             if (!reader.IsDBNull(09)) item.Data_Inicial = reader.GetDateTime(09);
             if (!reader.IsDBNull(10)) item.Data_Final = reader.GetDateTime(10);
-            if (!reader.IsDBNull(11)) item.Velocidade = reader.GetDouble(11);
+            if (!reader.IsDBNull(11)) item.Velocidade = DbUtils.ParseDouble(reader, 11);
             if (!reader.IsDBNull(12)) item.Km_Inicial = reader.GetDecimal(12);
             if (!reader.IsDBNull(13)) item.Km_Final = reader.GetDecimal(13);
             if (!reader.IsDBNull(14)) item.Observacao = reader.GetString(14);
@@ -2029,11 +2029,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(0)) item.Tipo_Restricao = reader.GetString(0) != string.Empty ? reader.GetString(0) : string.Empty;
             if (!reader.IsDBNull(1)) item.Secao_Elemento = reader.GetString(1) != string.Empty ? reader.GetString(1) : string.Empty;
             if (!reader.IsDBNull(2)) item.Data_Inicial = reader.GetDateTime(2);
-            if (!reader.IsDBNull(3)) item.Velocidade = reader.GetDouble(3);
+            if (!reader.IsDBNull(3)) item.Velocidade = DbUtils.ParseDouble(reader, 3);
             if (!reader.IsDBNull(4)) item.Km_Inicial = reader.GetDecimal(4);
             if (!reader.IsDBNull(5)) item.Km_Final = reader.GetDecimal(5);
             if (!reader.IsDBNull(6)) item.Observacao = reader.GetString(6);
-            if (!reader.IsDBNull(7)) item.Corredor_id = reader.GetDouble(7);
+            if (!reader.IsDBNull(7)) item.Corredor_id = DbUtils.ParseDouble(reader, 7);
 
             item.Nome_Corredor = VerificaCorredor((int)item.Corredor_id);
 
@@ -2053,13 +2053,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(1)) item.Secao_Elemento = reader.GetString(1) != string.Empty ? reader.GetString(1) : string.Empty;
             if (!reader.IsDBNull(2)) item.Data_Inicial = reader.GetDateTime(2);
             if (!reader.IsDBNull(3)) item.Data_Final = reader.GetDateTime(3);
-            if (!reader.IsDBNull(4)) item.Velocidade = reader.GetDouble(4);
+            if (!reader.IsDBNull(4)) item.Velocidade = DbUtils.ParseDouble(reader, 4);
             if (!reader.IsDBNull(5)) item.Km_Inicial = reader.GetDecimal(5);
             if (!reader.IsDBNull(6)) item.Km_Final = reader.GetDecimal(6);
             if (!reader.IsDBNull(7)) item.Observacao = reader.GetString(7);
             if (!reader.IsDBNull(8)) item.Situacao = reader.GetString(8);
-            if (!reader.IsDBNull(9)) item.Restricao_id = reader.GetDouble(9);
-            if (!reader.IsDBNull(10)) item.Corredor_id = reader.GetDouble(10);
+            if (!reader.IsDBNull(9)) item.Restricao_id = DbUtils.ParseDouble(reader, 9);
+            if (!reader.IsDBNull(10)) item.Corredor_id = DbUtils.ParseDouble(reader, 10);
 
             item.Nome_Corredor = VerificaCorredor((int)item.Corredor_id);
 
@@ -2079,7 +2079,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(1)) item.Secao_Elemento = reader.GetString(1) != string.Empty ? reader.GetString(1) : string.Empty; ;
             if (!reader.IsDBNull(2)) item.Data_Inicial = reader.GetDateTime(2);
             if (!reader.IsDBNull(3)) item.Data_Final = reader.GetDateTime(3);
-            if (!reader.IsDBNull(4)) item.Velocidade = reader.GetDouble(4);
+            if (!reader.IsDBNull(4)) item.Velocidade = DbUtils.ParseDouble(reader, 4);
             if (!reader.IsDBNull(5)) item.Km_Inicial = reader.GetDecimal(5);
             if (!reader.IsDBNull(6)) item.Km_Final = reader.GetDecimal(6);
             if (!reader.IsDBNull(7)) item.Observacao = reader.GetString(7);
@@ -2097,7 +2097,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new ComboRestricao_Secao();
 
-            if (!reader.IsDBNull(0)) item.SecaoID = reader.GetDouble(0).ToString();
+            if (!reader.IsDBNull(0)) item.SecaoID = DbUtils.ParseDouble(reader, 0).ToString();
             if (!reader.IsDBNull(1)) item.SecaoNome = reader.GetString(1) != string.Empty ? reader.GetString(1).Trim() : string.Empty;
 
             return item;
@@ -2112,7 +2112,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new Tipo_Restricao();
 
-            if (!reader.IsDBNull(0)) item.Tipo_RestricaoID = reader.GetDouble(0);
+            if (!reader.IsDBNull(0)) item.Tipo_RestricaoID = DbUtils.ParseDouble(reader, 0);
             if (!reader.IsDBNull(1)) item.Tipo_RestricaoNome = reader.GetString(1) != string.Empty ? string.Format("{0} - {1}", reader.GetString(1).Trim(), reader.GetString(2).Trim()) : string.Empty;
 
             return item;

@@ -172,7 +172,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         while (reader.Read())
                         {
-                            retorno = reader.GetDouble(0);
+                            retorno = DbUtils.ParseDouble(reader, 0);
                         }
                     }
 
@@ -228,7 +228,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         while (reader.Read())
                         {
-                            retorno = reader.GetDouble(0);
+                            retorno = DbUtils.ParseDouble(reader, 0);
                         }
                     }
 
@@ -259,7 +259,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var iten = new Mcts();
             if (!reader.IsDBNull(0))
-                iten.MCT_ID_MCT = reader.GetDouble(0);
+                iten.MCT_ID_MCT = DbUtils.ParseDouble(reader, 0);
             if (!reader.IsDBNull(1))
                 iten.MCT_NOM_MCT = reader.GetString(1).Trim();
 

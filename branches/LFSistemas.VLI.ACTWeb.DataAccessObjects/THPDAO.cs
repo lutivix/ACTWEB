@@ -1128,12 +1128,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.Trem_ID = reader.GetDouble(0);
-                if (!reader.IsDBNull(1)) item.Codigo_OS = reader.GetDouble(1);
+                if (!reader.IsDBNull(0)) item.Trem_ID = DbUtils.ParseDouble(reader, 0);
+                if (!reader.IsDBNull(1)) item.Codigo_OS = DbUtils.ParseDouble(reader, 1);
                 if (!reader.IsDBNull(2)) item.Prefixo = reader.GetString(2);
                 if (!reader.IsDBNull(3)) item.Local = reader.GetString(3);
                 if (!reader.IsDBNull(4)) item.Motivo = reader.GetString(4);
-                if (!reader.IsDBNull(13)) item.Sb_ID = reader.GetDouble(13);
+                if (!reader.IsDBNull(13)) item.Sb_ID = DbUtils.ParseDouble(reader, 13);
                 if (!reader.IsDBNull(8))
                 {
                     var tempo = DateTime.Now - reader.GetDateTime(8);
@@ -1187,7 +1187,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     else
                         item.Grupo = "CCO";
                 }
-                if (!reader.IsDBNull(11)) item.Trem_ID = reader.GetDouble(11);
+                if (!reader.IsDBNull(11)) item.Trem_ID = DbUtils.ParseDouble(reader, 11);
                 if (!reader.IsDBNull(14))
                 {
                     var aux = reader.GetString(14);
@@ -1259,7 +1259,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             {
                 
                 if (!reader.IsDBNull(00)) item.Tipo = reader.GetString(00);
-                if (!reader.IsDBNull(01)) item.ID = (int)reader.GetDouble(01);
+                if (!reader.IsDBNull(01)) item.ID = (int)DbUtils.ParseDouble(reader, 1);
                 if (!reader.IsDBNull(02)) item.Apuracao = reader.GetDateTime(02);
                 if (!reader.IsDBNull(03)) item.Corredor_ID = reader.GetValue(03).ToString();
                 if (!reader.IsDBNull(04)) item.Corredor = reader.GetString(04);
@@ -1267,9 +1267,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(06)) item.Rota = reader.GetString(06);
                 if (!reader.IsDBNull(07)) item.SubRota_ID = reader.GetValue(07).ToString();
                 if (!reader.IsDBNull(08)) item.SubRota = reader.GetString(08);
-                if (!reader.IsDBNull(09)) item.Trem_ID = reader.GetDouble(09).ToString();
+                if (!reader.IsDBNull(09)) item.Trem_ID = DbUtils.ParseDouble(reader, 9).ToString();
                 if (!reader.IsDBNull(10)) item.Classe = reader.GetString(10);
-                if (!reader.IsDBNull(11)) item.OS = reader.GetDouble(11).ToString();
+                if (!reader.IsDBNull(11)) item.OS = DbUtils.ParseDouble(reader, 11).ToString();
                 if (!reader.IsDBNull(12)) item.Prefixo = reader.GetString(12);
                 if (!reader.IsDBNull(15))
                 {
@@ -1300,14 +1300,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 
                 if (!reader.IsDBNull(17)) item.Justificativa = reader.GetString(17);
                 if (!reader.IsDBNull(18)) item.SB = reader.GetString(18);
-                if (!reader.IsDBNull(19)) item.THP_Meta = reader.GetDouble(19);
-                if (!reader.IsDBNull(20)) item.THP_Real = reader.GetDouble(20);
-                if (!reader.IsDBNull(21)) item.TTP_Meta = reader.GetDouble(21);
-                if (!reader.IsDBNull(22)) item.TTP_Real = reader.GetDouble(22);
-                if (!reader.IsDBNull(23)) item.THM_Meta = reader.GetDouble(23);
-                if (!reader.IsDBNull(24)) item.THM_Real = reader.GetDouble(24);
-                if (!reader.IsDBNull(25)) item.TTT_Meta = reader.GetDouble(25);
-                if (!reader.IsDBNull(26)) item.TTT_Real = reader.GetDouble(26);
+                if (!reader.IsDBNull(19)) item.THP_Meta = DbUtils.ParseDouble(reader, 19);
+                if (!reader.IsDBNull(20)) item.THP_Real = DbUtils.ParseDouble(reader, 20);
+                if (!reader.IsDBNull(21)) item.TTP_Meta = DbUtils.ParseDouble(reader, 21);
+                if (!reader.IsDBNull(22)) item.TTP_Real = DbUtils.ParseDouble(reader, 22);
+                if (!reader.IsDBNull(23)) item.THM_Meta = DbUtils.ParseDouble(reader, 23);
+                if (!reader.IsDBNull(24)) item.THM_Real = DbUtils.ParseDouble(reader, 24);
+                if (!reader.IsDBNull(25)) item.TTT_Meta = DbUtils.ParseDouble(reader, 25);
+                if (!reader.IsDBNull(26)) item.TTT_Real = DbUtils.ParseDouble(reader, 26);
                 if (!reader.IsDBNull(27)) item.Data = reader.GetDateTime(27);
             }
             catch (Exception ex)

@@ -747,23 +747,23 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new Locomotivas();
 
-            if (!reader.IsDBNull(0)) item.MCT_ID_MCT = reader.GetDouble(0).ToString();
+            if (!reader.IsDBNull(0)) item.MCT_ID_MCT = DbUtils.ParseDouble(reader, 0).ToString();
             if (!reader.IsDBNull(1)) item.MCT_NOM_MCT = reader.GetString(1);
-            if (!reader.IsDBNull(2)) item.MR_GRMN = reader.GetDouble(2).ToString();
-            if (!reader.IsDBNull(3)) item.PB_ID_PB = reader.GetDouble(3).ToString();
-            if (!reader.IsDBNull(4)) item.ME_MSG_NUM = reader.GetDouble(4).ToString();
-            if (!reader.IsDBNull(5)) item.MCT_IND_MCI = reader.GetDouble(5).ToString();
+            if (!reader.IsDBNull(2)) item.MR_GRMN = DbUtils.ParseDouble(reader, 2).ToString();
+            if (!reader.IsDBNull(3)) item.PB_ID_PB = DbUtils.ParseDouble(reader, 3).ToString();
+            if (!reader.IsDBNull(4)) item.ME_MSG_NUM = DbUtils.ParseDouble(reader, 4).ToString();
+            if (!reader.IsDBNull(5)) item.MCT_IND_MCI = DbUtils.ParseDouble(reader, 5).ToString();
             if (!reader.IsDBNull(6)) item.MCT_IND_OBC = reader.GetString(6);
             if (!reader.IsDBNull(7)) item.MCT_IND_MCR_BIN = reader.GetString(7);
-            if (!reader.IsDBNull(8)) item.MCT_CNV_VERSAO = reader.GetDouble(8).ToString();
-            if (!reader.IsDBNull(9)) item.MCT_OBC_VERSAO = reader.GetDouble(9).ToString();
-            if (!reader.IsDBNull(10)) item.MCT_MAP_VERSAO = reader.GetDouble(10).ToString();
+            if (!reader.IsDBNull(8)) item.MCT_CNV_VERSAO = DbUtils.ParseDouble(reader, 8).ToString();
+            if (!reader.IsDBNull(9)) item.MCT_OBC_VERSAO = DbUtils.ParseDouble(reader, 9).ToString();
+            if (!reader.IsDBNull(10)) item.MCT_MAP_VERSAO = DbUtils.ParseDouble(reader, 10).ToString();
 
             if (!reader.IsDBNull(12)) item.MCT_DT_ATUALI_OBC = reader.GetDateTime(12);
             if (!reader.IsDBNull(13)) item.MCT_DT_ATUALI_MAP = reader.GetDateTime(13);
             if (!reader.IsDBNull(14)) item.MCT_DT_INC = reader.GetDateTime(14);
             if (!reader.IsDBNull(15)) item.MCT_EST_HAB = reader.GetString(15);
-            if (!reader.IsDBNull(16)) item.LOC_ID_NUM_LOCO = reader.GetDouble(16).ToString();
+            if (!reader.IsDBNull(16)) item.LOC_ID_NUM_LOCO = DbUtils.ParseDouble(reader, 16).ToString();
             if (!reader.IsDBNull(17)) item.LOC_TP_LOCO = reader.GetString(17);
             if (!reader.IsDBNull(18)) item.LOC_TP_VEIC = reader.GetString(18);
 

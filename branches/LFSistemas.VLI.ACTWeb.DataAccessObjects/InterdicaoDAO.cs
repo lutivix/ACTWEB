@@ -1041,21 +1041,21 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         private Interdicao PreencherPropriedadesInterdicao(OleDbDataReader reader)
         {
             var item = new Interdicao();
-           
-                if (!reader.IsDBNull(00)) item.Solicitacao_ID_ACTWEB = reader.GetDouble(00);
-                if (!reader.IsDBNull(01)) item.Solicitacao_ID_ACT = reader.GetDouble(01);
-                if (!reader.IsDBNull(02)) item.Tipo_Situacao_ID = reader.GetDouble(02);
+
+                if (!reader.IsDBNull(00)) item.Solicitacao_ID_ACTWEB = DbUtils.ParseDouble(reader, 0);
+                if (!reader.IsDBNull(01)) item.Solicitacao_ID_ACT = DbUtils.ParseDouble(reader, 1);
+                if (!reader.IsDBNull(02)) item.Tipo_Situacao_ID = DbUtils.ParseDouble(reader, 2);
                 if (!reader.IsDBNull(03)) item.Situacao_Nome = reader.GetString(03);
                 if (!reader.IsDBNull(04)) item.Data = reader.GetDateTime(04);
-                if (!reader.IsDBNull(05)) item.Secao_ID = reader.GetDouble(05);
+                if (!reader.IsDBNull(05)) item.Secao_ID = DbUtils.ParseDouble(reader, 5);
                 if (!reader.IsDBNull(06)) item.Secao_Nome = reader.GetString(06);
-                if (!reader.IsDBNull(07)) item.Tipo_Interdicao_ID = reader.GetDouble(07);
+                if (!reader.IsDBNull(07)) item.Tipo_Interdicao_ID = DbUtils.ParseDouble(reader, 7);
                 if (!reader.IsDBNull(08)) item.Tipo_Interdicao_Nome = reader.GetString(08);
-                if (!reader.IsDBNull(09)) item.Duracao_Solicitada = reader.GetDouble(09); else item.Duracao_Solicitada = 0;
-                if (!reader.IsDBNull(10)) item.Duracao_Autorizada = reader.GetDouble(10); else item.Duracao_Autorizada = 0;
-                if (!reader.IsDBNull(11)) item.Tipo_Manutencao_ID = reader.GetDouble(11);
+                if (!reader.IsDBNull(09)) item.Duracao_Solicitada = DbUtils.ParseDouble(reader, 9); else item.Duracao_Solicitada = 0;
+                if (!reader.IsDBNull(10)) item.Duracao_Autorizada = DbUtils.ParseDouble(reader, 10); else item.Duracao_Autorizada = 0;
+                if (!reader.IsDBNull(11)) item.Tipo_Manutencao_ID = DbUtils.ParseDouble(reader, 11);
                 if (!reader.IsDBNull(12)) item.Tipo_Manutencao_Nome = reader.GetString(12);
-                if (!reader.IsDBNull(13)) item.Tipo_Circulacao_ID = reader.GetDouble(13);
+                if (!reader.IsDBNull(13)) item.Tipo_Circulacao_ID = DbUtils.ParseDouble(reader, 13);
                 if (!reader.IsDBNull(14)) item.Tipo_Circulacao_Nome = reader.GetString(14);
                 if (!reader.IsDBNull(15)) item.Km = reader.GetDecimal(15);
                 if (!reader.IsDBNull(16)) item.Usuario_Logado_Matricula = reader.GetString(16);
@@ -1070,11 +1070,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(25)) item.Macro_Numero = reader.GetString(25);
                 if (!reader.IsDBNull(26)) item.Observacao = reader.GetString(26);
                 if (!reader.IsDBNull(27)) item.Ativo_SN = reader.GetString(27);
-                if (!reader.IsDBNull(28)) item.Aut_Interdicao_Act = reader.GetDouble(28);
-                //if (!reader.IsDBNull(28)) item.Cod_Ldl = reader.GetString(06) + reader.GetDouble(28).ToString();
-                if (!reader.IsDBNull(29)) item.Motivo_ID = reader.GetDouble(29);
+                if (!reader.IsDBNull(28)) item.Aut_Interdicao_Act = DbUtils.ParseDouble(reader, 28);
+                //if (!reader.IsDBNull(28)) item.Cod_Ldl = reader.GetString(06) + DbUtils.ParseDouble(reader, 28).ToString();
+                if (!reader.IsDBNull(29)) item.Motivo_ID = DbUtils.ParseDouble(reader, 29);
                 if (!reader.IsDBNull(30)) item.Motivo_Desc = reader.GetString(30);
-                if (!reader.IsDBNull(31)) item.Interdicao_Motivo = reader.GetDouble(31);
+                if (!reader.IsDBNull(31)) item.Interdicao_Motivo = DbUtils.ParseDouble(reader, 31);
                 if (!reader.IsDBNull(32)) item.Cod_Interdicao = reader.GetString(32);
             
 
@@ -1085,20 +1085,20 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new Interdicao();
 
-            if (!reader.IsDBNull(00)) item.Solicitacao_ID_ACTWEB = reader.GetDouble(00);
-            if (!reader.IsDBNull(01)) item.Solicitacao_ID_ACT = reader.GetDouble(01);
-            if (!reader.IsDBNull(02)) item.Tipo_Situacao_ID = reader.GetDouble(02);
+            if (!reader.IsDBNull(00)) item.Solicitacao_ID_ACTWEB = DbUtils.ParseDouble(reader, 0);
+            if (!reader.IsDBNull(01)) item.Solicitacao_ID_ACT = DbUtils.ParseDouble(reader, 1);
+            if (!reader.IsDBNull(02)) item.Tipo_Situacao_ID = DbUtils.ParseDouble(reader, 2);
             if (!reader.IsDBNull(03)) item.Situacao_Nome = reader.GetString(03);
             if (!reader.IsDBNull(04)) item.Data = reader.GetDateTime(04);
-            if (!reader.IsDBNull(05)) item.Secao_ID = reader.GetDouble(05);
+            if (!reader.IsDBNull(05)) item.Secao_ID = DbUtils.ParseDouble(reader, 5);
             if (!reader.IsDBNull(06)) item.Secao_Nome = reader.GetString(06);
-            if (!reader.IsDBNull(07)) item.Tipo_Interdicao_ID = reader.GetDouble(07);
+            if (!reader.IsDBNull(07)) item.Tipo_Interdicao_ID = DbUtils.ParseDouble(reader, 7);
             if (!reader.IsDBNull(08)) item.Tipo_Interdicao_Nome = reader.GetString(08);
-            if (!reader.IsDBNull(09)) item.Duracao_Solicitada = reader.GetDouble(09); else item.Duracao_Solicitada = 0;
-            if (!reader.IsDBNull(10)) item.Duracao_Autorizada = reader.GetDouble(10); else item.Duracao_Autorizada = 0;
-            if (!reader.IsDBNull(11)) item.Tipo_Manutencao_ID = reader.GetDouble(11);
+            if (!reader.IsDBNull(09)) item.Duracao_Solicitada = DbUtils.ParseDouble(reader, 9); else item.Duracao_Solicitada = 0;
+            if (!reader.IsDBNull(10)) item.Duracao_Autorizada = DbUtils.ParseDouble(reader, 10); else item.Duracao_Autorizada = 0;
+            if (!reader.IsDBNull(11)) item.Tipo_Manutencao_ID = DbUtils.ParseDouble(reader, 11);
             if (!reader.IsDBNull(12)) item.Tipo_Manutencao_Nome = reader.GetString(12);
-            if (!reader.IsDBNull(13)) item.Tipo_Circulacao_ID = reader.GetDouble(13);
+            if (!reader.IsDBNull(13)) item.Tipo_Circulacao_ID = DbUtils.ParseDouble(reader, 13);
             if (!reader.IsDBNull(14)) item.Tipo_Circulacao_Nome = reader.GetString(14);
             if (!reader.IsDBNull(15)) item.Km = reader.GetDecimal(15);
             if (!reader.IsDBNull(16)) item.Usuario_Logado_Matricula = reader.GetString(16);
@@ -1115,11 +1115,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(27)) item.Macro_Numero = reader.GetString(27);
             if (!reader.IsDBNull(28)) item.Observacao = reader.GetString(28);
             if (!reader.IsDBNull(29)) item.Ativo_SN = reader.GetString(29);
-            if (!reader.IsDBNull(30)) item.Aut_Interdicao_Act = reader.GetDouble(30);
-            //if (!reader.IsDBNull(28)) item.Cod_Ldl = reader.GetString(06) + reader.GetDouble(28).ToString();
-            if (!reader.IsDBNull(31)) item.Motivo_ID = reader.GetDouble(31);
+            if (!reader.IsDBNull(30)) item.Aut_Interdicao_Act = DbUtils.ParseDouble(reader, 30);
+            //if (!reader.IsDBNull(28)) item.Cod_Ldl = reader.GetString(06) + DbUtils.ParseDouble(reader, 28).ToString();
+            if (!reader.IsDBNull(31)) item.Motivo_ID = DbUtils.ParseDouble(reader, 31);
             if (!reader.IsDBNull(32)) item.Motivo_Desc = reader.GetString(32);
-            if (!reader.IsDBNull(33)) item.Interdicao_Motivo = reader.GetDouble(33);
+            if (!reader.IsDBNull(33)) item.Interdicao_Motivo = DbUtils.ParseDouble(reader, 33);
             if (!reader.IsDBNull(34)) item.Cod_Interdicao = reader.GetString(34);
 
 
@@ -1136,7 +1136,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new ComboInterdicao_Secao();
 
-            if (!reader.IsDBNull(0)) item.SecaoID = reader.GetDouble(0).ToString();
+            if (!reader.IsDBNull(0)) item.SecaoID = DbUtils.ParseDouble(reader, 0).ToString();
             if (!reader.IsDBNull(1)) item.SecaoNome = reader.GetString(1) != string.Empty ? reader.GetString(1).Trim() : string.Empty;
 
             return item;
@@ -1150,8 +1150,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new Tipo_Situacao();
 
-            if (!reader.IsDBNull(0)) item.Tipo_SituacaoID = reader.GetDouble(0);
-            if (!reader.IsDBNull(1)) item.Tipo_SituacaoCodigo = reader.GetDouble(1);
+            if (!reader.IsDBNull(0)) item.Tipo_SituacaoID = DbUtils.ParseDouble(reader, 0);
+            if (!reader.IsDBNull(1)) item.Tipo_SituacaoCodigo = DbUtils.ParseDouble(reader, 1);
             if (!reader.IsDBNull(2)) item.Tipo_SituacaoNome = reader.GetString(2) != string.Empty ? reader.GetString(2).Trim() : string.Empty;
 
             return item;
@@ -1165,8 +1165,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new Tipo_Interdicao();
 
-            if (!reader.IsDBNull(0)) item.Tipo_InterdicaoID = reader.GetDouble(0);
-            if (!reader.IsDBNull(1)) item.Tipo_InterdicaoCodigo = reader.GetDouble(1);
+            if (!reader.IsDBNull(0)) item.Tipo_InterdicaoID = DbUtils.ParseDouble(reader, 0);
+            if (!reader.IsDBNull(1)) item.Tipo_InterdicaoCodigo = DbUtils.ParseDouble(reader, 1);
             if (!reader.IsDBNull(2)) item.Tipo_InterdicaoNome = reader.GetString(2) != string.Empty ? reader.GetString(2).Trim() : string.Empty;
 
             return item;
@@ -1180,8 +1180,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new Tipo_Manutencao();
 
-            if (!reader.IsDBNull(0)) item.Tipo_ManutencaoID = reader.GetDouble(0);
-            if (!reader.IsDBNull(1)) item.Tipo_ManutencaoCodigo = reader.GetDouble(1);
+            if (!reader.IsDBNull(0)) item.Tipo_ManutencaoID = DbUtils.ParseDouble(reader, 0);
+            if (!reader.IsDBNull(1)) item.Tipo_ManutencaoCodigo = DbUtils.ParseDouble(reader, 1);
             if (!reader.IsDBNull(2)) item.Tipo_ManutencaoNome = reader.GetString(2) != string.Empty ? reader.GetString(2).Trim() : string.Empty;
 
             return item;
@@ -1195,8 +1195,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new Tipo_Circulacao();
 
-            if (!reader.IsDBNull(0)) item.Tipo_CirculacaoID = reader.GetDouble(0);
-            if (!reader.IsDBNull(1)) item.Tipo_CirculacaoCodigo = reader.GetDouble(1);
+            if (!reader.IsDBNull(0)) item.Tipo_CirculacaoID = DbUtils.ParseDouble(reader, 0);
+            if (!reader.IsDBNull(1)) item.Tipo_CirculacaoCodigo = DbUtils.ParseDouble(reader, 1);
             if (!reader.IsDBNull(2)) item.Tipo_CirculacaoNome = reader.GetString(2) != string.Empty ? reader.GetString(2).Trim() : string.Empty;
 
             return item;
@@ -1210,7 +1210,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new ComboBox();
 
-            if (!reader.IsDBNull(00)) item.Id = reader.GetDouble(00).ToString();
+            if (!reader.IsDBNull(00)) item.Id = DbUtils.ParseDouble(reader, 0).ToString();
             if (!reader.IsDBNull(01)) item.Descricao = reader.GetString(01);
 
             return item;

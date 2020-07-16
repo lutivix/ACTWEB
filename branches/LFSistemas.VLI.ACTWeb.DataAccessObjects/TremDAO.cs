@@ -359,7 +359,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         while (reader.Read())
                         {
-                            retorno = reader.GetDouble(0);
+                            retorno = DbUtils.ParseDouble(reader, 0);
                         }
                     }
 
@@ -389,7 +389,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var iten = new Trem();
             if (!reader.IsDBNull(0))
-                iten.Trem_ID = reader.GetDouble(0);
+                iten.Trem_ID = DbUtils.ParseDouble(reader, 0);
             if (!reader.IsDBNull(1))
                 iten.Prefixo = reader.GetString(1).Trim();
 
@@ -437,7 +437,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                 if (!reader.IsDBNull(5))
                 {
-                    var posicao = ObterTrensOnlineUltimaPosicao(reader.GetDouble(5));
+                    var posicao = ObterTrensOnlineUltimaPosicao(DbUtils.ParseDouble(reader, 5));
 
                     item.Data = posicao.Data;
                     item.Latitude = posicao.Latitude;

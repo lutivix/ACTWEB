@@ -5,6 +5,8 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LFSistemas.VLI.ACTWeb.DataAccessObjects;
+
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -368,7 +370,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.Abreviatura_ID = reader.GetDouble(0).ToString();
+                if (!reader.IsDBNull(0)) item.Abreviatura_ID = DbUtils.ParseDouble(reader, 0).ToString();
                 if (!reader.IsDBNull(1)) item.Extenso = reader.GetString(1);
                 if (!reader.IsDBNull(2)) item.Abreviado = reader.GetString(2);
                 if (!reader.IsDBNull(3)) item.Ativo = reader.GetString(3) == "S" ? "Sim" : "Não";

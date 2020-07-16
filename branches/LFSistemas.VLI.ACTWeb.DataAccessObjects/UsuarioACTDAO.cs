@@ -814,7 +814,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.Usuario_ID= reader.GetDouble(0).ToString();
+                if (!reader.IsDBNull(0)) item.Usuario_ID = DbUtils.ParseDouble(reader, 0).ToString();
                 if (!reader.IsDBNull(1)) item.Matricula = reader.GetString(1);
                 if (!reader.IsDBNull(2)) item.Nome = reader.GetString(2);
                 if (!reader.IsDBNull(3)) item.Senha = Uteis.Descriptografar(reader.GetString(6), "a#3G6**@").ToUpper();
@@ -845,7 +845,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.Usuario_ID = reader.GetDouble(0).ToString();
+                if (!reader.IsDBNull(0)) item.Usuario_ID = DbUtils.ParseDouble(reader, 0).ToString();
                 if (!reader.IsDBNull(1)) item.Matricula = reader.GetString(1);
                 if (!reader.IsDBNull(2)) item.Nome = reader.GetString(2);
                 if (!reader.IsDBNull(3)) item.Senha = Uteis.Criptografar(reader.GetString(6), "a#3G6**@").ToUpper();
@@ -853,7 +853,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(5)) item.LDL = reader.GetString(5);
                 if (!reader.IsDBNull(6)) item.Perfil = reader.GetString(6);
                 if (!reader.IsDBNull(7)) item.CPF = reader.GetString(7);
-                if (!reader.IsDBNull(8)) item.Prefil_ID = reader.GetDouble(8).ToString();
+                if (!reader.IsDBNull(8)) item.Prefil_ID = DbUtils.ParseDouble(reader, 8).ToString();
             }
             catch (Exception ex)
             {
@@ -876,7 +876,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.Usuario_ID = reader.GetDouble(0).ToString();
+                if (!reader.IsDBNull(0)) item.Usuario_ID = DbUtils.ParseDouble(reader, 0).ToString();
                 if (!reader.IsDBNull(1)) item.Matricula = reader.GetString(1);
                 if (!reader.IsDBNull(2)) item.Nome = reader.GetString(2);
                 if (!reader.IsDBNull(3)) item.Senha = reader.GetString(3);
@@ -884,7 +884,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(5)) item.LDL = reader.GetString(5);
                 if (!reader.IsDBNull(6)) item.Perfil= reader.GetString(6);
                 if (!reader.IsDBNull(7)) item.CPF = reader.GetString(7);
-                if (!reader.IsDBNull(8)) item.Prefil_ID = reader.GetDouble(8).ToString();
+                if (!reader.IsDBNull(8)) item.Prefil_ID = DbUtils.ParseDouble(reader, 8).ToString();
                 
             }
             catch (Exception ex)
@@ -934,7 +934,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var itens = new UsuariosACT();
 
-            if (!reader.IsDBNull(0)) itens.Usuario_ID = reader.GetDouble(0).ToString();
+            if (!reader.IsDBNull(0)) itens.Usuario_ID = DbUtils.ParseDouble(reader, 0).ToString();
             if (!reader.IsDBNull(1)) itens.Matricula = reader.GetString(1);
             if (!reader.IsDBNull(2)) itens.Nome = reader.GetString(2);
             if (!reader.IsDBNull(3)) itens.Senha = reader.GetString(6);
@@ -955,7 +955,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var itens = new Responsavel();
 
-            if (!reader.IsDBNull(0)) itens.ID = reader.GetDouble(0);
+            if (!reader.IsDBNull(0)) itens.ID = DbUtils.ParseDouble(reader, 0);
             if (!reader.IsDBNull(1)) itens.Matricula = reader.GetString(1);
             if (!reader.IsDBNull(2)) itens.Nome = reader.GetString(2);
             if (!reader.IsDBNull(3)) itens.Cargo = reader.GetString(3);

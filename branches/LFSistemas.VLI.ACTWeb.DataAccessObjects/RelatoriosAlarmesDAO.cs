@@ -150,7 +150,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new RelatorioAlarme();
 
-            if (!reader.IsDBNull(0)) item.alarme_id = reader.GetDouble(0);
+            if (!reader.IsDBNull(0)) item.alarme_id = DbUtils.ParseDouble(reader, 0);
             if (!reader.IsDBNull(1)) item.corredor = reader.GetString(1);
             if (!reader.IsDBNull(2)) item.estacao = reader.GetString(2);
             if (!reader.IsDBNull(3)) item.descricao_estacao = reader.GetString(3);
@@ -160,7 +160,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(7)) item.dataREC = reader.GetDateTime(7);
             if (!reader.IsDBNull(8)) item.dataFIM = reader.GetDateTime(8);
             if (!reader.IsDBNull(9)) item.descricao_alarme = reader.GetString(9);
-            if (!reader.IsDBNull(10)) item.tp_alarme = reader.GetDouble(10);
+            if (!reader.IsDBNull(10)) item.tp_alarme = DbUtils.ParseDouble(reader, 10);
 
             return item;
         }
@@ -169,7 +169,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new Corredores();
 
-            if (!reader.IsDBNull(0)) item.Corredor_ID = reader.GetDouble(0);
+            if (!reader.IsDBNull(0)) item.Corredor_ID = DbUtils.ParseDouble(reader, 0);
             if (!reader.IsDBNull(1)) item.Descricao = reader.GetString(1);
 
             return item;
@@ -179,7 +179,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new Estacao();
 
-            if (!reader.IsDBNull(0)) item.id = reader.GetDouble(0);
+            if (!reader.IsDBNull(0)) item.id = DbUtils.ParseDouble(reader, 0);
             if (!reader.IsDBNull(1)) item.sigla = reader.GetString(1);
             if (!reader.IsDBNull(2)) item.nome = reader.GetString(2);
 
@@ -192,7 +192,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             var item = new Estacao();
 
-            if (!reader.IsDBNull(0)) item.id = reader.GetDouble(0);
+            if (!reader.IsDBNull(0)) item.id = DbUtils.ParseDouble(reader, 0);
             if (!reader.IsDBNull(1)) item.sigla = reader.GetString(1);
             if (!reader.IsDBNull(2)) item.nome = reader.GetString(2);
 

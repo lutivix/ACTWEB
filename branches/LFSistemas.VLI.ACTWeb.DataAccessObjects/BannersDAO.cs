@@ -312,7 +312,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             try
             {
                 item.Posicao = p;
-                if (!reader.IsDBNull(0)) item.Banner_ID = reader.GetDouble(0).ToString();
+                if (!reader.IsDBNull(0)) item.Banner_ID = DbUtils.ParseDouble(reader, 0).ToString();
                 if (!reader.IsDBNull(1))
                 {
                     item.Arquivo = reader.GetString(1).ToUpper();

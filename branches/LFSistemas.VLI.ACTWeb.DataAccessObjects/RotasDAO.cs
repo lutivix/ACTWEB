@@ -126,7 +126,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.Rota_ID = reader.GetDouble(0);
+                if (!reader.IsDBNull(0)) item.Rota_ID = DbUtils.ParseDouble(reader, 0);
                 if (!reader.IsDBNull(1)) item.Corredor = reader.GetString(1);
                 if (!reader.IsDBNull(2)) item.Nome = reader.GetString(2);
                 if (!reader.IsDBNull(3)) item.Prefixo = reader.GetString(3);

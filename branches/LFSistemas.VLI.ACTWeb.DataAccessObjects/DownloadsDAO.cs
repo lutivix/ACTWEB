@@ -498,8 +498,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             try
             {
 
-                if (!reader.IsDBNull(0)) item.Downloads_ID = reader.GetDouble(0);
-                if (!reader.IsDBNull(1)) item.Modulo_do_Sistema = reader.GetDouble(1);
+                if (!reader.IsDBNull(0)) item.Downloads_ID = DbUtils.ParseDouble(reader, 0);
+                if (!reader.IsDBNull(1)) item.Modulo_do_Sistema = DbUtils.ParseDouble(reader, 1);
                 if (!reader.IsDBNull(2)) item.Arquivo = reader.GetString(2);
                 if (!reader.IsDBNull(3)) item.Descricao = reader.GetString(3);
                 if (!reader.IsDBNull(4)) item.Versao = reader.GetDecimal(4);

@@ -77,7 +77,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         {
             var item = new Responsavel();
 
-            if (!reader.IsDBNull(0)) item.ID = reader.GetDouble(0);
+            if (!reader.IsDBNull(0)) item.ID = DbUtils.ParseDouble(reader, 0);
             if (!reader.IsDBNull(1)) item.Matricula = reader.GetString(1);
             if (!reader.IsDBNull(2)) item.Nome = reader.GetString(2);
             if (!reader.IsDBNull(3)) item.Cargo = reader.GetString(3);

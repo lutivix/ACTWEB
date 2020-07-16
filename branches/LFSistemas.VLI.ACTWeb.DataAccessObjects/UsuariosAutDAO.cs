@@ -734,14 +734,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                
 
-                if (!reader.IsDBNull(0)) item.Usuario_ID = reader.GetDouble(0).ToString();
+
+                if (!reader.IsDBNull(0)) item.Usuario_ID = DbUtils.ParseDouble(reader, 0).ToString();
                 if (!reader.IsDBNull(1)) item.Matricula = reader.GetString(1);
                 if (!reader.IsDBNull(2)) item.Nome = reader.GetString(2);
                 if (!reader.IsDBNull(3)) item.CPF = reader.GetString(3);
-                if (!reader.IsDBNull(4)) corredorID = reader.GetDouble(4);
-                if (!reader.IsDBNull(4)) item.ID_Corredor= (int)reader.GetDouble(4);
+                if (!reader.IsDBNull(4)) corredorID = DbUtils.ParseDouble(reader, 4);
+                if (!reader.IsDBNull(4)) item.ID_Corredor = (int)DbUtils.ParseDouble(reader, 4);
                 if (!reader.IsDBNull(5)) item.Supervisao = reader.GetString(5);
                 if (!reader.IsDBNull(6)) item.Gerencia = reader.GetString(6);
                 if (!reader.IsDBNull(7)) item.Empresa = reader.GetString(7);
@@ -767,7 +767,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             string subtipo = "";
             try
             {
-                if (!reader.IsDBNull(2))subtipo = reader.GetDouble(2).ToString();
+                if (!reader.IsDBNull(2)) subtipo = DbUtils.ParseDouble(reader, 2).ToString();
             }
             catch (Exception ex)
             {

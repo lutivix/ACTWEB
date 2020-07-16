@@ -197,7 +197,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             //{
 
             if (!reader.IsDBNull(0)) item.Prefixo = reader.GetString(0);
-            if (!reader.IsDBNull(1)) item.OS = reader.GetDouble(1).ToString();
+            if (!reader.IsDBNull(1)) item.OS = DbUtils.ParseDouble(reader, 1).ToString();
             if (!reader.IsDBNull(2)) item.Local = reader.GetString(2).ToString();
             if (!reader.IsDBNull(3)) item.InicioParada = reader.GetDateTime(3).ToString();
             if (!reader.IsDBNull(4)) item.FimParada = reader.GetDateTime(4).ToString();
@@ -207,7 +207,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(8)) item.MotivoParadaMaquinista = reader.GetString(8);
             if (!reader.IsDBNull(9)) item.MotivoParadaDespachador = reader.GetString(9);
             if (!reader.IsDBNull(10)) item.Despachador = reader.GetString(10);
-            if (!reader.IsDBNull(11)) item.PostoTrabalho = reader.GetDouble(11).ToString();
+            if (!reader.IsDBNull(11)) item.PostoTrabalho = DbUtils.ParseDouble(reader, 11).ToString();
             if (!reader.IsDBNull(12))
             {
                 var tremID = reader.GetValue(12).ToString();

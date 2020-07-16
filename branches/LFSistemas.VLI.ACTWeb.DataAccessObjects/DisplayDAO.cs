@@ -256,7 +256,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         if (reader.Read())
                         {
-                            if (!reader.IsDBNull(0)) item.DisplayID = reader.GetDouble(0);
+                            if (!reader.IsDBNull(0)) item.DisplayID = DbUtils.ParseDouble(reader, 0);
                             if (!reader.IsDBNull(1)) item.Mensagem = reader.GetString(1);
                             if (!reader.IsDBNull(2)) item.Data = reader.GetDateTime(2).ToShortDateString();
                             if (!reader.IsDBNull(3)) item.Ativo = reader.GetValue(3).ToString();
@@ -378,7 +378,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             try
             {
-                if (!reader.IsDBNull(0)) item.DisplayID = reader.GetDouble(0);
+                if (!reader.IsDBNull(0)) item.DisplayID = DbUtils.ParseDouble(reader, 0);
                 if (!reader.IsDBNull(1)) item.Mensagem = reader.GetString(1);
                 if (!reader.IsDBNull(2)) item.Data = reader.GetDateTime(2).ToShortDateString();
                 if (!reader.IsDBNull(3)) item.Ativo = reader.GetValue(3).ToString() == "S" ? "Sim" : "Não";

@@ -2061,13 +2061,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         if (reader.Read())
                         {
-                            item.Id = reader.GetDouble(0);
+                            item.Id = DbUtils.ParseDouble(reader, 0);
                             item.Matricula = reader.GetString(1);
                             item.Data = reader.GetDateTime(2);
-                            item.Macro = reader.GetDouble(3);
-                            item.Trm_ID = reader.GetDouble(4);
+                            item.Macro = DbUtils.ParseDouble(reader, 3);
+                            item.Trm_ID = DbUtils.ParseDouble(reader, 4);
                             item.Trem = reader.GetString(5);
-                            item.Mct_ID = reader.GetDouble(6);
+                            item.Mct_ID = DbUtils.ParseDouble(reader, 6);
                             item.Mct = reader.GetString(7);
                         }
                     }
@@ -2536,41 +2536,41 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
             var macro = new Macro();
             if (tipo == "R")
             {
-                if (!reader.IsDBNull(0)) macro.ID = reader.GetDouble(0);
+                if (!reader.IsDBNull(0)) macro.ID = DbUtils.ParseDouble(reader, 0);
                 if (!reader.IsDBNull(1)) macro.Locomotiva = reader.GetString(1);
                 if (!reader.IsDBNull(2)) macro.Trem = reader.GetString(2);
-                if (!reader.IsDBNull(3)) macro.CodigoOS = reader.GetDouble(3);
+                if (!reader.IsDBNull(3)) macro.CodigoOS = DbUtils.ParseDouble(reader, 3);
                 if (!reader.IsDBNull(4)) macro.Horario = reader.GetDateTime(4);
-                if (!reader.IsDBNull(5)) macro.NumeroMacro = reader.GetDouble(5); else macro.NumeroMacro = 0;
+                if (!reader.IsDBNull(5)) macro.NumeroMacro = DbUtils.ParseDouble(reader, 5); else macro.NumeroMacro = 0;
                 if (!reader.IsDBNull(6)) macro.Texto = reader.GetString(6);
-                if (!reader.IsDBNull(7)) macro.MCT = reader.GetDouble(7);
+                if (!reader.IsDBNull(7)) macro.MCT = DbUtils.ParseDouble(reader, 7);
                 if (!reader.IsDBNull(8)) macro.Origem = reader.GetString(8);
                 if (!reader.IsDBNull(9)) macro.Destino = reader.GetString(9);
-                if (!reader.IsDBNull(10)) macro.Tamanho = reader.GetDouble(10);
-                if (!reader.IsDBNull(11)) macro.Peso = reader.GetDouble(11);
-                if (!reader.IsDBNull(12)) macro.VersaoOBC = reader.GetDouble(12);
-                if (!reader.IsDBNull(13)) macro.Mapa = reader.GetDouble(13);
-                if (!reader.IsDBNull(14)) macro.TamanhoTrem = reader.GetDouble(14);
+                if (!reader.IsDBNull(10)) macro.Tamanho = DbUtils.ParseDouble(reader, 10);
+                if (!reader.IsDBNull(11)) macro.Peso = DbUtils.ParseDouble(reader, 11);
+                if (!reader.IsDBNull(12)) macro.VersaoOBC = DbUtils.ParseDouble(reader, 12);
+                if (!reader.IsDBNull(13)) macro.Mapa = DbUtils.ParseDouble(reader, 13);
+                if (!reader.IsDBNull(14)) macro.TamanhoTrem = DbUtils.ParseDouble(reader, 14);
                 if (!reader.IsDBNull(15)) macro.SB = reader.GetString(15);
                 if (!reader.IsDBNull(16)) macro.KM = reader.GetString(16);
             }
             else
             {
-                if (!reader.IsDBNull(0)) macro.ID = reader.GetDouble(0);
+                if (!reader.IsDBNull(0)) macro.ID = DbUtils.ParseDouble(reader, 0);
                 if (!reader.IsDBNull(1)) macro.Locomotiva = reader.GetString(1);
                 if (!reader.IsDBNull(2)) macro.Trem = reader.GetString(2);
-                if (!reader.IsDBNull(3)) macro.CodigoOS = reader.GetDouble(3);
+                if (!reader.IsDBNull(3)) macro.CodigoOS = DbUtils.ParseDouble(reader, 3);
                 if (!reader.IsDBNull(4)) macro.Horario = reader.GetDateTime(4);
-                if (!reader.IsDBNull(5)) macro.NumeroMacro = reader.GetDouble(5); else macro.NumeroMacro = 0;
+                if (!reader.IsDBNull(5)) macro.NumeroMacro = DbUtils.ParseDouble(reader, 5); else macro.NumeroMacro = 0;
                 if (!reader.IsDBNull(6)) macro.Texto = reader.GetString(6);
-                if (!reader.IsDBNull(7)) macro.MCT = reader.GetDouble(7);
+                if (!reader.IsDBNull(7)) macro.MCT = DbUtils.ParseDouble(reader, 7);
                 if (!reader.IsDBNull(8)) macro.Origem = reader.GetString(8);
                 if (!reader.IsDBNull(9)) macro.Destino = reader.GetString(9);
-                if (!reader.IsDBNull(10)) macro.Tamanho = reader.GetDouble(10);
-                if (!reader.IsDBNull(11)) macro.Peso = reader.GetDouble(11);
-                if (!reader.IsDBNull(12)) macro.VersaoOBC = reader.GetDouble(12);
-                if (!reader.IsDBNull(13)) macro.Mapa = reader.GetDouble(13);
-                if (!reader.IsDBNull(14)) macro.TamanhoTrem = reader.GetDouble(14);
+                if (!reader.IsDBNull(10)) macro.Tamanho = DbUtils.ParseDouble(reader, 10);
+                if (!reader.IsDBNull(11)) macro.Peso = DbUtils.ParseDouble(reader, 11);
+                if (!reader.IsDBNull(12)) macro.VersaoOBC = DbUtils.ParseDouble(reader, 12);
+                if (!reader.IsDBNull(13)) macro.Mapa = DbUtils.ParseDouble(reader, 13);
+                if (!reader.IsDBNull(14)) macro.TamanhoTrem = DbUtils.ParseDouble(reader, 14);
             }
 
             macro.Tipo = tipo;
@@ -2586,12 +2586,12 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
             if (!reader.IsDBNull(0)) item.Tipo = reader.GetString(0);
             if (!reader.IsDBNull(1)) item.Locomotiva = reader.GetString(1);
             if (!reader.IsDBNull(2)) item.Trem = reader.GetString(2);
-            if (!reader.IsDBNull(3)) item.CodigoOS = reader.GetDouble(3);
+            if (!reader.IsDBNull(3)) item.CodigoOS = DbUtils.ParseDouble(reader, 3);
             if (!reader.IsDBNull(4)) item.Horario = reader.GetDateTime(4);
-            if (!reader.IsDBNull(5)) item.NumeroMacro = reader.GetDouble(5);
+            if (!reader.IsDBNull(5)) item.NumeroMacro = DbUtils.ParseDouble(reader, 5);
             if (!reader.IsDBNull(6)) item.Texto = reader.GetString(6).Trim();
-            if (!reader.IsDBNull(7)) item.MCT = reader.GetDouble(7);
-            if (!reader.IsDBNull(8)) item.ID = reader.GetDouble(8);
+            if (!reader.IsDBNull(7)) item.MCT = DbUtils.ParseDouble(reader, 7);
+            if (!reader.IsDBNull(8)) item.ID = DbUtils.ParseDouble(reader, 8);
             if (!reader.IsDBNull(9)) item.Corredor = reader.GetString(9);
             if (!reader.IsDBNull(10)) item.SB = reader.GetString(10);
             if (!reader.IsDBNull(11)) item.KM = reader.GetString(11);
@@ -2619,12 +2619,12 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
             if (!reader.IsDBNull(0)) item.Tipo = reader.GetString(0);
             if (!reader.IsDBNull(1)) item.Locomotiva = reader.GetString(1);
             if (!reader.IsDBNull(2)) item.Trem = reader.GetString(2);
-            if (!reader.IsDBNull(3)) item.CodigoOS = reader.GetDouble(3);
+            if (!reader.IsDBNull(3)) item.CodigoOS = DbUtils.ParseDouble(reader, 3);
             if (!reader.IsDBNull(4)) item.Horario = reader.GetDateTime(4);
-            if (!reader.IsDBNull(5)) item.NumeroMacro = reader.GetDouble(5);
+            if (!reader.IsDBNull(5)) item.NumeroMacro = DbUtils.ParseDouble(reader, 5);
             if (!reader.IsDBNull(6)) item.Texto = reader.GetString(6).Trim();
-            if (!reader.IsDBNull(7)) item.MCT = reader.GetDouble(7);
-            if (!reader.IsDBNull(8)) item.ID = reader.GetDouble(8);
+            if (!reader.IsDBNull(7)) item.MCT = DbUtils.ParseDouble(reader, 7);
+            if (!reader.IsDBNull(8)) item.ID = DbUtils.ParseDouble(reader, 8);
             if (!reader.IsDBNull(9))
             {
                 item.Status = Convert.ToString(reader.GetValue(9));
@@ -2690,12 +2690,12 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
             if (!reader.IsDBNull(0)) item.Tipo = reader.GetString(0);
             if (!reader.IsDBNull(1)) item.Locomotiva = reader.GetString(1);
             if (!reader.IsDBNull(2)) item.Trem = reader.GetString(2);
-            if (!reader.IsDBNull(3)) item.CodigoOS = reader.GetDouble(3);
+            if (!reader.IsDBNull(3)) item.CodigoOS = DbUtils.ParseDouble(reader, 3);
             if (!reader.IsDBNull(4)) item.Horario = reader.GetDateTime(4);
-            if (!reader.IsDBNull(5)) item.NumeroMacro = reader.GetDouble(5);
+            if (!reader.IsDBNull(5)) item.NumeroMacro = DbUtils.ParseDouble(reader, 5);
             if (!reader.IsDBNull(6)) item.Texto = reader.GetString(6).Trim();
-            if (!reader.IsDBNull(7)) item.MCT = reader.GetDouble(7);
-            if (!reader.IsDBNull(8)) item.ID = reader.GetDouble(8);
+            if (!reader.IsDBNull(7)) item.MCT = DbUtils.ParseDouble(reader, 7);
+            if (!reader.IsDBNull(8)) item.ID = DbUtils.ParseDouble(reader, 8);
             if (!reader.IsDBNull(9)) item.Latitude = reader.GetString(9);
             if (!reader.IsDBNull(10)) item.Longitude = reader.GetString(10);
             if (!reader.IsDBNull(11)) item.Corredor = reader.GetString(11);
@@ -2742,17 +2742,17 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
             var item = new Macro50();
 
             if (!reader.IsDBNull(0)) item.Tipo = reader.GetString(0);
-            if (!reader.IsDBNull(1)) item.ID = reader.GetDouble(1);
+            if (!reader.IsDBNull(1)) item.ID = DbUtils.ParseDouble(reader, 1);
             if (!reader.IsDBNull(2)) item.Horario = reader.GetDateTime(2);
             if (!reader.IsDBNull(3)) item.Locomotiva = reader.GetString(3);
-            if (!reader.IsDBNull(4)) item.NumeroMacro = reader.GetDouble(4);
+            if (!reader.IsDBNull(4)) item.NumeroMacro = DbUtils.ParseDouble(reader, 4);
             if (!reader.IsDBNull(5)) item.Mensagem = reader.GetString(5);
             if (!reader.IsDBNull(6)) item.Texto = reader.GetString(6);
-            if (!reader.IsDBNull(7)) item.MCT = reader.GetDouble(7);
+            if (!reader.IsDBNull(7)) item.MCT = DbUtils.ParseDouble(reader, 7);
             if (!reader.IsDBNull(8)) item.Trem = reader.GetString(8);
-            if (!reader.IsDBNull(9)) item.CodigoOS = reader.GetDouble(9);
+            if (!reader.IsDBNull(9)) item.CodigoOS = DbUtils.ParseDouble(reader, 9);
             if (!reader.IsDBNull(10)) item.Leitura = reader.GetString(10);
-            if (!reader.IsDBNull(11)) item.Leitura_ID = reader.GetDouble(11);
+            if (!reader.IsDBNull(11)) item.Leitura_ID = DbUtils.ParseDouble(reader, 11);
             if (origem == "tela_relatorio")
             {
                 if (!reader.IsDBNull(12)) item.Operador = reader.GetString(12);
@@ -2804,7 +2804,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
         {
             var item = new Corredor();
 
-            if (!reader.IsDBNull(0)) item.MR_ID = reader.GetDouble(0);
+            if (!reader.IsDBNull(0)) item.MR_ID = DbUtils.ParseDouble(reader, 0);
             if (!reader.IsDBNull(1)) item.Latitude = reader.GetString(1);
             if (!reader.IsDBNull(2)) item.Longitude = reader.GetString(2);
             if (!reader.IsDBNull(3)) item.Nome = reader.GetString(3);
@@ -2816,13 +2816,13 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
         private TMP_MACROS PreencherPropriedadesTMP(OleDbDataReader reader)
         {
             var item = new TMP_MACROS();
-            if (!reader.IsDBNull(0)) item.Id = reader.GetDouble(0);
+            if (!reader.IsDBNull(0)) item.Id = DbUtils.ParseDouble(reader, 0);
             if (!reader.IsDBNull(1)) item.Matricula = reader.GetString(1);
             if (!reader.IsDBNull(2)) item.Data = reader.GetDateTime(2);
-            if (!reader.IsDBNull(3)) item.Macro = reader.GetDouble(3);
-            if (!reader.IsDBNull(4)) item.Trm_ID = reader.GetDouble(4);
+            if (!reader.IsDBNull(3)) item.Macro = DbUtils.ParseDouble(reader, 3);
+            if (!reader.IsDBNull(4)) item.Trm_ID = DbUtils.ParseDouble(reader, 4);
             if (!reader.IsDBNull(5)) item.Trem = reader.GetString(5);
-            if (!reader.IsDBNull(6)) item.Mct_ID = reader.GetDouble(6);
+            if (!reader.IsDBNull(6)) item.Mct_ID = DbUtils.ParseDouble(reader, 6);
             if (!reader.IsDBNull(7)) item.Mct = reader.GetString(7);
 
 
@@ -2833,7 +2833,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
             var item = new Conversas();
 
             if (!reader.IsDBNull(0)) item.Tipo = reader.GetString(0);
-            if (!reader.IsDBNull(1)) item.Numero_Macro = reader.GetDouble(1);
+            if (!reader.IsDBNull(1)) item.Numero_Macro = DbUtils.ParseDouble(reader, 1);
             if (!reader.IsDBNull(2)) item.Loco = reader.GetString(2);
             if (!reader.IsDBNull(3)) item.Horario = reader.GetDateTime(3);
             if (!reader.IsDBNull(4)) item.Texto = reader.GetString(4);
