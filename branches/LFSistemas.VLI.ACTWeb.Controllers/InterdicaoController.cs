@@ -64,9 +64,9 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         /// Obtem todas as seções
         /// </summary>
         /// <returns>Retorna uma lista com todos as seções</returns>
-        public List<ComboInterdicao_Secao> ObterComboInterdicaoFiltro_SECAO()
+        public List<ComboInterdicao_Secao> ObterComboInterdicaoFiltro_SECAO(string corredores)
         {
-            return dao.ObterComboInterdicaoFiltro_SECAO();
+            return dao.ObterComboInterdicaoFiltro_SECAO(corredores);
         }
 
         /// <summary>

@@ -526,8 +526,8 @@
                     <a id="link1" data-toggle="collapse" title="Filtros F9" data-parent="#macros" href="macros#filtros" style="margin-left: 3px; font-size: 15px" accesskey="F9"><b>Filtros</b> <i class="fa fa-search"></i></a>
                 </div>
             </div>
-            <div id="filtros" class="collapse">
-                <table style="width: 100%">
+            <div id="filtros" >
+                <table style="width: 100%; ">
                     <tr>
                         <td style="width: 5%; padding: 1px;">
                             <label for="grupo">Autorização:</label><br />
@@ -553,7 +553,19 @@
                             <label for="hora_inicio">Data Final:</label>
                             <asp:TextBox ID="txtDataFinal" runat="server" Width="95%" onblur="validaData(this,this.value)" onKeyUp="formatar(this, '##/##/####')" CssClass="form-control" MaxLength="10" onkeypress="return PermiteSomenteNumeros(event);" />
                         </td>
-                        <td style="width: 45%; padding: 1px;"></td>
+                        <td rowspan="2" style="width: 170px; padding: 1px;">
+                            <label for="data_fim">Corredor:</label>
+                            <br />
+                            <asp:CheckBoxList AutoPostBack="true" OnSelectedIndexChanged="clbCorredorLDL_SelectedIndexChanged" runat="server" ID="clbCorredorLDL" Rows="6" CssClass="form-control" SelectionMode="Multiple" Width="160" Height="117">
+                                <asp:ListItem Text="&nbsp;&nbsp;Baixada" Value="Baixada" />
+                                <asp:ListItem Text="&nbsp;&nbsp;Centro Leste" Value="Centro Leste" />
+                                <asp:ListItem Text="&nbsp;&nbsp;Centro Norte" Value="Centro Norte" />
+                                <asp:ListItem Text="&nbsp;&nbsp;Centro Sudeste" Value="Centro Sudeste" />
+                                <asp:ListItem Text="&nbsp;&nbsp;Minas Bahia" Value="Minas Bahia" />
+                                <asp:ListItem Text="&nbsp;&nbsp;Minas Rio" Value="Minas Rio" />
+                            </asp:CheckBoxList>
+                        </td>
+                        <td style="width: 35%; padding: 1px;"></td>
 
                     </tr>
                     <tr>

@@ -73,20 +73,20 @@
         <div class="form-group col-sm-1">
                <td style="width: 30%" rowspan="2">
                             <label for="subtipos">Subtipos:</label><br />
-                            <asp:Panel runat="server" Width="80px" Height="127px" ScrollBars="Vertical" CssClass="form-control">
+                            <asp:Panel runat="server" Width="80px" Height="147px" ScrollBars="Vertical" CssClass="form-control">
                                 <asp:CheckBoxList runat="server" ID="cblSubtipos" />
                             </asp:Panel>
                         </td>   
         </div>
-         <div class="form-group col-sm-1">
+         <!--<div class="form-group col-sm-1">
             <label for="permiteldl">Permite:</label><br />
 
-            <asp:DropDownList ID="ddlPermissoes" runat="server" CssClass="form-control" Checked="false" Width="80px" height="30px">
+            <asp:DropDownList ID="ddlPermissoes" runat="server" CssClass="form-control" Checked="false" Width="80px" height="30px" Visible="false">
                                         <asp:ListItem Text="Sim" Value="0" />
                                         <asp:ListItem Text="Não" Value="1" />
             </asp:DropDownList>    
 
-        </div>
+        </div>-->
         <div class="form-group col-sm-2 ">
                                 <label for="matricula">Corredor:</label>
                                     <asp:DropDownList runat="server" ID="ddlCorredores" CssClass="form-control" Width="170" Height="30">

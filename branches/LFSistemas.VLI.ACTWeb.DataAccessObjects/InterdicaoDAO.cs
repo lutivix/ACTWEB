@@ -38,8 +38,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           TC.TP_CIR_NOME, II.SLT_KM, II.SLT_USUARIO_LOGADO, OP.NOME, II.SLT_TELEFONE_SN, II.SLT_TELEFONE_NUMERO, II.SLT_MAT_RESPONSAVEL, 
                                           RR.OP_BS_NM AS OP_NM, II.SLT_RADIO_SN, II.SLT_EQUIPAMENTOS, II.SLT_MACRO_SN, II.SLT_MACRO_NUMERO, II.SLT_OBSERVACAO, II.SLT_ATIVO_SN, II.SLT_ID_ACT_AUT_INTER, II.SLT_ID_MOTIVO, RD.RD_DSC_RDE, IM.IM_ID_IM,
                                  case when IM.im_tp = 1 then 'LDL' WHEN IM.IM_TP = 2 THEN 'BLQ' when im.im_tp is null then '' else 'INT' END || IM.IM_ID_IM CODIGO
-                                      FROM SOLICITACAO_INTERDICAO II, ACTPP.ELEM_VIA EV, TIPO_SITUACAO TS, TIPO_INTERDICAO TI, TIPO_MANUTENCAO TM, TIPO_CIRCULACAO TC, USUARIOS OP, ACTPP.OPERADORES_BS RR, ACTPP.RESTRICOES_DESCRICOES RD, actpp.interdicao_motivo im, actpp.solicitacoes_ldl sldl
+                                      FROM SOLICITACAO_INTERDICAO II, ACTPP.ELEM_VIA EV, TIPO_SITUACAO TS, TIPO_INTERDICAO TI, TIPO_MANUTENCAO TM, 
+                                            TIPO_CIRCULACAO TC, USUARIOS OP, ACTPP.OPERADORES_BS RR, ACTPP.RESTRICOES_DESCRICOES RD, actpp.interdicao_motivo im, 
+                                            actpp.solicitacoes_ldl sldl, ACTPP.NOME_CORREDOR NC
                                       WHERE II.SLT_ID_SECAO = EV.EV_ID_ELM
+                                      AND NC.NM_COR_ID = EV.NM_COR_ID
                                       AND II.SLT_ID_TP_SITUACAO = TS.TP_SIT_CODIGO
                                       AND II.SLT_ID_TP_INTERDICAO = TI.TP_INT_CODIGO
                                       AND II.SLT_ID_TP_MANUTENCAO = TM.TP_MNT_CODIGO
@@ -53,6 +56,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                       ${SLT_KM}
                                       ${SLT_OBSERVACAO}
                                       ${SLT_ATIVO_SN}
+                                      ${R_Corre}
                                       AND II.SLT_ID_MOTIVO = RD.RD_ID_RDE
                                       and SLDL.SO_LDL_ID_WEB = II.SLT_ID_SLT
                                       and SLDL.SO_LDL_ID = IM.SI_ID_SI(+)                                     
@@ -91,14 +95,19 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     if (filtro.Ativo_SN == null)
                         query.Replace("${SLT_ATIVO_SN}", string.Format("AND SLT_ATIVO_SN = '{0}'", "S"));
                     else
-                        query.Replace("${SLT_ATIVO_SN}", " ");
-
-                    #endregion
+                        query.Replace("${SLT_ATIVO_SN}", " ");                   
 
                     if (ordenacao != null)
                         query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
                     else
                         query.Replace("${ORDENACAO}", string.Format("SLT_ID_TP_SITUACAO, SLT_DATA DESC"));
+
+                    if (!string.IsNullOrEmpty(filtro.Corredores))
+                        query.Replace("${R_Corre}", string.Format("AND (UPPER(NC.NM_COR_NOME) IN ({0}) OR EV.NM_COR_ID IS NULL)", filtro.Corredores.ToUpper()));
+                    else
+                        query.Replace("${R_Corre}", "");
+
+                    #endregion
 
                     #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
 
@@ -883,7 +892,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// Obtem todas as seções
         /// </summary>
         /// <returns>Retorna uma lista com todos as seções</returns>
-        public List<ComboInterdicao_Secao> ObterComboInterdicaoFiltro_SECAO()
+        public List<ComboInterdicao_Secao> ObterComboInterdicaoFiltro_SECAO(string corredores)
         {
             #region [ PROPRIEDADES ]
 
@@ -900,8 +909,17 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select EV_ID_ELM, EV_NOM_MAC from ACTPP.ELEM_VIA 
-                                  where EV_ID_ELM in (select distinct slt_id_secao from actweb.SOLICITACAO_INTERDICAO) ORDER BY EV_NOM_MAC");
+                    query.Append(@"select EV_ID_ELM, EV_NOM_MAC from ACTPP.ELEM_VIA EV, ACTPP.NOME_CORREDOR NC 
+                                  where EV_ID_ELM in (select distinct slt_id_secao from actweb.SOLICITACAO_INTERDICAO) 
+                                  AND EV.NM_COR_ID = NC.NM_COR_ID
+                                  ${R_Corre}                                  
+                                  ORDER BY EV_NOM_MAC");
+
+
+                    if (!string.IsNullOrEmpty(corredores))
+                        query.Replace("${R_Corre}", string.Format("AND (UPPER(NC.NM_COR_NOME) IN ({0}) OR EV.NM_COR_ID IS NULL)", corredores.ToUpper()));
+                    else
+                        query.Replace("${R_Corre}", "");
 
                     #endregion
 

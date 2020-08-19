@@ -76,9 +76,9 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         }
 
         //verifica no banco de dados se existe uma VR com mesmo subtipo na mesma sb 
-        public bool VerificaBSmesmoTipo(double secao, double subtipo, DateTime dataFinalBSAtual, DateTime dataFim, DateTime dataAtual)
+        public bool VerificaBSmesmoTipo(double secao, double subtipo, DateTime dataEntradaBSAtual, DateTime dataFinalBSAtual)
         {
-            return dao.VerificaBSmesmoTipo(secao, subtipo, dataFinalBSAtual, dataFim, dataAtual);
+            return dao.VerificaBSmesmoTipo(secao, subtipo, dataEntradaBSAtual, dataFinalBSAtual);
         }
 
         public Restricao ObterRestricaoPorID(string tipo, double id)

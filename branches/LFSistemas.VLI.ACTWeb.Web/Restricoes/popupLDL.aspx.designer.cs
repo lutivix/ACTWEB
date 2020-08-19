@@ -427,6 +427,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         protected global::System.Web.UI.WebControls.TextBox txtDataFinal;
         
         /// <summary>
+        /// clbCorredorLDL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList clbCorredorLDL;
+        
+        /// <summary>
         /// txtFiltroKm control.
         /// </summary>
         /// <remarks>

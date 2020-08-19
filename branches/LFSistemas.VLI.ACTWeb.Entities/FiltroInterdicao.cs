@@ -18,6 +18,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public decimal? km { get; set; }
         public string Observacao { get; set; }
         public string Ativo_SN { get; set; }
+        public string Corredores { get; set; }
 
         #endregion
     }

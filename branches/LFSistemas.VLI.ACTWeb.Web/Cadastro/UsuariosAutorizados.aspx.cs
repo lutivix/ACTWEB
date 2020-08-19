@@ -91,6 +91,18 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                     cblSubtipos.Items[index].Selected = true;
                 }
             } 
+
+            if(cblSubtipos.Items[0].Selected)
+            {
+                ddlPermissoes.SelectedValue = "0";
+                usuario.PermissaoLDL = "S";
+            }                
+            else
+            {
+                ddlPermissoes.SelectedValue = "1";
+                usuario.PermissaoLDL = "N";
+            }
+                
         }
 
         #endregion
@@ -120,12 +132,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             usuario.Empresa = txtEmpresa.Text.Trim();
             usuario.Ativo_SN = chkAtivo.Checked ? "S" : "N";
 
-            if (ddlPermissoes.Items[0].Selected == true)
+            if (cblSubtipos.Items[0].Selected)
             {
+                ddlPermissoes.SelectedValue = "0";
                 usuario.PermissaoLDL = "S";
             }
             else
             {
+                ddlPermissoes.SelectedValue = "1";
                 usuario.PermissaoLDL = "N";
             }
 
@@ -300,6 +314,17 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                 cblSubtipos.DataTextField = "DESCRICAO";
                 cblSubtipos.DataSource = subtipos;
                 cblSubtipos.DataBind();
+
+                if (cblSubtipos.Items[0].Selected)
+                {
+                    ddlPermissoes.SelectedValue = "0";
+                    //usuario.PermissaoLDL = "S";
+                }
+                else
+                {
+                    ddlPermissoes.SelectedValue = "1";
+                    //usuario.PermissaoLDL = "S";
+                }
             }
 
             var corredores = pesquisa.ComboBoxCorredores();

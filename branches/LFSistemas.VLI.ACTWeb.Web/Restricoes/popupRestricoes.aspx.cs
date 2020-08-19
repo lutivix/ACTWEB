@@ -501,11 +501,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         return;
                     }
                 }
+                //P714 - Agora vai deixar criar em cima de interdição e bloqueio, para LDL, vai memorizar
+                //Luciano - 18/08/2020
+                /**
                 if ((ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR") && (restricaoController.ExisteInterdicao(double.Parse(ddlDadosSecoes.SelectedItem.Value))))
                 {
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido haver uma interdiçao na Seção de Bloqueio.' });", true);
                     return;
                 }
+                /**/
                 #region [VERIFICA DUPLICAÇÃO DE SUBTIPO]
 
                 
@@ -536,6 +540,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     try
                     {
                         var retorno = SendMessageCRE();
+                        //var retorno = true;
                         if (retorno == true)
                         {
                             if ((int.Parse(ddlDadosTipoRestricao.SelectedItem.Value) == 26) || (int.Parse(ddlDadosTipoRestricao.SelectedItem.Value) == 27))
@@ -548,7 +553,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                     string usuarioID = lblUsuarioLogado.Text.Trim();
                                     string acao = "programação";
                                     usuario.AtualizarDataUltSol(CPF, matricula, usuarioID, acao);
-                                    usuario.AtualizarDataUltSolBSOP(matricula, usuarioID, ddlDadosSubTipoVR.SelectedItem.Value);
+                                    usuario.AtualizarDataUltSolBSOP(CPF, usuarioID, ddlDadosSubTipoVR.SelectedItem.Value);
                                 }
                                
                                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição programada com sucesso. " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
@@ -1083,8 +1088,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtDadosKm_Final.Text = txtDadosVelocidade.Text =
                 txtDadosResponsavel.Text = txtDadosCpf.Text =
                 txtDadosObs.Text = txtTelefone.Text = lblMensagem.Text = 
-                txtFiltroKm_Inicial.Text = txtFiltroKm_Final.Text = 
-                txtFiltroObs.Text = txtFiltroNumeroRestricao.Text = string.Empty;
+                txtFiltroKm_Inicial.Text = txtFiltroKm_Final.Text =
+                txtFiltroObs.Text = txtFiltroNumeroRestricao.Text = 
+                lblResponsavel_Nome.Text = string.Empty;           
 
             ddlDadosSecoes.Focus();
         }
@@ -1232,8 +1238,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             //Adiciona 23 horas 59 minutos e 59 segundos a data final de programação da BS
             DateTime dataFim = dataAtual.AddSeconds(86399);
+            dataAtual = DateTime.Now;
 
-            bool podeCriar = restricaoController.VerificaBSmesmoTipo(secao, subtipo, dataFinalBSAtual, dataFim, dataAtual);
+            bool podeCriar = restricaoController.VerificaBSmesmoTipo(secao, subtipo,dataEntrada, dataFinalBSAtual);
 
             if (podeCriar)
             {
@@ -1241,6 +1248,51 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             }
 
             return false;
+        }
+
+        protected void txtDadosCpf_TextChanged(object sender, EventArgs e)
+        {
+            if (txtDadosCpf.Text.Length > 0)
+            {
+                RestricaoController responsavel = new RestricaoController();
+
+                var dados = responsavel.PermiteLDL(txtDadosCpf.Text);
+
+                if (dados.Matricula != null)
+                {
+                    if (dados.LDL != "Não" && dados.Ativo == true)
+                    {
+                        lblResponsavel_Nome.Text = dados.Nome.Trim();
+                        txtDadosObs.Focus();
+                    }
+                    else
+                    {
+                        lblResponsavel_Nome.Text =
+                        txtDadosCpf.Text = string.Empty;
+                        txtDadosCpf.Focus();
+                        ScriptManager.RegisterStartupScript(base.Page, this.GetType(), ("dialogJavascript" + this.ID), "alert(\"CPF sem permissão.\");", true);
+
+                        //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Responsável sem permissão.' });", true);
+                    }
+                }
+                else
+                {
+                    bool einvalido = (txtDadosCpf.Text.Length != 11);
+                    lblResponsavel_Nome.Text =
+                    txtDadosCpf.Text = string.Empty;
+                    txtDadosCpf.Focus();
+                    if (einvalido)
+                        ScriptManager.RegisterStartupScript(base.Page, this.GetType(), ("dialogJavascript" + this.ID), "alert(\"CPF inválido.\");", true);
+                    else
+                        ScriptManager.RegisterStartupScript(base.Page, this.GetType(), ("dialogJavascript" + this.ID), "alert(\"CPF não localizado.\");", true);
+                }
+
+            }
+            else
+            {
+                txtDadosCpf.Text = string.Empty;
+                txtDadosCpf.Focus();
+            }                
         }
     }
 }

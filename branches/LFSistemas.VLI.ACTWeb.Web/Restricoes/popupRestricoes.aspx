@@ -162,8 +162,7 @@
         function validaFormulario() {
             var retorno = true;
             var msg = "O(s) campo(s) abaixo é(são) obrigatório(s), gentileza preencher o(s) mesmo(s).  \n\n";
-            var item = [];
-
+            var item = [];            
 
             ddlDadosSecoes = document.getElementById('<%=ddlDadosSecoes.ClientID %>').value;
             ddlDadosTipoRestricao = document.getElementById('<%=ddlDadosTipoRestricao.ClientID %>').value;
@@ -179,9 +178,41 @@
             txtDadosObs = document.getElementById('<%=txtDadosObs.ClientID %>').value;
             txtTelefone = document.getElementById('<%=txtTelefone.ClientID %>').value;
             txtDadosDuracao = document.getElementById('<%=txtDadosDuracao.ClientID %>').value;
-            txtDadosVelocidade = document.getElementById('<%=txtDadosVelocidade.ClientID %>').value;
+            txtDadosVelocidade = document.getElementById('<%=txtDadosVelocidade.ClientID %>').value;      
 
-            if (ddlDadosTipoRestricao == '26' || ddlDadosTipoRestricao == '27') {
+            var kmini = parseFloat(txtDadosKm_Inicio);
+            var kmfim = parseFloat(txtDadosKm_Final);
+
+            //if (((kmfim - kmini) > 2) || ((kmini - kmfim) > 2))
+            //    alert(ddlDadosSubTipoVR);
+            //return false;
+                       
+
+            if (ddlDadosTipoRestricao == '26' || ddlDadosTipoRestricao == '27')
+            {
+                if (ddlDadosSubTipoVR == 3 ||
+                    ddlDadosSubTipoVR == 4 ||
+                    ddlDadosSubTipoVR == 5)
+                {
+                    
+                    //BootstrapDialog.show({ title: 'ATENÇÃO!', message: kmini.toString() });
+                    //BootstrapDialog.show({ title: 'ATENÇÃO!', message: kmfim.toString() });                    
+
+                    //if(kmini >= 29)
+                    if (((kmfim - kmini) > 2) || ((kmini - kmfim) > 2))
+                    {
+                        //alerta
+                        msg = "Extensão de HT, HL ou EE não pode ultrapassar 2 KM's.  \n\n";
+                        BootstrapDialog.show({ title: 'ATENÇÃO!', message: msg });
+                        item += "txtDadosKm_Inicio";
+                        var ind = item.split(":");
+                        if (ind.length > 0)
+                            document.getElementById(ind[0]).focus();
+                        retorno = false;
+                        return retorno;
+                    }                        
+                }
+                
 
                 if (ddlDadosSecoes == 'Selecione' || ddlDadosSecoes == '0') {
                     msg += "SEÇÃO; \n";
@@ -316,13 +347,22 @@
                 color: rgb(46,139,87);
             }
             .situacao-E {
-                color: black;
+                color: black;                
                 background-color: white;
             }
-
             .situacao-P {
                 color: black;
                 background-color: yellow;
+            }
+
+            .situacao-M {
+                color: black;
+                background-color: rgb(255,149,149);
+            }
+
+            .situacao-X {
+                color:rgb(46,139,87);
+                background-color: rgb(196, 183, 183);
             }
 
             .cabeca {
@@ -475,7 +515,9 @@
                                 <asp:TextBox runat="server" ID="txtDadosResponsavel" Width="100%" CssClass="form-control" ToolTip="Informe o responsável pela restrição" MaxLength="10" /></td>
                             <td style="width: 07%; text-align: right; vertical-align: top; padding-top: 10px;">CPF&nbsp;</td>
                             <td style="width: 10%; text-align: left; vertical-align: central;">
-                                <asp:TextBox runat="server" ID="txtDadosCpf" Width="100%" CssClass="form-control" ToolTip="Informe o CPF do responsável" MaxLength="11" /></td>
+                                <asp:TextBox runat="server" ID="txtDadosCpf" OnTextChanged="txtDadosCpf_TextChanged" Width="100%" AutoPostBack="true" CssClass="form-control" ToolTip="Informe o CPF do responsável" MaxLength="11" />
+                                &nbsp;&nbsp;<asp:Label runat="server" ID="lblResponsavel_Nome" Font-Size="12" Font-Bold="true" />
+                            </td>                                
                         </tr>
                         <tr>
                             <td style="width: 10%; text-align: right; vertical-align: top; padding-top: 10px;">Observação&nbsp;&nbsp;</td>

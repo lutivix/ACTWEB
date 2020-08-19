@@ -77,7 +77,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                         FROM ACTPP.RESTRICOES_PROGRAMADAS A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B
                                                         WHERE A.TR_ID_TP = B.TR_ID_TP 
                                                           AND A.EV_ID_ELM = C.EV_ID_ELM 
-                                                          AND A.RP_ST_RP = 'P' 
+                                                          AND A.RP_ST_RP IN ('P','M', 'X') 
                                                           AND A.TR_ID_TP > 1
                                                             ${EV_NOM_MAC}
                                                             ${RP_ID_RP}
@@ -608,7 +608,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return retorno;
         }
 		
-		public bool VerificaBSmesmoTipo(double secao, double subtipo, DateTime dataFinalBSAtual, DateTime dataFim, DateTime dataAtual)
+		public bool VerificaBSmesmoTipo(double secao, double subtipo, DateTime dataEntradaBSAtual, DateTime dataFinalBSAtual)
         {
             #region [ PROPRIEDADES ]
 
@@ -628,12 +628,22 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
+                    DateTime agora = DateTime.Now;
+
                     query.Append(@"SELECT RP_DT_INI
                                       FROM actpp.RESTRICOES_PROGRAMADAS
                                         WHERE     EV_ID_ELM IN (${IdElementoVia})
+                                            AND RP_ST_RP IN ('E','M','P')
                                            ${IdSubtipoRestricao}
-                                            ${DataAtual}
-                                            ${DataFim}");
+                                           AND RP_DT_INI >  to_date(${DataIni}, 'dd/mm/yyyy hh24:mi:ss')
+                                           AND RP_DT_INI < to_date(${DataFim}, 'dd/mm/yyyy hh24:mi:ss')
+                                            or (EV_ID_ELM IN (${IdElementoVia})
+                                                     AND RP_ST_RP IN ('E','M','P')
+                                                    AND RP_DT_INI > to_date(${DataIniDate}, 'dd/mm/yyyy') 
+                                                    AND RP_DT_INI <  to_date(${DataIni}, 'dd/mm/yyyy hh24:mi:ss')
+                                                    AND RP_DT_FIM < to_date(${DataFim+1Date}, 'dd/mm/yyyy')
+                                                    AND  RP_DT_FIM > to_date(${DataIni}, 'dd/mm/yyyy hh24:mi:ss')
+                                                    )");
 
                     if (secao != null)
                         query.Replace("${IdElementoVia}", string.Format("{0}", secao));
@@ -645,15 +655,29 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     else
                         query.Replace("${IdSubtipoRestricao}", " ");
 
-                    if (dataAtual != null)
-                        query.Replace("${DataAtual}", string.Format(" AND RP_DT_INI >  to_date('{0}', 'dd/mm/yyyy hh24:mi:ss')", dataAtual));
+                    if (dataEntradaBSAtual != null)
+                    {
+                        query.Replace("${DataIni}", string.Format("'{0}'", dataEntradaBSAtual));
+                        query.Replace("${DataIniDate}", string.Format("'{0}'", dataEntradaBSAtual.ToShortDateString()   ));
+                    }                        
                     else
-                        query.Replace("${DataAtual}", " ");
+                    {
+                        query.Replace("${DataIni}", string.Format("'{0}'", agora));
+                        query.Replace("${DataIniDate}", string.Format("'{0}'", agora.ToShortDateString()));                        
+                    }
+                        
 
-                    if (dataFim != null)
-                        query.Replace("${DataFim}", string.Format(" AND RP_DT_INI < to_date('{0}', 'dd/mm/yyyy hh24:mi:ss')", dataFim));
+                    if (dataFinalBSAtual != null)
+                    {
+                        query.Replace("${DataFim}", string.Format("'{0}'", dataFinalBSAtual));
+                        query.Replace("${DataFim+1Date}", string.Format("'{0}'", dataFinalBSAtual.AddDays(1).ToShortDateString()));
+                    }                        
                     else
-                        query.Replace("${DataFim}", " ");
+                    {
+                        query.Replace("${DataFim}", string.Format("'{0}'", agora));
+                        query.Replace("${DataFim+1Date}", string.Format("'{0}'", agora.AddDays(1).ToShortDateString()));
+                    }                                          
+
                     #endregion
 
                     #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
@@ -855,7 +879,10 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT OP_BS_MAT, OP_BS_NM, OP_PERMITE_LDL, OP_PERFIL_ATIVO FROM ACTPP.OPERADORES_BS WHERE OP_CPF = ${CPF}");
+                    query.Append(@"SELECT OP_BS_MAT, OP_BS_NM, OP_PERMITE_LDL, OP_PERFIL_ATIVO FROM ACTPP.OPERADORES_BS OBS, actpp.BS_OPERADOR BSOP 
+                                    WHERE OBS.OP_BS_ID = BSOP.OP_BS_ID
+                                    AND BSOP.SR_ID_STR = 7 AND BSOP.BS_OP_ATIVO = 'S'  
+                                    AND OP_CPF = ${CPF}");
 
                     if (cpf != null)
                         query.Replace("${CPF}", string.Format("'{0}'", cpf));
@@ -1186,7 +1213,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT DISTINCT C.EV_NOM_MAC as Sb FROM ACTPP.RESTRICOES_PROGRAMADAS A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B
                                     WHERE A.TR_ID_TP  = B.TR_ID_TP 
                                       AND A.EV_ID_ELM = C.EV_ID_ELM 
-                                      AND A.RP_ST_RP  = 'P' 
+                                      AND A.RP_ST_RP in ('P','M', 'X') 
                                       AND A.TR_ID_TP > 1
                                 UNION all 
                                 SELECT DISTINCT C.EV_NOM_MAC as Sb FROM ACTPP.RESTRICOES_CIRCULACAO A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B 

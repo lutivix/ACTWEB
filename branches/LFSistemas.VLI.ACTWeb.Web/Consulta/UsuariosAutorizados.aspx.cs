@@ -527,6 +527,17 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         {
             var usuarioController = new UsuariosAutController();
 
+            if (cblSubtipos.Items[0].Selected)
+            {
+                ddlPermissoes.SelectedValue = "0";
+                usuarioFiltro.PermissaoLDL = "S";
+            }
+            else
+            {
+                ddlPermissoes.SelectedValue = "1";
+                usuarioFiltro.PermissaoLDL = "N";
+            }
+
             itens = usuarioController.ObterTodosfiltro(new UsuarioAutorizado()
             {
                 Matricula = txtMatricula.Text.Length > 0 ? txtMatricula.Text.Trim() : string.Empty,
@@ -713,6 +724,19 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 cblSubtipos.DataTextField = "DESCRICAO";
                 cblSubtipos.DataSource = subtipos;
                 cblSubtipos.DataBind();
+
+                if (cblSubtipos.Items[0].Selected)
+                {
+                    ddlPermissoes.SelectedValue = "0";
+                    //usuarioFiltro.PermissaoLDL = "S";
+                   // permiteLDLFiltro = "S";
+                }
+                else
+                {
+                    ddlPermissoes.SelectedValue = "1";
+                    //usuarioFiltro.PermissaoLDL = "N";
+                    //permiteLDLFiltro = "N";
+                }
             }
 
             var corredores = pesquisa.ComboBoxCorredores();
@@ -766,16 +790,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 corredoresFiltro = string.Join(",", corredores_id);
             }
 
-            if (ddlPermissoes.Items[0].Selected == true)
+            if (cblSubtipos.Items[0].Selected == true)
             {
                 permiteLDLFiltro = "S";
             }
-            else if (ddlPermissoes.Items[1].Selected == true)
-            {
-                permiteLDLFiltro = "N";
-            }
             else {
-                permiteLDLFiltro = "T";
+                permiteLDLFiltro = "N";
             }
 
             cpfFiltro = txtCPF.Text.Trim();

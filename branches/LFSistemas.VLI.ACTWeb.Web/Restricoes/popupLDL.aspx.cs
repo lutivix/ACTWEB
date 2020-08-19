@@ -22,6 +22,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         public string verificaKm { get; set; }
         public string id_aut { get; set; }
         public string sb { get; set; }
+        public string corredores { get; set; }
 
         public bool retirando { get; set; }
 
@@ -192,7 +193,38 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             var interdicaoController = new InterdicaoController();
             ddlFiltroSecao.DataValueField = "SecaoID";
             ddlFiltroSecao.DataTextField = "SecaoNome";
-            ddlFiltroSecao.DataSource = interdicaoController.ObterComboInterdicaoFiltro_SECAO();
+
+            var aux = new List<string>();
+            if (clbCorredorLDL.Items.Count > 0)
+            {
+                for (int i = 0; i < clbCorredorLDL.Items.Count; i++)
+                {
+                    if (clbCorredorLDL.Items[i].Selected)
+                    {
+                        aux.Add(string.Format("'{0}'", clbCorredorLDL.Items[i].Value));
+                    }
+                }
+                if (aux.Count <= 0)
+                {
+                    aux.Add("'Baixada'");
+                    aux.Add("'Centro Leste'");
+                    aux.Add("'Centro Norte'");
+                    aux.Add("'Centro Sudeste'");
+                    aux.Add("'Minas Bahia'");
+                    aux.Add("'Minas Rio'");
+                    aux.Add("'-'");
+                    aux.Add("' '");
+                }
+                else
+                {
+                    aux.Add("'-'");
+                    aux.Add("' '");
+                }
+
+                corredores = string.Join(",", aux);
+            }
+
+            ddlFiltroSecao.DataSource = interdicaoController.ObterComboInterdicaoFiltro_SECAO(corredores);
             ddlFiltroSecao.DataBind();
         }
         public void ComboFiltroTipoSituacao()
@@ -241,6 +273,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         }
         protected void lnkAtualizarLista_Click(object sender, EventArgs e)
         {
+            lblCanalCom.Text = "Canal de comunicação de Entrada";
             Pesquisar(null);
         }
         protected void bntFiltroPesquisar_Click(object sender, EventArgs e)
@@ -251,6 +284,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             ddlFiltroTipoDaSituacao.SelectedIndex = ddlFiltroSecao.SelectedIndex = 0;
             txtFiltroAutorizacao.Text = txtFiltroKm.Text = txtFiltroObservacao.Text = string.Empty;
+            //lblCanalCom.Text = "Canal de comunicação de Entrada";
+            clbCorredorLDL.ClearSelection();
             Pesquisar(null);
         }
         protected void lnkLImpar_Click(object sender, EventArgs e)
@@ -263,7 +298,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             Panel1.Visible = false;
 
-            lblCanalCom.Text = "Canal de comunicação de retirada";
+            lblCanalCom.Text = "Canal de comunicação de Retirada";
 
             ControleFormulario(StatusBarraComandos.Edicao);
             LinkButton btn = (LinkButton)(sender);
@@ -357,6 +392,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             retirando = true;
             id_aut = txtAutorizacao.Text;
             sb = ddlDadosSecao.SelectedItem.Text;
+            lblCanalCom.Text = "Canal de comunicação de Retirada";
             
             try
             {
@@ -424,6 +460,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             Pesquisar(null);
             Panel1.Visible = true;
             txtAutorizacao.Text = string.Empty;
+            lblCanalCom.Text = "Canal de comunicação de Entrada";
             //txtAutorizacao.Visible = false;
         }
         protected void lnkLdl_Click(object sender, EventArgs e)
@@ -605,6 +642,36 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             if (txtDataInicial.Text.Length > 0) _data_inicial = DateTime.Parse(txtDataInicial.Text + " 00:00:00"); else _data_inicial = null;
             if (txtDataFinal.Text.Length > 0) _data_final = DateTime.Parse(txtDataFinal.Text + " 23:59:59"); else _data_final = null;
 
+            var aux = new List<string>();
+            if (clbCorredorLDL.Items.Count > 0)
+            {
+                for (int i = 0; i < clbCorredorLDL.Items.Count; i++)
+                {
+                    if (clbCorredorLDL.Items[i].Selected)
+                    {
+                        aux.Add(string.Format("'{0}'", clbCorredorLDL.Items[i].Value));
+                    }
+                }
+                if (aux.Count <= 0)
+                {
+                    aux.Add("'Baixada'");
+                    aux.Add("'Centro Leste'");
+                    aux.Add("'Centro Norte'");
+                    aux.Add("'Centro Sudeste'");
+                    aux.Add("'Minas Bahia'");
+                    aux.Add("'Minas Rio'");
+                    aux.Add("'-'");
+                    aux.Add("' '");
+                }
+                else
+                {
+                    aux.Add("'-'");
+                    aux.Add("' '");
+                }
+
+                corredores = string.Join(",", aux);
+            }
+
 
             var interdicaoController = new InterdicaoController();
             var dados = interdicaoController.ObterListaInterdicoes(new Entities.FiltroInterdicao()
@@ -615,7 +682,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 Situacao = _situacao,
                 Secao = _secao,
                 km = _km,
-                Observacao = _observacao
+                Observacao = _observacao,
+                Corredores = corredores
             }, ordenacao);
 
 
@@ -823,6 +891,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     if (dados.LDL != "Não" && dados.Ativo == true)
                     {
                         lblResponsavel_Nome.Text = dados.Nome.Trim();
+                        txtTelefoneResponsavel.Focus();
                     }
                     else
                     {
@@ -834,17 +903,27 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Responsável sem permissão.' });", true);
                     }
                 }
+                else if (txtDadosResponsavel.Text.Length != 11)
+                {
+                    lblResponsavel_Nome.Text =
+                    txtDadosResponsavel.Text = string.Empty;
+                    txtDadosResponsavel.Focus();
+                    ScriptManager.RegisterStartupScript(base.Page, this.GetType(), ("dialogJavascript" + this.ID), "alert(\"CPF Inválido.\");", true);
+                }
                 else
                 {
                     lblResponsavel_Nome.Text =
                     txtDadosResponsavel.Text = string.Empty;
                     txtDadosResponsavel.Focus();
-                    ScriptManager.RegisterStartupScript(base.Page, this.GetType(), ("dialogJavascript" + this.ID), "alert(\"Responsável não localizado.\");", true);
+                    ScriptManager.RegisterStartupScript(base.Page, this.GetType(), ("dialogJavascript" + this.ID), "alert(\"Responsável não localizado ou não tem permissão.\");", true);
                 }
 
             }
             else
+            {
                 lblResponsavel_Nome.Text = string.Empty;
+                txtDadosResponsavel.Focus();
+            }                
         }
         protected void ddlDadosSecao_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -862,6 +941,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         //    txtPrefixo.eb = true;
         //    lblPrefixo.Visible = true;
         //}
+
+
 
         [System.Web.Services.WebMethod]
         public static void DeleteRestriction(string id)
@@ -1021,5 +1102,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         }
 
         #endregion
+
+        protected void clbCorredorLDL_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboFiltroSecoes();
+        }
+
+        
     }
 }

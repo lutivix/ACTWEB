@@ -151,11 +151,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         if (inicial == true)
                         {
-                            query.Replace("${SUBTIPOS}", string.Format(" AND OP_BS_ID IN(SELECT OP_BS_ID FROM  ACTPP.BS_OPERADOR WHERE SR_ID_STR IN ({0}))", filtro.Subtipos_BS));
+                            query.Replace("${SUBTIPOS}", string.Format(" AND OP_BS_ID IN(SELECT OP_BS_ID FROM  ACTPP.BS_OPERADOR WHERE SR_ID_STR IN ({0}) and bs_op_ativo ='S')", filtro.Subtipos_BS));
                         }
                         else
                         {
-                            query.Replace("${SUBTIPOS}", string.Format(" WHERE OP_BS_ID IN(SELECT OP_BS_ID FROM  ACTPP.BS_OPERADOR WHERE SR_ID_STR IN ({0}))", filtro.Subtipos_BS));
+                            query.Replace("${SUBTIPOS}", string.Format(" WHERE OP_BS_ID IN(SELECT OP_BS_ID FROM  ACTPP.BS_OPERADOR WHERE SR_ID_STR IN ({0}) and bs_op_ativo ='S')", filtro.Subtipos_BS));
                             inicial = true;
                         }
                     }
@@ -181,6 +181,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${CORREDORES}", string.Format(" "));
                     }
 
+                    /**
                     if (!string.IsNullOrEmpty(filtro.PermissaoLDL))
                     {
                         if (inicial == true)
@@ -221,6 +222,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         query.Replace("${PERMITE_LDL}", string.Format(" "));
                     }
+                    /**/
+                    query.Replace("${PERMITE_LDL}", string.Format(" "));
                         
 
                     #endregion
@@ -634,11 +637,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         }
 
         //p714
-        public bool AtualizarDataUltSolBSOP(string matricula, string usuarioID, string subtipo)
+        public bool AtualizarDataUltSolBSOP(string cpf, string usuarioID, string subtipo)
         {
             #region [ PROPRIEDADES ]
 
             StringBuilder query = new StringBuilder();
+            StringBuilder query2 = new StringBuilder();
+
+            bool retorno1 = false;
+            bool retorno2 = false;
 
             #endregion
 
@@ -646,12 +653,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             {
                 using (var connection = ServiceLocator.ObterConexaoACTWEB())
                 {
-                    #region [ INSERE USUÁRIO NO BANCO ]
+                    #region [ ATUALIZA BS_OPARADOR NO BANCO ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"UPDATE BS_OPERADOR SET BS_OP_ATIVO = 'N' 
-                                    WHERE SR_ID_STR = ${SRT} AND OP_BS_ID = ${ID} 
-                                    AND BS_OP_ATIVO = 'S'");
+                    query.Append(@"UPDATE ACTPP.BS_OPERADOR SET BS_OP_ATIVO = 'N' 
+                                    WHERE SR_ID_STR = ${SRT} AND OP_BS_ID = (SELECT OP_BS_ID FROM ACTPP.OPERADORES_BS WHERE OP_CPF = ${CPF}) 
+                                    AND BS_OP_ATIVO = 'S'  ");
 
                     #endregion
 
@@ -659,7 +666,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Replace("${ID}", string.Format("{0}", usuarioID));
                     query.Replace("${SRT}", string.Format("{0}", subtipo));
-                    query.Replace("${MAT}", string.Format("{0}", matricula));
+                    query.Replace("${CPF}", string.Format("'{0}'", cpf));
 
                     #endregion
 
@@ -667,6 +674,54 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     command.CommandText = query.ToString();
                     command.ExecuteNonQuery();
+                    retorno1 = true;
+
+                    //LogDAO.GravaLogBanco(DateTime.Now, matricula, "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado campo OP_ULTIMA_SOLICIT na tabela OPERADORES_BS devido a " + acao + " de novo Boletim de Serviço. ", Uteis.OPERACAO.Atualizou.ToString());
+
+                    #endregion
+
+                    #region [  ATUALIZA BS_OPARADOR NO BANCO ]
+
+                    command = connection.CreateCommand();
+                    query2.Append(@"INSERT INTO ACTPP.BS_OPERADOR
+                                    (BSO_ID, OP_BS_ID, SR_ID_STR, BS_OP_DT, BS_OP_ID_PAR, BS_OP_VLR_PAR, BS_OP_MAT, BS_OP_DT_ANT, BS_OP_ATIVO)
+                                    SELECT ACTPP.BS_OPERADOR_ID.NEXTVAL,
+                                       OPBS.OP_BS_ID,
+                                       PBS_ID,
+                                       SYSDATE,
+                                       PBS_ID,
+                                       PBS_VALOR,
+                                       OPBS.OP_BS_MAT,
+                                       BOP.BS_OP_DT ,
+                                       'S'
+                                  FROM ACTPP.PARAMETROS_BS PBS,
+                                       ACTPP.OPERADORES_BS OPBS,
+                                       ACTPP.BS_OPERADOR BOP      
+                                 WHERE PBS_ID = ${SRT} 
+                                    AND OPBS.OP_BS_ID = BOP.OP_BS_ID
+                                    AND PBS.PBS_ID = BOP.BS_OP_ID_PAR
+                                    AND BOP.BS_OP_DT = (SELECT MAX(BS_OP_DT) FROM ACTPP.BS_OPERADOR A WHERE BOP.OP_BS_ID = A.OP_BS_ID AND A.SR_ID_STR = ${SRT})  
+                                    --AND BOP.BS_OP_ATIVO = 'S'
+                                    AND OPBS.OP_CPF =  ${CPF}   ");
+
+                    #endregion
+
+                    #region [ PARÂMETRO ]
+
+                    query2.Replace("${ID}", string.Format("{0}", usuarioID));
+                    query2.Replace("${SRT}", string.Format("{0}", subtipo));
+                    query2.Replace("${CPF}", string.Format("'{0}'", cpf));
+
+                    query.Replace("${ID}", usuarioID);
+                    query.Replace("${SUBTIPOS}", subtipo);
+
+                    #endregion
+
+                    #region [ RODA A QUERY NO BANCO ]
+
+                    command.CommandText = query2.ToString();
+                    command.ExecuteNonQuery();
+                    retorno2 = true;
 
                     //LogDAO.GravaLogBanco(DateTime.Now, matricula, "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado campo OP_ULTIMA_SOLICIT na tabela OPERADORES_BS devido a " + acao + " de novo Boletim de Serviço. ", Uteis.OPERACAO.Atualizou.ToString());
 
@@ -680,7 +735,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 throw new Exception(ex.Message);
             }
 
-            return true;
+            return (retorno1 && retorno2);
         }
 
         public bool DeletarSubtiposAssociados(UsuarioAutorizado usuario, string usuarioLogado)

@@ -93,8 +93,8 @@
 
                             <div class="form-group col-sm-1">
                <td style="width: 30%" rowspan="2">
-                            <label for="subtipos">Subtipos:</label><br />
-                            <asp:Panel runat="server" Width="80px" Height="127px" ScrollBars="Vertical" CssClass="form-control">
+                            <label for="subtipos">Subtipos e LDL:</label><br />
+                            <asp:Panel runat="server" Width="80px" Height="137px" ScrollBars="Vertical" CssClass="form-control" >
                                 <asp:CheckBoxList runat="server" ID="cblSubtipos" />
                             </asp:Panel>
                         </td>   
@@ -103,20 +103,20 @@
                  <div class="form-group col-sm-2">
                <td style="width: 30%" rowspan="2">
                             <label for="subtipos">Corredores:</label><br />
-                            <asp:Panel runat="server" Width="170px" Height="127px" ScrollBars="Vertical" CssClass="form-control">
+                            <asp:Panel runat="server" Width="170px" Height="137px"  ScrollBars="Vertical" CssClass="form-control">
                                 <asp:CheckBoxList runat="server" ID="cblCorredores" />
                             </asp:Panel>
                         </td>   
         </div>
 
-                <div class="form-group col-sm-2">
+            <!-- <div class="form-group col-sm-2">
             <label for="permiteldl">Permite:</label><br />
-            <asp:DropDownList ID="ddlPermissoes" runat="server" CssClass="form-control" Checked="false" Width="80px" height="30px">
+            <asp:DropDownList ID="ddlPermissoes" runat="server" CssClass="form-control" Checked="false" Width="80px" height="30px" >
                                         <asp:ListItem Text="Sim" Value="0" />
                                         <asp:ListItem Text="Não" Value="1" />
                                         <asp:ListItem Text="Todos" Value="2" Selected="True" />
             </asp:DropDownList>    
-             </div>
+             </div>-->
 
             </div>
             <div class="row">
@@ -155,7 +155,7 @@
                                             <asp:LinkButton runat="server" ID="lnkNome" OnClick="lnkNome_Click" Text="Nome" /></th>
 
                                           <!--CPF-->
-                                        <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89); ">
+                                        <th style="width: 6%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89); ">
                                             <asp:LinkButton runat="server" ID="lnkCPF" OnClick="lnkCPF_Click" Text="CPF" /></th>
                                   
                                         <!--Corredores-->
@@ -176,13 +176,13 @@
 
 
                                         <!--Permite LDL-->
-                                        <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                            <asp:LinkButton runat="server" ID="lnkPerLDL" OnClick="lnkPerLDL_Click" Text="Perm. LDL" /></th>
+                                         <!--<th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                            <asp:LinkButton runat="server" ID="lnkPerLDL" OnClick="lnkPerLDL_Click" Text="Perm. LDL" /></th>-->
 
 
                                         <!--Ultima solicitação-->
-                                        <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                            <asp:LinkButton runat="server" ID="lnkUltSol" OnClick="lnkUltSol_Click" Text="Ult. Sol." /></th>
+                                        <!--<th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                            <asp:LinkButton runat="server" ID="lnkUltSol" OnClick="lnkUltSol_Click" Text="Ult. Sol." /></th>-->
 
 
                                         <!--Ativo-->
@@ -217,9 +217,9 @@
 
                                 <td style="width: 20px; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Empresa")%>"><%# Eval("Empresa")%> </td>
 
-                                <td style="width: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); " title="<%# Eval("PermissaoLDL")%>"><%# Eval("PermissaoLDL")%> </td> 
+                                <!--<td style="width: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); " title="<%# Eval("PermissaoLDL")%>"><%# Eval("PermissaoLDL")%> </td> 
 
-                                <td style="width: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); " title="<%# Eval("UltSolicitacao")%>"><%# Eval("UltSolicitacao")%> </td>
+                                <td style="width: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); " title="<%# Eval("UltSolicitacao")%>"><%# Eval("UltSolicitacao")%> </td>-->
 
                                 <td style="width: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); " title="<%# Eval("Ativo_SN")%>"><%# Eval("Ativo_SN")%> </td>
                             </tr>
