@@ -573,7 +573,7 @@
                         <a id="link1" data-toggle="collapse" title="Filtros F9" data-parent="#macros" href="macros#filtros" style="margin-left: 3px; font-size: 15px" accesskey="F9"><b>Filtros</b> <i class="fa fa-search"></i></a>
                     </div>
                 </div>
-                <div id="filtros" class="collapse">
+                <div id="filtros"  class="collapse">
                     <table>
                         <tr>
                             <td style="width: 160px;">
@@ -601,6 +601,15 @@
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
                                         <asp:DropDownList ID="ddlFiltroTipo" runat="server" CssClass="form-control" Width="150" ToolTip="Informe o tipo da restrição a ser filtrada." />
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </td>
+                            <td style="width: 160px;">
+                                <label for="grupo">Status Restrição:</label><br />
+                                <asp:UpdatePanel runat="server" >
+                                    <ContentTemplate>   
+                                        <asp:CheckBoxList runat="server" ID="cblStatus"  CssClass="form-control"  Width="150" Height="90" />
+                                                                                                                                                              
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </td>

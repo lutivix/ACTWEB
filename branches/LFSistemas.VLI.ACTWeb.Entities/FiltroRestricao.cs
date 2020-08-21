@@ -20,6 +20,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Velocidade { get; set; }
         public string Responsavel { get; set; }
         public string Observacao { get; set; }
+        public string Status { get; set; }
 
         #endregion
     }

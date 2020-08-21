@@ -200,7 +200,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             ddlFiltroTipo.DataSource = restricaoController.ObterFiltroTipo();
             ddlFiltroTipo.DataBind();
             ddlFiltroTipo.Items.Insert(0, new ListItem("Selecione", ""));
-        }
+        }       
 
         public void ComboDadosSecoes()
         {
@@ -679,6 +679,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             txtFiltroKm_Inicial.Text = txtFiltroKm_Final.Text =
             txtFiltroObs.Text =
             txtFiltroNumeroRestricao.Text = string.Empty;
+            cblStatus.ClearSelection();
 
             AtualizarListaDeRestricoes();
         }
@@ -1069,9 +1070,19 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 ddlDadosSubTipoVR.Items.Insert(0, new ListItem("HL - Homens trabalhando as margens da linha", "4"));
                 ddlDadosSubTipoVR.Items.Insert(0, new ListItem("HT - Homens trabalhando na linha", "3"));
                 ddlDadosSubTipoVR.Items.Insert(0, new ListItem("RL - Ronda de linha", "2"));
-                ddlDadosSubTipoVR.Items.Insert(0, new ListItem("US - Ultrassom", "1"));
+                ddlDadosSubTipoVR.Items.Insert(0, new ListItem("US - Unidade de Serviço", "1"));
                 ddlDadosSubTipoVR.Items.Insert(0, new ListItem("Selecione", "0"));
             }
+
+            cblStatus.Items.Clear();
+
+            if (cblStatus.Items.Count == 0)
+            {                
+                cblStatus.Items.Insert(0, "P - Programada");
+                cblStatus.Items.Insert(1, "E - Vigente");
+                cblStatus.Items.Insert(2, "M - Memorizada");
+                cblStatus.Items.Insert(3, "X - Rejeitada");                
+            }            
 
             ddlDadosSecoes.SelectedItem.Text = "Selecione";
             ddlDadosSecoes.SelectedIndex = 0;
@@ -1173,6 +1184,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             var _sb = ddlFiltroSB.SelectedItem.Value != string.Empty ? ddlFiltroSB.SelectedItem.Value : null;
             var _obs = txtFiltroObs.Text != string.Empty ? txtFiltroObs.Text : null;
 
+            List<string> statuses = new List<string>();
+            string _status = string.Empty;
+
+            for (int i = 0; i <= cblStatus.Items.Count - 1; i++)
+            {
+                if (cblStatus.Items[i].Selected)
+                {
+                    statuses.Add( cblStatus.Items[i].Value.Substring(0,1)  );
+                }
+            }
+
+            if (statuses.Count > 0)
+            {
+                _status = string.Join(",", statuses);
+            }            
 
             var restricaoController = new RestricaoController();
 
@@ -1185,7 +1211,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 Km_Final = _kmFim,
                 Observacao = _obs,
                 Tipo_Restricao = _perfil,
-                Subtipo_VR = _subTipo
+                Subtipo_VR = _subTipo,
+                Status = _status
             });
 
 

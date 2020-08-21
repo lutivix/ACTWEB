@@ -74,7 +74,7 @@
                <td style="width: 30%" rowspan="2">
                             <label for="subtipos">Subtipos:</label><br />
                             <asp:Panel runat="server" Width="80px" Height="147px" ScrollBars="Vertical" CssClass="form-control">
-                                <asp:CheckBoxList runat="server" ID="cblSubtipos" />
+                                <asp:CheckBoxList runat="server" ID="cblSubtipos" OnSelectedIndexChanged="cblSubtipos_SelectedIndexChanged" AutoPostBack="true" />
                             </asp:Panel>
                         </td>   
         </div>

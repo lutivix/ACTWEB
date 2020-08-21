@@ -71,7 +71,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             txtCPF.Text = usuario.CPF != null ? usuario.CPF.Trim() : string.Empty;
             txtSupervisao.Text = usuario.Supervisao.Trim();
             ddlCorredores.SelectedIndex = ddlCorredores.Items.IndexOf(ddlCorredores.Items.FindByText(usuario.Nome_Corredor));
-            chkAtivo.Checked = usuario.Ativo_SN == "Sim" ? true : false;
+            //chkAtivo.Checked = usuario.Ativo_SN == "Sim" ? true : false;
             if (usuario.PermissaoLDL.Equals("Sim"))
             {
                 ddlPermissoes.SelectedValue = "0";
@@ -90,7 +90,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
                     cblSubtipos.Items[index].Selected = true;
                 }
-            } 
+            }
+
+            chkAtivo.Checked = subtipos.Count > 0 ? true : false;
 
             if(cblSubtipos.Items[0].Selected)
             {
@@ -195,7 +197,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                     }
                     else
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não foi possível realizar esta operação, tente novamente mais tarde.' }); window.location='/Default.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'", true);
-                }
+                }                
         }
         protected void btnExcluir_Click(object sender, EventArgs e)
         {
@@ -349,6 +351,22 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
         }
 
         #endregion
+
+        protected void cblSubtipos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool ativo = false;
+            for (int i = 0; i < 7; i++)
+            {               
+
+                if(cblSubtipos.Items[i].Selected)
+                {
+                    ativo = true;
+                    break;
+                }
+                    
+            }
+            chkAtivo.Checked = ativo;
+        }
 
     }
 }

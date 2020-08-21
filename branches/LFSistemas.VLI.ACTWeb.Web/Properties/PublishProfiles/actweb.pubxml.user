@@ -15,7 +15,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2020 15:31:24</publishTime>
     </File>
     <File Include="ACTWEB.Master">
-      <publishTime>08/19/2020 14:30:43</publishTime>
+      <publishTime>08/19/2020 15:02:04</publishTime>
     </File>
     <File Include="Ajuda/Erro.aspx">
       <publishTime>06/12/2020 15:31:24</publishTime>
@@ -162,25 +162,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>08/19/2020 14:32:21</publishTime>
+      <publishTime>08/21/2020 09:40:06</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
       <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>08/19/2020 14:32:21</publishTime>
+      <publishTime>08/21/2020 09:40:01</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
       <publishTime>09/08/2016 12:55:17</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>08/19/2020 14:32:20</publishTime>
+      <publishTime>08/21/2020 09:39:59</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>08/19/2020 14:32:22</publishTime>
+      <publishTime>08/21/2020 09:40:10</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>
@@ -333,7 +333,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2020 15:31:24</publishTime>
     </File>
     <File Include="Cadastro/UsuariosAutorizados.aspx">
-      <publishTime>08/13/2020 11:03:56</publishTime>
+      <publishTime>08/21/2020 09:37:28</publishTime>
     </File>
     <File Include="cc3260.dll">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -1686,7 +1686,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/12/2020 16:01:45</publishTime>
     </File>
     <File Include="Restricoes/popupRelatorioRestricoesPorData.aspx">
-      <publishTime>08/04/2020 10:18:20</publishTime>
+      <publishTime>04/08/2020 10:18:20</publishTime>
     </File>
     <File Include="Restricoes/popupRelatorioRestricoesTemperatura.aspx">
       <publishTime>06/12/2020 15:31:24</publishTime>
@@ -1695,7 +1695,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/16/2020 09:16:24</publishTime>
     </File>
     <File Include="Restricoes/popupRestricoes.aspx">
-      <publishTime>08/19/2020 13:17:31</publishTime>
+      <publishTime>08/21/2020 08:45:52</publishTime>
     </File>
     <File Include="slide/slide01.png">
       <publishTime>02/07/2015 14:49:54</publishTime>

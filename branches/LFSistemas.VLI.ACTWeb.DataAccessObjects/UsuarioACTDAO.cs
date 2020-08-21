@@ -1034,7 +1034,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     command.CommandText = query.ToString();
                     command.ExecuteNonQuery();
 
-                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " - Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Permite LDL: " + usuario.LDL, Uteis.OPERACAO.Inseriu.ToString());
+                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " - Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF, Uteis.OPERACAO.Inseriu.ToString());
 
                     #endregion
                 }
@@ -1091,7 +1091,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     command.CommandText = query.ToString();
                     command.ExecuteNonQuery();
 
-                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", usuario.Usuario_ID.ToString(), null, "Usuário: " + usuario.Nome + " - Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF, Uteis.OPERACAO.Atualizou.ToString());
+                    //LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", usuario.Usuario_ID.ToString(), null, "Usuário: " + usuario.Nome + " - Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF, Uteis.OPERACAO.Atualizou.ToString());
 
                     #endregion
                 }
@@ -1103,7 +1103,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 throw new Exception(ex.Message);
             }
 
-            return retorno = true;
+            retorno = true;
+
+            return retorno;
         }
 
         /// <summary>

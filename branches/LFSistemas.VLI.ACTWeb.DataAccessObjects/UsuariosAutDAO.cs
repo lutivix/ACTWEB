@@ -339,7 +339,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     if (reader == 1)
                     {
-                        LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Permite LDL: " + usuario.PermissaoLDL, Uteis.OPERACAO.Inseriu.ToString());
+                        LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF, Uteis.OPERACAO.Inseriu.ToString());
                     }
                     
 
@@ -402,14 +402,22 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     string listaSubtipos = string.Join(",", subtiposLog);
 
+                    /**/
                     if (origem.Equals("Inserir"))
                     {
-                        LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Subtipos BS Autorizados: " + listaSubtipos, Uteis.OPERACAO.Inseriu.ToString());
+                        if (listaSubtipos != string.Empty)
+                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Permissões: " + listaSubtipos, Uteis.OPERACAO.Inseriu.ToString());
+                        else
+                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Sem permissões!", Uteis.OPERACAO.Inseriu.ToString());
                     }
                     else if(origem.Equals("Atualizar"))
                     {
-                        LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Subtipos BS Autorizados: " + listaSubtipos, Uteis.OPERACAO.Atualizou.ToString());
+                        if (listaSubtipos != string.Empty)
+                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Permissões: " + listaSubtipos, Uteis.OPERACAO.Atualizou.ToString());
+                        else
+                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Sem Permissões!", Uteis.OPERACAO.Atualizou.ToString());
                     }
+                    /**/
 
                     
                 }
@@ -575,7 +583,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     command.CommandText = query.ToString();
                     command.ExecuteNonQuery();
 
-                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", usuario.Usuario_ID.ToString(), null, "Usuário: " + usuario.Nome + " - Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Permite LDL: " + usuario.PermissaoLDL, Uteis.OPERACAO.Atualizou.ToString());
+                    //LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", usuario.Usuario_ID.ToString(), null, "Usuário: " + usuario.Nome + " - Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF, Uteis.OPERACAO.Atualizou.ToString());
 
                     #endregion
                 }
@@ -885,6 +893,10 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             else if(subtipo_id.Equals("6"))
             {
                 return "PP";
+            }
+            else if (subtipo_id.Equals("7"))
+            {
+                return "LDL";
             }
             else
             {

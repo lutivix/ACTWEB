@@ -77,7 +77,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                         FROM ACTPP.RESTRICOES_PROGRAMADAS A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B
                                                         WHERE A.TR_ID_TP = B.TR_ID_TP 
                                                           AND A.EV_ID_ELM = C.EV_ID_ELM 
-                                                          AND A.RP_ST_RP IN ('P','M', 'X') 
+                                                            ${STATUSP} 
                                                           AND A.TR_ID_TP > 1
                                                             ${EV_NOM_MAC}
                                                             ${RP_ID_RP}
@@ -94,7 +94,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                         FROM ACTPP.RESTRICOES_CIRCULACAO A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B 
                                                         WHERE A.TR_ID_TP = B.TR_ID_TP 
                                                           AND A.EV_ID_ELM = C.EV_ID_ELM 
-                                                          AND A.RC_ST = 'E' 
+                                                            ${STATUSE}
                                                           AND A.TR_ID_TP > 1
                                                             ${EV_NOM_MAC}
                                                             ${RC_ID_RC}
@@ -172,6 +172,57 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         query.Replace("${RP_OBS}", " ");
                         query.Replace("${RC_OBS}", " ");
+                    }
+
+                    if (filtro.Status != string.Empty)
+                    {
+                        string statusp = string.Empty;
+                        bool iniciou = false;
+
+
+                        if(filtro.Status.Contains("E"))
+                            query.Replace("${STATUSE}", " AND A.RC_ST = 'E' ");
+                        else
+                            query.Replace("${STATUSE}", " AND A.RC_ST = 'q' ");// UMA LETRA QUALQUER PRA NÃO TRAZER NENHUMA DA TABELA DAS PROGRAMADAS, JÁ QUE SÓ QUE AS PROGRAMADAS
+                        
+                        if(filtro.Status.Contains("P"))
+                        {
+                            iniciou = true;
+                            statusp = "'P'";
+                        }
+                           
+
+                        if(filtro.Status.Contains("X"))
+                        {
+                            if(iniciou)
+                                statusp = statusp + ",'X'";
+                            else
+                            {
+                                statusp =  "'X'";
+                                iniciou = true;
+                            }
+                        }
+                            
+
+                        if(filtro.Status.Contains("M"))
+                        {
+                            if(iniciou)
+                                statusp = statusp + ",'M'";                            
+                            else
+                                statusp = "'M'";                            
+                        }
+                            
+
+                        if(statusp != string.Empty)
+                            query.Replace("${STATUSP}", string.Format(" AND A.RP_ST_RP IN ({0}) ", statusp.ToUpper())) ;
+                        else
+                            query.Replace("${STATUSP}", " AND A.RP_ST_RP IN ('q') ");// UMA LETRA QUALQUER PRA NÃO TRAZER NENHUMA DA TABELA DAS PROGRAMADAS, JÁ QUE SÓ QUE AS VIGENTES
+                        
+                    }
+                    else
+                    {
+                        query.Replace("${STATUSP}", " AND A.RP_ST_RP IN ('P','M', 'X') ");
+                        query.Replace("${STATUSE}", " AND A.RC_ST = 'E' ");
                     }
 
                     #endregion
@@ -1274,7 +1325,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         SELECT B.TR_COD_TP FROM ACTPP.RESTRICOES_PROGRAMADAS A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B
                                             WHERE A.TR_ID_TP  = B.TR_ID_TP 
                                                 AND A.EV_ID_ELM = C.EV_ID_ELM 
-                                                AND A.RP_ST_RP  = 'P' 
+                                                AND A.RP_ST_RP  IN  ('P','M','X') 
                                                 AND A.TR_ID_TP > 1  
                                         UNION ALL
                                         SELECT B.TR_COD_TP FROM ACTPP.RESTRICOES_CIRCULACAO A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.TIPOS_RESTRICAO B 

@@ -742,7 +742,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             var corredores = pesquisa.ComboBoxCorredores();
 
             if (corredores.Count > 0)
-            {
+            {                
                 cblCorredores.DataValueField = "ID";
                 cblCorredores.DataTextField = "DESCRICAO";
                 cblCorredores.DataSource = corredores;
