@@ -527,7 +527,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         {
             var usuarioController = new UsuariosAutController();
 
-            if (cblSubtipos.Items[0].Selected)
+            if (cblSubtipos.Items.FindByValue("7").Selected)
+            //if (cblSubtipos.Items[0].Selected)
             {
                 ddlPermissoes.SelectedValue = "0";
                 usuarioFiltro.PermissaoLDL = "S";
@@ -725,7 +726,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 cblSubtipos.DataSource = subtipos;
                 cblSubtipos.DataBind();
 
-                if (cblSubtipos.Items[0].Selected)
+                if (cblSubtipos.Items.FindByValue("7").Selected)
+                //if (cblSubtipos.Items[0].Selected)
                 {
                     ddlPermissoes.SelectedValue = "0";
                     //usuarioFiltro.PermissaoLDL = "S";
@@ -790,7 +792,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 corredoresFiltro = string.Join(",", corredores_id);
             }
 
-            if (cblSubtipos.Items[0].Selected == true)
+            if (cblSubtipos.Items.FindByValue("7").Selected)
+           // if (cblSubtipos.Items[0].Selected == true)
             {
                 permiteLDLFiltro = "S";
             }

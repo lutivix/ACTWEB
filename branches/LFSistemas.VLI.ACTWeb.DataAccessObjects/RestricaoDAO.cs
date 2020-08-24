@@ -811,7 +811,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select  OP_BS_MAT, OP_BS_NM, OP_PERMITE_LDL, OP_PERFIL_ATIVO 
+                    query.Append(@"select  OP_BS_MAT, OP_BS_NM, BS_OP_ATIVO, OP_PERFIL_ATIVO 
                                     from actpp.OPERADORES_BS OBS, actpp.bs_operador BO 
                                       WHERE OP_CPF IN (${cpf}) 
                                         AND OBS.OP_BS_ID = BO.OP_BS_ID
@@ -875,7 +875,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select OP_BS_MAT, OP_BS_NM, OP_PERMITE_LDL, OP_PERFIL_ATIVO 
+                    query.Append(@"select OP_BS_MAT, OP_BS_NM, BS_OP_ATIVO, OP_PERFIL_ATIVO 
                                         from actpp.OPERADORES_BS OBS, actpp.bs_operador BO 
                                       WHERE OP_CPF IN (${cpf}) 
                                         AND OBS.OP_BS_ID = BO.OP_BS_ID
@@ -938,7 +938,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT OP_BS_MAT, OP_BS_NM, OP_PERMITE_LDL, OP_PERFIL_ATIVO 
+                    query.Append(@"SELECT OP_BS_MAT, OP_BS_NM, BS_OP_ATIVO, OP_PERFIL_ATIVO 
                                         FROM ACTPP.OPERADORES_BS OBS, actpp.BS_OPERADOR BSOP 
                                     WHERE OBS.OP_BS_ID = BSOP.OP_BS_ID
                                     AND BSOP.SR_ID_STR = 7 AND BSOP.BS_OP_ATIVO = 'S'  

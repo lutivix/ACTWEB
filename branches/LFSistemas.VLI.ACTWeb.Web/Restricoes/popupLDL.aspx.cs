@@ -886,7 +886,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                 var dados = responsavel.PermiteLDL(txtDadosResponsavel.Text);
 
-                if (dados.Matricula != null)
+                if (dados != null && dados.Matricula != null)
                 {
                     if (dados.LDL != "Não" && dados.Ativo == true)
                     {

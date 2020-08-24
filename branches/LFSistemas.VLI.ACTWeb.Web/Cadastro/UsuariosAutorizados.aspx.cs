@@ -94,7 +94,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
             chkAtivo.Checked = subtipos.Count > 0 ? true : false;
 
-            if(cblSubtipos.Items[0].Selected)
+            //P714 - Item 7 é a LDL
+
+            if(cblSubtipos.Items.FindByValue("7").Selected) 
+            //if(cblSubtipos.Items[0].Selected)
             {
                 ddlPermissoes.SelectedValue = "0";
                 usuario.PermissaoLDL = "S";
@@ -134,7 +137,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             usuario.Empresa = txtEmpresa.Text.Trim();
             usuario.Ativo_SN = chkAtivo.Checked ? "S" : "N";
 
-            if (cblSubtipos.Items[0].Selected)
+            //if (cblSubtipos.Items[0].Selected)
+            if (cblSubtipos.Items.FindByValue("7").Selected)
             {
                 ddlPermissoes.SelectedValue = "0";
                 usuario.PermissaoLDL = "S";
@@ -317,7 +321,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                 cblSubtipos.DataSource = subtipos;
                 cblSubtipos.DataBind();
 
-                if (cblSubtipos.Items[0].Selected)
+                if (cblSubtipos.Items.FindByValue("7").Selected)
+                //if (cblSubtipos.Items[0].Selected)
                 {
                     ddlPermissoes.SelectedValue = "0";
                     //usuario.PermissaoLDL = "S";

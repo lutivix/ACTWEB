@@ -1285,7 +1285,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                 var dados = responsavel.PermiteBS(txtDadosCpf.Text, int.Parse(ddlDadosSubTipoVR.SelectedItem.Value));
 
-                if (dados.Matricula != null)
+                if (dados != null && dados.Matricula != null)
                 {
                     if (dados.Ativo == true)
                     {
