@@ -180,8 +180,14 @@
             txtDadosDuracao = document.getElementById('<%=txtDadosDuracao.ClientID %>').value;
             txtDadosVelocidade = document.getElementById('<%=txtDadosVelocidade.ClientID %>').value;      
 
-            var kmini = parseFloat(txtDadosKm_Inicio);
-            var kmfim = parseFloat(txtDadosKm_Final);
+            var kmini = parseFloat(txtDadosKm_Inicio.replace(',', '.'));
+            var kmfim = parseFloat(txtDadosKm_Final.replace(',', '.'));
+
+            /**
+            alert(ddlDadosSubTipoVR);
+            alert(kmini.toString());
+            alert((kmfim-kmini).toString());
+            /**/
 
             //if (((kmfim - kmini) > 2) || ((kmini - kmfim) > 2))
             //    alert(ddlDadosSubTipoVR);
@@ -190,11 +196,12 @@
 
             if (ddlDadosTipoRestricao == '26' || ddlDadosTipoRestricao == '27')
             {
-                if (ddlDadosSubTipoVR == 3 ||
-                    ddlDadosSubTipoVR == 4 ||
-                    ddlDadosSubTipoVR == 5)
+                if (ddlDadosSubTipoVR == '3' ||
+                    ddlDadosSubTipoVR == '4' ||
+                    ddlDadosSubTipoVR == '5')
                 {
                     
+                    //alert((kmfim - kmini));
                     //BootstrapDialog.show({ title: 'ATENÇÃO!', message: kmini.toString() });
                     //BootstrapDialog.show({ title: 'ATENÇÃO!', message: kmfim.toString() });                    
 

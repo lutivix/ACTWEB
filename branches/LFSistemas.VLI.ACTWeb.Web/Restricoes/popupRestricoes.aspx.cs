@@ -482,7 +482,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     return;
                 }
 
-                if (!restricaoController.PermiteBS(txtDadosCpf.Text, int.Parse(ddlDadosSubTipoVR.SelectedItem.Value)) )
+                if (restricaoController.PermiteBS(txtDadosCpf.Text, int.Parse(ddlDadosSubTipoVR.SelectedItem.Value)) == null )
                 {
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido o CPF informado não ter permissão para criação desse subtipo de BS.' });", true);
                     return;
@@ -1283,11 +1283,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             {
                 RestricaoController responsavel = new RestricaoController();
 
-                var dados = responsavel.PermiteLDL(txtDadosCpf.Text);
+                var dados = responsavel.PermiteBS(txtDadosCpf.Text, int.Parse(ddlDadosSubTipoVR.SelectedItem.Value));
 
                 if (dados.Matricula != null)
                 {
-                    if (dados.LDL != "Não" && dados.Ativo == true)
+                    if (dados.Ativo == true)
                     {
                         lblResponsavel_Nome.Text = dados.Nome.Trim();
                         txtDadosObs.Focus();

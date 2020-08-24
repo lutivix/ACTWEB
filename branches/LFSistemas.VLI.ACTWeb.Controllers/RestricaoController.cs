@@ -60,7 +60,7 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ExisteInterdicao(Secao);
         }
 		
-		public bool PermiteBS(string cpf, int subtipoVR)
+		public Responsavel PermiteBS(string cpf, int subtipoVR)
         {
             return dao.PermiteBS(cpf, subtipoVR);
         }
