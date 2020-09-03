@@ -251,7 +251,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtDadosDuracao.Enabled =
                     txtDadosVelocidade.Enabled = !habilita;
             }
-            else if ((lblUsuarioPerfil.Text == "CCM") || (lblUsuarioPerfil.Text == "CTD") || (lblUsuarioPerfil.Text == "CTD - LOCO") || (lblUsuarioPerfil.Text == "CTD - VAG"))
+            else if ((lblUsuarioPerfil.Text == "CCM") || (lblUsuarioPerfil.Text == "CTD") || (lblUsuarioPerfil.Text == "CTD-LOCO") || (lblUsuarioPerfil.Text == "CTD-VAG"))
             {
                 ddlDadosTipoRestricao.SelectedItem.Text = "VR - Boletim de Serviço";
                 ddlDadosTipoRestricao.SelectedItem.Value = "26";
