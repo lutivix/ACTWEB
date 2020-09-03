@@ -59,6 +59,16 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ExisteInterdicao(Secao);
         }
+
+        public bool ESBAssistida(int secao)
+        {
+            return dao.ESBAssistida(secao);
+        }
+
+        public bool ESerraPerigosa(int secao)
+        {
+            return dao.ESerraPerigosa(secao);
+        }
 		
 		public Responsavel PermiteBS(string cpf, int subtipoVR)
         {
@@ -95,6 +105,17 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ChecaVR(id);
         }
+
+        public bool ChecaVRMemorizada(double id)
+        {
+            return dao.ChecaVRMemorizada(id);
+        }
+
+        public bool ChecaVRRejeitada(double id)
+        {
+            return dao.ChecaVRRejeitada(id);
+        }
+
         /// <summary>
         /// Obtem uma lista com os km da seção
         /// </summary>

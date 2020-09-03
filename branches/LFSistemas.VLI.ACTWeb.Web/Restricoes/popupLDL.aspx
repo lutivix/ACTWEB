@@ -526,7 +526,7 @@
                     <a id="link1" data-toggle="collapse" title="Filtros F9" data-parent="#macros" href="macros#filtros" style="margin-left: 3px; font-size: 15px" accesskey="F9"><b>Filtros</b> <i class="fa fa-search"></i></a>
                 </div>
             </div>
-            <div id="filtros" >
+            <div id="filtros" class="collapse">
                 <table style="width: 100%; ">
                     <tr>
                         <td style="width: 5%; padding: 1px;">

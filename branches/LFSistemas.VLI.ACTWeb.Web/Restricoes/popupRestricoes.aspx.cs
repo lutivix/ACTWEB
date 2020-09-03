@@ -253,8 +253,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             }
             else if ((lblUsuarioPerfil.Text == "CCM") || (lblUsuarioPerfil.Text == "CTD") || (lblUsuarioPerfil.Text == "CTD - LOCO") || (lblUsuarioPerfil.Text == "CTD - VAG"))
             {
-                ddlDadosTipoRestricao.SelectedItem.Text = "Boletim de Serviço";
+                ddlDadosTipoRestricao.SelectedItem.Text = "VR - Boletim de Serviço";
                 ddlDadosTipoRestricao.SelectedItem.Value = "26";
+
                 txtDadosVelocidade.Text = "VR";
 
                 ddlFiltroTipo.SelectedItem.Text = "VR";
@@ -279,9 +280,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             }
             else if (lblUsuarioPerfil.Text == "OP ELE")
             {
-                ddlDadosTipoRestricao.SelectedItem.Text = "Boletim de Serviço";
+                ddlDadosTipoRestricao.SelectedItem.Text = "VR - Boletim de Serviço";
                 ddlDadosTipoRestricao.SelectedItem.Value = "26";
+
                 txtDadosVelocidade.Text = "VR";
+
                 ddlDadosSubTipoVR.SelectedItem.Text = "EE";
                 ddlDadosSubTipoVR.SelectedItem.Value = "5";
 
@@ -470,6 +473,18 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             //Verifica se o boletim de serviço é tipo velocidade restrita
             if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
             {
+                if ( restricaoController.ESBAssistida(int.Parse(ddlDadosSecoes.SelectedItem.Value)) )
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido a SB informada ser Assistida.' });", true);
+                    return;
+                }
+
+                if (restricaoController.ESerraPerigosa(int.Parse(ddlDadosSecoes.SelectedItem.Value)) && (subtipoVR == "HT"))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido a SB informada ser uma Serra Perigosa.' });", true);
+                    return;
+                }
+
                 if (txtDadosCpf.Text.Length <= 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Informa o CPF.' });", true);
@@ -556,7 +571,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                     usuario.AtualizarDataUltSolBSOP(CPF, usuarioID, ddlDadosSubTipoVR.SelectedItem.Value);
                                 }
                                
-                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição programada com sucesso. " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
+                                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição programada com sucesso. " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
                             }
                             else
                             {
@@ -570,7 +585,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                     usuario.AtualizarDataUltSol(CPF, matricula, usuarioID, acao);
                                 }
                                 
-                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição criada com sucesso. " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
+                                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição criada com sucesso. " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
                             }
 
                             LimpaCampos();
@@ -921,7 +936,26 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         if (restricaoController.ChecaVR(IdConfirmacao))
                         {
                             retorno = programouRestricao = true;
-                            LogDAO.GravaLogBanco(dataHoraEnvio, lblUsuarioMatricula.Text, "Restrições", null, IdConfirmacao.ToString(), "Restrição programada com sucesso. SB: " + rr.Secao_Elemento + " - ID: " + rr.ProgramadaID + " - TR: " + rr.Tipo_Restricao + " - STR: " + rr.SubTipo_VR + " - DTI: " + DateTime.FromOADate(DataIni) + " - DTF: " + DateTime.FromOADate(DataFim) + " - KMI: " + rr.Km_Inicial + " - KMF: " + rr.Km_Final + " - RESP: " + rr.Responsavel + " - CPF: " + rr.Cpf + " - OBS: " + rr.Observacao, Uteis.OPERACAO.Programou.ToString());
+                            //Vai checar memorizada e depois rejeitada
+                            if (restricaoController.ChecaVRMemorizada(IdConfirmacao))
+                            {                                
+                                LogDAO.GravaLogBanco(dataHoraEnvio, lblUsuarioMatricula.Text, "Restrições", null, IdConfirmacao.ToString(), "Restrição MEMORIZADA. SB: " + rr.Secao_Elemento + " - ID: " + rr.ProgramadaID + " - TR: " + rr.Tipo_Restricao + " - STR: " + rr.SubTipo_VR + " - DTI: " + DateTime.FromOADate(DataIni) + " - DTF: " + DateTime.FromOADate(DataFim) + " - KMI: " + rr.Km_Inicial + " - KMF: " + rr.Km_Final + " - RESP: " + rr.Responsavel + " - CPF: " + rr.Cpf + " - OBS: " + rr.Observacao, Uteis.OPERACAO.Programou.ToString());
+                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição MEMORIZADA! - " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
+                            }
+                            else if (restricaoController.ChecaVRRejeitada(IdConfirmacao))
+                            {                               
+                                LogDAO.GravaLogBanco(dataHoraEnvio, lblUsuarioMatricula.Text, "Restrições", null, IdConfirmacao.ToString(), "Restrição REJEITADA. SB: " + rr.Secao_Elemento + " - ID: " + rr.ProgramadaID + " - TR: " + rr.Tipo_Restricao + " - STR: " + rr.SubTipo_VR + " - DTI: " + DateTime.FromOADate(DataIni) + " - DTF: " + DateTime.FromOADate(DataFim) + " - KMI: " + rr.Km_Inicial + " - KMF: " + rr.Km_Final + " - RESP: " + rr.Responsavel + " - CPF: " + rr.Cpf + " - OBS: " + rr.Observacao, Uteis.OPERACAO.Programou.ToString());
+                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição REJEITADA! - " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
+                            }
+                            else
+                            {                                
+                                LogDAO.GravaLogBanco(dataHoraEnvio, lblUsuarioMatricula.Text, "Restrições", null, IdConfirmacao.ToString(), "Restrição programada com sucesso. SB: " + rr.Secao_Elemento + " - ID: " + rr.ProgramadaID + " - TR: " + rr.Tipo_Restricao + " - STR: " + rr.SubTipo_VR + " - DTI: " + DateTime.FromOADate(DataIni) + " - DTF: " + DateTime.FromOADate(DataFim) + " - KMI: " + rr.Km_Inicial + " - KMF: " + rr.Km_Final + " - RESP: " + rr.Responsavel + " - CPF: " + rr.Cpf + " - OBS: " + rr.Observacao, Uteis.OPERACAO.Programou.ToString());
+                                if (DataIni > DateTime.Now.ToOADate())
+                                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição programada com sucesso. " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
+                                else
+                                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição criada com sucesso. " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
+                            }
+                            
                         }
                         else
                             msg = "A Restrição não pode ser programada.";
@@ -935,6 +969,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                 LogDAO.GravaLogBanco(dataHoraEnvio, lblUsuarioMatricula.Text, "Restrições", null, IdConfirmacao.ToString(), "Restrição criada com sucesso. SB: " + rr.Secao_Elemento + " - ID: " + rr.CirculacaoID + " - TR: " + rr.Tipo_Restricao + " - STR: " + rr.SubTipo_VR + " - DTI: " + DateTime.FromOADate(DataIni) + " - DTF: " + DateTime.FromOADate(DataFim) + " - KMI: " + rr.Km_Inicial + " - KMF: " + rr.Km_Final + " - RESP: " + rr.Responsavel + " - CPF: " + rr.Cpf + " - OBS: " + rr.Observacao, Uteis.OPERACAO.Criou.ToString());
                             else
                                 LogDAO.GravaLogBanco(dataHoraEnvio, lblUsuarioMatricula.Text, "Restrições", null, IdConfirmacao.ToString(), "Restrição criada com sucesso. SB: " + rr.Secao_Elemento + " - ID: " + rr.CirculacaoID + " - TR: " + rr.Tipo_Restricao + " - STR: " + rr.SubTipo_VR + " - KMI: " + rr.Km_Inicial + " - KMF: " + rr.Km_Final + " - RESP: " + rr.Responsavel + " - CPF: " + rr.Cpf + " - OBS: " + rr.Observacao, Uteis.OPERACAO.Solicitou.ToString());
+
+                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição criada com sucesso. " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
                         }
                         else
                             msg = "A Restrição não pode ser criada.";

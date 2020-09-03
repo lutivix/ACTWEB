@@ -104,7 +104,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                             ${RC_OBS}
                                                             ${TR_COD_TP})
                                                             
-                                        order by Situacao, Data_inicial desc, Secao_Elemento");
+                                        order by Data_inicial desc, Situacao, Secao_Elemento");
 
                     if (filtro.RestricaoID != null)
                     {
@@ -790,6 +790,114 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             }
         }
 
+        public bool ESerraPerigosa (int secao)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+
+           bool retorno = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT * 
+                                    FROM ACTPP.ELEM_VIA EV, ACTPP.ELEM_VIA_FLAG EVF
+                                        WHERE EV.EV_ID_ELM = EVF.EV_ID_ELM
+                                            AND EVF.EF_IND_SRR_PRG = 'T'
+                                            AND EV.EV_ID_ELM = ${SB}");
+
+                    if (secao != 0)
+                        query.Replace("${SB}", string.Format("{0}", secao.ToString()));
+                    else
+                        query.Replace("${SB}", "0");
+                   
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+                    command.CommandText = query.ToString();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            retorno = true;
+                        }                        
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Restrição", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return retorno;
+        }
+
+        public bool ESBAssistida(int secao)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+
+            bool retorno = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT * 
+                                        FROM ACTPP.ELEM_VIA EV
+                                            WHERE EV.EV_IND_IN = 'E'  
+                                            AND EV.EV_ID_ELM = ${SB}");
+
+                    if (secao != 0)
+                        query.Replace("${SB}", string.Format("{0}", secao.ToString()));
+                    else
+                        query.Replace("${SB}", "0");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+                    command.CommandText = query.ToString();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            retorno = true;
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Restrição", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return retorno;
+        }
 
         public Responsavel PermiteBS(string cpf, int subtipoVR)
         {
@@ -1657,6 +1765,102 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
                     query.Append(@"select rc_id_rco  from ACTPP.restricoes_programadas where ${rc_id_rco}");
+
+                    query.Replace("${rc_id_rco}", string.Format(" rc_id_rco = {0}", id));
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            retorno = true;
+                        }
+                    }
+
+                    #endregion
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+
+            return retorno;
+        }
+
+        public bool ChecaVRMemorizada(double id)
+        {
+            #region [ PROPRIEDADES ]
+
+
+            StringBuilder query = new StringBuilder();
+            bool retorno = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"select rc_id_rco  from ACTPP.restricoes_programadas where ${rc_id_rco} and RP_ST_RP = 'M'");
+
+                    query.Replace("${rc_id_rco}", string.Format(" rc_id_rco = {0}", id));
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            retorno = true;
+                        }
+                    }
+
+                    #endregion
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+
+            return retorno;
+        }
+
+        public bool ChecaVRRejeitada(double id)
+        {
+            #region [ PROPRIEDADES ]
+
+
+            StringBuilder query = new StringBuilder();
+            bool retorno = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"select rc_id_rco  from ACTPP.restricoes_programadas where ${rc_id_rco} and RP_ST_RP = 'X'");
 
                     query.Replace("${rc_id_rco}", string.Format(" rc_id_rco = {0}", id));
 
