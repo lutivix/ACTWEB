@@ -45,9 +45,9 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ExisteRestricao(IdElementoVia, IdTipoRestricao, IdSubtipoRestricao, DataInicio, DataFim, VelocidadeMaxima, KmInicio, KmFim);
         }
 
-        public bool ExisteHTProgramada(double IdElementoVia, decimal? KmInicio, decimal? KmFim)
+        public bool ExisteKMConvergente(double IdElementoVia, decimal? KmInicio, decimal? KmFim, int subtipo, DateTime dataEntradaBSAtual, DateTime dataFinalBSAtual)
         {
-            return dao.ExisteHTProgramada(IdElementoVia, KmInicio, KmFim);
+            return dao.ExisteKMConvergente(IdElementoVia, KmInicio, KmFim, subtipo, dataEntradaBSAtual, dataFinalBSAtual);
         }
 
         public bool ExisteHTCircualacao(double IdElementoVia, decimal? KmInicio, decimal? KmFim)
@@ -86,9 +86,9 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         }
 
         //verifica no banco de dados se existe uma VR com mesmo subtipo na mesma sb 
-        public bool VerificaBSmesmoTipo(double secao, double subtipo, DateTime dataEntradaBSAtual, DateTime dataFinalBSAtual)
+        public bool ExisteMesmoSubtipo(int secao, int subtipo, DateTime dataEntradaBSAtual, DateTime dataFinalBSAtual)
         {
-            return dao.VerificaBSmesmoTipo(secao, subtipo, dataEntradaBSAtual, dataFinalBSAtual);
+            return dao.ExisteMesmoSubtipo(secao, subtipo, dataEntradaBSAtual, dataFinalBSAtual);
         }
 
         public Restricao ObterRestricaoPorID(string tipo, double id)

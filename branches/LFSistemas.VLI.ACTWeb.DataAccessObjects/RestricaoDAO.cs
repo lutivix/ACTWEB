@@ -358,7 +358,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return retorno;
         }
 
-        public bool ExisteHTProgramada(double IdElementoVia, decimal? KmInicio, decimal? KmFim)
+        public bool ExisteKMConvergente(double IdElementoVia, decimal? KmInicio, decimal? KmFim, int subtipo, DateTime dataEntradaBSAtual, DateTime dataFinalBSAtual)
         {
             #region [ PROPRIEDADES ]
 
@@ -378,17 +378,71 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select * from actpp.RESTRICOES_PROGRAMADAS 
-                                      WHERE EV_ID_ELM IN (${IdElementoVia})
-                                        AND TR_ID_TP IN (26)
-                                        AND SR_ID_STR IN (3) 
-                                        AND RP_ST_RP != 'C'
-                                        AND RP_ST_RP != 'R'");
+                    query.Append(@"SELECT *
+                                      FROM actpp.RESTRICOES_PROGRAMADAS RP
+                                     WHERE     EV_ID_ELM IN (${IdElementoVia})
+                                           --AND RP_ST_RP IN ('C', 'R')              
+                                           AND RP_ST_RP IN ('E','M','P', 'R')
+                                           AND SR_ID_STR IN (${IdSubtipo})
+                                           AND RP.RP_KM_INI >= ${kmIni}
+                                           AND RP.RP_KM_FIM <= ${kmFim}
+                                           AND (
+                                                (
+                                                    RP_DT_INI > TO_DATE (${DataIni}, 'dd/mm/yyyy hh24:mi:ss')
+                                                    AND RP_DT_INI <  TO_DATE (${DataFim}, 'dd/mm/yyyy hh24:mi:ss') 
+                                                )
+                                                OR
+                                                (   RP_DT_INI > TO_DATE (${DataIniDate}, 'dd/mm/yyyy')
+                                                    AND RP_DT_INI < TO_DATE (${DataIni}, 'dd/mm/yyyy hh24:mi:ss')
+                                                    AND RP_DT_FIM < TO_DATE (${DataFim+1Date}, 'dd/mm/yyyy')
+                                                    AND RP_DT_FIM >TO_DATE (${DataIni}, 'dd/mm/yyyy hh24:mi:ss')
+                                                )
+                                               )");
+
+                    DateTime agora = DateTime.Now;
 
                     if (IdElementoVia != null)
                         query.Replace("${IdElementoVia}", string.Format("{0}", IdElementoVia));
                     else
                         query.Replace("${IdElementoVia}", " ");
+
+                    if (subtipo != null)
+                        query.Replace("${IdSubtipo}", string.Format("{0}", subtipo));
+                    else
+                        query.Replace("${IdSubtipo}", " ");
+
+                    if (KmInicio != null)
+                        query.Replace("${kmIni}", string.Format("{0:F3}", KmInicio.ToString().Replace(",", ".")));
+                    else
+                        query.Replace("${kmIni}", " ");
+
+                    if (KmFim != null)
+                        query.Replace("${kmFim}", string.Format("{0:F3}", KmFim.ToString().Replace(",", ".")));
+                    else
+                        query.Replace("${kmFim}", " ");
+
+                    if (dataEntradaBSAtual != null)
+                    {
+                        query.Replace("${DataIni}", string.Format("'{0}'", dataEntradaBSAtual));
+                        query.Replace("${DataIniDate}", string.Format("'{0}'", dataEntradaBSAtual.ToShortDateString()));
+                    }
+                    else
+                    {
+                        query.Replace("${DataIni}", string.Format("'{0}'", agora));
+                        query.Replace("${DataIniDate}", string.Format("'{0}'", agora.ToShortDateString()));
+                    }
+
+
+                    if (dataFinalBSAtual != null)
+                    {
+                        query.Replace("${DataFim}", string.Format("'{0}'", dataFinalBSAtual));
+                        query.Replace("${DataFim+1Date}", string.Format("'{0}'", dataFinalBSAtual.AddDays(1).ToShortDateString()));
+                    }
+                    else
+                    {
+                        query.Replace("${DataFim}", string.Format("'{0}'", agora));
+                        query.Replace("${DataFim+1Date}", string.Format("'{0}'", agora.AddDays(1).ToShortDateString()));
+                    }      
 
                     #endregion
 
@@ -398,76 +452,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        if (reader.Read())
                         {
-                            var item = PreencherPropriedadesKMHTProg(reader);
-                            itens.Add(item);
+                            //var item = PreencherPropriedadesKMHTProg(reader);
+                            //itens.Add(item);
+                            retorno = true;                           
                         }
                     }
-                    for (int i = 0; i < itens.Count; i++)
-                    {
-                        double dblKm1 = Convert.ToDouble(itens[i].Km_Inicial);
-                        double dblKm2 = Convert.ToDouble(itens[i].Km_Final);
 
-                        if (KmInicio < KmFim)
-                        {
-                            eCrescente = true;
-                        }
-                        else if (KmInicio == KmFim)
-                        {
-                            eParcial = true;
-                        }
-                        else
-                        {
-                            eCrescente = false;
-                        }
-                        if(eCrescente)
-                        {
-                            if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
-                            {
-                                retorno = true;
-                                return retorno;
-                            }
-                            else if (((double)KmFim >= dblKm1) && ((double)KmFim <= dblKm2))
-                            {
-                                retorno = true;
-                                return retorno;
-                            }
-                            else
-                            {
-                                retorno = false;
-                            }
-                        }
-                        else if(eParcial)
-                        {
-                            if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
-                            {
-                                retorno = true;
-                                return retorno;
-                            }
-                            else
-                            {
-                                retorno = false;
-                            }
-                        }
-                        else
-                        {
-                            if (((double)KmInicio >= dblKm1) && ((double)KmInicio <= dblKm2))
-                            {
-                                retorno = true;
-                                return retorno;
-                            }
-                            else if (((double)KmFim >= dblKm1) && ((double)KmFim <= dblKm2))
-                            {
-                                retorno = true;
-                                return retorno;
-                            }
-                            else
-                            {
-                                retorno = false;
-                            }
-                        }
-                    }
+                    return retorno;                    
 
                     #endregion
                 }
@@ -477,9 +470,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Restrição", ex.Message.Trim());
                 if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
                 throw new Exception(ex.Message);
-            }
-
-            return retorno;
+            }           
         }
 
         public bool ExisteHTCircualacao(double IdElementoVia, decimal? KmInicio, decimal? KmFim)
@@ -658,8 +649,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return retorno;
         }
-		
-		public bool VerificaBSmesmoTipo(double secao, double subtipo, DateTime dataEntradaBSAtual, DateTime dataFinalBSAtual)
+
+        public bool ExisteMesmoSubtipo(int secao, int subtipo, DateTime dataEntradaBSAtual, DateTime dataFinalBSAtual)
         {
             #region [ PROPRIEDADES ]
 
@@ -667,7 +658,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             var itens = new List<Restricao>();
 
-            bool podeCriarBS = false;
+            bool retorno = false;
 
             #endregion
 
@@ -681,7 +672,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     DateTime agora = DateTime.Now;
 
-                    query.Append(@"SELECT RP_DT_INI
+                    //Query Antiga
+                    /**
+                     SELECT RP_DT_INI
                                       FROM actpp.RESTRICOES_PROGRAMADAS
                                         WHERE     EV_ID_ELM IN (${IdElementoVia})
                                             AND RP_ST_RP IN ('E','M','P')
@@ -694,17 +687,32 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                     AND RP_DT_INI <  to_date(${DataIni}, 'dd/mm/yyyy hh24:mi:ss')
                                                     AND RP_DT_FIM < to_date(${DataFim+1Date}, 'dd/mm/yyyy')
                                                     AND  RP_DT_FIM > to_date(${DataIni}, 'dd/mm/yyyy hh24:mi:ss')
-                                                    )");
+                                                    )
+                    /**/
 
-                    if (secao != null)
-                        query.Replace("${IdElementoVia}", string.Format("{0}", secao));
-                    else
-                        query.Replace("${IdElementoVia}", " ");
+                    query.Append(@"SELECT *
+                                      FROM actpp.RESTRICOES_PROGRAMADAS
+                                     WHERE  EV_ID_ELM IN (${IdElementoVia})
+                                           --AND RP_ST_RP IN ('C', 'R')              
+                                           AND RP_ST_RP IN ('E','M','P','R')
+                                           ${IdSubtipoRestricao}
+                                            AND (
+                                                    (
+                                                        RP_DT_INI > TO_DATE (${DataIni}, 'dd/mm/yyyy hh24:mi:ss')
+                                                        AND RP_DT_INI <  TO_DATE (${DataFim}, 'dd/mm/yyyy hh24:mi:ss') 
+                                                    )
+                                                    OR
+                                                    (   RP_DT_INI > TO_DATE (${DataIniDate}, 'dd/mm/yyyy')
+                                                        AND RP_DT_INI < TO_DATE (${DataIni}, 'dd/mm/yyyy hh24:mi:ss')
+                                                        AND RP_DT_FIM < TO_DATE (${DataFim+1Date}, 'dd/mm/yyyy')
+                                                        AND RP_DT_FIM >TO_DATE (${DataIni}, 'dd/mm/yyyy hh24:mi:ss')
+                                                    )
+                                                )");
 
-                    if (subtipo != null)
-                        query.Replace("${IdSubtipoRestricao}", string.Format(" AND SR_ID_STR IN ({0})", subtipo));
-                    else
-                        query.Replace("${IdSubtipoRestricao}", " ");
+
+                     query.Replace("${IdElementoVia}", string.Format("{0}", secao.ToString()));
+                     query.Replace("${IdSubtipoRestricao}", string.Format(" AND SR_ID_STR IN ({0})", subtipo.ToString()));
+
 
                     if (dataEntradaBSAtual != null)
                     {
@@ -736,47 +744,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     command.CommandText = query.ToString();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        if (reader.Read())
                         {
-                            var item = PreencherPropriedadesRestricoesProgramadas(reader);
-                            itens.Add(item);
+                            //var item = PreencherPropriedadesRestricoesProgramadas(reader);
+                            //itens.Add(item);
+                            retorno = true;
                         }
-
-                        if (itens.Count > 0)
-                        {
-                            for (int i = 0; i < itens.Count; i++)
-                            {
-                                TimeSpan intervalo = TimeSpan.FromHours(1);
-                                DateTime aux = itens[i].DataIniProg;
-                                DateTime dataIniProg = aux.Subtract(intervalo);
-
-                                int resultado = DateTime.Compare(dataFinalBSAtual, dataIniProg);
-
-                                //Data final programada da BS a entrar é anterior ao início da programada
-                                if (resultado < 0)
-                                {
-                                    podeCriarBS = true;
-                                }
-                                //Data final programada da BS a entrar é posterior ao início programada
-                                else if (resultado > 0)
-                                {
-                                    podeCriarBS = false;
-                                    return podeCriarBS;
-                                }
-                                //Datas são iguais
-                                else if (resultado == 0)
-                                {
-                                    podeCriarBS = false;
-                                    return podeCriarBS;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            podeCriarBS = true;
-                        }
-                        
-                        return podeCriarBS;
+                                               
+                        return retorno;
                     }
 
                     #endregion

@@ -362,6 +362,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             var restricaoController = new RestricaoController();
             Restricao rr = new Restricao();
 
+            DateTime tempData1 = new DateTime();
+            DateTime tempData2 = new DateTime();
+
 
             if (txtDadosKm_Inicio.Text != string.Empty && ddlDadosSecoes.SelectedItem.Value != "0")
             {
@@ -386,14 +389,17 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 Data1 = Uteis.ConverteStringParaDateTime(dataInicial, horaInicial);
                 Data2 = Uteis.ConverteStringParaDateTime(dataFinal, horaFinal);
 
+                tempData1 = (DateTime)Data1;
+                tempData2 = (DateTime)Data2;
+            }
 
+            if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "IF"
+                || ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR")
+            {               
                 if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "VR"
                    && Data1 != null && Data2 != null)
                 {
-                    DateTime tempData1 = (DateTime)Data1;
-                    DateTime tempData2 = (DateTime)Data2;
-
-
+                   
                     // Restrição de tempo anterior a data atual
                     if (DateTime.Compare(tempData1, DateTime.Now.AddMinutes(-30)) < 0)
                     {
@@ -508,11 +514,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     return;
                 }
 
-                if (subtipoVR == "HT")
+                //P715 C755 Item 16
+                //if (subtipoVR == "HT")
                 {
-                    if ((restricaoController.ExisteHTProgramada((double.Parse(ddlDadosSecoes.SelectedItem.Value)), Km1, Km2)) || (restricaoController.ExisteHTCircualacao((double.Parse(ddlDadosSecoes.SelectedItem.Value)), Km1, Km2)))
+                    //if ((restricaoController.ExisteKMConvergente((double.Parse(ddlDadosSecoes.SelectedItem.Value)), Km1, Km2)) || (restricaoController.ExisteHTCircualacao((double.Parse(ddlDadosSecoes.SelectedItem.Value)), Km1, Km2)))
+                    if (restricaoController.ExisteKMConvergente((double.Parse(ddlDadosSecoes.SelectedItem.Value)), Km1, Km2, int.Parse(ddlDadosSubTipoVR.SelectedItem.Value), tempData1, tempData2)) 
                     {
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido haver uma restrição no mesmo KM informado na Seção de Bloqueio.' });", true);
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'A criação da restrição " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + " não pode ser solicitada ao ACT, devido haver um BS com mesmo KM informado na Seção de Bloqueio.' });", true);
                         return;
                     }
                 }
@@ -1289,8 +1297,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             var restricaoController = new RestricaoController();
 
-            double secao = double.Parse(ddlDadosSecoes.SelectedItem.Value);
-            double subtipo = double.Parse(ddlDadosSubTipoVR.SelectedItem.Value);
+            int secao = int.Parse(ddlDadosSecoes.SelectedItem.Value);
+            int subtipo = int.Parse(ddlDadosSubTipoVR.SelectedItem.Value);
             string dataFinal = txtDadosDataFinal.Text.Trim();
             string horaFinal = txtDadosHoraFinal.Text.Trim() + ":00";
             string dataInicial = txtDadosDataInicial.Text.Trim();
@@ -1303,7 +1311,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             DateTime dataFim = dataAtual.AddSeconds(86399);
             dataAtual = DateTime.Now;
 
-            bool podeCriar = restricaoController.VerificaBSmesmoTipo(secao, subtipo,dataEntrada, dataFinalBSAtual);
+            bool podeCriar = !restricaoController.ExisteMesmoSubtipo(secao, subtipo, dataEntrada, dataFinalBSAtual);
 
             if (podeCriar)
             {
