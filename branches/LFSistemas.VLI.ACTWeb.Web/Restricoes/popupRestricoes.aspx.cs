@@ -948,12 +948,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                             if (restricaoController.ChecaVRMemorizada(IdConfirmacao))
                             {                                
                                 LogDAO.GravaLogBanco(dataHoraEnvio, lblUsuarioMatricula.Text, "Restrições", null, IdConfirmacao.ToString(), "Restrição MEMORIZADA. SB: " + rr.Secao_Elemento + " - ID: " + rr.ProgramadaID + " - TR: " + rr.Tipo_Restricao + " - STR: " + rr.SubTipo_VR + " - DTI: " + DateTime.FromOADate(DataIni) + " - DTF: " + DateTime.FromOADate(DataFim) + " - KMI: " + rr.Km_Inicial + " - KMF: " + rr.Km_Final + " - RESP: " + rr.Responsavel + " - CPF: " + rr.Cpf + " - OBS: " + rr.Observacao, Uteis.OPERACAO.Programou.ToString());
-                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição MEMORIZADA! - " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
+                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição MEMORIZADA pelo ACT devido a vigência de LDL/BLQ na sessão: ! - " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
                             }
                             else if (restricaoController.ChecaVRRejeitada(IdConfirmacao))
                             {                               
                                 LogDAO.GravaLogBanco(dataHoraEnvio, lblUsuarioMatricula.Text, "Restrições", null, IdConfirmacao.ToString(), "Restrição REJEITADA. SB: " + rr.Secao_Elemento + " - ID: " + rr.ProgramadaID + " - TR: " + rr.Tipo_Restricao + " - STR: " + rr.SubTipo_VR + " - DTI: " + DateTime.FromOADate(DataIni) + " - DTF: " + DateTime.FromOADate(DataFim) + " - KMI: " + rr.Km_Inicial + " - KMF: " + rr.Km_Final + " - RESP: " + rr.Responsavel + " - CPF: " + rr.Cpf + " - OBS: " + rr.Observacao, Uteis.OPERACAO.Programou.ToString());
-                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição REJEITADA! - " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
+                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Restrição REJEITADA pelo ACT devido a vigência de LDL/BLQ na sessão: " + ddlDadosSecoes.SelectedItem.Text + " - " + ddlDadosTipoRestricao.SelectedItem.Text + "' });", true);
                             }
                             else
                             {                                
