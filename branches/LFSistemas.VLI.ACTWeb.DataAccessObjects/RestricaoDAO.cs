@@ -1025,6 +1025,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         FROM ACTPP.OPERADORES_BS OBS, actpp.BS_OPERADOR BSOP 
                                     WHERE OBS.OP_BS_ID = BSOP.OP_BS_ID
                                     AND BSOP.SR_ID_STR = 7 AND BSOP.BS_OP_ATIVO = 'S'  
+                                    AND (bs_op_vlr_par - (SYSDATE - bs_op_dt)) > 0
                                     AND OP_CPF = ${CPF}");
 
                     if (cpf != null)
