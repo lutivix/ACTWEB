@@ -200,7 +200,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             ddlFiltroTipo.DataSource = restricaoController.ObterFiltroTipo();
             ddlFiltroTipo.DataBind();
             ddlFiltroTipo.Items.Insert(0, new ListItem("Selecione", ""));
-        }       
+        }
+
+        public void ComboFiltroSubtipo()
+        {
+            var restricaoController = new RestricaoController();
+            ddlFiltroSubtipo.DataSource = restricaoController.ObterFiltroSubtipo();
+            ddlFiltroSubtipo.DataBind();
+            ddlFiltroSubtipo.Items.Insert(0, new ListItem("Selecione", ""));
+        }  
 
         public void ComboDadosSecoes()
         {
@@ -290,6 +298,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                 ddlFiltroTipo.SelectedItem.Text = "VR";
                 ddlFiltroTipo.SelectedItem.Value = "26";
+
+                ddlFiltroSubtipo.SelectedItem.Text = "EE";
+                ddlFiltroSubtipo.SelectedItem.Value = "5";
 
                 ddlDadosSecoes.Enabled =
                     txtDadosDataInicial.Enabled =
@@ -1104,6 +1115,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             ComboDadosSecoes();
             ComboDadosTipoRestricao();
             ComboFiltroTipo();
+            ComboFiltroSubtipo();
 
             ddlDadosSubTipoVR.Items.Clear();
 
@@ -1136,6 +1148,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             ddlDadosSubTipoVR.SelectedIndex = 0;
             ddlFiltroSB.SelectedItem.Text = "Selecione";
             ddlFiltroSB.SelectedIndex = 0;
+
+            ddlFiltroTipo.SelectedItem.Text = "Selecione";
+            ddlFiltroTipo.SelectedIndex = 0;
+            ddlFiltroSubtipo.SelectedItem.Text = "Selecione";
+            ddlFiltroSubtipo.SelectedIndex = 0;
 
             txtDadosDuracao.Text = txtDadosDataInicial.Text =
                 txtDadosDataFinal.Text = txtDadosHoraInicial.Text =
@@ -1224,7 +1241,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             if (txtFiltroNumeroRestricao.Text.Length > 0) _RestricaoID = double.Parse(txtFiltroNumeroRestricao.Text); else _RestricaoID = null;
 
             var _perfil = ulPerfil == "OP VP" ? "VR" : ddlFiltroTipo.SelectedItem.Value != string.Empty ? ddlFiltroTipo.SelectedItem.Value : null;
-            var _subTipo = ulPerfil == "OP ELE" ? "EE" : ddlDadosSubTipoVR.SelectedItem.Value != "0" ? ddlDadosSubTipoVR.SelectedItem.Value : null;
+            var _subTipo = ulPerfil == "OP ELE" ? "EE" : ddlFiltroSubtipo.SelectedItem.Value != string.Empty ? ddlFiltroSubtipo.SelectedItem.Value : null;
+            //string _subTipo = null;
             var _sb = ddlFiltroSB.SelectedItem.Value != string.Empty ? ddlFiltroSB.SelectedItem.Value : null;
             var _obs = txtFiltroObs.Text != string.Empty ? txtFiltroObs.Text : null;
 

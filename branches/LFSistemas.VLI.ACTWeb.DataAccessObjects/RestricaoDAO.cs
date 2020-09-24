@@ -384,8 +384,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                            --AND RP_ST_RP IN ('C', 'R')              
                                            AND RP_ST_RP IN ('E','M','P', 'R')
                                            AND SR_ID_STR IN (${IdSubtipo})
-                                           AND RP.RP_KM_INI >= ${kmIni}
-                                           AND RP.RP_KM_FIM <= ${kmFim}
+                                           AND RP.RP_KM_FIM >= ${kmIni}
+                                           AND RP.RP_KM_INI <= ${kmFim}
                                            AND (
                                                 (
                                                     RP_DT_INI > TO_DATE (${DataIni}, 'dd/mm/yyyy hh24:mi:ss')
@@ -1427,6 +1427,65 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                               AND A.RC_ST     = 'E' 
                                               AND A.TR_ID_TP > 1
                                     ) order by TR_COD_TP");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            itens.Add(reader.GetValue(0).ToString());
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Trem", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return itens.ToList();
+        }
+
+        public List<string> ObterFiltroSubtipo()
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var itens = new List<string>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA O TIPO DAS RESTRICOES VIEGENTES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@" SELECT DISTINCT * FROM ( 
+                                        SELECT B.SR_COD_STR FROM ACTPP.RESTRICOES_PROGRAMADAS A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.SUBTIPOS_RESTRICAO B
+                                            WHERE A.TR_ID_TP  = B.TR_ID_TP 
+                                                AND A.EV_ID_ELM = C.EV_ID_ELM 
+                                                AND A.RP_ST_RP  IN  ('P','M','X') 
+                                                AND A.SR_ID_STR IS NOT NULL
+                                                AND A.TR_ID_TP > 1  
+                                        UNION ALL
+                                        SELECT B.SR_COD_STR FROM ACTPP.RESTRICOES_CIRCULACAO A LEFT JOIN ACTPP.SUBTIPOS_RESTRICAO S ON S.SR_ID_STR = A.SR_ID_STR, ACTPP.ELEM_VIA C, ACTPP.SUBTIPOS_RESTRICAO B 
+                                            WHERE A.TR_ID_TP  = B.TR_ID_TP 
+                                              AND A.EV_ID_ELM = C.EV_ID_ELM 
+                                              AND A.RC_ST     = 'E' 
+                                              AND A.SR_ID_STR IS NOT NULL
+                                              AND A.TR_ID_TP > 1
+                                    ) order by SR_COD_STR");
 
                     #endregion
 

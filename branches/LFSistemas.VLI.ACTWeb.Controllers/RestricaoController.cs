@@ -173,6 +173,12 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ObterFiltroTipo();
         }
 
+        public List<string> ObterFiltroSubtipo()
+        {
+            var dao = new RestricaoDAO();
+            return dao.ObterFiltroSubtipo();
+        }
+
         /// <summary>
         /// Obtem todas as seções
         /// </summary>

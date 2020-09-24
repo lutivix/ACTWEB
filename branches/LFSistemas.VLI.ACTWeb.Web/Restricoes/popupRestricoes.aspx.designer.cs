@@ -346,6 +346,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         protected global::System.Web.UI.WebControls.DropDownList ddlFiltroTipo;
         
         /// <summary>
+        /// ddlFiltroSubtipo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlFiltroSubtipo;
+        
+        /// <summary>
         /// cblStatus control.
         /// </summary>
         /// <remarks>

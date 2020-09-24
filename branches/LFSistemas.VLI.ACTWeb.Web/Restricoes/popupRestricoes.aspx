@@ -611,6 +611,14 @@
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </td>
+                             <td style="width: 160px;">
+                                <label for="grupo">Subtipo Restrição:</label><br />
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:DropDownList ID="ddlFiltroSubtipo" runat="server" CssClass="form-control" Width="150" ToolTip="Informe o subtipo da restrição a ser filtrada." />
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </td>
                             <td style="width: 160px;">
                                 <label for="grupo">Status Restrição:</label><br />
                                 <asp:UpdatePanel runat="server" >
