@@ -270,8 +270,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select * from actpp.RESTRICOES_PROGRAMADAS 
-                                      WHERE EV_ID_ELM IN (${IdElementoVia}) 
+                    query.Append(@"select RP.RP_ID_RP IDREST from actpp.RESTRICOES_PROGRAMADAS RP 
+                                      WHERE RP.EV_ID_ELM IN (${IdElementoVia}) 
                                         ${IdTipoRestricao}
                                         ${IdSubtipoRestricao}
                                         ${DataInicio}
@@ -279,7 +279,19 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ${VelocidadeMaxima}
                                         ${KmInicio}
                                         ${KmFim}
-                                        AND RP_ST_RP != 'C'");
+                                        AND RP_ST_RP IN('M','P')
+                                   UNION
+                                   select RP.RP_ID_RP IDREST from actpp.RESTRICOES_PROGRAMADAS RP, ACTPP.RESTRICOES_CIRCULACAO RC 
+                                      WHERE RP.RP_ID_RP = RC.RP_ID_RP
+                                        AND RP.EV_ID_ELM IN (${IdElementoVia}) 
+                                        ${IdTipoRestricao}
+                                        ${IdSubtipoRestricao}
+                                        ${DataInicio}
+                                        ${DataFim}
+                                        ${VelocidadeMaxima}
+                                        ${KmInicio}
+                                        ${KmFim}
+                                        AND RP_ST_RP IN('R')");
 
                     if (IdElementoVia != null)
                         query.Replace("${IdElementoVia}", string.Format("{0}", IdElementoVia));
@@ -287,12 +299,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${IdElementoVia}", " ");
 
                     if (IdTipoRestricao != null)
-                        query.Replace("${IdTipoRestricao}", string.Format(" AND TR_ID_TP  IN ({0})", IdTipoRestricao));
+                        query.Replace("${IdTipoRestricao}", string.Format(" AND RP.TR_ID_TP  IN ({0})", IdTipoRestricao));
                     else
                         query.Replace("${IdTipoRestricao}", " ");
 
                     if (IdSubtipoRestricao != null)
-                        query.Replace("${IdSubtipoRestricao}", string.Format(" AND SR_ID_STR IN ({0})", IdSubtipoRestricao));
+                        query.Replace("${IdSubtipoRestricao}", string.Format(" AND RP.SR_ID_STR IN ({0})", IdSubtipoRestricao));
                     else
                         query.Replace("${IdSubtipoRestricao}", " ");
 
@@ -382,7 +394,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                       FROM actpp.RESTRICOES_PROGRAMADAS RP
                                      WHERE     EV_ID_ELM IN (${IdElementoVia})
                                            --AND RP_ST_RP IN ('C', 'R')              
-                                           AND RP_ST_RP IN ('E','M','P', 'R')
+                                           AND RP_ST_RP IN ('E','M','P')
                                            AND SR_ID_STR IN (${IdSubtipo})
                                            AND RP.RP_KM_FIM >= ${kmIni}
                                            AND RP.RP_KM_INI <= ${kmFim}
@@ -694,7 +706,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                       FROM actpp.RESTRICOES_PROGRAMADAS
                                      WHERE  EV_ID_ELM IN (${IdElementoVia})
                                            --AND RP_ST_RP IN ('C', 'R')              
-                                           AND RP_ST_RP IN ('E','M','P','R')
+                                           AND RP_ST_RP IN ('E','M','P')
                                            ${IdSubtipoRestricao}
                                             AND (
                                                     (
@@ -1799,9 +1811,63 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select rc_id_rco  from ACTPP.restricoes_programadas where ${rc_id_rco}");
+                    query.Append(@"select rc_id_rco from ACTPP.restricoes_programadas 
+                                            where ${rc_id_rco}
+                                                AND RP_ST_RP IN ('P','X','M')");
 
                     query.Replace("${rc_id_rco}", string.Format(" rc_id_rco = {0}", id));
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            retorno = true;
+                        }
+                    }
+
+                    #endregion
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+
+            return retorno;
+        }
+
+        public bool ChecaVRVigente(double id)
+        {
+            #region [ PROPRIEDADES ]
+
+
+            StringBuilder query = new StringBuilder();
+            bool retorno = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"select *  from ACTPP.RESTRICOES_PROGRAMADAS RP, ACTPP.RESTRICOES_CIRCULACAO RC
+                                     WHERE ${rc_id_rco}
+                                            AND RP.RP_ID_RP = RC.RP_ID_RP 
+                                            AND RP.RP_ST_RP = 'R'
+                                            AND RC.RC_ST =  'E'");
+
+                    query.Replace("${rc_id_rco}", string.Format(" rp.rc_id_rco = {0}", id));
 
                     #endregion
 

@@ -106,6 +106,11 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ChecaVR(id);
         }
 
+        public bool ChecaVRVigente(double id)
+        {
+            return dao.ChecaVRVigente(id);
+        }
+
         public bool ChecaVRMemorizada(double id)
         {
             return dao.ChecaVRMemorizada(id);
