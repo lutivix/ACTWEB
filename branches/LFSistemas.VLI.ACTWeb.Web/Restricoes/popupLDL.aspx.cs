@@ -283,8 +283,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         protected void bntFiltroLimpar_Click(object sender, EventArgs e)
         {
             ddlFiltroTipoDaSituacao.SelectedIndex = ddlFiltroSecao.SelectedIndex = 0;
+            ddlFiltroSecao.SelectedIndex = 0;
             txtFiltroAutorizacao.Text = txtFiltroKm.Text = txtFiltroObservacao.Text = string.Empty;
             //lblCanalCom.Text = "Canal de comunicação de Entrada";
+
+            var dataIni = DateTime.Parse(DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy"));
+            var dataFim = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy"));
+            txtDataInicial.Text = dataIni.ToShortDateString();
+            txtDataFinal.Text = dataFim.ToShortDateString();
+
             clbCorredorLDL.ClearSelection();
             Pesquisar(null);
         }
@@ -462,6 +469,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             txtAutorizacao.Text = string.Empty;
             lblCanalCom.Text = "Canal de comunicação de Entrada";
             //txtAutorizacao.Visible = false;
+            bntFiltroLimpar_Click(sender, e);
         }
         protected void lnkLdl_Click(object sender, EventArgs e)
         {
