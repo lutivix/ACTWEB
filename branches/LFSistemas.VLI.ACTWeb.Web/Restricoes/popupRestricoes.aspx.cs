@@ -235,7 +235,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             if (lblUsuarioPerfil.Text == "OP VP")
             {
-                ddlDadosTipoRestricao.SelectedItem.Text = "Boletim de Serviço";
+                ddlDadosTipoRestricao.SelectedItem.Text = "BS - Boletim de Serviço";
                 ddlDadosTipoRestricao.SelectedItem.Value = "26";
                 txtDadosVelocidade.Text = "VR";
 
