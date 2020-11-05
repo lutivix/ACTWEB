@@ -436,7 +436,7 @@
                 <table style="width: 100%; background-color: red;">
                     <tr>
                         <td style="width: 100%; font-size: 25pt; text-align: center">
-                            <asp:Label runat="server" Text="BOLETIM DE SERVIÇO - As restrições do tipo BS serão retiradas automaticamente de acordo com a data e hora da programação! Fique Atento ao preecher os campos!" Font-Size="20" ForeColor="White" />
+                            <asp:Label runat="server" Text="BOLETIM DE SERVIÇO – Fique atento!!! As restrições do tipo BS não entram com horário antecipado(1h). As restrições do subtipo HT não são retiradas automaticamente!" Font-Size="20" ForeColor="White" />
                         </td>
                     </tr>
                 </table>

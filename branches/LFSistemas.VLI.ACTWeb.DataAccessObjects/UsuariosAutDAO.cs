@@ -293,7 +293,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         query.Replace("${NOME}", string.Format(" "));
 
                     if (!string.IsNullOrEmpty(usuario.CPF))
-                        query.Replace("${CPF}", usuario.CPF);
+                        //query.Replace("${CPF}", usuario.CPF);
+                        query.Replace("${CPF}", string.Format("'{0}'", usuario.CPF));//C789 - CPF com 0 na frente
                     else
                         query.Replace("${CPF}", string.Format(" "));
 
