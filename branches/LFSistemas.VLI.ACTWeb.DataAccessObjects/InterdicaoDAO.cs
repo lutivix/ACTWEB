@@ -1324,7 +1324,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     command.CommandText = query.ToString();
                     command.ExecuteNonQuery();
 
-                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "LDL", null, interdicao.Solicitacao_ID_ACTWEB.ToString(), "Solicitação de criação de: " + interdicao.Tipo_Interdicao_Nome + " foi enviada ao ACT. Tipo: " + interdicao.Tipo_Interdicao_Nome + " - Seção: " + interdicao.Secao_Nome + " - Manutenção: " + interdicao.Tipo_Manutencao_Nome + " - Obs: " + interdicao.Observacao, Uteis.OPERACAO.Solicitou.ToString());
+                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "LDL", null, interdicao.Solicitacao_ID_ACTWEB.ToString(), "Solicitação de criação de: " + interdicao.Tipo_Interdicao_Nome + " foi enviada ao ACT. Tipo: " + interdicao.Tipo_Interdicao_Nome + " - Seção: " + interdicao.Secao_Nome + "CPF: " + interdicao.Responsavel_Matricula + " - Manutenção: " + interdicao.Tipo_Manutencao_Nome + " - Obs: " + interdicao.Observacao, Uteis.OPERACAO.Solicitou.ToString());
 
                     retorno = true;
                     #endregion

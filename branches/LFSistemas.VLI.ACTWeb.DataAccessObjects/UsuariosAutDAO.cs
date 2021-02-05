@@ -621,7 +621,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ PARÂMETRO ]
 
-                    query.Replace("${CPF}", string.Format("{0}", cpf));
+                    query.Replace("${CPF}", string.Format("'{0}'", cpf)); ;//CPF zerado
 
                     #endregion
 

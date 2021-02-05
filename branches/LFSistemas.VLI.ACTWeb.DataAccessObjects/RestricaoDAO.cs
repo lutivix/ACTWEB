@@ -914,7 +914,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         AND BO.BS_OP_ATIVO = 'S'");
 
                     if (cpf != null)
-                        query.Replace("${cpf}", string.Format("{0}", cpf));
+                        query.Replace("${cpf}", string.Format("'{0}'", cpf));//C789 - CPF com 0 na frente
+                        //query.Replace("${CPF}", string.Format("'{0}'", CPF));//C789 - CPF com 0 na frente
                     else
                         query.Replace("${cpf}", " ");
 
@@ -979,7 +980,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         AND (bs_op_vlr_par - (sysdate - bs_op_dt)) > 0 ");
 
                     if (cpf != null)
-                        query.Replace("${cpf}", string.Format("{0}", cpf));
+                        query.Replace("${cpf}", string.Format("'{0}'", cpf));//cpf 0 na frente
                     else
                         query.Replace("${cpf}", " ");
 
