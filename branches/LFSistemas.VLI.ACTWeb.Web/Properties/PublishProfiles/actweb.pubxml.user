@@ -15,7 +15,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2020 15:31:24</publishTime>
     </File>
     <File Include="ACTWEB.Master">
-      <publishTime>02/04/2021 10:45:32</publishTime>
+      <publishTime>02/08/2021 17:52:45</publishTime>
     </File>
     <File Include="Ajuda/Erro.aspx">
       <publishTime>06/12/2020 15:31:24</publishTime>
@@ -162,13 +162,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>02/04/2021 10:45:06</publishTime>
+      <publishTime>02/08/2021 17:53:06</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
       <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>02/04/2021 10:45:06</publishTime>
+      <publishTime>04/02/2021 10:45:06</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
       <publishTime>09/08/2016 12:55:17</publishTime>
@@ -180,13 +180,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>02/04/2021 10:45:07</publishTime>
+      <publishTime>02/08/2021 17:53:07</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>
     </File>
     <File Include="bin/Libs/DLLMQWeb.dll">
-      <publishTime>11/03/2020 14:07:39</publishTime>
+      <publishTime>03/11/2020 14:07:39</publishTime>
     </File>
     <File Include="bin/Microsoft.Data.Edm.dll">
       <publishTime>04/12/2013 20:25:45</publishTime>
@@ -333,7 +333,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2020 15:31:24</publishTime>
     </File>
     <File Include="Cadastro/UsuariosAutorizados.aspx">
-      <publishTime>11/03/2020 14:08:14</publishTime>
+      <publishTime>03/11/2020 14:08:14</publishTime>
     </File>
     <File Include="cc3260.dll">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -495,7 +495,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2020 15:31:24</publishTime>
     </File>
     <File Include="Consulta/UsuariosAutorizados.aspx">
-      <publishTime>11/03/2020 14:08:14</publishTime>
+      <publishTime>03/11/2020 14:08:14</publishTime>
     </File>
     <File Include="Criptografar.aspx">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -1518,7 +1518,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2020 15:31:24</publishTime>
     </File>
     <File Include="Libs/DLLMQWeb.dll">
-      <publishTime>11/03/2020 14:07:39</publishTime>
+      <publishTime>03/11/2020 14:07:39</publishTime>
     </File>
     <File Include="Libs/GMaps.dll">
       <publishTime>06/12/2020 15:31:24</publishTime>
@@ -1683,19 +1683,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/16/2020 09:16:24</publishTime>
     </File>
     <File Include="Restricoes/popupLDL.aspx">
-      <publishTime>11/03/2020 14:08:14</publishTime>
+      <publishTime>03/11/2020 14:08:14</publishTime>
     </File>
     <File Include="Restricoes/popupRelatorioRestricoesPorData.aspx">
-      <publishTime>11/03/2020 14:07:39</publishTime>
+      <publishTime>03/11/2020 14:07:39</publishTime>
     </File>
     <File Include="Restricoes/popupRelatorioRestricoesTemperatura.aspx">
       <publishTime>06/12/2020 15:31:24</publishTime>
     </File>
     <File Include="Restricoes/popupRelatorioRestricoesVigentes.aspx">
-      <publishTime>11/03/2020 14:07:39</publishTime>
+      <publishTime>03/11/2020 14:07:39</publishTime>
     </File>
     <File Include="Restricoes/popupRestricoes.aspx">
-      <publishTime>11/03/2020 22:12:25</publishTime>
+      <publishTime>03/11/2020 22:12:25</publishTime>
     </File>
     <File Include="slide/slide01.png">
       <publishTime>02/07/2015 14:49:54</publishTime>

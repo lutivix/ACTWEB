@@ -652,9 +652,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             StringBuilder query = new StringBuilder();
             StringBuilder query2 = new StringBuilder();
+            StringBuilder query3 = new StringBuilder();
+            StringBuilder query4 = new StringBuilder();
 
             bool retorno1 = false;
             bool retorno2 = false;
+            bool retorno3 = false;
+            bool retorno4 = false;
 
             #endregion
 
@@ -662,7 +666,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             {
                 using (var connection = ServiceLocator.ObterConexaoACTWEB())
                 {
-                    #region [ ATUALIZA BS_OPARADOR NO BANCO ]
+                    #region [ ATUALIZA OPERADOR_BS NO BANCO ]
 
                     var command = connection.CreateCommand();
                     query.Append(@"UPDATE ACTPP.BS_OPERADOR SET BS_OP_ATIVO = 'N' 
@@ -732,9 +736,57 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     command.ExecuteNonQuery();
                     retorno2 = true;
 
-                    //LogDAO.GravaLogBanco(DateTime.Now, matricula, "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado campo OP_ULTIMA_SOLICIT na tabela OPERADORES_BS devido a " + acao + " de novo Boletim de Serviço. ", Uteis.OPERACAO.Atualizou.ToString());
+                    //LogDAO.GravaLogBanco(DateTime.Now, Uteis.usuario_Matricula, "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado campo OP_ULTIMA_SOLICIT na tabela OPERADORES_BS devido a " + acao + " de novo Boletim de Serviço. ", Uteis.OPERACAO.Atualizou.ToString());
 
                     #endregion
+
+                    #region INSERE INATIVOS EM BS_OPERADOR_HIST
+                    try
+                    {
+                        command = connection.CreateCommand();
+                        query3.Append(@"insert into actpp.bs_operador_hist select * from actpp.bs_operador where bs_op_ativo = 'N'");
+                        
+
+                        #region [ RODA A QUERY NO BANCO ]
+                        command.CommandText = query3.ToString();
+                        command.ExecuteNonQuery();
+                        retorno3 = true;
+                        command.Connection.Close();
+                        LogDAO.GravaLogBanco(DateTime.Now, Uteis.usuario_Matricula, "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado BS_OPERADOR_HIST!", Uteis.OPERACAO.Atualizou.ToString());
+                        #endregion
+                        
+                    }    
+                    catch (Exception ex)
+                    {
+                        LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                        if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                        throw new Exception(ex.Message);
+                    }
+                    #endregion                    
+
+                    #region Limpa BS_OPERADOR para todos os registros inativos
+                    try
+                    {
+                        command.Connection.Open();
+                        command = connection.CreateCommand();
+                        query4.Append(@"DELETE FROM actpp.BS_OPERADOR WHERE BS_OP_ATIVO = 'N'");
+
+                        #region [ RODA A QUERY NO BANCO ]
+                        command.CommandText = query4.ToString();
+                        command.ExecuteNonQuery();
+                        retorno4 = true;
+                        LogDAO.GravaLogBanco(DateTime.Now, Uteis.usuario_Matricula, "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado BS_OPERADOR (INATIVOS OUT)", Uteis.OPERACAO.Atualizou.ToString());
+                        #endregion
+                    }
+                    catch (Exception ex)
+                    {
+                        LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                        if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                        throw new Exception(ex.Message);
+                    }                    
+                    #endregion       
+             
+                    return (retorno1 && retorno2 && retorno3 && retorno4);
                 }
             }
             catch (Exception ex)

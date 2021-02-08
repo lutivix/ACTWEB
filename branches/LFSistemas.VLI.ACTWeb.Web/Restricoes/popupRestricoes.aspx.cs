@@ -577,6 +577,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         //var retorno = true;
                         if (retorno == true)
                         {
+                            Uteis.usuario_Matricula = lblUsuarioMatricula.Text.Trim();
                             if ((int.Parse(ddlDadosTipoRestricao.SelectedItem.Value) == 26) || (int.Parse(ddlDadosTipoRestricao.SelectedItem.Value) == 27))
                             {
                                 if (ddlDadosTipoRestricao.SelectedItem.Text.Substring(0, 2) == "BS")
@@ -585,7 +586,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                     string CPF = txtDadosCpf.Text.Trim();
                                     string matricula = lblUsuarioMatricula.Text.Trim();
                                     string usuarioID = lblUsuarioLogado.Text.Trim();
-                                    string acao = "programação";
+                                    string acao = "programação";                                    
                                     usuario.AtualizarDataUltSol(CPF, matricula, usuarioID, acao);
                                     usuario.AtualizarDataUltSolBSOP(CPF, usuarioID, ddlDadosSubTipoVR.SelectedItem.Value);
                                 }
