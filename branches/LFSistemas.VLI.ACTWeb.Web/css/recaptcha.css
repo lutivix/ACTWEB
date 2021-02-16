@@ -1,0 +1,12 @@
+﻿* {
+  box-sizing: border-box;
+}
+
+.container-recaptcha {
+	max-width: 217.2px;
+}
+
+.g-recaptcha {
+  transform-origin: left top;
+  -webkit-transform-origin: left top;
+}

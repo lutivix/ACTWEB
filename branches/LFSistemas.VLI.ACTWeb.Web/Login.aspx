@@ -20,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="/css/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="/css/jquery-ui-timepicker-addon.css" />
     <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="/css/recaptcha.css" />
 
     <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/mascara.js"></script>
@@ -31,6 +32,10 @@
     <script type="text/javascript" src="/js/jquery-1.8.2.js"></script>
     <script type="text/javascript" src="/js/jquery-ui.js"></script>
     <script type="text/javascript" src="/js/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="/js/recaptcha.js"></script>
+
+    <%--C840 - reCAPTCHA - Luara - 11/02/2021--%>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
   
     <link rel="grupo vli" href="logo-vli.ico">
 </head>
@@ -72,6 +77,9 @@
                         <label for="ds_password">Senha:</label>
                         <asp:TextBox ID="TextBoxSenha" runat="server" TextMode="Password" CssClass="form-control"></asp:TextBox>
                         <i class="fa fa-key input-icon"></i>
+                    </div>
+                    <div class="container-recaptcha">
+                        <div class="g-recaptcha" data-sitekey="6LdyPlQaAAAAAL4lTVxy3cyCg0qODbU4J9S70ceD"></div>
                     </div>
                     <asp:Button CssClass="btn btn-block pro-btn btn-success" ID="bntEntrar" runat="server" OnClick="ButtonEntrar_Click" Text="Entrar" />
 
