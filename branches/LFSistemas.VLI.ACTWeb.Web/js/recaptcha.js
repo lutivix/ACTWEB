@@ -1,4 +1,6 @@
-﻿function scaleCaptcha(elementWidth) {
+﻿//C840 - reCAPTCHA - Luara - 11 / 02 / 2021
+
+function scaleCaptcha(elementWidth) {
     // Width of the reCAPTCHA element, in pixels
     var reCaptchaWidth = 300;
     // Get the containing element's width
