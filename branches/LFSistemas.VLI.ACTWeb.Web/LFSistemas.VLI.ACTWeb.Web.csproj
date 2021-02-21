@@ -1151,6 +1151,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ReCaptchaClass.cs" />
     <Compile Include="RedefinirSenha.aspx.cs">
       <DependentUpon>RedefinirSenha.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -19,25 +19,42 @@ namespace LFSistemas.VLI.ACTWeb.Web
 
         protected void ButtonEntrar_Click(object sender, EventArgs e)
         {
-            var controlador = new UsuarioController();
+            //Verifica se o reCaptcha é válido
+            string EncodedResponse = Request.Form["g-recaptcha-response"];
+            bool IsCaptchaValid = (ReCaptchaClass.Validate(EncodedResponse) == "true" ? true : false);
 
-            var usuario = controlador.ObterPorLogin(TextBoxLogin.Text.ToUpper().Trim(), Uteis.Criptografar(TextBoxSenha.Text.ToUpper(), "a#3G6**@").ToString());
-
-            if (usuario != null && usuario.Ativo_SN != "N" )
+            if (IsCaptchaValid)
             {
-                FormsAuthentication.RedirectFromLoginPage(TextBoxLogin.Text, false);
-                UsuarioController usu = new UsuarioController();
-                if (usu.AdicionarAcesso(usuario.Matricula))
+                //Valid Request
+                lblResult.Visible = false;
+
+                //Código que já existia
+                var controlador = new UsuarioController();
+
+                var usuario = controlador.ObterPorLogin(TextBoxLogin.Text.ToUpper().Trim(), Uteis.Criptografar(TextBoxSenha.Text.ToUpper(), "a#3G6**@").ToString());
+
+                if (usuario != null && usuario.Ativo_SN != "N" )
                 {
-                    //LogDAO.GravaLogBanco(DateTime.Now, usuario.Matricula, "Login", null, null, "Acessou o sistema ACTWEB", Uteis.OPERACAO.Conectou.ToString());
+                    FormsAuthentication.RedirectFromLoginPage(TextBoxLogin.Text, false);
+                    UsuarioController usu = new UsuarioController();
+                    if (usu.AdicionarAcesso(usuario.Matricula))
+                    {
+                        //LogDAO.GravaLogBanco(DateTime.Now, usuario.Matricula, "Login", null, null, "Acessou o sistema ACTWEB", Uteis.OPERACAO.Conectou.ToString());
+                    }
                 }
-            }
-            else if (usuario != null && usuario.Ativo_SN == "N")
-            {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Usuário está inativo. Gentileza entrar em contato no e-mail plantao@grtechbr.com.br, para regularizar seus dados' });", true);
+                else if (usuario != null && usuario.Ativo_SN == "N")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Usuário está inativo. Gentileza entrar em contato no e-mail plantao@grtechbr.com.br, para regularizar seus dados' });", true);
+                }
+                else
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Usuário e/ou senha inválido' });", true);
             }
             else
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Usuário e/ou senha inválido' });", true);
+            {
+                lblResult.Visible = true;
+                lblResult.Text = "ReCAPTCHA inválido!";
+            }
+            
         }
 
         protected void lnkRedefinirSenha_Click(object sender, EventArgs e)

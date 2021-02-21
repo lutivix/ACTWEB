@@ -79,10 +79,13 @@
                         <i class="fa fa-key input-icon"></i>
                     </div>
                     <div class="container-recaptcha">
-                        <div class="g-recaptcha" data-sitekey="6LdyPlQaAAAAAL4lTVxy3cyCg0qODbU4J9S70ceD"></div>
+                        <div class="g-recaptcha" data-sitekey="6LdyPlQaAAAAAL4lTVxy3cyCg0qODbU4J9S70ceD" aria-checked="undefined"></div>
                     </div>
+                    <asp:Label Visible=false ID="lblResult" runat="server" /> <%--Label que ficará visível apenas se o reCaptcha estiver errado--%>
+                    
                     <asp:Button CssClass="btn btn-block pro-btn btn-success" ID="bntEntrar" runat="server" OnClick="ButtonEntrar_Click" Text="Entrar" />
-
+                    
+                    
                     <div class="rodape-login">
                         <table style="width: 100%;">
                             <tr>

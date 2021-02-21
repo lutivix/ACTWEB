@@ -10,3 +10,11 @@
   transform-origin: left top;
   -webkit-transform-origin: left top;
 }
+
+#lblResult {
+    display: block;
+    text-align: center;
+    padding: 5px;
+    background-color: yellow;
+    margin: 5px 0;
+}
