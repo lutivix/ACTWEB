@@ -1,4 +1,5 @@
-﻿using System;
+﻿//C840 - reCAPTCHA - Luara - 21/02/2021
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
