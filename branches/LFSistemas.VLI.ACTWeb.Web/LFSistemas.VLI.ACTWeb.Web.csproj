@@ -175,6 +175,7 @@
     <Content Include="css\jquery.dataTables_themeroller.css" />
     <Content Include="css\main.css" />
     <Content Include="css\processando.css" />
+    <Content Include="css\recaptcha.css" />
     <Content Include="DadosApoio\Abas\VelocidadePorPrefixo.ascx" />
     <Content Include="DadosApoio\Consultar_Abreviaturas.aspx" />
     <Content Include="DadosApoio\Consultar_Banners.aspx" />
@@ -297,6 +298,7 @@
     <Content Include="js\extensions\KeyTable\Readme.txt" />
     <Content Include="js\Gulpfile.js" />
     <Content Include="js\imageZoom_v5.js" />
+    <Content Include="js\recaptcha.js" />
     <Content Include="js\jquery-1.2.6.pack.js" />
     <Content Include="js\jquery-1.8.2.js" />
     <Content Include="js\jquery-clockpicker.js" />
@@ -1149,6 +1151,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ReCaptchaClass.cs" />
     <Compile Include="RedefinirSenha.aspx.cs">
       <DependentUpon>RedefinirSenha.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

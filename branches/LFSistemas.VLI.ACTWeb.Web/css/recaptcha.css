@@ -1,0 +1,23 @@
+﻿/*C840 - reCAPTCHA - Luara - 21/02/2021*/
+* {
+  box-sizing: border-box;
+}
+
+.container-recaptcha {
+	max-width: 217.2px;
+}
+
+.g-recaptcha {
+  transform-origin: left top;
+  -webkit-transform-origin: left top;
+}
+
+#lblResult {
+    display: block;
+    text-align: center;
+    padding: 5px;
+    background-color: yellow;
+    margin: 5px 0;
+    font-weight: bold !important;
+    color: black;
+}
