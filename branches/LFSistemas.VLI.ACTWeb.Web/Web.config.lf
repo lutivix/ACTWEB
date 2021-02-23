@@ -6,15 +6,13 @@
 <configuration>
   <connectionStrings>
     
-    <!--HPLF-->
-    <!--<add name="ConnectionStringACTWEB" connectionString="Provider=MSDAORA;Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ACT)));Persist Security Info=True;User ID=actweb; Password=engesis" providerName="System.Data.OleDb" />-->
+    <!--LF-->
+    <add name="ConnectionStringACTWEB" connectionString="Provider=MSDAORA;Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ACT)));Persist Security Info=True;User ID=actweb; Password=engesis" providerName="System.Data.OleDb" />
     
     <!--PRD-->
     <!--<add name="ConnectionStringACTWEB" connectionString="Provider=MSDAORA;Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=172.21.26.15)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SID=ACT1)));Persist Security Info=True;User ID=actweb; Password=engesis" providerName="System.Data.OleDb" />-->
     
     <!--HMG-->
-    
-    <!--PGOF-->
     <!--<add name="ConnectionStringPGOF" connectionString="Provider=MSDAORA;Data Source=(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = 10.1.114.68)(PORT = 1521)) (ADDRESS = (PROTOCOL = TCP)(HOST = 10.1.114.72)(PORT = 1521)) (LOAD_BALANCE = yes)(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = pvlie)));Persist Security Info=True;User ID=pjpgof; Password=VB1F3GHT; Connection Timeout=60;" providerName="System.Data.OleDb" />-->
     
     <!--LEGADO-->

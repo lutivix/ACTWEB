@@ -1,4 +1,15 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Macro50-E.ascx.cs" Inherits="LFSistemas.VLI.ACTWeb.Web.Consulta.Macros.Macro50_E" %>
+<style>
+    .tipo-E {
+        color: green;
+        background-color: white;
+    }
+
+    .tipo-R {
+        color: black;
+        background-color: white;
+    }
+</style>
 <div class="panel panel-default" style="margin: 10px; height: 100%">
     <div class="panel-heading">
         <table class="nav-justified" style="width: 100%">
@@ -68,35 +79,7 @@
                             <asp:Panel runat="server" Height="300" ScrollBars="Vertical">
                                 <table class="nav-justified">
                                     <tr>
-                                        <td>
-                                            <asp:Repeater ID="RepeaterItens" runat="server">
-                                                <HeaderTemplate>
-                                                    <table class="table table-hover table-curved pro-table" style="width: 100%;">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton runat="server" ID="lnkRE" Text="R/E" /></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton runat="server" ID="lnkHorario" Text="Horário" /></th>
-                                                                <th style="text-align: center; font-size: 12pt;">
-                                                                    <asp:LinkButton runat="server" ID="lnkTexto" Text="Texto" /></th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <tr style="font-size: 9px; cursor: pointer" class="tipo-<%# Eval("Tipo")%>">
-                                                        <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Tipo")%>"><%# Eval("Tipo")%> </td>
-                                                        <td style="width: 120px; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Horario")%>"><%# Eval("Horario")%> </td>
-                                                        <td style="text-align: left;" title="<%# Eval("Texto")%>"><%# Eval("Texto")%> </td>
-                                                    </tr>
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    </tbody>
-                        </table>
-                                                </FooterTemplate>
-                                            </asp:Repeater>
-                                        </td>
+                                        <td/>
                                     </tr>
                                 </table>
                             </asp:Panel>
