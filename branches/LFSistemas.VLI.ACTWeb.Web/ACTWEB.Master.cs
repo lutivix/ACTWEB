@@ -297,6 +297,20 @@ namespace LFSistemas.VLI.ACTWeb.Web
                             "   wOpen.resizeTo( screen.availWidth, screen.availHeight ); " +
                             "</script>");
         }
+        protected void lnkPainelCCONovo_Click(object sender, EventArgs e)
+        {
+            Response.Write("<script> " +
+                            "   var wOpen; " +
+                            "   sOptions = 'status=yes,menubar=yes,scrollbars=yes,resizable=yes,toolbar=yes'; " +
+                            "   sOptions = sOptions + ',width=' + (screen.availWidth - 10).toString(); " +
+                            "   sOptions = sOptions + ',height=' + (screen.availHeight - 122).toString(); " +
+                            "   sOptions = sOptions + ',screenX=0,screenY=0,left=0,top=0'; " +
+                            "   wOpen = window.open(' /Painel/PainelCCONovo.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); " +
+                            "   wOpen.focus(); " +
+                            "   wOpen.moveTo( 0, 0 ); " +
+                            "   wOpen.resizeTo( screen.availWidth, screen.availHeight ); " +
+                            "</script>");
+        }
         protected void lnkPainelBaixada_Click(object sender, EventArgs e)
         {
             Response.Write("<script> " +
@@ -835,10 +849,10 @@ namespace LFSistemas.VLI.ACTWeb.Web
             }
             if (usuario.Perfil_ID == "12") // Perfil: OPERADOR VITORIA MINAS - OP VM
             {
-                sub_macros_consulta.Visible = mnPainel.Visible = mnTelecomandadas.Visible = mnVMA.Visible = mnGOP.Visible =  
-                sub_trens_ult_localizacao.Visible = sub_cco.Visible = submenu_itemCCO.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = mnRadios.Visible = sub_baixada.Visible = true;
+                sub_macros_consulta.Visible = mnPainel.Visible = mnTelecomandadas.Visible = mnVMA.Visible = mnGOP.Visible =
+                sub_trens_ult_localizacao.Visible = sub_cco.Visible = sub_cco_novo.Visible = submenu_itemCCO.Visible = submenu_itemCCOnovo.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible = mnRadios.Visible = sub_baixada.Visible = true;
 
-                mnTermometros.Visible = mnRestricoes.Visible = mnLocomotivas.Visible = sub_cco.Visible = mnUsuarios.Visible = sub_locomotivas_trocaloco.Visible =
+                mnTermometros.Visible = mnRestricoes.Visible = mnLocomotivas.Visible = sub_cco.Visible = sub_cco_novo .Visible = mnUsuarios.Visible = sub_locomotivas_trocaloco.Visible =
                 sub_macros_macro50.Visible = sub_macros_macro61.Visible = sub_macros_macro200.Visible = mnRestricoes.Visible = mnIndicadores.Visible =
                 sub_relatorio_CCO.Visible = mnGraficoTrens.Visible = sub_macros_macro61.Visible = lnkImportaOBC.Visible = mnDadosApoio.Visible =
                 sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible = sub_relatorio_PCTM.Visible =
