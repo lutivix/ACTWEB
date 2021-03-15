@@ -72,7 +72,7 @@
                 </tr>
             </table>
             <div id="container_image">
-                <img src="../Screenshot/PainelCCO/01_Painel_Full.jpg" id="image" style="width: 460%"  />
+                <img src="../imagens_paineis/painel_CCO_novo/01_Painel_Full.jpg" id="image" style="width: 460%"  />
             </div>
         </div>
         <br />
