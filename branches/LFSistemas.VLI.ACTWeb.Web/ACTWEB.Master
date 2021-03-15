@@ -387,6 +387,23 @@
                                         </asp:LinkButton>
                                     </li>
                                 </ul>
+
+                                <%-- Painel CCO Novo - C821 - 11/03/2021 - Luara --%>
+                                <li id="submenu_itemCCOnovo" runat="server">
+                                    <a data-toggle="collapse" data-parent="#menu" title="Painel CCO Novo" style="cursor: default;">
+                                        <span class="menu-item-icon"><i class="fa fa-external-link"></i></span>
+                                        <span class="menu-item-label" title="CCO Novo">CCO Novo</span>
+                                    </a>
+                                </li>
+                                <ul class="submenusub">
+                                    <li class="" id="sub_cco_novo" runat="server">
+                                        <asp:LinkButton runat="server" ID="lnkPainelCCONovo" OnClick="lnkPainelCCONovo_Click">
+                                                <span class="menu-item-icon"><i class="fa fa-external-link"></i></span>
+                                                <span class="menu-item-label" title="Painel CCO Novo">Painel CCO Novo</span>
+                                        </asp:LinkButton>
+                                    </li>
+                                </ul>
+
                                 <li id="submenu_itemBaixada" runat="server">
                                     <a data-toggle="collapse" data-parent="#menu" title="Baixada" style="cursor: default;"
                                         <span class="menu-item-icon"><i class="fa fa-link"></i></span>
@@ -875,7 +892,7 @@
                             </div>
                         </div>
                         <div class="footer-lf" style="padding-right: 10px;">
-                            <span>(30.714.840.65)desenvolvido por </span>
+                            <span>(30.714.821.66)desenvolvido por </span>
                             <a href="http://lfsolutions.net.br/" target="_blank" class="lfslogo"></a>
                         </div>
                     </div>

@@ -625,6 +625,33 @@ namespace LFSistemas.VLI.ACTWeb.Web {
         protected global::System.Web.UI.WebControls.LinkButton lnkPainelCCO;
         
         /// <summary>
+        /// submenu_itemCCOnovo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl submenu_itemCCOnovo;
+        
+        /// <summary>
+        /// sub_cco_novo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sub_cco_novo;
+        
+        /// <summary>
+        /// lnkPainelCCONovo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkPainelCCONovo;
+        
+        /// <summary>
         /// submenu_itemBaixada control.
         /// </summary>
         /// <remarks>
