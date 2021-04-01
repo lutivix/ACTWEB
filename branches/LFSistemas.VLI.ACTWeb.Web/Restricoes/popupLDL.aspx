@@ -477,6 +477,23 @@
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                     </tr>
 
+
+                     <!-- Nova linha contendo informação da cauda - P707 e talvez prefixo, se decidirem mudar-->
+                     <tr>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
+                        <td style="width: 65%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">                            
+                        </td>
+
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;  padding-left:20px; ">
+                            <asp:Label runat="server" ID="lbCauda" Font-Size="9" Font-Bold="true" />
+                        </td>
+                        	
+                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+                            <asp:TextBox ID="tbCauda" MaxLength="4" runat="server" CssClass="form-control" />
+                        </td>  
+                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
+                    </tr>
+                   
                     <!--LINHA EM BRANCO DE ESPAÇANENTO-->
                     <tr>
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
@@ -501,6 +518,8 @@
                                     <asp:LinkButton ID="lnkLImpar" runat="server" OnClick="lnkLImpar_Click" ToolTip="Limpa os dados do formulário acima."><i class="fa fa-long-arrow-left"></i>&nbsp;Limpar</asp:LinkButton>
                             &nbsp;&nbsp;
                                     <asp:LinkButton ID="lnkNovoResponsavel" runat="server" OnClick="lnkNovoResponsavel_Click" ToolTip="Cadastra um novo responsável no bando de dados."><i class="fa fa-file-o"></i>&nbsp;Novo Responsável</asp:LinkButton>
+                            &nbsp;&nbsp;
+                                    <asp:LinkButton ID="lnkAtualizarCPF" runat="server" OnClick="lnkAtualizarCPF_Click" ToolTip="Atualizar CPF da LDL."><i class="fa fa-file-o"></i>&nbsp;Atualizar CPF</asp:LinkButton>
                             &nbsp;&nbsp;
                                     <asp:LinkButton ID="lnkCancelar" runat="server" OnClick="lnkCancelar_Click" ToolTip="Cancela a operação."><i class="fa fa-times"></i>&nbsp;Cancelar</asp:LinkButton>
                             &nbsp;&nbsp;

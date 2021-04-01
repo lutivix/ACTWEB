@@ -520,7 +520,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                         WHERE CAB_ID IN (${CABINES_R}))) NE
                                     WHERE     MC.MCT_ID_MCT(+) = MR.MR_MCT_ADDR
                                         AND PF.MFP_ID_MSG(+) = MR.MR_GRMN
-                                        AND MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (NE.EST_NOME, '%'))
+                                        --AND MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (NE.EST_NOME, '%'))
+                                        AND MR.MR_ESTACAO = NE.EST_NOME-- C859
                                         ${INTERVALO_R}
                                         AND MR.MR_MC_NUM = 50                                        
                                         ${EXPRESSAO_R}
@@ -1564,7 +1565,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             WHERE EST_ID IN (SELECT EST_ID
                                   FROM REL_CAB_EST
                                             WHERE CAB_ID IN (${CABINES_R}))) B
-                                ON MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                --ON MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                ON MR.MR_ESTACAO = B.EST_NOME-- C859
                                         AND PF.MFP_ID_MSG = MR.MR_GRMN 
                                           ${INTERVALO_R}
                                           AND PF.MFP_LEITURA = 'F' 
@@ -2249,7 +2251,8 @@ INNER JOIN (SELECT EST_NOME
                                             WHERE EST_ID IN (SELECT EST_ID
                                   FROM REL_CAB_EST
                                             WHERE CAB_ID IN (${CABINES_R}))) B
-                                ON MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                --ON MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                ON MR_ESTACAO = B.EST_NOME-- C859
 where mr_mc_num = ${mr_mc_num} and mr_loco = ${mr_loco} and mr_msg_time >= sysdate -1
                                     union
                                     select 'E', me_gfmn as macro, me_loco as loco, me_msg_time as horario, me_text as texto
@@ -2327,7 +2330,8 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
                                             WHERE EST_ID IN (SELECT EST_ID
                                   FROM REL_CAB_EST
                                             WHERE CAB_ID IN (${CABINES_R}))) B
-                                ON MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                --ON MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                ON MR.MR_ESTACAO = B.EST_NOME-- C859
                                      ${INTERVALO_R}
                                      AND MR.MR_MC_NUM = 50
                                      AND SUBSTR (MR.MR_TEXT, 2, 4) = '7000'

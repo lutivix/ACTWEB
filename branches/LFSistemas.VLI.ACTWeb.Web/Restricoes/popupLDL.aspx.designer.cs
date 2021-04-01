@@ -328,6 +328,24 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         protected global::System.Web.UI.WebControls.TextBox txtPrefixo;
         
         /// <summary>
+        /// lbCauda control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbCauda;
+        
+        /// <summary>
+        /// tbCauda control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbCauda;
+        
+        /// <summary>
         /// lnkCriar control.
         /// </summary>
         /// <remarks>
@@ -371,6 +389,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkNovoResponsavel;
+        
+        /// <summary>
+        /// lnkAtualizarCPF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkAtualizarCPF;
         
         /// <summary>
         /// lnkCancelar control.

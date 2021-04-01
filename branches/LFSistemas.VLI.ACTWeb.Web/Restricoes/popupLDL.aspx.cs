@@ -33,8 +33,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             Edicao = 2
         }
 
-        [DllImport(@"DLLMQWeb.dll")]
+        #endregion
 
+        #region EMQ
+        [DllImport(@"DLLMQWeb.dll")]
         /// <summary>
         /// Envia mensagem para fila do MQ
         /// </summary>
@@ -73,12 +75,20 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         /// <param name="prmIdTipoInterdicao">[ int ]: - Identificador do Tipo de Interdição</param>
         /// <param name="prmMatUsuarioLogado">[ char[] ]: - Matricula do Usuário Logado</param>
         /// <param name="prmIdTipoCirculacao">[ int ]: - Identificador do Tipo de Circulação </param>
-        /// <param name="prmTpUser">[ char ]: - Tipo de Usuário, neste caso [ W = Web ]</param>        
+        /// <param name="prmTpUser">[ char ]: - Tipo de Usuário, neste caso [ W = Web ]</param>               
         static extern void DLLSendSRI(int prmIdSLT_ACTWEB,
-                                      int prmIdSLT_ACT,
-                                      int prmId_Tipo_Circulacao,
-                                      char[] prmMat_Usuario,
-                                      char prmTpUser);
+                                     int prmIdSLT_ACT,
+                                     int prmId_Tipo_Circulacao,
+                                     char[] prmMat_Usuario,
+                                     char prmTpUser);
+
+        [DllImport(@"DLLMQWeb.dll")]
+        static extern void DLLSendSOA(int prmIdSLT_ACTWEB,
+                                        int prmIdSLT_ACT,
+                                        int prmId_Tipo_Circulacao,
+                                        char[] prmMat_Usuario,
+                                        char prmTpUser,
+                                        char[] prmCPF_Responsavel);
 
         #endregion
 
@@ -179,7 +189,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             ddlDadosTipoDaCirculacao.DataSource = interdicaoController.ObterCombo_TIPO_CIRCULACAO();
             ddlDadosTipoDaCirculacao.DataBind();
         }
-
         public void ComboDadosMotivo()
         {
             var interdicaoController = new InterdicaoController();
@@ -299,13 +308,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             ControleFormulario(StatusBarraComandos.Novo);
             Pesquisar(null);
-        }        
-       
+        }               
         protected void lnkEdite_Click(object sender, EventArgs e)
         {
             Panel1.Visible = false;
 
-            lblCanalCom.Text = "Canal de comunicação de Retirada";
+            lblCanalCom.Text = "Canal de comunicação de Retirada ou Atualização";
 
             ControleFormulario(StatusBarraComandos.Edicao);
             LinkButton btn = (LinkButton)(sender);
@@ -393,7 +401,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtDadosObsercacao.Text = dados.Observacao != null ? dados.Observacao : string.Empty;
             }
         }
-
         protected void lnkRetirar_Click(object sender, EventArgs e)
         {
             retirando = true;
@@ -447,7 +454,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 throw new Exception(ex.Message);
             }
         }
-
         protected void lnkNovoResponsavel_Click(object sender, EventArgs e)
         {
             Response.Write("<script> " +
@@ -625,6 +631,79 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 Pesquisar("II.SLT_ID_ACT_AUT_INTER " + ViewState["ordenacao"].ToString() + ", SLT_DATA desc");
             }
         }*/
+        protected void lnkAtualizarCPF_Click(object sender, EventArgs e)//P707
+        {
+            //Quando clicar em atualizar, vai mandar mensagem pro bloqueio pra fazer o que precisa.
+            var restricaoController = new RestricaoController();
+
+            if (txtDadosKm.Text != string.Empty && ddlDadosSecao.SelectedItem.Value != "0")
+                verificaKm = restricaoController.VerificaKM(double.Parse(txtDadosKm.Text), double.Parse(ddlDadosSecao.SelectedItem.Value));
+
+            if (verificaKm == "ok")
+            {
+                if (DLLSendSOA())
+                {
+                    ControleFormulario(StatusBarraComandos.Novo);
+                    Pesquisar(null);
+                }
+            }
+            else
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Km " + verificaKm + "' });", true);
+
+
+
+
+            retirando = true;
+            id_aut = txtAutorizacao.Text;
+            sb = ddlDadosSecao.SelectedItem.Text;
+            lblCanalCom.Text = "Canal de comunicação de Atualização";
+
+            try
+            {
+
+                if (podeSolRetirada)
+                {
+                    podeSolRetirada = false;
+                    //txtAutorizacao.Visible = false;
+
+                    //chanar outra pag
+                    //Response.Redirect("<script>window.open('/Restricoes/popupConfirmacaoLDL.aspx</script>");
+
+                    //MessageBox
+
+                    //ring teste = "<script>window.open('/Restricoes/confimacaoRetiradaLDL/PopupEnviarParadaImediata.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'width=680, height=330, scrollbars=yes, resusable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0'); </script>";
+                    //sponse.Write("<script>window.open('/Restricoes/confimacaoRetiradaLDL/PopupEnviarParadaImediata.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'width=680, height=330, scrollbars=yes, resusable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0'); </script>");
+                    //sponse.Write("<script>window.open('/Restricoes/confimacaoRetirarLDL/WebForm1.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'width=680, height=330, scrollbars=yes, resusable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0'); </script>");
+                    //sponse.Write("/Restricoes/confimacaoRetirarLDL/WebForm1.aspx");
+                    //Response.Write("<script> " +
+                    //        " var url = '/Restricoes/confirmacaoRetirarLDL/WebForm1.aspx?id=22';" +
+                    //        " var newW = 800; " +
+                    //        " var newH = 260; " +
+                    //        " var left = (screen.width-newW)/2; " +
+                    //        " var top = (screen.height-newH)/2; " +
+                    //        " var newwindow = window.open(url, 'name', 'width='+newW+',height='+newH+',left='+left+',top='+top); " +
+                    //        " newwindow.resizeTo(newW, newH); " +
+                    //        " newwindow.moveTo(left, top); " +
+                    //        " newwindow.focus();</script>");
+
+                    //Response.Write("<script>window.open('/Macros/PopupEnviarParadaImediata.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'width=680, height=330, scrollbars=yes, resusable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0'); </script>");
+
+                    if (DLLSendSOA())
+                    {
+                        ControleFormulario(StatusBarraComandos.Novo);
+                        Pesquisar(null);
+                        Panel1.Visible = true;
+                        txtAutorizacao.Text = string.Empty;
+                    }
+                    retirando = false;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
         #endregion
 
@@ -881,7 +960,80 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             Thread.Sleep(3000);
             return retorno;
         }
+        protected unsafe bool DLLSendSOA() // Solicitação de Remoção de Interdição
+        {
+            var interdicaoController = new InterdicaoController();
+            bool retorno = false;
+            int Interdicao_ID = 0;
 
+            Interdicao_ID = (int)interdicaoController.ObterIdInterdicaoPorSolicitacao_ID(double.Parse(lblIdentificador.Text));
+
+            var secao = interdicaoController.ObterSecaoPorIdSolicitacao(Interdicao_ID);
+
+            char[] usuario = new char[10];
+            for (int i = 0; i <= 9; i++)
+            {
+                if (i < lblUsuarioMatricula.Text.Length)
+                    usuario[i] = lblUsuarioMatricula.Text[i];
+                else
+                    usuario[i] = char.MinValue;
+            }
+
+            char[] cpf = new char[12];
+            if (txtDadosResponsavel.Text.Length == 11)
+            {                
+                for (int i = 0; i <= 11; i++)
+                {
+                    if (i < lblUsuarioMatricula.Text.Length)
+                        cpf[i] = txtDadosResponsavel.Text[1];
+                    else
+                        cpf[i] = char.MinValue;
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'O campo CPF é obrigatório para a atualização de " + ddlDadosTipoDaInterdicao.SelectedItem.Text + ".' });", true);
+                return false;
+            }
+                
+
+
+            if (ddlDadosTipoDaCirculacao.SelectedItem.Value != "0")
+            {
+                if (ddlDadosTipoDaSituacao.SelectedItem.Text != "R - Retirada")
+                {
+                    if (lblIdentificador.Text.Length > 0)
+                    {
+                        if (ddlDadosTipoDaSituacao.SelectedItem.Text != "S - Solicitada" && ddlDadosTipoDaSituacao.SelectedItem.Text != "C - Confirmada")
+                        {
+                            if (interdicaoController.Retirar(double.Parse(lblIdentificador.Text), double.Parse(ddlDadosTipoDaCirculacao.SelectedItem.Value), ulMatricula))
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Solicitação de Remoção de interdição enviada ao ACT. Usuário " + ulMatricula + " - " + ulPerfil + "' });", true);
+                                retorno = true;
+                            }
+                        }
+                        else
+                        {
+                            DLLSendSOA(int.Parse(lblIdentificador.Text), Interdicao_ID, int.Parse(ddlDadosTipoDaCirculacao.SelectedItem.Value), usuario, 'W', cpf);
+                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Solicitação de retirada de: " + ddlDadosTipoDaInterdicao.SelectedItem.Text + " foi enviada ao ACT pelo usuário " + ulMatricula + " - " + ulPerfil + "' });", true);
+                            LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "LDL", null, Interdicao_ID.ToString(), "Solicitação de Remoção de interdição enviada ao ACT. SB: " + secao + "", Uteis.OPERACAO.Solicitou.ToString());
+
+                            retorno = true;
+
+                        }
+                    }
+                    else
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Selecione uma interdição no grid abaixo para retirar a interdição.' });", true);
+                }
+                else
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Esta interdição já foi retirada anteriormente, favor selecionar outra.' });", true);
+            }
+            else
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'O campo Circulação é obrigatório para a solicitação de retirada da " + ddlDadosTipoDaInterdicao.SelectedItem.Text + ".' });", true);
+
+            Thread.Sleep(3000);
+            return retorno;
+        }
         #endregion
 
         #region [ MÉTODOS DE APOIO ]
@@ -949,6 +1101,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         //    txtPrefixo.eb = true;
         //    lblPrefixo.Visible = true;
         //}
+        protected void clbCorredorLDL_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboFiltroSecoes();
+        }
 
 
 
@@ -1063,6 +1219,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         lnkNovoResponsavel.Visible = false;
                     }
 
+                    //P707 - se for atualizar CPF precisa ser só ADM??
+                    lnkAtualizarCPF.Enabled = true;
+                    lnkAtualizarCPF.CssClass = "btn btn-info";
+
+                    if (ulPerfil != "ADM")
+                    {
+                        lnkAtualizarCPF.Visible = false;
+                    }                    
+
                     ddlDadosSecao.Focus();
 
                     break;
@@ -1105,16 +1270,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         lnkNovoResponsavel.Visible = false;
                     }
 
+                    //P707 - se for atualizar CPF precisa ser só ADM??
+                    if (ulPerfil != "ADM")
+                    {
+                        lnkAtualizarCPF.Visible = false;
+                    }     
+
                     break;
             }
         }
 
         #endregion
 
-        protected void clbCorredorLDL_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboFiltroSecoes();
-        }
+        
+
+       
 
         
     }
