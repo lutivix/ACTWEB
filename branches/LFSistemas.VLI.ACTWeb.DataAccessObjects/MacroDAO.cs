@@ -2965,7 +2965,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
                                             /*ME_LOCO =*/ ${ME_LOCO},
                                             /*ME_CNT_MCT =*/ 61643776,
                                             /*ME_MSG_SUBTYPE =*/ 0,
-                                            /*ME_RETURN_RECEIPT =*/ 1,
+                                            /*ME_RETURN_RECEIPT =*/ 0,
                                             /*ME_TEXT_CONV =*/ ${ME_TEXT},
                                             /*ME_MAC_NUM_PRM =*/ 0)");
 
