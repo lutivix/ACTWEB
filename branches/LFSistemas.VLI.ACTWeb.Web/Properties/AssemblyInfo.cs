@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SLF179 - Filtros THP Subrotas")]
+[assembly: AssemblyTitle("ACTWEB WEB - C873")]
 [assembly: AssemblyDescription("SLF179 - Filtros THP Subrotas")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("LF Solutions")]
@@ -30,5 +30,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("3.175.179.3")]
-[assembly: AssemblyFileVersion("3.175.179.3")]
+[assembly: AssemblyVersion("4.175.873.4")]
+[assembly: AssemblyFileVersion("4.175.873.4")]
