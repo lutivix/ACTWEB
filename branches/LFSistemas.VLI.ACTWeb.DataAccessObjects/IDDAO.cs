@@ -43,7 +43,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         while (reader.Read())
                         {
-                            retorno = (double)reader.GetDecimal(0) ;
+                            retorno = Convert.ToDouble( reader.GetDecimal(0) );
                         }
                     }
 
