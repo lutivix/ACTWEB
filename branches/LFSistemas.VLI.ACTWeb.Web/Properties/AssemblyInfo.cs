@@ -4,8 +4,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ACTWEB WEB - C875")]
-[assembly: AssemblyDescription("SLF179 - Filtros THP Subrotas")]
+[assembly: AssemblyTitle("ACTWEB WEB - C859")]
+[assembly: AssemblyDescription("C859 - Landmark Estacao")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("LF Solutions")]
 [assembly: AssemblyProduct("LFSistemas.VLI.ACTWeb.Web")]
