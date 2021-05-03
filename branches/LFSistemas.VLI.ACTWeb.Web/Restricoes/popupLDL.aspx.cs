@@ -33,6 +33,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             Edicao = 2
         }
 
+        #endregion
+
+        #region EMQ
         [DllImport(@"DLLMQWeb.dll")]
 
         /// <summary>
@@ -264,6 +267,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             {
                 if (DLLSendSOI())
                 {
+                    UsuarioAutController usuario = new UsuarioAutController();
+                    string CPF = txtDadosResponsavel.Text.Trim();
+                    string matricula = lblUsuarioMatricula.Text.Trim();
+                    string usuarioID = lblUsuarioLogado.Text.Trim();
+                    string acao = "criação";
+                    usuario.AtualizarDataUltSol(CPF, matricula, usuarioID, acao);
+                    usuario.AtualizarDataUltSolBSOP(CPF, usuarioID, "7" );
+
                     ControleFormulario(StatusBarraComandos.Novo);
                     Pesquisar(null);
                 }
