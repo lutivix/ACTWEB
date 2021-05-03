@@ -75,7 +75,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     if (filtro.Situacao != null)
                         query.Replace("${SLT_ID_TP_SITUACAO}", string.Format("AND II.SLT_ID_TP_SITUACAO IN ({0})", filtro.Situacao));
                     else
-                        query.Replace("${SLT_ID_TP_SITUACAO}", " AND II.SLT_ID_TP_SITUACAO IN (1, 2, 3, 4, 5, 6)");
+                        query.Replace("${SLT_ID_TP_SITUACAO}", " AND II.SLT_ID_TP_SITUACAO IN (1, 2, 3, 4, 5, 6, 7)");
 
                     if (filtro.Secao != null)
                         query.Replace("${SLT_ID_SECAO}", string.Format(" AND SLT_ID_SECAO = {0}", filtro.Secao));
@@ -971,7 +971,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT DISTINCT TS.TP_SIT_CODIGO, TS.TP_SIT_NOME 
                                     FROM SOLICITACAO_INTERDICAO SI, TIPO_SITUACAO TS 
                                         WHERE SI.SLT_ID_TP_SITUACAO = TS.TP_SIT_CODIGO
-                                          AND TS.TP_SIT_CODIGO IN (1, 2, 3, 4, 5, 6) ORDER BY TS.TP_SIT_NOME");
+                                          AND TS.TP_SIT_CODIGO IN (1, 2, 3, 4, 5, 6,7) ORDER BY TS.TP_SIT_NOME");
 
                     #endregion
 

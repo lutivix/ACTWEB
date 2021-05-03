@@ -65,7 +65,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                       char[] prmMat_Usuario,
                                       char prmTpUser,
                                       char[]prmTelefone_responsavel,
-                                      char[]prmPrefixo);
+                                      char[]prmPrefixo,
+                                      int prmCauda);
 
         [DllImport(@"DLLMQWeb.dll")]
         /// <summary>
@@ -118,6 +119,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtDataFinal.Text = dataFim.ToShortDateString();
                 lblCanalCom.Text = "Canal de comunicação de Entrada";
                 lblPrefixo.Text = "Prefixo:";
+                lbCauda.Enabled = true;
+                lbCauda.Visible = true;
+                lbCauda.Text = "Cauda:";
 
                 ControleFormulario(StatusBarraComandos.Novo);
                 txtDadosDataAtual.Text = DateTime.Now.ToShortDateString();
@@ -273,6 +277,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             {
                 if (DLLSendSOI())
                 {
+                    UsuarioAutController usuario = new UsuarioAutController();
+                    string CPF = txtDadosResponsavel.Text.Trim();
+                    string matricula = lblUsuarioMatricula.Text.Trim();
+                    string usuarioID = lblUsuarioLogado.Text.Trim();
+                    string acao = "criação";
+                    usuario.AtualizarDataUltSol(CPF, matricula, usuarioID, acao);
+                    usuario.AtualizarDataUltSolBSOP(CPF, usuarioID, "7" );
+
                     ControleFormulario(StatusBarraComandos.Novo);
                     Pesquisar(null);
                 }
@@ -826,12 +838,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     inter.Ativo_SN = "S";
                     inter.Telefone_responsavel = txtTelefoneResponsavel.Text.Length > 0 ? txtTelefoneResponsavel.Text : string.Empty;
                     inter.Prefixo = txtPrefixo.Text.Length > 0 ? txtPrefixo.Text : string.Empty;
+                    inter.Cauda = double.Parse( tbCauda.Text.Length > 0 ? tbCauda.Text : string.Empty);
 
                     char[] usuariologado = new char[10];
                     char[] responsavel = new char[12];
                     char[] observacao = new char[38];
                     char[] Telefone_responsavel = new char[11];
                     char[] Prefixo = new char[4];
+                    int Cauda = Convert.ToInt32(inter.Cauda);
+
 
                     for (int i = 0; i <= 35; i++)
                     {
@@ -873,6 +888,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                             Prefixo[i] = char.MinValue;
                     }
 
+                    //for (int i = 0; i <= 5; i++)
+                    //{
+                    //    if (i < inter.Cauda.Length)
+                    //        Cauda[i] = inter.Cauda[i];
+                    //    else
+                    //        Cauda[i] = char.MinValue;
+                    //}
+
                         inter.Usuario_Logado_Nome = lblUsuarioLogado.Text;
 
                     inter.Solicitacao_ID_ACT = (int)interdicaoController.ObterIdInterdicao();   // Pega o ID na tabela SOLICITACOES_LDL no ACT
@@ -880,7 +903,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                     DLLSendSOI((int)inter.Solicitacao_ID_ACTWEB, (int)inter.Tipo_Situacao_ID, inter.Data.ToOADate(), (int)inter.Secao_ID,
                                 (int)inter.Tipo_Interdicao_ID, (int)inter.Duracao_Solicitada, (int)inter.Tipo_Manutencao_ID, (double)inter.Km, responsavel,
-                                observacao, usuariologado, 'W', Telefone_responsavel, Prefixo);
+                                observacao, usuariologado, 'W', Telefone_responsavel, Prefixo, Cauda);
 
                     if (interdicaoController.Inserir(inter, ulMatricula))
                     {
@@ -1101,13 +1124,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         //    txtPrefixo.eb = true;
         //    lblPrefixo.Visible = true;
         //}
+
         protected void clbCorredorLDL_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboFiltroSecoes();
         }
-
-
-
         [System.Web.Services.WebMethod]
         public static void DeleteRestriction(string id)
         {
@@ -1242,12 +1263,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     txtDadosKm.Enabled = false;
                     rdDadosTelefone.Enabled = false;
                     txtDadosTelefone.Enabled = false;
-                    txtDadosResponsavel.Enabled = false;
+                    txtDadosResponsavel.Enabled = true;//P707
                     rdDadosRadio.Enabled = false;
                     txtDadosEquipamentos.Enabled = false;
                     rdDadosMacro.Enabled = false;
                     txtDadosMacro.Enabled = false;
                     txtDadosObsercacao.Enabled = false;
+                    txtTelefoneResponsavel.Enabled = true;
                     //txtAutorizacao.Enabled = true;
 
                     lnkCriar.Enabled = false;
@@ -1263,7 +1285,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     lnkNovoResponsavel.Enabled = false;
                     lnkNovoResponsavel.CssClass = "btn btn-info disabled";
                     txtPrefixo.Text = string.Empty;
-                    txtTelefoneResponsavel.Text = string.Empty;
+                    //txtTelefoneResponsavel.Text = string.Empty;
+                    //txtDadosResponsavel.Text = string.Empty;
+                    //lblResponsavel_Nome.Text = string.Empty;
 
                     if (ulPerfil != "ADM")
                     {

@@ -759,8 +759,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     catch (Exception ex)
                     {
                         LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
-                        if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
-                        throw new Exception(ex.Message);
+                        //if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                        //throw new Exception(ex.Message);
                     }
                     #endregion                    
 
@@ -781,8 +781,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     catch (Exception ex)
                     {
                         LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
-                        if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
-                        throw new Exception(ex.Message);
+                        //if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                        //throw new Exception(ex.Message);
                     }                    
                     #endregion       
              
@@ -792,8 +792,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             catch (Exception ex)
             {
                 LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
-                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
-                throw new Exception(ex.Message);
+                //if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                //throw new Exception(ex.Message);
             }
 
             return (retorno1 && retorno2);

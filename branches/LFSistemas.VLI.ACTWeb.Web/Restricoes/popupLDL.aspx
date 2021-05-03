@@ -246,6 +246,16 @@
                     background-color: white;
                 }
 
+            .situacao-E {
+                color: black;
+                background-color: grey; /* X - Cancelada pelo Solicitante | Orchid | */
+            }
+
+                .situacao-E:hover {
+                    color: grey;
+                    background-color: black;
+                }
+
             .grid {
                 width: 100%;
                 height: 270px;
@@ -254,6 +264,14 @@
             }
 
             .linkbutton_enable {
+            }
+            .auto-style1 {
+                width: 10%;
+                height: 20px;
+            }
+            .auto-style2 {
+                width: 65%;
+                height: 20px;
             }
         </style>
         <div style="margin-top: 1%; margin-left: 4%; margin-right: 4%; margin-bottom: 1%; text-align: left;">
@@ -469,7 +487,8 @@
                             <asp:TextBox ID="txtDadosObsercacao" runat="server" CssClass="form-control" MaxLength="38" onkeyup="return ismaxlength(this);" />
                         </td>
 
-                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;  padding-left:20px; "><asp:Label runat="server" ID="lblPrefixo" Font-Size="9" Font-Bold="true" /></td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;  padding-left:20px; ">
+                                <asp:Label runat="server" ID="lblPrefixo" Font-Size="9" Font-Bold="true" /></td>
                         	
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:TextBox ID="txtPrefixo" MaxLength="4" runat="server" CssClass="form-control" />
@@ -489,7 +508,7 @@
                         </td>
                         	
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-                            <asp:TextBox ID="tbCauda" MaxLength="4" runat="server" CssClass="form-control" />
+                            <asp:TextBox ID="tbCauda" MaxLength="6" runat="server" CssClass="form-control" />
                         </td>  
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                     </tr>
@@ -503,8 +522,8 @@
 
                     <!--BOTÕES-->
                     <tr>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
-                        <td style="width: 65%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="4">
+                        <td style="vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" class="auto-style1">&nbsp;&nbsp;</td>
+                        <td style="vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="4" class="auto-style2">
                             <asp:LinkButton ID="lnkCriar" runat="server" OnClick="lnkCriar_Click" OnClientClick="javascript:return validaFormulario();" ToolTip="Solicitar criação de interdição de LDL."><i class="fa fa-plus"></i>&nbsp;Criar Interdição</asp:LinkButton>
                             &nbsp;&nbsp;
                                     <%--<asp:LinkButton ID="lnkRetirar" runat="server" OnClick="soufoda()" ToolTip="Solicitar remoção de interdição de LDL."><i class="fa fa-minus"></i>&nbsp;Retirar Interdição</asp:LinkButton>--%>
@@ -524,7 +543,7 @@
                                     <asp:LinkButton ID="lnkCancelar" runat="server" OnClick="lnkCancelar_Click" ToolTip="Cancela a operação."><i class="fa fa-times"></i>&nbsp;Cancelar</asp:LinkButton>
                             &nbsp;&nbsp;
                         </td>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
+                        <td style="vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" class="auto-style1">&nbsp;&nbsp;</td>
                     </tr>
                 </table>
             </div>
