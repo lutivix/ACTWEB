@@ -49,6 +49,8 @@
             txtDadosMacro.disabled = true;
             lblPrefixo.disabled = true;
             txtPrefixo.disabled = true;
+            lbCauda.disabled = true;
+            tbCauda.disabled = true;
             document.getElementById("<%=txtDadosTelefone.ClientID%>").focus();
         }
         function getRadioButtonSelectedRadio() {
@@ -62,12 +64,16 @@
             txtDadosMacro.disabled = true;
             lblPrefixo.disabled = true;
             txtPrefixo.disabled = true;
+            lbCauda.disabled = true;
+            tbCauda.disabled = true;
         }
         function getRadioButtonSelectedMacro() {
             txtDadosTelefone = document.getElementById('<%=txtDadosTelefone.ClientID %>');
             txtDadosMacro = document.getElementById('<%=txtDadosMacro.ClientID %>');
             txtPrefixo = document.getElementById('<%=txtPrefixo.ClientID %>');
             lblPrefixo = document.getElementById('<%=lblPrefixo.ClientID %>');
+            lbCauda.disabled = document.getElementById('<%=lbCauda.ClientID %>');;
+            tbCauda.disabled = document.getElementById('<%=tbCauda.ClientID %>');;
 
             document.getElementById('<%=txtDadosTelefone.ClientID %>').value = '';
             document.getElementById('<%=txtDadosMacro.ClientID %>').value = '';
@@ -77,6 +83,8 @@
             txtDadosTelefone.disabled = true;
             lblPrefixo.disabled = false;
             txtPrefixo.disabled = false;
+            lbCauda.disabled = false;
+            tbCauda.disabled = false;
 
           
             document.getElementById("<%=txtDadosMacro.ClientID%>").focus();
@@ -247,13 +255,13 @@
                 }
 
             .situacao-E {
-                color: black;
-                background-color: grey; /* X - Cancelada pelo Solicitante | Orchid | */
+                color: white;
+                background-color: rgb(255,0,0); /* E -Expirada | Tomato | */
             }
 
                 .situacao-E:hover {
-                    color: grey;
-                    background-color: black;
+                    color: black;
+                    background-color: white;
                 }
 
             .grid {
@@ -500,7 +508,8 @@
                      <!-- Nova linha contendo informação da cauda - P707 e talvez prefixo, se decidirem mudar-->
                      <tr>
                         <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
-                        <td style="width: 65%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">                            
+                        <td style="width: 65%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">
+                            
                         </td>
 
                         <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;  padding-left:20px; ">
@@ -672,6 +681,9 @@
                                                 <th style="background-color: #fff; width: 20%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                     <asp:LinkButton ID="lnkObservacao" runat="server" OnClick="lnkObservacao_Click">Observação</asp:LinkButton>
                                                 </th>
+                                                <th style="background-color: #fff; width: 20%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                    <asp:LinkButton ID="lnkJustificativa" runat="server" OnClick="lnkObservacao_Click">Justificativa</asp:LinkButton>
+                                                </th>
                                                 <th style="background-color: #fff; width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                     <asp:LinkButton ID="lnkDuracaoSolicitada" runat="server" OnClick="lnkDuracaoSolicitada_OnClick">Solicitado <Font size="2">(hh:mm)</Font></asp:LinkButton>
                                                 </th>
@@ -696,6 +708,7 @@
                                         <td style="width: 07%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Data") %>"><%# Eval("Data") %></td>
                                         <td style="width: 05%; text-align: right; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Km") %>"><%# Eval("Km") %></td>
                                         <td style="width: 25%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Observacao") %>"><%# Eval("Observacao") %></td>
+                                        <td style="width: 15%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Justificativa") %>"><%# Eval("Justificativa") %></td>
                                         <td style="width: 10%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Duracao_Solicitada") %>"><%# double.Parse(Eval("Duracao_Solicitada").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}", (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Solicitada").ToString())).TotalHours, (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Solicitada").ToString())).Minutes) : ""%> </td>
                                         <td style="width: 10%; text-align: center;" title="<%# Eval("Duracao_Autorizada") %>"><%# double.Parse(Eval("Duracao_Autorizada").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}", (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Autorizada").ToString())).TotalHours, (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Autorizada").ToString())).Minutes) : ""%> </td>
                                     </tr>

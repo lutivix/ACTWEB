@@ -48,6 +48,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Telefone_responsavel { get; set; }
         public string Prefixo { get; set; }
         public double Cauda { get; set; }
+        public string Justificativa { get; set; }
 
         #endregion
     }

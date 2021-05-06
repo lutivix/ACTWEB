@@ -84,12 +84,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                      char prmTpUser);
 
         [DllImport(@"DLLMQWeb.dll")]
-        static extern void DLLSendSOA(int prmIdSLT_ACTWEB,
+        static extern void DLLSendSAR(int prmIdSLT_ACTWEB,
                                         int prmIdSLT_ACT,
                                         int prmId_Tipo_Circulacao,
                                         char[] prmMat_Usuario,
                                         char prmTpUser,
-                                        char[] prmCPF_Responsavel);
+                                        char[] prmCPF_Responsavel,
+                                        char[] prmJustificativa);
 
         #endregion
 
@@ -111,6 +112,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             {
                 txtPrefixo.Enabled = false;
                 lblPrefixo.Enabled = false;
+
+                tbCauda.Enabled = false;
+                lbCauda.Enabled = false;
         
                 ViewState["ordenacao"] = "ASC";
                 var dataIni = DateTime.Parse(DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy"));
@@ -353,6 +357,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtTelefoneResponsavel.Text = dados.Telefone_responsavel != null ? dados.Telefone_responsavel : string.Empty;
 
                 txtPrefixo.Text = dados.Prefixo != null ? dados.Prefixo : string.Empty;
+                tbCauda.Text = string.Empty;
+                if(dados.Cauda != 0)
+                {
+                    tbCauda.Text = dados.Cauda.ToString("f0");
+                }
+                
                 
                 
                 if (dados.Tipo_Circulacao_ID > 0)
@@ -657,6 +667,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 {
                     ControleFormulario(StatusBarraComandos.Novo);
                     Pesquisar(null);
+                    Panel1.Visible = true;
+                    txtAutorizacao.Text = string.Empty;
                 }
             }
             else
@@ -664,7 +676,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
 
 
-
+            /**
             retirando = true;
             id_aut = txtAutorizacao.Text;
             sb = ddlDadosSecao.SelectedItem.Text;
@@ -715,6 +727,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             {
                 throw new Exception(ex.Message);
             }
+            /**/
         }
 
         #endregion
@@ -1007,8 +1020,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             {                
                 for (int i = 0; i <= 11; i++)
                 {
-                    if (i < lblUsuarioMatricula.Text.Length)
-                        cpf[i] = txtDadosResponsavel.Text[1];
+                    if (i < txtDadosResponsavel.Text.Length)
+                        cpf[i] = txtDadosResponsavel.Text[i];
                     else
                         cpf[i] = char.MinValue;
                 }
@@ -1018,41 +1031,46 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'O campo CPF é obrigatório para a atualização de " + ddlDadosTipoDaInterdicao.SelectedItem.Text + ".' });", true);
                 return false;
             }
+           
+
+            char[] just = new char[38];
+            /**
+           if (tbJustificativa.Text.Length > 0)
+           {
+               for (int i = 0; i < 38; i++)
+               {
+                   if (i < tbJustificativa.Text.Length)
+                       just[i] = tbJustificativa.Text[i];
+                   else
+                       just[i] = char.MinValue;
+               }
+           }
+           else
+           {
+               ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'O campo Justificativa é obrigatório para a atualização de CPF de " + ddlDadosTipoDaInterdicao.SelectedItem.Text + ".' });", true);
+               return false;
+           }
+           /**/
                 
 
-
-            if (ddlDadosTipoDaCirculacao.SelectedItem.Value != "0")
+            if (ddlDadosTipoDaSituacao.SelectedItem.Text == "C - Confirmada")
             {
-                if (ddlDadosTipoDaSituacao.SelectedItem.Text != "R - Retirada")
+                if (lblIdentificador.Text.Length > 0)
                 {
-                    if (lblIdentificador.Text.Length > 0)
-                    {
-                        if (ddlDadosTipoDaSituacao.SelectedItem.Text != "S - Solicitada" && ddlDadosTipoDaSituacao.SelectedItem.Text != "C - Confirmada")
-                        {
-                            if (interdicaoController.Retirar(double.Parse(lblIdentificador.Text), double.Parse(ddlDadosTipoDaCirculacao.SelectedItem.Value), ulMatricula))
-                            {
-                                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Solicitação de Remoção de interdição enviada ao ACT. Usuário " + ulMatricula + " - " + ulPerfil + "' });", true);
-                                retorno = true;
-                            }
-                        }
-                        else
-                        {
-                            DLLSendSOA(int.Parse(lblIdentificador.Text), Interdicao_ID, int.Parse(ddlDadosTipoDaCirculacao.SelectedItem.Value), usuario, 'W', cpf);
-                            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Solicitação de retirada de: " + ddlDadosTipoDaInterdicao.SelectedItem.Text + " foi enviada ao ACT pelo usuário " + ulMatricula + " - " + ulPerfil + "' });", true);
-                            LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "LDL", null, Interdicao_ID.ToString(), "Solicitação de Remoção de interdição enviada ao ACT. SB: " + secao + "", Uteis.OPERACAO.Solicitou.ToString());
+                       
+                        DLLSendSAR(int.Parse(lblIdentificador.Text), Interdicao_ID, int.Parse(ddlDadosTipoDaCirculacao.SelectedItem.Value), usuario, 'W', cpf, just);
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Solicitação de alteraçãop de CPF de: " + ddlDadosTipoDaInterdicao.SelectedItem.Text + " foi enviada ao ACT pelo usuário " + ulMatricula + " - " + ulPerfil + "' });", true);
+                        LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "LDL", null, Interdicao_ID.ToString(), "Solicitação de Alteração de CPF de interdição enviada ao ACT. SB: " + secao + "", Uteis.OPERACAO.Solicitou.ToString());
 
-                            retorno = true;
-
-                        }
-                    }
-                    else
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Selecione uma interdição no grid abaixo para retirar a interdição.' });", true);
+                        retorno = true;
+                       
                 }
                 else
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Esta interdição já foi retirada anteriormente, favor selecionar outra.' });", true);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Selecione uma interdição no grid abaixo para retirar a interdição.' });", true);
             }
             else
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'O campo Circulação é obrigatório para a solicitação de retirada da " + ddlDadosTipoDaInterdicao.SelectedItem.Text + ".' });", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Esta interdição não foi confirmada, favor selecionar outra.' });", true);
+           
 
             Thread.Sleep(3000);
             return retorno;
@@ -1219,6 +1237,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     lblMensagem.Text = string.Empty;
                     txtPrefixo.Text = string.Empty;
                     txtTelefoneResponsavel.Text = string.Empty;
+                    tbCauda.Text = string.Empty;
+                    //tbJustificativa.Text = string.Empty;
 
 
 
@@ -1285,6 +1305,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     lnkNovoResponsavel.Enabled = false;
                     lnkNovoResponsavel.CssClass = "btn btn-info disabled";
                     txtPrefixo.Text = string.Empty;
+                    tbCauda.Text = string.Empty;
+                    //tbJustificativa.Text = string.Empty;
                     //txtTelefoneResponsavel.Text = string.Empty;
                     //txtDadosResponsavel.Text = string.Empty;
                     //lblResponsavel_Nome.Text = string.Empty;
