@@ -613,7 +613,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 {
                     #region [ INSERE USUÁRIO NO BANCO ]
 
-                    var command = connection.CreateCommand();
+                    var command2 = connection.CreateCommand();
                     query.Append(@"UPDATE ACTPP.OPERADORES_BS SET OP_ULTIMA_SOLICIT = SYSDATE
                                     WHERE OP_CPF = ${CPF}");
 
@@ -627,8 +627,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ RODA A QUERY NO BANCO ]
 
-                    command.CommandText = query.ToString();
-                    command.ExecuteNonQuery();
+                    command2.CommandText = query.ToString();
+                    command2.ExecuteNonQuery();
 
                     LogDAO.GravaLogBanco(DateTime.Now, matricula, "Usuários", usuarioID, null, "Usuário CPF: " + cpf + ", atualizado campo OP_ULTIMA_SOLICIT na tabela OPERADORES_BS devido a " + acao + " de novo Boletim de Serviço. ", Uteis.OPERACAO.Atualizou.ToString());
 
@@ -695,6 +695,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [  ATUALIZA BS_OPARADOR NO BANCO ]
 
+                    command.Dispose();
                     command = connection.CreateCommand();
                     query2.Append(@"INSERT INTO ACTPP.BS_OPERADOR
                                     (BSO_ID, OP_BS_ID, SR_ID_STR, BS_OP_DT, BS_OP_ID_PAR, BS_OP_VLR_PAR, BS_OP_MAT, BS_OP_DT_ANT, BS_OP_ATIVO)
@@ -743,6 +744,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region INSERE INATIVOS EM BS_OPERADOR_HIST
                     try
                     {
+                        command.Dispose();
                         command = connection.CreateCommand();
                         query3.Append(@"insert into actpp.bs_operador_hist select * from actpp.bs_operador where bs_op_ativo = 'N'");
                         
@@ -767,6 +769,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region Limpa BS_OPERADOR para todos os registros inativos
                     try
                     {
+                        command.Dispose();
                         command.Connection.Open();
                         command = connection.CreateCommand();
                         query4.Append(@"DELETE FROM actpp.BS_OPERADOR WHERE BS_OP_ATIVO = 'N'");
