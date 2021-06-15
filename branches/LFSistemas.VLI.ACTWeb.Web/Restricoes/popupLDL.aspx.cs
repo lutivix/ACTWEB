@@ -110,11 +110,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             if (!IsPostBack)
             {
-                txtPrefixo.Enabled = false;
-                lblPrefixo.Enabled = false;
+                //txtPrefixo.Enabled = false;
+                //lblPrefixo.Enabled = false;
 
-                tbCauda.Enabled = false;
-                lbCauda.Enabled = false;
+                //tbCauda.Enabled = false;
+                //lbCauda.Enabled = false;
         
                 ViewState["ordenacao"] = "ASC";
                 var dataIni = DateTime.Parse(DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy"));
@@ -122,6 +122,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtDataInicial.Text = dataIni.ToShortDateString();
                 txtDataFinal.Text = dataFim.ToShortDateString();
                 lblCanalCom.Text = "Canal de comunicação de Entrada";
+                lblPrefixo.Enabled = true;
+                lblPrefixo.Visible = true;
                 lblPrefixo.Text = "Prefixo:";
                 lbCauda.Enabled = true;
                 lbCauda.Visible = true;
@@ -1260,14 +1262,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         lnkNovoResponsavel.Visible = false;
                     }
 
-                    //P707 - se for atualizar CPF precisa ser só ADM??
+                    //P707 - se for atualizar CPF precisa ser só ADM?? não
                     lnkAtualizarCPF.Enabled = true;
                     lnkAtualizarCPF.CssClass = "btn btn-info";
 
-                    if (ulPerfil != "ADM")
-                    {
-                        lnkAtualizarCPF.Visible = false;
-                    }                    
+                    //if (ulPerfil != "ADM")
+                    //{
+                    //    lnkAtualizarCPF.Visible = false;
+                    //}                    
 
                     ddlDadosSecao.Focus();
 
@@ -1317,10 +1319,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     }
 
                     //P707 - se for atualizar CPF precisa ser só ADM??
-                    if (ulPerfil != "ADM")
-                    {
-                        lnkAtualizarCPF.Visible = false;
-                    }     
+                    //if (ulPerfil != "ADM")
+                    //{
+                    //    lnkAtualizarCPF.Visible = false;
+                    //}     
 
                     break;
             }

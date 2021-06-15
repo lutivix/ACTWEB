@@ -47,10 +47,10 @@
             document.getElementById('<%=txtPrefixo.ClientID %>').value = '';
             txtDadosTelefone.disabled = false;
             txtDadosMacro.disabled = true;
-            lblPrefixo.disabled = true;
-            txtPrefixo.disabled = true;
-            lbCauda.disabled = true;
-            tbCauda.disabled = true;
+            //lblPrefixo.disabled = true;
+            //txtPrefixo.disabled = true;
+            //lbCauda.disabled = true;
+            //tbCauda.disabled = true;
             document.getElementById("<%=txtDadosTelefone.ClientID%>").focus();
         }
         function getRadioButtonSelectedRadio() {
@@ -62,10 +62,10 @@
             document.getElementById('<%=txtPrefixo.ClientID %>').value = '';
             txtDadosTelefone.disabled = true;
             txtDadosMacro.disabled = true;
-            lblPrefixo.disabled = true;
-            txtPrefixo.disabled = true;
-            lbCauda.disabled = true;
-            tbCauda.disabled = true;
+            //lblPrefixo.disabled = true;
+            //txtPrefixo.disabled = true;
+            //lbCauda.disabled = true;
+            //tbCauda.disabled = true;
         }
         function getRadioButtonSelectedMacro() {
             txtDadosTelefone = document.getElementById('<%=txtDadosTelefone.ClientID %>');
