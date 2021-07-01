@@ -260,7 +260,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                              ELSE 'INT'
                                           END
                                        || IMH.IM_ID_IM
-                                          CODIGO
+                                          CODIGO,
+                                       II.SLT_CAUDA
                                   FROM SOLICITACAO_INTERDICAO II,
                                        ACTPP.ELEM_VIA EV,
                                        TIPO_SITUACAO TS,
@@ -319,7 +320,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        II.SLT_ID_MOTIVO,
                                        NULL AS RD_DSC_RDE,
                                        NULL AS IM_ID_IM,
-                                       NULL AS CODIGO       
+                                       NULL AS CODIGO,
+                                       II.SLT_CAUDA       
                                   FROM SOLICITACAO_INTERDICAO II,
                                        ACTPP.ELEM_VIA EV,
                                        TIPO_SITUACAO TS,
@@ -380,7 +382,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                              ELSE 'INT'
                                           END
                                        || IM.IM_ID_IM
-                                          CODIGO
+                                          CODIGO,
+                                        II.SLT_CAUDA
                                   FROM SOLICITACAO_INTERDICAO II,
                                        ACTPP.ELEM_VIA EV,
                                        TIPO_SITUACAO TS,
@@ -1140,6 +1143,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(32)) item.Motivo_Desc = reader.GetString(32);
             if (!reader.IsDBNull(33)) item.Interdicao_Motivo = reader.GetDouble(33);
             if (!reader.IsDBNull(34)) item.Cod_Interdicao = reader.GetString(34);
+            if (!reader.IsDBNull(35)) item.Cauda = reader.GetDouble(35);
 
 
             return item;
