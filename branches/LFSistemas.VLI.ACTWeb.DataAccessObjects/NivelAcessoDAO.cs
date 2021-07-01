@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.OleDb;
 using System.Text;
 using LFSistemas.VLI.ACTWeb.Entities;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -71,7 +72,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto nível de acesso</returns>
-        private NivelAcesso PreencherPropriedades(OleDbDataReader reader)
+        private NivelAcesso PreencherPropriedades(OracleDataReader reader)
         {
             var item = new NivelAcesso();
 

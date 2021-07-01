@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LFSistemas.VLI.ACTWeb.Entities;
 using System.Data.OleDb;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -846,7 +847,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return true;
         }
 
-        private UsuarioAutorizado PreencherPropriedadesFiltro(OleDbDataReader reader)
+        private UsuarioAutorizado PreencherPropriedadesFiltro(OracleDataReader reader)
         {
             var item = new UsuarioAutorizado();
             double corredorID = new double();
@@ -881,7 +882,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private string PreencherPropriedadesSubtipos(OleDbDataReader reader)
+        private string PreencherPropriedadesSubtipos(OracleDataReader reader)
         {
             string subtipo = "";
             try

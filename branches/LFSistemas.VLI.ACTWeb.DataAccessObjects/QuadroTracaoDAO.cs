@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -373,7 +373,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return Retorno;
         }
 
-        private QuadroTracao PreencherPropriedades(OleDbDataReader reader)
+        private QuadroTracao PreencherPropriedades(OracleDataReader reader)
         {
             var item = new QuadroTracao();
 

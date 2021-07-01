@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -374,7 +374,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
         #region [ MÉTODOS DE APOIO ]
 
-        private Meta_PCTM PreencherPropriedades(OleDbDataReader reader)
+        private Meta_PCTM PreencherPropriedades(OracleDataReader reader)
         {
             var item = new Meta_PCTM();
 
@@ -401,7 +401,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private ComboBox PreencherPropriedadesRotas(OleDbDataReader reader)
+        private ComboBox PreencherPropriedadesRotas(OracleDataReader reader)
         {
             var item = new ComboBox();
 

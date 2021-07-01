@@ -5,6 +5,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -498,7 +499,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
         #region [ MÉTODOS DE APOIO ]
 
-        public Radios PreencherPropriedades(OleDbDataReader reader)
+        public Radios PreencherPropriedades(OracleDataReader reader)
         {
             var item = new Radios();
 
@@ -526,7 +527,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        public Corredores PreencherPropriedadesCorredor(OleDbDataReader reader)
+        public Corredores PreencherPropriedadesCorredor(OracleDataReader reader)
         {
             var item = new Corredores();
 
@@ -537,7 +538,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
-        public Situacao_Radios PreencherPropriedadesSituacaoRadios(OleDbDataReader reader)
+        public Situacao_Radios PreencherPropriedadesSituacaoRadios(OracleDataReader reader)
         {
             var item = new Situacao_Radios();
 

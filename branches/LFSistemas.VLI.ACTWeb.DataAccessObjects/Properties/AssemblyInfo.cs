@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ACTWEB DAO - P707")]
-[assembly: AssemblyDescription("P707 - CPFs LDL")]
+[assembly: AssemblyTitle("ACTWEB DAO - C918")]
+[assembly: AssemblyDescription("C918 - ODP NET")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("LF Solutions")]
 [assembly: AssemblyProduct("LF Solutions ACTWEB")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("5.707.859.7")]
-[assembly: AssemblyFileVersion("5.707.859.7")]
+[assembly: AssemblyVersion("6.707.918.8")]
+[assembly: AssemblyFileVersion("6.707.918.8")]

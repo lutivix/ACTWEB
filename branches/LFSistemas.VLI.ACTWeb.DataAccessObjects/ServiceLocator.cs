@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Threading;
 using LFSistemas.VLI.ACTWeb.Entities;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -15,14 +16,24 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// Obtem uma conexão ACTWEB
         /// </summary>
         /// <returns>Retorna uma conexão aberta</returns>
-        public static OleDbConnection ObterConexaoACTWEB()
+        public static OracleConnection ObterConexaoACTWEB()
         {
-            var connection = new OleDbConnection();
+            OracleConnection connection = null;
+            //OracleConnection newCon = null;
+
+
             for (int i = 0; i < 15; i++)
             {
                 try
                 {
-                    connection.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionStringACTWEB"].ConnectionString;
+                    //string conString = "User ID=actweb;Password=engesis;Data Source=ACTPDB";
+                    //newCon = new OracleConnection(conString);
+                    //newCon.Open();
+
+
+                    //string conString = ConfigurationManager.ConnectionStrings["ConnectionStringACTWEB"].ConnectionString;
+                    string conString = ConfigurationManager.AppSettings[@"ConString"]; 
+                    connection = new OracleConnection(conString);
                     connection.Open();
                 }
                 catch (Exception ex)
@@ -44,12 +55,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return connection;
         }
 
-        public static OleDbConnection ObterConexaoACTSCT()
+        public static OracleConnection ObterConexaoACTSCT()
         {
-            var connection = new OleDbConnection();
+            OracleConnection connection = null;
+            //var connection = new OleDbConnection();
             try
             {
-                connection.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionStringACTSCT"].ConnectionString;
+                string conString = ConfigurationManager.AppSettings[@"ConStringSCT"];
+                connection = new OracleConnection(conString);
+                //connection.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionStringACTSCT"].ConnectionString;
                 connection.Open();
             }
             catch (Exception ex)
@@ -81,12 +95,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         //}
 
 
-        public static OleDbConnection ObterConexaoPGOF()
+        public static OracleConnection ObterConexaoPGOF()
         {
-            var connection = new OleDbConnection();
+            OracleConnection connection = null;    
+            //var connection = new OleDbConnection();
             try
             {
-                connection.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionStringPGOF"].ConnectionString;
+
+                string conString = ConfigurationManager.AppSettings[@"ConStringPGOF"];
+                connection = new OracleConnection(conString);
+                //connection.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionStringPGOF"].ConnectionString;
                 connection.Open();
 
             }

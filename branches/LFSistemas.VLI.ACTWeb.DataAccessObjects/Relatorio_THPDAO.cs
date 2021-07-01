@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LFSistemas.VLI.ACTWeb.Entities;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -1216,7 +1217,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
         #region [ MÉTODOS DE APOIO ]
 
-        private Rel_THP_Itens PreencherPropriedades(OleDbDataReader reader, Rel_THP_Filtro filtro)
+        private Rel_THP_Itens PreencherPropriedades(OracleDataReader reader, Rel_THP_Filtro filtro)
         {
             var item = new Rel_THP_Itens();
 
@@ -1310,7 +1311,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
-        private Rel_THP PreencherPropriedadesPrefixo(OleDbDataReader reader)
+        private Rel_THP PreencherPropriedadesPrefixo(OracleDataReader reader)
         {
             var item = new Rel_THP();
 
@@ -1399,7 +1400,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
-        private PontaRota PreencherPropriedadesPontaRota(OleDbDataReader reader)
+        private PontaRota PreencherPropriedadesPontaRota(OracleDataReader reader)
         {
             var item = new PontaRota();
 

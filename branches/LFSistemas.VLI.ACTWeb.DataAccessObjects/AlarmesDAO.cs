@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -233,7 +233,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return itens;
         }
 
-        private AlarmesTelecomandadas PreencherPropriedadesAlarmesTelecomandadas(OleDbDataReader reader, string origem)
+        private AlarmesTelecomandadas PreencherPropriedadesAlarmesTelecomandadas(OracleDataReader reader, string origem)
         {
             var item = new AlarmesTelecomandadas();
 
@@ -283,7 +283,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             }
             return item;
         }
-        private AlarmesTelecomandadas PreencherPropriedadesAlarmesPosicionamento(OleDbDataReader reader)
+        private AlarmesTelecomandadas PreencherPropriedadesAlarmesPosicionamento(OracleDataReader reader)
         {
             var item = new AlarmesTelecomandadas();
              

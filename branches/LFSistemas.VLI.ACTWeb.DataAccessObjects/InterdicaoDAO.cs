@@ -5,6 +5,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -1059,7 +1060,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private Interdicao PreencherPropriedadesInterdicao(OleDbDataReader reader)
+        private Interdicao PreencherPropriedadesInterdicao(OracleDataReader reader)
         {
             var item = new Interdicao();
            
@@ -1103,7 +1104,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private Interdicao PreencherPropriedadesInterdicaoPorID(OleDbDataReader reader)
+        private Interdicao PreencherPropriedadesInterdicaoPorID(OracleDataReader reader)
         {
             var item = new Interdicao();
 
@@ -1155,7 +1156,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private ComboInterdicao_Secao PreencherPropriedadesSecao(OleDbDataReader reader)
+        private ComboInterdicao_Secao PreencherPropriedadesSecao(OracleDataReader reader)
         {
             var item = new ComboInterdicao_Secao();
 
@@ -1169,7 +1170,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private Tipo_Situacao PreencherPropriedadesTipoSituacao(OleDbDataReader reader)
+        private Tipo_Situacao PreencherPropriedadesTipoSituacao(OracleDataReader reader)
         {
             var item = new Tipo_Situacao();
 
@@ -1184,7 +1185,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private Tipo_Interdicao PreencherPropriedadesTipo_Interdicao(OleDbDataReader reader)
+        private Tipo_Interdicao PreencherPropriedadesTipo_Interdicao(OracleDataReader reader)
         {
             var item = new Tipo_Interdicao();
 
@@ -1199,7 +1200,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private Tipo_Manutencao PreencherPropriedadesTipo_Manutencao(OleDbDataReader reader)
+        private Tipo_Manutencao PreencherPropriedadesTipo_Manutencao(OracleDataReader reader)
         {
             var item = new Tipo_Manutencao();
 
@@ -1214,7 +1215,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private Tipo_Circulacao PreencherPropriedadesTipo_Circulacao(OleDbDataReader reader)
+        private Tipo_Circulacao PreencherPropriedadesTipo_Circulacao(OracleDataReader reader)
         {
             var item = new Tipo_Circulacao();
 
@@ -1229,7 +1230,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private ComboBox PreencherPropriedadesComboBox(OleDbDataReader reader)
+        private ComboBox PreencherPropriedadesComboBox(OracleDataReader reader)
         {
             var item = new ComboBox();
 
