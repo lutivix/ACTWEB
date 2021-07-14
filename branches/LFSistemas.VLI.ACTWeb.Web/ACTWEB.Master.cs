@@ -3,6 +3,7 @@ using LFSistemas.VLI.ACTWeb.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+//using System.Web.Http.Common;
 
 namespace LFSistemas.VLI.ACTWeb.Web
 {
@@ -27,9 +28,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 return this.usuario;
             }
         }
-
         public List<Entities.Display> itens { get; set; }
-
         public string ulNome { get; set; }
         public string ulMatricula { get; set; }
         public string ulPerfil { get; set; }
@@ -966,7 +965,29 @@ namespace LFSistemas.VLI.ACTWeb.Web
 
         #endregion
 
+        #region [INCLUSÃO HTTPS]
 
-        
+        /**
+        public class RequireHttpsAttribute : AuthorizationFilterAttribute
+        {
+            public override void OnAuthorization(HttpActionContext actionContext)
+            {
+                if (actionContext.Request.RequestUri.Scheme != Uri.UriSchemeHttps)
+                {
+                    actionContext.Response = new HttpResponseMessage(System.Net.HttpStatusCode.Forbidden)
+                    {
+                        ReasonPhrase = "HTTPS Required"
+                    };
+                }
+                else
+                {
+                    base.OnAuthorization(actionContext);
+                }
+            }
+        }
+
+         * /**/
+        #endregion
+
     }
 }
