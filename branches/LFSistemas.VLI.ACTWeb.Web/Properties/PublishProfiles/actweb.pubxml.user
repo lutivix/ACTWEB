@@ -15,7 +15,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2020 15:31:24</publishTime>
     </File>
     <File Include="ACTWEB.Master">
-      <publishTime>01/06/2021 13:34:33</publishTime>
+      <publishTime>07/14/2021 13:21:09</publishTime>
     </File>
     <File Include="Ajuda/Erro.aspx">
       <publishTime>06/12/2020 15:31:24</publishTime>
@@ -162,25 +162,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>06/21/2021 15:06:19</publishTime>
+      <publishTime>07/14/2021 13:21:21</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
       <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>06/21/2021 15:06:19</publishTime>
+      <publishTime>07/14/2021 13:21:21</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
       <publishTime>09/08/2016 12:55:17</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>06/09/2021 10:38:26</publishTime>
+      <publishTime>07/14/2021 13:21:20</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>06/21/2021 15:06:20</publishTime>
+      <publishTime>07/14/2021 13:21:23</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>
@@ -220,6 +220,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/NPOI.OpenXmlFormats.dll">
       <publishTime>06/12/2020 15:31:24</publishTime>
+    </File>
+    <File Include="bin/Oracle.ManagedDataAccess.dll">
+      <publishTime>01/07/2021 10:17:57</publishTime>
     </File>
     <File Include="bin/pl/AjaxControlToolkit.resources.dll">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -333,7 +336,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2020 15:31:24</publishTime>
     </File>
     <File Include="Cadastro/UsuariosAutorizados.aspx">
-      <publishTime>05/13/2021 14:19:51</publishTime>
+      <publishTime>01/07/2021 09:37:33</publishTime>
     </File>
     <File Include="cc3260.dll">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -462,7 +465,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2020 15:31:24</publishTime>
     </File>
     <File Include="Consulta/Macros/Macro50-E.ascx">
-      <publishTime>05/13/2021 14:21:28</publishTime>
+      <publishTime>01/07/2021 09:37:33</publishTime>
     </File>
     <File Include="Consulta/Macros/Macro50-R.ascx">
       <publishTime>02/23/2021 10:30:22</publishTime>
@@ -495,7 +498,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2020 15:31:24</publishTime>
     </File>
     <File Include="Consulta/UsuariosAutorizados.aspx">
-      <publishTime>05/13/2021 14:19:51</publishTime>
+      <publishTime>01/07/2021 09:37:33</publishTime>
     </File>
     <File Include="Criptografar.aspx">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -528,7 +531,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2020 15:31:24</publishTime>
     </File>
     <File Include="css/recaptcha.css">
-      <publishTime>05/13/2021 14:21:28</publishTime>
+      <publishTime>01/07/2021 09:37:33</publishTime>
     </File>
     <File Include="DadosApoio/Abas/VelocidadePorPrefixo.ascx">
       <publishTime>06/12/2020 15:31:24</publishTime>
@@ -1512,7 +1515,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2020 15:31:24</publishTime>
     </File>
     <File Include="js/recaptcha.js">
-      <publishTime>05/13/2021 14:21:28</publishTime>
+      <publishTime>01/07/2021 09:37:33</publishTime>
     </File>
     <File Include="Libs/AjaxControlToolkit.dll">
       <publishTime>06/12/2020 15:31:24</publishTime>
@@ -1545,7 +1548,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/16/2020 09:16:24</publishTime>
     </File>
     <File Include="Login.aspx">
-      <publishTime>05/13/2021 14:21:28</publishTime>
+      <publishTime>01/07/2021 09:37:33</publishTime>
     </File>
     <File Include="logo-vli.ico">
       <publishTime>06/12/2020 15:31:24</publishTime>
@@ -1608,7 +1611,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2020 15:31:24</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>05/13/2021 14:19:49</publishTime>
+      <publishTime>07/14/2021 09:38:33</publishTime>
     </File>
     <File Include="packages/.gitkeep">
       <publishTime>06/12/2020 15:31:24</publishTime>
@@ -1629,7 +1632,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/16/2020 09:16:24</publishTime>
     </File>
     <File Include="Painel/PainelCCONovo.aspx">
-      <publishTime>05/13/2021 14:21:28</publishTime>
+      <publishTime>01/07/2021 09:37:33</publishTime>
     </File>
     <File Include="Painel/PainelEFVM.aspx">
       <publishTime>07/16/2020 09:16:24</publishTime>
@@ -1692,7 +1695,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/16/2020 09:16:24</publishTime>
     </File>
     <File Include="Restricoes/popupLDL.aspx">
-      <publishTime>06/15/2021 16:05:30</publishTime>
+      <publishTime>01/07/2021 09:37:33</publishTime>
     </File>
     <File Include="Restricoes/popupRelatorioRestricoesPorData.aspx">
       <publishTime>03/11/2020 14:07:39</publishTime>
@@ -1704,7 +1707,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/11/2020 14:07:39</publishTime>
     </File>
     <File Include="Restricoes/popupRestricoes.aspx">
-      <publishTime>05/13/2021 14:19:51</publishTime>
+      <publishTime>01/07/2021 09:37:33</publishTime>
     </File>
     <File Include="slide/slide01.png">
       <publishTime>02/07/2015 14:49:54</publishTime>
@@ -1746,7 +1749,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/16/2020 09:16:24</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/15/2021 16:00:27</publishTime>
+      <publishTime>07/14/2021 13:26:12</publishTime>
     </File>
   </ItemGroup>
 </Project>
