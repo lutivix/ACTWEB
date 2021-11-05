@@ -15,6 +15,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
         public string Matricula { get; set; }
         public string Flag { get; set; }
         public int Id { get; set; }
+        public string lEmail { get; set; }
 
         #endregion
 
@@ -26,6 +27,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             ulMatricula = string.Format("{0}", ViewState["uMatricula"] = Uteis.Descriptografar(Request.QueryString["mu"].ToString(), "a#3G6**@").ToUpper());
             ulPerfil = string.Format("{0}", ViewState["uPerfil"] = Uteis.Descriptografar(Request.QueryString["pu"].ToString(), "a#3G6**@").ToUpper());
             ulMaleta = string.Format("{0}", ViewState["ulMaleta"] = Uteis.Descriptografar(Request.QueryString["mm"].ToString(), "a#3G6**@").ToUpper());
+
+            lEmail = string.Format("{0}", ViewState["labelEmail"]);
 
             Matricula = Uteis.Descriptografar(Request.QueryString["matricula"].ToString(), "a#3G6**@").ToUpper();
             Flag = Request.QueryString["flag"];
@@ -190,6 +193,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                     lblTitulo.Text = "Alteração de Senha de Usuário";
                     txtSenha.Enabled = true;
                     txtMatricula.Enabled = txtNome.Enabled = ddlPerfil.Enabled = txtMaleta.Enabled = txtEmail.Enabled = chkAtivo.Enabled = false;
+                    ddlPerfil.Visible = txtMaleta.Visible = txtEmail.Visible = chkAtivo.Visible = false;
+
+                    
+
                     ButtonSalvar.Visible = ButtonCancelar.Visible = true;
                     CarregaDados(ulMatricula);
                     break;
