@@ -244,7 +244,55 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(1)) item.DataInicial = reader.GetDateTime(1).ToString();
                 if (!reader.IsDBNull(2)) item.DataFinal = reader.GetDateTime(2).ToString();
                 if (!reader.IsDBNull(3)) item.Local = reader.GetString(3);
-                if (!reader.IsDBNull(4)) item.Descricao = reader.GetString(4);
+
+                //if (!reader.IsDBNull(4)) item.Descricao = reader.GetString(4);
+
+                if (!reader.IsDBNull(4))//C1003 - Luciano - Ajuste textos de alarmes - 08/11/2021
+                {
+                    var texto = reader.GetString(4);
+                    //if (!reader.IsDBNull(4))
+                    //texto = texto.Replace("%s", reader.GetString(4));
+
+                    item.Descricao = texto;
+
+                    // descrição do alarme
+                    int posicaoParametro;
+                    int tamanhoParametro;
+                    string parametro;
+                    string parametroOriginal = "";
+
+                    if (!reader.IsDBNull(3))
+                        parametroOriginal = reader.GetString(3);
+
+                    string mensagemOriginal = texto;
+                    string mensagemFinal = "";
+
+                    do
+                    {
+                        posicaoParametro = mensagemOriginal.IndexOf("%s");
+                        if (posicaoParametro == -1)
+                        {
+                            mensagemFinal = mensagemFinal + mensagemOriginal;
+                        }
+                        else
+                        {
+                            tamanhoParametro = parametroOriginal.IndexOf("_");
+                            parametro = parametroOriginal;
+                            if (tamanhoParametro != -1)
+                            {
+                                parametro = parametroOriginal.Substring(0, tamanhoParametro);
+                                parametroOriginal = parametroOriginal.Remove(0, tamanhoParametro + 1);
+                            }
+                            mensagemFinal = mensagemFinal + mensagemOriginal.Substring(0, posicaoParametro) + parametro;
+                            mensagemOriginal = mensagemOriginal.Remove(0, posicaoParametro + 2);
+                        }
+                    } while (posicaoParametro != -1);
+
+                    item.Descricao = mensagemFinal;
+                }
+
+
+
                 if (!reader.IsDBNull(5))
                 {
                     if (reader.GetString(5) == "R")
@@ -256,14 +304,51 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             else if (origem == "tela_relatorio")
             {
                 if (!reader.IsDBNull(0)) item.Estacao = reader.GetString(0);
-                if (!reader.IsDBNull(1))
+                
+                if (!reader.IsDBNull(1))//C1003 - Luciano - Ajuste textos de alarmes - 08/11/2021
                 {
                     var texto = reader.GetString(1);
-                    if (!reader.IsDBNull(4))
-                        texto = texto.Replace("%s", reader.GetString(4));
+                    //if (!reader.IsDBNull(4))
+                        //texto = texto.Replace("%s", reader.GetString(4));
 
                     item.Descricao = texto;
+
+                    // descrição do alarme
+                    int posicaoParametro;
+                    int tamanhoParametro;
+                    string parametro;
+                    string parametroOriginal = "";
+
+                    if (!reader.IsDBNull(4))
+                        parametroOriginal = reader.GetString(4);
+
+                    string mensagemOriginal = texto;
+                    string mensagemFinal = "";
+
+                    do
+                    {
+                        posicaoParametro = mensagemOriginal.IndexOf("%s");
+                        if (posicaoParametro == -1)
+                        {
+                            mensagemFinal = mensagemFinal + mensagemOriginal;
+                        }
+                        else
+                        {
+                            tamanhoParametro = parametroOriginal.IndexOf("_");
+                            parametro = parametroOriginal;
+                            if (tamanhoParametro != -1)
+                            {
+                                parametro = parametroOriginal.Substring(0, tamanhoParametro);
+                                parametroOriginal = parametroOriginal.Remove(0, tamanhoParametro+1);
+                            }
+                            mensagemFinal = mensagemFinal + mensagemOriginal.Substring(0, posicaoParametro) + parametro;
+                            mensagemOriginal = mensagemOriginal.Remove(0, posicaoParametro+2);
+                        }
+                    } while (posicaoParametro != -1);
+
+                    item.Descricao = mensagemFinal;
                 }
+
                 if (!reader.IsDBNull(2)) item.DataInicial = reader.GetDateTime(2).ToString();
                 if (!reader.IsDBNull(3)) item.DataFinal = reader.GetDateTime(3).ToString();
                 else

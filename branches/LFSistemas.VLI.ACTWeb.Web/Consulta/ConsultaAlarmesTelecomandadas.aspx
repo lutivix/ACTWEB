@@ -87,7 +87,7 @@
                                                                     <asp:LinkButton runat="server" ID="lnkDataInicial" OnClick="lnkDataInicial_Click" Text="Data Inicial" /></th>
                                                                 <th style="width: 15%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                                     <asp:LinkButton runat="server" ID="lnkDataFinal" OnClick="lnkDataFinal_Click" Text="Data Final" /></th>
-                                                                <th style="width: 15%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                <!--<th style="width: 15%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">-->
                                                                     <asp:LinkButton runat="server" ID="lnkLocal" OnClick="lnkLocal_Click" Text="Local" /></th>
                                                                 <th style="width: 10%; text-align: center; font-size: 12pt;">
                                                                     <asp:LinkButton runat="server" ID="lnkSituacao" OnClick="lnkSituacao_Click" Text="Situação" /></th>
@@ -101,7 +101,7 @@
                                                         <td style="width: 40%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Descricao")%>"><%# Eval("Descricao") %> </td>
                                                         <td style="width: 15%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("DataInicial")%>"><%# Eval("DataInicial")%> </td>
                                                         <td style="width: 15%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("DataFinal")%>"><%# Eval("DataFinal") %> </td>
-                                                        <td style="width: 15%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Local")%>"><%# Eval("Local") %> </td>
+                                                        <!--<td style="width: 15%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Local")%>"><%# Eval("Local") %> </td>-->
                                                         <td style="width: 10%; text-align: center;" title="<%# Eval("Situacao")%>"><%# Eval("Situacao")%> </td>
                                                     </tr>
                                                 </ItemTemplate>
