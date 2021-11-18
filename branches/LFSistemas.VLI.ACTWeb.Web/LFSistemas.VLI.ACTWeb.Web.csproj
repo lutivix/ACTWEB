@@ -118,6 +118,7 @@
     <Content Include="Cadastro\Importa_Corredores.aspx" />
     <Content Include="Cadastro\Importa_OBC.aspx" />
     <Content Include="Cadastro\Responsavel_LDL.aspx" />
+    <Content Include="Cadastro\UsuarioSenha.aspx" />
     <Content Include="Cadastro\Usuario.aspx" />
     <Content Include="Cadastro\UsuarioACT.aspx" />
     <Content Include="Cadastro\UsuariosAutorizados.aspx" />
@@ -585,6 +586,13 @@
     </Compile>
     <Compile Include="Cadastro\Responsavel_LDL.aspx.designer.cs">
       <DependentUpon>Responsavel_LDL.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\UsuarioSenha.aspx.cs">
+      <DependentUpon>UsuarioSenha.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cadastro\UsuarioSenha.aspx.designer.cs">
+      <DependentUpon>UsuarioSenha.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cadastro\Usuario.aspx.cs">
       <DependentUpon>Usuario.aspx</DependentUpon>
