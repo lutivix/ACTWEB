@@ -29,6 +29,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         public string ulPerfil { get; set; }
         public string ulMaleta { get; set; }
 
+        //C931
+        public bool retirando { get; set; }
+        public static bool podeSolRetirada;
+        public string cpf { get; set; }
+        
+
         enum TpUser
         {
             _UserOperador = 'O',
@@ -724,16 +730,68 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             try
             {
-                if (SendMessageRRE())
+                retirando = true;
+                podeSolRetirada = true;
+
+                //Pegar todos os itens do repeater
+                for (int i = 0; i < rptListaRestricoes.Items.Count; i++)
                 {
-                    AtualizarListaDeRestricoes();
+                    ////Pegando o CheckBox dentro do repeater
+                    //string subtipo = rptListaRestricoes.Items[i].DataItem.ToString(); 
+
+                    ////Verificar se foi selecionado
+                    //if (subtipo != "HT")
+                    //{
+                    //    podeSolRetirada = true;
+                    //    retirando = true;
+                    //}
+
+                    //Pegando o HiddenField dentro do repeater
+                    HiddenField HiddenField1 = (HiddenField)rptListaRestricoes.Items[i].FindControl("HiddenField1");
+
+                    //Pegando o CheckBox dentro do repeater
+                    CheckBox chkRestricao = (CheckBox)rptListaRestricoes.Items[i].FindControl("chkRestricao");
+
+                    //Verificar se foi selecionado
+                    if (chkRestricao.Checked)
+                    {
+                        string[] item = HiddenField1.Value.Split(':');
+
+                        if (item[4] == "BS")
+                        {
+                            string tipo = item[5].ToString();
+                            
+                            if (tipo == "HT")
+                            {
+                                cpf = item[6];
+                                podeSolRetirada = false;
+                            }                                
+                        }                        
+                    }
                 }
+
+                //C931    
+                if (podeSolRetirada)
+                {
+                    podeSolRetirada = false; 
+                    if (SendMessageRRE())
+                    {
+                        AtualizarListaDeRestricoes();
+                    }
+                    retirando = false;//C931
+                }
+                
+                
             }
 
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
+        }
+        public static void DeleteRestriction(string id)//C931
+        {
+            podeSolRetirada = true;                      
         }
         protected void lnkRemoverRonda_Click(object sender, EventArgs e)
         {

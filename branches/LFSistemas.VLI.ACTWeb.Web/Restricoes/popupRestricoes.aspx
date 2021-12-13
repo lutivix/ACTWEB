@@ -339,6 +339,40 @@
             }
             document.forms[0].appendChild(confirm_value);
         }
+
+        //function soufoda()
+        {
+            // We want the form above to be there still because it houses our buttons, but it also means our
+            // code still works without js.  With js disabled the "hide" never runs so the form stays visible
+            // and functioning
+            //$("#warning").hide();
+            alert("Teste sou foda");
+            var ret = '<%=this.retirando %>';
+            if (ret == "True") {
+                var id = '<%=this.cpf %>';
+                <%--///var id2 = '<%=this.sb %>';--%>
+                var person = prompt("CONFIRME O Nº DE CPF DO RESPONSÁVEL", "")
+                if (person == id) {
+                    $.ajax({
+                        type: "POST",
+                        url: "popupRestricoes.aspx/DeleteRestriction",
+                        data: "{id:'" + id + "'}",
+                        contentType: "application/json; charset=utf-8",
+                        success: function () {
+                            // if you want something to happen after the ajax call then
+                            // code it here
+                            document.getElementById('lnkRetirar').click();
+                            alert("Deleção da restrição " + person + " foi solicitada!");
+                        }
+                    });
+                }
+                else {
+                    // If you want to run a server-function when the user cancels then just
+                    // do an ajax call here as above, likewise you can put general js here too
+                    alert("Deleção da restrição abortada!");
+                }
+            }
+        }
     </script>
 </head>
 <body onkeydown="tecla()">
@@ -682,12 +716,12 @@
                                             <tr style="font-size: 9px; margin-top: 15px;" class="situacao-<%# Eval("Situacao")%> ">
                                                 <td style="width: 2%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" visible='<%# Eval("Tipo_Restricao").ToString() != "038" ? true : false %>'>
                                                     <div>
-                                                        <asp:HiddenField ID="HiddenField1" Value='<%# Eval("Tipo") +":"+ Eval("ProgramadaID") +":"+ Eval("CirculacaoID") +":"+ Eval("Secao_Elemento") +":"+ Eval("Tipo_Restricao") %>' runat="server" />
+                                                        <asp:HiddenField ID="HiddenField1" Value='<%# Eval("Tipo") +":"+ Eval("ProgramadaID") +":"+ Eval("CirculacaoID") +":"+ Eval("Secao_Elemento") +":"+ Eval("Tipo_Restricao")  +":"+ Eval("SubTipo_VR")  +":"+ Eval("Cpf") %>' runat="server" />
                                                         <asp:CheckBox runat="server" ID="chkRestricao" ToolTip="Seleciona a restrição atual." />
                                                     </div>
                                                 </td>
                                                 <td style="width: 2%; text-align: center; border-right: 1px solid rgb(0, 72, 89);">
-                                                    <asp:LinkButton ID="lnkEdite" runat="server" OnClick="lnkEdite_Click" CommandArgument='<%# Eval("Tipo") +":"+ Eval("ProgramadaID") +":"+ Eval("CirculacaoID") +":"+ Eval("Situacao") %>' ToolTip="Exibe os dados da restrição selecionada no formulário acima."><i class="fa fa-search-plus"></i></asp:LinkButton>
+                                                    <asp:LinkButton ID="lnkEdite" runat="server" OnClick="lnkEdite_Click" CommandArgument='<%# Eval("Tipo") +":"+ Eval("ProgramadaID") +":"+ Eval("CirculacaoID") +":"+ Eval("Situacao")%>' ToolTip="Exibe os dados da restrição selecionada no formulário acima."><i class="fa fa-search-plus"></i></asp:LinkButton>
                                                 </td>
                                                 <td class="tipo-<%# Eval("Tipo")%>" style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("RestricaoID")%>"><%# Eval("RestricaoID")%> </td>
                                                 <td class="tipo-<%# Eval("Tipo")%>" style="width: 5%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Tipo_Restricao")%>"><%# Eval("Tipo_Restricao")%> </td>
