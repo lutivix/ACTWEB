@@ -31,6 +31,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
         //C931
         public bool retirando { get; set; }
+        public string idMsg { get; set; }
         public static bool podeSolRetirada;
         public string cpf { get; set; }
         
@@ -730,7 +731,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             try
             {
-                retirando = true;               
+                retirando = true;
+                cpf = "";
+                Thread.Sleep(1000);
 
                 //Pegar todos os itens do repeater
                 for (int i = 0; i < rptListaRestricoes.Items.Count; i++)
@@ -767,12 +770,17 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                 if (dados != null)
                                 {                                   
                                     cpf = dados.Cpf;
+                                    if (tipo == "PP") idMsg = item[1];
+                                    else idMsg = item[2];
                                     //podeSolRetirada = false;
                                 }
                             }                                
                         }                        
                     }
                 }
+
+                if (cpf == string.Empty)
+                    podeSolRetirada = true;
 
                 //C931    
                 if (podeSolRetirada)
@@ -796,7 +804,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         [System.Web.Services.WebMethod]
         public static void DeleteRestriction(string id)//C931
         {
-            podeSolRetirada = true;                      
+            podeSolRetirada = true;
+            Thread.Sleep(1000);
         }
         protected void lnkRemoverRonda_Click(object sender, EventArgs e)
         {

@@ -346,17 +346,17 @@
             // code still works without js.  With js disabled the "hide" never runs so the form stays visible
             // and functioning
             //$("#warning").hide();
-            alert("Teste sou foda");
+            //alert("Teste sou foda");
             var ret = '<%=this.retirando %>';
             if (ret == "True") {
                 var id = '<%=this.cpf %>';
                 <%--///var id2 = '<%=this.sb %>';--%>
                 var person = prompt("CONFIRME O Nº DE CPF DO RESPONSÁVEL", "")
-                alert(person);
-                alert(id);
+                //alert(person);
+                //alert(id);
                 if (person == id)
                 {
-                    alert("entrou");                    
+                    //alert("entrou");                    
                     $.ajax({
                         type: "POST",
                         url: "popupRestricoes.aspx/DeleteRestriction",
@@ -365,11 +365,11 @@
                         success: function () {
                             // if you want something to happen after the ajax call then
                             // code it here
-                            alert("Entrou 2");                                                        
-                            //document.getElementById('lnkRemoverRestricao').click();
-                            document.getElementById('lnkRemoverRestricao').onclick();
+                            //alert("Entrou 2");                                                        
+                            document.getElementById('lnkRemoverRestricao').click();
+                            //document.getElementById('lnkRemoverRestricao').onclick();
                             //alert("Entrou 3");
-                            alert("Deleção da restrição " + person + " foi solicitada!");
+                            alert("Deleção foi solicitada!");
                         }
                     });
                 }
@@ -377,9 +377,9 @@
                 {
                     // If you want to run a server-function when the user cancels then just
                     // do an ajax call here as above, likewise you can put general js here too
-                    alert("Deleção da restrição abortada!");
+                    alert("CPF não confere! Deleção da restrição abortada!");
                 }
-                alert("Saindo...");
+                //alert("Saindo...");
             }
         }
     </script>
