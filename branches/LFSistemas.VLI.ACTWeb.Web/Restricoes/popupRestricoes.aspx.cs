@@ -730,8 +730,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             try
             {
-                retirando = true;
-                podeSolRetirada = true;
+                retirando = true;               
 
                 //Pegar todos os itens do repeater
                 for (int i = 0; i < rptListaRestricoes.Items.Count; i++)
@@ -763,8 +762,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                             
                             if (tipo == "HT")
                             {
-                                cpf = item[6];
-                                podeSolRetirada = false;
+                                var restricaoController = new RestricaoController();
+                                var dados = restricaoController.ObterRestricaoPorID(tipo, double.Parse(item[2]));
+                                if (dados != null)
+                                {                                   
+                                    cpf = dados.Cpf;
+                                    //podeSolRetirada = false;
+                                }
                             }                                
                         }                        
                     }
@@ -789,6 +793,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 throw new Exception(ex.Message);
             }
         }
+        [System.Web.Services.WebMethod]
         public static void DeleteRestriction(string id)//C931
         {
             podeSolRetirada = true;                      

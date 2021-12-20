@@ -27,6 +27,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         public bool retirando { get; set; }
 
         public static bool podeSolRetirada;
+
+        //C931
+        public string cpf;        
+
         public enum StatusBarraComandos
         {
             Novo = 1,
@@ -107,6 +111,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             txtDadosOperadorCCV.Text = lblUsuarioMatricula.Text = ulMatricula = Uteis.Descriptografar(Request.QueryString["mu"].ToString(), "a#3G6**@").ToUpper();
             lblUsuarioPerfil.Text = ulPerfil = Uteis.Descriptografar(Request.QueryString["pu"].ToString(), "a#3G6**@").ToUpper();
             lblUsuarioMaleta.Text = ulMaleta = Uteis.Descriptografar(Request.QueryString["mm"].ToString(), "a#3G6**@").ToUpper();
+
+            
 
             if (!IsPostBack)
             {
@@ -430,6 +436,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             retirando = true;
             id_aut = txtAutorizacao.Text;
             sb = ddlDadosSecao.SelectedItem.Text;
+            cpf = txtDadosResponsavel.Text;
+
             lblCanalCom.Text = "Canal de comunicação de Retirada";
             
             try
@@ -815,6 +823,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             try
             {
+                
+                if (interdicaoController.ExisteLDLAtivaNaSecao(double.Parse(ddlDadosSecao.SelectedItem.Value)))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Já existe uma LDL vigente na SB!' });", true);
+                    return false;
+                }
+
                 var existeInterdicaoNaSecao = interdicaoController.ExisteInterdicaoNaSecao(double.Parse(ddlDadosSecao.SelectedItem.Value));
                 if (existeInterdicaoNaSecao.Tipo_Situacao_ID != 1 && existeInterdicaoNaSecao.Tipo_Situacao_ID != 2 && existeInterdicaoNaSecao.Tipo_Situacao_ID != 6)
                 {
@@ -1149,6 +1164,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             ComboFiltroSecoes();
         }
+
         [System.Web.Services.WebMethod]
         public static void DeleteRestriction(string id)
         {

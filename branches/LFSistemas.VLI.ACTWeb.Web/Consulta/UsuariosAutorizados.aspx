@@ -132,7 +132,8 @@
 
     <div class="form-group">
         <div class="page-header sub-content-header">
-            <h3>Resultados da Pesquisa</h3>
+            <h2>Resultados da Pesquisa<asp:Label runat="server" ID="lblAviso" Font-Bold="true" Font-Size="12" Style="color: rgb(255, 0, 0); align-content:space-around ;" Width="700px"  /> </h2>                               
+            
         </div>
     </div>
     <asp:UpdatePanel runat="server" ID="upRegistros">
@@ -267,7 +268,7 @@
                 <div class="form-group col-xs-12 table-responsive">
                     <hr style="color: rgb(0, 72, 89); padding: 0px 5px 0px 5px;" />
                     <asp:Label runat="server" Text="Registros: " Font-Bold="true" Font-Size="12" Style="color: rgb(153, 153, 153);" />
-                    <asp:Label runat="server" ID="lblTotal" Font-Bold="true" Font-Size="12" Style="color: rgb(0, 72, 89);" />
+                    <asp:Label runat="server" ID="lblTotal" Font-Bold="true" Font-Size="12" Style="color: rgb(0, 72, 89);" />                    
                 </div>
             </div>
         </ContentTemplate>

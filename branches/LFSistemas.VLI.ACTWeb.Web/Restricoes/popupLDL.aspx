@@ -164,8 +164,9 @@
             {
                 var id = '<%=this.id_aut %>';
                 var id2 = '<%=this.sb %>';
-                var person = prompt("CONFIRME O Nº DE AUTORIZAÇÃO (SB EM CAIXA ALTA + Nº autorização)", "")
-                if (person == id2 + id) {
+                var cpf = '<%=this.cpf%>;'
+                var person = prompt("CONFIRME O Nº DE AUTORIZAÇÃO (SB EM CAIXA ALTA + Nº AUTORIZACÃO + CPF)", "")
+                if (person == id2 + id + cpf) {
                     $.ajax({
                         type: "POST",
                         url: "popupLDL.aspx/DeleteRestriction",
@@ -185,6 +186,7 @@
                     // do an ajax call here as above, likewise you can put general js here too
                     alert("Deleção de LDL abortada!");
                 }
+
             }
         }
 

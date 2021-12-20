@@ -87,7 +87,7 @@
             }
 
 
-            if (SelectedText == 'VR' || SelectedText == 'IF') {
+            if (SelectedText == 'VR' || SelectedText == 'IF' || SelectedText == 'BS') {
                 ddlDadosSecoes.disabled = false;
                 ddlDadosTipoRestricao.disabled = false;
                 ddlDadosSubTipoVR.disabled = false;
@@ -352,7 +352,11 @@
                 var id = '<%=this.cpf %>';
                 <%--///var id2 = '<%=this.sb %>';--%>
                 var person = prompt("CONFIRME O Nº DE CPF DO RESPONSÁVEL", "")
-                if (person == id) {
+                alert(person);
+                alert(id);
+                if (person == id)
+                {
+                    alert("entrou");                    
                     $.ajax({
                         type: "POST",
                         url: "popupRestricoes.aspx/DeleteRestriction",
@@ -361,16 +365,21 @@
                         success: function () {
                             // if you want something to happen after the ajax call then
                             // code it here
-                            document.getElementById('lnkRetirar').click();
+                            alert("Entrou 2");                                                        
+                            //document.getElementById('lnkRemoverRestricao').click();
+                            document.getElementById('lnkRemoverRestricao').onclick();
+                            //alert("Entrou 3");
                             alert("Deleção da restrição " + person + " foi solicitada!");
                         }
                     });
                 }
-                else {
+                else
+                {
                     // If you want to run a server-function when the user cancels then just
                     // do an ajax call here as above, likewise you can put general js here too
                     alert("Deleção da restrição abortada!");
                 }
+                alert("Saindo...");
             }
         }
     </script>
@@ -716,7 +725,7 @@
                                             <tr style="font-size: 9px; margin-top: 15px;" class="situacao-<%# Eval("Situacao")%> ">
                                                 <td style="width: 2%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" visible='<%# Eval("Tipo_Restricao").ToString() != "038" ? true : false %>'>
                                                     <div>
-                                                        <asp:HiddenField ID="HiddenField1" Value='<%# Eval("Tipo") +":"+ Eval("ProgramadaID") +":"+ Eval("CirculacaoID") +":"+ Eval("Secao_Elemento") +":"+ Eval("Tipo_Restricao")  +":"+ Eval("SubTipo_VR")  +":"+ Eval("Cpf") %>' runat="server" />
+                                                        <asp:HiddenField ID="HiddenField1" Value='<%# Eval("Tipo") +":"+ Eval("ProgramadaID") +":"+ Eval("CirculacaoID") +":"+ Eval("Secao_Elemento") +":"+ Eval("Tipo_Restricao")  +":"+ Eval("SubTipo_VR")  +":"+ Eval("Responsavel") %>' runat="server" />
                                                         <asp:CheckBox runat="server" ID="chkRestricao" ToolTip="Seleciona a restrição atual." />
                                                     </div>
                                                 </td>

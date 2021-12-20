@@ -74,6 +74,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 Pesquisar(null, Navigation.None);
                 HabilitaDesabilitaFuncoes();
             }
+
+            lblAviso.Text = "";
         }
 
         #endregion
@@ -101,9 +103,23 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         }
         protected void lnkUsuarios_Aut_Click(object sender, EventArgs e)
         {
-            LinkButton btn = (LinkButton)(sender);
-            string matricula = btn.CommandArgument;
-            Response.Redirect("/Cadastro/UsuariosAutorizados.aspx?matricula=" + Uteis.Criptografar(matricula.ToLower(), "a#3G6**@") + "&flag=consulta&lu=" + Uteis.Criptografar(ViewState["ulNome"].ToString().ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ViewState["uMatricula"].ToString().ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ViewState["uPerfil"].ToString().ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ViewState["ulMaleta"].ToString().ToLower(), "a#3G6**@"));
+            UsuarioController usectrl = new UsuarioController();
+            var usuario = usectrl.ObterPorMatricula(lblUsuarioMatricula.Text);   
+
+            if( 
+                    (usuario.Perfil_ID != "1") 
+                    && (usuario.Perfil_ID != "5")
+              )
+            {
+                lblAviso.Text = "----  Apenas Administradores ou Inspetores podem editar os usuários!   ----";
+            }
+            else
+            {
+                LinkButton btn = (LinkButton)(sender);
+                string matricula = btn.CommandArgument;
+                Response.Redirect("/Cadastro/UsuariosAutorizados.aspx?matricula=" + Uteis.Criptografar(matricula.ToLower(), "a#3G6**@") + "&flag=consulta&lu=" + Uteis.Criptografar(ViewState["ulNome"].ToString().ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ViewState["uMatricula"].ToString().ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ViewState["uPerfil"].ToString().ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ViewState["ulMaleta"].ToString().ToLower(), "a#3G6**@"));
+            }
+            
         }
 
         protected void lnkExcel_Click(object sender, EventArgs e)

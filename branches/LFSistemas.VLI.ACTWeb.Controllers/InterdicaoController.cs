@@ -40,6 +40,10 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ExisteInterdicaoNaSecao(Secao);
         }
+        public bool ExisteLDLAtivaNaSecao(double Secao)
+        {
+            return dao.ExisteLDLAtivaNaSecao(Secao);
+        }
         public double ObterIdInterdicaoPorSolicitacao_ID(double id)
         {
             return dao.ObterIdInterdicaoPorSolicitacao_ID(id);
