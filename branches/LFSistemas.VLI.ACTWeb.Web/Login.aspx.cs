@@ -44,7 +44,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 }
                 else if (usuario != null && usuario.Ativo_SN == "N")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Usuário está inativo. Gentileza entrar em contato no e-mail plantao@grtechbr.com.br, para regularizar seus dados' });", true);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Usuário está inativo. Gentileza entrar em contato no e-mail cco.plantaoact@vli-logistica.com.br, para regularizar seus dados' });", true);
                 }
                 else
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Usuário e/ou senha inválido' });", true);
