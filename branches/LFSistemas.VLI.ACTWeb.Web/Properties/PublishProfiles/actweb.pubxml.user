@@ -15,7 +15,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/12/2020 15:31:24</publishTime>
     </File>
     <File Include="ACTWEB.Master">
-      <publishTime>11/17/2021 09:43:25</publishTime>
+      <publishTime>01/07/2022 11:11:52</publishTime>
     </File>
     <File Include="Ajuda/Erro.aspx">
       <publishTime>06/12/2020 15:31:24</publishTime>
@@ -162,25 +162,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>12/20/2021 17:22:04</publishTime>
+      <publishTime>01/06/2022 10:01:56</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
       <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>12/20/2021 17:22:04</publishTime>
+      <publishTime>01/06/2022 10:01:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
       <publishTime>09/08/2016 12:55:17</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>12/20/2021 17:22:03</publishTime>
+      <publishTime>01/06/2022 10:01:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>12/20/2021 17:22:07</publishTime>
+      <publishTime>01/07/2022 11:13:04</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>
@@ -1695,7 +1695,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/16/2020 09:16:24</publishTime>
     </File>
     <File Include="Restricoes/popupLDL.aspx">
-      <publishTime>12/20/2021 14:04:21</publishTime>
+      <publishTime>01/07/2022 10:19:04</publishTime>
     </File>
     <File Include="Restricoes/popupRelatorioRestricoesPorData.aspx">
       <publishTime>11/03/2020 14:07:39</publishTime>
@@ -1707,7 +1707,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/03/2020 14:07:39</publishTime>
     </File>
     <File Include="Restricoes/popupRestricoes.aspx">
-      <publishTime>12/20/2021 17:06:35</publishTime>
+      <publishTime>01/07/2022 11:11:14</publishTime>
     </File>
     <File Include="slide/slide01.png">
       <publishTime>02/07/2015 14:49:54</publishTime>

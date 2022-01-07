@@ -164,7 +164,7 @@
             {
                 var id = '<%=this.id_aut %>';
                 var id2 = '<%=this.sb %>';
-                var cpf = '<%=this.cpf%>;'
+                var cpf = '<%=this.cpf%>';
                 var person = prompt("CONFIRME O Nº DE AUTORIZAÇÃO (SB EM CAIXA ALTA + Nº AUTORIZACÃO + CPF)", "")
                 if (person == id2 + id + cpf) {
                     $.ajax({
@@ -176,7 +176,7 @@
                             // if you want something to happen after the ajax call then
                             // code it here
                             document.getElementById('lnkRetirar').click();
-                            alert("Deleção da LDL " + person + " foi solicitada!");
+                            alert("Dados de confirmação para LDL " + id + " em " + id2 + " com  CPF " +cpf + " aceitos!");
                         }
                     });
                 }
@@ -184,7 +184,7 @@
                 {
                     // If you want to run a server-function when the user cancels then just
                     // do an ajax call here as above, likewise you can put general js here too
-                    alert("Deleção de LDL abortada!");
+                    alert("Dados não confere. Solicitação foi abortada!");
                 }
 
             }

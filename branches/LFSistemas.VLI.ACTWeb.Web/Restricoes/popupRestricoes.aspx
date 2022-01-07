@@ -369,7 +369,7 @@
                             document.getElementById('lnkRemoverRestricao').click();
                             //document.getElementById('lnkRemoverRestricao').onclick();
                             //alert("Entrou 3");
-                            alert("Deleção foi solicitada!");
+                            alert("Dados conferem!");
                         }
                     });
                 }
