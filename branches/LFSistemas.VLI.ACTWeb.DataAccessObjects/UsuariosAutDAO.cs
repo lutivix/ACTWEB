@@ -621,7 +621,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ PARÂMETRO ]
 
-                    query.Replace("${CPF}", string.Format("'{0}'", cpf)); ;//CPF zerado
+                    query.Replace("${CPF}", string.Format("'{0}'", cpf));//CPF zerado
 
                     #endregion
 
@@ -630,7 +630,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     command2.CommandText = query.ToString();
                     command2.ExecuteNonQuery();
 
-                    LogDAO.GravaLogBanco(DateTime.Now, matricula, "Usuários", usuarioID, null, "Usuário CPF: " + cpf + ", atualizado campo OP_ULTIMA_SOLICIT na tabela OPERADORES_BS devido a " + acao + " de novo Boletim de Serviço. ", Uteis.OPERACAO.Atualizou.ToString());
+                    LogDAO.GravaLogBanco(DateTime.Now, matricula, "Usuários", usuarioID, null, "Usuário CPF: " + cpf + ", atualizado campo OP_ULTIMA_SOLICIT na tabela OPERADORES_BS devido a " + acao + " de novo Boletim de Serviço/Usuário. ", Uteis.OPERACAO.Atualizou.ToString());
 
                     #endregion
                 }
