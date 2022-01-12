@@ -170,6 +170,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                             UsuarioAutorizado usuarioAux = usuarioAutController.ObterPorMatricula(usuario.Matricula);
 
                             usuarioAutController.AssociarSubtipos(grupoSubtiposVR, usuarioAux, ulMatricula, "Inserir");
+                            usuarioAutController.AtualizarDataUltSol(txtCPF.Text, txtMatriculaACT.Text, usuarioAux.Usuario_ID.ToString(), "Atualização");
 
                             LabelMensagem.Visible = true;
                             limparCampos();
@@ -192,6 +193,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                         usuarioAutController.DeletarSubtiposAssociados(usuarioAux, ulMatricula);
 
                         usuarioAutController.AssociarSubtipos(grupoSubtiposVR, usuarioAux, ulMatricula, "Atualizar");
+                        usuarioAutController.AtualizarDataUltSol(txtCPF.Text, txtMatriculaACT.Text, usuarioAux.Usuario_ID.ToString(), "Atualização");
 
                         limparCampos();
                         if (Flag == "alterasenha")
