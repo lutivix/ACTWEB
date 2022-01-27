@@ -44,10 +44,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             
             var macroController = new MacroController();
             var mascara = macroController.ObterMascara(_macro, _tipo);
-            
-            if (_tipo == "E")
-                macroUserControl = LoadControl("/Consulta/Macros/Macro50-E.ascx") as IMacro50;
-            else
+
+            //if (_tipo == "E")
+            //    macroUserControl = LoadControl("/Consulta/Macros/Macro50-E.ascx") as IMacro50;
+            //else
                 macroUserControl = LoadControl("/Consulta/Macros/Macro50-R.ascx") as IMacro50;
             
             macroUserControl.identificador_lda = _identificador_lda;

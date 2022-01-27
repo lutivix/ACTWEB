@@ -29,6 +29,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         public string ulPerfil { get; set; }
         public string ulMaleta { get; set; }
 
+        //C931
+        public bool retirando { get; set; }
+        public string idMsg { get; set; }
+        public static bool podeSolRetirada;
+        public string cpf { get; set; }
+        
+
         enum TpUser
         {
             _UserOperador = 'O',
@@ -724,16 +731,81 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             try
             {
-                if (SendMessageRRE())
+                retirando = true;
+                cpf = "";
+                Thread.Sleep(1000);
+
+                //Pegar todos os itens do repeater
+                for (int i = 0; i < rptListaRestricoes.Items.Count; i++)
                 {
-                    AtualizarListaDeRestricoes();
+                    ////Pegando o CheckBox dentro do repeater
+                    //string subtipo = rptListaRestricoes.Items[i].DataItem.ToString(); 
+
+                    ////Verificar se foi selecionado
+                    //if (subtipo != "HT")
+                    //{
+                    //    podeSolRetirada = true;
+                    //    retirando = true;
+                    //}
+
+                    //Pegando o HiddenField dentro do repeater
+                    HiddenField HiddenField1 = (HiddenField)rptListaRestricoes.Items[i].FindControl("HiddenField1");
+
+                    //Pegando o CheckBox dentro do repeater
+                    CheckBox chkRestricao = (CheckBox)rptListaRestricoes.Items[i].FindControl("chkRestricao");
+
+                    //Verificar se foi selecionado
+                    if (chkRestricao.Checked)
+                    {
+                        string[] item = HiddenField1.Value.Split(':');
+
+                        if (item[4] == "BS")
+                        {
+                            string tipo = item[5].ToString();
+                            
+                            if (tipo == "HT")
+                            {
+                                var restricaoController = new RestricaoController();
+                                var dados = restricaoController.ObterRestricaoPorID(tipo, double.Parse(item[2]));
+                                if (dados != null)
+                                {                                   
+                                    cpf = dados.Cpf;
+                                    if (tipo == "PP") idMsg = item[1];
+                                    else idMsg = item[2];
+                                    //podeSolRetirada = false;
+                                }
+                            }                                
+                        }                        
+                    }
                 }
+
+                if (cpf == string.Empty)
+                    podeSolRetirada = true;
+
+                //C931    
+                if (podeSolRetirada)
+                {
+                    podeSolRetirada = false; 
+                    if (SendMessageRRE())
+                    {
+                        AtualizarListaDeRestricoes();
+                    }
+                    retirando = false;//C931
+                }
+                
+                
             }
 
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
+        }
+        [System.Web.Services.WebMethod]
+        public static void DeleteRestriction(string id)//C931
+        {
+            podeSolRetirada = true;
+            Thread.Sleep(1000);
         }
         protected void lnkRemoverRonda_Click(object sender, EventArgs e)
         {

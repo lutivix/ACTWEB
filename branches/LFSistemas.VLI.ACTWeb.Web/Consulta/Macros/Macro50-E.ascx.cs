@@ -36,7 +36,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
                 lblUsuarioLogado.Text = usuarioLogado.Length > 12 ? usuarioLogado.Substring(0, 12).ToUpper() : usuarioLogado;
                 lblUsuarioMatricula.Text = Uteis.Descriptografar(Request.QueryString["mu"].ToString(), "a#3G6**@").ToUpper();
                 lblUsuarioPerfil.Text = Uteis.Descriptografar(Request.QueryString["pu"].ToString(), "a#3G6**@").ToUpper();
-                lblUsuarioMaleta.Text = Request.QueryString["mm"].ToString();
+                lblUsuarioMaleta.Text = Uteis.Descriptografar(Request.QueryString["mm"].ToString(),"a#3G6**@").ToUpper();
 
                 CarregarDados(numeroMacro, mascara, mascara2, lblUsuarioMaleta.Text, texto, loco, mct, referencia, latitude, longitude, uPosicionamento, horario, codigoOS, trem);
             }
@@ -74,17 +74,17 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
             var dados = new MacroController();
 
    
-                RepeaterItens.DataSource = dados.ObterConversasMacro50ComFiltroData(new Conversas()
-                {
-                    Numero_Macro = numeroMacro,
-                    Loco = loco,
-                    DataInicio = Botao.getultimoDataIni(),
-                    DataFim = Botao.getultimoDataFim(),
-                    cabinesSelecionadas = Botao.getcabinesSelecionadas()
+                //RepeaterItens.DataSource = dados.ObterConversasMacro50ComFiltroData(new Conversas()
+                //{
+                //    Numero_Macro = numeroMacro,
+                //    Loco = loco,
+                //    DataInicio = Botao.getultimoDataIni(),
+                //    DataFim = Botao.getultimoDataFim(),
+                //    cabinesSelecionadas = Botao.getcabinesSelecionadas()
                     
-                });
+                //});
 
-                RepeaterItens.DataBind();
+                //RepeaterItens.DataBind();
             
             
         }

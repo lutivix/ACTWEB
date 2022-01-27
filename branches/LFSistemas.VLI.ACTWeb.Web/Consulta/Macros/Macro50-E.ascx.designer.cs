@@ -130,15 +130,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros {
         protected global::System.Web.UI.WebControls.TextBox txtTexto5;
         
         /// <summary>
-        /// RepeaterItens control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater RepeaterItens;
-        
-        /// <summary>
         /// lblLocomotiva control.
         /// </summary>
         /// <remarks>

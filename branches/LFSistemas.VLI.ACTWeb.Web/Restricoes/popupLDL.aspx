@@ -47,8 +47,10 @@
             document.getElementById('<%=txtPrefixo.ClientID %>').value = '';
             txtDadosTelefone.disabled = false;
             txtDadosMacro.disabled = true;
-            lblPrefixo.disabled = true;
-            txtPrefixo.disabled = true;
+            //lblPrefixo.disabled = true;
+            //txtPrefixo.disabled = true;
+            //lbCauda.disabled = true;
+            //tbCauda.disabled = true;
             document.getElementById("<%=txtDadosTelefone.ClientID%>").focus();
         }
         function getRadioButtonSelectedRadio() {
@@ -60,14 +62,18 @@
             document.getElementById('<%=txtPrefixo.ClientID %>').value = '';
             txtDadosTelefone.disabled = true;
             txtDadosMacro.disabled = true;
-            lblPrefixo.disabled = true;
-            txtPrefixo.disabled = true;
+            //lblPrefixo.disabled = true;
+            //txtPrefixo.disabled = true;
+            //lbCauda.disabled = true;
+            //tbCauda.disabled = true;
         }
         function getRadioButtonSelectedMacro() {
             txtDadosTelefone = document.getElementById('<%=txtDadosTelefone.ClientID %>');
             txtDadosMacro = document.getElementById('<%=txtDadosMacro.ClientID %>');
             txtPrefixo = document.getElementById('<%=txtPrefixo.ClientID %>');
             lblPrefixo = document.getElementById('<%=lblPrefixo.ClientID %>');
+            lbCauda.disabled = document.getElementById('<%=lbCauda.ClientID %>');;
+            tbCauda.disabled = document.getElementById('<%=tbCauda.ClientID %>');;
 
             document.getElementById('<%=txtDadosTelefone.ClientID %>').value = '';
             document.getElementById('<%=txtDadosMacro.ClientID %>').value = '';
@@ -77,6 +83,8 @@
             txtDadosTelefone.disabled = true;
             lblPrefixo.disabled = false;
             txtPrefixo.disabled = false;
+            lbCauda.disabled = false;
+            tbCauda.disabled = false;
 
           
             document.getElementById("<%=txtDadosMacro.ClientID%>").focus();
@@ -156,8 +164,9 @@
             {
                 var id = '<%=this.id_aut %>';
                 var id2 = '<%=this.sb %>';
-                var person = prompt("CONFIRME O Nº DE AUTORIZAÇÃO (SB EM CAIXA ALTA + Nº autorização)", "")
-                if (person == id2 + id) {
+                var cpf = '<%=this.cpf%>';
+                var person = prompt("CONFIRME O Nº DE AUTORIZAÇÃO (SB EM CAIXA ALTA + Nº AUTORIZACÃO + CPF)", "")
+                if (person == id2 + id + cpf) {
                     $.ajax({
                         type: "POST",
                         url: "popupLDL.aspx/DeleteRestriction",
@@ -167,7 +176,7 @@
                             // if you want something to happen after the ajax call then
                             // code it here
                             document.getElementById('lnkRetirar').click();
-                            alert("Deleção da LDL " + person + " foi solicitada!");
+                            alert("Dados de confirmação para LDL " + id + " em " + id2 + " com  CPF " +cpf + " aceitos!");
                         }
                     });
                 }
@@ -175,8 +184,9 @@
                 {
                     // If you want to run a server-function when the user cancels then just
                     // do an ajax call here as above, likewise you can put general js here too
-                    alert("Deleção de LDL abortada!");
+                    alert("Dados não confere. Solicitação foi abortada!");
                 }
+
             }
         }
 
@@ -246,6 +256,16 @@
                     background-color: white;
                 }
 
+            .situacao-E {
+                color: white;
+                background-color: rgb(255,0,0); /* E -Expirada | Tomato | */
+            }
+
+                .situacao-E:hover {
+                    color: black;
+                    background-color: white;
+                }
+
             .grid {
                 width: 100%;
                 height: 270px;
@@ -254,6 +274,14 @@
             }
 
             .linkbutton_enable {
+            }
+            .auto-style1 {
+                width: 10%;
+                height: 20px;
+            }
+            .auto-style2 {
+                width: 65%;
+                height: 20px;
             }
         </style>
         <div style="margin-top: 1%; margin-left: 4%; margin-right: 4%; margin-bottom: 1%; text-align: left;">
@@ -469,7 +497,8 @@
                             <asp:TextBox ID="txtDadosObsercacao" runat="server" CssClass="form-control" MaxLength="38" onkeyup="return ismaxlength(this);" />
                         </td>
 
-                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;  padding-left:20px; "><asp:Label runat="server" ID="lblPrefixo" Font-Size="9" Font-Bold="true" /></td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;  padding-left:20px; ">
+                                <asp:Label runat="server" ID="lblPrefixo" Font-Size="9" Font-Bold="true" /></td>
                         	
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
                             <asp:TextBox ID="txtPrefixo" MaxLength="4" runat="server" CssClass="form-control" />
@@ -477,6 +506,24 @@
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                     </tr>
 
+
+                     <!-- Nova linha contendo informação da cauda - P707 e talvez prefixo, se decidirem mudar-->
+                     <tr>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
+                        <td style="width: 65%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">
+                            
+                        </td>
+
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;  padding-left:20px; ">
+                            <asp:Label runat="server" ID="lbCauda" Font-Size="9" Font-Bold="true" />
+                        </td>
+                        	
+                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+                            <asp:TextBox ID="tbCauda" MaxLength="6" runat="server" CssClass="form-control" />
+                        </td>  
+                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
+                    </tr>
+                   
                     <!--LINHA EM BRANCO DE ESPAÇANENTO-->
                     <tr>
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
@@ -486,8 +533,8 @@
 
                     <!--BOTÕES-->
                     <tr>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
-                        <td style="width: 65%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="4">
+                        <td style="vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" class="auto-style1">&nbsp;&nbsp;</td>
+                        <td style="vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="4" class="auto-style2">
                             <asp:LinkButton ID="lnkCriar" runat="server" OnClick="lnkCriar_Click" OnClientClick="javascript:return validaFormulario();" ToolTip="Solicitar criação de interdição de LDL."><i class="fa fa-plus"></i>&nbsp;Criar Interdição</asp:LinkButton>
                             &nbsp;&nbsp;
                                     <%--<asp:LinkButton ID="lnkRetirar" runat="server" OnClick="soufoda()" ToolTip="Solicitar remoção de interdição de LDL."><i class="fa fa-minus"></i>&nbsp;Retirar Interdição</asp:LinkButton>--%>
@@ -502,10 +549,12 @@
                             &nbsp;&nbsp;
                                     <asp:LinkButton ID="lnkNovoResponsavel" runat="server" OnClick="lnkNovoResponsavel_Click" ToolTip="Cadastra um novo responsável no bando de dados."><i class="fa fa-file-o"></i>&nbsp;Novo Responsável</asp:LinkButton>
                             &nbsp;&nbsp;
+                                    <asp:LinkButton ID="lnkAtualizarCPF" runat="server" OnClick="lnkAtualizarCPF_Click" ToolTip="Atualizar CPF da LDL."><i class="fa fa-file-o"></i>&nbsp;Atualizar CPF</asp:LinkButton>
+                            &nbsp;&nbsp;
                                     <asp:LinkButton ID="lnkCancelar" runat="server" OnClick="lnkCancelar_Click" ToolTip="Cancela a operação."><i class="fa fa-times"></i>&nbsp;Cancelar</asp:LinkButton>
                             &nbsp;&nbsp;
                         </td>
-                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
+                        <td style="vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" class="auto-style1">&nbsp;&nbsp;</td>
                     </tr>
                 </table>
             </div>
@@ -634,6 +683,9 @@
                                                 <th style="background-color: #fff; width: 20%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                     <asp:LinkButton ID="lnkObservacao" runat="server" OnClick="lnkObservacao_Click">Observação</asp:LinkButton>
                                                 </th>
+                                                <th style="background-color: #fff; width: 20%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                    <asp:LinkButton ID="lnkJustificativa" runat="server" OnClick="lnkObservacao_Click">Justificativa</asp:LinkButton>
+                                                </th>
                                                 <th style="background-color: #fff; width: 10%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
                                                     <asp:LinkButton ID="lnkDuracaoSolicitada" runat="server" OnClick="lnkDuracaoSolicitada_OnClick">Solicitado <Font size="2">(hh:mm)</Font></asp:LinkButton>
                                                 </th>
@@ -658,6 +710,7 @@
                                         <td style="width: 07%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Data") %>"><%# Eval("Data") %></td>
                                         <td style="width: 05%; text-align: right; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Km") %>"><%# Eval("Km") %></td>
                                         <td style="width: 25%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Observacao") %>"><%# Eval("Observacao") %></td>
+                                        <td style="width: 15%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Justificativa") %>"><%# Eval("Justificativa") %></td>
                                         <td style="width: 10%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Duracao_Solicitada") %>"><%# double.Parse(Eval("Duracao_Solicitada").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}", (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Solicitada").ToString())).TotalHours, (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Solicitada").ToString())).Minutes) : ""%> </td>
                                         <td style="width: 10%; text-align: center;" title="<%# Eval("Duracao_Autorizada") %>"><%# double.Parse(Eval("Duracao_Autorizada").ToString()) != 0 ? string.Format("{0:d2}:{1:d2}", (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Autorizada").ToString())).TotalHours, (int)TimeSpan.FromMinutes(double.Parse(Eval("Duracao_Autorizada").ToString())).Minutes) : ""%> </td>
                                     </tr>

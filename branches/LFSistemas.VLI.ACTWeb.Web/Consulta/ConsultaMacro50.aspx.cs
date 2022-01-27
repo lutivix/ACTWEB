@@ -1128,7 +1128,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             }
             else 
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Registro não localizado.' });", true);
+                this.RepeaterMacro50.DataSource = itens;
+                this.RepeaterMacro50.DataBind();
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!",
+                    " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Registro não localizado.' });", true);
+
+                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Registro não localizado.' });", true);
 
                 lblTotal.Text = string.Format("{0:0,0}", itens.Count);
                 Botao.registroNaoLocalizadoBotao = true;

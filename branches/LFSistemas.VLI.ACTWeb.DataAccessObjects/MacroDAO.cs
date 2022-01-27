@@ -500,64 +500,58 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
 
                     query.Append(@"SELECT 'R' AS R_E,
-                                       MR.MR_GRMN AS ID,
-                                       MR.MR_MSG_TIME AS Horário,
-                                       MC.MCT_NOM_MCT AS Loco,
-                                       MR.MR_MC_NUM AS Macro,
-                                       MR.MR_TEXT AS Mensagem,
-                                       SUBSTR (MR.MR_TEXT, 1, 760) AS Texto,
-                                       MR.MR_MCT_ADDR AS MCT,
-                                       MR.MR_PRF_ACT AS Trem,
-                                       MR.MR_COD_OF AS CodOS,
-                                       PF.MFP_LEITURA AS Leitura,
-                                       PF.MPF_ID AS Leitura_ID,
-                                       MR.MR_CORREDOR
-                                  FROM ACTPP.MENSAGENS_RECEBIDAS MR
-                                       INNER JOIN ACTPP.MCTS MC ON MC.MCT_ID_MCT = MR.MR_MCT_ADDR
-                                       INNER JOIN ACTPP.MSG_PF PF ON PF.MFP_ID_MSG = MR.MR_GRMN
-                                       INNER JOIN (SELECT EST_NOME
-                                  FROM ESTACOES
-                                            WHERE EST_ID IN (SELECT EST_ID
-                                  FROM REL_CAB_EST
-                                            WHERE CAB_ID IN (${CABINES_R}))) B
-                                ON MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
-                                     ${INTERVALO_R}
-                                     AND MR.MR_MC_NUM = 50
-                                     AND SUBSTR (MR.MR_TEXT, 2, 4) = '7000'
-                                     ${EXPRESSAO_R}
-                                     ${LOCO_R}
-                                     ${CODIGO_OS_R} 
-                                     ${PREFIXO_R}
+                                        MR.MR_GRMN AS ID,
+                                        MR.MR_MSG_TIME AS Horário,
+                                        MC.MCT_NOM_MCT AS Loco,
+                                        MR.MR_MC_NUM AS Macro,
+                                        MR.MR_TEXT AS Mensagem,
+                                        SUBSTR (MR.MR_TEXT, 1, 760) AS Texto,
+                                        MR.MR_MCT_ADDR AS MCT,
+                                        MR.MR_PRF_ACT AS Trem,
+                                        MR.MR_COD_OF AS CodOS,
+                                        PF.MFP_LEITURA AS Leitura,
+                                        PF.MPF_ID AS Leitura_ID,
+                                        MR.MR_CORREDOR
+                                    FROM ACTPP.MENSAGENS_RECEBIDAS MR, ACTPP.MCTS MC, ACTPP.MSG_PF PF,
+                                    (SELECT TRIM(EST_NOME) EST_NOME
+                                                        FROM ESTACOES
+                                                    WHERE EST_ID IN (SELECT EST_ID
+                                                                        FROM REL_CAB_EST
+                                                                        WHERE CAB_ID IN (${CABINES_R}))) NE
+                                    WHERE     MC.MCT_ID_MCT(+) = MR.MR_MCT_ADDR
+                                        AND PF.MFP_ID_MSG(+) = MR.MR_GRMN
+                                        --AND MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (NE.EST_NOME, '%'))
+                                        AND MR.MR_ESTACAO = NE.EST_NOME-- C859
+                                        ${INTERVALO_R}
+                                        AND MR.MR_MC_NUM = 50                                        
+                                        ${EXPRESSAO_R}
+                                        ${LOCO_R}
+                                        ${CODIGO_OS_R} 
+                                        ${PREFIXO_R}
                                      
              UNION
-                                       SELECT 'E' AS R_E, ME.ME_GFMN AS ID, 
-                                       ME.ME_MSG_TIME AS Horário, 
-                                       MC.MCT_NOM_MCT AS Loco, 
-                                       ME.ME_MAC_NUM AS Macro, 
-                                       ME.ME_TEXT AS Mensagem, 
-                                       SUBSTR(ME.ME_TEXT, 1, 760) AS Texto, 
-                                       ME.ME_MCT_ADDR AS MCT, 
-                                       ME.ME_PRF_ACT AS Trem, 
-                                       ME.ME_COD_OF AS CodOS, 
-                                       'T' AS Leitura, 
-                                       0 AS Leitura_ID, 
-                                       ME.ME_CORREDOR 
-                                    FROM ACTPP.MENSAGENS_ENVIADAS ME
-                                    
-                                            INNER JOIN ACTPP.MCTS MC ON MC.MCT_ID_MCT = ME.ME_MCT_ADDR
-                                        INNER JOIN (SELECT EST_NOME
-                                    FROM ESTACOES
-                                            WHERE EST_ID IN (SELECT EST_ID
-                                    FROM REL_CAB_EST
-                                            WHERE CAB_ID IN (${CABINES_E}))) B
-                                ON ME.ME_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
-                                     ${INTERVALO_E}
-                                     AND ME.ME_MAC_NUM = 50
-                                     AND SUBSTR (ME.ME_TEXT, 2, 4) = '7000' 
-                                     ${EXPRESSAO_E}
-                                     ${LOCO_E}
-                                     ${CODIGO_OS_E}
-                                     ${PREFIXO_E}
+                                       SELECT 'E' AS R_E,
+                                           ME.ME_GFMN AS ID,
+                                           ME.ME_MSG_TIME AS Horário,
+                                           MC.MCT_NOM_MCT AS Loco,
+                                           ME.ME_MAC_NUM AS Macro,
+                                           ME.ME_TEXT AS Mensagem,
+                                           SUBSTR (ME.ME_TEXT, 1, 760) AS Texto,
+                                           ME.ME_MCT_ADDR AS MCT,
+                                           ME.ME_PRF_ACT AS Trem,
+                                           ME.ME_COD_OF AS CodOS,
+                                           'T' AS Leitura,
+                                           0 AS Leitura_ID,
+                                           ME.ME_CORREDOR
+                                      FROM ACTPP.MENSAGENS_ENVIADAS ME, ACTPP.MCTS MC
+                                      WHERE
+                                        MC.MCT_ID_MCT(+) = ME.ME_MCT_ADDR
+                                        ${INTERVALO_E}
+                                        AND ME.ME_MAC_NUM = 50                                     
+                                        ${EXPRESSAO_E}
+                                        ${LOCO_E}
+                                        ${CODIGO_OS_E}
+                                        ${PREFIXO_E}
                                     ");
 
 
@@ -586,8 +580,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     //FIltro de Locomotivas
                     if (!string.IsNullOrEmpty(filtro.NumeroLocomotiva))
                     {
-                        query.Replace("${LOCO_R}", string.Format("AND MC.MCT_NOM_MCT IN ('{0}')", filtro.NumeroLocomotiva));
-                        query.Replace("${LOCO_E}", string.Format("AND MC.MCT_NOM_MCT IN ('{0}')", filtro.NumeroLocomotiva));
+                        query.Replace("${LOCO_R}",  string.Format("AND MR.MR_TEXT LIKE '%{0}%'", filtro.NumeroLocomotiva));
+                        query.Replace("${LOCO_E}", string.Format("AND ME.ME_TEXT LIKE '%{0}%'", filtro.NumeroLocomotiva));
                     }
                     else
                     {
@@ -1571,7 +1565,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             WHERE EST_ID IN (SELECT EST_ID
                                   FROM REL_CAB_EST
                                             WHERE CAB_ID IN (${CABINES_R}))) B
-                                ON MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                --ON MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                ON MR.MR_ESTACAO = B.EST_NOME-- C859
                                         AND PF.MFP_ID_MSG = MR.MR_GRMN 
                                           ${INTERVALO_R}
                                           AND PF.MFP_LEITURA = 'F' 
@@ -2256,7 +2251,8 @@ INNER JOIN (SELECT EST_NOME
                                             WHERE EST_ID IN (SELECT EST_ID
                                   FROM REL_CAB_EST
                                             WHERE CAB_ID IN (${CABINES_R}))) B
-                                ON MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                --ON MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                ON MR_ESTACAO = B.EST_NOME-- C859
 where mr_mc_num = ${mr_mc_num} and mr_loco = ${mr_loco} and mr_msg_time >= sysdate -1
                                     union
                                     select 'E', me_gfmn as macro, me_loco as loco, me_msg_time as horario, me_text as texto
@@ -2334,7 +2330,8 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
                                             WHERE EST_ID IN (SELECT EST_ID
                                   FROM REL_CAB_EST
                                             WHERE CAB_ID IN (${CABINES_R}))) B
-                                ON MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                --ON MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
+                                ON MR.MR_ESTACAO = B.EST_NOME-- C859
                                      ${INTERVALO_R}
                                      AND MR.MR_MC_NUM = 50
                                      AND SUBSTR (MR.MR_TEXT, 2, 4) = '7000'
@@ -2972,7 +2969,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
                                             /*ME_LOCO =*/ ${ME_LOCO},
                                             /*ME_CNT_MCT =*/ 61643776,
                                             /*ME_MSG_SUBTYPE =*/ 0,
-                                            /*ME_RETURN_RECEIPT =*/ 1,
+                                            /*ME_RETURN_RECEIPT =*/ 0,
                                             /*ME_TEXT_CONV =*/ ${ME_TEXT},
                                             /*ME_MAC_NUM_PRM =*/ 0)");
 

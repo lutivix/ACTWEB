@@ -142,6 +142,19 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             else return retorno;
         }
 
+        /// <summary>
+        /// Atualiza senha de usuário no banco
+        /// </summary>
+        /// <param name="usuario">Objeto usuário</param>
+        /// <returns>Retorna "true" se a funcionalidade foi inserida com sucesso e "false" caso contrario</returns>
+        public bool AtualizarSenha(Usuarios usuario, string usuarioLogado)
+        {
+            bool retorno = false;
+            if (dao.AtualizarSenha(usuario, usuarioLogado))
+                return retorno = true;
+            else return retorno;
+        }
+
         public bool AdicionarAcesso(string matricula)
         {
            return dao.AdicionarAcesso(matricula);

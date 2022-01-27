@@ -27,14 +27,20 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         public bool retirando { get; set; }
 
         public static bool podeSolRetirada;
+
+        //C931
+        public string cpf;        
+
         public enum StatusBarraComandos
         {
             Novo = 1,
             Edicao = 2
         }
 
-        [DllImport(@"DLLMQWeb.dll")]
+        #endregion
 
+        #region EMQ
+        [DllImport(@"DLLMQWeb.dll")]
         /// <summary>
         /// Envia mensagem para fila do MQ
         /// </summary>
@@ -63,7 +69,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                       char[] prmMat_Usuario,
                                       char prmTpUser,
                                       char[]prmTelefone_responsavel,
-                                      char[]prmPrefixo);
+                                      char[]prmPrefixo,
+                                      int prmCauda);
 
         [DllImport(@"DLLMQWeb.dll")]
         /// <summary>
@@ -73,12 +80,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         /// <param name="prmIdTipoInterdicao">[ int ]: - Identificador do Tipo de Interdição</param>
         /// <param name="prmMatUsuarioLogado">[ char[] ]: - Matricula do Usuário Logado</param>
         /// <param name="prmIdTipoCirculacao">[ int ]: - Identificador do Tipo de Circulação </param>
-        /// <param name="prmTpUser">[ char ]: - Tipo de Usuário, neste caso [ W = Web ]</param>        
+        /// <param name="prmTpUser">[ char ]: - Tipo de Usuário, neste caso [ W = Web ]</param>               
         static extern void DLLSendSRI(int prmIdSLT_ACTWEB,
-                                      int prmIdSLT_ACT,
-                                      int prmId_Tipo_Circulacao,
-                                      char[] prmMat_Usuario,
-                                      char prmTpUser);
+                                     int prmIdSLT_ACT,
+                                     int prmId_Tipo_Circulacao,
+                                     char[] prmMat_Usuario,
+                                     char prmTpUser);
+
+        [DllImport(@"DLLMQWeb.dll")]
+        static extern void DLLSendSAR(int prmIdSLT_ACTWEB,
+                                        int prmIdSLT_ACT,
+                                        int prmId_Tipo_Circulacao,
+                                        char[] prmMat_Usuario,
+                                        char prmTpUser,
+                                        char[] prmCPF_Responsavel,
+                                        char[] prmJustificativa);
 
         #endregion
 
@@ -96,10 +112,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             lblUsuarioPerfil.Text = ulPerfil = Uteis.Descriptografar(Request.QueryString["pu"].ToString(), "a#3G6**@").ToUpper();
             lblUsuarioMaleta.Text = ulMaleta = Uteis.Descriptografar(Request.QueryString["mm"].ToString(), "a#3G6**@").ToUpper();
 
+            
+
             if (!IsPostBack)
             {
-                txtPrefixo.Enabled = false;
-                lblPrefixo.Enabled = false;
+                //txtPrefixo.Enabled = false;
+                //lblPrefixo.Enabled = false;
+
+                //tbCauda.Enabled = false;
+                //lbCauda.Enabled = false;
         
                 ViewState["ordenacao"] = "ASC";
                 var dataIni = DateTime.Parse(DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy"));
@@ -107,7 +128,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtDataInicial.Text = dataIni.ToShortDateString();
                 txtDataFinal.Text = dataFim.ToShortDateString();
                 lblCanalCom.Text = "Canal de comunicação de Entrada";
+                lblPrefixo.Enabled = true;
+                lblPrefixo.Visible = true;
                 lblPrefixo.Text = "Prefixo:";
+                lbCauda.Enabled = true;
+                lbCauda.Visible = true;
+                lbCauda.Text = "Cauda:";
 
                 ControleFormulario(StatusBarraComandos.Novo);
                 txtDadosDataAtual.Text = DateTime.Now.ToShortDateString();
@@ -179,7 +205,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             ddlDadosTipoDaCirculacao.DataSource = interdicaoController.ObterCombo_TIPO_CIRCULACAO();
             ddlDadosTipoDaCirculacao.DataBind();
         }
-
         public void ComboDadosMotivo()
         {
             var interdicaoController = new InterdicaoController();
@@ -264,6 +289,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             {
                 if (DLLSendSOI())
                 {
+                    UsuarioAutController usuario = new UsuarioAutController();
+                    string CPF = txtDadosResponsavel.Text.Trim();
+                    string matricula = lblUsuarioMatricula.Text.Trim();
+                    string usuarioID = lblUsuarioLogado.Text.Trim();
+                    string acao = "criação";
+                    usuario.AtualizarDataUltSol(CPF, matricula, usuarioID, acao);
+                    usuario.AtualizarDataUltSolBSOP(CPF, usuarioID, "7" );
+
                     ControleFormulario(StatusBarraComandos.Novo);
                     Pesquisar(null);
                 }
@@ -299,13 +332,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         {
             ControleFormulario(StatusBarraComandos.Novo);
             Pesquisar(null);
-        }        
-       
+        }               
         protected void lnkEdite_Click(object sender, EventArgs e)
         {
             Panel1.Visible = false;
 
-            lblCanalCom.Text = "Canal de comunicação de Retirada";
+            lblCanalCom.Text = "Canal de comunicação de Retirada ou Atualização";
 
             ControleFormulario(StatusBarraComandos.Edicao);
             LinkButton btn = (LinkButton)(sender);
@@ -333,6 +365,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtTelefoneResponsavel.Text = dados.Telefone_responsavel != null ? dados.Telefone_responsavel : string.Empty;
 
                 txtPrefixo.Text = dados.Prefixo != null ? dados.Prefixo : string.Empty;
+                tbCauda.Text = string.Empty;
+                if(dados.Cauda != 0)
+                {
+                    tbCauda.Text = dados.Cauda.ToString("f0");
+                }
+                
                 
                 
                 if (dados.Tipo_Circulacao_ID > 0)
@@ -393,12 +431,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtDadosObsercacao.Text = dados.Observacao != null ? dados.Observacao : string.Empty;
             }
         }
-
         protected void lnkRetirar_Click(object sender, EventArgs e)
         {
             retirando = true;
             id_aut = txtAutorizacao.Text;
             sb = ddlDadosSecao.SelectedItem.Text;
+            cpf = txtDadosResponsavel.Text;
+
             lblCanalCom.Text = "Canal de comunicação de Retirada";
             
             try
@@ -447,7 +486,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 throw new Exception(ex.Message);
             }
         }
-
         protected void lnkNovoResponsavel_Click(object sender, EventArgs e)
         {
             Response.Write("<script> " +
@@ -625,6 +663,82 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 Pesquisar("II.SLT_ID_ACT_AUT_INTER " + ViewState["ordenacao"].ToString() + ", SLT_DATA desc");
             }
         }*/
+        protected void lnkAtualizarCPF_Click(object sender, EventArgs e)//P707
+        {
+            //Quando clicar em atualizar, vai mandar mensagem pro bloqueio pra fazer o que precisa.
+            var restricaoController = new RestricaoController();
+
+            if (txtDadosKm.Text != string.Empty && ddlDadosSecao.SelectedItem.Value != "0")
+                verificaKm = restricaoController.VerificaKM(double.Parse(txtDadosKm.Text), double.Parse(ddlDadosSecao.SelectedItem.Value));
+
+            if (verificaKm == "ok")
+            {
+                if (DLLSendSOA())
+                {
+                    ControleFormulario(StatusBarraComandos.Novo);
+                    Pesquisar(null);
+                    Panel1.Visible = true;
+                    txtAutorizacao.Text = string.Empty;
+                }
+            }
+            else
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Km " + verificaKm + "' });", true);
+
+
+
+            /**
+            retirando = true;
+            id_aut = txtAutorizacao.Text;
+            sb = ddlDadosSecao.SelectedItem.Text;
+            lblCanalCom.Text = "Canal de comunicação de Atualização";
+
+            try
+            {
+
+                if (podeSolRetirada)
+                {
+                    podeSolRetirada = false;
+                    //txtAutorizacao.Visible = false;
+
+                    //chanar outra pag
+                    //Response.Redirect("<script>window.open('/Restricoes/popupConfirmacaoLDL.aspx</script>");
+
+                    //MessageBox
+
+                    //ring teste = "<script>window.open('/Restricoes/confimacaoRetiradaLDL/PopupEnviarParadaImediata.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'width=680, height=330, scrollbars=yes, resusable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0'); </script>";
+                    //sponse.Write("<script>window.open('/Restricoes/confimacaoRetiradaLDL/PopupEnviarParadaImediata.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'width=680, height=330, scrollbars=yes, resusable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0'); </script>");
+                    //sponse.Write("<script>window.open('/Restricoes/confimacaoRetirarLDL/WebForm1.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'width=680, height=330, scrollbars=yes, resusable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0'); </script>");
+                    //sponse.Write("/Restricoes/confimacaoRetirarLDL/WebForm1.aspx");
+                    //Response.Write("<script> " +
+                    //        " var url = '/Restricoes/confirmacaoRetirarLDL/WebForm1.aspx?id=22';" +
+                    //        " var newW = 800; " +
+                    //        " var newH = 260; " +
+                    //        " var left = (screen.width-newW)/2; " +
+                    //        " var top = (screen.height-newH)/2; " +
+                    //        " var newwindow = window.open(url, 'name', 'width='+newW+',height='+newH+',left='+left+',top='+top); " +
+                    //        " newwindow.resizeTo(newW, newH); " +
+                    //        " newwindow.moveTo(left, top); " +
+                    //        " newwindow.focus();</script>");
+
+                    //Response.Write("<script>window.open('/Macros/PopupEnviarParadaImediata.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulPerfil.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@").ToString() + "', '', 'width=680, height=330, scrollbars=yes, resusable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0'); </script>");
+
+                    if (DLLSendSOA())
+                    {
+                        ControleFormulario(StatusBarraComandos.Novo);
+                        Pesquisar(null);
+                        Panel1.Visible = true;
+                        txtAutorizacao.Text = string.Empty;
+                    }
+                    retirando = false;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            /**/
+        }
 
         #endregion
 
@@ -709,6 +823,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             try
             {
+                
+                if (interdicaoController.ExisteLDLAtivaNaSecao(double.Parse(ddlDadosSecao.SelectedItem.Value)))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Já existe uma LDL vigente na SB!' });", true);
+                    return false;
+                }
+
                 var existeInterdicaoNaSecao = interdicaoController.ExisteInterdicaoNaSecao(double.Parse(ddlDadosSecao.SelectedItem.Value));
                 if (existeInterdicaoNaSecao.Tipo_Situacao_ID != 1 && existeInterdicaoNaSecao.Tipo_Situacao_ID != 2 && existeInterdicaoNaSecao.Tipo_Situacao_ID != 6)
                 {
@@ -747,12 +868,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     inter.Ativo_SN = "S";
                     inter.Telefone_responsavel = txtTelefoneResponsavel.Text.Length > 0 ? txtTelefoneResponsavel.Text : string.Empty;
                     inter.Prefixo = txtPrefixo.Text.Length > 0 ? txtPrefixo.Text : string.Empty;
+                    inter.Cauda = double.Parse( tbCauda.Text.Length > 0 ? tbCauda.Text : "0");
 
                     char[] usuariologado = new char[10];
                     char[] responsavel = new char[12];
                     char[] observacao = new char[38];
                     char[] Telefone_responsavel = new char[11];
                     char[] Prefixo = new char[4];
+                    int Cauda = Convert.ToInt32(inter.Cauda);
+
 
                     for (int i = 0; i <= 35; i++)
                     {
@@ -794,6 +918,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                             Prefixo[i] = char.MinValue;
                     }
 
+                    //for (int i = 0; i <= 5; i++)
+                    //{
+                    //    if (i < inter.Cauda.Length)
+                    //        Cauda[i] = inter.Cauda[i];
+                    //    else
+                    //        Cauda[i] = char.MinValue;
+                    //}
+
                         inter.Usuario_Logado_Nome = lblUsuarioLogado.Text;
 
                     inter.Solicitacao_ID_ACT = (int)interdicaoController.ObterIdInterdicao();   // Pega o ID na tabela SOLICITACOES_LDL no ACT
@@ -801,7 +933,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                     DLLSendSOI((int)inter.Solicitacao_ID_ACTWEB, (int)inter.Tipo_Situacao_ID, inter.Data.ToOADate(), (int)inter.Secao_ID,
                                 (int)inter.Tipo_Interdicao_ID, (int)inter.Duracao_Solicitada, (int)inter.Tipo_Manutencao_ID, (double)inter.Km, responsavel,
-                                observacao, usuariologado, 'W', Telefone_responsavel, Prefixo);
+                                observacao, usuariologado, 'W', Telefone_responsavel, Prefixo, Cauda);
 
                     if (interdicaoController.Inserir(inter, ulMatricula))
                     {
@@ -881,7 +1013,85 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             Thread.Sleep(3000);
             return retorno;
         }
+        protected unsafe bool DLLSendSOA() // Solicitação de Remoção de Interdição
+        {
+            var interdicaoController = new InterdicaoController();
+            bool retorno = false;
+            int Interdicao_ID = 0;
 
+            Interdicao_ID = (int)interdicaoController.ObterIdInterdicaoPorSolicitacao_ID(double.Parse(lblIdentificador.Text));
+
+            var secao = interdicaoController.ObterSecaoPorIdSolicitacao(Interdicao_ID);
+
+            char[] usuario = new char[10];
+            for (int i = 0; i <= 9; i++)
+            {
+                if (i < lblUsuarioMatricula.Text.Length)
+                    usuario[i] = lblUsuarioMatricula.Text[i];
+                else
+                    usuario[i] = char.MinValue;
+            }
+
+            char[] cpf = new char[12];
+            if (txtDadosResponsavel.Text.Length == 11)
+            {                
+                for (int i = 0; i <= 11; i++)
+                {
+                    if (i < txtDadosResponsavel.Text.Length)
+                        cpf[i] = txtDadosResponsavel.Text[i];
+                    else
+                        cpf[i] = char.MinValue;
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'O campo CPF é obrigatório para a atualização de " + ddlDadosTipoDaInterdicao.SelectedItem.Text + ".' });", true);
+                return false;
+            }
+           
+
+            char[] just = new char[38];
+            /**
+           if (tbJustificativa.Text.Length > 0)
+           {
+               for (int i = 0; i < 38; i++)
+               {
+                   if (i < tbJustificativa.Text.Length)
+                       just[i] = tbJustificativa.Text[i];
+                   else
+                       just[i] = char.MinValue;
+               }
+           }
+           else
+           {
+               ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'O campo Justificativa é obrigatório para a atualização de CPF de " + ddlDadosTipoDaInterdicao.SelectedItem.Text + ".' });", true);
+               return false;
+           }
+           /**/
+                
+
+            if (ddlDadosTipoDaSituacao.SelectedItem.Text == "C - Confirmada")
+            {
+                if (lblIdentificador.Text.Length > 0)
+                {
+                       
+                        DLLSendSAR(int.Parse(lblIdentificador.Text), Interdicao_ID, int.Parse(ddlDadosTipoDaCirculacao.SelectedItem.Value), usuario, 'W', cpf, just);
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Solicitação de alteraçãop de CPF de: " + ddlDadosTipoDaInterdicao.SelectedItem.Text + " foi enviada ao ACT pelo usuário " + ulMatricula + " - " + ulPerfil + "' });", true);
+                        LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "LDL", null, Interdicao_ID.ToString(), "Solicitação de Alteração de CPF de interdição enviada ao ACT. SB: " + secao + "", Uteis.OPERACAO.Solicitou.ToString());
+
+                        retorno = true;
+                       
+                }
+                else
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Selecione uma interdição no grid abaixo para retirar a interdição.' });", true);
+            }
+            else
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Esta interdição não foi confirmada, favor selecionar outra.' });", true);
+           
+
+            Thread.Sleep(3000);
+            return retorno;
+        }
         #endregion
 
         #region [ MÉTODOS DE APOIO ]
@@ -950,7 +1160,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         //    lblPrefixo.Visible = true;
         //}
 
-
+        protected void clbCorredorLDL_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboFiltroSecoes();
+        }
 
         [System.Web.Services.WebMethod]
         public static void DeleteRestriction(string id)
@@ -1042,6 +1255,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     lblMensagem.Text = string.Empty;
                     txtPrefixo.Text = string.Empty;
                     txtTelefoneResponsavel.Text = string.Empty;
+                    tbCauda.Text = string.Empty;
+                    //tbJustificativa.Text = string.Empty;
 
 
 
@@ -1063,6 +1278,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         lnkNovoResponsavel.Visible = false;
                     }
 
+                    //P707 - se for atualizar CPF precisa ser só ADM?? não
+                    lnkAtualizarCPF.Enabled = true;
+                    lnkAtualizarCPF.CssClass = "btn btn-info";
+
+                    //if (ulPerfil != "ADM")
+                    //{
+                    //    lnkAtualizarCPF.Visible = false;
+                    //}                    
+
                     ddlDadosSecao.Focus();
 
                     break;
@@ -1077,12 +1301,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     txtDadosKm.Enabled = false;
                     rdDadosTelefone.Enabled = false;
                     txtDadosTelefone.Enabled = false;
-                    txtDadosResponsavel.Enabled = false;
+                    txtDadosResponsavel.Enabled = true;//P707
                     rdDadosRadio.Enabled = false;
                     txtDadosEquipamentos.Enabled = false;
                     rdDadosMacro.Enabled = false;
                     txtDadosMacro.Enabled = false;
                     txtDadosObsercacao.Enabled = false;
+                    txtTelefoneResponsavel.Enabled = true;
                     //txtAutorizacao.Enabled = true;
 
                     lnkCriar.Enabled = false;
@@ -1098,12 +1323,22 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     lnkNovoResponsavel.Enabled = false;
                     lnkNovoResponsavel.CssClass = "btn btn-info disabled";
                     txtPrefixo.Text = string.Empty;
-                    txtTelefoneResponsavel.Text = string.Empty;
+                    tbCauda.Text = string.Empty;
+                    //tbJustificativa.Text = string.Empty;
+                    //txtTelefoneResponsavel.Text = string.Empty;
+                    //txtDadosResponsavel.Text = string.Empty;
+                    //lblResponsavel_Nome.Text = string.Empty;
 
                     if (ulPerfil != "ADM")
                     {
                         lnkNovoResponsavel.Visible = false;
                     }
+
+                    //P707 - se for atualizar CPF precisa ser só ADM??
+                    //if (ulPerfil != "ADM")
+                    //{
+                    //    lnkAtualizarCPF.Visible = false;
+                    //}     
 
                     break;
             }
@@ -1111,10 +1346,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
         #endregion
 
-        protected void clbCorredorLDL_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboFiltroSecoes();
-        }
+        
+
+       
 
         
     }

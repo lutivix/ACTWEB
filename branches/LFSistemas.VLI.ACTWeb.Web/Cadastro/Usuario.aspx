@@ -83,23 +83,23 @@
     </div>
     <div class="row">
         <div class="form-group col-sm-6">
-            <label for="nivel">Perfil:</label>
+            <label for="nivel" id ="labelPerfil">Perfil:</label>
             <asp:DropDownList ID="ddlPerfil" runat="server" CssClass="form-control" DataTextField="Nome" DataValueField="Id" />
         </div>
         <div class="form-group col-sm-6">
-            <label for="maleta">Maleta:</label>
+            <label for="maleta"id="labelMaleta">Maleta:</label>
             <asp:TextBox runat="server" ID="txtMaleta" CssClass="form-control" onkeypress="return PermiteSomenteNumeros(event);" MaxLength="5" />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-12">
-            <label for="email">E-mail:</label>
+            <label for="email" id="labelEmail">E-mail:</label>
             <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" onblur="validateEmail(this);" MaxLength="70" />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-1">
-            <label for="email">Ativo:</label><br />
+            <label for="email" id="labelAtivo">Ativo:</label><br />
             <asp:CheckBox runat="server" ID="chkAtivo" CssClass="form-control" Checked="true" Width="40" />
         </div>
     </div>

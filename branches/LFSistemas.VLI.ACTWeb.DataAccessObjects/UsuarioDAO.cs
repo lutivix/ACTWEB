@@ -951,6 +951,63 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return retorno = true;
         }
 
+
+        /// <summary>
+        /// Atualiza senha de usuário no banco
+        /// </summary>
+        /// <param name="usuario">Objeto usuário</param>
+        /// <returns>Retorna "true" se a funcionalidade foi inserida com sucesso e "false" caso contrario</returns>
+        public bool AtualizarSenha(Usuarios usuario, string usuarioLogado)
+        {
+            #region [ PROPRIEDADES ]
+
+            bool retorno = false;
+            StringBuilder query = new StringBuilder();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ INSERE USUÁRIO NO BANCO ]
+
+                    var command = connection.CreateCommand();
+                    query.Append(@"UPDATE USUARIOS SET NOME = ${NOME}, SENHA = ${SENHA} WHERE ID = ${ID}");
+
+                    #endregion
+
+                    #region [ PARÂMETRO ]
+
+                    query.Replace("${ID}", string.Format("{0}", usuario.Id));
+                    query.Replace("${NOME}", string.Format("'{0}'", usuario.Nome));
+                    query.Replace("${SENHA}", string.Format("'{0}'", usuario.Senha));                    
+                    
+
+                    #endregion
+
+                    #region [ RODA A QUERY NO BANCO ]
+
+                    command.CommandText = query.ToString();
+                    command.ExecuteNonQuery();
+
+                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", usuario.Id.ToString(), null, "Usuário: " + usuario.Nome + " teve sua senha atualizada!", Uteis.OPERACAO.Atualizou.ToString());
+
+                    #endregion
+
+                    retorno = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return retorno;
+        }
+
         /// <summary>
         /// Atualiza um usuário no banco
         /// </summary>

@@ -37,7 +37,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           II.SLT_ID_TP_INTERDICAO, TI.TP_INT_NOME, II.SLT_DURACAO_SOLICITADA, II.SLT_DURACAO_AUTORIZADA, II.SLT_ID_TP_MANUTENCAO, TM.TP_MNT_NOME, II.SLT_ID_TP_CIRCULACAO, 
                                           TC.TP_CIR_NOME, II.SLT_KM, II.SLT_USUARIO_LOGADO, OP.NOME, II.SLT_TELEFONE_SN, II.SLT_TELEFONE_NUMERO, II.SLT_MAT_RESPONSAVEL, 
                                           RR.OP_BS_NM AS OP_NM, II.SLT_RADIO_SN, II.SLT_EQUIPAMENTOS, II.SLT_MACRO_SN, II.SLT_MACRO_NUMERO, II.SLT_OBSERVACAO, II.SLT_ATIVO_SN, II.SLT_ID_ACT_AUT_INTER, II.SLT_ID_MOTIVO, RD.RD_DSC_RDE, IM.IM_ID_IM,
-                                 case when IM.im_tp = 1 then 'LDL' WHEN IM.IM_TP = 2 THEN 'BLQ' when im.im_tp is null then '' else 'INT' END || IM.IM_ID_IM CODIGO
+                                 case when IM.im_tp = 1 then 'LDL' WHEN IM.IM_TP = 2 THEN 'BLQ' when im.im_tp is null then '' else 'INT' END || IM.IM_ID_IM CODIGO, II.SLT_JUSTIFICATIVA
                                       FROM SOLICITACAO_INTERDICAO II, ACTPP.ELEM_VIA EV, TIPO_SITUACAO TS, TIPO_INTERDICAO TI, TIPO_MANUTENCAO TM, 
                                             TIPO_CIRCULACAO TC, USUARIOS OP, ACTPP.OPERADORES_BS RR, ACTPP.RESTRICOES_DESCRICOES RD, actpp.interdicao_motivo im, 
                                             actpp.solicitacoes_ldl sldl, ACTPP.NOME_CORREDOR NC
@@ -75,7 +75,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     if (filtro.Situacao != null)
                         query.Replace("${SLT_ID_TP_SITUACAO}", string.Format("AND II.SLT_ID_TP_SITUACAO IN ({0})", filtro.Situacao));
                     else
-                        query.Replace("${SLT_ID_TP_SITUACAO}", " AND II.SLT_ID_TP_SITUACAO IN (1, 2, 3, 4, 5, 6)");
+                        query.Replace("${SLT_ID_TP_SITUACAO}", " AND II.SLT_ID_TP_SITUACAO IN (1, 2, 3, 4, 5, 6, 7)");
 
                     if (filtro.Secao != null)
                         query.Replace("${SLT_ID_SECAO}", string.Format(" AND SLT_ID_SECAO = {0}", filtro.Secao));
@@ -154,7 +154,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT II.SLT_ID_SLT, II.SLT_ID_SLT_ACT, II.SLT_ID_TP_SITUACAO, TS.TP_SIT_NOME, II.SLT_DATA, II.SLT_ID_SECAO, EV.EV_NOM_MAC, 
                                           II.SLT_ID_TP_INTERDICAO, TI.TP_INT_NOME, II.SLT_DURACAO_SOLICITADA, II.SLT_DURACAO_AUTORIZADA, II.SLT_ID_TP_MANUTENCAO, TM.TP_MNT_NOME, II.SLT_ID_TP_CIRCULACAO, 
                                           TC.TP_CIR_NOME, II.SLT_KM, II.SLT_USUARIO_LOGADO, OP.NOME, II.SLT_TELEFONE_SN, II.SLT_TELEFONE_NUMERO, II.SLT_MAT_RESPONSAVEL, 
-                                          RR.OP_NM, II.SLT_RADIO_SN, II.SLT_EQUIPAMENTOS, II.SLT_MACRO_SN, II.SLT_MACRO_NUMERO, II.SLT_OBSERVACAO, II.SLT_ATIVO_SN, II.SLT_ID_ACT_AUT_INTER, II.SLT_ID_MOTIVO
+                                          RR.OP_NM, II.SLT_RADIO_SN, II.SLT_EQUIPAMENTOS, II.SLT_MACRO_SN, II.SLT_MACRO_NUMERO, II.SLT_OBSERVACAO, II.SLT_ATIVO_SN, II.SLT_ID_ACT_AUT_INTER, II.SLT_ID_MOTIVO, II.SLT_JUSTIFICATIVA
                                       FROM SOLICITACAO_INTERDICAO II, ACTPP.ELEM_VIA EV, TIPO_SITUACAO TS, TIPO_INTERDICAO TI, TIPO_MANUTENCAO TM, TIPO_CIRCULACAO TC, USUARIOS OP, ACTPP.OPERADORES RR
                                       WHERE II.SLT_ID_SECAO = EV.EV_ID_ELM
                                       AND II.SLT_ID_TP_SITUACAO = TS.TP_SIT_CODIGO
@@ -197,6 +197,60 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
+        public bool ExisteLDLAtivaNaSecao(double SB)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            bool retorno = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT * FROM actpp.interdicao_motivo im, actpp.ocupacoes_ldl oldl, actpp.restricoes_circulacao rc
+                                            WHERE     OLDL.LDL_ID = IM.OL_ID_OL
+                                                      AND RC.AI_ID_AI = IM.AI_ID_AI
+                                                      AND im.IM_TP = 1
+                                                      AND RC.EV_ID_ELM IN (${SB})");
+
+                    if (SB != null)
+                        query.Replace("${SB}", string.Format("{0}", SB));
+                    else
+                        query.Replace("${SB}", " ");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            retorno = true;
+                        }
+                    }
+
+                    #endregion
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Restrição", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return retorno;
+        }        
 
         /// <summary>
         /// Obtem um objeto restrição pelo id
@@ -260,7 +314,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                              ELSE 'INT'
                                           END
                                        || IMH.IM_ID_IM
-                                          CODIGO
+                                          CODIGO,
+                                       II.SLT_CAUDA
                                   FROM SOLICITACAO_INTERDICAO II,
                                        ACTPP.ELEM_VIA EV,
                                        TIPO_SITUACAO TS,
@@ -319,7 +374,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        II.SLT_ID_MOTIVO,
                                        NULL AS RD_DSC_RDE,
                                        NULL AS IM_ID_IM,
-                                       NULL AS CODIGO       
+                                       NULL AS CODIGO,
+                                       II.SLT_CAUDA       
                                   FROM SOLICITACAO_INTERDICAO II,
                                        ACTPP.ELEM_VIA EV,
                                        TIPO_SITUACAO TS,
@@ -380,7 +436,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                              ELSE 'INT'
                                           END
                                        || IM.IM_ID_IM
-                                          CODIGO
+                                          CODIGO,
+                                        II.SLT_CAUDA
                                   FROM SOLICITACAO_INTERDICAO II,
                                        ACTPP.ELEM_VIA EV,
                                        TIPO_SITUACAO TS,
@@ -971,7 +1028,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT DISTINCT TS.TP_SIT_CODIGO, TS.TP_SIT_NOME 
                                     FROM SOLICITACAO_INTERDICAO SI, TIPO_SITUACAO TS 
                                         WHERE SI.SLT_ID_TP_SITUACAO = TS.TP_SIT_CODIGO
-                                          AND TS.TP_SIT_CODIGO IN (1, 2, 3, 4, 5, 6) ORDER BY TS.TP_SIT_NOME");
+                                          AND TS.TP_SIT_CODIGO IN (1, 2, 3, 4, 5, 6,7) ORDER BY TS.TP_SIT_NOME");
 
                     #endregion
 
@@ -1094,6 +1151,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(30)) item.Motivo_Desc = reader.GetString(30);
                 if (!reader.IsDBNull(31)) item.Interdicao_Motivo = reader.GetDouble(31);
                 if (!reader.IsDBNull(32)) item.Cod_Interdicao = reader.GetString(32);
+                if (!reader.IsDBNull(33)) item.Justificativa = reader.GetString(33);
             
 
             return item;
@@ -1139,6 +1197,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(32)) item.Motivo_Desc = reader.GetString(32);
             if (!reader.IsDBNull(33)) item.Interdicao_Motivo = reader.GetDouble(33);
             if (!reader.IsDBNull(34)) item.Cod_Interdicao = reader.GetString(34);
+            if (!reader.IsDBNull(35)) item.Cauda = reader.GetDouble(35);
 
 
             return item;
