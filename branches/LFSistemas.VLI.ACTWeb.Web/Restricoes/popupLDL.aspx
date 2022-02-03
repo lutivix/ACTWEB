@@ -283,6 +283,18 @@
                 width: 65%;
                 height: 20px;
             }
+            .auto-style3 {
+                width: 10%;
+                height: 50px;
+            }
+            .auto-style4 {
+                width: 15%;
+                height: 50px;
+            }
+            .auto-style5 {
+                width: 20%;
+                height: 50px;
+            }
         </style>
         <div style="margin-top: 1%; margin-left: 4%; margin-right: 4%; margin-bottom: 1%; text-align: left;">
             <table style="width: 100%">
@@ -358,16 +370,16 @@
 
                     <!--LINHA DA DURAÇÃO-->
                     <tr>
-                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Duração (Min.):&nbsp;&nbsp;</td>
-                        <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+                        <td style="vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" class="auto-style3">Duração (Min.):&nbsp;&nbsp;</td>
+                        <td style="vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" class="auto-style4">
                             <asp:TextBox ID="txtDadosDuracaoSolicitada" runat="server" CssClass="form-control" />
                         </td>
-                        <td style="width: 20%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
-                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Tipo da Manutenção:&nbsp;&nbsp;</td>
-                        <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+                        <td style="vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" class="auto-style5"></td>
+                        <td style="vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" class="auto-style3">Tipo da Manutenção:&nbsp;&nbsp;</td>
+                        <td style="vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" class="auto-style4">
                             <asp:DropDownList ID="ddlDadosTipoDaManutencao" runat="server" CssClass="form-control" />
                         </td>
-                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
+                        <td style="vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" class="auto-style3">&nbsp;&nbsp;</td>
                     </tr>
 
                     <!--LINHA DA CIRCULAÇÃO-->
