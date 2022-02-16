@@ -239,8 +239,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
         protected void HabilitaDesabilitaCombos(bool habilita)
         {
-
-            if (lblUsuarioPerfil.Text == "OP VP")
+            //C1047 - 01/2022 - início
+            if ((lblUsuarioPerfil.Text == "OP VP") || (lblUsuarioPerfil.Text == "OP VP P"))
             {
                 ddlDadosTipoRestricao.SelectedItem.Text = "BS - Boletim de Serviço";
                 ddlDadosTipoRestricao.SelectedItem.Value = "26";
@@ -266,6 +266,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtDadosDuracao.Enabled =
                     txtDadosVelocidade.Enabled = !habilita;
             }
+            //C1047 - 01/2022 - fim
             else if ((lblUsuarioPerfil.Text == "CCM") || (lblUsuarioPerfil.Text == "CTD") || (lblUsuarioPerfil.Text == "CTD-LOCO") || (lblUsuarioPerfil.Text == "CTD-VAG"))
             {
                 ddlDadosTipoRestricao.SelectedItem.Text = "BS - Boletim de Serviço";
@@ -753,7 +754,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                     //Pegando o CheckBox dentro do repeater
                     CheckBox chkRestricao = (CheckBox)rptListaRestricoes.Items[i].FindControl("chkRestricao");
-
+                   
                     //Verificar se foi selecionado
                     if (chkRestricao.Checked)
                     {
@@ -781,6 +782,35 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                 if (cpf == string.Empty)
                     podeSolRetirada = true;
+
+                //C1047 - 01/2022 - início
+                for (int i = 0; i < rptListaRestricoes.Items.Count; i++)
+                {
+                    //Pegando o HiddenField dentro do repeater
+                    HiddenField HiddenField1 = (HiddenField)rptListaRestricoes.Items[i].FindControl("HiddenField1");
+
+                    //Pegando o CheckBox dentro do repeater
+                    CheckBox chkRestricao = (CheckBox)rptListaRestricoes.Items[i].FindControl("chkRestricao");
+
+                    //Verificar se foi selecionado
+                    if (chkRestricao.Checked)
+                    {
+                        string[] item = HiddenField1.Value.Split(':');
+
+                        //Caso não seja uma restrição do tipo BS
+                        if (item[4] != "BS")
+                        {
+                            //Verifica se é um dos perfis que não podem retirar restrições (com exceção do BS) 
+                            if ((lblUsuarioPerfil.Text == "OP VP") || (lblUsuarioPerfil.Text == "OP VP P") || (lblUsuarioPerfil.Text == "OP VP R"))
+                            {
+                                lblAviso.Text = "----  Esse perfil de usuário só tem permissão pra retirar restrições do tipo BS!   ----";
+                                podeSolRetirada = false;
+                                return;
+                            }
+                        }
+                    }
+                }
+                //C1047 - 01/2022 - fim
 
                 //C931    
                 if (podeSolRetirada)

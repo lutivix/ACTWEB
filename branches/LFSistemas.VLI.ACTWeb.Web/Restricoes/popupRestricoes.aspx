@@ -760,6 +760,7 @@
                             </td>
                         </tr>
                     </table>
+                    <asp:Label runat="server" ID="lblAviso" Font-Bold="true" Font-Size="12" Style="color: rgb(255, 0, 0); align-content:space-around ;" Width="700px" />
                 </div>
             </div>
             <div class="row" style="margin-top: 1%; margin-bottom: 1%;">
