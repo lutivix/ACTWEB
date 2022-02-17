@@ -31,7 +31,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 //Código que já existia
                 var controlador = new UsuarioController();
 
-                var usuario = controlador.ObterPorLogin(TextBoxLogin.Text.ToUpper().Trim(), Uteis.Criptografar(TextBoxSenha.Text.ToUpper(), "a#3G6**@").ToString());
+                var usuario = controlador.ObterPorLogin(TextBoxLogin.Text.ToUpper().Trim(), Uteis.Criptografar(TextBoxSenha.Text, "a#3G6**@").ToString());
 
                 if (usuario != null && usuario.Ativo_SN != "N" )
                 {
