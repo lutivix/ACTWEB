@@ -54,6 +54,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
                     this.LabelTamanhoTrem.Text = Convert.ToString(this.EntidadeMacro.TamanhoTrem + "m");
                     this.lblSB.Text = EntidadeMacro.SB != null ? EntidadeMacro.SB : string.Empty;
                     if (EntidadeMacro.KM != "-") this.lblKm.Text = EntidadeMacro.KM != null ? string.Format("{0:0,###}", int.Parse(EntidadeMacro.KM)) + "m" : string.Empty;
+
+                    //c884
+                    this.lbCodZQ.Text = this.EntidadeMacro.codeZQ;
+                    this.lbDesZQ.Text = this.EntidadeMacro.descZQ;
                 }
             }
             Regex regex = new Regex(@"(?<variavel>_\d{5})");

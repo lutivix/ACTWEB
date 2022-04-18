@@ -46,6 +46,8 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Tempo_Leitua { get; set; }
         public string Tempo_Resposta { get; set; }
         public string Tempo_Decorrido { get; set; }
+        public string codeZQ { get; set; }
+        public string descZQ { get; set; }
 
         #endregion
     }

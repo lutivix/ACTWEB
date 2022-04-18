@@ -139,6 +139,16 @@
                             <asp:Label ID="lblKm" runat="server"></asp:Label>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="auto-style2">
+                            <strong style="color: #000080;">Zona Quente:  </strong>
+                            <asp:Label ID="lbCodZQ" runat="server"></asp:Label>
+                        </td>
+                        <td>
+                            <strong style="color: #000080;">Desc: </strong>
+                            <asp:Label ID="lbDesZQ" runat="server"></asp:Label>
+                        </td>
+                    </tr>
                 </table>
                 <%} %>
                 <br />
