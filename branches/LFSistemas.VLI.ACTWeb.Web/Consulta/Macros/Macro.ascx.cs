@@ -39,7 +39,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
             }
             else
             {
-                if (EntidadeMacro.NumeroMacro != 16 && EntidadeMacro.NumeroMacro != 17)
+                //if (EntidadeMacro.NumeroMacro != 16 && EntidadeMacro.NumeroMacro != 17)
                 {
                     this.LabelLocomotiva.Text = this.EntidadeMacro.Locomotiva;
                     this.LabelMct.Text = Convert.ToString(this.EntidadeMacro.MCT);
