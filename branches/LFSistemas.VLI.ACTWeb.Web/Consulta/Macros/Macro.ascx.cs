@@ -120,7 +120,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
                     {
                         string strComplementoMsgRDC = "";
                         switch ((int)EntidadeMacro.NumeroMacro)
-                        {
+                        {                            
                             case 517:
                                 {
                                     strComplementoMsgRDC = strComplementoMsgRDC + "RESPOSTA DE INCLUSÃO DE LOCOMOTIVA<BR><BR>";
@@ -187,6 +187,18 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
                                     strComplementoMsgRDC = strComplementoMsgRDC +
                                                             "Resposta: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "<br>" +
                                                             "Restrição: " + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "<br>";
+                                    break;
+                                }
+                            case 1537:
+                                {
+                                    strComplementoMsgRDC = strComplementoMsgRDC + "INTERVENÇÃO DE CONTROLE DE VELOCIDADE<BR><BR>";
+                                    strComplementoMsgRDC = strComplementoMsgRDC +                                                            
+                                                            "SB: " + Uteis.CampoMacro(EntidadeMacro.Texto, 1) + "-"
+                                                                   + Uteis.CampoMacro(EntidadeMacro.Texto, 2) + "-"
+                                                                   + Uteis.CampoMacro(EntidadeMacro.Texto, 3) + "<br>" +
+                                                            "Km: " + Uteis.CampoMacro(EntidadeMacro.Texto, 4) + "<br>" +
+                                                            "Velocidade: " + Uteis.CampoMacro(EntidadeMacro.Texto, 5) + "<br>" +
+                                                            "Tipo de Intervenção: " + Uteis.CampoMacro(EntidadeMacro.Texto, 6) + "<br>" ;                                                           
                                     break;
                                 }
                             case 1541:
