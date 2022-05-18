@@ -48,6 +48,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Tempo_Decorrido { get; set; }
         public string codeZQ { get; set; }
         public string descZQ { get; set; }
+        public string TpCOM { get; set; }
 
         #endregion
     }

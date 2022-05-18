@@ -1796,7 +1796,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                        MR_NOME_SB,
                                                                        MR_KM,
                                                                        ZQ_COD,
-                                                                       ZQ_DESC 
+                                                                       ZQ_DESC,
+                                                                       M.MCT_TP_COM  
                                                                   FROM ACTPP.MENSAGENS_RECEBIDAS MR,
                                                                        ACTPP.ESTACOES EO,
                                                                        ACTPP.ESTACOES ED,
@@ -1829,7 +1830,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                        M.MCT_MAP_VERSAO,
                                                                        T.TM_CMP_TR,
                                                                        ZQ_COD,
-                                                                       ZQ_DESC
+                                                                       ZQ_DESC,
+                                                                       M.MCT_TP_COM
                                                                   FROM ACTPP.MENSAGENS_ENVIADAS MR,
                                                                        ACTPP.ESTACOES EO,
                                                                        ACTPP.ESTACOES ED,
@@ -1850,7 +1852,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     if (tipo == "R")
                                     {
                                         comando.CommandText = @"select mr.MR_GRMN, mr.MR_LOCO, mr.MR_PRF_ACT, mr.MR_COD_OF, mr.MR_MSG_TIME, mr.MR_MC_NUM, mr.MR_TEXT, mr.MR_MCT_ADDR, eo.ES_ID_EFE, ed.ES_ID_EFE,t.TM_NUM_VAG, 
-                                                                                            t.TM_TON_BRT,m.MCT_OBC_VERSAO,m.MCT_MAP_VERSAO,t.TM_CMP_TR, MR_NOME_SB, MR_KM, ZQ_COD, ZQ_DESC
+                                                                                            t.TM_TON_BRT,m.MCT_OBC_VERSAO,m.MCT_MAP_VERSAO,t.TM_CMP_TR, MR_NOME_SB, MR_KM, ZQ_COD, ZQ_DESC, m.MCT_TP_COM
                                                                         from ACTPP.mensagens_recebidas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m, ACTPP.ZONAS_QUENTES ZQ
                                                                         where mr.MR_MCT_ADDR = m.MCT_ID_MCT 
                                                                         AND MR.MR_ID_ZQ = ZQ.ZQ_ID
@@ -1862,7 +1864,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     else
                                     {
                                         comando.CommandText = @"select mr.ME_MSG_NUM, ME_LOCO,ME_PRF_ACT,ME_COD_OF, ME_MSG_TIME, ME_MAC_NUM, ME_TEXT, ME_MCT_ADDR, eo.ES_ID_EFE, ed.ES_ID_EFE,t.TM_NUM_VAG, 
-                                                                                            t.TM_TON_BRT,m.MCT_OBC_VERSAO,m.MCT_MAP_VERSAO,t.TM_CMP_TR, ZQ_COD, ZQ_DESC
+                                                                                            t.TM_TON_BRT,m.MCT_OBC_VERSAO,m.MCT_MAP_VERSAO,t.TM_CMP_TR, ZQ_COD, ZQ_DESC, m.MCT_TP_COM
                                                                         from ACTPP.mensagens_enviadas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m, ACTPP.ZONAS_QUENTES ZQ
                                                                         where mr.Me_MCT_ADDR = m.MCT_ID_MCT 
                                                                         AND MR.ME_ID_ZQ = ZQ.ZQ_ID
@@ -2564,6 +2566,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
                 if (!reader.IsDBNull(16)) macro.KM = reader.GetString(16);
                 if (!reader.IsDBNull(17)) macro.codeZQ = reader.GetString(17);
                 if (!reader.IsDBNull(18)) macro.descZQ = reader.GetString(18);
+                if (!reader.IsDBNull(19)) macro.TpCOM = reader.GetString(19);
             }
             else
             {
@@ -2582,6 +2585,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
                 if (!reader.IsDBNull(12)) macro.VersaoOBC = reader.GetDouble(12);
                 if (!reader.IsDBNull(13)) macro.Mapa = reader.GetDouble(13);
                 if (!reader.IsDBNull(14)) macro.TamanhoTrem = reader.GetDouble(14);
+                if (!reader.IsDBNull(17)) macro.TpCOM = reader.GetString(17);
             }
 
             macro.Tipo = tipo;
