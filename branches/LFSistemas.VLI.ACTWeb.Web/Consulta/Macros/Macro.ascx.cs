@@ -76,6 +76,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
                     //c884
                     this.lbCodZQ.Text = this.EntidadeMacro.codeZQ;
                     this.lbDesZQ.Text = this.EntidadeMacro.descZQ;
+
+                    //C1087
+                    this.lbCodZQ2.Text = this.EntidadeMacro.codeZQ2;
+                    this.lbDesZQ2.Text = this.EntidadeMacro.descZQ2;
                 }
             }
             Regex regex = new Regex(@"(?<variavel>_\d{5})");
