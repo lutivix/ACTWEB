@@ -2576,8 +2576,8 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
                 if (!reader.IsDBNull(16)) macro.KM = reader.GetString(16);
                 if (!reader.IsDBNull(17)) macro.codeZQ = reader.GetString(17);//C884
                 if (!reader.IsDBNull(18)) macro.descZQ = reader.GetString(18);
-                if (!reader.IsDBNull(19)) macro.codeZQ = reader.GetString(19);//C1087
-                if (!reader.IsDBNull(20)) macro.descZQ = reader.GetString(20);
+                if (!reader.IsDBNull(19)) macro.codeZQ2 = reader.GetString(19);//C1087
+                if (!reader.IsDBNull(20)) macro.descZQ2 = reader.GetString(20);
                 if (!reader.IsDBNull(21)) macro.TpCOM = reader.GetString(21);
             }
             else
