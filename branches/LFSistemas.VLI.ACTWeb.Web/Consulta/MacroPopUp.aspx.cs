@@ -58,7 +58,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 var dd = macro;
                 macroUserControl.EntidadeMacro = macro;
                 macroUserControl.Texto = macro.Texto;
-                macroUserControl.Mascara = macro.Mascara;
+                //P780 - Diferenciação das Mesagens de licença do ART para o RDC
+                //Luciano - 17/05/2022
+                if(macro.TpCOM == "RRS")
+                        if(numeromacro == 35)
+                            macroUserControl.Mascara = "TREM:_00004 LICENCA PERMISSIVA N.:_00004\\DE:_00003-_00003-_00001 ATE:_00003-_00003-_00001\\ACOMPANHANDO COM VELOCIDADE RESTRITA\\(PRONTO PARA PARAR NA METADE DO CAMPO\\DE VISAO) O TREM:_00004\\OBS. E RESTRICOES\\_00038\\_00003-_00003-_00001 _01105 _00004,_00001 ATE _00004,_00001 A _00002\\_00003-_00003-_00001 _01105 _00004,_00001 ATE _00004,_00001 A _00002\\_00003-_00003-_00001 _01105 _00004,_00001 ATE _00004,_00001 A _00002\\_00003-_00003-_00001 _01105 _00004,_00001 ATE _00004,_00001 A _00002\\_00003-_00003-_00001 _01105 _00004,_00001 ATE _00004,_00001 A _00002\\_00003-_00003-_00001 _01105 _00004,_00001 ATE _00004,_00001 A _00002\\_00003-_00003-_00001 _01105 _00004,_00001 ATE _00004,_00001 A _00002\\_00003-_00003-_00001 _01105 _00004,_00001 ATE _00004,_00001 A _00002\\_00003-_00003-_00001 _01105 _00004,_00001 ATE _00004,_00001 A _00002\\_00003-_00003-_00001 _01105 _00004,_00001 ATE _00004,_00001 A _00002\\_00003-_00003-_00001 _01105 _00004,_00001 ATE _00004,_00001 A _00002\\_00003-_00003-_00001 _01105 _00004,_00001 ATE _00004,_00001 A _00002\\_00003-_00003-_00001 _01105 _00004,_00001 ATE _00004,_00001 A _00002\\_00003-_00003-_00001 _01105 _00004,_00001 ATE _00004,_00001 A _00002\\_00003-_00003-_00001 _01105 _00004,_00001 ATE _00004,_00001 A _00002\\_00038\\_00038";
+                        else
+                            macroUserControl.Mascara = macro.Mascara;
+                else
+                    macroUserControl.Mascara = macro.Mascara;
                 PanelMacro.Controls.Add((UserControl)macroUserControl);
             }
 

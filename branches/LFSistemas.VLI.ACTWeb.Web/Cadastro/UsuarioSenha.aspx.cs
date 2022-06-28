@@ -80,7 +80,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
             usuario.Nome = txtNome.Text.ToUpper().Trim();
             usuario.Matricula = txtMatricula.Text.ToUpper().Trim();
-            usuario.Senha = Uteis.Criptografar(txtSenha.Text.ToUpper().Trim(), "a#3G6**@").ToString();
+            usuario.Senha = Uteis.Criptografar(txtSenha.Text.Trim(), "a#3G6**@").ToString();
             
             usuario.DataCriacao = DateTime.Now;
             usuario.DataAlteracao = DateTime.Now;

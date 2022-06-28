@@ -1064,6 +1064,22 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 sub_barramansagarcas.Visible = sub_eldoradoaraguari.Visible = sub_consultarusuarios.Visible = sub_acessos.Visible = sub_estatisticas.Visible =
                 sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = sub_consultarusuariosautorizados.Visible = false;
             }
+            //C1074 - Novo Perfil CTD vagões/Via Permanente
+            if (usuario.Perfil_ID == "23") // Perfil: CTD VAGÕES/VIA PERMANENTE ANÁLOGO CTD_VV (ANÁLOGO AO ADMINISTRADOR DE VIA PERMANENTE - ADM VP)
+            {
+                mnUsuarios.Visible = sub_macros_consulta.Visible = mnRestricoes.Visible = mnRestricoes.Visible = mnPainel.Visible = mnTermometros.Visible = mnVMA.Visible =
+                sub_macros_macro61.Visible = mnTelecomandadas.Visible = mnGOP.Visible = sub_relatorio_VMA.Visible = mnTHP.Visible = sub_thp_consultar.Visible = sub_thp_THP_Relatorios.Visible =
+                mnRadios.Visible = sub_interdicoes.Visible = sub_baixada.Visible = sub_consultarusuariosautorizados.Visible = sub_restricao.Visible = true;
+
+                sub_locomotivas_trocaloco.Visible = sub_macros_macro50.Visible = sub_macros_macro200.Visible =
+                mnIndicadores.Visible = sub_relatorio_CCO.Visible = lnkImportaOBC.Visible = mnDadosApoio.Visible =
+                sub_dadosapoio_abreviaturas.Visible = sub_dadosapoio_downloads.Visible = sub_relatorio_MACROS.Visible = sub_dadosapoio_meta_pctm.Visible =
+                sub_relatorio_PCTM.Visible = sub_dadosapoio_logs.Visible = mnLocomotivas.Visible = sub_macros_macrofrota.Visible =
+                sub_dadosapoio_plus.Visible = mnSistema.Visible = mnPgof.Visible = sub_pgof_RelatoriosPGOF.Visible = sub_macros_parada_imediata.Visible =
+                submenusub_itemCAT.Visible = submenusub_itemCTD.Visible = sub_araguariboavista.Visible = sub_barramansagarcas.Visible =
+                sub_consultarusuariosWeb.Visible = sub_consultarusuarios.Visible = sub_acessos.Visible = sub_estatisticas.Visible =
+                sub_eldoradoaraguari.Visible = sub_carneiromontesclaros.Visible = sub_cat.Visible = sub_alarmes_alarmes_relatorio_alarmes.Visible = false;
+            }
         }
 
         #endregion
