@@ -281,28 +281,48 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         protected void lnkCriar_Click(object sender, EventArgs e)
         {
             var restricaoController = new RestricaoController();
+            int duracao = 0;
 
             if (txtDadosKm.Text != string.Empty && ddlDadosSecao.SelectedItem.Value != "0")
                 verificaKm = restricaoController.VerificaKM(double.Parse(txtDadosKm.Text), double.Parse(ddlDadosSecao.SelectedItem.Value));
 
-            if (verificaKm == "ok")
+            try
             {
-                if (DLLSendSOI())
-                {
-                    UsuarioAutController usuario = new UsuarioAutController();
-                    string CPF = txtDadosResponsavel.Text.Trim();
-                    string matricula = lblUsuarioMatricula.Text.Trim();
-                    string usuarioID = lblUsuarioLogado.Text.Trim();
-                    string acao = "criação";
-                    usuario.AtualizarDataUltSol(CPF, matricula, usuarioID, acao);
-                    usuario.AtualizarDataUltSolBSOP(CPF, usuarioID, "7" );
+                duracao =  int.Parse(txtDadosDuracaoSolicitada.Text);
+                if( (duracao < 0) || (duracao > 1440) )
+                        duracao = 0;
+            }
+            catch(Exception)
+            {
+                duracao = 0;
+            }
 
-                    ControleFormulario(StatusBarraComandos.Novo);
-                    Pesquisar(null);
+
+            if (duracao != 0)
+            {
+
+                if (verificaKm == "ok")
+                {
+                    if (DLLSendSOI())
+                    {
+                        UsuarioAutController usuario = new UsuarioAutController();
+                        string CPF = txtDadosResponsavel.Text.Trim();
+                        string matricula = lblUsuarioMatricula.Text.Trim();
+                        string usuarioID = lblUsuarioLogado.Text.Trim();
+                        string acao = "criação";
+                        usuario.AtualizarDataUltSol(CPF, matricula, usuarioID, acao);
+                        usuario.AtualizarDataUltSolBSOP(CPF, usuarioID, "7");
+
+                        ControleFormulario(StatusBarraComandos.Novo);
+                        Pesquisar(null);
+                    }
                 }
+                else
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Km " + verificaKm + "' });", true);
             }
             else
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Km " + verificaKm + "' });", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', Duração:" + txtDadosDuracaoSolicitada.Text + " deve estar entre 1 e 1440 });", true);
+                 
         }
         protected void lnkAtualizarLista_Click(object sender, EventArgs e)
         {

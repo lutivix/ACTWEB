@@ -654,11 +654,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             StringBuilder query2 = new StringBuilder();
             StringBuilder query3 = new StringBuilder();
             StringBuilder query4 = new StringBuilder();
+            StringBuilder query5 = new StringBuilder();
 
             bool retorno1 = false;
             bool retorno2 = false;
             bool retorno3 = false;
-            bool retorno4 = false;
+            bool retorno4 = false;            
 
             #endregion
 
@@ -666,38 +667,80 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             {
                 using (var connection = ServiceLocator.ObterConexaoACTWEB())
                 {
-                    #region [ ATUALIZA OPERADOR_BS NO BANCO ]
-
                     var command = connection.CreateCommand();
-                    query.Append(@"UPDATE ACTPP.BS_OPERADOR SET BS_OP_ATIVO = 'N' 
+
+                    #region [ ATUALIZA BS_OPERADOR (validade) NO BANCO ]                    
+                    try
+                    {
+                        query5.Append(@"UPDATE ACTPP.BS_OPERADOR SET BS_OP_ATIVO = 'N' 
+                                    WHERE (sysdate - bs_op_VLR_Par) > bs_op_Dt
+                                        AND BS_OP_ATIVO = 'S'  ");
+
+                        #region [ RODA A QUERY NO BANCO ]
+
+                        command.CommandText = query5.ToString();
+                        command.ExecuteNonQuery();
+                        retorno1 = true;
+
+                        //LogDAO.GravaLogBanco(DateTime.Now, matricula, "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado campo OP_ULTIMA_SOLICIT na tabela OPERADORES_BS devido a " + acao + " de novo Boletim de Serviço. ", Uteis.OPERACAO.Atualizou.ToString());
+                        LogDAO.GravaLogBanco(DateTime.Now, "0", "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado BS_OPERADOR (INAT. VALIDADE)", Uteis.OPERACAO.Atualizou.ToString());
+
+                        #endregion
+                    }
+                    catch (Exception ex)
+                    {
+                        LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", "VALIDADE " + ex.Message.Trim());
+                        //if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                        //throw new Exception(ex.Message);
+                    }   
+                    
+                    #endregion
+                    
+                    
+
+                    #region [ ATUALIZA BS_OPERADOR (Inativando) NO BANCO ]
+                    try
+                    {
+                        command.Dispose();
+                        command = connection.CreateCommand();
+                        query.Append(@"UPDATE ACTPP.BS_OPERADOR SET BS_OP_ATIVO = 'N' 
                                     WHERE SR_ID_STR = ${SRT} AND OP_BS_ID = (SELECT OP_BS_ID FROM ACTPP.OPERADORES_BS WHERE OP_CPF = ${CPF}) 
                                     AND BS_OP_ATIVO = 'S'  ");
 
+                        #region [ PARÂMETRO ]
+
+                        query.Replace("${ID}", string.Format("{0}", usuarioID));
+                        query.Replace("${SRT}", string.Format("{0}", subtipo));
+                        query.Replace("${CPF}", string.Format("'{0}'", cpf));
+
+                        #endregion
+
+                        #region [ RODA A QUERY NO BANCO ]
+
+                        command.CommandText = query.ToString();
+                        command.ExecuteNonQuery();
+                        retorno1 = true;
+
+                        LogDAO.GravaLogBanco(DateTime.Now, "0", "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado BS_OPERADOR (INAT. TIPOS)", Uteis.OPERACAO.Atualizou.ToString());
+
+                        #endregion
+
+                    }
+                    catch (Exception ex)
+                    {
+                        LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", "TIPOS " + ex.Message.Trim());
+                        //if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                        //throw new Exception(ex.Message);
+                    } 
                     #endregion
 
-                    #region [ PARÂMETRO ]
 
-                    query.Replace("${ID}", string.Format("{0}", usuarioID));
-                    query.Replace("${SRT}", string.Format("{0}", subtipo));
-                    query.Replace("${CPF}", string.Format("'{0}'", cpf));
-
-                    #endregion
-
-                    #region [ RODA A QUERY NO BANCO ]
-
-                    command.CommandText = query.ToString();
-                    command.ExecuteNonQuery();
-                    retorno1 = true;
-
-                    //LogDAO.GravaLogBanco(DateTime.Now, matricula, "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado campo OP_ULTIMA_SOLICIT na tabela OPERADORES_BS devido a " + acao + " de novo Boletim de Serviço. ", Uteis.OPERACAO.Atualizou.ToString());
-
-                    #endregion
-
-                    #region [  ATUALIZA BS_OPARADOR NO BANCO ]
-
-                    command.Dispose();
-                    command = connection.CreateCommand();
-                    query2.Append(@"INSERT INTO ACTPP.BS_OPERADOR
+                    #region [  ATUALIZA BS_OPARADOR (Novos Regs.) NO BANCO ]
+                    try
+                    {
+                        command.Dispose();
+                        command = connection.CreateCommand();
+                        query2.Append(@"INSERT INTO ACTPP.BS_OPERADOR
                                     (BSO_ID, OP_BS_ID, SR_ID_STR, BS_OP_DT, BS_OP_ID_PAR, BS_OP_VLR_PAR, BS_OP_MAT, BS_OP_DT_ANT, BS_OP_ATIVO)
                                     SELECT ACTPP.BS_OPERADOR_ID.NEXTVAL,
                                        OPBS.OP_BS_ID,
@@ -718,28 +761,38 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     --AND BOP.BS_OP_ATIVO = 'S'
                                     AND OPBS.OP_CPF =  ${CPF}   ");
 
+                        #region [ PARÂMETRO ]
+
+                        query2.Replace("${ID}", string.Format("{0}", usuarioID));
+                        query2.Replace("${SRT}", string.Format("{0}", subtipo));
+                        query2.Replace("${CPF}", string.Format("'{0}'", cpf));
+
+                        query.Replace("${ID}", usuarioID);
+                        query.Replace("${SUBTIPOS}", subtipo);
+
+                        #endregion
+
+                        #region [ RODA A QUERY NO BANCO ]
+
+                        command.CommandText = query2.ToString();
+                        command.ExecuteNonQuery();
+                        retorno2 = true;
+
+                        LogDAO.GravaLogBanco(DateTime.Now, "0", "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado BS_OPERADOR (NOVOS)", Uteis.OPERACAO.Atualizou.ToString());
+
+                        #endregion
+                  
+                    }
+                    catch (Exception ex)
+                    {
+                        LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", "NOVOS " + ex.Message.Trim());
+                        //if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                        //throw new Exception(ex.Message);
+                    }
+
+
                     #endregion
 
-                    #region [ PARÂMETRO ]
-
-                    query2.Replace("${ID}", string.Format("{0}", usuarioID));
-                    query2.Replace("${SRT}", string.Format("{0}", subtipo));
-                    query2.Replace("${CPF}", string.Format("'{0}'", cpf));
-
-                    query.Replace("${ID}", usuarioID);
-                    query.Replace("${SUBTIPOS}", subtipo);
-
-                    #endregion
-
-                    #region [ RODA A QUERY NO BANCO ]
-
-                    command.CommandText = query2.ToString();
-                    command.ExecuteNonQuery();
-                    retorno2 = true;
-
-                    //LogDAO.GravaLogBanco(DateTime.Now, Uteis.usuario_Matricula, "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado campo OP_ULTIMA_SOLICIT na tabela OPERADORES_BS devido a " + acao + " de novo Boletim de Serviço. ", Uteis.OPERACAO.Atualizou.ToString());
-
-                    #endregion
 
                     #region INSERE INATIVOS EM BS_OPERADOR_HIST
                     try
@@ -754,13 +807,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         command.ExecuteNonQuery();
                         retorno3 = true;
                         command.Connection.Close();
-                        LogDAO.GravaLogBanco(DateTime.Now, Uteis.usuario_Matricula, "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado BS_OPERADOR_HIST!", Uteis.OPERACAO.Atualizou.ToString());
+                        LogDAO.GravaLogBanco(DateTime.Now, "0", "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado BS_OPERADOR_HIST (HISTORICO)!", Uteis.OPERACAO.Atualizou.ToString());
                         #endregion
                         
                     }    
                     catch (Exception ex)
                     {
-                        LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                        LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", "HISTORICO " + ex.Message.Trim());
                         //if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
                         //throw new Exception(ex.Message);
                     }
@@ -770,7 +823,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     try
                     {
                         command.Dispose();
-                        command.Connection.Open();
+                        //command.Connection.Open();
                         command = connection.CreateCommand();
                         query4.Append(@"DELETE FROM actpp.BS_OPERADOR WHERE BS_OP_ATIVO = 'N'");
 
@@ -778,12 +831,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         command.CommandText = query4.ToString();
                         command.ExecuteNonQuery();
                         retorno4 = true;
-                        LogDAO.GravaLogBanco(DateTime.Now, Uteis.usuario_Matricula, "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado BS_OPERADOR (INATIVOS OUT)", Uteis.OPERACAO.Atualizou.ToString());
+                        LogDAO.GravaLogBanco(DateTime.Now, "0", "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado BS_OPERADOR (LIMPEZA)", Uteis.OPERACAO.Atualizou.ToString());
                         #endregion
                     }
                     catch (Exception ex)
                     {
-                        LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                        LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", "LIMPEZA " + ex.Message.Trim());
                         //if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
                         //throw new Exception(ex.Message);
                     }                    
