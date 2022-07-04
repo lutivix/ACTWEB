@@ -31,7 +31,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 //Código que já existia
                 var controlador = new UsuarioController();
 
-                var usuario = controlador.ObterPorLogin(TextBoxLogin.Text.ToUpper().Trim(), Uteis.Criptografar(TextBoxSenha.Text, "a#3G6**@").ToString());
+                var usuario = controlador.ObterPorLogin(TextBoxLogin.Text.ToUpper().Trim(), Uteis.Criptografar(TextBoxSenha.Text.ToUpper(), "a#3G6**@").ToString());
 
                 if (usuario != null && usuario.Ativo_SN != "N" )
                 {
@@ -70,7 +70,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
                     {
                         if (Uteis.validarEmail(dados.Email.Trim()))
                         {
-                            if (Uteis.EnviarEmail("Nova Senha ACTWEB", dados.Email.Trim(), "Prezado(a) " + dados.Nome.Trim() + ",<br /><br /> Viemos através deste e-mail informar que sua nova senha do ACTWEB é: " + Uteis.Descriptografar(novasenha, "a#3G6**@") + "<br /><br />Atenciosamente,<br /><br /> LF Sistemas."))
+                            if (Uteis.EnviarEmail("Nova Senha ACTWEB", dados.Email.Trim(), "Prezado(a) " + dados.Nome.Trim() + ",<br /><br /> Viemos através deste e-mail informar que sua nova senha do ACTWEB é: " + Uteis.Descriptografar(novasenha, "a#3G6**@").ToUpper() + "<br /><br />Atenciosamente,<br /><br /> LF Sistemas."))
                             {
                                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Sua nova senha foi enviada para o e-mail: " + dados.Email.Trim() + "' });", true);
                             }
