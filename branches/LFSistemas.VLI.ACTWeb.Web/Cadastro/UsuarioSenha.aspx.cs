@@ -60,7 +60,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             txtNome.Text = usuario.Nome.Trim();
             txtMatricula.Text = usuario.Matricula.Trim().ToUpper();
             //txtMaleta.Text = usuario.CodigoMaleta.ToString().Trim();
-            txtSenha.Attributes.Add("value", Uteis.Descriptografar(usuario.Senha, "a#3G6**@").ToString().Trim());
+            txtSenha.Attributes.Add("value", Uteis.Descriptografar(usuario.Senha, "a#3G6**@").ToString().ToUpper().Trim());
             //txtEmail.Text = usuario.Email != null ? usuario.Email.Trim() : string.Empty;
             //chkAtivo.Checked = usuario.Ativo_SN == "S" ? true : false;
 
@@ -80,7 +80,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
             usuario.Nome = txtNome.Text.ToUpper().Trim();
             usuario.Matricula = txtMatricula.Text.ToUpper().Trim();
-            usuario.Senha = Uteis.Criptografar(txtSenha.Text.Trim(), "a#3G6**@").ToString();
+            usuario.Senha = Uteis.Criptografar(txtSenha.Text.ToUpper().Trim(), "a#3G6**@").ToString();
             
             usuario.DataCriacao = DateTime.Now;
             usuario.DataAlteracao = DateTime.Now;
