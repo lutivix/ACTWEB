@@ -2597,7 +2597,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
                 if (!reader.IsDBNull(12)) macro.VersaoOBC = reader.GetDouble(12);
                 if (!reader.IsDBNull(13)) macro.Mapa = reader.GetDouble(13);
                 if (!reader.IsDBNull(14)) macro.TamanhoTrem = reader.GetDouble(14);
-                if (!reader.IsDBNull(17)) macro.TpCOM = reader.GetString(17);
+                if (!reader.IsDBNull(19)) macro.TpCOM = reader.GetString(19);
             }
 
             macro.Tipo = tipo;
