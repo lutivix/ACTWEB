@@ -323,19 +323,23 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
                                     //Restrições de 1 a 15    
                                     
                                     for (int k = 24; k < numseparadores; k++)
-                                    {
+                                    {                                        
                                         if ((k + 9) >= numseparadores)
                                         {
-                                            strComplementoMsgRDC = strComplementoMsgRDC +
-                                                //RESTRICões de 1 a 15
+                                            if (Uteis.CampoMacro(EntidadeMacro.Texto, k) != string.Empty)
+                                            {
+                                                strComplementoMsgRDC = strComplementoMsgRDC +
+                                                    //RESTRICões de 1 a 15
                                                                  Uteis.CampoMacro(EntidadeMacro.Texto, k) + "-" + Uteis.CampoMacro(EntidadeMacro.Texto, k + 1) + "-" + Uteis.CampoMacro(EntidadeMacro.Texto, k + 2) + " " +
                                                                  Uteis.CampoMacro(EntidadeMacro.Texto, k + 4) + "," + Uteis.CampoMacro(EntidadeMacro.Texto, k + 5) + " ATE " + Uteis.CampoMacro(EntidadeMacro.Texto, k + 6) + "," + Uteis.CampoMacro(EntidadeMacro.Texto, k + 7) +
                                                                  " A " + EntidadeMacro.Texto.Substring(EntidadeMacro.Texto.Length - 2) + "<BR>";
-                                            k += 8;
+                                                k += 8;
+                                            }                                                                                        
+                                            break;
                                         }
                                         else
                                         {
-                                            if (Uteis.CampoMacro(EntidadeMacro.Texto, k) != "")
+                                            if (Uteis.CampoMacro(EntidadeMacro.Texto, k) != string.Empty)
                                             {
                                                 strComplementoMsgRDC = strComplementoMsgRDC +
                                                     //RESTRICões de 1 a 15
@@ -372,16 +376,20 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
                                     {
                                         if((k+9) >= numseparadores)
                                         {
-                                            strComplementoMsgRDC = strComplementoMsgRDC +
-                                                //RESTRICões de 1 a 15
+                                            if (Uteis.CampoMacro(EntidadeMacro.Texto, k) != string.Empty)
+                                            {
+                                                strComplementoMsgRDC = strComplementoMsgRDC +
+                                                    //RESTRICões de 1 a 15
                                                                  Uteis.CampoMacro(EntidadeMacro.Texto, k) + "-" + Uteis.CampoMacro(EntidadeMacro.Texto, k + 1) + "-" + Uteis.CampoMacro(EntidadeMacro.Texto, k + 2) + " " +
                                                                  Uteis.CampoMacro(EntidadeMacro.Texto, k + 4) + "," + Uteis.CampoMacro(EntidadeMacro.Texto, k + 5) + " ATE " + Uteis.CampoMacro(EntidadeMacro.Texto, k + 6) + "," + Uteis.CampoMacro(EntidadeMacro.Texto, k + 7) +
                                                                  " A " + EntidadeMacro.Texto.Substring(EntidadeMacro.Texto.Length - 2) + "<BR>";
-                                            k += 8;
+                                                k += 8;
+                                            }
+                                            break;
                                         }
                                         else
                                         {
-                                            if (Uteis.CampoMacro(EntidadeMacro.Texto, k) != "")
+                                            if (Uteis.CampoMacro(EntidadeMacro.Texto, k) != string.Empty)
                                             {
                                                 strComplementoMsgRDC = strComplementoMsgRDC +
                                                     //RESTRICões de 1 a 15
@@ -419,12 +427,17 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
                                     {
                                         if ((k + 9) >= numseparadores)
                                         {
-                                            strComplementoMsgRDC = strComplementoMsgRDC +
-                                                //RESTRICões de 1 a 15
+                                            if (Uteis.CampoMacro(EntidadeMacro.Texto, k) != string.Empty)
+                                            {
+                                                strComplementoMsgRDC = strComplementoMsgRDC +
+                                                    //RESTRICões de 1 a 15
                                                                  Uteis.CampoMacro(EntidadeMacro.Texto, k) + "-" + Uteis.CampoMacro(EntidadeMacro.Texto, k + 1) + "-" + Uteis.CampoMacro(EntidadeMacro.Texto, k + 2) + " " +
                                                                  Uteis.CampoMacro(EntidadeMacro.Texto, k + 4) + "," + Uteis.CampoMacro(EntidadeMacro.Texto, k + 5) + " ATE " + Uteis.CampoMacro(EntidadeMacro.Texto, k + 6) + "," + Uteis.CampoMacro(EntidadeMacro.Texto, k + 7) +
                                                                  " A " + EntidadeMacro.Texto.Substring(EntidadeMacro.Texto.Length - 2) + "<BR>";
-                                            k += 8;
+                                                k += 8;
+
+                                            }
+                                            break;
                                         }
                                         else
                                         {
@@ -531,7 +544,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta.Macros
                                 }
                             default: strComplementoMsgRDC = strComplementoMsgRDC + "DESCARTE<BR><BR>"; break;
                         }
-                        this.Mascara = strComplementoMsgRDC + "<BR><BR>Parametros: " + EntidadeMacro.Texto;
+                        //C1104 - não loga mais os parâmetros (consulta banco) RS - 04/07/2022
+                        //this.Mascara = strComplementoMsgRDC + "<BR><BR>Parametros: " + EntidadeMacro.Texto;
+                        this.Mascara = strComplementoMsgRDC;
                         this.LabelNumeroMacro.Text = "Mensagem RDC " + Convert.ToString(EntidadeMacro.NumeroMacro);
                     }
                     else
