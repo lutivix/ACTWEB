@@ -60,7 +60,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             txtNome.Text = usuario.Nome.Trim();
             txtMatricula.Text = usuario.Matricula.Trim().ToUpper();
             //txtMaleta.Text = usuario.CodigoMaleta.ToString().Trim();
-            txtSenha.Attributes.Add("value", Uteis.Descriptografar(usuario.Senha, "a#3G6**@").ToString().Trim());
+            txtSenha.Attributes.Add("value", Uteis.Descriptografar(usuario.Senha, "a#3G6**@").ToString().ToUpper().Trim());
             //txtEmail.Text = usuario.Email != null ? usuario.Email.Trim() : string.Empty;
             //chkAtivo.Checked = usuario.Ativo_SN == "S" ? true : false;
 
