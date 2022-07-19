@@ -122,7 +122,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
             usuario.Matricula = txtMatriculaACT.Text.Trim();
             usuario.Nome = txtNomeACT.Text.Trim();
-            usuario.CPF = txtCPF.Text.Trim();
+            
+            if(txtCPF.Text.Trim().Length < 11 )
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'CPF incompleto.' });", true);
+                return;
+            }
+            else
+            {
+                usuario.CPF = txtCPF.Text.Trim();
+            }
             if (ddlCorredores.Items[0].Selected)
             {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Selecione um corredor.' });", true);
