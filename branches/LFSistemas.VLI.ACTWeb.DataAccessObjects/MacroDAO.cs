@@ -1877,7 +1877,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                         from ACTPP.mensagens_enviadas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m, ACTPP.ZONAS_QUENTES ZQ1, ACTPP.ZONAS_QUENTES ZQ2
                                                                         where mr.Me_MCT_ADDR = m.MCT_ID_MCT 
                                                                         AND MR.ME_ID_ZQ = ZQ.ZQ_ID
-                                                                        AND MR.MR_ID_ZQ2 = ZQ2.ZQ_ID
+                                                                        AND MR.ME_ID_ZQ2 = ZQ2.ZQ_ID
                                                                         and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                                                                         and t.es_id_Num_efe_dest = ed.es_id_num_efe
                                                                         and mr.ME_MSG_NUM = ? ";
@@ -2597,7 +2597,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
                 if (!reader.IsDBNull(12)) macro.VersaoOBC = reader.GetDouble(12);
                 if (!reader.IsDBNull(13)) macro.Mapa = reader.GetDouble(13);
                 if (!reader.IsDBNull(14)) macro.TamanhoTrem = reader.GetDouble(14);
-                if (!reader.IsDBNull(17)) macro.TpCOM = reader.GetString(17);
+                if (!reader.IsDBNull(19)) macro.TpCOM = reader.GetString(19);
             }
 
             macro.Tipo = tipo;
