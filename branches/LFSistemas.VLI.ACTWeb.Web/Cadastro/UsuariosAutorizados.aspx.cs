@@ -375,7 +375,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
         {
             txtNomeACT.Text = string.Empty;
             txtMatriculaACT.Text = string.Empty;
+            txtCPF.Text = string.Empty;            
             //txtSenhaACT.Text = string.Empty;
+
+            ddlCorredores.SelectedIndex = 0;
+
+            for (int i = 0; i < 7; i++)
+            {                
+                cblSubtipos.Items[i].Selected = false;
+            }
         }
         protected bool Excluir(string matricula, string usuarioLogado)
         {
