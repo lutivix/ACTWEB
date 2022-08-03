@@ -100,6 +100,7 @@
         <asp:Button ID="ButtonSalvar" type="button" CssClass="btn btn-success" runat="server" Text="Salvar" OnClick="ButtonSalvar_Click" OnClientClick="javascript:return validaFormulario();" />
         <asp:Button ID="ButtonCancelar" type="button" CssClass="btn btn-primary" runat="server" Text="Cancelar" OnClick="ButtonCancelar_Click" />
         <asp:Button ID="btnExcluir" type="button" CssClass="btn btn-danger" runat="server" Text="Excluir" OnClick="btnExcluir_Click" Visible="false" />
+        <asp:Button ID="ButtonSalvarECriarOutro" type="button" CssClass="btn btn-success" runat="server" Text="Salvar e criar outro usuário" OnClick="ButtonSalvarECriarOutro_Click" OnClientClick="javascript:return validaFormulario();" />
     </div>
     <script type="text/javascript" src="/js/mascara.js"></script>
 
