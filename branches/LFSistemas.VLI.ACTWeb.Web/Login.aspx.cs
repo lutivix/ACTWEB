@@ -44,8 +44,6 @@ namespace LFSistemas.VLI.ACTWeb.Web
                 }
                 else if (usuario != null && usuario.Ativo_SN == "N")
                 {
-                    ;
-
                     //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", "BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Teste <br/> teste 2' });", true);
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Usuário está inativo. Gentileza abrir chamado na plataforma<a href=\"https://glpicco.fcacco.br/glpi/\" target=\"_blank\"> GLPI</a>, para regularizar seus dados.' });", true);
                 }
