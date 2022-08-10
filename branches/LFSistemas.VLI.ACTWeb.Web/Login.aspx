@@ -123,9 +123,11 @@
                 <div class="alert alert-danger">
                     <h2>
                         <p>
-                            Problemas para logar no sistema.
+                            Problemas para logar no sistema?                            
                         <br />
-                            Gentileza entrar em contato: plantao@grtechbr.com.br
+                            Gentileza abrir chamado na plataforma <a href="https://glpicco.fcacco.br/glpi/" target="_blank"> GLPI. </a>
+                        <br>
+                            Qualquer dúvida na utilização do sistema: (31) 98793-6212
                         </p>
                     </h2>
                 </div>
