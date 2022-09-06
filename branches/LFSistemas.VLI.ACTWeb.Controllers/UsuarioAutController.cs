@@ -27,6 +27,11 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ObterPorMatricula(matricula);
         }
 
+        public bool JaExisteCPF(string cpf)
+        {
+            return dao.JaExisteCPF(cpf);
+        }
+
         public bool Atualizar(UsuarioAutorizado usuario, string usuariologado)
         {
             bool retorno = false;
