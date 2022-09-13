@@ -92,7 +92,7 @@
                                 <td style="text-align: left;">
                                     <asp:UpdatePanel runat="server" ID="upRedefinirSenha">
                                         <ContentTemplate>
-                                            <asp:LinkButton ID="lnkRedefinirSenha" runat="server" OnClick="lnkRedefinirSenha_Click" ToolTip="Redefinir minha senha."><i class="fa fa-user"></i>&nbsp;Redefinir Senha</asp:LinkButton>
+                                            <!--<asp:LinkButton ID="lnkRedefinirSenha" runat="server" OnClick="lnkRedefinirSenha_Click" ToolTip="Redefinir minha senha."><i class="fa fa-user"></i>&nbsp;Redefinir Senha</asp:LinkButton>-->
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                     <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="upRedefinirSenha">
