@@ -297,6 +297,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 duracao = 0;
             }
 
+            //C1047 - 01/2022 - início
+            if ((lblUsuarioPerfil.Text == "OP VP") || (lblUsuarioPerfil.Text == "OP VP R"))
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Perfil não Permitido!' });", true);
+                ControleFormulario(StatusBarraComandos.Novo);
+                Pesquisar(null);
+                return;
+            }
+            //C1047 - 01/2022 - fim
+
 
             if (duracao != 0)
             {
@@ -459,6 +469,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             cpf = txtDadosResponsavel.Text;
 
             lblCanalCom.Text = "Canal de comunicação de Retirada";
+
+            //C1047 - 01/2022 - início
+            if ((lblUsuarioPerfil.Text == "OP VP") || (lblUsuarioPerfil.Text == "OP VP R"))
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Perfil não Permitido!' });", true);
+                ControleFormulario(StatusBarraComandos.Novo);
+                Pesquisar(null);
+                return;
+            }
+            //C1047 - 01/2022 - fim
             
             try
             {
