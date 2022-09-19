@@ -483,6 +483,58 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
+        public bool JaExisteCPF(string cpf)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            bool retorno = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"select * from actpp.operadores_bs
+                                                    where op_cpf = ${CPF}");
+
+                    if (cpf != null)
+                        query.Replace("${CPF}", string.Format("{0}", cpf));
+                    else
+                        query.Replace("${CPF}", " ");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            retorno = true;
+                        }
+                    }
+
+                    #endregion
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return retorno;
+        }
+
         public List<string> ObterSubtiposAut(string usuario_id)
         {
             #region [ PROPRIEDADES ]

@@ -92,7 +92,7 @@
                                 <td style="text-align: left;">
                                     <asp:UpdatePanel runat="server" ID="upRedefinirSenha">
                                         <ContentTemplate>
-                                            <asp:LinkButton ID="lnkRedefinirSenha" runat="server" OnClick="lnkRedefinirSenha_Click" ToolTip="Redefinir minha senha."><i class="fa fa-user"></i>&nbsp;Redefinir Senha</asp:LinkButton>
+                                            <!--<asp:LinkButton ID="lnkRedefinirSenha" runat="server" OnClick="lnkRedefinirSenha_Click" ToolTip="Redefinir minha senha."><i class="fa fa-user"></i>&nbsp;Redefinir Senha</asp:LinkButton>-->
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                     <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="upRedefinirSenha">
@@ -123,9 +123,11 @@
                 <div class="alert alert-danger">
                     <h2>
                         <p>
-                            Problemas para logar no sistema.
+                            Problemas para logar no sistema?                            
                         <br />
-                            Gentileza entrar em contato: plantao@grtechbr.com.br
+                            Gentileza abrir chamado na plataforma <a href="https://glpicco.fcacco.br/glpi/" target="_blank"> GLPI. </a>
+                        <br>
+                            Qualquer dúvida na utilização do sistema: (31) 98793-6212
                         </p>
                     </h2>
                 </div>
