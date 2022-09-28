@@ -26,7 +26,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             {
                 try
                 {
-                    //string conString = "User ID=actweb;Password=engesis;Data Source=ACTPDB";
+                    //string conString = "User ID=actweb;Password=engesis;Data Source=ACTPDB";//
                     //newCon = new OracleConnection(conString);
                     //newCon.Open();
 
