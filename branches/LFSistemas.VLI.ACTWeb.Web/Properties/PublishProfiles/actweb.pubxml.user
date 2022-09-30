@@ -221,6 +221,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/NPOI.OpenXmlFormats.dll">
       <publishTime>06/12/2020 15:31:24</publishTime>
     </File>
+    <File Include="bin/Oracle.ManagedDataAccess.dll">
+      <publishTime>01/07/2021 10:17:57</publishTime>
+    </File>
     <File Include="bin/pl/AjaxControlToolkit.resources.dll">
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
@@ -336,7 +339,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/03/2022 13:33:29</publishTime>
     </File>
     <File Include="Cadastro/UsuarioSenha.aspx">
-      <publishTime>01/12/2022 15:02:06</publishTime>
+      <publishTime>05/13/2021 14:19:51</publishTime>
     </File>
     <File Include="cc3260.dll">
       <publishTime>01/01/0001 00:00:00</publishTime>

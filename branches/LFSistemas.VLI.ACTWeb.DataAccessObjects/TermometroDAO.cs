@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.OleDb;
 using System.Text;
 using LFSistemas.VLI.ACTWeb.Entities;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -581,7 +582,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto termometro</returns>
-        public Termometro PreencherPropriedades(OleDbDataReader reader)
+        public Termometro PreencherPropriedades(OracleDataReader reader)
         {
             var item = new Termometro();
 
@@ -623,7 +624,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
-        public Termometro PreencherPropriedadesHTT(OleDbDataReader reader)
+        public Termometro PreencherPropriedadesHTT(OracleDataReader reader)
         {
             var item = new Termometro();
 
@@ -644,7 +645,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
-        public Termometro PreencherPropriedadesHST(OleDbDataReader reader)
+        public Termometro PreencherPropriedadesHST(OracleDataReader reader)
         {
             var item = new Termometro();
 
@@ -655,7 +656,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
-        public Termometro PreencherPropriedadesABT(OleDbDataReader reader)
+        public Termometro PreencherPropriedadesABT(OracleDataReader reader)
         {
             var item = new Termometro();
 
@@ -667,7 +668,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
-        public Termometro PreencherPropriedadesAAT(OleDbDataReader reader)
+        public Termometro PreencherPropriedadesAAT(OracleDataReader reader)
         {
             var item = new Termometro();
 
@@ -679,7 +680,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
-        public ComboBox PreencherPropriedadesComboTemperatura(OleDbDataReader reader)
+        public ComboBox PreencherPropriedadesComboTemperatura(OracleDataReader reader)
         {
             var item = new ComboBox();
 

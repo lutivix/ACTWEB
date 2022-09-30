@@ -5,6 +5,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -2220,7 +2221,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return itens.ToList();
         }
 
-        private ComboBox PreencherPropriedadesComboBoxStatus(OleDbDataReader reader)
+        private ComboBox PreencherPropriedadesComboBoxStatus(OracleDataReader reader)
         {
             var item = new ComboBox();
 
@@ -2230,7 +2231,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private ComboBox ComboBoxMotivoComID(OleDbDataReader reader)
+        private ComboBox ComboBoxMotivoComID(OracleDataReader reader)
         {
             var item = new ComboBox();
 
@@ -2240,7 +2241,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private ComboBox ComboBoxCategoriaComID(OleDbDataReader reader)
+        private ComboBox ComboBoxCategoriaComID(OracleDataReader reader)
         {
             var item = new ComboBox();
 
@@ -2296,7 +2297,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return itens.ToList();
         }
 
-        private ComboBox PreencherPropriedadesComboBoxCabines(OleDbDataReader reader)
+        private ComboBox PreencherPropriedadesComboBoxCabines(OracleDataReader reader)
         {
             var item = new ComboBox();
 
@@ -2360,7 +2361,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private ComboBox PreencherPropriedadesComboBox(OleDbDataReader reader)
+        private ComboBox PreencherPropriedadesComboBox(OracleDataReader reader)
         {
             var item = new ComboBox();
 
@@ -2370,7 +2371,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private ComboBox PreencherPropriedadesComboBoxTpAlarmes(OleDbDataReader reader)
+        private ComboBox PreencherPropriedadesComboBoxTpAlarmes(OracleDataReader reader)
         {
             var item = new ComboBox();
 

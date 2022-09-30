@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -472,7 +472,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        private LocomotivasCorredor PreencherPropriedadesLocomotivasCorredor(OleDbDataReader reader)
+        private LocomotivasCorredor PreencherPropriedadesLocomotivasCorredor(OracleDataReader reader)
         {
             var item = new LocomotivasCorredor();
 
@@ -534,7 +534,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
 
 
-        private LocomotivasCorredor PreencherPropriedadesLocomotivasPorTempoAcumulado(OleDbDataReader reader)
+        private LocomotivasCorredor PreencherPropriedadesLocomotivasPorTempoAcumulado(OracleDataReader reader)
         {
             var item = new LocomotivasCorredor();
 
@@ -593,7 +593,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         }
 
 
-        private LocomotivasCorredor PreencherPropriedadesLocomotivasPorConfiabilidade(OleDbDataReader reader)
+        private LocomotivasCorredor PreencherPropriedadesLocomotivasPorConfiabilidade(OracleDataReader reader)
         {
             var item = new LocomotivasCorredor();
 
@@ -656,7 +656,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         }
 
 
-        private LocomotivasCorredor PreencherPropriedadesLocomotivasPorTremTipoCorredor(OleDbDataReader reader)
+        private LocomotivasCorredor PreencherPropriedadesLocomotivasPorTremTipoCorredor(OracleDataReader reader)
         {
             var item = new LocomotivasCorredor();
 
@@ -714,7 +714,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         }
 
 
-        private LocomotivasCorredor PreencherPropriedadesLocomotivasPorProduto(OleDbDataReader reader)
+        private LocomotivasCorredor PreencherPropriedadesLocomotivasPorProduto(OracleDataReader reader)
         {
             var item = new LocomotivasCorredor();
 
@@ -774,7 +774,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         }
 
 
-        private LocomotivasCorredor PreencherPropriedadesTrensParadosLicenciados(OleDbDataReader reader)
+        private LocomotivasCorredor PreencherPropriedadesTrensParadosLicenciados(OracleDataReader reader)
         {
             var item = new LocomotivasCorredor();
 
@@ -833,7 +833,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         }
 
 
-        private LocomotivasCorredor PreencherPropriedadesPrevisaoChegadaTrens(OleDbDataReader reader)
+        private LocomotivasCorredor PreencherPropriedadesPrevisaoChegadaTrens(OracleDataReader reader)
         {
             var item = new LocomotivasCorredor();
 
@@ -890,7 +890,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private string PreencherPropriedadesLocomotivaPorModelo(OleDbDataReader reader)
+        private string PreencherPropriedadesLocomotivaPorModelo(OracleDataReader reader)
         {
             string item = "";
             try

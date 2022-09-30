@@ -4,7 +4,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using LFSistemas.VLI.ACTWeb.Entities;
-using System.Data.OleDb;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -91,13 +91,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                   and ll.MCT_ID_MCT = mm.MCT_ID_MCT
                                   and tt.ST_ID_SIT_TREM = 4 
                                   and mm.MCT_ID_MCT <> '499683'
-                                  and mm.MCT_ID_MCT = ?");
+                                  and mm.MCT_ID_MCT = :ID");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    command.Parameters.AddWithValue("", filtro.loc_Id);
+                    command.Parameters.Add("ID", filtro.loc_Id);
 
                     #endregion
 
@@ -155,13 +155,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           AND LL.MCT_ID_MCT = MM.MCT_ID_MCT
                                           AND TT.ST_ID_SIT_TREM = 4 
                                           AND MM.MCT_ID_MCT <> '499683'
-                                          AND TT.TM_ID_TRM = ?");
+                                          AND TT.TM_ID_TRM = :ID");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    command.Parameters.AddWithValue("", tm_id_trm);
+                    command.Parameters.Add("ID", tm_id_trm);
 
                     #endregion
 
@@ -255,7 +255,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto mcts</returns>
-        private Mcts PreencherPropriedades(OleDbDataReader reader)
+        private Mcts PreencherPropriedades(OracleDataReader reader)
         {
             var iten = new Mcts();
             if (!reader.IsDBNull(0))

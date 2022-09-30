@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -1122,7 +1122,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         }
 
 
-        private TremHoraParado PreencherPropriedades(OleDbDataReader reader)
+        private TremHoraParado PreencherPropriedades(OracleDataReader reader)
         {
             var item = new TremHoraParado();
 
@@ -1224,7 +1224,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private TempoParadaSubParadas PreencherPropriedadesSubparadas(OleDbDataReader reader)
+        private TempoParadaSubParadas PreencherPropriedadesSubparadas(OracleDataReader reader)
         {
             var item = new TempoParadaSubParadas();
 
@@ -1251,7 +1251,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
         
-        private Relatorio_THP PreencherPropriedadesRelatorio_THPAnalitica(OleDbDataReader reader)
+        private Relatorio_THP PreencherPropriedadesRelatorio_THPAnalitica(OracleDataReader reader)
         {
             var item = new Relatorio_THP();
 
@@ -1319,7 +1319,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
-        private Relatorio_THP PreencherPropriedadesRelatorio_THPConsolida(OleDbDataReader reader)
+        private Relatorio_THP PreencherPropriedadesRelatorio_THPConsolida(OracleDataReader reader)
         {
             var item = new Relatorio_THP();
 

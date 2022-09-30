@@ -5,6 +5,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -489,7 +490,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private Informacao_OBC PreencherPropriedadesInformacao_OBC(OleDbDataReader reader)
+        private Informacao_OBC PreencherPropriedadesInformacao_OBC(OracleDataReader reader)
         {
             var item = new Informacao_OBC();
 
@@ -728,7 +729,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return Retorno;
         }
 
-        private OBC PreencherPropriedadesOBC(OleDbDataReader reader)
+        private OBC PreencherPropriedadesOBC(OracleDataReader reader)
         {
             var item = new OBC();
 
