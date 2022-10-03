@@ -5,6 +5,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -553,7 +554,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return itens;
         }
 
-        private TMP_SUBPARADAS PreencherPropriedadesTMP(OleDbDataReader reader)
+        private TMP_SUBPARADAS PreencherPropriedadesTMP(OracleDataReader reader)
         {
             var item = new TMP_SUBPARADAS();
             if (!reader.IsDBNull(0)) item.UTP_ID = reader.GetDouble(0);
@@ -570,7 +571,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
          
-        private TempoParadaSubParadas PreencherTempoParadaSubParadas(OleDbDataReader reader)
+        private TempoParadaSubParadas PreencherTempoParadaSubParadas(OracleDataReader reader)
         {
             var item = new TempoParadaSubParadas();
 
@@ -597,7 +598,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private TempoParadaSubParadas PreencherTempoSubParada(OleDbDataReader reader)
+        private TempoParadaSubParadas PreencherTempoSubParada(OracleDataReader reader)
         {
             var item = new TempoParadaSubParadas();
 

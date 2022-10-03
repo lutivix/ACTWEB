@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -73,7 +73,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private Responsavel PreencherPropriedadesResponsavel(OleDbDataReader reader)
+        private Responsavel PreencherPropriedadesResponsavel(OracleDataReader reader)
         {
             var item = new Responsavel();
 

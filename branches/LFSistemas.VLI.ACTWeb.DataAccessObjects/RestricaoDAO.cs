@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -2278,7 +2279,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private Restricao PreencherPropriedadesKMHTProg(OleDbDataReader reader)
+        private Restricao PreencherPropriedadesKMHTProg(OracleDataReader reader)
         {
             var item = new Restricao();
 
@@ -2289,7 +2290,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private Restricao PreencherPropriedadesKMHTCirc(OleDbDataReader reader)
+        private Restricao PreencherPropriedadesKMHTCirc(OracleDataReader reader)
         {
             var item = new Restricao();
 
@@ -2300,7 +2301,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private Restricao PreencherPropriedades(OleDbDataReader reader)
+        private Restricao PreencherPropriedades(OracleDataReader reader)
         {
             var item = new Restricao();
 
@@ -2344,7 +2345,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private Restricao PreencherPropriedadesRestricaoPorID(OleDbDataReader reader)
+        private Restricao PreencherPropriedadesRestricaoPorID(OracleDataReader reader)
         {
             var item = new Restricao();
 
@@ -2389,7 +2390,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
-        private Responsavel PreencherPropriedadesLDL(OleDbDataReader reader)
+        private Responsavel PreencherPropriedadesLDL(OracleDataReader reader)
         {
             Responsavel responsavel = new Responsavel();
 
@@ -2401,7 +2402,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return responsavel;
         }
 
-        private Restricao PreencherPropriedadesRestricoesProgramadas(OleDbDataReader reader)
+        private Restricao PreencherPropriedadesRestricoesProgramadas(OracleDataReader reader)
         {
             var item = new Restricao();
 
@@ -2415,7 +2416,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private Restricao PreencherPropriedadesRestricoesVigentes(OleDbDataReader reader)
+        private Restricao PreencherPropriedadesRestricoesVigentes(OracleDataReader reader)
         {
             var item = new Restricao();
 
@@ -2438,7 +2439,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private Restricao PreencherPropriedadesRestricoesPorData(OleDbDataReader reader)
+        private Restricao PreencherPropriedadesRestricoesPorData(OracleDataReader reader)
         {
             var item = new Restricao();
 
@@ -2464,7 +2465,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private Restricao PreencherPropriedadesRestricoesTemperatura(OleDbDataReader reader)
+        private Restricao PreencherPropriedadesRestricoesTemperatura(OracleDataReader reader)
         {
             var item = new Restricao();
 
@@ -2486,7 +2487,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private ComboRestricao_Secao PreencherPropriedadesSecao(OleDbDataReader reader)
+        private ComboRestricao_Secao PreencherPropriedadesSecao(OracleDataReader reader)
         {
             var item = new ComboRestricao_Secao();
 
@@ -2501,7 +2502,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private Tipo_Restricao PreencherPropriedadesTipoRestricao(OleDbDataReader reader)
+        private Tipo_Restricao PreencherPropriedadesTipoRestricao(OracleDataReader reader)
         {
             var item = new Tipo_Restricao();
 

@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -228,7 +228,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return lista;
         }
-        private PontosDeTroca PreencherPropriedadesPontosDeTroca(OleDbDataReader reader)
+        private PontosDeTroca PreencherPropriedadesPontosDeTroca(OracleDataReader reader)
         {
             var item = new PontosDeTroca();
 
@@ -242,7 +242,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
-        private VMA PreencherPropriedadesVMA(OleDbDataReader reader)
+        private VMA PreencherPropriedadesVMA(OracleDataReader reader)
         {
             var item = new VMA();
 
@@ -261,7 +261,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private ComboBox PreencherPropriedadesSB(OleDbDataReader reader)
+        private ComboBox PreencherPropriedadesSB(OracleDataReader reader)
         {
             var item = new ComboBox();
 

@@ -5,6 +5,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -362,7 +363,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         #endregion
 
         #region [ MÉTODOS DE APOIO ]
-        private Abreviatura PreencherPropriedades(OleDbDataReader reader)
+        private Abreviatura PreencherPropriedades(OracleDataReader reader)
         {
             var item = new Abreviatura();
 

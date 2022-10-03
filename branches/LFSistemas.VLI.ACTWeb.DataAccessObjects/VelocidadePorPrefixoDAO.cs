@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LFSistemas.VLI.ACTWeb.Entities;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -144,7 +145,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         }
 
         #region [ MÉTODOS DE APOIO ]
-        private VelocidadePorPrefixo PreencherPropriedades(OleDbDataReader reader)
+        private VelocidadePorPrefixo PreencherPropriedades(OracleDataReader reader)
         {
             var item = new VelocidadePorPrefixo();
 

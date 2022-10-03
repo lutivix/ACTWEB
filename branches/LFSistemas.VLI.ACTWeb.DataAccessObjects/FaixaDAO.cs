@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using LFSistemas.VLI.ACTWeb.Entities;
-using System.Data.OleDb;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -636,7 +636,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
         #region [ MÉTODOS DE APOIO ]
 
-        private FaixaVP PreencherFaixaVP(OleDbDataReader reader)
+        private FaixaVP PreencherFaixaVP(OracleDataReader reader)
         {
             var item = new FaixaVP();
 
