@@ -5,6 +5,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -146,7 +147,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
         #region [ METODOS DE APOIO ]
 
-        private RelatorioAlarme preencherRelatorioAlarme(OleDbDataReader reader)
+        private RelatorioAlarme preencherRelatorioAlarme(OracleDataReader reader)
         {
             var item = new RelatorioAlarme();
 
@@ -165,7 +166,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private Corredores preencherCorredor(OleDbDataReader reader)
+        private Corredores preencherCorredor(OracleDataReader reader)
         {
             var item = new Corredores();
 
@@ -175,7 +176,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private Estacao preencherEstacao(OleDbDataReader reader)
+        private Estacao preencherEstacao(OracleDataReader reader)
         {
             var item = new Estacao();
 
@@ -186,7 +187,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private Estacao preencherTipoAlarme(OleDbDataReader reader)
+        private Estacao preencherTipoAlarme(OracleDataReader reader)
         {
             // Criar Classe TipoAlarme
 

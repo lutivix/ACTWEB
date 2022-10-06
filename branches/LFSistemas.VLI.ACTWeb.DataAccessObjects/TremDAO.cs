@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using LFSistemas.VLI.ACTWeb.Entities;
-using System.Data.OleDb;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -385,7 +385,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private Trem PreencherPropriedades(OleDbDataReader reader)
+        private Trem PreencherPropriedades(OracleDataReader reader)
         {
             var iten = new Trem();
             if (!reader.IsDBNull(0))
@@ -400,7 +400,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto trem</returns>
-        private CirculacaoTrens PreencherPropriedadesCirculacaoTrens(OleDbDataReader reader)
+        private CirculacaoTrens PreencherPropriedadesCirculacaoTrens(OracleDataReader reader)
         {
             var item = new CirculacaoTrens();
 
@@ -423,7 +423,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return item;
         }
-        private TremOline PreencherPropriedadesTremOnline(OleDbDataReader reader)
+        private TremOline PreencherPropriedadesTremOnline(OracleDataReader reader)
         {
             var item = new TremOline();
 
@@ -467,7 +467,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
 
 
-        private Trem PreencherPropriedadesTrensCirculando(OleDbDataReader reader)
+        private Trem PreencherPropriedadesTrensCirculando(OracleDataReader reader)
         {
             var item = new Trem();
 

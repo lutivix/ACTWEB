@@ -6,6 +6,7 @@ using System.Text;
 using LFSistemas.VLI.ACTWeb.Entities;
 using System.Web.UI.WebControls;
 using System.Web.UI;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -158,13 +159,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA USUÁRIO PELA MATRICULA ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"select * from (select LOG_MATRICULA, LOG_MODULO, LOG_DATA_HORA from logs where LOG_MATRICULA = ? order by LOG_DATA_HORA desc) where rownum <= 5;");
+                    query.Append(@"select * from (select LOG_MATRICULA, LOG_MODULO, LOG_DATA_HORA from logs where LOG_MATRICULA = :MAT order by LOG_DATA_HORA desc) where rownum <= 5;");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    command.Parameters.AddWithValue("?", matricula);
+                    command.Parameters.Add("MAT", matricula);
 
                     #endregion
 
@@ -546,7 +547,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ PARÂMETROS ]
 
-                    command.Parameters.AddWithValue("total", obtertotal);
+                    //command.Parameters.Add("total", obtertotal);
 
                     #endregion
 
@@ -791,7 +792,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto usuário</returns>
-        private UsuariosACT PreenchePropriedade(OleDbDataReader reader)
+        private UsuariosACT PreenchePropriedade(OracleDataReader reader)
         {
             var todos = new UsuariosACT();
 
@@ -808,7 +809,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto usuário</returns>
-        private UsuariosACT PreencherPropriedades(OleDbDataReader reader)
+        private UsuariosACT PreencherPropriedades(OracleDataReader reader)
         {
             var item = new UsuariosACT();
 
@@ -839,7 +840,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto usuário</returns>
-        private UsuariosACT PreencherPropriedadesFiltro(OleDbDataReader reader)
+        private UsuariosACT PreencherPropriedadesFiltro(OracleDataReader reader)
         {
             var item = new UsuariosACT();
 
@@ -870,7 +871,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto usuário</returns>
-        private UsuariosACT PreencherPropriedadesPorID(OleDbDataReader reader)
+        private UsuariosACT PreencherPropriedadesPorID(OracleDataReader reader)
         {
             var item = new UsuariosACT();
 
@@ -902,7 +903,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto usuário</returns>
-        private UltimasAtividades PreencherPropriedadesUltimasAtividades(OleDbDataReader reader)
+        private UltimasAtividades PreencherPropriedadesUltimasAtividades(OracleDataReader reader)
         {
             var item = new UltimasAtividades();
 
@@ -930,7 +931,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto usuário</returns>
-        private UsuariosACT PreencherPropriedadeUsuario(OleDbDataReader reader)
+        private UsuariosACT PreencherPropriedadeUsuario(OracleDataReader reader)
         {
             var itens = new UsuariosACT();
 
@@ -951,7 +952,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto usuário</returns>
-        private Responsavel PreencherPropriedadesResponsavelPorId(OleDbDataReader reader)
+        private Responsavel PreencherPropriedadesResponsavelPorId(OracleDataReader reader)
         {
             var itens = new Responsavel();
 
@@ -968,7 +969,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto usuário</returns>
-        private QuemMaisAcessa PreencherPropriedadesQuemMaisAcessa(OleDbDataReader reader)
+        private QuemMaisAcessa PreencherPropriedadesQuemMaisAcessa(OracleDataReader reader)
         {
             var item = new QuemMaisAcessa();
 
@@ -1129,13 +1130,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ DELETA USUÁRIO NO BANCO ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"DELETE FROM ACTPP.OPERADPRES WHERE MATRICULA = ?");
+                    query.Append(@"DELETE FROM ACTPP.OPERADPRES WHERE MATRICULA = :mat");
 
                     #endregion
 
                     #region [ PARÂMETRO ]
 
-                    command.Parameters.AddWithValue("?", matricula);
+                    command.Parameters.Add("mat", matricula);
 
                     #endregion
 

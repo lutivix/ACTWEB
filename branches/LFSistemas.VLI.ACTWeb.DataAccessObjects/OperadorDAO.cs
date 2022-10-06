@@ -4,7 +4,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using LFSistemas.VLI.ACTWeb.Entities;
-using System.Data.OleDb;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -77,7 +77,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto usuário</returns>
-        private Operador PreencherPropriedadesOperador(OleDbDataReader reader)
+        private Operador PreencherPropriedadesOperador(OracleDataReader reader)
         {
             var item = new Operador();
 
