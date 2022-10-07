@@ -324,6 +324,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                     usuarioAutController.AtualizarDataUltSolBSOP(txtCPF.Text, usuarioAux.Usuario_ID.ToString(), "0");
 
                     limparCampos();
+                    marcarAtivo();
                     if (Flag == "alterasenha")
                         Response.Write("<script>alert('Usuário salvo com sucesso, por " + ulMatricula + " - " + ulTipoOperador + "');</script>");
                     else
@@ -384,6 +385,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
         //}
 
         #region [ MÉTODOS DE APOIO ]
+
+        protected void marcarAtivo()
+        {
+            chkAtivo.Checked = true;
+        }
 
         protected void limparCampos()
         {
