@@ -875,14 +875,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region Limpa BS_OPERADOR para todos os registros inativos
                     try
                     {
-                        command.Dispose();
+                        //C1143 - Ajuste limpeza de tabela -- Texto: LIMPEZA ExecuteNonQuery requires an open and available Connection. The connection's current state is closed.    
+                        //command.Dispose();
                         //command.Connection.Open();
-                        command = connection.CreateCommand();
+                        var command2 = connection.CreateCommand();
                         query4.Append(@"DELETE FROM actpp.BS_OPERADOR WHERE BS_OP_ATIVO = 'N'");
 
                         #region [ RODA A QUERY NO BANCO ]
-                        command.CommandText = query4.ToString();
-                        command.ExecuteNonQuery();
+                        command2.CommandText = query4.ToString();
+                        command2.ExecuteNonQuery();
                         retorno4 = true;
                         LogDAO.GravaLogBanco(DateTime.Now, "0", "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado BS_OPERADOR (LIMPEZA)", Uteis.OPERACAO.Atualizou.ToString());
                         #endregion
