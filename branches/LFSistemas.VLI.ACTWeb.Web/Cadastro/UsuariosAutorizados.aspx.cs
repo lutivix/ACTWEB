@@ -385,6 +385,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
         #region [ MÉTODOS DE APOIO ]
 
+
         protected void limparCampos()
         {
             txtNomeACT.Text = string.Empty;
@@ -398,6 +399,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             {                
                 cblSubtipos.Items[i].Selected = false;
             }
+
+            chkAtivo.Checked = false;
         }
         protected bool Excluir(string matricula, string usuarioLogado)
         {
@@ -471,6 +474,19 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                     ddlPermissoes.SelectedValue = "1";
                     //usuario.PermissaoLDL = "S";
                 }
+
+                chkAtivo.Checked = false;
+                for (int i = 0; i < 7; i++)
+                {
+
+                    if (cblSubtipos.Items[i].Selected)
+                    {
+                        chkAtivo.Checked = true;
+                        break;
+                    }
+
+                }
+                
             }
 
             var corredores = pesquisa.ComboBoxCorredores();

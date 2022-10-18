@@ -505,7 +505,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                     where op_cpf = ${CPF}");
 
                     if (cpf != null)
-                        query.Replace("${CPF}", string.Format("{0}", cpf));
+                        query.Replace("${CPF}", string.Format("'{0}'", cpf));
                     else
                         query.Replace("${CPF}", " ");
 
