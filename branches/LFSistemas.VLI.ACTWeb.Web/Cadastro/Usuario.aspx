@@ -25,6 +25,17 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentMain" runat="server">
     <script type="text/javascript">
         function validaFormulario() {
+            //Para teste apenas - C1126
+            /**
+            alert("Testes!");
+
+            var alterado = '<%=this.teveAlteracao%>';
+            /**
+            if(alterado == "True")
+                alert("Alterou!");
+            else
+                alert("Não Alterou!");
+            /**/
             var retorno = true;
             var msg = "Informe";
             var item = [];
@@ -61,6 +72,19 @@
                     document.getElementById(ind[0]).focus();
             }
 
+            //Para teste apenas - C1126
+            /**
+            //$('<%=teveAlteracao%>').val(alterado);
+            /**
+            //alterado = '<%=this.teveAlteracao%>';
+            /*
+            if (alterado == "True")
+                alert("Alterou 2!");
+            else
+                alert("Não Alterou 2!");
+            /**/
+
+
             return retorno;
         }
     </script>
@@ -68,39 +92,39 @@
     <div class="row">
         <div class="form-group col-sm-12">
             <label for="nome">Nome:</label>
-            <asp:TextBox runat="server" ID="txtNome" CssClass="form-control" MaxLength="70" />
+            <asp:TextBox runat="server" ID="txtNome" CssClass="form-control" OnTextChanged="txtNome_TextChanged" MaxLength="70" />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-6">
             <label for="matricula">Matrícula:</label>
-            <asp:TextBox runat="server" ID="txtMatricula" CssClass="form-control" MaxLength="30" />
+            <asp:TextBox runat="server" ID="txtMatricula" CssClass="form-control" OnTextChanged="txtNome_TextChanged" MaxLength="30" />
         </div>
         <div class="form-group col-sm-6">
             <label for="senha">Senha:</label>
-            <asp:TextBox runat="server" ID="txtSenha" CssClass="form-control" TextMode="Password" MaxLength="70" />
+            <asp:TextBox runat="server" ID="txtSenha" CssClass="form-control" TextMode="Password" OnTextChanged="txtNome_TextChanged" MaxLength="70" />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-6">
             <label for="nivel" id ="labelPerfil">Perfil:</label>
-            <asp:DropDownList ID="ddlPerfil" runat="server" CssClass="form-control" DataTextField="Nome" DataValueField="Id" />
+            <asp:DropDownList ID="ddlPerfil" runat="server" CssClass="form-control" DataTextField="Nome" OnSelectedIndexChanged-="ddlPerfil_Changed" DataValueField="Id" OnSelectedIndexChanged="txtNome_TextChanged" />
         </div>
         <div class="form-group col-sm-6">
             <label for="maleta"id="labelMaleta">Maleta:</label>
-            <asp:TextBox runat="server" ID="txtMaleta" CssClass="form-control" onkeypress="return PermiteSomenteNumeros(event);" MaxLength="5" />
+            <asp:TextBox runat="server" ID="txtMaleta" CssClass="form-control" onkeypress="return PermiteSomenteNumeros(event);" OnTextChanged="txtNome_TextChanged" MaxLength="5" />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-12">
             <label for="email" id="labelEmail">E-mail:</label>
-            <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" onblur="validateEmail(this);" MaxLength="70" />
+            <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" onblur="validateEmail(this);" OnTextChanged="txtNome_TextChanged" MaxLength="70" />
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-1">
             <label for="email" id="labelAtivo">Ativo:</label><br />
-            <asp:CheckBox runat="server" ID="chkAtivo" CssClass="form-control" Checked="true" Width="40" />
+            <asp:CheckBox runat="server" ID="chkAtivo" CssClass="form-control" Checked="true" OnCheckedChanged="txtNome_TextChanged" Width="40" />
         </div>
     </div>
     <div class="row">

@@ -116,6 +116,8 @@
                                             <asp:LinkButton runat="server" ID="lnkPerfil" OnClick="lnkPerfil_Click1" Text="Perfil" /></th>
                                         <th style="width: 05%; text-align: center; font-size: 12pt; ">
                                             <asp:LinkButton runat="server" ID="lnkCPF" OnClick="lnkCPF_Click" Text="CPF" /></th>
+                                        <th style="width: 05%; text-align: center; font-size: 12pt; ">
+                                            <asp:LinkButton runat="server" ID="lnkAtivo" OnClick="lnkAtivo_Click" Text="Ativo" /></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -129,6 +131,7 @@
                                 <td style="width: 05%; text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("LDL")%>"><%# Eval("LDL")%> </td> 
                                 <td style="width: 10%; text-align: left; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval("Perfil")%>"><%# Eval("Perfil")%> </td>
                                 <td style="width: 05%; text-align: center; " title="<%# Eval("CPF")%>"><%# Eval("CPF")%> </td> 
+                                <td style="width: 05%; text-align: center; " title="<%# Eval("Ativo")%>"><%# Eval("Ativo")%> </td> 
                             </tr>
                         </ItemTemplate>
                         <FooterTemplate>

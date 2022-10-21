@@ -16,6 +16,18 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
         public string Flag { get; set; }
         public int Id { get; set; }
 
+        //C1126
+        public bool teveAlteracao;
+        static string nome;
+        static string cpf;
+        static string matricula;
+        static string senha;
+        static string email;
+        static int perfil;
+        static bool ativo;
+        static bool ldl;
+        static bool subiu = false;
+
         #endregion
 
         #region [ EVENTOS DE PÁGINA ]
@@ -30,8 +42,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             Matricula = Uteis.Descriptografar(Request.QueryString["matricula"].ToString(), "a#3G6**@").ToUpper();
             Flag = Request.QueryString["flag"];
 
+            if(subiu)
+            {
+                senha = txtSenhaACT.Text;
+                subiu = false;
+            }
+
             if (!Page.IsPostBack)
             {
+                subiu = true;
 
                 lblUsuarioLogado.Text = ulNome.Length > 12 ? ulNome.Substring(0, 12).ToUpper() : ulNome;
                 lblUsuarioMatricula.Text = ulMatricula;
@@ -42,6 +61,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
                 CarregarTipoOperadores();
                 Controle(Flag);
+
+                //C1126 - Carregando valores iniciais para comparação futura
+                nome = txtNomeACT.Text;
+                cpf = txtCPFACT.Text;
+                matricula = txtMatriculaACT.Text;
+                perfil = ddlPerfil.SelectedIndex;
+                ativo = chkAtivo.Checked;
+                ldl = chkPermiteLDLACT.Checked;
+                senha = txtSenhaACT.Text;
 
                 LabelMensagem.Visible = false;
             }
@@ -63,6 +91,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             txtCPFACT.Text = usuario.CPF != null ? usuario.CPF.Trim() : string.Empty;
             chkPermiteLDLACT.Checked = usuario.LDL == "S" ? true : false;
             txtMatriculaACT.Enabled = false;
+            chkAtivo.Checked = usuario.Ativo == "S" ? true : false;
 
         }
 
@@ -72,6 +101,28 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
         protected void ButtonSalvar_Click(object sender, EventArgs e)
         {
+            //C1126
+            if(  (nome == txtNomeACT.Text) &&
+                 (cpf == txtCPFACT.Text) &&
+                 (matricula == txtMatriculaACT.Text) &&
+                 (senha == txtSenhaACT.Text) &&
+                 (ldl == chkPermiteLDLACT.Checked) &&
+                 (perfil == ddlPerfil.SelectedIndex) &&
+                 (ativo == chkAtivo.Checked))
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não houve nenhuma alteração na página!' });", true);
+                return;
+            }
+            else
+            {
+                nome = string.Empty;
+                cpf = string.Empty;
+                matricula = string.Empty;
+                senha = string.Empty;
+                perfil = 0;
+                ativo = false;
+                ldl = false;
+            }
 
             var usuario = new Entities.UsuariosACT();
 
@@ -83,6 +134,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             usuario.CPF = txtCPFACT.Text.Trim();
             usuario.LDL = chkPermiteLDLACT.Checked ? "S" : "N";
             usuario.Prefil_ID = ddlPerfil.SelectedItem.Value.ToString();
+            usuario.Ativo = chkAtivo.Checked ? "S" : "N";
 
             if (Matricula == "NOVO")
             {

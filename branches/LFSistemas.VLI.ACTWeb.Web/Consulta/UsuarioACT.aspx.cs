@@ -100,7 +100,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             string matricula = btn.CommandArgument;
             Response.Redirect("/Cadastro/UsuarioACT.aspx?matricula=" + Uteis.Criptografar(matricula.ToLower(), "a#3G6**@") + "&flag=consulta&lu=" + Uteis.Criptografar(ViewState["ulNome"].ToString().ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ViewState["uMatricula"].ToString().ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ViewState["uPerfil"].ToString().ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ViewState["ulMaleta"].ToString().ToLower(), "a#3G6**@"));
         }
-
         protected void lnkMatricula_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
@@ -195,7 +194,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 Pesquisar("ATIVO_SN " + ViewState["ordenacao"].ToString(), Navigation.None);
             }
         }
-
         protected void lnkCPF_Click(object sender, EventArgs e)
         {
             var ordenacao = ViewState["ordenacao"].ToString();
@@ -248,19 +246,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             //Fill repeater for Previous event
             Pesquisar(null, Navigation.Anterior);
         }
-
         protected void lnkProximaPagina_Click(object sender, EventArgs e)
         {
             //Fill repeater for Next event
             Pesquisar(null, Navigation.Proxima);
         }
-
         protected void lnkPrimeiraPagina_Click(object sender, EventArgs e)
         {
             //Fill repeater for First event
             Pesquisar(null, Navigation.Primeira);
         }
-
         protected void lnkUltimaPagina_Click(object sender, EventArgs e)
         {
             //Fill repeater for Last event
@@ -320,8 +315,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     case "PERFIL DESC":
                         itens = itens.OrderByDescending(o => o.Perfil).ToList();
                         break;
+                    case "ATIVO_SN DESC":
+                        itens = itens.OrderByDescending(o => o.Perfil).ToList();
+                        break;
+                    case "ATIVO_SN ASC":
+                        itens = itens.OrderByDescending(o => o.Ativo).ToList();
+                        break;   
                     default:
-                        itens = itens.OrderBy(o => o.Nome).ToList();
+                        itens = itens.OrderBy(o => o.Ativo).ToList();
                         break;
                 }
 
