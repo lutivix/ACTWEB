@@ -361,7 +361,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         public bool AssociarSubtipos(List<string>grupos, UsuarioAutorizado usuario, string usuarioLogado, string origem)
         {
                 try
-                {
+                {                    
                     List<string> subtiposLog = new List<string>();
 
                     for (int i = 0; i < grupos.Count; i++)
@@ -408,16 +408,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     if (origem.Equals("Inserir"))
                     {
                         if (listaSubtipos != string.Empty)
-                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Permissões: " + listaSubtipos, Uteis.OPERACAO.Inseriu.ToString());
+                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Novas Permissões: " + listaSubtipos, Uteis.OPERACAO.Inseriu.ToString());
                         else
-                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Sem permissões!", Uteis.OPERACAO.Inseriu.ToString());
+                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Sem novas permissões!", Uteis.OPERACAO.Inseriu.ToString());
                     }
                     else if(origem.Equals("Atualizar"))
                     {
                         if (listaSubtipos != string.Empty)
-                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Permissões: " + listaSubtipos, Uteis.OPERACAO.Atualizou.ToString());
+                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Novas Permissões: " + listaSubtipos, Uteis.OPERACAO.Atualizou.ToString());
                         else
-                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Sem Permissões!", Uteis.OPERACAO.Atualizou.ToString());
+                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Sem Novas Permissões!", Uteis.OPERACAO.Atualizou.ToString());
                     }
                     /**/
 

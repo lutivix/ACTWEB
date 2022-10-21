@@ -44,7 +44,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                       DECODE ( SUBSTR(UPPER(OP.OP_PERMITE_LDL), 1, 1),'S', 'S','N') AS LDL, 
                                       TOP.TO_DSC_OP AS PERFIL,
                                       OP.OP_CPF AS CPF,
-                                      TOP.TO_ID_OP AS PERFIL_ID
+                                      TOP.TO_ID_OP AS PERFIL_ID,
+                                      OP.OP_PERFIL_ATIVO AS Ativo
                                      FROM actpp.OPERADORES OP,
                                           actpp.TIPO_OPERADOR TOP
                                     WHERE TOP.TO_ID_OP = OP.TO_ID_OP
@@ -227,7 +228,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           DECODE ( SUBSTR(UPPER(OP.OP_PERMITE_LDL), 1, 1),'S', 'S','N') AS OP_PERMITE_LDL, 
                                           TOP.TO_DSC_OP,
                                           OP.OP_CPF,
-                                          TOP.TO_ID_OP
+                                          TOP.TO_ID_OP,
+                                          OP.OP_PERFIL_ATIVO
                                      FROM actpp.OPERADORES OP,
                                           actpp.TIPO_OPERADOR TOP
                                     WHERE TOP.TO_ID_OP = OP.TO_ID_OP
@@ -855,6 +857,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(6)) item.Perfil = reader.GetString(6);
                 if (!reader.IsDBNull(7)) item.CPF = reader.GetString(7);
                 if (!reader.IsDBNull(8)) item.Prefil_ID = reader.GetDouble(8).ToString();
+                if (!reader.IsDBNull(9)) item.Ativo = reader.GetString(9);
             }
             catch (Exception ex)
             {
@@ -886,6 +889,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(6)) item.Perfil= reader.GetString(6);
                 if (!reader.IsDBNull(7)) item.CPF = reader.GetString(7);
                 if (!reader.IsDBNull(8)) item.Prefil_ID = reader.GetDouble(8).ToString();
+                if (!reader.IsDBNull(8)) item.Ativo = reader.GetString(9);
                 
             }
             catch (Exception ex)
@@ -1014,7 +1018,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"Insert into ACTPP.OPERADORES (OP_ID_OP, OP_MAT, OP_NM, OP_SENHA,OP_DT_SENHA, OP_PERMITE_LDL, TO_ID_OP, OP_CPF) Values ((SELECT MAX (OP_ID_OP) + 1 FROM ACTPP.OPERADORES), ${MATRICULA}, ${NOME}, ${SENHA}, SYSDATE, ${PERMITE_LDL}, ${TIPO_OPERADOR}, ${CPF})");
+                    query.Append(@"Insert into ACTPP.OPERADORES (OP_ID_OP, OP_MAT, OP_NM, OP_SENHA,OP_DT_SENHA, OP_PERMITE_LDL, TO_ID_OP, OP_CPF, OP_PERFIL_ATIVO) Values ((SELECT MAX (OP_ID_OP) + 1 FROM ACTPP.OPERADORES), ${MATRICULA}, ${NOME}, ${SENHA}, SYSDATE, ${PERMITE_LDL}, ${TIPO_OPERADOR}, ${CPF}, ${ATIVO})");
                   
                     #endregion
 
@@ -1026,6 +1030,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Replace("${PERMITE_LDL}", string.Format("'{0}'", usuario.LDL));
                     query.Replace("${TIPO_OPERADOR}", string.Format("{0}", usuario.Prefil_ID));
                     query.Replace("${CPF}", string.Format("'{0}'", usuario.CPF));
+                    query.Replace("${ATIVO}", string.Format("'{0}'", usuario.Ativo));//c126
 
                      
                     #endregion
@@ -1071,7 +1076,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ INSERE USUÁRIO NO BANCO ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"UPDATE ACTPP.OPERADORES SET OP_MAT = ${MATRICULA}, OP_NM = ${NOME}, OP_SENHA = ${SENHA}, OP_DT_SENHA = SYSDATE, OP_PERMITE_LDL = ${PERMITE_LDL}, TO_ID_OP = ${TIPO_OPERADOR}, OP_CPF = ${CPF} WHERE OP_ID_OP = ${ID}");
+                    query.Append(@"UPDATE ACTPP.OPERADORES SET OP_MAT = ${MATRICULA}, OP_NM = ${NOME}, OP_SENHA = ${SENHA}, OP_DT_SENHA = SYSDATE, OP_PERMITE_LDL = ${PERMITE_LDL}, TO_ID_OP = ${TIPO_OPERADOR}, OP_CPF = ${CPF}, OP_PERFIL_ATIVO = ${ATIVO} WHERE OP_ID_OP = ${ID}");
                     //OPERADORES (OP_ID_OP, OP_MAT, OP_NM, OP_SENHA, OP_DT_SENHA) Values ({ID},{MATRICULA},{NOME},{SENHA},{DATA_SENHA},{PERMITE_LDL},{TIPO_OPERADOR},{CPF})
                     #endregion
 
@@ -1084,6 +1089,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Replace("${PERMITE_LDL}", string.Format("'{0}'", usuario.LDL));
                     query.Replace("${TIPO_OPERADOR}", string.Format("{0}", usuario.Prefil_ID));
                     query.Replace("${CPF}", string.Format("'{0}'", usuario.CPF));
+                    query.Replace("${ATIVO}", string.Format("'{0}'", usuario.Ativo));//c126
 
                     #endregion
 

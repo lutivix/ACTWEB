@@ -17,6 +17,17 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
         public int Id { get; set; }
         public string lEmail { get; set; }
 
+        //C1126
+        public bool teveAlteracao;
+        static string nome;
+        static string cpf;
+        static string matricula;
+        static string senha;
+        static string email;
+        static int perfil;
+        static bool ativo;
+        static bool subiu = false;
+
         #endregion
 
         #region [ EVENTOS DE PÁGINA ]
@@ -33,9 +44,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             Matricula = Uteis.Descriptografar(Request.QueryString["matricula"].ToString(), "a#3G6**@").ToUpper();
             Flag = Request.QueryString["flag"];
 
+            if (subiu)
+            {
+                senha = txtSenha.Text;
+                subiu = false;
+            }
+
             if (!Page.IsPostBack)
             {
-
+                subiu = true;
                 lblUsuarioLogado.Text = ulNome.Length > 12 ? ulNome.Substring(0, 12).ToUpper() : ulNome;
                 lblUsuarioMatricula.Text = ulMatricula;
                 lblUsuarioPerfil.Text = ulPerfil;
@@ -45,9 +62,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
                 CarregarPerfis();
                 Controle(Flag);
-                
+
+                //C1126 - Carregando valores iniciais para comparação futura
+                nome = txtNome.Text;
+                cpf = txtMatricula.Text;
+                matricula = txtMatricula.Text;               
+                email = txtEmail.Text;
+                perfil = ddlPerfil.SelectedIndex;
+                ativo = chkAtivo.Checked;
+                senha = Convert.ToString(txtSenha.Text);
+
                 LabelMensagem.Visible = false;
-            }
+
+                teveAlteracao = false;//C1126
+            }            
+            //senha = txtSenha.Text;
         }
 
         #endregion
@@ -76,6 +105,22 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
         protected void ButtonSalvar_Click(object sender, EventArgs e)
         {
+            if (!teveAlteracao)//C1126
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não houve nenhuma alteração na página!' });", true);
+                return;
+            }
+            else
+            {
+                nome = string.Empty;
+                cpf = string.Empty;
+                matricula = string.Empty;
+                senha = string.Empty;
+                email = string.Empty;
+                perfil = 0;
+                ativo = false;
+            }
+
             var usuario = new Entities.Usuarios();
 
             var usuarioController = new UsuarioController();
@@ -217,5 +262,19 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
         }
 
         #endregion
+
+        protected void txtNome_TextChanged(object sender, EventArgs e)
+        {
+            if(  (nome != txtNome.Text) ||
+                 (cpf != txtMatricula.Text) ||
+                 (matricula != txtMatricula.Text) ||
+                 (senha != txtSenha.Text) ||
+                 (email != txtEmail.Text) ||
+                 (perfil != ddlPerfil.SelectedIndex) ||
+                 (ativo != chkAtivo.Checked))
+            {
+                teveAlteracao = true;
+            }            
+        }
     }
 }
