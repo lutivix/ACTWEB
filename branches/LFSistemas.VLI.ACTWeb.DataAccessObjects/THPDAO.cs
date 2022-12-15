@@ -1102,7 +1102,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         while (reader.Read())
                         {
-                            tempoParada = double.Parse(reader.GetValue(0).ToString());
+                            tempoParada = reader.GetDouble(0);
+                            //var teste = reader.GetValue(0).ToString();
+                            //teste = teste.Replace(',', '.');
+                            //tempoParada = double.Parse(teste);                            
+                            //tempoParada = double.Parse(reader.GetValue(0).ToString().Replace(",","."));
                         }
                     }
 
