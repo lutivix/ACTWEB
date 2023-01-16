@@ -391,7 +391,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT *
+                    query.Append(@"SELECT RP_ID_RP ID_REST
                                       FROM actpp.RESTRICOES_PROGRAMADAS RP
                                      WHERE     EV_ID_ELM IN (${IdElementoVia})
                                            --AND RP_ST_RP IN ('C', 'R')              
@@ -410,7 +410,28 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                     AND RP_DT_FIM < TO_DATE (${DataFim+1Date}, 'dd/mm/yyyy')
                                                     AND RP_DT_FIM >TO_DATE (${DataIni}, 'dd/mm/yyyy hh24:mi:ss')
                                                 )
-                                               )");
+                                               )
+                                   UNION
+                                   SELECT RC_ID_RC ID_REST
+                                        FROM actpp.RESTRICOES_CIRCULACAO RC
+                                     WHERE     EV_ID_ELM IN (${IdElementoVia})
+                                           --AND RP_ST_RP IN ('C', 'R')              
+                                           AND RC_ST IN ('E','M','P')
+                                           AND SR_ID_STR IN (${IdSubtipo})
+                                           AND RC.RC_KM_FIM >= ${kmIni}
+                                           AND RC.RC_KM_INI <= ${kmFim}
+                                           AND (
+                                                (
+                                                    RC_DT_INI_RLZ > TO_DATE (${DataIni}, 'dd/mm/yyyy hh24:mi:ss')
+                                                    AND RC_DT_INI_RLZ <  TO_DATE (${DataFim}, 'dd/mm/yyyy hh24:mi:ss') 
+                                                )
+                                                OR
+                                                (   RC_DT_INI_RLZ > TO_DATE (${DataIniDate}, 'dd/mm/yyyy')
+                                                    AND RC_DT_INI_RLZ < TO_DATE (${DataIni}, 'dd/mm/yyyy hh24:mi:ss')
+                                                    AND RC_DT_FIM_PRV < TO_DATE (${DataFim+1Date}, 'dd/mm/yyyy')
+                                                    AND RC_DT_FIM_PRV >TO_DATE (${DataIni}, 'dd/mm/yyyy hh24:mi:ss')
+                                                )
+                                               ) ");
 
                     DateTime agora = DateTime.Now;
 
