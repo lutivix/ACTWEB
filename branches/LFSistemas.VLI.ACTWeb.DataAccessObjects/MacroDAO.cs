@@ -1868,7 +1868,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                         AND MR.MR_ID_ZQ2 = ZQ2.ZQ_ID
                                                                         and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                                                                         and t.es_id_Num_efe_dest = ed.es_id_num_efe  
-                                and mr.ME_MSG_NUM = :id ";
+                                and mr.MR_GRMN = :id ";
                                         comando.Parameters.Add("id", id);
                                     }
                                     else
