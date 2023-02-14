@@ -15,7 +15,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2022 11:40:38</publishTime>
     </File>
     <File Include="ACTWEB.Master">
-      <publishTime>01/18/2023 15:14:14</publishTime>
+      <publishTime>02/14/2023 14:48:46</publishTime>
     </File>
     <File Include="Ajuda/Erro.aspx">
       <publishTime>09/21/2022 11:40:38</publishTime>
@@ -162,25 +162,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>01/18/2023 15:22:23</publishTime>
+      <publishTime>02/14/2023 14:49:43</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
       <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>01/18/2023 15:22:22</publishTime>
+      <publishTime>02/14/2023 14:49:43</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
       <publishTime>09/08/2016 12:55:17</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>01/16/2023 09:54:07</publishTime>
+      <publishTime>02/14/2023 14:49:42</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>01/18/2023 15:22:24</publishTime>
+      <publishTime>02/14/2023 14:49:45</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>
@@ -222,7 +222,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2022 11:40:38</publishTime>
     </File>
     <File Include="bin/Oracle.ManagedDataAccess.dll">
-      <publishTime>06/10/2022 16:42:45</publishTime>
+      <publishTime>10/06/2022 16:42:45</publishTime>
     </File>
     <File Include="bin/pl/AjaxControlToolkit.resources.dll">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -1551,7 +1551,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2022 11:43:16</publishTime>
     </File>
     <File Include="Login.aspx">
-      <publishTime>03/10/2022 11:42:45</publishTime>
+      <publishTime>10/03/2022 11:42:45</publishTime>
     </File>
     <File Include="logo-vli.ico">
       <publishTime>09/21/2022 11:40:38</publishTime>
