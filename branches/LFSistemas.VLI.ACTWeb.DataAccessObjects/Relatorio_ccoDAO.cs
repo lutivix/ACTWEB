@@ -4,7 +4,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using LFSistemas.VLI.ACTWeb.Entities;
-using System.Data.OleDb;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -382,7 +382,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
         #region [ MÉTODOS DE APOIO ]
 
-        private tempoRespostaMacro9 PreencherPropriedadesQuery1(OleDbDataReader reader)
+        private tempoRespostaMacro9 PreencherPropriedadesQuery1(OracleDataReader reader)
         {
             var item = new tempoRespostaMacro9();
            
@@ -392,7 +392,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private TimeSpan PreencherPropriedadesQuery3(OleDbDataReader reader)
+        private TimeSpan PreencherPropriedadesQuery3(OracleDataReader reader)
         {
             var item = new TimeSpan();
             DateTime Inicio = reader.GetDateTime(1);
@@ -403,7 +403,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private qtdeMediaCaracteresMacro0 PreencherPropriedadesQuery4(OleDbDataReader reader)
+        private qtdeMediaCaracteresMacro0 PreencherPropriedadesQuery4(OracleDataReader reader)
         {
             var item = new qtdeMediaCaracteresMacro0();
 

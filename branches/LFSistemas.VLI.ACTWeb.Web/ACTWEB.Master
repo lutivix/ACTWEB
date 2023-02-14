@@ -854,7 +854,7 @@
                         </div>
                         <%---------------------- FIM PAINEL VP  ----------------------%>
 
-                          <%----------------------  PAINEL DE MÁQUINAS  ----------------------%>
+                          <%----------------------  PAINEL DE MÁQUINAS  ---------------------%>
                        
 
                         <li class="" id="Li5" runat="server">
@@ -873,7 +873,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <%---------------------- FIM PAINEL DE MÁQUINAS  ----------------------%>
+                        <%---------------------- FIM PAINEL DE MÁQUINAS  -----------------------%>
 
                     </ul>
                 </div>
@@ -892,7 +892,7 @@
                             </div>
                         </div>
                         <div class="footer-lf" style="padding-right: 10px;">
-                            <span>(32.780.104.86)desenvolvido por </span>
+                            <span>(32.780.193.96)desenvolvido por </span>
                             <a href="http://lfsolutions.net.br/" target="_blank" class="lfslogo"></a>
                         </div>
                     </div>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.OleDb;
 using System.Text;
 using LFSistemas.VLI.ACTWeb.Entities;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -1384,25 +1385,25 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             command.CommandText = @"SELECT  m.* , mfl.mfl_num_fieldlength
                                                 FROM macrodefinition_mac m , macrofielddefinition_mfl mfl
                                                 WHERE m.mac_num_id = mfl.mac_num_id
-                                                AND m.mac_num_macronumber = ? AND m.mac_num_macrotype = 2 
+                                                AND m.mac_num_macronumber = :MCN AND m.mac_num_macrotype = 2 
                                                 AND m.mac_num_macroversion = (SELECT MAX(mac_num_macroversion) 
-                                                FROM macrodefinition_mac WHERE mac_num_macronumber = ? AND mac_num_macrotype = 2
+                                                FROM macrodefinition_mac WHERE mac_num_macronumber = :MCN AND mac_num_macrotype = 2
                                                 AND m.mac_num_id = mfl.mac_num_id
                                                 AND acc_num_accountnumber = 61643776)";
-                            command.Parameters.AddWithValue("", nummacro); command.Parameters.AddWithValue("", nummacro);
+                            command.Parameters.Add("MCN", nummacro);
                         }
                         else
                         {
                             command.CommandText = @"SELECT  m.* , mfl.mfl_num_fieldlength
                                                 FROM macrodefinition_mac m , macrofielddefinition_mfl mfl
                                                 WHERE m.mac_num_id = mfl.mac_num_id
-                                                AND m.mac_num_macronumber = ? AND m.mac_num_macrotype = 1 
+                                                AND m.mac_num_macronumber = :MCN AND m.mac_num_macrotype = 1 
                                                 AND m.mac_num_macroversion = (SELECT MAX(mac_num_macroversion) 
-                                                FROM macrodefinition_mac WHERE mac_num_macronumber = ? AND mac_num_macrotype = 1
+                                                FROM macrodefinition_mac WHERE mac_num_macronumber = :MCN AND mac_num_macrotype = 1
                                                 AND m.mac_num_id = mfl.mac_num_id
                                                 AND acc_num_accountnumber = 61643776)";
 
-                            command.Parameters.AddWithValue("", nummacro); command.Parameters.AddWithValue("", nummacro);
+                            command.Parameters.Add("MCN", nummacro); 
                         }
                         using (var reader = command.ExecuteReader())
 
@@ -1444,20 +1445,20 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         if (tipo == "R")
                         {
                             command.CommandText = @"SELECT MAC_TXT_MACRODEFINITION FROM macrodefinition_mac m WHERE 
-                                                mac_num_macronumber = ? AND mac_num_macroversion =(SELECT MAX(mac_num_macroversion) FROM macrodefinition_mac WHERE 
-                                                mac_num_macronumber = ? AND acc_num_accountnumber = 61643776 AND mac_num_macrotype = 2) AND 
+                                                mac_num_macronumber = :MCN AND mac_num_macroversion =(SELECT MAX(mac_num_macroversion) FROM macrodefinition_mac WHERE 
+                                                mac_num_macronumber = :MCN AND acc_num_accountnumber = 61643776 AND mac_num_macrotype = 2) AND 
                                                 mac_num_macrotype = 2 AND acc_num_accountnumber = 61643776";
 
-                            command.Parameters.AddWithValue("", nummacro); command.Parameters.AddWithValue("", nummacro);
+                            command.Parameters.Add("MCN", nummacro); 
                         }
                         else
                         {
                             command.CommandText = @"SELECT MAC_TXT_MACRODEFINITION FROM macrodefinition_mac m WHERE 
-                                                mac_num_macronumber = ? AND mac_num_macroversion =(SELECT MAX(mac_num_macroversion) FROM macrodefinition_mac WHERE 
-                                                mac_num_macronumber = ? AND acc_num_accountnumber = 61643776 AND mac_num_macrotype = 1) AND 
+                                                mac_num_macronumber = :MCN AND mac_num_macroversion =(SELECT MAX(mac_num_macroversion) FROM macrodefinition_mac WHERE 
+                                                mac_num_macronumber = :MCN AND acc_num_accountnumber = 61643776 AND mac_num_macrotype = 1) AND 
                                                 mac_num_macrotype = 1 AND acc_num_accountnumber = 61643776";
 
-                            command.Parameters.AddWithValue("", nummacro); command.Parameters.AddWithValue("", nummacro);
+                            command.Parameters.Add("MCN", nummacro); 
                         }
                         var reader = command.ExecuteReader();
                         if (reader.Read())
@@ -1644,8 +1645,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             command.CommandText = @"select mr.MR_TEXT from ACTPP.mensagens_recebidas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m
                         where mr.MR_MCT_ADDR = m.MCT_ID_MCT and mr.MR_ID_TRM = t.TM_ID_TRM and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                         and t.es_id_Num_efe_dest = ed.es_id_num_efe  
-                        and mr.MR_GRMN = ?";
-                            command.Parameters.AddWithValue("", id);
+                        and mr.MR_GRMN = :GRMN";
+                            command.Parameters.Add("GRMN", id);
                         }
                         else
                         {
@@ -1653,8 +1654,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         where mr.Me_MCT_ADDR = m.MCT_ID_MCT and mr.Me_ID_TRM = t.TM_ID_TRM  
                         and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                         and t.es_id_Num_efe_dest = ed.es_id_num_efe
-                        and ME_MSG_NUM = ? ";
-                            command.Parameters.AddWithValue("", id);
+                        and ME_MSG_NUM = :MENUM ";
+                            command.Parameters.Add("MENUM", id);
                         }
                         var reader = command.ExecuteReader();
 
@@ -1759,13 +1760,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         if (tipo == "E")
                         {
-                            command.CommandText = @"select ME_LOCO from ACTPP.mensagens_enviadas where me_msg_num = ?";
-                            command.Parameters.AddWithValue("", id);
+                            command.CommandText = @"select ME_LOCO from ACTPP.mensagens_enviadas where me_msg_num = :id";
+                            command.Parameters.Add("id", id);
                         }
                         else
                         {
-                            command.CommandText = @"select MR_LOCO from ACTPP.MENSAGENS_RECEBIDAS where mr_grmn = ?";
-                            command.Parameters.AddWithValue("", id);
+                            command.CommandText = @"select MR_LOCO from ACTPP.MENSAGENS_RECEBIDAS where mr_grmn = :id";
+                            command.Parameters.Add("id", id);
                         }
 
                         var verificastring = command.ExecuteReader();
@@ -1813,8 +1814,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                    AND MR.MR_ID_TRM = T.TM_ID_TRM(+)
                                                                    AND T.ES_ID_NUM_EFE_ORIG = EO.ES_ID_NUM_EFE(+)
                                                                    AND T.ES_ID_NUM_EFE_DEST = ED.ES_ID_NUM_EFE(+)
-                                                                   AND MR.MR_GRMN = ?";
-                                        comando.Parameters.AddWithValue("", id);
+                                                                   AND MR.MR_GRMN = :id";
+                                        comando.Parameters.Add("id", id);
                                     }
                                     else
                                     {
@@ -1851,8 +1852,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                    AND MR.ME_ID_TRM = T.TM_ID_TRM (+)
                                                                    AND T.ES_ID_NUM_EFE_ORIG = EO.ES_ID_NUM_EFE (+)
                                                                    AND T.ES_ID_NUM_EFE_DEST = ED.ES_ID_NUM_EFE (+)
-                                                                   AND MR.ME_MSG_NUM = ?";
-                                        comando.Parameters.AddWithValue("", id);
+                                                                   AND MR.ME_MSG_NUM = :id";
+                                        comando.Parameters.Add("id", id);
                                     }
                                 }
                                 else
@@ -1867,8 +1868,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                         AND MR.MR_ID_ZQ2 = ZQ2.ZQ_ID
                                                                         and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                                                                         and t.es_id_Num_efe_dest = ed.es_id_num_efe  
-                                                                        and mr.MR_GRMN = ?";
-                                        comando.Parameters.AddWithValue("", id);
+                                and mr.ME_MSG_NUM = :id ";
+                                        comando.Parameters.Add("id", id);
                                     }
                                     else
                                     {
@@ -1880,8 +1881,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                         AND MR.ME_ID_ZQ2 = ZQ2.ZQ_ID
                                                                         and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                                                                         and t.es_id_Num_efe_dest = ed.es_id_num_efe
-                                                                        and mr.ME_MSG_NUM = ? ";
-                                        comando.Parameters.AddWithValue("", id);
+                                and mr.ME_MSG_NUM = :id ";
+                                        comando.Parameters.Add("id", id);
                                     }
                                 }
                                 var reader = comando.ExecuteReader();
@@ -1922,9 +1923,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             command.CommandText = @"select mr.MR_TEXT from ACTPP.mensagens_recebidas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m
                         where mr.MR_MCT_ADDR = m.MCT_ID_MCT and mr.MR_ID_TRM = t.TM_ID_TRM and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                         and t.es_id_Num_efe_dest = ed.es_id_num_efe  
-                        and mr.MR_GRMN = ?";
-                            command.Parameters.AddWithValue("", id);
-                            command.Parameters.AddWithValue("", tipo);
+                        and mr.MR_GRMN = :id";
+                            command.Parameters.Add("id", id);
+                            //command.Parameters.Add("", tipo);
                         }
                         else
                         {
@@ -1932,9 +1933,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         where mr.Me_MCT_ADDR = m.MCT_ID_MCT and mr.Me_ID_TRM = t.TM_ID_TRM  
                         and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                         and t.es_id_Num_efe_dest = ed.es_id_num_efe
-                        and ME_MSG_NUM = ? ";
-                            command.Parameters.AddWithValue("", id);
-                            command.Parameters.AddWithValue("", tipo);
+                        and ME_MSG_NUM = :id ";
+                            command.Parameters.Add("id", id);
+                            //command.Parameters.Add("", tipo);
                         }
                         var reader = command.ExecuteReader();
                         if (reader.Read())
@@ -2552,7 +2553,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
 
         #region [ MÉTODOS DE APOIO ]
 
-        private Macro PreencherPropriedade(OleDbDataReader reader, string tipo)
+        private Macro PreencherPropriedade(OracleDataReader reader, string tipo)
         {
             var macro = new Macro();
             if (tipo == "R")
@@ -2607,7 +2608,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
 
             return macro;
         }
-        private Macro PreencherPropriedades(OleDbDataReader reader)
+        private Macro PreencherPropriedades(OracleDataReader reader)
         {
             var item = new Macro();
             if (!reader.IsDBNull(0)) item.Tipo = reader.GetString(0);
@@ -2640,7 +2641,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
 
             return item;
         }
-        private Macro PreencherPropriedadesE(OleDbDataReader reader)
+        private Macro PreencherPropriedadesE(OracleDataReader reader)
         {
             var item = new Macro();
             if (!reader.IsDBNull(0)) item.Tipo = reader.GetString(0);
@@ -2710,7 +2711,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
             item.DescricaoMacro = "DESCRICAO DE TESTE ";
             return item;
         }
-        private Macro PreencherPropriedadesR(OleDbDataReader reader)
+        private Macro PreencherPropriedadesR(OracleDataReader reader)
         {
             var item = new Macro();
 
@@ -2764,7 +2765,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
             item.DescricaoMacro = "DESCRICAO DE TESTE ";
             return item;
         }
-        private Macro50 PreencherPropriedadesMacro50(OleDbDataReader reader, string origem)
+        private Macro50 PreencherPropriedadesMacro50(OracleDataReader reader, string origem)
         {
             var item = new Macro50();
 
@@ -2820,14 +2821,14 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
 
             return item;
         }
-        private Macro PreencherPropriedadesTamanhoMascara(OleDbDataReader reader)
+        private Macro PreencherPropriedadesTamanhoMascara(OracleDataReader reader)
         {
             var itens = new Macro();
             if (!reader.IsDBNull(17)) itens.TamanhoMascara = Convert.ToString(int.Parse(reader.GetValue(17).ToString()) + 1);
 
             return itens;
         }
-        private Corredor PreencherPropriedadesCorredor(OleDbDataReader reader)
+        private Corredor PreencherPropriedadesCorredor(OracleDataReader reader)
         {
             var item = new Corredor();
 
@@ -2840,7 +2841,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
 
             return item;
         }
-        private TMP_MACROS PreencherPropriedadesTMP(OleDbDataReader reader)
+        private TMP_MACROS PreencherPropriedadesTMP(OracleDataReader reader)
         {
             var item = new TMP_MACROS();
             if (!reader.IsDBNull(0)) item.Id = reader.GetDouble(0);
@@ -2855,7 +2856,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
 
             return item;
         }
-        private Conversas PreencherPropriedadesConversas(OleDbDataReader reader)
+        private Conversas PreencherPropriedadesConversas(OracleDataReader reader)
         {
             var item = new Conversas();
 

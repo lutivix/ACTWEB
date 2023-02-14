@@ -4,6 +4,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using LFSistemas.VLI.ACTWeb.Entities;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -743,7 +744,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return retorno;
         }
 
-        private static Locomotivas PreencherPropriedadesLocomotivas(OleDbDataReader reader)
+        private static Locomotivas PreencherPropriedadesLocomotivas(OracleDataReader reader)
         {
             var item = new Locomotivas();
 

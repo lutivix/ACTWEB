@@ -5,6 +5,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -305,7 +306,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto perfil preenchido</returns>
-        private Banner PreencherPropriedades(OleDbDataReader reader, string p)
+        private Banner PreencherPropriedades(OracleDataReader reader, string p)
         {
             var item = new Banner();
 

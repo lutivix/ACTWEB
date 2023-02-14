@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LFSistemas.VLI.ACTWeb.Entities;
 using System.Data.OleDb;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -360,7 +361,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         public bool AssociarSubtipos(List<string>grupos, UsuarioAutorizado usuario, string usuarioLogado, string origem)
         {
                 try
-                {
+                {                    
                     List<string> subtiposLog = new List<string>();
 
                     for (int i = 0; i < grupos.Count; i++)
@@ -407,16 +408,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     if (origem.Equals("Inserir"))
                     {
                         if (listaSubtipos != string.Empty)
-                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Permissões: " + listaSubtipos, Uteis.OPERACAO.Inseriu.ToString());
+                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Novas Permissões: " + listaSubtipos, Uteis.OPERACAO.Inseriu.ToString());
                         else
-                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Sem permissões!", Uteis.OPERACAO.Inseriu.ToString());
+                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Sem novas permissões!", Uteis.OPERACAO.Inseriu.ToString());
                     }
                     else if(origem.Equals("Atualizar"))
                     {
                         if (listaSubtipos != string.Empty)
-                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Permissões: " + listaSubtipos, Uteis.OPERACAO.Atualizou.ToString());
+                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Novas Permissões: " + listaSubtipos, Uteis.OPERACAO.Atualizou.ToString());
                         else
-                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Sem Permissões!", Uteis.OPERACAO.Atualizou.ToString());
+                            LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Sem Novas Permissões!", Uteis.OPERACAO.Atualizou.ToString());
                     }
                     /**/
 
@@ -481,6 +482,58 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             }
 
             return item;
+        }
+
+        public bool JaExisteCPF(string cpf)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            bool retorno = false;
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"select * from actpp.operadores_bs
+                                                    where op_cpf = ${CPF}");
+
+                    if (cpf != null)
+                        query.Replace("${CPF}", string.Format("'{0}'", cpf));
+                    else
+                        query.Replace("${CPF}", " ");
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            retorno = true;
+                        }
+                    }
+
+                    #endregion
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return retorno;
         }
 
         public List<string> ObterSubtiposAut(string usuario_id)
@@ -822,14 +875,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region Limpa BS_OPERADOR para todos os registros inativos
                     try
                     {
-                        command.Dispose();
+                        //C1143 - Ajuste limpeza de tabela -- Texto: LIMPEZA ExecuteNonQuery requires an open and available Connection. The connection's current state is closed.    
+                        //command.Dispose();
                         //command.Connection.Open();
-                        command = connection.CreateCommand();
+                        var command2 = connection.CreateCommand();
                         query4.Append(@"DELETE FROM actpp.BS_OPERADOR WHERE BS_OP_ATIVO = 'N'");
 
                         #region [ RODA A QUERY NO BANCO ]
-                        command.CommandText = query4.ToString();
-                        command.ExecuteNonQuery();
+                        command2.CommandText = query4.ToString();
+                        command2.ExecuteNonQuery();
                         retorno4 = true;
                         LogDAO.GravaLogBanco(DateTime.Now, "0", "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado BS_OPERADOR (LIMPEZA)", Uteis.OPERACAO.Atualizou.ToString());
                         #endregion
@@ -899,7 +953,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return true;
         }
 
-        private UsuarioAutorizado PreencherPropriedadesFiltro(OleDbDataReader reader)
+        private UsuarioAutorizado PreencherPropriedadesFiltro(OracleDataReader reader)
         {
             var item = new UsuarioAutorizado();
             double corredorID = new double();
@@ -934,7 +988,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        private string PreencherPropriedadesSubtipos(OleDbDataReader reader)
+        private string PreencherPropriedadesSubtipos(OracleDataReader reader)
         {
             string subtipo = "";
             try

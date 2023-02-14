@@ -93,6 +93,10 @@
             <label for="nivel">Perfil:</label>
             <asp:DropDownList ID="ddlPerfil" runat="server" CssClass="form-control" DataTextField="Nome" DataValueField="Id" />
         </div>
+        <div class="form-group col-sm-1">
+            <label for="ativo">Ativo:</label><br />
+            <asp:CheckBox runat="server" ID="chkAtivo" CssClass="form-control" Checked="true" Width="120px" />
+        </div>   
     </div>
     <div class="row" style="margin-left: 02px;">
         <asp:Button ID="ButtonSalvar" type="button" CssClass="btn btn-success" runat="server" Text="Salvar" OnClick="ButtonSalvar_Click" OnClientClick="javascript:return validaFormulario();" />

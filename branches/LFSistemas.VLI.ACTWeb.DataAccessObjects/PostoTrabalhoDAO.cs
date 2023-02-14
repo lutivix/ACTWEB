@@ -5,6 +5,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -190,7 +191,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// </summary>
         /// <param name="reader">Lista com os registros</param>
         /// <returns>Retorna um objeto tipo operador preenchido</returns>
-        private PostoTrabalho PreencherPropriedades(OleDbDataReader reader)
+        private PostoTrabalho PreencherPropriedades(OracleDataReader reader)
         {
             var item = new PostoTrabalho();
 
@@ -287,7 +288,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 //        /// </summary>
 //        /// <param name="reader">Lista com os registros</param>
 //        /// <returns>Retorna um objeto usuário</returns>
-//        private PostoTrabalho PreencherPropriedadesPostoTrabalho(OleDbDataReader reader)
+//        private PostoTrabalho PreencherPropriedadesPostoTrabalho(OracleDataReader reader)
 //        {
 //            var item = new PostoTrabalho();
 
