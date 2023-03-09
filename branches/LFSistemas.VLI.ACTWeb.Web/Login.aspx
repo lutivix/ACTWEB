@@ -34,8 +34,47 @@
     <script type="text/javascript" src="/js/jquery-ui-timepicker-addon.js"></script>
     <script type="text/javascript" src="/js/recaptcha.js"></script>
 
-    <%--C840 - reCAPTCHA - Luara - 11/02/2021--%>
-    <script src='https://www.google.com/recaptcha/api.js'></script>
+     <%--C840 - reCAPTCHA - Luara - 11/02/2021--%>
+    <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+    <script type="text/javascript">
+
+        var onloadCallback = function () {
+            grecaptcha.render("html_element", {
+                sitekey: "6LcxEb8kAAAAAMzOMzL3zpaYcW2Pem70TY0-yHfq",
+                theme: "dark",
+                callback: DoLogin
+            });
+        };
+
+        var btnLoginEvent = null;
+
+        function DoLogin()
+        {
+            //alert("Login");
+            var btn = document.getElementById("<%:bntEntrar.ClientID%>");
+            btn.onclick = btnLoginEvent;
+            btn.click();
+        }
+
+        function DoValidate(event)
+        {
+            //alert("Validate");
+            event.preventDefault();
+            //if (Page_ClientValidate())
+            {
+                //alert("Validou");
+                grecaptcha.execute();
+            }
+        }
+
+        function DoLoad()
+        {
+            //alert("Load");
+            var btn = document.getElementById("<%:bntEntrar.ClientID%>");
+            btnLoginEvent = btn.onclick;
+            btn.onclick = DoValidate;
+        }
+    </script>   
   
     <link rel="grupo vli" href="logo-vli.ico">
 </head>
@@ -77,14 +116,15 @@
                         <label for="ds_password">Senha:</label>
                         <asp:TextBox ID="TextBoxSenha" runat="server" TextMode="Password" CssClass="form-control"></asp:TextBox>
                         <i class="fa fa-key input-icon"></i>
-                    </div>
+                    </div>                                                          
+                    <%--C1213 - reCAPTCHA Invisible - Luara - 28/01/2023--%>
                     <%--C840 - reCAPTCHA - Luara - 21/02/2021--%>
                     <div class="container-recaptcha">
-                        <div class="g-recaptcha" data-sitekey="6LdyPlQaAAAAAL4lTVxy3cyCg0qODbU4J9S70ceD" aria-checked="undefined"></div>
-                    </div>
-                    <asp:Label Visible="false" ID="lblResult" runat="server" /> <%--Label que ficará visível apenas se o reCaptcha estiver errado--%>
+                        <div id="recaptcha" class="g-recaptcha" data-sitekey="6LcxEb8kAAAAAMzOMzL3zpaYcW2Pem70TY0-yHfq" data-callback="DoLogin" data-size="invisible"  aria-checked="undefined" ></div>                       
+                    </div> 
+                    <asp:Label Visible="false" ID="lblResult" runat="server" /> <%--Label que ficará visível apenas se o reCaptcha estiver errado--%>                    
                     
-                    <asp:Button CssClass="btn btn-block pro-btn btn-success" ID="bntEntrar" runat="server" OnClick="ButtonEntrar_Click" Text="Entrar" />
+                    <asp:Button CssClass="btn btn-block pro-btn btn-success" ID="bntEntrar" runat="server" OnClick="ButtonEntrar_Click" Text="Entrar" />                    
                                      
                     <div class="rodape-login">
                         <table style="width: 100%;">
@@ -117,8 +157,8 @@
                                 </td>
                             </tr>
                         </table>
-                    </div>
-                </form>
+                    </div>                    
+                </form>                             
                 <br />
                 <div class="alert alert-danger">
                     <h2>
@@ -129,11 +169,17 @@
                         <br>
                             Qualquer dúvida na utilização do sistema: (31) 98793-6212
                         </p>
-                    </h2>
-                </div>
+                    </h2>                    
+                </div>                
+                This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                <br />
+                <br />
             </div>
-        </div>
-    </div>
+        </div>        
+    </div>     
+    <script>
+        DoLoad();
+    </script>
     <%-- <asp:Label ID="LabelMensagem" runat="server" Text="Label" Visible="False"></asp:Label>--%>
 </body>
 </html>
