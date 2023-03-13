@@ -233,13 +233,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                      FROM actpp.OPERADORES OP,
                                           actpp.TIPO_OPERADOR TOP
                                     WHERE TOP.TO_ID_OP = OP.TO_ID_OP
-                                          AND UPPER(OP.OP_MAT) = ${MATRICULA}"); 
+                                          AND UPPER(OP.OP_MAT) = :MATRICULA"); 
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${MATRICULA}", string.Format("'{0}'", matricula.ToUpper()));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("MATRICULA", matricula.ToUpper());
+
+                    //query.Replace("${MATRICULA}", string.Format("'{0}'", matricula.ToUpper()));
 
                     #endregion
 
@@ -354,21 +357,29 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA USUÁRIO PELO ID ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT OP_ID_OP, OP_MAT, OP_NM, OP_CGO FROM ACTPP.OPERADORES WHERE OP_MAT = ${OP_MAT} AND OP_CGO = ${OP_CGO}");
+                    query.Append(@"SELECT OP_ID_OP, OP_MAT, OP_NM, OP_CGO FROM ACTPP.OPERADORES WHERE OP_MAT = :OP_MAT AND OP_CGO = :OP_CGO");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
                     if (matricula != null)
-                        query.Replace("${OP_MAT}", string.Format("'{0}'", matricula.ToUpper()));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("OP_MAT", matricula.ToUpper());
+                        //query.Replace("${OP_MAT}", string.Format("'{0}'", matricula.ToUpper()));
                     else
-                        query.Replace("${OP_MAT}", " ");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("OP_MAT", " ");
+                        //query.Replace("${OP_MAT}", " ");
 
                     if (cargo != null)
-                        query.Replace("${OP_CGO}", string.Format("'{0}'", cargo));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("OP_CGO", cargo);
+                        //query.Replace("${OP_CGO}", string.Format("'{0}'", cargo));
                     else
-                        query.Replace("${OP_CGO}", " ");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("OP_CGO", " ");
+                        //query.Replace("${OP_CGO}", " ");
 
                     #endregion
 
@@ -420,13 +431,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT U.ID, U.MATRICULA, U.NOME, U.NIVEL, U.MALETA, U.EMAIL, U.SENHA, P.PER_ABREVIADO 
                                     FROM USUARIOS U, PERFIS P 
                                         WHERE U.NIVEL = P.PER_ID_PER 
-                                            AND UPPER(U.MATRICULA) = ${MATRICULA}");
+                                            AND UPPER(U.MATRICULA) = :MATRICULA");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${MATRICULA}", string.Format("'{0}'", login.ToUpper()));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("MATRICULA", login.ToUpper());
+                    //query.Replace("${MATRICULA}", string.Format("'{0}'", login.ToUpper()));
 
                     #endregion
 
@@ -487,15 +500,19 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                      FROM actpp.OPERADORES OP,
                                           actpp.TIPO_OPERADOR TOP
                                     WHERE TOP.TO_ID_OP = OP.TO_ID_OP 
-                                          AND UPPER(OP.OP_MAT) = ${MATRICULA}
-                                          AND UPPER(OP.OP_SENHA) = ${SENHA}");
+                                          AND UPPER(OP.OP_MAT) = :MATRICULA
+                                          AND UPPER(OP.OP_SENHA) = :SENHA");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${MATRICULA}", string.Format("'{0}'", login.ToUpper()));
-                    query.Replace("${SENHA}", string.Format("'{0}'", senha.ToUpper()));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("MATRICULA", login.ToUpper());
+                    //query.Replace("${MATRICULA}", string.Format("'{0}'", login.ToUpper()));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("SENHA", senha.ToUpper());
+                    //query.Replace("${SENHA}", string.Format("'{0}'", senha.ToUpper()));
 
                     #endregion
 
@@ -596,13 +613,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA TOTAL DE ACESSOS ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT OP_ID_OP AS ID, OP_MAT AS MATRICULA, OP_NM AS NOME, OP_SENHA AS SENHA, OP_DT_SENHA AS CADASTRO, OP_PERMITE_LDL AS LDL, TO_ID_OP AS PERFIL_ID, OP_CPF AS CPF FROM ACTPP.OPERADORES WHERE OP_CPF = ${OP_CPF}");
+                    query.Append(@"SELECT OP_ID_OP AS ID, OP_MAT AS MATRICULA, OP_NM AS NOME, OP_SENHA AS SENHA, OP_DT_SENHA AS CADASTRO, OP_PERMITE_LDL AS LDL, TO_ID_OP AS PERFIL_ID, OP_CPF AS CPF FROM ACTPP.OPERADORES WHERE OP_CPF = :OP_CPF");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${OP_CPF}", string.Format("'{0}'", cpf));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("OP_CPF", cpf);
+                    //query.Replace("${OP_CPF}", string.Format("'{0}'", cpf));
 
                     #endregion
 
@@ -646,13 +665,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA TOTAL DE ACESSOS ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT OP_BS_ID AS ID, OP_BS_MAT AS MATRICULA, OP_BS_NM AS NOME, OP_PERMITE_LDL AS LDL, OP_CPF AS CPF FROM ACTPP.OPERADORES_BS WHERE OP_CPF = ${OP_CPF}");
+                    query.Append(@"SELECT OP_BS_ID AS ID, OP_BS_MAT AS MATRICULA, OP_BS_NM AS NOME, OP_PERMITE_LDL AS LDL, OP_CPF AS CPF FROM ACTPP.OPERADORES_BS WHERE OP_CPF = :OP_CPF");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${OP_CPF}", string.Format("'{0}'", cpf));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("OP_CPF", cpf);
+                    //query.Replace("${OP_CPF}", string.Format("'{0}'", cpf));
 
                     #endregion
 
@@ -701,13 +722,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA TOTAL DE ACESSOS ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT OP_ID_OP AS ID, OP_MAT AS MATRICULA, OP_NM AS NOME, OP_SENHA AS SENHA, OP_DT_SENHA AS CADASTRO, OP_PERMITE_LDL AS LDL, TO_ID_OP AS PERFIL_ID, OP_CPF AS CPF FROM ACTPP.OPERADORES WHERE UPPER(OP_MAT) = ${OP_MAT}");
+                    query.Append(@"SELECT OP_ID_OP AS ID, OP_MAT AS MATRICULA, OP_NM AS NOME, OP_SENHA AS SENHA, OP_DT_SENHA AS CADASTRO, OP_PERMITE_LDL AS LDL, TO_ID_OP AS PERFIL_ID, OP_CPF AS CPF FROM ACTPP.OPERADORES WHERE UPPER(OP_MAT) = :OP_MAT");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${OP_MAT}", string.Format("'{0}'", matricula.ToUpper()));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("OP_MAT", matricula.ToUpper());
+                    //query.Replace("${OP_MAT}", string.Format("'{0}'", matricula.ToUpper()));
 
                     #endregion
 
@@ -751,13 +774,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA TOTAL DE ACESSOS ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT OP_BS_ID AS ID, OP_BS_MAT AS MATRICULA, OP_BS_NM AS NOME, OP_PERMITE_LDL AS LDL, OP_CPF AS CPF FROM ACTPP.OPERADORES_BS WHERE UPPER(OP_BS_MAT) = ${OP_MAT}");
+                    query.Append(@"SELECT OP_BS_ID AS ID, OP_BS_MAT AS MATRICULA, OP_BS_NM AS NOME, OP_PERMITE_LDL AS LDL, OP_CPF AS CPF FROM ACTPP.OPERADORES_BS WHERE UPPER(OP_BS_MAT) = :OP_MAT");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${OP_MAT}", string.Format("'{0}'", matricula.ToUpper()));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("OP_MAT", matricula.ToUpper());
+                    //query.Replace("${OP_MAT}", string.Format("'{0}'", matricula.ToUpper()));
 
                     #endregion
 
