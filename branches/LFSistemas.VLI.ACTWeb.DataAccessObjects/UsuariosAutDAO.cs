@@ -383,12 +383,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             (BSO_ID, OP_BS_ID, SR_ID_STR, BS_OP_DT, BS_OP_ID_PAR, BS_OP_VLR_PAR, BS_OP_MAT, BS_OP_DT_ANT, BS_OP_ATIVO)
                                             SELECT ACTPP.BS_OPERADOR_ID.NEXTVAL,OPBS.OP_BS_ID, PBS_ID, SYSDATE,PBS_ID, PBS_VALOR, OPBS.OP_BS_MAT , ULT_SOL,'S' 
                                                 FROM ACTPP.PARAMETROS_BS PBS, ACTPP.OPERADORES_BS OPBS, (select max(bs_op_DT) AS ULT_SOL 
-                                                                                                FROM ACTPP.BS_OPERADOR WHERE OP_BS_ID = ${ID} 
-                                                                                                    AND SR_ID_STR = ${SUBTIPOS}) TESTE 
-                                                    WHERE PBS_ID = ${SUBTIPOS} AND OPBS.OP_BS_ID = ${ID}");
+                                                                                                FROM ACTPP.BS_OPERADOR WHERE OP_BS_ID = :ID 
+                                                                                                    AND SR_ID_STR = :SUBTIPOS) TESTE 
+                                                    WHERE PBS_ID = :SUBTIPOS AND OPBS.OP_BS_ID = :ID");
 
-                            query.Replace("${ID}", usuario.Usuario_ID);
-                            query.Replace("${SUBTIPOS}", usuario.Subtipos_BS);
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("ID", usuario.Usuario_ID);
+                            //query.Replace("${ID}", usuario.Usuario_ID);
+                            command.Parameters.Add("SUBTIPOS", usuario.Subtipos_BS);
+                            //query.Replace("${SUBTIPOS}", usuario.Subtipos_BS);
 
                             #endregion
 
@@ -450,13 +453,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT * FROM ACTPP.OPERADORES_BS WHERE UPPER (OP_BS_MAT) = ${MATRICULA}");
+                    query.Append(@"SELECT * FROM ACTPP.OPERADORES_BS WHERE UPPER (OP_BS_MAT) = :MATRICULA");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${MATRICULA}", string.Format("'{0}'", matricula.ToUpper()));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("MATRICULA", matricula.ToUpper());
+                    //query.Replace("${MATRICULA}", string.Format("'{0}'", matricula.ToUpper()));
 
                     #endregion
 
@@ -502,12 +507,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
                     query.Append(@"select * from actpp.operadores_bs
-                                                    where op_cpf = ${CPF}");
+                                                    where op_cpf = :CPF");
 
                     if (cpf != null)
-                        query.Replace("${CPF}", string.Format("'{0}'", cpf));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("CPF", cpf);
+                        //query.Replace("${CPF}", string.Format("'{0}'", cpf));
                     else
-                        query.Replace("${CPF}", " ");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("CPF", " ");
+                        //query.Replace("${CPF}", " ");
 
                     #endregion
 
@@ -555,12 +564,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
                     query.Append(@"SELECT * FROM ACTPP.BS_OPERADOR
-                                    WHERE OP_BS_ID = ${ID} AND BS_OP_ATIVO = 'S'");
+                                    WHERE OP_BS_ID = :ID AND BS_OP_ATIVO = 'S'");
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${ID}", string.Format("{0}", usuario_id));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("ID", usuario_id);
+                    //query.Replace("${ID}", string.Format("{0}", usuario_id));
 
                     #endregion
 
@@ -604,7 +615,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ INSERE USUÁRIO NO BANCO ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"UPDATE ACTPP.OPERADORES_BS SET OP_BS_MAT = ${MATRICULA}
+                    query.Append(@"UPDATE ACTPP.OPERADORES_BS SET OP_BS_MAT = :MATRICULA
                                     ${NOME}                                   
                                     ${CPF}  
                                     ${CORREDOR}
@@ -613,14 +624,19 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     ${EMPRESA}
                                     ${PERMITE_LDL}
                                     ${ATIVO_SN}
-                                    WHERE OP_BS_ID = ${ID}");
+                                    WHERE OP_BS_ID = :ID");
 
                     #endregion
 
                     #region [ PARÂMETRO ]
 
-                    query.Replace("${ID}", string.Format("{0}", usuario.Usuario_ID));
-                    query.Replace("${MATRICULA}", string.Format("'{0}'", usuario.Matricula));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("ID", usuario.Usuario_ID);
+                    //query.Replace("${ID}", string.Format("{0}", usuario.Usuario_ID));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("MATRICULA", usuario.Matricula);
+                    //query.Replace("${MATRICULA}", string.Format("'{0}'", usuario.Matricula));
+
                     query.Replace("${NOME}", string.Format(", OP_BS_NM = '{0}'", usuario.Nome));
                     query.Replace("${CPF}", string.Format(", OP_CPF = '{0}'", usuario.CPF));
                     query.Replace("${CORREDOR}", string.Format(", NM_COR_ID = '{0}'", usuario.ID_Corredor));
@@ -668,13 +684,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command2 = connection.CreateCommand();
                     query.Append(@"UPDATE ACTPP.OPERADORES_BS SET OP_ULTIMA_SOLICIT = SYSDATE
-                                    WHERE OP_CPF = ${CPF}");
+                                    WHERE OP_CPF = :CPF");
 
                     #endregion
 
                     #region [ PARÂMETRO ]
 
-                    query.Replace("${CPF}", string.Format("'{0}'", cpf));//CPF zerado
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command2.Parameters.Add("CPF", cpf);
+                    //query.Replace("${CPF}", string.Format("'{0}'", cpf));//CPF zerado
 
                     #endregion
 
@@ -757,14 +775,20 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         command.Dispose();
                         command = connection.CreateCommand();
                         query.Append(@"UPDATE ACTPP.BS_OPERADOR SET BS_OP_ATIVO = 'N' 
-                                    WHERE SR_ID_STR = ${SRT} AND OP_BS_ID = (SELECT OP_BS_ID FROM ACTPP.OPERADORES_BS WHERE OP_CPF = ${CPF}) 
+                                    WHERE SR_ID_STR = :SRT AND OP_BS_ID = (SELECT OP_BS_ID FROM ACTPP.OPERADORES_BS WHERE OP_CPF = :CPF) 
                                     AND BS_OP_ATIVO = 'S'  ");
 
                         #region [ PARÂMETRO ]
 
-                        query.Replace("${ID}", string.Format("{0}", usuarioID));
-                        query.Replace("${SRT}", string.Format("{0}", subtipo));
-                        query.Replace("${CPF}", string.Format("'{0}'", cpf));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ID", usuarioID);
+                        //query.Replace("${ID}", string.Format("{0}", usuarioID));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SRT", subtipo);
+                        //query.Replace("${SRT}", string.Format("{0}", subtipo));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("CPF", cpf);
+                        //query.Replace("${CPF}", string.Format("'{0}'", cpf));
 
                         #endregion
 
@@ -807,21 +831,27 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                   FROM ACTPP.PARAMETROS_BS PBS,
                                        ACTPP.OPERADORES_BS OPBS,
                                        ACTPP.BS_OPERADOR BOP      
-                                 WHERE PBS_ID = ${SRT} 
+                                 WHERE PBS_ID = :SRT 
                                     AND OPBS.OP_BS_ID = BOP.OP_BS_ID
                                     AND PBS.PBS_ID = BOP.BS_OP_ID_PAR
-                                    AND BOP.BS_OP_DT = (SELECT MAX(BS_OP_DT) FROM ACTPP.BS_OPERADOR A WHERE BOP.OP_BS_ID = A.OP_BS_ID AND A.SR_ID_STR = ${SRT})  
+                                    AND BOP.BS_OP_DT = (SELECT MAX(BS_OP_DT) FROM ACTPP.BS_OPERADOR A WHERE BOP.OP_BS_ID = A.OP_BS_ID AND A.SR_ID_STR = :SRT)  
                                     --AND BOP.BS_OP_ATIVO = 'S'
-                                    AND OPBS.OP_CPF =  ${CPF}   ");
+                                    AND OPBS.OP_CPF =  :CPF   ");
 
                         #region [ PARÂMETRO ]
 
-                        query2.Replace("${ID}", string.Format("{0}", usuarioID));
-                        query2.Replace("${SRT}", string.Format("{0}", subtipo));
-                        query2.Replace("${CPF}", string.Format("'{0}'", cpf));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ID", usuarioID);
+                        //query2.Replace("${ID}", string.Format("{0}", usuarioID));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SRT", subtipo);
+                        //query2.Replace("${SRT}", string.Format("{0}", subtipo));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("CPF", cpf);
+                        //query2.Replace("${CPF}", string.Format("'{0}'", cpf));
 
-                        query.Replace("${ID}", usuarioID);
-                        query.Replace("${SUBTIPOS}", subtipo);
+                        //query.Replace("${ID}", usuarioID);
+                        //query.Replace("${SUBTIPOS}", subtipo);
 
                         #endregion
 
@@ -925,13 +955,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
                     query.Append(@"UPDATE ACTPP.BS_OPERADOR SET BS_OP_ATIVO = 'N'
-                                    WHERE OP_BS_ID = ${ID}");
+                                    WHERE OP_BS_ID = :ID");
 
                     #endregion
 
                     #region [ PARÂMETRO ]
 
-                    query.Replace("${ID}", string.Format("{0}", usuario.Usuario_ID));    
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("ID", usuario.Usuario_ID);
+                    //query.Replace("${ID}", string.Format("{0}", usuario.Usuario_ID));    
 
                     #endregion
 

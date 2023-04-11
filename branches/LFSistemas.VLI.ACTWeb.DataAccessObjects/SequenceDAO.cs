@@ -29,13 +29,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA USUÁRIO PELO ID ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT ${TABELA} FROM DUAL");
+                    query.Append(@"SELECT :TABELA FROM DUAL");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${TABELA}", string.Format("{0}_ID.NEXTVAL", tabela));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("TABELA", string.Format("{0}_ID.NEXTVAL", tabela));
+                    //query.Replace("${TABELA}", string.Format("{0}_ID.NEXTVAL", tabela));
 
                     #endregion
 

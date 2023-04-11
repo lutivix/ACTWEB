@@ -31,7 +31,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA AS FUNCIONALIDADES ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT te.TE_COD_TER,di.SU_DSC_SUB,te.TE_TEM_TER,te.TE_DAT_LEI,te.TE_IND_FALHA,te.TE_IND_CRIT FROM TERMOMETRO te,DIVISAO di");
+                    query.Append(@"SELECT te.TE_COD_TER,di.SU_DSC_SUB,te.TE_TEM_TER,te.TE_DAT_LEI,te.TE_IND_FALHA,te.TE_IND_CRIT FROM TERMOMETRO te,DIVISAO di");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -87,7 +87,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           AND TER.TE_ID_TER NOT IN (101392, 99466, 100037, 100106, 100128, 100618, 100912, 100913, 100986, 100992, 101019, 101257, 103693, 103705, 102862)
                                           ${GT_ID_GRU}
                                           ${TE_IND_FALHA}
-                                ORDER BY ${ORDENACAO}");
+                                ORDER BY :ORDENACAO");
 
                     if (filtro.Corredor_ID != null)
                         query.Replace("${GT_ID_GRU}", string.Format("AND TER.GT_ID_GRU IN ({0})", filtro.Corredor_ID));
@@ -102,9 +102,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #endregion
 
                     if (ordenacao != null)
-                        query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
+                         //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ORDENACAO", ordenacao);
+                        //query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
                     else
-                        query.Replace("${ORDENACAO}", string.Format("EST.ES_COD_EST"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ORDENACAO", "EST.ES_COD_EST");
+                        //query.Replace("${ORDENACAO}", string.Format("EST.ES_COD_EST"));
 
                     #region [BUSCA NO BANCO ]
 
@@ -147,12 +151,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
                     query.Append(@"SELECT DISTINCT RC_ACAO FROM actpp.restricoes_circulacao  
-                                    WHERE EV_ID_ELM IN (SELECT DISTINCT EV_ID_ELM FROM actsct.minima_regiao WHERE TE_ID_TER = ${TE_ID_TER})
+                                    WHERE EV_ID_ELM IN (SELECT DISTINCT EV_ID_ELM FROM actsct.minima_regiao WHERE TE_ID_TER = :TE_ID_TER)
                                         AND RC_ACAO IN (1,2) 
                                         AND TR_ID_TP = 25 
                                         AND RC_ST = 'E'");
 
-                    query.Replace("${TE_ID_TER}", string.Format("{0}", Termometro_ID));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("TE_ID_TER", Termometro_ID);
+                    //query.Replace("${TE_ID_TER}", string.Format("{0}", Termometro_ID));
 
                     #endregion
 
@@ -198,7 +204,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
                     query.Append(@"SELECT TE.TE_ID_TER AS TERMOMETRO_ID, TE.TE_COD_TER AS ESTACAO
                                     FROM ACTSCT.TERMOMETRO TE
-                                    ORDER BY ESTACAO");
+                                    ORDER BY ESTACAO");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -251,7 +257,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             WHERE TE.TE_ID_TER = TL.TE_ID_TER
                                             ${TE_ID_TER}
                                             ${TL_DAT_LEI}
-                                        ORDER BY ${ORDENACAO}");
+                                        ORDER BY:ORDENACAO");
 
                         if (dataInicial != null && dataFinal != null)
                             query.Replace("${TL_DAT_LEI}", string.Format("AND TL.TL_DAT_LEI BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", dataInicial, dataFinal));
@@ -265,7 +271,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             WHERE TE.TE_ID_TER = TL.ID_TERMOMETRO 
                                             ${TE_ID_TER}
                                             ${TL_DAT_LEI}
-                                        ORDER BY ${ORDENACAO}");
+                                        ORDER BY :ORDENACAO");
 
                         if (dataInicial != null && dataFinal != null)
                             query.Replace("${TL_DAT_LEI}", string.Format("AND TL.DT_LEITURA_TERMOMETRO BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", dataInicial, dataFinal));
@@ -285,16 +291,24 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     if (int.Parse(termometro) < 1000)
                     {
                         if (ordenacao != null)
-                            query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("ORDENACAO", ordenacao);
+                            //query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
                         else
-                            query.Replace("${ORDENACAO}", string.Format("TL.TL_DAT_LEI DESC"));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("ORDENACAO", "TL.TL_DAT_LEI DESC");
+                            //query.Replace("${ORDENACAO}", string.Format("TL.TL_DAT_LEI DESC"))
                     }
                     else
                     {
                         if (ordenacao != null)
-                            query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("ORDENACAO", ordenacao);
+                            //query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
                         else
-                            query.Replace("${ORDENACAO}", string.Format("TL.DT_LEITURA_TERMOMETRO DESC"));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("ORDENACAO", "TL.DT_LEITURA_TERMOMETRO DESC");
+                            //query.Replace("${ORDENACAO}", string.Format("TL.DT_LEITURA_TERMOMETRO DESCC"))
                     }
 
                     #region [BUSCA NO BANCO ]
@@ -344,7 +358,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                              AND HT.ID_TIPO_OCORRENCIA = OT.ID_TIPO_OCORRENCIA
                                             ${TE_ID_TER}
                                             ${HT_DATA_OCORRENCIA}
-                                        ORDER BY ${ORDENACAO}");
+                                        ORDER BY :ORDENACAO");
 
                     if (termometro != null)
                         query.Replace("${TE_ID_TER}", string.Format("AND TE.TE_ID_TER IN ({0})", termometro));
@@ -360,9 +374,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
 
                     if (ordenacao != null)
-                        query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ORDENACAO", ordenacao);
+                    //query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
                     else
-                        query.Replace("${ORDENACAO}", string.Format("HT.HT_DATA_OCORRENCIA DESC"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ORDENACAO", "HT.HT_DATA_OCORRENCIA DESC");
+                    //query.Replace("${ORDENACAO}", string.Format("HT.HT_DATA_OCORRENCIA DESC"));
 
 
                     #region [BUSCA NO BANCO ]
@@ -415,7 +433,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         AND SB.EV_ID_ELM = EV.EV_ID_ELM
                                         AND MI.AC_ID_ACA = 1
                                         ${TE_ID_TER}
-                                    ORDER BY ${ORDENACAO}");
+                                    ORDER BY :ORDENACAO");
 
                     if (termometro != null)
                         query.Replace("${TE_ID_TER}", string.Format("AND TE.TE_ID_TER IN ({0})", termometro));
@@ -426,9 +444,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
 
                     if (ordenacao != null)
-                        query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ORDENACAO", ordenacao);
+                    //query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
                     else
-                        query.Replace("${ORDENACAO}", string.Format("EV.EV_NOM_MAC"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ORDENACAO", "EV.EV_NOM_MAC");
+                    //query.Replace("${ORDENACAO}", string.Format("EV.EV_NOM_MAC"));
 
 
                     #region [BUSCA NO BANCO ]
@@ -481,7 +503,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         AND SB.EV_ID_ELM = EV.EV_ID_ELM
                                         AND MR.AC_ID_ACA = 1
                                         ${TE_ID_TER}
-                                    ORDER BY ${ORDENACAO}");
+                                    ORDER BY :ORDENACAO");
 
                     if (termometro != null)
                         query.Replace("${TE_ID_TER}", string.Format("AND TE.TE_ID_TER IN ({0})", termometro));
@@ -492,9 +514,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
 
                     if (ordenacao != null)
-                        query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ORDENACAO", ordenacao);
+                    //query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
                     else
-                        query.Replace("${ORDENACAO}", string.Format("EV.EV_NOM_MAC"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ORDENACAO", "EV.EV_NOM_MAC");
+                    //query.Replace("${ORDENACAO}", string.Format("EV.EV_NOM_MAC"));
 
 
                     #region [BUSCA NO BANCO ]
@@ -541,11 +567,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT H.HT_ID_HISTORICO, O.DS_TIPO_OCORRENCIA 
                                     FROM ACTSCT.HISTORICO_TERMOMETRO H, ACTSCT.TIPO_OCORRENCIA O
                                         WHERE H.ID_TIPO_OCORRENCIA = O.ID_TIPO_OCORRENCIA
-                                            AND H.TE_ID_TER IN ${TE_ID_TER}
+                                            AND H.TE_ID_TER IN :TE_ID_TER
                                             AND ROWNUM = 1
                                     ORDER BY H.HT_ID_HISTORICO DESC");
 
-                    query.Replace("${TE_ID_TER}", string.Format("({0})", Termometro_ID));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("TE_ID_TER", Termometro_ID);
+                    //query.Replace("${TE_ID_TER}", string.Format("({0})", Termometro_ID));
 
                     #endregion
 

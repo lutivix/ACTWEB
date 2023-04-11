@@ -34,7 +34,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT ROT_ID_ROT,ROT_NOM_COR, ROT_NOM_ROT, ROT_PRF_TRM, ROT_DTE_PUB, ROT_ATV_SN FROM ROTAS_PRODUCAO");
+                    query.Append(@"SELECT ROT_ID_ROT,ROT_NOM_COR, ROT_NOM_ROT, ROT_PRF_TRM, ROT_DTE_PUB, ROT_ATV_SN FROM ROTAS_PRODUCAO");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -79,13 +79,17 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT ROT_ID_ROT,ROT_NOM_COR, ROT_NOM_ROT, ROT_PRF_TRM, ROT_DTE_PUB, ROT_ATV_SN FROM ROTAS_PRODUCAO WHERE ROT_ID_ROT = ${ROT_ID_ROT}");
+                    query.Append(@"SELECT ROT_ID_ROT,ROT_NOM_COR, ROT_NOM_ROT, ROT_PRF_TRM, ROT_DTE_PUB, ROT_ATV_SN FROM ROTAS_PRODUCAO WHERE ROT_ID_ROT = :ROT_ID_ROT");
 
 
                     if (ID != null)
-                        query.Replace("${ROT_ID_ROT}", string.Format("{0}", ID));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ROT_ID_ROT", ID);
+                        //query.Replace("${ROT_ID_ROT}", string.Format("{0}", ID));
                     else
-                        query.Replace("${ROT_ID_ROT}", string.Format(""));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ROT_ID_ROT", "");
+                       // query.Replace("${ROT_ID_ROT}", string.Format(""));
 
                     #endregion
 

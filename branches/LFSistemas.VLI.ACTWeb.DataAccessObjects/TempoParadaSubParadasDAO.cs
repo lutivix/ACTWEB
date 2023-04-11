@@ -43,7 +43,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           AND UTP.ID_SB = ELV.EV_ID_ELM
                                           AND ELV.EV_ID_ELM = ELE.EV_ID_ELM
                                           AND ELE.ES_ID_NUM_EFE = EST.ES_ID_NUM_EFE
-                                          AND EST.RG_ID_RG_CRT = RGC.RG_ID_RG_CRT");
+                                          AND EST.RG_ID_RG_CRT = RGC.RG_ID_RG_CRT");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -123,7 +123,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           /*${PERIODO}*/
                                           ${TREM}
                                           ${POSTOTRABALHO}
-                                    ORDER BY DT_INI_PARADA ");
+                                    ORDER BY DT_INI_PARADA ");//C1225 - Sem modificação!
 
                                            
                     //if (filtro.DataInicial != null && filtro.DataFinal != null)
@@ -193,7 +193,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                      FROM ACTPP.UNL_TRENS_PARADOS UTP,
                                           ACTPP.TRENS TRE
                                     WHERE TRE.TM_ID_TRM = UTP.ID_TREM_ACT
-                                          ${UTP_ID}");
+                                          ${UTP_ID}");//C1225 - Sem modificação!
 
                     query.Replace("${UTP_ID}", string.Format("AND UTP.UTP_ID ={0}", UTPID));
 
@@ -309,7 +309,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           TMP_USU_ID
                                      FROM ACTWEB.TMP_SUBPARADAS
                                     WHERE ${TMP_UTPS_ID}
-                                          ${TMP_USU_ID}");
+                                          ${TMP_USU_ID}");//C1225 - Sem modificação!
 
                     if (tmp.UTPS_ID != null)
                         query.Replace("${TMP_UTPS_ID}", string.Format("TMP_UTPS_ID = {0}", tmp.UTPS_ID));
@@ -377,7 +377,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                 ${TMP_DT_FIM_PARADA}, 
                                 ${TMP_USU_ID},
                                 ${TMP_TEMPO_PARADA},
-                                SYSDATE)");
+                                SYSDATE)");//C1225 - Sem modificação!
 
                     if (tmp.UTP_ID != null)
                         query.Replace("${TMP_UTP_ID}", string.Format("'{0}'", tmp.UTP_ID));
@@ -443,12 +443,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"DELETE FROM TMP_SUBPARADAS WHERE TMP_UTPS_ID = ${TMP_UTPS_ID}");
+                    query.Append(@"DELETE FROM TMP_SUBPARADAS WHERE TMP_UTPS_ID = :TMP_UTPS_ID");
 
                     if (Id != null)
-                        query.Replace("${TMP_UTPS_ID}", string.Format("{0}", Id));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("TMP_UTPS_ID", Id);
+                        //query.Replace("${TMP_UTPS_ID}", string.Format("{0}", Id));
                     else
-                        query.Replace("${TMP_UTPS_ID}", "NULL");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("TMP_UTPS_ID", "NULL");
+                        //query.Replace("${TMP_UTPS_ID}", "NULL");
 
                     command.CommandText = query.ToString();
                     var reader = command.ExecuteNonQuery();
@@ -510,7 +514,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           'D' /*DEFINITIVA*/ AS ORIGEM
                                      FROM ACTPP.UNL_TRENS_PARADOS_SUBPARADAS UTPS, ACTWEB.MOTIVO_PARADA MOT
                                     WHERE UTPS.COD_MOTIVO = MOT.MOT_AUTO_TRAC
-                                          ${UTP_ID}");
+                                          ${UTP_ID}");//C1225 - Sem modificação!
 
                     if (parada != null)
                         query.Replace("${TMP_UTP_ID}", string.Format(" AND TMP_UTP_ID = {0} ", parada));
