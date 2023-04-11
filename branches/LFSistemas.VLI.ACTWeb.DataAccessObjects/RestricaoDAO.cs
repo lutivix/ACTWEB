@@ -105,7 +105,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                             ${RC_OBS}
                                                             ${TR_COD_TP})
                                                             
-                                        order by Data_inicial desc, Situacao, Secao_Elemento");
+                                        order by Data_inicial desc, Situacao, Secao_Elemento");//C1225 - Sem modificação!
 
                     if (filtro.RestricaoID != null)
                     {
@@ -272,7 +272,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
                     query.Append(@"select RP.RP_ID_RP IDREST from actpp.RESTRICOES_PROGRAMADAS RP 
-                                      WHERE RP.EV_ID_ELM IN (${IdElementoVia}) 
+                                      WHERE RP.EV_ID_ELM IN (:IdElementoVia) 
                                         ${IdTipoRestricao}
                                         ${IdSubtipoRestricao}
                                         ${DataInicio}
@@ -284,7 +284,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                    UNION
                                    select RP.RP_ID_RP IDREST from actpp.RESTRICOES_PROGRAMADAS RP, ACTPP.RESTRICOES_CIRCULACAO RC 
                                       WHERE RP.RP_ID_RP = RC.RP_ID_RP
-                                        AND RP.EV_ID_ELM IN (${IdElementoVia}) 
+                                        AND RP.EV_ID_ELM IN (:IdElementoVia) 
                                         ${IdTipoRestricao}
                                         ${IdSubtipoRestricao}
                                         ${DataInicio}
@@ -295,9 +295,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         AND RP_ST_RP IN('R')");
 
                     if (IdElementoVia != null)
-                        query.Replace("${IdElementoVia}", string.Format("{0}", IdElementoVia));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("IdElementoVia", IdElementoVia);
+                        //query.Replace("${IdElementoVia}", string.Format("{0}", IdElementoVia));
                     else
-                        query.Replace("${IdElementoVia}", " ");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("IdElementoVia", "");
+                        //query.Replace("${IdElementoVia}", " ");
 
                     if (IdTipoRestricao != null)
                         query.Replace("${IdTipoRestricao}", string.Format(" AND RP.TR_ID_TP  IN ({0})", IdTipoRestricao));
@@ -393,10 +397,10 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"SELECT RP_ID_RP ID_REST
                                       FROM actpp.RESTRICOES_PROGRAMADAS RP
-                                     WHERE     EV_ID_ELM IN (${IdElementoVia})
+                                     WHERE     EV_ID_ELM IN (:IdElementoVia)
                                            --AND RP_ST_RP IN ('C', 'R')              
                                            AND RP_ST_RP IN ('E','M','P')
-                                           AND SR_ID_STR IN (${IdSubtipo})
+                                           AND SR_ID_STR IN (:IdSubtipo)
                                            AND RP.RP_KM_FIM >= ${kmIni}
                                            AND RP.RP_KM_INI <= ${kmFim}
                                            AND (
@@ -414,10 +418,10 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                    UNION
                                    SELECT RC_ID_RC ID_REST
                                         FROM actpp.RESTRICOES_CIRCULACAO RC
-                                     WHERE     EV_ID_ELM IN (${IdElementoVia})
+                                     WHERE     EV_ID_ELM IN (:IdElementoVia)
                                            --AND RP_ST_RP IN ('C', 'R')              
                                            AND RC_ST IN ('E','M','P')
-                                           AND SR_ID_STR IN (${IdSubtipo})
+                                           AND SR_ID_STR IN (:IdSubtipo)
                                            AND RC.RC_KM_FIM >= ${kmIni}
                                            AND RC.RC_KM_INI <= ${kmFim}
                                            AND (
@@ -436,14 +440,22 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     DateTime agora = DateTime.Now;
 
                     if (IdElementoVia != null)
-                        query.Replace("${IdElementoVia}", string.Format("{0}", IdElementoVia));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("IdElementoVia", IdElementoVia);
+                        //query.Replace("${IdElementoVia}", string.Format("{0}", IdElementoVia));
                     else
-                        query.Replace("${IdElementoVia}", " ");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("IdElementoVia", " ");
+                        //query.Replace("${IdElementoVia}", " ");
 
                     if (subtipo != null)
-                        query.Replace("${IdSubtipo}", string.Format("{0}", subtipo));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("IdSubtipo", subtipo);
+                        //query.Replace("${IdSubtipo}", string.Format("{0}", subtipo));
                     else
-                        query.Replace("${IdSubtipo}", " ");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("IdSubtipo", " ");
+                        //query.Replace("${IdSubtipo}", " ");
 
                     if (KmInicio != null)
                         query.Replace("${kmIni}", string.Format("{0:F3}", KmInicio.ToString().Replace(",", ".")));
@@ -528,15 +540,19 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
                     query.Append(@"select * from actpp.RESTRICOES_CIRCULACAO 
-                                      WHERE EV_ID_ELM IN (${IdElementoVia})
+                                      WHERE EV_ID_ELM IN (:IdElementoVia)
                                         AND TR_ID_TP IN (26)
                                         AND SR_ID_STR IN (3) 
                                         AND RC_ST != 'R'");
 
                     if (IdElementoVia != null)
-                        query.Replace("${IdElementoVia}", string.Format("{0}", IdElementoVia));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("IdElementoVia", IdElementoVia);
+                        //query.Replace("${IdElementoVia}", string.Format("{0}", IdElementoVia));
                     else
-                        query.Replace("${IdElementoVia}", " ");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("IdElementoVia", " ");
+                        //query.Replace("${IdElementoVia}", " ");
 
                     #endregion
 
@@ -650,12 +666,17 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT * FROM actpp.interdicao_motivo im, actpp.ocupacoes_ldl oldl, actpp.restricoes_circulacao rc
                                             WHERE     OLDL.LDL_ID = IM.OL_ID_OL
                                                       AND RC.AI_ID_AI = IM.AI_ID_AI
-                                                      AND RC.EV_ID_ELM IN (${SB})");
+                                                      AND RC.EV_ID_ELM IN (:SB)");
 
                     if (SB != null)
-                        query.Replace("${SB}", string.Format("{0}", SB));
+                        
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SB", SB);
+                        //query.Replace("${SB}", string.Format("{0}", secao.ToString()));
                     else
-                        query.Replace("${SB}", " ");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SB", "0");
+                        //query.Replace("${SB}", "0");
 
                     #endregion
 
@@ -821,12 +842,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     FROM ACTPP.ELEM_VIA EV, ACTPP.ELEM_VIA_FLAG EVF
                                         WHERE EV.EV_ID_ELM = EVF.EV_ID_ELM
                                             AND EVF.EF_IND_SRR_PRG = 'T'
-                                            AND EV.EV_ID_ELM = ${SB}");
+                                            AND EV.EV_ID_ELM = :SB");
 
                     if (secao != 0)
-                        query.Replace("${SB}", string.Format("{0}", secao.ToString()));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SB", secao);
+                        //query.Replace("${SB}", string.Format("{0}", secao.ToString()));
                     else
-                        query.Replace("${SB}", "0");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SB", "0");
+                        //query.Replace("${SB}", "0");
                    
                     #endregion
 
@@ -875,12 +900,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT * 
                                         FROM ACTPP.ELEM_VIA EV
                                             WHERE EV.EV_IND_IN = 'E'  
-                                            AND EV.EV_ID_ELM = ${SB}");
+                                            AND EV.EV_ID_ELM = :SB");
 
                     if (secao != 0)
-                        query.Replace("${SB}", string.Format("{0}", secao.ToString()));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SB", secao);
+                        //query.Replace("${SB}", string.Format("{0}", secao.ToString()));
                     else
-                        query.Replace("${SB}", "0");
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SB", "0");
+                        //query.Replace("${SB}", "0");
 
                     #endregion
 
@@ -930,21 +959,28 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"select  OP_BS_MAT, OP_BS_NM, BS_OP_ATIVO, OP_PERFIL_ATIVO 
                                     from actpp.OPERADORES_BS OBS, actpp.bs_operador BO 
-                                      WHERE OP_CPF IN (${cpf}) 
+                                      WHERE OP_CPF IN (:cpf) 
                                         AND OBS.OP_BS_ID = BO.OP_BS_ID
-                                        AND BO.SR_ID_STR IN (${subtipoVR})
+                                        AND BO.SR_ID_STR IN (:subtipoVR)
                                         AND BO.BS_OP_ATIVO = 'S'");
 
                     if (cpf != null)
-                        query.Replace("${cpf}", string.Format("'{0}'", cpf));//C789 - CPF com 0 na frente
-                        //query.Replace("${CPF}", string.Format("'{0}'", CPF));//C789 - CPF com 0 na frente
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("CPF", cpf);
+                    //query.Replace("${cpf}", string.Format("'{0}'", cpf));//cpf 0 na frente
                     else
-                        query.Replace("${cpf}", " ");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("CPF", " ");
+                    //query.Replace("${cpf}", " ");
 
                     if (subtipoVR != null)
-                        query.Replace("${subtipoVR}", string.Format("{0}", subtipoVR));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("subtipoVR", subtipoVR);
+                    //query.Replace("${subtipoVR}", string.Format("{0}", subtipoVR));
                     else
-                        query.Replace("${subtipoVR}", " ");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("subtipoVR", subtipoVR);
+                    //query.Replace("${subtipoVR}", " ");
 
 
                     #endregion
@@ -995,21 +1031,29 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"select OP_BS_MAT, OP_BS_NM, BS_OP_ATIVO, OP_PERFIL_ATIVO 
                                         from actpp.OPERADORES_BS OBS, actpp.bs_operador BO 
-                                      WHERE OP_CPF IN (${cpf}) 
+                                      WHERE OP_CPF IN (:cpf) 
                                         AND OBS.OP_BS_ID = BO.OP_BS_ID
-                                        AND BO.SR_ID_STR IN (${subtipoVR})
+                                        AND BO.SR_ID_STR IN (:subtipoVR)
                                         AND BO.BS_OP_ATIVO = 'S'
                                         AND (bs_op_vlr_par - (sysdate - bs_op_dt)) > 0 ");
 
                     if (cpf != null)
-                        query.Replace("${cpf}", string.Format("'{0}'", cpf));//cpf 0 na frente
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("CPF", cpf);
+                        //query.Replace("${cpf}", string.Format("'{0}'", cpf));//cpf 0 na frente
                     else
-                        query.Replace("${cpf}", " ");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("CPF", " ");
+                        //query.Replace("${cpf}", " ");
 
                     if (subtipoVR != null)
-                        query.Replace("${subtipoVR}", string.Format("{0}", subtipoVR));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("subtipoVR", subtipoVR);
+                        //query.Replace("${subtipoVR}", string.Format("{0}", subtipoVR));
                     else
-                        query.Replace("${subtipoVR}", " ");
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("subtipoVR", subtipoVR);
+                        //query.Replace("${subtipoVR}", " ");
 
 
                     #endregion
@@ -1061,12 +1105,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     WHERE OBS.OP_BS_ID = BSOP.OP_BS_ID
                                     AND BSOP.SR_ID_STR = 7 AND BSOP.BS_OP_ATIVO = 'S'  
                                     AND (bs_op_vlr_par - (SYSDATE - bs_op_dt)) > 0
-                                    AND OP_CPF = ${CPF}");
+                                    AND OP_CPF = :CPF");
 
                     if (cpf != null)
-                        query.Replace("${CPF}", string.Format("'{0}'", cpf));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("CPF", cpf);
+                        //query.Replace("${CPF}", string.Format("'{0}'", cpf));
                     else
-                        query.Replace("${CPF}", " ");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("CPF", " ");
+                        //query.Replace("${CPF}", " ");
 
                     #endregion
 
@@ -1147,7 +1195,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                           AND A.RP_ST_RP = 'P' 
                                                           AND A.TR_ID_TP > 1
                                                           ${PROGRAMADA_ID})
-                                        order by Situacao, Data_inicial desc, Secao_Elemento");
+                                        order by Situacao, Data_inicial desc, Secao_Elemento");//C1225 - Sem modificação!
 
                         query.Replace("${PROGRAMADA_ID}", string.Format("AND A.RP_ID_RP IN ({0})", ID));
                     }
@@ -1165,7 +1213,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                           AND A.RC_ST = 'E' 
                                                           AND A.TR_ID_TP > 1
                                                           ${CIRCULACAO_ID})
-                                        order by Situacao, Data_inicial desc, Secao_Elemento");
+                                        order by Situacao, Data_inicial desc, Secao_Elemento");//C1225 - Sem modificação!
 
                         query.Replace("${CIRCULACAO_ID}", string.Format("AND A.RC_ID_RC IN ({0})", ID));
                     }
@@ -1218,7 +1266,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"SELECT tr_cod_tp TIPO, ev_nom_mac SB, rc_dt_ini_rlz DATA, rc_vel_max VEL, rc_km_ini KM_INI, rc_km_fim KM_FIM, rc_obs OBSERVACAO, nm_cor_id CORREDOR 
                                     from ACTPP.restricoes_circulacao rc, ACTPP.elem_via ev, ACTPP.tipos_restricao tr 
-                                        where rc_st = 'E' and ev.ev_id_elm = rc.ev_id_elm and rc.tr_id_tp=tr.tr_id_Tp");
+                                        where rc_st = 'E' and ev.ev_id_elm = rc.ev_id_elm and rc.tr_id_tp=tr.tr_id_Tp");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -1271,7 +1319,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     from ACTPP.restricoes_circulacao rc, ACTPP.elem_via ev, ACTPP.tipos_restricao tr 
                                         where ev.ev_id_elm = rc.ev_id_elm 
                                             and rc.tr_id_tp=tr.tr_id_Tp 
-                                            and rc_dt_ini_rlz > to_date('" + dataInicial + "','dd/mm/yyyy hh24:mi') and rc_dt_ini_rlz < to_date('" + dataFinal + "','dd/mm/yyyy hh24:mi') ${CORREDOR} ${SECAO} ${TR_COD_TP} ORDER BY rc_dt_ini_rlz desc");
+                                            and rc_dt_ini_rlz > to_date('" + dataInicial + "','dd/mm/yyyy hh24:mi') and rc_dt_ini_rlz < to_date('" + dataFinal + "','dd/mm/yyyy hh24:mi') ${CORREDOR} ${SECAO} ${TR_COD_TP} ORDER BY rc_dt_ini_rlz desc");//C1225 - Sem modificação!
 
                     if (!string.IsNullOrEmpty(corredores))
                         query.Replace("${CORREDOR}", string.Format("AND NM_COR_ID IN ({0})", corredores));
@@ -1338,7 +1386,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         where ev.ev_id_elm = rc.ev_id_elm 
                                           and rc.tr_id_tp=tr.tr_id_Tp 
                                           and rc_dt_fim_rlz > sysdate -3
-                                          and rc.tr_id_tp = 25 ORDER BY rc_dt_ini_rlz");
+                                          and rc.tr_id_tp = 25 ORDER BY rc_dt_ini_rlz");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -1400,7 +1448,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                       AND A.EV_ID_ELM = C.EV_ID_ELM 
                                       AND A.RC_ST     = 'E' 
                                       AND A.TR_ID_TP > 1
-                                order by Sb");
+                                order by Sb");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -1461,7 +1509,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                               AND A.EV_ID_ELM = C.EV_ID_ELM 
                                               AND A.RC_ST     = 'E' 
                                               AND A.TR_ID_TP > 1
-                                    ) order by TR_COD_TP");
+                                    ) order by TR_COD_TP");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -1520,7 +1568,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                               AND A.RC_ST     = 'E' 
                                               AND A.SR_ID_STR IS NOT NULL
                                               AND A.TR_ID_TP > 1
-                                    ) order by SR_COD_STR");
+                                    ) order by SR_COD_STR");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -1571,7 +1619,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"SELECT EV_ID_ELM, EV_NOM_MAC FROM ACTPP.ELEM_VIA       
                                        WHERE TE_ID_TP = 3 and ev_nom_mac != 'SBERRADA' 
-                                       ORDER BY EV_NOM_MAC");
+                                       ORDER BY EV_NOM_MAC");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -1623,8 +1671,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"SELECT TR_ID_TP AS ID, TR_COD_TP AS CODIGO, UPPER(TR_DSC_TP_RT) AS DESCRICAO 
                                         FROM ACTPP.TIPOS_RESTRICAO Tipos_restricao     
-                                        WHERE TR_ID_TP not in (1, 2, 3, 4, 17, 27, 30, 32, 34, 37, 38, 44)
-                                        ORDER BY TR_DSC_TP_RT");
+                                        WHERE TR_ID_TP not in (1, 2, 3, 4, 17, 25, 27, 30, 32, 34, 37, 38, 44)
+                                        ORDER BY TR_DSC_TP_RT");//C1226 - retirada do tipo de temperatura (25) -  21/03/2023  //C1225 - Sem modificação!
 
                     #endregion
 
@@ -1694,7 +1742,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select actpp.restricoes_circulacao_id.NextVal from dual");
+                    query.Append(@"select actpp.restricoes_circulacao_id.NextVal from dual");//C1225 - Sem modificação!
 
 
                     #endregion
@@ -1740,7 +1788,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select actpp.restricoes_circulacao_id.NextVal from dual");
+                    query.Append(@"select actpp.restricoes_circulacao_id.NextVal from dual");//C1225 - Sem modificação!
 
 
                     #endregion
@@ -1787,7 +1835,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select rc_id_rco  from ACTPP.restricoes_circulacao where ${rc_id_rco}");
+                    query.Append(@"select rc_id_rco  from ACTPP.restricoes_circulacao where ${rc_id_rco}");//C1225 - Sem modificação!
 
                     query.Replace("${rc_id_rco}", string.Format(" rc_id_rco = {0}", id));
 
@@ -1836,7 +1884,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"select rc_id_rco from ACTPP.restricoes_programadas 
                                             where ${rc_id_rco}
-                                                AND RP_ST_RP IN ('P','X','M')");
+                                                AND RP_ST_RP IN ('P','X','M')");//C1225 - Sem modificação!
 
                     query.Replace("${rc_id_rco}", string.Format(" rc_id_rco = {0}", id));
 
@@ -1888,7 +1936,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                      WHERE ${rc_id_rco}
                                             AND RP.RP_ID_RP = RC.RP_ID_RP 
                                             AND RP.RP_ST_RP = 'R'
-                                            AND RC.RC_ST =  'E'");
+                                            AND RC.RC_ST =  'E'");//C1225 - Sem modificação!
 
                     query.Replace("${rc_id_rco}", string.Format(" rp.rc_id_rco = {0}", id));
 
@@ -1936,7 +1984,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select rc_id_rco  from ACTPP.restricoes_programadas where ${rc_id_rco} and RP_ST_RP = 'M'");
+                    query.Append(@"select rc_id_rco  from ACTPP.restricoes_programadas where ${rc_id_rco} and RP_ST_RP = 'M'");//C1225 - Sem modificação!
 
                     query.Replace("${rc_id_rco}", string.Format(" rc_id_rco = {0}", id));
 
@@ -1984,7 +2032,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select rc_id_rco  from ACTPP.restricoes_programadas where ${rc_id_rco} and RP_ST_RP = 'X'");
+                    query.Append(@"select rc_id_rco  from ACTPP.restricoes_programadas where ${rc_id_rco} and RP_ST_RP = 'X'");//C1225 - Sem modificação!
 
                     query.Replace("${rc_id_rco}", string.Format(" rc_id_rco = {0}", id));
 
@@ -2045,7 +2093,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                 select ('Fim: ' || pe.pe_km_pe) as quilometro, pe.pe_km_pe, pe.pe_ind_ini_fim indicador from ACTPP.pontos_gps_elemento pe                                                                
                                     where ${IdSecao}                                            
                                       and pe.pe_ind_ini_fim = 'F'                                                                
-                                order by indicador desc");
+                                order by indicador desc");//C1225 - Sem modificação!
 
 
                     query.Replace("${IdSecao}", string.Format(" pe.ev_id_elm = {0}", pulngIdSecao));
@@ -2128,7 +2176,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                 select ('Fim: ' || pe.pe_km_pe) as quilometro, pe.pe_km_pe, pe.pe_ind_ini_fim indicador from ACTPP.pontos_gps_elemento pe                                                                
                                     where ${IdSecao}                                            
                                       and pe.pe_ind_ini_fim = 'F'                                                                
-                                order by indicador desc");
+                                order by indicador desc");//C1225 - Sem modificação!
 
 
                     query.Replace("${IdSecao}", string.Format(" pe.ev_id_elm = {0}", pulngIdSecao));
@@ -2175,7 +2223,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
                     query.Append(@"SELECT TLR_LIMITE, TLR_INI_LIMITE
-                                   FROM TEMPO_LIMITE_RESTRICOES WHERE UPPER(TLR_TIPO) = UPPER('VR')");
+                                   FROM TEMPO_LIMITE_RESTRICOES WHERE UPPER(TLR_TIPO) = UPPER('VR')");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -2217,7 +2265,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         /// <param name="rr">[ Restricao ]: - Objeto Restrição</param>
         /// <param name="aux_Usuario_Logado">[ string ]: - Matricula do usuário logado</param>
         /// <returns>Retorna true se o a restrição foi criada ou false caso contrário</returns>
-        public bool SendMessageCRE(Restricao rr, string aux_Usuario_Logado)
+        public bool SendMessageCRE(Restricao rr, string aux_Usuario_Logado)//C1225 - Sem modificação! (Não é utilizado)
         {
             #region [ PROPRIEDADES ]
 

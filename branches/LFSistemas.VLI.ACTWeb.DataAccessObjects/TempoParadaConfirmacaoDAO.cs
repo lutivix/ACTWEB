@@ -43,7 +43,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           AND UTP.ID_SB = ELV.EV_ID_ELM
                                           AND ELV.EV_ID_ELM = ELE.EV_ID_ELM
                                           AND ELE.ES_ID_NUM_EFE = EST.ES_ID_NUM_EFE
-                                          AND EST.RG_ID_RG_CRT = RGC.RG_ID_RG_CRT");
+                                          AND EST.RG_ID_RG_CRT = RGC.RG_ID_RG_CRT");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -122,7 +122,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           ${PERIODO}
                                           ${TREM}
                                           ${POSTOTRABALHO}
-                                    ORDER BY DT_INI_PARADA ");
+                                    ORDER BY DT_INI_PARADA ");//C1225 - Sem modificação!
 
 
                     if (filtro.DataInicial != null && filtro.DataFinal != null)

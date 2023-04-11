@@ -168,7 +168,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             }
 
                             var aux = string.Join(",", trens);
-                            query.Replace("${TM_PRF_ACT}", string.Format("AND UPPER(T.TM_PRF_ACT) IN ({0})", aux));
+                            query.Replace("${TM_PRF_ACT}", string.Format("AND UPPER(T.TM_PRF_ACT) IN ({0})", aux));//C1225 - Sem modificação!
                         }
                         else
                             query.Replace("${TM_PRF_ACT}", string.Format("AND T.TM_PRF_ACT IN ('{0}')", trem.ToUpper()));
@@ -223,7 +223,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         WHERE T.LOC_ID_NUM_LOCO = L.LOC_ID_NUM_LOCO 
                                              AND T.ST_ID_SIT_TREM = 4
                                              AND T.TM_PRF_ACT != 'X000'
-                                             ORDER BY PREFIXO");
+                                             ORDER BY PREFIXO");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -274,14 +274,19 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                              AND PB_ID_PB IN ( SELECT MAX(PB_ID_PB) AS PB_ID_PB 
                                                                 FROM ACTPP.POSICOES_RECEBIDAS 
                                                                     WHERE PB_MSG_TIME > SYSDATE -1 
-                                                                        AND PB_MCT_ADDR = ${MCT_ID_MCT} )");
+                                                                        AND PB_MCT_ADDR = :MCT_ID_MCT )");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
                     if (mct_id != null)
-                        query.Replace("${MCT_ID_MCT}", string.Format("{0}", mct_id));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("MCT_ID_MCT", mct_id);
+                        //query.Replace("${MCT_ID_MCT}", string.Format("{0}", mct_id));
+                    else
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("MCT_ID_MCT", " ");
 
                     #endregion
 
@@ -341,14 +346,19 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             AND LL.MCT_ID_MCT = MM.MCT_ID_MCT
                                             AND TT.ST_ID_SIT_TREM = 4 
                                             AND MM.MCT_ID_MCT <> '499683'
-                                            AND MM.MCT_ID_MCT = ${MCT_ID_MCT}");
+                                            AND MM.MCT_ID_MCT = :MCT_ID_MCT");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
                     if (mct_id_mct != null)
-                        query.Replace("${MCT_ID_MCT}", string.Format("{0}", mct_id_mct));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("MCT_ID_MCT", mct_id_mct);
+                    //query.Replace("${MCT_ID_MCT}", string.Format("{0}", mct_id));
+                    else
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("MCT_ID_MCT", " ");
 
                     #endregion
 

@@ -62,7 +62,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 ${GRU_NOME}
                                                 ${CT_ID_CAT})
                                                 WHERE LINHA = 1 
-                                        ORDER BY  DT_INI_PARADA");
+                                        ORDER BY  DT_INI_PARADA");//C1225 - Sem modificação!
 
                     if (filtro.Corredor_ID != string.Empty && filtro.Corredor_ID != null)
                         query.Replace("${NM_COR_ID}", string.Format("AND NC.NM_COR_ID IN ({0})", filtro.Corredor_ID));
@@ -178,14 +178,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 AND NOT T.TM_PRF_ACT LIKE 'H%' 
                                                 AND NOT T.TM_PRF_ACT LIKE 'L%' 
                                                 AND NOT T.TM_PRF_ACT LIKE 'V%'
-                                                AND T.TM_ID_TRM = ${TM_ID_TRM}
+                                                AND T.TM_ID_TRM = :TM_ID_TRM
                                                 /*MEDIDA PROVISÓRIA PARA NÃO EXIBIR OS CÓDIGOS 9 E 46 E CORREDOR BAIXADA*/
                                                 AND COD_MOTIVO NOT IN (9, 46))
                                                 WHERE LINHA = 1 
                                         ORDER BY  DT_INI_PARADA");
 
 
-                    query.Replace("${TM_ID_TRM}", string.Format("{0}", Trem_id));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("TM_ID_TRM", Trem_id);
+                    //query.Replace("${TM_ID_TRM}", string.Format("{0}", Trem_id));
 
 
                     #endregion
@@ -242,7 +244,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                      FROM ACTPP.UNL_TRENS_PARADOS_SUBPARADAS UTPS, 
                                           ACTWEB.MOTIVO_PARADA MOT
                                     WHERE UTPS.COD_MOTIVO = MOT.MOT_AUTO_TRAC
-                                       ${UTP_ID}");
+                                       ${UTP_ID}");//C1225 - Sem modificação!
 
                     if (utp_id != string.Empty && utp_id != null)
                         query.Replace("${UTP_ID}", string.Format("AND UTPS.UTP_ID = {0}", utp_id));
@@ -307,12 +309,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"UPDATE ACTPP.UNL_TRENS_PARADOS SET COD_MOT_DESPACHADOR = ${COD_MOT_DESPACHADOR} 
+                    query.Append(@"UPDATE ACTPP.UNL_TRENS_PARADOS SET COD_MOT_DESPACHADOR = :COD_MOT_DESPACHADOR 
                                     WHERE DT_FIM_PARADA IS NULL 
-                                        AND ID_TREM_ACT IN (SELECT ID_TREM_ACT FROM ACTPP.UNL_TRENS_PARADOS WHERE DT_FIM_PARADA IS NULL AND ID_TREM_ACT = ${TM_ID_TRM})");
+                                        AND ID_TREM_ACT IN (SELECT ID_TREM_ACT FROM ACTPP.UNL_TRENS_PARADOS WHERE DT_FIM_PARADA IS NULL AND ID_TREM_ACT = :TM_ID_TRM)");
 
-                    query.Replace("${COD_MOT_DESPACHADOR}", string.Format("'{0}'", para));
-                    query.Replace("${TM_ID_TRM}", string.Format("{0}", trem_id));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("COD_MOT_DESPACHADOR", para);
+                    //query.Replace("${COD_MOT_DESPACHADOR}", string.Format("'{0}'", para));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("TM_ID_TRM", trem_id);
+                    //query.Replace("${TM_ID_TRM}", string.Format("{0}", trem_id));
 
 
                     #endregion
@@ -366,9 +372,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"UPDATE ACTPP.UNL_TRENS_PARADOS SET  DT_FIM_PARADA = SYSDATE
                                     WHERE DT_FIM_PARADA IS NULL 
-                                        AND ID_TREM_ACT IN (SELECT ID_TREM_ACT FROM ACTPP.UNL_TRENS_PARADOS WHERE DT_FIM_PARADA IS NULL AND ID_TREM_ACT = ${TM_ID_TRM})");
+                                        AND ID_TREM_ACT IN (SELECT ID_TREM_ACT FROM ACTPP.UNL_TRENS_PARADOS WHERE DT_FIM_PARADA IS NULL AND ID_TREM_ACT = :TM_ID_TRM)");
 
-                    query.Replace("${TM_ID_TRM}", string.Format("{0}", trem_id));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("TM_ID_TRM", trem_id);
+                    //query.Replace("${TM_ID_TRM}", string.Format("{0}", trem_id));
 
 
                     #endregion
@@ -434,7 +442,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           ${FILTRO_GRUPO}
                                           ${FILTRO_MOTIVO}
                                           ${FILTRO_PERIODO}
-                                        ORDER BY TREM_ID, APURACAO DESC,  SB");
+                                        ORDER BY TREM_ID, APURACAO DESC,  SB");//C1225 - Sem modificação!
                     }
 
                     // -- TEM: CORREDOR -- NÃO: ROTA E SUBROTA
@@ -454,7 +462,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           ${FILTRO_GRUPO}
                                           ${FILTRO_MOTIVO}
                                           ${FILTRO_PERIODO}
-                                        ORDER BY TREM_ID, APURACAO DESC,  SB");
+                                        ORDER BY TREM_ID, APURACAO DESC,  SB");//C1225 - Sem modificação!
                     }
                     //-- TEM: ROTA -- NÃO: SUBROTA
                     else if (!string.IsNullOrEmpty(filtro.Rota_ID) && string.IsNullOrEmpty(filtro.SubRota_ID))
@@ -476,7 +484,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           ${FILTRO_GRUPO}
                                           ${FILTRO_MOTIVO}
                                           ${FILTRO_PERIODO}
-                                        ORDER BY TREM_ID, APURACAO DESC,  SB");
+                                        ORDER BY TREM_ID, APURACAO DESC,  SB");//C1225 - Sem modificação!
                     }
                     //-- TEM: SUBROTA -- NÃO: ROTA
                     else if (!string.IsNullOrEmpty(filtro.SubRota_ID) && string.IsNullOrEmpty(filtro.Rota_ID))
@@ -501,7 +509,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           ${FILTRO_SB}
                                           ${FILTRO_GRUPO}
                                           ${FILTRO_MOTIVO}
-                                        ORDER BY TREM_ID, APURACAO DESC,  SB");
+                                        ORDER BY TREM_ID, APURACAO DESC,  SB");//C1225 - Sem modificação!
                     }
                     //-- TEM: SUBROTA -- TEM: ROTA
                     else if (!string.IsNullOrEmpty(filtro.Rota_ID) && !string.IsNullOrEmpty(filtro.SubRota_ID))
@@ -526,7 +534,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           ${FILTRO_GRUPO}
                                           ${FILTRO_MOTIVO}
                                           ${FILTRO_PERIODO}
-                                        ORDER BY TREM_ID, APURACAO DESC,  SB");
+                                        ORDER BY TREM_ID, APURACAO DESC,  SB");//C1225 - Sem modificação!
                     }
 
                     if (!string.IsNullOrEmpty(filtro.Classe))
@@ -648,7 +656,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     FROM ACTPP.TT_ANALITICA ANA,ACTPP.TT_CORREDOR COR 
                                         WHERE ANA.TTA_DT_APUR BETWEEN " + string.Format("TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_Ini, filtro.Data_Fim) +
                                     "   GROUP BY SUBSTR(TTA_DT_APUR, 0, 10) " +
-                                    "   ORDER BY DATA DESC");
+                                    "   ORDER BY DATA DESC");//C1225 - Sem modificação!
                     }
                     else if ((!string.IsNullOrEmpty(filtro.Data_Ini.ToString()) && !string.IsNullOrEmpty(filtro.Data_Fim.ToString()) && !string.IsNullOrEmpty(filtro.Classe))                   // Tem: Data
                           && (string.IsNullOrEmpty(filtro.Corredor_ID) && string.IsNullOrEmpty(filtro.Rota_ID) && string.IsNullOrEmpty(filtro.SubRota_ID)))                                     // Tem: Classe
@@ -666,7 +674,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         WHERE ANA.TTA_DT_APUR BETWEEN " + string.Format("TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.Data_Ini, filtro.Data_Fim) +
                            string.Format("AND UPPER(SUBSTR(ANA.TTC_PFX_TRM, 0, 1)) IN ({0})", filtro.Classe.ToUpper()) +
                                     "   GROUP BY SUBSTR(TTA_DT_APUR, 0, 10), SUBSTR(ANA.TTC_PFX_TRM, 0, 1) " +
-                                    "   ORDER BY DATA DESC");
+                                    "   ORDER BY DATA DESC");//C1225 - Sem modificação!
                     }
                     else if ((!string.IsNullOrEmpty(filtro.Data_Ini.ToString()) && !string.IsNullOrEmpty(filtro.Data_Fim.ToString()))                                                           // Tem: Data
                           && (!string.IsNullOrEmpty(filtro.Corredor_ID) || !string.IsNullOrEmpty(filtro.Rota_ID) || !string.IsNullOrEmpty(filtro.Classe))                                       // Tem: Classe ou Corredor ou Rota
@@ -694,7 +702,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           ${FILTRO_CORREDOR}
                                           ${FILTRO_ROTA}
                                           GROUP BY ${G_DATA} ${G_CORREDOR} ${G_ROTA} ${G_SUBROTA} ${G_CLASSE}
-                                          ORDER BY DATA DESC, ${G_CORREDOR} ${G_ROTA} ${G_SUBROTA} ${G_CLASSE}");
+                                          ORDER BY DATA DESC, ${G_CORREDOR} ${G_ROTA} ${G_SUBROTA} ${G_CLASSE}");//C1225 - Sem modificação!
 
                         if (!string.IsNullOrEmpty(filtro.Data_Ini.ToString()) && !string.IsNullOrEmpty(filtro.Data_Fim.ToString())                          // Tem: Data
                         && (string.IsNullOrEmpty(filtro.Corredor_ID) && string.IsNullOrEmpty(filtro.Rota_ID)) && string.IsNullOrEmpty(filtro.Classe))       // Não: Corredor, Rota e Classe
@@ -861,7 +869,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           ${FILTRO_ROTA}
                                           ${FILTRO_SUBROTA}
                                           GROUP BY ${G_DATA} ${G_CORREDOR} ${G_ROTA} ${G_SUBROTA} ${G_CLASSE}
-                                          ORDER BY DATA DESC, ${G_CORREDOR} ${G_ROTA} ${G_SUBROTA} ${G_CLASSE}");
+                                          ORDER BY DATA DESC, ${G_CORREDOR} ${G_ROTA} ${G_SUBROTA} ${G_CLASSE}");//C1225 - Sem modificação!
 
                         if (!string.IsNullOrEmpty(filtro.Data_Ini.ToString()) && !string.IsNullOrEmpty(filtro.Data_Fim.ToString())                                                                  // Tem: Data
                         && (string.IsNullOrEmpty(filtro.Corredor_ID) && string.IsNullOrEmpty(filtro.Rota_ID) && string.IsNullOrEmpty(filtro.SubRota_ID) && string.IsNullOrEmpty(filtro.Classe)))    // Não: Corredor, Rota, SubRota e Classe
@@ -1076,21 +1084,25 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                      FROM (SELECT NVL(SUM(UNL.DT_FIM_PARADA - UNL.DT_INI_PARADA),0) * 60 * 24 AS SOMATOTAL
                                              FROM ACTPP.UNL_TRENS_PARADOS UNL
                                             WHERE UNL.DT_FIM_PARADA IS NOT NULL
-                                              AND UNL.ID_SB = ${ID_SB}
-                                              AND ID_TREM_ACT = ${TM_ID_TRM}
+                                              AND UNL.ID_SB = :ID_SB
+                                              AND ID_TREM_ACT = :TM_ID_TRM
                                            UNION ALL
                                            SELECT (SYSDATE - DT_INI_PARADA) * 60 * 24
                                              FROM (  SELECT DT_INI_PARADA
                                                        FROM ACTPP.UNL_TRENS_PARADOS UNL
                                                       WHERE UNL.ID_SB = ${ID_SB}
-                                                           AND ID_TREM_ACT = ${TM_ID_TRM}
+                                                           AND ID_TREM_ACT = :TM_ID_TRM
                                                            AND DT_FIM_PARADA IS NULL
                                                   ORDER BY DT_INI_PARADA)
                                             WHERE ROWNUM = 1)");
-                        
 
-                    query.Replace("${TM_ID_TRM}", string.Format("{0}", Trem_id));
-                    query.Replace("${ID_SB}", string.Format("{0}", Sb_ID));
+
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("TM_ID_TRM", Trem_id);
+                    //query.Replace("${TM_ID_TRM}", string.Format("{0}", Trem_id));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("ID_SB", Sb_ID);
+                    //query.Replace("${ID_SB}", string.Format("{0}", Sb_ID));
 
 
                     #endregion

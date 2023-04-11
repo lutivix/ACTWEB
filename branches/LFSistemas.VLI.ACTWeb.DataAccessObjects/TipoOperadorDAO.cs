@@ -44,7 +44,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           TO_DSC_OP AS DESCRICAO 
                                      FROM TIPO_OPERADOR
                                     WHERE ${TOP_DESCRICAO}
-                                    ORDER BY TO_ID_OP");
+                                    ORDER BY TO_ID_OP");//C1225 - Sem modificação!
 
 
                     if (filtro.Descricao != null)
@@ -98,7 +98,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA USUÁRIO PELO ID ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT TO_ID_OP AS ID, TO_DSC_OP AS DESCRICAO FROM TIPO_OPERADOR");
+                    query.Append(@"SELECT TO_ID_OP AS ID, TO_DSC_OP AS DESCRICAO FROM TIPO_OPERADOR");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -147,13 +147,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA USUÁRIO PELO ID ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT TO_ID_OP AS ID, TO_DSC_OP AS DESCRICAO FROM ACTPP.TIPO_OPERADOR WHERE TO_ID_OP = ${ID}");
+                    query.Append(@"SELECT TO_ID_OP AS ID, TO_DSC_OP AS DESCRICAO FROM ACTPP.TIPO_OPERADOR WHERE TO_ID_OP = :ID");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${ID}", string.Format("{0}", id));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("ID", id);
+                    //query.Replace("${ID}", string.Format("{0}", id));
 
                     #endregion
 
