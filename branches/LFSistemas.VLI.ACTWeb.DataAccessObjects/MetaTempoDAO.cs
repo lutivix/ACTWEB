@@ -29,11 +29,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
                     if (Localidades == string.Empty || Localidades == null)
                     {
-                        query.Append(@"SELECT ID_COR_ID, ID_LOCALIDADE, DS_LOCALIDADE, QTDE_MIN_META FROM META_TEMPO ORDER BY ID_LOCALIDADE");
+                        query.Append(@"SELECT ID_COR_ID, ID_LOCALIDADE, DS_LOCALIDADE, QTDE_MIN_META FROM META_TEMPO ORDER BY ID_LOCALIDADE");//C1225 - Sem modificação!
                     }
                     else
                     {
-                        query.Append(@"SELECT ID_COR_ID, ID_LOCALIDADE, DS_LOCALIDADE, QTDE_MIN_META FROM META_TEMPO WHERE ID_LOCALIDADE IN (" + Localidades + ") ORDER BY ID_LOCALIDADE");
+                        query.Append(@"SELECT ID_COR_ID, ID_LOCALIDADE, DS_LOCALIDADE, QTDE_MIN_META FROM META_TEMPO WHERE ID_LOCALIDADE IN (" + Localidades + ") ORDER BY ID_LOCALIDADE");//C1225 - Sem modificação!
                     }
 
                     #endregion
@@ -84,11 +84,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     if (ID_LOCAL == string.Empty || ID_LOCAL == null)
                     {
-                        query.Append(@"SELECT ID_COR_ID, ID_LOCALIDADE, DS_LOCALIDADE, QTDE_MIN_META FROM META_TEMPO WHERE ID_LOCALIDADE = '@@@' ORDER BY ID_LOCALIDADE");
+                        query.Append(@"SELECT ID_COR_ID, ID_LOCALIDADE, DS_LOCALIDADE, QTDE_MIN_META FROM META_TEMPO WHERE ID_LOCALIDADE = '@@@' ORDER BY ID_LOCALIDADE");//C1225 - Sem modificação!
                     }
                     else
                     {
-                        query.Append(@"SELECT ID_COR_ID, ID_LOCALIDADE, DS_LOCALIDADE, QTDE_MIN_META FROM META_TEMPO WHERE ID_LOCALIDADE IN ('" + ID_LOCAL + "') ORDER BY ID_LOCALIDADE");
+                        query.Append(@"SELECT ID_COR_ID, ID_LOCALIDADE, DS_LOCALIDADE, QTDE_MIN_META FROM META_TEMPO WHERE ID_LOCALIDADE IN ('" + ID_LOCAL + "') ORDER BY ID_LOCALIDADE");//C1225 - Sem modificação!
                     }
 
 
@@ -138,11 +138,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"UPDATE META_TEMPO SET QTDE_MIN_META = ${TEMPO_MIN} 
-                                    WHERE ID_LOCALIDADE = ${ID_LOCAL} ");
+                    query.Append(@"UPDATE META_TEMPO SET QTDE_MIN_META = :TEMPO_MIN 
+                                    WHERE ID_LOCALIDADE = :ID_LOCAL ");
 
-                    query.Replace("${ID_LOCAL}", string.Format("'{0}'", localidade));
-                    query.Replace("${TEMPO_MIN}", string.Format("{0}", tempo));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("ID_LOCAL", localidade);
+                    //query.Replace("${ID_LOCAL}", string.Format("'{0}'", localidade));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("TEMPO_MIN", tempo);
+                    //query.Replace("${TEMPO_MIN}", string.Format("{0}", tempo));
 
 
                     #endregion

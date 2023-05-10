@@ -25,14 +25,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA AS FUNCIONALIDADES ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT ${SEQUENCE} FROM DUAL");
+                    query.Append(@"SELECT :SEQUENCE FROM DUAL");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
                     if (Sequence != null)
-                        query.Replace("${SEQUENCE}", string.Format("{0}", Sequence));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SEQUENCE", Sequence);
+                        //query.Replace("${SEQUENCE}", string.Format("{0}", Sequence));
 
                     #endregion
 

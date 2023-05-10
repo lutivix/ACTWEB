@@ -34,7 +34,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ FILTRA TODOS OS NÍVEIS DE ACESSO ]
 
-                    query.Append(@"SELECT PER_ID_PER, PER_ABREVIADO FROM PERFIS");
+                    query.Append(@"SELECT PER_ID_PER, PER_ABREVIADO FROM PERFIS");//C1225 - Sem modificação!
 
                     #endregion
 

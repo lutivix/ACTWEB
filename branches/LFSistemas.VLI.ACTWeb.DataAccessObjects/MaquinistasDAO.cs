@@ -35,7 +35,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         else
                         {
                             query.Append(@"SELECT ID_MAQUINISTA, DS_NOME_MAQUIN, ID_MATR_MAQUIN, ID_EST_SEDE  FROM MAQUINISTAS WHERE ID_EST_SEDE IN (" + Sede + ") ORDER BY DS_NOME_MAQUIN");
-                        }
+                        }//C1225 - Sem modificação!
 
 
                     #endregion
@@ -84,7 +84,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT ID_MAQUINISTA, DS_NOME_MAQUIN, ID_MATR_MAQUIN, ID_EST_SEDE  FROM MAQUINISTAS WHERE ID_MAQUINISTA = 0" + ID_Maquinista.ToString() + " ");
+                    query.Append(@"SELECT ID_MAQUINISTA, DS_NOME_MAQUIN, ID_MATR_MAQUIN, ID_EST_SEDE  FROM MAQUINISTAS WHERE ID_MAQUINISTA = 0" + ID_Maquinista.ToString() + " ");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -134,22 +134,37 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
 
                        // ID_MAQUINISTA, DS_NOME_MAQUIN, ID_MATR_MAQUIN, ID_EST_SEDE 
-                       query.Append(@"UPDATE MAQUINISTAS SET DS_NOME_MAQUIN = ${NOME_MAQ}, ID_MATR_MAQUIN = ${MATR_MAQ}, ID_EST_SEDE = ${ID_SEDE}  
-                                    WHERE ID_MAQUINISTA = ${ID_MAQ} ");
+                       query.Append(@"UPDATE MAQUINISTAS SET DS_NOME_MAQUIN = :NOME_MAQ, ID_MATR_MAQUIN = :MATR_MAQ, ID_EST_SEDE = :ID_SEDE  
+                                    WHERE ID_MAQUINISTA = :ID_MAQ ");
 
-                       query.Replace("${ID_MAQ}", string.Format("{0}", Maquinista_ID));
-                       query.Replace("${NOME_MAQ}", string.Format("'{0}'", Nome));
-                       query.Replace("${MATR_MAQ}", string.Format("'{0}'", Matricula));
-                       query.Replace("${ID_SEDE}", string.Format("'{0}'", Sede));
+
+                       //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                       command.Parameters.Add("ID_MAQ", Maquinista_ID);
+                       //query.Replace("${ID_MAQ}", string.Format("{0}", Maquinista_ID));
+                       //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                       command.Parameters.Add("NOME_MAQ", Nome);
+                       //query.Replace("${NOME_MAQ}", string.Format("'{0}'", Nome));
+                       //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                       command.Parameters.Add("MATR_MAQ", Matricula);
+                       //query.Replace("${MATR_MAQ}", string.Format("'{0}'", Matricula));
+                       //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                       command.Parameters.Add("ID_SEDE", Sede);
+                        //query.Replace("${ID_SEDE}", string.Format("'{0}'", Sede));
 
                     }
                     else
                     {
                         query.Append(@"INSERT INTO MAQUINISTAS (DS_NOME_MAQUIN, ID_MATR_MAQUIN, ID_EST_SEDE) VALUES (${NOME_MAQ}, ${MATR_MAQ}, ${ID_SEDE})");
 
-                        query.Replace("${NOME_MAQ}", string.Format("'{0}'", Nome));
-                        query.Replace("${MATR_MAQ}", string.Format("'{0}'", Matricula));
-                        query.Replace("${ID_SEDE}", string.Format("'{0}'", Sede));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("NOME_MAQ", Nome);
+                        //query.Replace("${NOME_MAQ}", string.Format("'{0}'", Nome));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("MATR_MAQ", Matricula);
+                        //query.Replace("${MATR_MAQ}", string.Format("'{0}'", Matricula));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ID_SEDE", Sede);
+                        //query.Replace("${ID_SEDE}", string.Format("'{0}'", Sede));
 
                     }
 
@@ -203,9 +218,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
 
                         // ID_MAQUINISTA, DS_NOME_MAQUIN, ID_MATR_MAQUIN, ID_EST_SEDE 
-                        query.Append(@"DELETE MAQUINISTAS WHERE ID_MAQUINISTA = ${ID_MAQ} ");
+                        query.Append(@"DELETE MAQUINISTAS WHERE ID_MAQUINISTA = :ID_MAQ ");
 
-                        query.Replace("${ID_MAQ}", string.Format("{0}", Maquinista_ID));
+
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ID_MAQ", Maquinista_ID);
+                        //query.Replace("${ID_MAQ}", string.Format("{0}", Maquinista_ID));
 
 
 

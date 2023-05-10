@@ -33,7 +33,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT DSP_ID_DSP, DSP_MENSAGEM , DSP_DATA, DSP_ATIVO_SN  FROM DISPLAY; ");
+                    query.Append(@"SELECT DSP_ID_DSP, DSP_MENSAGEM , DSP_DATA, DSP_ATIVO_SN  FROM DISPLAY; ");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -81,7 +81,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT DSP_ID_DSP, DSP_MENSAGEM, DSP_DATA, DSP_ATIVO_SN FROM DISPLAY
                                     ${DSP_MENSAGEM}
                                     ${DSP_DATA}
-                                    ${DSP_ATIVO_SN}" );
+                                    ${DSP_ATIVO_SN}");//C1225 - Sem modificação!
 
                     if (origem == "consulta")
                     {
@@ -179,25 +179,40 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
                     if (display.DisplayID != null)
-                        query.Append(@"UPDATE DISPLAY SET DSP_MENSAGEM = ${DSP_MENSAGEM}, DSP_DATA = ${DSP_DATA}, DSP_ATIVO_SN = ${DSP_ATIVO_SN} WHERE DSP_ID_DSP = ${DSP_ID_DSP}");
+                        query.Append(@"UPDATE DISPLAY SET DSP_MENSAGEM = :DSP_MENSAGEM, DSP_DATA = ${DSP_DATA}, DSP_ATIVO_SN = :DSP_ATIVO_SN WHERE DSP_ID_DSP = :DSP_ID_DSP");
                     else
-                        query.Append(@" INSERT INTO DISPLAY (DSP_ID_DSP, DSP_MENSAGEM, DSP_DATA, DSP_ATIVO_SN) VALUES (DISPLAY_ID.NEXTVAL, ${DSP_MENSAGEM}, ${DSP_DATA}, ${DSP_ATIVO_SN})");
+                        query.Append(@" INSERT INTO DISPLAY (DSP_ID_DSP, DSP_MENSAGEM, DSP_DATA, DSP_ATIVO_SN) VALUES (DISPLAY_ID.NEXTVAL, :DSP_MENSAGEM, ${DSP_DATA}, :DSP_ATIVO_SN)");
+
                     if (display.DisplayID != null)
                     {
-                        query.Replace("${DSP_ID_DSP}", string.Format("{0}", display.DisplayID));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("DSP_ID_DSP", display.DisplayID);
+                        //query.Replace("${DSP_ID_DSP}", string.Format("{0}", display.DisplayID));
                     }
+
                     if (display.Mensagem != null)
-                        query.Replace("${DSP_MENSAGEM}", string.Format("'{0}'", display.Mensagem));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("DSP_MENSAGEM", display.Mensagem);
+                        //query.Replace("${DSP_MENSAGEM}", string.Format("'{0}'", display.Mensagem));
                     else
-                        query.Replace("${DSP_MENSAGEM}", string.Format("NULL"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("DSP_MENSAGEM", "NULL");
+                        //query.Replace("${DSP_MENSAGEM}", string.Format("NULL"));
+
                     if (display.Data != null)
                         query.Replace("${DSP_DATA}", string.Format("TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS')", display.Data));
                     else
                         query.Replace("${DSP_DATA}", null);
+
                     if (display.Ativo != null)
-                        query.Replace("${DSP_ATIVO_SN}", string.Format("'{0}'", display.Ativo.ToUpper()));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("DSP_ATIVO_SN", display.Ativo.ToUpper());
+                        //query.Replace("${DSP_ATIVO_SN}", string.Format("'{0}'", display.Ativo.ToUpper()));
                     else
-                        query.Replace("${DSP_ATIVO_SN}", string.Format("'S'"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("DSP_ATIVO_SN", "'S'");
+                        //query.Replace("${DSP_ATIVO_SN}", string.Format("'S'"));
+
                     #endregion
                     #region [BUSCA NO BANCO ]
                     command.CommandText = query.ToString();
@@ -241,11 +256,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT DSP_ID_DSP, DSP_MENSAGEM, DSP_DATA ,DSP_ATIVO_SN FROM DISPLAY WHERE DSP_ID_DSP = ${DSP_ID_DSP}");
+                    query.Append(@"SELECT DSP_ID_DSP, DSP_MENSAGEM, DSP_DATA ,DSP_ATIVO_SN FROM DISPLAY WHERE DSP_ID_DSP = :DSP_ID_DSP");
                     if (ID != null)
-                        query.Replace("${DSP_ID_DSP}", string.Format("{0}", ID));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("DSP_ID_DSP", ID);
+                        //query.Replace("${DSP_ID_DSP}", string.Format("{0}", ID));
                     else
-                        query.Replace("${DSP_ID_DSP}", string.Format(""));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("DSP_ID_DSP", "");
+                        //query.Replace("${DSP_ID_DSP}", string.Format(""));
 
                     #endregion
 
@@ -293,7 +312,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT DSP_ID_DSP AS ID, DSP_MENSAGEM AS MENSAGEM, DSP_DATA AS DATA, DSP_ATIVO_SN AS ATIVO FROM DISPLAY WHERE DSP_ATIVO_SN = 'S' and DSP_DATA <= sysdate  ORDER BY DSP_ATIVO_SN DESC");
+                    query.Append(@"SELECT DSP_ID_DSP AS ID, DSP_MENSAGEM AS MENSAGEM, DSP_DATA AS DATA, DSP_ATIVO_SN AS ATIVO FROM DISPLAY WHERE DSP_ATIVO_SN = 'S' and DSP_DATA <= sysdate  ORDER BY DSP_ATIVO_SN DESC");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -340,13 +359,17 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"DELETE FROM DISPLAY WHERE DSP_ID_DSP = ${DSP_ID_DSP}");
+                    query.Append(@"DELETE FROM DISPLAY WHERE DSP_ID_DSP = :DSP_ID_DSP");
 
 
                     if (ID != null)
-                        query.Replace("${DSP_ID_DSP}", string.Format("{0}", ID));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("DSP_ID_DSP", ID);
+                        //query.Replace("${DSP_ID_DSP}", string.Format("{0}", ID));
                     else
-                        query.Replace("${DSP_ID_DSP}", string.Format(""));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("DSP_ID_DSP", "");
+                        //query.Replace("${DSP_ID_DSP}", string.Format(""));
 
                     #endregion
 

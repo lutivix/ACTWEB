@@ -45,7 +45,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     WHERE 1=1
                                       ${PER_DESCRICAO}
                                       ${PER_ABREVIADO}
-                                      ${PER_ATIVO_SN}");
+                                      ${PER_ATIVO_SN}");//C1225 - Sem modificação!
 
 
                     if (filtro.Descricao != null)
@@ -109,7 +109,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA USUÁRIO PELO ID ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT PER_ID_PER AS ID, PER_ATUALIZACAO AS DATA, PER_DESCRICAO AS DESCRICAO, PER_ABREVIADO AS SIGLA, PER_ATIVO_SN AS ATIVO FROM PERFIS");
+                    query.Append(@"SELECT PER_ID_PER AS ID, PER_ATUALIZACAO AS DATA, PER_DESCRICAO AS DESCRICAO, PER_ABREVIADO AS SIGLA, PER_ATIVO_SN AS ATIVO FROM PERFIS");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -159,13 +159,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
                     query.Append(@"SELECT PER_ID_PER AS ID, PER_ATUALIZACAO AS DATA, PER_DESCRICAO AS DESCRICAO, PER_ABREVIADO AS SIGLA, PER_ATIVO_SN AS ATIVO FROM PERFIS
-                                    WHERE PER_ID_PER = ${ID}");
+                                    WHERE PER_ID_PER = :ID");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${ID}", string.Format("{0}", id));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("ID", id);
+                    //query.Replace("${ID}", string.Format("{0}", id));
 
                     #endregion
 
@@ -230,14 +232,18 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                        // SELECT PER_ID_PER AS ID, PER_ATUALIZACAO AS DATA, PER_DESCRICAO AS DESCRICAO, PER_ABREVIADO AS SIGLA, PER_ATIVO_SN AS ATIVO FROM PERFIS
 
-                        query.Append(@"INSERT INTO PERFIS (PER_ID_PER, PER_ATUALIZACAO, PER_DESCRICAO, PER_ABREVIADO, PER_ATIVO_SN) VALUES(${PER_ID_PER}, ${PER_ATUALIZACAO}, ${PER_DESCRICAO}, ${PER_ABREVIADO}, ${PER_ATIVO_SN})");
-                        query.Replace("${PER_ID_PER}", string.Format("{0}", Identificador));
+                        query.Append(@"INSERT INTO PERFIS (PER_ID_PER, PER_ATUALIZACAO, PER_DESCRICAO, PER_ABREVIADO, PER_ATIVO_SN) VALUES(:PER_ID_PER, ${PER_ATUALIZACAO}, :PER_DESCRICAO, :PER_ABREVIADO, :PER_ATIVO_SN)");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("PER_ID_PER", Identificador);
+                        //query.Replace("${PER_ID_PER}", string.Format("{0}", Identificador));
                         operacao = "I";
                     }
                     else
                     {
-                        query.Append(@"UPDATE PERFIS SET PER_ATUALIZACAO = ${PER_ATUALIZACAO}, PER_DESCRICAO = ${PER_DESCRICAO}, PER_ABREVIADO = ${PER_ABREVIADO}, PER_ATIVO_SN = ${PER_ATIVO_SN} WHERE PER_ID_PER = ${PER_ID_PER}");
-                        query.Replace("${PER_ID_PER}", string.Format("{0}", perfil.Perfil_ID));
+                        query.Append(@"UPDATE PERFIS SET PER_ATUALIZACAO = ${PER_ATUALIZACAO}, PER_DESCRICAO = :PER_DESCRICAO, PER_ABREVIADO = :PER_ABREVIADO, PER_ATIVO_SN = :PER_ATIVO_SN WHERE PER_ID_PER = :PER_ID_PER");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("PER_ID_PER", perfil.Perfil_ID);
+                        //query.Replace("${PER_ID_PER}", string.Format("{0}", perfil.Perfil_ID));
                         operacao = "A";
                     }
 
@@ -247,9 +253,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
 
                     query.Replace("${PER_ATUALIZACAO}", string.Format("TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS')", perfil.Atualizacao));
-                    query.Replace("${PER_DESCRICAO}", string.Format("'{0}'", perfil.Descricao));
-                    query.Replace("${PER_ABREVIADO}", string.Format("'{0}'", perfil.Abreviado));
-                    query.Replace("${PER_ATIVO_SN}", string.Format("'{0}'", perfil.Ativo));
+
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("PER_DESCRICAO", perfil.Descricao);
+                    //query.Replace("${PER_DESCRICAO}", string.Format("'{0}'", perfil.Descricao));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("PER_ABREVIADO", perfil.Abreviado);
+                    //query.Replace("${PER_ABREVIADO}", string.Format("'{0}'", perfil.Abreviado));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("PER_ATIVO_SN", perfil.Ativo);
+                    //query.Replace("${PER_ATIVO_SN}", string.Format("'{0}'", perfil.Ativo));
 
 
                     #endregion
@@ -298,12 +311,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ DELETA USUÁRIO NO BANCO ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"DELETE FROM PERFIS WHERE PER_ID_PER = ${PER_ID_PER}");
+                    query.Append(@"DELETE FROM PERFIS WHERE PER_ID_PER = :PER_ID_PER");
 
                     #endregion
 
                     #region [ PARÂMETRO ]
 
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("PER_ID_PER", id);
                     query.Replace("${PER_ID_PER}", string.Format("{0}", id));
 
                     #endregion

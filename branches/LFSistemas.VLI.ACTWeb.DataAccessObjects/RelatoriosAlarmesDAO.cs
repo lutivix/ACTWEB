@@ -65,9 +65,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                 ORDER BY ${ORDENACAO}");
 
                     if (ordenacao != null && ordenacao != string.Empty)
-                        query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ORDENACAO", ordenacao);
+                        //query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
                     else
-                        query.Replace("${ORDENACAO}", "AA.AL_DT_INI DESC");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ORDENACAO", "AA.AL_DT_INI DESC");
+                        //query.Replace("${ORDENACAO}", "AA.AL_DT_INI DESC");
                     #endregion
 
                     #region [ PARAMETROS ]

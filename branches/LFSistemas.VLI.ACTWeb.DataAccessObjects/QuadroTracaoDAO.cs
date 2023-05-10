@@ -37,8 +37,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         {
                             query.Append(@"SELECT Q.ID_QUADRO_TRACAO, Q.LOC_TP_LOCO, Q.ID_EST_ORIG, Q.ID_EST_DEST, Q.ID_IDA_VOLTA, Q.QT_CAPAC_TRAC, Q.CO_ID_COR, Q.RT_ID_ROT, R.ROT_NOM_ROT FROM QUADRO_TRACAO Q LEFT JOIN ROTAS_PRODUCAO R ON Q.RT_ID_ROT = R.ROT_ID_ROT where Q.ID_EST_ORIG IN (" + LocalOrigem + ") ORDER BY Q.LOC_TP_LOCO, Q.ID_EST_ORIG, Q.ID_EST_DEST, Q.ID_IDA_VOLTA");
                         }
-                        
-                    }
+
+                    }//C1225 - Sem modificação!
                     else
                     {
                         if (LocalOrigem == string.Empty || LocalOrigem == null)
@@ -49,8 +49,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         {
                             query.Append(@"SELECT Q.ID_QUADRO_TRACAO, Q.LOC_TP_LOCO, Q.ID_EST_ORIG, Q.ID_EST_DEST, Q.ID_IDA_VOLTA, Q.QT_CAPAC_TRAC, Q.CO_ID_COR, Q.RT_ID_ROT, R.ROT_NOM_ROT FROM QUADRO_TRACAO Q LEFT JOIN ROTAS_PRODUCAO R ON Q.RT_ID_ROT = R.ROT_ID_ROT  WHERE (Q.LOC_TP_LOCO IN (" + ModeloLoco + ")) AND (Q.ID_EST_ORIG IN (" + LocalOrigem + ")) ORDER BY Q.LOC_TP_LOCO, Q.ID_EST_ORIG, Q.ID_EST_DEST, Q.ID_IDA_VOLTA");
                         }
-                        
-                    }
+
+                    }//C1225 - Sem modificação!
 
                     #endregion
 
@@ -98,7 +98,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT Q.ID_QUADRO_TRACAO, Q.LOC_TP_LOCO, Q.ID_EST_ORIG, Q.ID_EST_DEST, Q.ID_IDA_VOLTA, Q.QT_CAPAC_TRAC, Q.CO_ID_COR, Q.RT_ID_ROT, R.ROT_NOM_ROT FROM QUADRO_TRACAO Q LEFT JOIN ROTAS_PRODUCAO R ON Q.RT_ID_ROT = R.ROT_ID_ROT WHERE Q.ID_QUADRO_TRACAO = 0" + ID_Quadro_Tracao.ToString() + " ");
+                    query.Append(@"SELECT Q.ID_QUADRO_TRACAO, Q.LOC_TP_LOCO, Q.ID_EST_ORIG, Q.ID_EST_DEST, Q.ID_IDA_VOLTA, Q.QT_CAPAC_TRAC, Q.CO_ID_COR, Q.RT_ID_ROT, R.ROT_NOM_ROT FROM QUADRO_TRACAO Q LEFT JOIN ROTAS_PRODUCAO R ON Q.RT_ID_ROT = R.ROT_ID_ROT WHERE Q.ID_QUADRO_TRACAO = 0" + ID_Quadro_Tracao.ToString() + " ");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -144,11 +144,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"UPDATE QUADRO_TRACAO SET QT_CAPAC_TRAC = ${CAPAC_TRAC} 
-                                    WHERE ID_QUADRO_TRACAO = ${ID_QUADRO_TRACAO} ");
+                    query.Append(@"UPDATE QUADRO_TRACAO SET QT_CAPAC_TRAC = :CAPAC_TRAC 
+                                    WHERE ID_QUADRO_TRACAO = :ID_QUADRO_TRACAO ");
 
-                    query.Replace("${ID_QUADRO_TRACAO}", string.Format("{0}", QuadroTracao_ID));
-                    query.Replace("${CAPAC_TRAC}", string.Format("{0}", CapacTracao));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("ID_QUADRO_TRACAO", QuadroTracao_ID);
+                    //query.Replace("${ID_QUADRO_TRACAO}", string.Format("{0}", QuadroTracao_ID));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("CAPAC_TRAC", CapacTracao);
+                    //query.Replace("${CAPAC_TRAC}", string.Format("{0}", CapacTracao));
 
 
                     #endregion
@@ -195,9 +199,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"DELETE FROM QUADRO_TRACAO WHERE ID_QUADRO_TRACAO = ${ID_QUADRO_TRACAO} ");
+                    query.Append(@"DELETE FROM QUADRO_TRACAO WHERE ID_QUADRO_TRACAO = :ID_QUADRO_TRACAO ");
 
-                    query.Replace("${ID_QUADRO_TRACAO}", string.Format("{0}", QuadroTraca_ID));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("ID_QUADRO_TRACAO", QuadroTraca_ID);
+                    //query.Replace("${ID_QUADRO_TRACAO}", string.Format("{0}", QuadroTraca_ID));
 
                     #endregion
 
@@ -243,9 +249,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"DELETE FROM QUADRO_TRACAO WHERE LOC_TP_LOCO = ${ID_TIPO_LOCO} ");
+                    query.Append(@"DELETE FROM QUADRO_TRACAO WHERE LOC_TP_LOCO = :ID_TIPO_LOCO ");
 
-                    query.Replace("${ID_TIPO_LOCO}", string.Format("'{0}'", ModeloLoco_ID));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("ID_TIPO_LOCO", ModeloLoco_ID);
+                    //query.Replace("${ID_TIPO_LOCO}", string.Format("'{0}'", ModeloLoco_ID));
 
                     #endregion
 
@@ -290,10 +298,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"DELETE FROM QUADRO_TRACAO WHERE ID_EST_ORIG = ${ID_EST_ORIG} AND ID_EST_ORIG = ${ID_EST_DEST}  ");
+                    query.Append(@"DELETE FROM QUADRO_TRACAO WHERE ID_EST_ORIG = :ID_EST_ORIG AND ID_EST_ORIG = :ID_EST_DEST  ");
 
-                    query.Replace("${ID_EST_ORIG}", string.Format("'{0}'", EstacaoOrigem_ID));
-                    query.Replace("${ID_EST_DEST}", string.Format("'{0}'", EstacaoDestino_ID));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("ID_EST_ORIG", EstacaoOrigem_ID);
+                    //query.Replace("${ID_EST_ORIG}", string.Format("'{0}'", EstacaoOrigem_ID));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("ID_EST_DEST", EstacaoDestino_ID);
+                    //query.Replace("${ID_EST_DEST}", string.Format("'{0}'", EstacaoDestino_ID));
 
                     #endregion
 

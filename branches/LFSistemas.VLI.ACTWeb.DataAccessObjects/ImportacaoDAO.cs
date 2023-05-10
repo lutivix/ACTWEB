@@ -46,7 +46,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             StringBuilder query2 = new StringBuilder();
                             var command2 = connection.CreateCommand();
                             query2.Append(@"INSERT INTO ACTPP.CORREDOR (CO_ID_CO,    CO_TRECHO,    CO_CORREDOR,    CO_LAT,    CO_LON,    CO_KM,    CO_VEL_ASC,    CO_VEL_DESC,    CO_NOME_SB) 
-                                                          VALUES (${CO_ID_CO}, ${CO_TRECHO}, ${CO_CORREDOR}, ${CO_LAT}, ${CO_LON}, ${CO_KM}, ${CO_VEL_ASC}, ${CO_VEL_DESC}, ${CO_NOME_SB})");
+                                                          VALUES (${CO_ID_CO}, ${CO_TRECHO}, ${CO_CORREDOR}, ${CO_LAT}, ${CO_LON}, ${CO_KM}, ${CO_VEL_ASC}, ${CO_VEL_DESC}, ${CO_NOME_SB})");//C1225 - Sem modificação! (Objeto passado como referência)
 
                             query2.Replace("${CO_ID_CO}", string.Format("{0}", "ACTPP.CORREDOR_ID.NEXTVAL"));
                             query2.Replace("${CO_TRECHO}", string.Format("'{0}'", itens[i].Trecho));

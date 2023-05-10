@@ -28,7 +28,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select OBC_ID_OBC, OBC_VRS_FIRM, OBC_VRS_MAPA, OBC_PRV_ATZ_FIRM, OBC_PRV_ATZ_MAPA, OBC_LIB_DWNL, OBC_ATV_OBC from OBC where OBC_ATV_OBC = 'S'");
+                    query.Append(@"select OBC_ID_OBC, OBC_VRS_FIRM, OBC_VRS_MAPA, OBC_PRV_ATZ_FIRM, OBC_PRV_ATZ_MAPA, OBC_LIB_DWNL, OBC_ATV_OBC from OBC where OBC_ATV_OBC = 'S'");//C1225 - Sem modificação!
 
 
                     #endregion
@@ -84,7 +84,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     FROM OBC 
                                     ${OBC_DT_ATZ}
                                     ${OBC_ATV_OBC}
-                                    ORDER BY ${ORDENACAO}");
+                                    ORDER BY ${ORDENACAO}");//C1225 - Sem modificação!
 
 
                     if (data != null)
@@ -163,7 +163,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             --AND IOBC.OBC_ATIVO_SN = 'S'
                                             ${MCT_NOM_MCT}
                                             ${OBC_CORREDOR}
-                                            ${ORDENACAO}");
+                                            ${ORDENACAO}");//C1225 - Sem modificação!
 
                     if (loco != string.Empty)
                         query.Replace("${MCT_NOM_MCT}", string.Format(" AND MCT_NOM_MCT IN ({0})", loco));
@@ -226,7 +226,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command1 = connection.CreateCommand();
 
-
+                    //C1225 - Sem modificação! - Objeto passado como parâmetro!
                     query1.Append(@"UPDATE INFORMACAO_OBC SET OBC_ATIVO_SN = 'N'");
                     command1.CommandText = query1.ToString();
                     command1.ExecuteNonQuery();
@@ -238,7 +238,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     for (int i = 0; i <= itens.Count - 1; i++)
                     {
                         StringBuilder query2 = new StringBuilder();
-                        var command2 = connection.CreateCommand();
+                        var command2 = connection.CreateCommand();//C1225 - Sem modificação! - Objeto passado como parâmetro!
                         query2.Append(@"INSERT INTO INFORMACAO_OBC (OBC_ID_OBC, OBC_ID_LOCO, OBC_FROTA, OBC_CORREDOR, OBC_DT_ATUALIZACAO, OBC_ATIVO_SN) 
                                                       VALUES (${OBC_ID_OBC}, ${OBC_ID_LOCO}, ${OBC_FROTA}, ${OBC_CORREDOR}, SYSDATE, 'S')");
                         query2.Replace("${OBC_ID_OBC}", string.Format("{0}", "INFORMACAO_OBC_ID.NEXTVAL"));
@@ -288,7 +288,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command2 = connection.CreateCommand(); // INSERIR UM NOVO
                     var command3 = connection.CreateCommand(); // EDITAR UM EXISTENTE PELO ID
 
-
+                    //C1225 - Sem modificação! - Objeto passado como parâmetro!
                     if (OBCS.Obc_ID == null)
                     {
                         query1.Append(@"UPDATE OBC SET OBC_ATV_OBC = 'N'");
@@ -449,11 +449,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT OBC_ID_OBC, OBC_VRS_FIRM, OBC_VRS_MAPA ,OBC_PRV_ATZ_FIRM, OBC_PRV_ATZ_MAPA, OBC_DT_ATZ, OBC_ATV_OBC FROM OBC WHERE OBC_ID_OBC = ${OBC_ID_OBC}");
+                    query.Append(@"SELECT OBC_ID_OBC, OBC_VRS_FIRM, OBC_VRS_MAPA ,OBC_PRV_ATZ_FIRM, OBC_PRV_ATZ_MAPA, OBC_DT_ATZ, OBC_ATV_OBC FROM OBC WHERE OBC_ID_OBC = :OBC_ID_OBC");
                     if (ID != null)
-                        query.Replace("${OBC_ID_OBC}", string.Format("{0}", ID));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("OBC_ID_OBC", ID);
+                        //query.Replace("${OBC_ID_OBC}", string.Format("{0}", ID));
                     else
-                        query.Replace("${OBC_ID_OBC}", string.Format(""));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("OBC_ID_OBC", "NULL");
+                        //query.Replace("${OBC_ID_OBC}", string.Format(""));
 
                     #endregion
 
@@ -546,7 +550,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     ${OBC_PRV_ATZ_MAPA}
                                     ${OBC_DT_ATZ}
                                     ${OBC_ATV_OBC}
-                                    ");
+                                    ");//C1225 - Sem modificação!
 
                     if (origem == null)
                     {
@@ -696,13 +700,17 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"DELETE FROM OBC WHERE OBC_ID_OBC = ${OBC_ID_OBC}");
+                    query.Append(@"DELETE FROM OBC WHERE OBC_ID_OBC = :OBC_ID_OBC");
 
 
                     if (ID != null)
-                        query.Replace("${OBC_ID_OBC}", string.Format("{0}", ID));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("OBC_ID_OBC", ID);
+                        //query.Replace("${OBC_ID_OBC}", string.Format("{0}", ID));
                     else
-                        query.Replace("${OBC_ID_OBC}", string.Format(""));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("OBC_ID_OBC", "NULL");
+                        //query.Replace("${OBC_ID_OBC}", string.Format(""));
 
                     #endregion
 

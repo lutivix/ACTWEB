@@ -98,7 +98,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA USUÁRIO PELO ID ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT PO_ID_PS_TRB, PO_DSC_PS_TRB FROM ACTPP.POSTOS_DE_TRABALHO");
+                    query.Append(@"SELECT PO_ID_PS_TRB, PO_DSC_PS_TRB FROM ACTPP.POSTOS_DE_TRABALHO");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -147,13 +147,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA USUÁRIO PELO ID ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT PO_ID_PS_TRB, PO_DSC_PS_TRB FROM ACTPP.POSTOS_DE_TRABALHO WHERE PO_ID_PS_TRB = ${ID}");
+                    query.Append(@"SELECT PO_ID_PS_TRB, PO_DSC_PS_TRB FROM ACTPP.POSTOS_DE_TRABALHO WHERE PO_ID_PS_TRB = :ID");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${ID}", string.Format("{0}", id));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("ID", id);
+                    //query.Replace("${ID}", string.Format("{0}", id));
 
                     #endregion
 
