@@ -40,7 +40,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     ${DWL_ATZ_DWL}
                                     ${DWL_LIB_SN}
                                     ${DWL_ATV_SN}
-                                    ORDER BY ${ORDENACAO}");
+                                    ORDER BY ${ORDENACAO}");//C1225 - Sem modificação!
                     #endregion
 
                     if (origem == "tela_consulta")
@@ -264,9 +264,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"SELECT DWL_ID_DWL, DWL_MOD_SIS, DWL_NOM_ARQ, DWL_DSC_ARQ, DWL_VRS_ARQ, DWL_PRV_ATZ, DWL_ATZ_DWL, DWL_LIB_SN, DWL_ATV_SN 
                                     FROM DOWNLOADS
-                                    WHERE DWL_ID_DWL = ${DWL_ID_DWL}");
+                                    WHERE DWL_ID_DWL = :DWL_ID_DWL");
 
-                    query.Replace("${DWL_ID_DWL}", string.Format("{0}", Id));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("DWL_ID_DWL", Id);
+                    //query.Replace("${DWL_ID_DWL}", string.Format("{0}", Id));
                     #endregion
 
 
@@ -343,7 +345,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                       WHERE DWL_ID_DWL = ${DWL_ID_DWL}");
 
                         query1.Replace("${DWL_ID_DWL}", string.Format("{0}", dados.Downloads_ID));
-                    }
+                    }//C1225 - Sem modificação! - Objetos passado como referências
 
                     #endregion
 

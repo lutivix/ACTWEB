@@ -69,7 +69,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_MOTIVO}
                                          ${FILTRO_PERIODO}      
                                          GROUP BY ANA.ID_TREM, ANA.TTC_PFX_TRM
-                                       ORDER BY DATA DESC, TREM");
+                                       ORDER BY DATA DESC, TREM");//C1225 - Sem modificação!
                     }
 
                     #endregion
@@ -105,7 +105,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_MOTIVO}
                                          ${FILTRO_PERIODO}
                                          GROUP BY ANA.ID_TREM, ANA.TTC_PFX_TRM
-                                       ORDER BY DATA DESC, TREM");
+                                       ORDER BY DATA DESC, TREM");//C1225 - Sem modificação!
                     }
                     #endregion
 
@@ -144,7 +144,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_MOTIVO}
                                          ${FILTRO_PERIODO}          
                                          GROUP BY ANA.ID_TREM, ANA.TTC_PFX_TRM
-                                       ORDER BY DATA DESC, TREM");
+                                       ORDER BY DATA DESC, TREM");//C1225 - Sem modificação!
                     }
                     #endregion
 
@@ -224,7 +224,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_MOTIVO}
                                          ${FILTRO_PERIODO}          
                                          GROUP BY ANA.ID_TREM, ANA.TTC_PFX_TRM
-                                       ORDER BY DATA DESC, TREM");
+                                       ORDER BY DATA DESC, TREM");//C1225 - Sem modificação!
                     }
                     #endregion
 
@@ -454,7 +454,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_SB}
                                          ${FILTRO_GRUPO}
                                          ${FILTRO_MOTIVO}
-                                         ${FILTRO_PERIODO}");
+                                         ${FILTRO_PERIODO}");//C1225 - Sem modificação!
                     }
 
                     #endregion
@@ -475,7 +475,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_SB}
                                          ${FILTRO_GRUPO}
                                          ${FILTRO_MOTIVO}
-                                         ${FILTRO_PERIODO}");
+                                         ${FILTRO_PERIODO}");//C1225 - Sem modificação!
                     }
                     #endregion
 
@@ -499,7 +499,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_SB}
                                          ${FILTRO_GRUPO}
                                          ${FILTRO_MOTIVO}
-                                         ${FILTRO_PERIODO}");
+                                         ${FILTRO_PERIODO}");//C1225 - Sem modificação!
                     }
                     #endregion
 
@@ -522,7 +522,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_SB}
                                          ${FILTRO_GRUPO}
                                          ${FILTRO_MOTIVO}
-                                         ${FILTRO_PERIODO}");
+                                         ${FILTRO_PERIODO}");//C1225 - Sem modificação!
                     }
                     #endregion
 
@@ -549,7 +549,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_SB}
                                          ${FILTRO_GRUPO}
                                          ${FILTRO_MOTIVO}
-                                         ${FILTRO_PERIODO}");
+                                         ${FILTRO_PERIODO}");//C1225 - Sem modificação!
                     }
                     #endregion
 
@@ -595,7 +595,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                          " WHERE TT_ROTA.TTR_ID_RTA = TT_ROTA_AOP.TTR_ID_RTA" +
                                                                                                            " AND TT_ROTA_AOP.TTR_ID_ELM = ELEM_VIA_ESTACOES.EV_ID_ELM" +
                                                                                                            " AND TT_ROTA.TTR_ID_RTA = rta1.TTR_ID_RTA" +
-                                                                                                           " AND ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T')", filtro.Rota_ID));
+                                                                                                           " AND ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T')", filtro.Rota_ID));//C1225 - Sem modificação!
                     else
                         query.Replace("${FILTRO_ROTA}", string.Format(""));
 
@@ -618,7 +618,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                                             " WHERE TT_SUBROTA.TTS_ID_SUB = TT_SUBROTA_AOP.TTS_ID_SUB" +
                                                                                                               " AND TT_SUBROTA_AOP.TTS_ID_ELM = ELEM_VIA_ESTACOES.EV_ID_ELM" +
                                                                                                               " AND TT_SUBROTA.TTS_ID_SUB = SUB1.TTS_ID_SUB" +
-                                                                                                              " AND ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T')", filtro.SubRota_ID));
+                                                                                                              " AND ELEM_VIA_ESTACOES.EE_IND_ES_CON = 'T')", filtro.SubRota_ID));//C1225 - Sem modificação!
                     else
                         query.Replace("${FILTRO_SUBROTA}", string.Format(""));
 
@@ -781,7 +781,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_GRUPO}
                                          ${FILTRO_MOTIVO}
                                          ${FILTRO_PERIODO}
-                                       ORDER BY TREM, DATA_INI DESC,  SB");
+                                       ORDER BY TREM, DATA_INI DESC,  SB");//C1225 - Sem modificação!
                     }
                     #endregion
 
@@ -805,7 +805,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_GRUPO}
                                          ${FILTRO_MOTIVO}
                                          ${FILTRO_PERIODO}
-                                       ORDER BY TREM, DATA_INI DESC,  SB");
+                                       ORDER BY TREM, DATA_INI DESC,  SB");//C1225 - Sem modificação!
                     }
                     #endregion
 
@@ -832,7 +832,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_GRUPO}
                                          ${FILTRO_MOTIVO}
                                          ${FILTRO_PERIODO}
-                                       ORDER BY TREM, DATA_INI DESC,  SB");
+                                       ORDER BY TREM, DATA_INI DESC,  SB");//C1225 - Sem modificação!
                     }
                     #endregion
 
@@ -858,7 +858,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_SB}
                                          ${FILTRO_GRUPO}
                                          ${FILTRO_MOTIVO}
-                                       ORDER BY TREM, DATA_INI DESC,  SB");
+                                       ORDER BY TREM, DATA_INI DESC,  SB");//C1225 - Sem modificação!
                     }
                     #endregion
 
@@ -889,7 +889,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                          ${FILTRO_GRUPO}
                                          ${FILTRO_MOTIVO}
                                          ${FILTRO_PERIODO}
-                                       ORDER BY TREM, DATA_INI DESC,  SB");
+                                       ORDER BY TREM, DATA_INI DESC,  SB");//C1225 - Sem modificação!
                     }
                     #endregion
 
@@ -1121,10 +1121,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     FROM ACTPP.TT_ROTA RT, ACTPP.TT_ROTA_AOP RTA, ACTPP.ELEM_VIA EV
                                     WHERE RT.TTR_ID_RTA = RTA.TTR_ID_RTA
                                       AND RTA.TTR_ID_ELM = EV.EV_ID_ELM
-                                      AND RT.TTR_ID_RTA IN (${ROTA})
+                                      AND RT.TTR_ID_RTA IN (:ROTA)
                                       AND RTA.TTR_PNT_RTA = 'S'
                                       ORDER BY RTA.TTR_NR_SEQ");
 
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("ROTA", rota_id);
                     query.Replace("${ROTA}", string.Format("{0}", rota_id));
 
                     #endregion
@@ -1179,12 +1181,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT SBA.TTS_ID_AOP AS ID, SB.TTS_ID_SUB AS SUBROTA, SBA.TTS_NR_SEQ AS SEQ, EV.EV_ID_ELM AS SB_ID, EV.EV_NOM_MAC AS SB, SBA.TTS_PNT_SUB AS PONTA 
                                     FROM ACTPP.TT_SUBROTA SB, ACTPP.TT_SUBROTA_AOP SBA, ACTPP.ELEM_VIA EV 
                                     WHERE SB.TTS_ID_SUB  = SBA.TTS_ID_SUB
-                                      AND SBA.TTS_ID_ELM = EV.EV_ID_ELM
-                                      AND SBA.TTS_ID_SUB IN (${SUBROTA})
+                                      AND SBA.TTS_ID_ELM = EV.EV_IDELM
+                                      AND SBA.TTS_ID_SUB IN (:SUBROTA})
                                       AND SBA.TTS_PNT_SUB = 'S'
                                       ORDER BY SBA.TTS_NR_SEQ");
 
-                    query.Replace("${SUBROTA}", string.Format("{0}", subrota_id));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("SUBROTA", subrota_id);
+                    //query.Replace("${SUBROTA}", string.Format("{0}", subrota_id));
 
                     #endregion
 

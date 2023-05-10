@@ -44,7 +44,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     FROM BANNERS
                                     ${BNR_NOM_ARQ}
                                     ${BNR_DSC_ARQ}
-                                    ${BNR_ATV_SN}");
+                                    ${BNR_ATV_SN}");//C1225 - Sem modificação! - Cláusulas
                     #endregion
 
                     if (filtro.Arquivo != null)
@@ -124,7 +124,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"SELECT BNR_ID_BNR, BNR_NOM_ARQ, BNR_DSC_ARQ, BNR_DTE_PUB, BNR_ATV_SN
                                     FROM BANNERS
-                                    WHERE BNR_ID_BNR = ${BNR_ID_BNR}");
+                                    WHERE BNR_ID_BNR = ${BNR_ID_BNR}");//C1225 - Sem modificação! - Real passado como parâmetro
 
                     query.Replace("${BNR_ID_BNR}", string.Format("{0}", Id));
                     #endregion
@@ -195,7 +195,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                     WHERE BNR_ID_BNR = ${BNR_ID_BNR}");
 
                         query.Replace("${BNR_ID_BNR}", string.Format("{0}", dados.Banner_ID));
-                    }
+                    }//C1225 - Sem modificação! - Objeto passado como parâmetro
 
                     if (dados.Arquivo != null)
                         query.Replace("${BNR_NOM_ARQ}", string.Format("'{0}'", dados.Arquivo.ToUpper()));
@@ -270,7 +270,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     if (id != null)
                     {
                         query.Append(@"DELETE BANNERS ${BNR_ID_BNR} ");
-                        query.Replace("${BNR_ID_BNR}", string.Format("WHERE BNR_ID_BNR = {0}", id));
+                        query.Replace("${BNR_ID_BNR}", string.Format("WHERE BNR_ID_BNR = {0}", id));//C1225 - Sem modificação!
 
 
                         #region [ ATUALIZA BANCO ]

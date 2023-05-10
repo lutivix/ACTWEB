@@ -61,7 +61,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                       AND II.SLT_ID_MOTIVO = RD.RD_ID_RDE
                                       and SLDL.SO_LDL_ID_WEB = II.SLT_ID_SLT
                                       and SLDL.SO_LDL_ID = IM.SI_ID_SI(+)                                     
-                                      ORDER BY ${ORDENACAO}");
+                                      ORDER BY ${ORDENACAO}");//C1225 - Sem modificação!
 
                     if (filtro.Data_Inicial != null && filtro.Data_Final != null)
                         query.Replace("${INTERVALO}", string.Format("AND II.SLT_DATA BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.Data_Inicial, filtro.Data_Final));
@@ -165,7 +165,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                       AND II.SLT_USUARIO_LOGADO = OP.MATRICULA
                                       AND II.SLT_MAT_RESPONSAVEL = RR.OP_MAT
                                       ${SLT_ID_SECAO}
-                                      AND II.SLT_ATIVO_SN = 'S'");
+                                      AND II.SLT_ATIVO_SN = 'S'");//C1225 - Sem modificação!
 
                     if (Secao != null)
                         query.Replace("${SLT_ID_SECAO}", string.Format(" AND SLT_ID_SECAO = {0}", Secao));
@@ -222,9 +222,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                       AND RC.EV_ID_ELM IN (${SB})");
 
                     if (SB != null)
-                        query.Replace("${SB}", string.Format("{0}", SB));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SB", SB);
+                        //query.Replace("${SB}", string.Format("{0}", SB));
                     else
-                        query.Replace("${SB}", " ");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ID", " ");
+                        //query.Replace("${SB}", " ");
 
                     #endregion
 
@@ -461,7 +465,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        AND II.SLT_ATIVO_SN = 'S'
                                        AND II.SLT_ID_MOTIVO = RD.RD_ID_RDE
                                        AND SLDL.SO_LDL_ID_WEB = II.SLT_ID_SLT
-                                       AND SLDL.SO_LDL_ID = IM.SI_ID_SI");
+                                       AND SLDL.SO_LDL_ID = IM.SI_ID_SI");//C1225 - Sem modificação!
 
                     if (ID != null)
                         query.Replace("${SLT_ID_SLT}", string.Format(" AND SLT_ID_SLT = {0}", ID));
@@ -511,7 +515,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select SOLICITACAO_INTERDICAO_ID.NextVal from dual");
+                    query.Append(@"select SOLICITACAO_INTERDICAO_ID.NextVal from dual");//C1225 - Sem modificação!
 
 
                     #endregion
@@ -556,7 +560,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select ACTPP.SOLICITACOES_LDL_ID.NextVal from dual");
+                    query.Append(@"select ACTPP.SOLICITACOES_LDL_ID.NextVal from dual");//C1225 - Sem modificação!
 
 
                     #endregion
@@ -601,7 +605,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select SLT_ID_SLT_ACT from SOLICITACAO_INTERDICAO ${SLT_ID_SLT}");
+                    query.Append(@"select SLT_ID_SLT_ACT from SOLICITACAO_INTERDICAO ${SLT_ID_SLT}");//C1225 - Sem modificação!
 
 
                     if (id != null)
@@ -659,9 +663,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
 
                     if (id != null)
-                        query.Replace("${SLT_ID_SLT_ACT}", string.Format("{0}", id));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_ID_SLT_ACT", id);
+                        //query.Replace("${SLT_ID_SLT_ACT}", string.Format("{0}", id));
                     else
-                        query.Replace("${SLT_ID_SLT_ACT}", " ");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_ID_SLT_ACT", "NULL");
+                        //query.Replace("${SLT_ID_SLT_ACT}", " ");
 
                     #endregion
 
@@ -711,7 +719,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TP_SIT_ID, TP_SIT_CODIGO, TP_SIT_NOME, TP_SIT_ATIVO FROM TIPO_SITUACAO WHERE TP_SIT_ATIVO = 'S' ORDER BY TP_SIT_NOME");
+                    query.Append(@"SELECT TP_SIT_ID, TP_SIT_CODIGO, TP_SIT_NOME, TP_SIT_ATIVO FROM TIPO_SITUACAO WHERE TP_SIT_ATIVO = 'S' ORDER BY TP_SIT_NOME");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -764,7 +772,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT EV_ID_ELM, EV_NOM_MAC FROM ACTPP.ELEM_VIA       
                                        WHERE TE_ID_TP = 3 and ev_nom_mac != 'SBERRADA' 
                                         AND EV_IND_IN <> 'E'
-                                       ORDER BY EV_NOM_MAC");
+                                       ORDER BY EV_NOM_MAC");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -815,7 +823,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
                     query.Append(@"SELECT TP_INT_ID, TP_INT_CODIGO, TP_INT_NOME, TP_INT_ATIVO FROM TIPO_INTERDICAO      
-                                       WHERE TP_INT_ATIVO = 'S' ORDER BY TP_INT_NOME");
+                                       WHERE TP_INT_ATIVO = 'S' ORDER BY TP_INT_NOME");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -866,7 +874,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
                     query.Append(@"SELECT TP_MNT_ID, TP_MNT_CODIGO, TP_MNT_NOME, TP_MNT_ATIVO FROM TIPO_MANUTENCAO      
-                                       WHERE TP_MNT_ATIVO = 'S' ORDER BY TP_MNT_NOME");
+                                       WHERE TP_MNT_ATIVO = 'S' ORDER BY TP_MNT_NOME");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -917,7 +925,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
                     query.Append(@"SELECT TP_CIR_ID, TP_CIR_CODIGO, TP_CIR_NOME, TP_CIR_ATIVO FROM TIPO_CIRCULACAO      
-                                       WHERE TP_CIR_ATIVO = 'S' ORDER BY TP_CIR_NOME");
+                                       WHERE TP_CIR_ATIVO = 'S' ORDER BY TP_CIR_NOME");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -971,7 +979,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                   where EV_ID_ELM in (select distinct slt_id_secao from actweb.SOLICITACAO_INTERDICAO) 
                                   AND EV.NM_COR_ID = NC.NM_COR_ID
                                   ${R_Corre}                                  
-                                  ORDER BY EV_NOM_MAC");
+                                  ORDER BY EV_NOM_MAC");//C1225 - Sem modificação!
 
 
                     if (!string.IsNullOrEmpty(corredores))
@@ -1029,7 +1037,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT DISTINCT TS.TP_SIT_CODIGO, TS.TP_SIT_NOME 
                                     FROM SOLICITACAO_INTERDICAO SI, TIPO_SITUACAO TS 
                                         WHERE SI.SLT_ID_TP_SITUACAO = TS.TP_SIT_CODIGO
-                                          AND TS.TP_SIT_CODIGO IN (1, 2, 3, 4, 5, 6,7) ORDER BY TS.TP_SIT_NOME");
+                                          AND TS.TP_SIT_CODIGO IN (1, 2, 3, 4, 5, 6,7) ORDER BY TS.TP_SIT_NOME");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -1075,7 +1083,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT MTV_ID_MTV, MTV_DESCRICAO FROM MOTIVO_LDL WHERE MTV_ATIVO = 'S' ORDER BY MTV_DESCRICAO");
+                    query.Append(@"SELECT MTV_ID_MTV, MTV_DESCRICAO FROM MOTIVO_LDL WHERE MTV_ATIVO = 'S' ORDER BY MTV_DESCRICAO");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -1324,58 +1332,179 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                        SLT_ID_TP_MANUTENCAO, SLT_ID_TP_CIRCULACAO, SLT_ID_MOTIVO, SLT_MAT_RESPONSAVEL, SLT_DATA, SLT_DURACAO_SOLICITADA, 
                                                                        SLT_KM, SLT_TELEFONE_SN, SLT_TELEFONE_NUMERO, SLT_RADIO_SN, SLT_MACRO_SN, SLT_MACRO_NUMERO, 
                                                                        SLT_EQUIPAMENTOS, SLT_OBSERVACAO, SLT_USUARIO_LOGADO, SLT_ATIVO_SN, SLT_TELEFONE_RESP, SLT_PREFIXO)
-                                               VALUES (/*SLT_ID_SLT*/ ${SLT_ID_SLT},
-                                                /*SLT_ID_INTERDICAO*/ ${SLT_ID_SLT_ACT}, 
-                                                     /*SLT_ID_SECAO*/ ${SLT_ID_SECAO},
-                                               /*SLT_ID_TP_SITUACAO*/ ${SLT_ID_TP_SITUACAO},
-                                             /*SLT_ID_TP_INTERDICAO*/ ${SLT_ID_TP_INTERDICAO}, 
-                                             /*SLT_ID_TP_MANUTENCAO*/ ${SLT_ID_TP_MANUTENCAO},
-                                             /*SLT_ID_TP_CIRCULACAO*/ ${SLT_ID_TP_CIRCULACAO},
-                                                    /*SLT_ID_MOTIVO*/ ${SLT_ID_MOTIVO},
-                                              /*SLT_MAT_RESPONSAVEL*/ ${SLT_MAT_RESPONSAVEL},
+                                               VALUES (/*SLT_ID_SLT*/ :SLT_ID_SLT,
+                                                /*SLT_ID_INTERDICAO*/ :SLT_ID_SLT_ACT, 
+                                                     /*SLT_ID_SECAO*/ :SLT_ID_SECAO,
+                                               /*SLT_ID_TP_SITUACAO*/ :SLT_ID_TP_SITUACAO,
+                                             /*SLT_ID_TP_INTERDICAO*/ :SLT_ID_TP_INTERDICAO, 
+                                             /*SLT_ID_TP_MANUTENCAO*/ :SLT_ID_TP_MANUTENCAO,
+                                             /*SLT_ID_TP_CIRCULACAO*/ :SLT_ID_TP_CIRCULACAO,
+                                                    /*SLT_ID_MOTIVO*/ :SLT_ID_MOTIVO,
+                                              /*SLT_MAT_RESPONSAVEL*/ :SLT_MAT_RESPONSAVEL,
                                                          /*SLT_DATA*/ ${SLT_DATA},
-                                           /*SLT_DURACAO_SOLICITADA*/ ${SLT_DURACAO_SOLICITADA},
-                                                           /*SLT_KM*/ ${SLT_KM}, 
-                                                  /*SLT_TELEFONE_SN*/ ${SLT_TELEFONE_SN},
-                                              /*SLT_TELEFONE_NUMERO*/ ${SLT_TELEFONE_NUMERO},
-                                                     /*SLT_RADIO_SN*/ ${SLT_RADIO_SN},
-                                                     /*SLT_MACRO_SN*/ ${SLT_MACRO_SN},
-                                                 /*SLT_MACRO_NUMERO*/ ${SLT_MACRO_NUMERO},
-                                                 /*SLT_EQUIPAMENTOS*/ ${SLT_EQUIPAMENTOS},
-                                                   /*SLT_OBSERVACAO*/ ${SLT_OBSERVACAO},
-                                               /*SLT_USUARIO_LOGADO*/ ${SLT_USUARIO_LOGADO},
-                                                     /*SLT_ATIVO_SN*/ ${SLT_ATIVO_SN},
-                                                    /*SLT_TELEFONE*/ ${SLT_TELEFONE},
-                                                    /*SLT_PREFIXO*/ ${SLT_PREFIXO})");
+                                           /*SLT_DURACAO_SOLICITADA*/ :SLT_DURACAO_SOLICITADA,
+                                                           /*SLT_KM*/ :SLT_KM, 
+                                                  /*SLT_TELEFONE_SN*/ :SLT_TELEFONE_SN,
+                                              /*SLT_TELEFONE_NUMERO*/ :SLT_TELEFONE_NUMERO,
+                                                     /*SLT_RADIO_SN*/ :SLT_RADIO_SN,
+                                                     /*SLT_MACRO_SN*/ :SLT_MACRO_SN,
+                                                 /*SLT_MACRO_NUMERO*/ :SLT_MACRO_NUMERO,
+                                                 /*SLT_EQUIPAMENTOS*/ :SLT_EQUIPAMENTOS,
+                                                   /*SLT_OBSERVACAO*/ :SLT_OBSERVACAO,
+                                               /*SLT_USUARIO_LOGADO*/ :SLT_USUARIO_LOGADO,
+                                                     /*SLT_ATIVO_SN*/ :SLT_ATIVO_SN,
+                                                    /*SLT_TELEFONE*/ :SLT_TELEFONE,
+                                                    /*SLT_PREFIXO*/  :SLT_PREFIXO)");
 
 
                     #endregion
 
                     #region [ PARÂMETRO ]
 
-                    if (interdicao.Solicitacao_ID_ACTWEB != null) query.Replace("${SLT_ID_SLT}", string.Format("{0}", interdicao.Solicitacao_ID_ACTWEB));
-                    if (interdicao.Solicitacao_ID_ACT != null) query.Replace("${SLT_ID_SLT_ACT}", string.Format("{0}", interdicao.Solicitacao_ID_ACT));
-                    if (interdicao.Secao_ID != null) query.Replace("${SLT_ID_SECAO}", string.Format("{0}", interdicao.Secao_ID));
-                    if (interdicao.Tipo_Situacao_ID != null) query.Replace("${SLT_ID_TP_SITUACAO}", string.Format("{0}", interdicao.Tipo_Situacao_ID));
-                    if (interdicao.Tipo_Interdicao_ID != null) query.Replace("${SLT_ID_TP_INTERDICAO}", string.Format("{0}", interdicao.Tipo_Interdicao_ID));
-                    if (interdicao.Tipo_Manutencao_ID != null) query.Replace("${SLT_ID_TP_MANUTENCAO}", string.Format("{0}", interdicao.Tipo_Manutencao_ID));
-                    if (interdicao.Tipo_Circulacao_ID != null) query.Replace("${SLT_ID_TP_CIRCULACAO}", string.Format("{0}", interdicao.Tipo_Circulacao_ID));
-                    if (interdicao.Responsavel_Matricula != null) query.Replace("${SLT_MAT_RESPONSAVEL}", string.Format("'{0}'", interdicao.Responsavel_Matricula)); ;
-                    if (interdicao.Data != null) query.Replace("${SLT_DATA}", string.Format("to_date('{0}','DD/MM/YYYY HH24:MI:SS')", interdicao.Data));
-                    if (interdicao.Duracao_Solicitada != null) query.Replace("${SLT_DURACAO_SOLICITADA}", string.Format("{0}", Uteis.TocarVirgulaPorPonto(interdicao.Duracao_Solicitada.ToString())));
-                    if (interdicao.Km != null) query.Replace("${SLT_KM}", string.Format("{0}", Uteis.TocarVirgulaPorPonto(interdicao.Km.ToString())));
-                    if (interdicao.Telefone_SN != null || interdicao.Telefone_SN != "") query.Replace("${SLT_TELEFONE_SN}", string.Format("'{0}'", interdicao.Telefone_SN)); else query.Replace("${SLT_TELEFONE_SN}", string.Format("'{0}'", "N"));
-                    if (interdicao.Telefone_Numero != null || interdicao.Telefone_Numero != "") query.Replace("${SLT_TELEFONE_NUMERO}", string.Format("'{0}'", interdicao.Telefone_Numero)); else query.Replace("${SLT_TELEFONE_NUMERO}", null);
-                    if (interdicao.Radio_SN != null || interdicao.Radio_SN != "") query.Replace("${SLT_RADIO_SN}", string.Format("'{0}'", interdicao.Radio_SN)); else query.Replace("${SLT_RADIO_SN}", string.Format("'{0}'", "N"));
-                    if (interdicao.Macro_SN != null || interdicao.Macro_SN != "") query.Replace("${SLT_MACRO_SN}", string.Format("'{0}'", interdicao.Macro_SN)); query.Replace("${SLT_MACRO_SN}", string.Format("'{0}'", "N"));
-                    if (interdicao.Macro_Numero != null || interdicao.Macro_Numero != "") query.Replace("${SLT_MACRO_NUMERO}", string.Format("'{0}'", interdicao.Macro_Numero)); else query.Replace("${SLT_MACRO_NUMERO}", null);
-                    if (interdicao.Equipamentos != null || interdicao.Equipamentos != "") query.Replace("${SLT_EQUIPAMENTOS}", string.Format("'{0}'", interdicao.Equipamentos)); else query.Replace("${SLT_EQUIPAMENTOS}", null);
-                    if (interdicao.Motivo_ID != null) query.Replace("${SLT_ID_MOTIVO}", string.Format("{0}", interdicao.Motivo_ID));
-                    if (interdicao.Observacao != null || interdicao.Observacao != "") query.Replace("${SLT_OBSERVACAO}", string.Format("'{0}'", interdicao.Observacao)); else query.Replace("${SLT_OBSERVACAO}", null);
-                    if (interdicao.Usuario_Logado_Matricula != null) query.Replace("${SLT_USUARIO_LOGADO}", string.Format("'{0}'", interdicao.Usuario_Logado_Matricula));
-                    if (interdicao.Ativo_SN != null || interdicao.Ativo_SN != "") query.Replace("${SLT_ATIVO_SN}", string.Format("'{0}'", interdicao.Ativo_SN)); else query.Replace("${SLT_ATIVO_SN}", string.Format("'{0}'", "S"));
-                    if (interdicao.Telefone_responsavel != null) query.Replace("${SLT_TELEFONE}", string.Format("'{0}'", interdicao.Telefone_responsavel));
-                    if (interdicao.Prefixo != null) query.Replace("${SLT_PREFIXO}", string.Format("'{0}'", interdicao.Prefixo)); 
+					if (interdicao.Solicitacao_ID_ACTWEB != null) 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_ID_SLT", interdicao.Solicitacao_ID_ACTWEB);
+                        //query.Replace("${SLT_ID_SLT}", string.Format("{0}", interdicao.Solicitacao_ID_ACTWEB));
+
+					if (interdicao.Solicitacao_ID_ACT != null) 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_ID_SLT_ACT", interdicao.Solicitacao_ID_ACT);
+                        //query.Replace("${SLT_ID_SLT_ACT}", string.Format("{0}", interdicao.Solicitacao_ID_ACT));
+
+					if (interdicao.Secao_ID != null) 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_ID_SECAO", interdicao.Secao_ID);
+                        //query.Replace("${SLT_ID_SECAO}", string.Format("{0}", interdicao.Secao_ID));
+
+					if (interdicao.Tipo_Situacao_ID != null) 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_ID_TP_SITUACAO", interdicao.Tipo_Situacao_ID);
+                        //query.Replace("${SLT_ID_TP_SITUACAO}", string.Format("{0}", interdicao.Tipo_Situacao_ID));
+
+					if (interdicao.Tipo_Interdicao_ID != null) 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_ID_TP_INTERDICAO", interdicao.Tipo_Interdicao_ID);
+                        //query.Replace("${SLT_ID_TP_INTERDICAO}", string.Format("{0}", interdicao.Tipo_Interdicao_ID));
+
+					if (interdicao.Tipo_Manutencao_ID != null) 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_ID_TP_MANUTENCAO", interdicao.Tipo_Manutencao_ID);
+                        //query.Replace("${SLT_ID_TP_MANUTENCAO}", string.Format("{0}", interdicao.Tipo_Manutencao_ID));
+
+					if (interdicao.Tipo_Circulacao_ID != null) 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_ID_TP_CIRCULACAO", interdicao.Tipo_Circulacao_ID);
+                        //query.Replace("${SLT_ID_TP_CIRCULACAO}", string.Format("{0}", interdicao.Tipo_Circulacao_ID));
+
+					if (interdicao.Responsavel_Matricula != null) 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_MAT_RESPONSAVEL", interdicao.Responsavel_Matricula);
+                        //query.Replace("${SLT_MAT_RESPONSAVEL}", string.Format("'{0}'", interdicao.Responsavel_Matricula)); ;
+
+					if (interdicao.Data != null) 
+                        query.Replace("${SLT_DATA}", string.Format("to_date('{0}','DD/MM/YYYY HH24:MI:SS')", interdicao.Data));
+
+					if (interdicao.Duracao_Solicitada != null) 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_DURACAO_SOLICITADA", interdicao.Km.ToString());
+                        //query.Replace("${SLT_DURACAO_SOLICITADA}", string.Format("{0}", Uteis.TocarVirgulaPorPonto(interdicao.Duracao_Solicitada.ToString())));
+
+					if (interdicao.Km != null) 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_KM", interdicao.Km.ToString());
+                        //query.Replace("${SLT_KM}", string.Format("{0}", Uteis.TocarVirgulaPorPonto(interdicao.Km.ToString())));
+
+					if (interdicao.Telefone_SN != null || interdicao.Telefone_SN != "") 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_TELEFONE_SN", interdicao.Telefone_SN);
+                        //query.Replace("${SLT_TELEFONE_SN}", string.Format("'{0}'", interdicao.Telefone_SN)); 
+                    else 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_TELEFONE_SN", "N");
+                        //query.Replace("${SLT_TELEFONE_SN}", string.Format("'{0}'", "N"));
+
+					if (interdicao.Telefone_Numero != null || interdicao.Telefone_Numero != "") 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_TELEFONE_NUMERO", interdicao.Telefone_Numero);
+                        //query.Replace("${SLT_TELEFONE_NUMERO}", string.Format("'{0}'", interdicao.Telefone_Numero)); 
+                    else 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_TELEFONE_NUMERO", "NULL");
+                        //query.Replace("${SLT_TELEFONE_NUMERO}", null);
+
+					if (interdicao.Radio_SN != null || interdicao.Radio_SN != "") 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_RADIO_SN", interdicao.Radio_SN);
+                        //query.Replace("${SLT_RADIO_SN}", string.Format("'{0}'", interdicao.Radio_SN)); 
+                    else 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_RADIO_SN", "N");
+                        //query.Replace("${SLT_RADIO_SN}", string.Format("'{0}'", "N"));
+
+					if (interdicao.Macro_SN != null || interdicao.Macro_SN != "") 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_MACRO_SN", interdicao.Macro_SN);
+                        //query.Replace("${SLT_MACRO_SN}", string.Format("'{0}'", interdicao.Macro_SN)); 
+                    else
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_MACRO_SN", "N");
+                        //query.Replace("${SLT_MACRO_SN}", string.Format("'{0}'", "N"));
+
+					if (interdicao.Macro_Numero != null || interdicao.Macro_Numero != "") 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_MACRO_NUMERO", interdicao.Macro_Numero);
+                        //query.Replace("${SLT_MACRO_NUMERO}", string.Format("'{0}'", interdicao.Macro_Numero)); 
+                    else 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_MACRO_NUMERO", "NULL");
+                        //query.Replace("${SLT_MACRO_NUMERO}", null);
+
+					if (interdicao.Equipamentos != null || interdicao.Equipamentos != "") 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_EQUIPAMENTOS", interdicao.Equipamentos);
+                        //query.Replace("${SLT_EQUIPAMENTOS}", string.Format("'{0}'", interdicao.Equipamentos)); 
+                    else 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_EQUIPAMENTOS", "NULL");
+                        //query.Replace("${SLT_EQUIPAMENTOS}", null);
+
+					if (interdicao.Motivo_ID != null) 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_ID_MOTIVO", interdicao.Motivo_ID);
+                        //query.Replace("${SLT_ID_MOTIVO}", string.Format("{0}", interdicao.Motivo_ID));
+
+					if (interdicao.Observacao != null || interdicao.Observacao != "") 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_OBSERVACAO", interdicao.Observacao);
+                        //query.Replace("${SLT_OBSERVACAO}", string.Format("'{0}'", interdicao.Observacao)); 
+                    else 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_OBSERVACAO", "NULL");
+                        //query.Replace("${SLT_OBSERVACAO}", "NULL");
+
+					if (interdicao.Usuario_Logado_Matricula != null) 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_USUARIO_LOGADO", interdicao.Usuario_Logado_Matricula);
+                        //query.Replace("${SLT_USUARIO_LOGADO}", string.Format("'{0}'", interdicao.Usuario_Logado_Matricula));
+
+					if (interdicao.Ativo_SN != null || interdicao.Ativo_SN != "") 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_ATIVO_SN", interdicao.Ativo_SN);
+                        //query.Replace("${SLT_ATIVO_SN}", string.Format("'{0}'", interdicao.Ativo_SN)); 
+                    else 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_ATIVO_SN", "S");
+                        //query.Replace("${SLT_ATIVO_SN}", string.Format("'{0}'", "S"));
+
+					if (interdicao.Telefone_responsavel != null) 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_TELEFONE", interdicao.Telefone_responsavel);
+                        //query.Replace("${SLT_TELEFONE}", string.Format("'{0}'", interdicao.Telefone_responsavel));
+
+					if (interdicao.Prefixo != null) 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SLT_PREFIXO", interdicao.Prefixo);
+                        //query.Replace("${SLT_PREFIXO}", string.Format("'{0}'", interdicao.Prefixo)); 
 
                     #endregion
 
@@ -1417,14 +1546,18 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"UPDATE SOLICITACAO_INTERDICAO SET SLT_ID_TP_SITUACAO = 4, SLT_ID_TP_CIRCULACAO = ${SLT_ID_TP_CIRCULACAO}, SLT_ATIVO_SN = 'N' WHERE SLT_ID_SLT = ${SLT_ID_SLT}");
+                    query.Append(@"UPDATE SOLICITACAO_INTERDICAO SET SLT_ID_TP_SITUACAO = 4, SLT_ID_TP_CIRCULACAO = :SLT_ID_TP_CIRCULACAO, SLT_ATIVO_SN = 'N' WHERE SLT_ID_SLT = :SLT_ID_SLT");
 
                     #endregion
 
                     #region [ PARÂMETRO ]
 
-                    query.Replace("${SLT_ID_SLT}", string.Format("{0}", restricaoID));
-                    query.Replace("${SLT_ID_TP_CIRCULACAO}", string.Format("{0}", circulacaoID));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("SLT_ID_SLT", restricaoID);
+                    //query.Replace("${SLT_ID_SLT}", string.Format("{0}", restricaoID));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("SLT_ID_TP_CIRCULACAO", circulacaoID);
+                    //query.Replace("${SLT_ID_TP_CIRCULACAO}", string.Format("{0}", circulacaoID));
 
                     #endregion
 

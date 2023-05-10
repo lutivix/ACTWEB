@@ -33,7 +33,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT COR_ID_COR AS CORREDOR_ID, COR_ATUALIZACAO AS ATUALIZACAO, COR_DESCRICAO AS DESCRICAO, COR_ATIVO_SN AS ATIVO FROM CORREDORES
                                             ${COR_DESCRICAO}
                                             ${COR_ATIVO_SN}
-                                    ORDER BY ${ORDENACAO}");
+                                    ORDER BY ${ORDENACAO}");//C1225 - Sem modificação!
 
                     if (filtro.Descricao != null)
                         query.Replace("${COR_DESCRICAO}", string.Format("WHERE UPPER(COR_DESCRICAO) LIKE '{0}'", filtro.Descricao.ToUpper()));
@@ -97,7 +97,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"SELECT COR_ID_COR AS CORREDOR_ID, COR_ATUALIZACAO AS ATUALIZACAO, COR_DESCRICAO AS DESCRICAO, COR_ATIVO_SN AS ATIVO FROM CORREDORES WHERE COR_ID_COR = ${COR_ID_COR}");
 
-                    query.Replace("${COR_ID_COR}", string.Format("AND COR_ID_COR = {0}", id));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("COR_ID_COR", id);
+                    //query.Replace("${COR_ID_COR}", string.Format("AND COR_ID_COR = {0}", id));
 
                     #endregion
 
@@ -142,7 +144,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT COR_ID_COR AS CORREDOR_ID, COR_ATUALIZACAO AS ATUALIZACAO, COR_DESCRICAO AS DESCRICAO, COR_ATIVO_SN AS ATIVO FROM CORREDORES ${COR_DESCRICAO}");
+                    query.Append(@"SELECT COR_ID_COR AS CORREDOR_ID, COR_ATUALIZACAO AS ATUALIZACAO, COR_DESCRICAO AS DESCRICAO, COR_ATIVO_SN AS ATIVO FROM CORREDORES ${COR_DESCRICAO}");//C1225 - Sem modificação!
 
                     query.Replace("${COR_DESCRICAO}", string.Format("WHERE UPPER(COR_DESCRICAO) LIKE '{0}'", descricao));
 

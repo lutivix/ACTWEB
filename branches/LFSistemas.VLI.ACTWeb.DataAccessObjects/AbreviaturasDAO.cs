@@ -41,7 +41,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT ABV_ID_ABV, ABV_EXTENSO, ABV_ABREVIADO, ABV_ATIVO_SN FROM ABREVIAR ${ABV_EXTENSO} ${ABV_ABREVIADO} ${ABV_ATIVO_SN}");
+                    query.Append(@"SELECT ABV_ID_ABV, ABV_EXTENSO, ABV_ABREVIADO, ABV_ATIVO_SN FROM ABREVIAR ${ABV_EXTENSO} ${ABV_ABREVIADO} ${ABV_ATIVO_SN}");//C1225 - Sem modificação! - Cláusulas
 
                     if (origem == null)
                     {
@@ -138,7 +138,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT ABV_ID_ABV, ABV_EXTENSO, ABV_ABREVIADO, ABV_ATIVO_SN FROM ABREVIAR");
+                    query.Append(@"SELECT ABV_ID_ABV, ABV_EXTENSO, ABV_ABREVIADO, ABV_ATIVO_SN FROM ABREVIAR");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -188,7 +188,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT ABV_ID_ABV, ABV_EXTENSO, ABV_ABREVIADO, ABV_ATIVO_SN FROM ABREVIAR WHERE ABV_ID_ABV = ${ABV_ID_ABV}");
+                    query.Append(@"SELECT ABV_ID_ABV, ABV_EXTENSO, ABV_ABREVIADO, ABV_ATIVO_SN FROM ABREVIAR WHERE ABV_ID_ABV = ${ABV_ID_ABV}");//C1225 - Sem modificação! - Real passado como parâmetro
 
 
                     if (ID != null)
@@ -257,7 +257,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     else
                         query.Append(@"INSERT INTO ABREVIAR (ABV_ID_ABV, ABV_EXTENSO, ABV_ABREVIADO, ABV_ATIVO_SN) VALUES (ABREVIAR_ID.NEXTVAL, ${ABV_EXTENSO}, ${ABV_ABREVIADO}, ${ABV_ATIVO_SN})");
 
-
+                    //C1225 - Sem modificação! - Objeto passado como parâmetro
                     if (abreviatura.Abreviatura_ID != null)
                     {
                         query.Replace("${ABV_ID_ABV}", string.Format("{0}", abreviatura.Abreviatura_ID));

@@ -34,7 +34,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         WHERE M.ROT_ID_ROT = R.ROT_ID_ROT
                                     ${ROT_ID_ROT}
                                     ${MTE_DTE_VAL}
-                                    ${MTE_ATV_SN}");
+                                    ${MTE_ATV_SN}");//C1225 - Sem modificação!
 
                     if (origem == "tela_consulta")
                     {
@@ -139,7 +139,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         WHERE M.ROT_ID_ROT = R.ROT_ID_ROT
                                         ${MTE_ID_MTE}");
 
-                    query.Replace("${MTE_ID_MTE}", string.Format(" AND M.MTE_ID_MTE IN ({0})", id));
+                    query.Replace("${MTE_ID_MTE}", string.Format(" AND M.MTE_ID_MTE IN ({0})", id));//C1225 - Sem modificação!
 
                     #endregion
 
@@ -183,7 +183,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT ROT_ID_ROT, ROT_NOM_ROT FROM ROTAS_PRODUCAO WHERE ROT_ATV_SN = 'S' ORDER BY ROT_ID_ROT");
+                    query.Append(@"SELECT ROT_ID_ROT, ROT_NOM_ROT FROM ROTAS_PRODUCAO WHERE ROT_ATV_SN = 'S' ORDER BY ROT_ID_ROT");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -233,9 +233,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     var command = connection.CreateCommand();
 
                     if (meta.Meta_ID != null)
-                        query.Append(@"UPDATE  META_PCTM SET MTE_DTE_PUB = ${MTE_DTE_PUB}, MTE_MTE_MTE = ${MTE_MTE_MTE}, MTE_ATV_SN = ${MTE_ATV_SN} WHERE MTE_ID_MTE = ${MTE_ID_MTE}");
+                        query.Append(@"UPDATE  META_PCTM SET MTE_DTE_PUB = ${MTE_DTE_PUB}, MTE_MTE_MTE = :MTE_MTE_MTE, MTE_ATV_SN = :MTE_ATV_SN WHERE MTE_ID_MTE = :MTE_ID_MTE");
                     else
-                        query.Append(@"INSERT INTO META_PCTM (MTE_ID_MTE, ROT_ID_ROT, MTE_DTE_PUB, MTE_DTE_VAL, MTE_MTE_MTE, MTE_ATV_SN) VALUES (META_PCTM_ID.NEXTVAL, ${ROT_ID_ROT}, ${MTE_DTE_PUB}, ${MTE_DTE_VAL}, ${MTE_MTE_MTE}, ${MTE_ATV_SN})");
+                        query.Append(@"INSERT INTO META_PCTM (MTE_ID_MTE, ROT_ID_ROT, MTE_DTE_PUB, MTE_DTE_VAL, MTE_MTE_MTE, MTE_ATV_SN) VALUES (META_PCTM_ID.NEXTVAL, :ROT_ID_ROT, :MTE_DTE_PUB, ${MTE_DTE_VAL}, :MTE_MTE_MTE, :MTE_ATV_SN)");
 
                     
                     // Alterando um registro existente no banco
@@ -243,7 +243,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     {
                         if (meta.Meta_ID != null)
                         {
-                            query.Replace("${MTE_ID_MTE}", string.Format("{0}", meta.Meta_ID));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("MTE_ID_MTE", meta.Meta_ID);
+                            //query.Replace("${MTE_ID_MTE}", string.Format("{0}", meta.Meta_ID));
                         }
 
                         if (meta.Publicacao != null)
@@ -253,22 +255,34 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                         
                         if (meta.Meta != null)
-                            query.Replace("${MTE_MTE_MTE}", string.Format("{0}", meta.Meta));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("MTE_MTE_MTE", meta.Meta);
+                            //query.Replace("${MTE_MTE_MTE}", string.Format("{0}", meta.Meta));
                         else
-                            query.Replace("${MTE_MTE_MTE}", string.Format("NULL"));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("MTE_MTE_MTE", "NULL");
+                            //query.Replace("${MTE_MTE_MTE}", string.Format("NULL"));
 
                         if (meta.Ativo_SN != null)
-                            query.Replace("${MTE_ATV_SN}", string.Format("'{0}'", meta.Ativo_SN.ToUpper()));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("MTE_ATV_SN", meta.Ativo_SN.ToUpper());
+                            //query.Replace("${MTE_ATV_SN}", string.Format("'{0}'", meta.Ativo_SN.ToUpper()));
                         else
-                            query.Replace("${MTE_ATV_SN}", string.Format("'S'"));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("MTE_ATV_SN", string.Format("'S'"));
+                            //query.Replace("${MTE_ATV_SN}", string.Format("'S'"));
                     }
                     else
                     {
 
                         if (meta.Rota_ID != null)
-                            query.Replace("${ROT_ID_ROT}", string.Format("{0}", meta.Rota_ID));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("ROT_ID_ROT", meta.Rota_ID);
+                            //query.Replace("${ROT_ID_ROT}", string.Format("{0}", meta.Rota_ID));
                         else
-                            query.Replace("${ROT_ID_ROT}", string.Format("NULL"));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("ROT_ID_ROT", "NULL");
+                            //query.Replace("${ROT_ID_ROT}", string.Format("NULL"));
 
                         if (meta.Publicacao != null)
                             query.Replace("${MTE_DTE_PUB}", string.Format("TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS')", meta.Publicacao));
@@ -281,14 +295,22 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             query.Replace("${MTE_DTE_VAL}", null);
 
                         if (meta.Meta != null)
-                            query.Replace("${MTE_MTE_MTE}", string.Format("{0}", meta.Meta));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("MTE_MTE_MTE", meta.Meta);
+                            //query.Replace("${MTE_MTE_MTE}", string.Format("{0}", meta.Meta));
                         else
-                            query.Replace("${MTE_MTE_MTE}", string.Format("NULL"));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("MTE_MTE_MTE", "NULL");
+                            //query.Replace("${MTE_MTE_MTE}", string.Format("NULL"));
 
                         if (meta.Ativo_SN != null)
-                            query.Replace("${MTE_ATV_SN}", string.Format("'{0}'", meta.Ativo_SN.ToUpper()));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("MTE_ATV_SN", meta.Ativo_SN.ToUpper());
+                            //query.Replace("${MTE_ATV_SN}", string.Format("'{0}'", meta.Ativo_SN.ToUpper()));
                         else
-                            query.Replace("${MTE_ATV_SN}", string.Format("'S'"));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("MTE_ATV_SN", string.Format("'S'"));
+                            //query.Replace("${MTE_ATV_SN}", string.Format("'S'"));
                     }
 
                     #endregion
@@ -336,13 +358,17 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"DELETE FROM META_PCTM WHERE MTE_ID_MTE = ${MTE_ID_MTE}");
+                    query.Append(@"DELETE FROM META_PCTM WHERE MTE_ID_MTE = :MTE_ID_MTE");
 
 
                     if (ID != null)
-                        query.Replace("${MTE_ID_MTE}", string.Format("{0}", ID));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("MTE_ID_MTE", ID);
+                        //query.Replace("${MTE_ID_MTE}", string.Format("{0}", ID));
                     else
-                        query.Replace("${MTE_ID_MTE}", string.Format(""));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("MTE_ID_MTE", 0);
+                        //query.Replace("${MTE_ID_MTE}", string.Format(""));
 
                     #endregion
 

@@ -37,20 +37,32 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"INSERT INTO LOGS (LOG_ID, LOG_DATA_HORA, LOG_MATRICULA, LOG_MODULO, LOG_IDENT_LDA, LOG_IDENT_ENV, LOG_TEXTO, LOG_OPERACAO) VALUES 
                                 ((LOGS_ID.NEXTVAL), 
                                 ${data_hora},
-                                ${matricula},
-                                ${modulo},
-                                ${identificador_old},
-                                ${identificador_new},
-                                ${texto},
-                                ${operacao})");
+                                :matricula,
+                                :modulo,
+                                :identificador_old,
+                                :identificador_new,
+                                :texto,
+                                :operacao)");
 
                     query.Replace("${data_hora}", string.Format("to_date('{0}','DD/MM/YYYY HH24:MI:SS')", data_hora));
-                    query.Replace("${matricula}", string.Format("'{0}'", matricula));
-                    query.Replace("${modulo}", string.Format("'{0}'", modulo));
-                    query.Replace("${identificador_old}", string.Format("'{0}'", identificador_lda));
-                    query.Replace("${identificador_new}", string.Format("'{0}'", identificador_env));
-                    query.Replace("${texto}", string.Format("'{0}'", texto));
-                    query.Replace("${operacao}", string.Format("'{0}'", operacao));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("matricula", matricula);
+                    //query.Replace("${matricula}", string.Format("'{0}'", matricula));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("modulo", modulo);
+                    //query.Replace("${modulo}", string.Format("'{0}'", modulo));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("identificador_old", identificador_lda);
+                    //query.Replace("${identificador_old}", string.Format("'{0}'", identificador_lda));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("identificador_new", identificador_env);
+                    //query.Replace("${identificador_new}", string.Format("'{0}'", identificador_env));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("texto", texto);
+                    //query.Replace("${texto}", string.Format("'{0}'", texto));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("operacao", operacao);
+                    //query.Replace("${operacao}", string.Format("'{0}'", operacao));
 
                     command.CommandText = query.ToString();
                     command.ExecuteNonQuery();

@@ -35,23 +35,33 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             WHERE O.EV_ID_ELM = E.EV_ID_ELM
                                                 AND E.ROT_ID_ROT = R.ROT_ID_ROT
                                                 AND R.ROT_ID_ROT = M.ROT_ID_ROT
-                                                AND O.EV_ID_ELM IN (SELECT EV_ID_ELM FROM ACTPP.ELEM_VIA WHERE ROT_ID_ROT IN ${ROT_ID_ROT}) 
+                                                AND O.EV_ID_ELM IN (SELECT EV_ID_ELM FROM ACTPP.ELEM_VIA WHERE ROT_ID_ROT IN :ROT_ID_ROT) 
                                                 AND R.ROT_ID_ROT IN (SELECT ROT_ID_ROT FROM META_PCTM WHERE MTE_ATV_SN = 'S')
                                                 --AND O.OC_DT_FIM_OCP IS NULL
-                                                AND SubStr(O.OC_PRF_TR,1,1) IN ${OC_PRF_TRM}
+                                                AND SubStr(O.OC_PRF_TR,1,1) IN :OC_PRF_TRM
                                                 ${OC_DT_OCP}
                                                 GROUP BY R.ROT_NOM_COR, R.ROT_NOM_ROT, O.OC_PRF_TR, R.ROT_PRF_TRM, M.MTE_MTE_MTE)
                                     WHERE TREM = 1            
-                                    ORDER BY ${ORDENACAO}");
+                                    ORDER BY :ORDENACAO");
+
+
                     if (filtro.Rota_ID != null)
-                        query.Replace("${ROT_ID_ROT}", string.Format("({0})", filtro.Rota_ID));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ROT_ID_ROT", filtro.Rota_ID);
+                        //query.Replace("${ROT_ID_ROT}", string.Format("({0})", filtro.Rota_ID));
                     else
-                        query.Replace("${ROT_ID_ROT}", string.Format("{0}", 1));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ROT_ID_ROT", 1);
+                        //query.Replace("${ROT_ID_ROT}", string.Format("{0}", 1));
 
                     if (filtro.Prefixo_Trem != null)
-                        query.Replace("${OC_PRF_TRM}", string.Format("({0})", filtro.Prefixo_Trem));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("OC_PRF_TRM", filtro.Prefixo_Trem);
+                        //query.Replace("${OC_PRF_TRM}", string.Format("({0})", filtro.Prefixo_Trem));
                     else
-                        query.Replace("${OC_PRF_TRM}", string.Format("('J', 'C', 'M', 'D', 'X', 'E')"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("OC_PRF_TRM", "('J', 'C', 'M', 'D', 'X', 'E')");
+                        //query.Replace("${OC_PRF_TRM}", string.Format("('J', 'C', 'M', 'D', 'X', 'E')"));
 
                     if (filtro.Direcao == "1")
                     {
@@ -71,9 +81,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #endregion
 
                     if (ordenacao != null)
-                        query.Replace("${ORDENACAO}", string.Format("'{0}'", ordenacao));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ORDENACAO", ordenacao);
+                        //query.Replace("${ORDENACAO}", string.Format("'{0}'", ordenacao));
                     else
-                        query.Replace("${ORDENACAO}", string.Format("OC_PRF_TR"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("ORDENACAO", "OC_PRF_TR");
+                        //query.Replace("${ORDENACAO}", string.Format("OC_PRF_TR"));
 
                     #region [BUSCA NO BANCO ]
 
@@ -116,7 +130,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA OS USUÁRIOS ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT ROT_ID_ROT, ROT_NOM_COR, ROT_NOM_ROT, ROT_PRF_TRM, ROT_DTE_PUB, ROT_ATV_SN FROM ROTAS_PRODUCAO ORDER BY ROT_ID_ROT");
+                    query.Append(@"SELECT ROT_ID_ROT, ROT_NOM_COR, ROT_NOM_ROT, ROT_PRF_TRM, ROT_DTE_PUB, ROT_ATV_SN FROM ROTAS_PRODUCAO ORDER BY ROT_ID_ROT");//C1225 - Sem modificação!
 
                     #endregion
 

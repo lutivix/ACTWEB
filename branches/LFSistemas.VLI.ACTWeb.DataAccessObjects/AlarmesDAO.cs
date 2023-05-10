@@ -32,7 +32,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ FILTRA QTDES ]
 
-                    query.Append(@"SELECT COUNT(*) AS QTDE FROM ACTPP.ALARMES WHERE ALARMES.TA_ID_TA IN (205, 206, 607, 213, 212, 208, 301, 672, 302, 214, 215, 216, 217, 218) AND AL_SIT IN('N', 'R')");
+                    query.Append(@"SELECT COUNT(*) AS QTDE FROM ACTPP.ALARMES WHERE ALARMES.TA_ID_TA IN (205, 206, 607, 213, 212, 208, 301, 672, 302, 214, 215, 216, 217, 218) AND AL_SIT IN('N', 'R')");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -105,7 +105,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             query.Replace("${PERIODO}", string.Format("AND AL_DT_INI BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", filtro.DataInicial, filtro.DataFinal));
                         else
                             query.Replace("${PERIODO}", "");
-                    }
+                    }//C1225 - Sem modificação! - Cláusulas
 
                     #endregion
 
@@ -183,7 +183,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 ${ESTACAO}
                                                 ${TREM}
                                                 ${PERIODO}
-                                                ORDER BY AL_DT_INI DESC");
+                                                ORDER BY AL_DT_INI DESC");//C1225 - Sem modificação! - Cláusulas
 
                     if (!string.IsNullOrEmpty(filtro.Trem))
                         query.Replace("${TREM}", string.Format("AND SUBSTR(AL_PARAM,0, INSTR(AL_PARAM,'_',1,1)-1) IN ({0})", filtro.Trem));

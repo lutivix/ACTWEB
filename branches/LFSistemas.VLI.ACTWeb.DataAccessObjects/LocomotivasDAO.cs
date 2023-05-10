@@ -56,7 +56,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ${LOC_ID_NUM_LOCO} 
                                         ${MCT_MAP_VERSAO}
                                         ${MCT_ID_MCT}
-                                        ${ORDEM}");
+                                        ${ORDEM}");//C1225 - Sem modificação!
 
 
                     if (filtro.Ativo != string.Empty)
@@ -166,7 +166,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             L.LOC_TP_VEIC        
                                         FROM ACTPP.MCTS M FULL OUTER JOIN ACTPP.LOCOMOTIVAS L   
                                         ON M.MCT_ID_MCT = L.MCT_ID_MCT
-                                        ${MCT_ID_MCT}");
+                                        ${MCT_ID_MCT}");//C1225 - Sem modificação!
 
                     if (mctId != null)
                         query.Replace("${MCT_ID_MCT}", string.Format("WHERE M.MCT_ID_MCT = {0}", mctId));
@@ -214,7 +214,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ FILTRA MACROS ]
 
-                    query.Append(@"Select * from ACTPP.mcts ${MCT_ID_MCT}");
+                    query.Append(@"Select * from ACTPP.mcts ${MCT_ID_MCT}");//C1225 - Sem modificação!
 
                     if (mctId != null)
                         query.Replace("${MCT_ID_MCT}", string.Format("WHERE MCT_ID_MCT = {0}", mctId));
@@ -262,7 +262,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ FILTRA MACROS ]
 
-                    query.Append(@"Select * from ACTPP.mcts ${MCT_ID_MCT}");
+                    query.Append(@"Select * from ACTPP.mcts ${MCT_ID_MCT}");//C1225 - Sem modificação!
 
                     if (mctID != null)
                         query.Replace("${MCT_ID_MCT}", string.Format("WHERE MCT_ID_MCT = {0}", mctID));
@@ -310,7 +310,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ FILTRA MACROS ]
 
-                    query.Append(@"Select LOC_ID_NUM_LOCO, MCT_ID_MCT from ACTPP.locomotivas ${LOC_ID_NUM_LOCO}");
+                    query.Append(@"Select LOC_ID_NUM_LOCO, MCT_ID_MCT from ACTPP.locomotivas ${LOC_ID_NUM_LOCO}");//C1225 - Sem modificação!
 
                     if (mctName != string.Empty)
                         query.Replace("${LOC_ID_NUM_LOCO}", string.Format("WHERE LOC_ID_NUM_LOCO = {0}", mctName));
@@ -370,7 +370,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             L.LOC_TP_VEIC
                                             FROM ACTPP.MCTS M FULL OUTER JOIN ACTPP.LOCOMOTIVAS L ON  M.MCT_ID_MCT = L.MCT_ID_MCT 
                                                 ${LOC_TP_LOCO}
-                                                ORDER BY L.LOC_TP_VEIC ASC");
+                                                ORDER BY L.LOC_TP_VEIC ASC");//C1225 - Sem modificação!
 
                     if (tipoLoco != null)
                         query.Replace("${LOC_TP_LOCO}", string.Format("WHERE LOC_TP_LOCO LIKE '{0}%'", tipoLoco));
@@ -430,7 +430,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             L.LOC_TP_VEIC
                                             FROM ACTPP.MCTS M FULL OUTER JOIN ACTPP.LOCOMOTIVAS L ON M.MCT_ID_MCT = L.MCT_ID_MCT
                                             ${LOC_TP_VEIC}
-                                            ORDER BY L.LOC_TP_VEIC ASC");
+                                            ORDER BY L.LOC_TP_VEIC ASC");//C1225 - Sem modificação!
 
                     if (tipoVeiculo != null)
                         query.Replace("${LOC_TP_VEIC}", string.Format("WHERE LOC_TP_VEIC LIKE '{0}%'", tipoVeiculo));
@@ -491,7 +491,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             L.LOC_TP_VEIC
                                             FROM ACTPP.MCTS M FULL OUTER JOIN ACTPP.LOCOMOTIVAS L ON  M.MCT_ID_MCT = L.MCT_ID_MCT 
                                             ${MCT_MAP_VERSAO}
-                                            ORDER BY L.LOC_TP_VEIC ASC");
+                                            ORDER BY L.LOC_TP_VEIC ASC");//C1225 - Sem modificação!
 
                     if (tipoMapa != null)
                         query.Replace("${MCT_MAP_VERSAO}", string.Format("WHERE MCT_MAP_VERSAO LIKE '{0}%'", tipoMapa));
@@ -552,7 +552,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query4.Append(@"select LOC_ID_NUM_LOCO from ACTPP.autorizacao_interdicao ${LOC_ID_NUM_LOCO}");
                     query5.Append(@"select LOC_ID_NUM_LOCO from ACTPP.trens where st_id_sit_trem = 4 ${LOC_ID_NUM_LOCO}");
                     query6.Append(@"select LOC_ID_LOCO from ACTPP.locomotivas ${LOC_ID_NUM_LOCO}");
-
+                    //C1225 - Sem modificação!
                     #endregion
 
                     if (idLoco != 0)
@@ -662,7 +662,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ FILTRA MACROS ]
 
-                    query.Append(@"SELECT LOC_ID_NUM_LOCO, TM_PRF_ACT FROM ACTPP.TRENS ${LOC_ID_NUM_LOCO}");
+                    query.Append(@"SELECT LOC_ID_NUM_LOCO, TM_PRF_ACT FROM ACTPP.TRENS ${LOC_ID_NUM_LOCO}");//C1225 - Sem modificação!
 
                     if (idMct > 0)
                         query.Replace("${LOC_ID_NUM_LOCO}", string.Format("WHERE LOC_ID_NUM_LOCO = {0}", idMct));
@@ -711,7 +711,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ FILTRA MACROS ]
 
-                    query.Append(@"Select * from ACTPP.LOCOMOTIVAS ${LOC_ID_NUM_LOCO}");
+                    query.Append(@"Select * from ACTPP.LOCOMOTIVAS ${LOC_ID_NUM_LOCO}");//C1225 - Sem modificação!
 
                     if (locoId != null)
                         query.Replace("${LOC_ID_NUM_LOCO}", string.Format("WHERE LOC_ID_NUM_LOCO = {0}", locoId));

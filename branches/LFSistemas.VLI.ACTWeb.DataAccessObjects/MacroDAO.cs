@@ -40,7 +40,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"select MR_GRMN as mr_id, substr(mr_lat, 2, 6) as Latitude, substr(mr_lon, 2, 6) as Longitude, mr_corredor as Corredor, mr_km as KM, mr_msg_time as Horario 
                                     from ACTPP.mensagens_recebidas 
                                         where (mr_msg_time > sysdate - 0.001 and mr_msg_time < sysdate)
-                                          and mr_corredor is null");
+                                          and mr_corredor is null");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -95,7 +95,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT co_lat, co_lon, co_corredor, co_km from ACTPP.corredor where
                                                      ${CO_LAT}
                                                      ${CO_LON}           
-                                                     AND ROWNUM = 1 order by co_km desc");
+                                                     AND ROWNUM = 1 order by co_km desc");//C1225 - Sem modificação!
 
                     query.Replace("${CO_LAT}", string.Format("( CO_LAT LIKE '%{0}%' ", latitude));
                     query.Replace("${CO_LON}", string.Format("AND CO_LON LIKE '%{0}%' )", longitude));
@@ -250,7 +250,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                               ${INTERVALO_E}
                                               ${CORREDOR_E}
                                               AND ME.ME_MAC_NUM = 50 
-                                              AND SUBSTR(ME.ME_TEXT,2,4) = '7000'");
+                                              AND SUBSTR(ME.ME_TEXT,2,4) = '7000'");//C1225 - Sem modificação!
 
                         if (filtro.DataInicio.HasValue && filtro.DataFim.HasValue)
                         {
@@ -368,7 +368,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                       AND ME.ME_MAC_NUM = 50 
                                       AND SUBSTR(ME.ME_TEXT,2,4) = '7000'
                                        ${INTERVALO_E} 
-                                       ${CORREDOR_E}");
+                                       ${CORREDOR_E}");//C1225 - Sem modificação!
                     }
                     else if (origem == "tela_relatorio")
                     {
@@ -424,7 +424,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                               ${INTERVALO_E}
                                               ${CORREDOR_E}
                                               AND ME.ME_MAC_NUM = 50 
-                                              AND SUBSTR(ME.ME_TEXT,2,4) = '7000'");
+                                              AND SUBSTR(ME.ME_TEXT,2,4) = '7000'");//C1225 - Sem modificação!
 
 
                     }
@@ -553,7 +553,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ${LOCO_E}
                                         ${CODIGO_OS_E}
                                         ${PREFIXO_E}
-                                    ");
+                                    ");//C1225 - Sem modificação!
 
 
 
@@ -735,7 +735,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ${E_CodOS}
                                         ${E_Expre}
                                         ${E_Corre}
-                                        AND TRENS7D_HIST.TMH_ID_TRM(+) = MENSAGENS_ENVIADAS.ME_ID_TRM");
+                                        AND TRENS7D_HIST.TMH_ID_TRM(+) = MENSAGENS_ENVIADAS.ME_ID_TRM");//C1225 - Sem modificação!
 
                         #region [ FILTRA MACROS PRA TRÁS ]
 
@@ -804,7 +804,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ${E_CodOS}
                                         ${E_Expre}
                                         ${E_Corre}
-                                        AND TRENS7D_HIST.TMH_ID_TRM(+) = MENSAGENS_ENVIADAS.ME_ID_TRM");
+                                        AND TRENS7D_HIST.TMH_ID_TRM(+) = MENSAGENS_ENVIADAS.ME_ID_TRM");//C1225 - Sem modificação!
 
                         #region [ FILTRA MACROS PRA TRÁS ]
 
@@ -1042,7 +1042,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                              ${ME_MAC_NUM}
                                              ${ME_COD_OF}
                                              ${ME_Expre}
-                                             ${ME_Corre}");
+                                             ${ME_Corre}");//C1225 - Sem modificação!
                     }
                     #endregion
 
@@ -1060,7 +1060,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 ${ME_MAC_NUM}
                                                 ${ME_COD_OF}
                                                 ${ME_Expre}
-                                                ${ME_Corre}");
+                                                ${ME_Corre}");//C1225 - Sem modificação!
                     }
 
                     #endregion
@@ -1200,7 +1200,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             ${MR_COD_OF}
                                             ${MR_Expre}
                                             ${MR_Corre}
-                                            AND TH.TMH_ID_TRM(+) = MR.MR_ID_TRM");
+                                            AND TH.TMH_ID_TRM(+) = MR.MR_ID_TRM");//C1225 - Sem modificação!
                     }
                     #endregion
                     #region [ BUSCA MACROS PARA FRENTE SEM MOTIVO ]
@@ -1216,7 +1216,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             ${MR_COD_OF}
                                             ${MR_Expre}
                                             ${MR_Corre}
-                                            AND TH.TMH_ID_TRM(+) = MR.MR_ID_TRM");
+                                            AND TH.TMH_ID_TRM(+) = MR.MR_ID_TRM");//C1225 - Sem modificação!
                     }
 
                     #endregion
@@ -1235,7 +1235,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             ${MR_COD_OF}
                                             ${MR_Expre}
                                             ${MR_Corre}
-                                            AND TH.TMH_ID_TRM(+) = MR.MR_ID_TRM");
+                                            AND TH.TMH_ID_TRM(+) = MR.MR_ID_TRM");//C1225 - Sem modificação!
                     }
                     #endregion
                     #region [ BUSCA MACROS PARA TRÁS SEM MOTIVO ]
@@ -1251,7 +1251,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             ${MR_COD_OF}
                                             ${MR_Expre}
                                             ${MR_Corre}
-                                            AND TH.TMH_ID_TRM(+) = MR.MR_ID_TRM");
+                                            AND TH.TMH_ID_TRM(+) = MR.MR_ID_TRM");//C1225 - Sem modificação!
                     }
                     #endregion
 
@@ -1447,7 +1447,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             command.CommandText = @"SELECT MAC_TXT_MACRODEFINITION FROM macrodefinition_mac m WHERE 
                                                 mac_num_macronumber = :MCN AND mac_num_macroversion =(SELECT MAX(mac_num_macroversion) FROM macrodefinition_mac WHERE 
                                                 mac_num_macronumber = :MCN AND acc_num_accountnumber = 61643776 AND mac_num_macrotype = 2) AND 
-                                                mac_num_macrotype = 2 AND acc_num_accountnumber = 61643776";
+                                                mac_num_macrotype = 2 AND acc_num_accountnumber = 61643776";//C1225 - Sem modificação!
 
                             command.Parameters.Add("MCN", nummacro); 
                         }
@@ -1456,7 +1456,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             command.CommandText = @"SELECT MAC_TXT_MACRODEFINITION FROM macrodefinition_mac m WHERE 
                                                 mac_num_macronumber = :MCN AND mac_num_macroversion =(SELECT MAX(mac_num_macroversion) FROM macrodefinition_mac WHERE 
                                                 mac_num_macronumber = :MCN AND acc_num_accountnumber = 61643776 AND mac_num_macrotype = 1) AND 
-                                                mac_num_macrotype = 1 AND acc_num_accountnumber = 61643776";
+                                                mac_num_macrotype = 1 AND acc_num_accountnumber = 61643776";//C1225 - Sem modificação!
 
                             command.Parameters.Add("MCN", nummacro); 
                         }
@@ -1508,7 +1508,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           AND SUBSTR(MR.MR_TEXT,2,4) = '7000'
                                           ${CORREDOR} 
                                          
-                                    ORDER BY MR.MR_GRMN DESC");
+                                    ORDER BY MR.MR_GRMN DESC");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -1565,7 +1565,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                   FROM ESTACOES
                                             WHERE EST_ID IN (SELECT EST_ID
                                   FROM REL_CAB_EST
-                                            WHERE CAB_ID IN (${CABINES_R}))) B
+                                            WHERE CAB_ID IN (:CABINES_R))) B
                                 --ON MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
                                 ON MR.MR_ESTACAO = B.EST_NOME-- C859
                                         AND PF.MFP_ID_MSG = MR.MR_GRMN 
@@ -1591,11 +1591,15 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     //FIltro cabines
                     if (!string.IsNullOrEmpty(cabines))
                     {
-                        query.Replace("${CABINES_R}", string.Format("{0}", cabines));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("CABINES_R", cabines);
+                        //query.Replace("${CABINES_R}", string.Format("{0}", cabines));
                     }
                     else
                     {
-                        query.Replace("${{CABINES_R}}", "");
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("CABINES_R", "NULL");
+                        //query.Replace("${{CABINES_R}}", "");
 
                     }
 
@@ -1645,7 +1649,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             command.CommandText = @"select mr.MR_TEXT from ACTPP.mensagens_recebidas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m
                         where mr.MR_MCT_ADDR = m.MCT_ID_MCT and mr.MR_ID_TRM = t.TM_ID_TRM and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                         and t.es_id_Num_efe_dest = ed.es_id_num_efe  
-                        and mr.MR_GRMN = :GRMN";
+                        and mr.MR_GRMN = :GRMN";//C1225 - Sem modificação!
                             command.Parameters.Add("GRMN", id);
                         }
                         else
@@ -1654,7 +1658,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         where mr.Me_MCT_ADDR = m.MCT_ID_MCT and mr.Me_ID_TRM = t.TM_ID_TRM  
                         and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                         and t.es_id_Num_efe_dest = ed.es_id_num_efe
-                        and ME_MSG_NUM = :MENUM ";
+                        and ME_MSG_NUM = :MENUM ";//C1225 - Sem modificação!
                             command.Parameters.Add("MENUM", id);
                         }
                         var reader = command.ExecuteReader();
@@ -1717,7 +1721,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     AND MENSAGENS_ENVIADAS.ME_MAC_NUM = 50 
                                     AND SUBSTR(ME_TEXT,2,4) = '7000' 
                                     ${ME_GFMN}
-                                ORDER BY ""Horario"" DESC");
+                                ORDER BY ""Horario"" DESC");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -1981,7 +1985,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     FROM TMP_MACROS TMP
                                     WHERE SUBSTR(TMP_DT_TMP, 0,10) = SUBSTR(SYSDATE, 0, 10)
                                       ${TMP_MT_TMP}
-                                      ${TMP_NN_MAC}");
+                                      ${TMP_NN_MAC}");//C1225 - Sem modificação!
 
                     if (macro != null)
                         query.Replace("${TMP_NN_MAC}", string.Format(" AND TMP_NN_MAC = {0} ", macro));
@@ -2045,7 +2049,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                       ${TMP_MT_TMP} 
                                       ${TMP_NM_MAC} 
                                       ${TMP_ID_TRM}
-                                      ${TMP_ID_MCT}");
+                                      ${TMP_ID_MCT}");//C1225 - Sem modificação!
 
                     if (tmp.Data != null)
                         query.Replace("${TMP_DT_TMP}", string.Format("AND SUBSTR(TMP_DT_TMP, 0,10) = SUBSTR(TO_DATE('{0}', 'DD/MM/YYYY'), 0, 10) ", tmp.Data));
@@ -2128,7 +2132,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                       ${TMP_MT_TMP} 
                                       ${TMP_NN_MAC} 
                                       ${TMP_ID_TRM}
-                                      ${TMP_ID_MCT}");
+                                      ${TMP_ID_MCT}");//C1225 - Sem modificação!
 
                     if (tmp.Data != null)
                         query.Replace("${TMP_DT_TMP}", string.Format("SUBSTR(TMP_DT_TMP, 0,10) = TO_DATE('{0}', 'DD/MM/YYYY')", tmp.Data.ToShortDateString()));
@@ -2206,15 +2210,19 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"select * from (
                                     select 'R', mr_grmn as macro, mr_loco as loco, mr_msg_time as horario, mr_text as texto
                                         from actpp.mensagens_recebidas
-                                   where mr_mc_num = ${mr_mc_num} and mr_loco = ${mr_loco} and mr_msg_time >= sysdate -1
+                                   where mr_mc_num = :mr_mc_num and mr_loco = :mr_loco and mr_msg_time >= sysdate -1
                                     union
                                     select 'E', me_gfmn as macro, me_loco as loco, me_msg_time as horario, me_text as texto
                                         from actpp.mensagens_enviadas
-                                    where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysdate -1
+                                    where me_mac_num = :mr_mc_num and me_loco = :mr_loco and me_msg_time >= sysdate -1
                                     ) where texto is not null order by horario desc");
 
-                    query.Replace("${mr_mc_num}", string.Format("{0}", filtro.Numero_Macro));
-                    query.Replace("${mr_loco}", string.Format("{0}", filtro.Loco));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("mr_mc_num", filtro.Numero_Macro);
+                    //query.Replace("${mr_mc_num}", string.Format("{0}", filtro.Numero_Macro));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("mr_loco", filtro.Loco);
+                    //query.Replace("${mr_loco}", string.Format("{0}", filtro.Loco));
 
                     #endregion
 
@@ -2275,10 +2283,10 @@ INNER JOIN (SELECT EST_NOME
                                   FROM ESTACOES
                                             WHERE EST_ID IN (SELECT EST_ID
                                   FROM REL_CAB_EST
-                                            WHERE CAB_ID IN (${CABINES_R}))) B
+                                            WHERE CAB_ID IN (:CABINES_R))) B
                                 --ON MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
                                 ON MR_ESTACAO = B.EST_NOME-- C859
-where mr_mc_num = ${mr_mc_num} and mr_loco = ${mr_loco} and mr_msg_time >= sysdate -1
+where mr_mc_num = :mr_mc_num and mr_loco = :mr_loco and mr_msg_time >= sysdate -1
                                     union
                                     select 'E', me_gfmn as macro, me_loco as loco, me_msg_time as horario, me_text as texto
                                         from actpp.mensagens_enviadas
@@ -2286,16 +2294,24 @@ INNER JOIN (SELECT EST_NOME
                                   FROM ESTACOES
                                             WHERE EST_ID IN (SELECT EST_ID
                                   FROM REL_CAB_EST
-                                            WHERE CAB_ID IN (${CABINES_E}))) B
+                                            WHERE CAB_ID IN (:CABINES_E))) B
                                 ON ME_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
-where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysdate -1
+where me_mac_num = :mr_mc_num and me_loco = :mr_loco and me_msg_time >= sysdate -1
                                     ) where texto is not null order by horario desc");
 
-                    query.Replace("${CABINES_R}", string.Format("{0}", filtro.cabinesSelecionadas));
-                    query.Replace("${CABINES_E}", string.Format("{0}", filtro.cabinesSelecionadas));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("CABINES_R", filtro.cabinesSelecionadas);
+                    //query.Replace("${CABINES_R}", string.Format("{0}", filtro.cabinesSelecionadas));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("CABINES_E", filtro.cabinesSelecionadas);
+                    //query.Replace("${CABINES_E}", string.Format("{0}", filtro.cabinesSelecionadas));
 
-                    query.Replace("${mr_mc_num}", string.Format("{0}", filtro.Numero_Macro));
-                    query.Replace("${mr_loco}", string.Format("{0}", filtro.Loco));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("mr_mc_num", filtro.Numero_Macro);
+                    //query.Replace("${mr_mc_num}", string.Format("{0}", filtro.Numero_Macro));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("mr_loco", filtro.Loco);
+                    //query.Replace("${mr_loco}", string.Format("{0}", filtro.Loco));
 
                     #endregion
 
@@ -2381,7 +2397,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
                                      AND ME.ME_MAC_NUM = 50
                                      AND SUBSTR (ME.ME_TEXT, 2, 4) = '7000' 
                                      ${LOCO_E}
-                                     AND ME.ME_TEXT is not null order by horario asc");
+                                     AND ME.ME_TEXT is not null order by horario asc");//C1225 - Sem modificação!
 
                     //query.Replace("${CABINES_R}", string.Format("{0}", filtro.cabinesSelecionadas));
                     //query.Replace("${CABINES_E}", string.Format("{0}", filtro.cabinesSelecionadas));

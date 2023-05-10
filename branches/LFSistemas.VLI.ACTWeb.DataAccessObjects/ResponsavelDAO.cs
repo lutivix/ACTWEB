@@ -33,9 +33,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     FROM ACTPP.OPERADORES O, ACTPP.TIPO_OPERADOR T 
                                         WHERE O.TO_ID_OP = T.TO_ID_OP
                                           AND T.TO_ID_OP = 8 
-                                          AND UPPER(O.OP_CPF) = ${OP_CPF}");
+                                          AND UPPER(O.OP_CPF) = :OP_CPF");
 
-                    query.Replace("${OP_CPF}", string.Format("'{0}'", cpf.ToUpper()));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("OP_CPF", cpf.ToUpper());
+                    //query.Replace("${OP_CPF}", string.Format("'{0}'", cpf.ToUpper()));
 
 
                     #endregion

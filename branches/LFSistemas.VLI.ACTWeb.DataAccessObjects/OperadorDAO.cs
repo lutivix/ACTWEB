@@ -39,7 +39,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             AND OP_SENHA != 'offline'
                                             AND TO_DSC_OP != 'HelpDesk'
                                             AND TO_DSC_OP != 'administrador'
-                                            AND TO_DSC_OP != 'supervisor'");
+                                            AND TO_DSC_OP != 'supervisor'");//C1225 - Sem modificação!
 
                     #endregion
 

@@ -35,7 +35,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA MCTS ]
 
                     query.Append(@"SELECT MCT_ID_MCT, CONCAT(TRIM(MCT_NOM_MCT), CONCAT(' - MCI', MCT_IND_MCI)) AS MCT_NOM_MCT1 
-                                FROM ACTPP.MCTS WHERE MCT_ID_MCT <> '499683' ORDER BY MCT_NOM_MCT");
+                                FROM ACTPP.MCTS WHERE MCT_ID_MCT <> '499683' ORDER BY MCT_NOM_MCT");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -96,7 +96,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #endregion
 
                     #region [ PARÂMETROS ]
-
+                    
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
                     command.Parameters.Add("ID", filtro.loc_Id);
 
                     #endregion
@@ -161,6 +162,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ PARÂMETROS ]
 
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
                     command.Parameters.Add("ID", tm_id_trm);
 
                     #endregion
@@ -217,7 +219,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${TM_PRF_ACT}", string.Format("AND T.TM_PRF_ACT = '{0}'", trem));
+                    query.Replace("${TM_PRF_ACT}", string.Format("AND T.TM_PRF_ACT = '{0}'", trem));//C1225 - Sem modificação!
 
                     #endregion
 

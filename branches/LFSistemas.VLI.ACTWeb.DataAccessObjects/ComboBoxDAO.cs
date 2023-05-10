@@ -40,7 +40,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 ${USUARIO}
                                                 ${TEXTO})
                                         WHERE FILTRO = 1
-                                        ORDER BY MODULO");
+                                        ORDER BY MODULO");//C1225 - Sem modificação!
 
                     if (dataInicial != null && dataFinal != null)
                         query.Replace("${PUBLICACAO}", string.Format(" AND L.LOG_DATA_HORA BETWEEN TO_DATE('{0}','DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}','DD/MM/YYYY HH24:MI:SS')", dataInicial, dataFinal));
@@ -120,7 +120,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 ${USUARIO}
                                                 ${TEXTO})
                                             WHERE MATRICULA = 1
-                                            ORDER BY NOME");
+                                            ORDER BY NOME");//C1225 - Sem modificação!
 
                     if (dataInicial != null && dataFinal != null)
                         query.Replace("${PUBLICACAO}", string.Format(" AND L.LOG_DATA_HORA BETWEEN TO_DATE('{0}','DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}','DD/MM/YYYY HH24:MI:SS')", dataInicial, dataFinal));
@@ -200,7 +200,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                 ${USUARIO}
                                                 ${TEXTO})
                                         WHERE FILTRO = 1
-                                        ORDER BY OPERACAO");
+                                        ORDER BY OPERACAO");//C1225 - Sem modificação!
 
                     if (dataInicial != null && dataFinal != null)
                         query.Replace("${PUBLICACAO}", string.Format(" AND L.LOG_DATA_HORA BETWEEN TO_DATE('{0}','DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}','DD/MM/YYYY HH24:MI:SS')", dataInicial, dataFinal));
@@ -270,7 +270,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT COR_ID_COR AS ID, COR_DESCRICAO AS DESCRICAO FROM CORREDORES WHERE COR_ATIVO_SN = 'S' ORDER BY DESCRICAO");
+                    query.Append(@"SELECT COR_ID_COR AS ID, COR_DESCRICAO AS DESCRICAO FROM CORREDORES WHERE COR_ATIVO_SN = 'S' ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -315,7 +315,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT NM_COR_ID, NM_COR_NOME FROM ACTPP.NOME_CORREDOR WHERE NM_COR_ATIVO_SN = 'S' ORDER BY NM_COR_NOME");
+                    query.Append(@"SELECT NM_COR_ID, NM_COR_NOME FROM ACTPP.NOME_CORREDOR WHERE NM_COR_ATIVO_SN = 'S' ORDER BY NM_COR_NOME");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -361,7 +361,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT PBS_ID,PBS_SUBTIPO FROM ACTPP.PARAMETROS_BS");
+                    query.Append(@"SELECT PBS_ID,PBS_SUBTIPO FROM ACTPP.PARAMETROS_BS");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -406,7 +406,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT PO_ID_PS_TRB, PO_DSC_PS_TRB FROM ACTPP.POSTOS_DE_TRABALHO");
+                    query.Append(@"SELECT PO_ID_PS_TRB, PO_DSC_PS_TRB FROM ACTPP.POSTOS_DE_TRABALHO");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -451,7 +451,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT SIT_ID_SIT AS ID, SIT_DESCRICAO AS DESCRICAO FROM SITUACAO_RADIOS WHERE SIT_ATIVO_SN = 'S' ORDER BY SIT_ID_SIT");
+                    query.Append(@"SELECT SIT_ID_SIT AS ID, SIT_DESCRICAO AS DESCRICAO FROM SITUACAO_RADIOS WHERE SIT_ATIVO_SN = 'S' ORDER BY SIT_ID_SIT");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -496,7 +496,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TIP_ID_TIP AS ID, TIP_DESCRICAO AS DESCRICAO FROM TIPO_LOCOMOTIVAS WHERE TIP_ATIVO_SN = 'S' ORDER BY TIP_DESCRICAO");
+                    query.Append(@"SELECT TIP_ID_TIP AS ID, TIP_DESCRICAO AS DESCRICAO FROM TIPO_LOCOMOTIVAS WHERE TIP_ATIVO_SN = 'S' ORDER BY TIP_DESCRICAO");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -550,7 +550,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     else
                     {
                         query.Append(@"select es_id_efe as id, (es_id_efe || ' - ' || es_dsc_efe) as decricao from actpp.estacoes where nm_cor_id is null order by es_dsc_efe");
-                    }
+                    }//C1225 - Sem modificação!
 
 
                     #endregion
@@ -605,7 +605,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     else
                     {
                         query.Append(@"SELECT DISTINCT UNIDADE_PRODUCAO, LOCAL_FERROVIARIO, PREFIXO, ID_TREM FROM (" + ServiceLocator.ObterQueryLocoTrem() + ") ORDER BY LOCAL_FERROVIARIO");
-                    }
+                    }//C1225 - Sem modificação!
                     #endregion
 
                     #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
@@ -651,7 +651,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT PER_ID_PER AS ID, PER_DESCRICAO AS ABREVIADO FROM PERFIS WHERE PER_ATIVO_SN = 'S' ORDER BY PER_ABREVIADO");
+                    query.Append(@"SELECT PER_ID_PER AS ID, PER_DESCRICAO AS ABREVIADO FROM PERFIS WHERE PER_ATIVO_SN = 'S' ORDER BY PER_ABREVIADO");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -698,7 +698,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TO_ID_OP AS ID, TO_DSC_OP AS DESCRICAO FROM ACTPP.TIPO_OPERADOR ORDER BY DESCRICAO");
+                    query.Append(@"SELECT TO_ID_OP AS ID, TO_DSC_OP AS DESCRICAO FROM ACTPP.TIPO_OPERADOR ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -745,7 +745,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT PO_ID_PS_TRB, PO_DSC_PS_TRB FROM ACTPP.POSTOS_DE_TRABALHO ORDER BY PO_ID_PS_TRB");
+                    query.Append(@"SELECT PO_ID_PS_TRB, PO_DSC_PS_TRB FROM ACTPP.POSTOS_DE_TRABALHO ORDER BY PO_ID_PS_TRB");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -792,7 +792,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT GRU_ID_GRU, GRU_NOME, GRU_ATIVO FROM GRUPOS WHERE GRU_ATIVO = 'S' ORDER BY GRU_NOME");
+                    query.Append(@"SELECT GRU_ID_GRU, GRU_NOME, GRU_ATIVO FROM GRUPOS WHERE GRU_ATIVO = 'S' ORDER BY GRU_NOME");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -837,7 +837,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TRE_ID, TRE_SIGLA FROM TRECHOS WHERE TRE_ATIVO = 'S' ORDER BY TRE_SIGLA");
+                    query.Append(@"SELECT TRE_ID, TRE_SIGLA FROM TRECHOS WHERE TRE_ATIVO = 'S' ORDER BY TRE_SIGLA");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -883,7 +883,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT MOT_AUTO_TRAC AS CODIGO, MOT_NOME AS NOME FROM MOTIVO_PARADA WHERE MOT_AUTO_TRAC NOT IN (0) AND MOT_ATIVO = 'S' ORDER BY CODIGO");
+                    query.Append(@"SELECT MOT_AUTO_TRAC AS CODIGO, MOT_NOME AS NOME FROM MOTIVO_PARADA WHERE MOT_AUTO_TRAC NOT IN (0) AND MOT_ATIVO = 'S' ORDER BY CODIGO");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -929,7 +929,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT CT_ID_CAT, CT_COD_CAT, CT_DSC_CAT FROM ACTPP.CATEGORIA_DE_TREM ORDER BY CT_COD_CAT");
+                    query.Append(@"SELECT CT_ID_CAT, CT_COD_CAT, CT_DSC_CAT FROM ACTPP.CATEGORIA_DE_TREM ORDER BY CT_COD_CAT");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -975,7 +975,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT MOT_AUTO_TRAC AS CODIGO, MOT_NOME AS NOME FROM MOTIVO_PARADA WHERE MOT_AUTO_TRAC NOT IN (0) AND MOT_ATIVO = 'S' ORDER BY MOT_NOME");
+                    query.Append(@"SELECT MOT_AUTO_TRAC AS CODIGO, MOT_NOME AS NOME FROM MOTIVO_PARADA WHERE MOT_AUTO_TRAC NOT IN (0) AND MOT_ATIVO = 'S' ORDER BY MOT_NOME");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -1020,7 +1020,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"select ev_id_elm, ev_nom_mac  from actpp.elem_via where te_id_tp = 3 and ev_nom_mac like 'E%' order by ev_nom_mac");
+                    query.Append(@"select ev_id_elm, ev_nom_mac  from actpp.elem_via where te_id_tp = 3 and ev_nom_mac like 'E%' order by ev_nom_mac");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -1067,7 +1067,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TTC_ID_COR AS ID, TTC_NM_COR AS DESCRICAO FROM ACTPP.TT_CORREDOR ORDER BY DESCRICAO");
+                    query.Append(@"SELECT TTC_ID_COR AS ID, TTC_NM_COR AS DESCRICAO FROM ACTPP.TT_CORREDOR ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -1112,7 +1112,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TTT_ID_TRC AS ID, TTT_NM_TRC AS TRECHO FROM ACTPP.TT_TRECHO ORDER BY TRECHO");
+                    query.Append(@"SELECT TTT_ID_TRC AS ID, TTT_NM_TRC AS TRECHO FROM ACTPP.TT_TRECHO ORDER BY TRECHO");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -1157,7 +1157,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TTR_ID_RTA AS ID, TTR_NM_RTA AS ROTA FROM ACTPP.TT_ROTA ORDER BY ROTA");
+                    query.Append(@"SELECT TTR_ID_RTA AS ID, TTR_NM_RTA AS ROTA FROM ACTPP.TT_ROTA ORDER BY ROTA");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -1202,7 +1202,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT SUB.TTS_ID_SUB AS ID, TRIM(SUB.TTS_NM_SUB) AS DESCRICAO FROM ACTPP.TT_SUBROTA SUB ORDER BY DESCRICAO");
+                    query.Append(@"SELECT SUB.TTS_ID_SUB AS ID, TRIM(SUB.TTS_NM_SUB) AS DESCRICAO FROM ACTPP.TT_SUBROTA SUB ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -1250,7 +1250,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT COR.TTC_ID_COR AS ID, COR.TTC_NM_COR AS DESCRICAO FROM ACTPP.TT_CORREDOR COR ${TTR_ID_RTA} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT COR.TTC_ID_COR AS ID, COR.TTC_NM_COR AS DESCRICAO FROM ACTPP.TT_CORREDOR COR ${TTR_ID_RTA} ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
 
                     if (rotas_id.Count > 0)
@@ -1302,7 +1302,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT COR.TTC_ID_COR AS ID, COR.TTC_NM_COR AS DESCRICAO FROM ACTPP.TT_CORREDOR COR ${TTS_ID_SUB} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT COR.TTC_ID_COR AS ID, COR.TTC_NM_COR AS DESCRICAO FROM ACTPP.TT_CORREDOR COR ${TTS_ID_SUB} ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
 
                     if (subrotas_id.Count > 0)
@@ -1356,7 +1356,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TRC.TTT_ID_TRC AS ID, TRC.TTT_NM_TRC AS DESCRICAO FROM ACTPP.TT_TRECHO TRC ${TTT_ID_COR} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT TRC.TTT_ID_TRC AS ID, TRC.TTT_NM_TRC AS DESCRICAO FROM ACTPP.TT_TRECHO TRC ${TTT_ID_COR} ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
 
                     if (corredores_id.Count > 0)
@@ -1408,7 +1408,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TRC.TTT_ID_TRC AS ID, TRC.TTT_NM_TRC AS DESCRICAO FROM ACTPP.TT_TRECHO TRC ${TTR_ID_RTA} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT TRC.TTT_ID_TRC AS ID, TRC.TTT_NM_TRC AS DESCRICAO FROM ACTPP.TT_TRECHO TRC ${TTR_ID_RTA} ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
 
                     if (rotas_id.Count > 0)
@@ -1460,7 +1460,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TTT_ID_TRC AS ID, TRIM(TTT_NM_TRC) AS DESCRICAO FROM ACTPP.TT_TRECHO ${TTT_ID_TRC} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT TTT_ID_TRC AS ID, TRIM(TTT_NM_TRC) AS DESCRICAO FROM ACTPP.TT_TRECHO ${TTT_ID_TRC} ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
 
                     if (subrotas_id.Count > 0)
@@ -1516,7 +1516,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"SELECT RTA.TTR_ID_RTA AS ID, TRIM(RTA.TTR_NM_RTA) AS DESCRICAO 
                                     FROM ACTPP.TT_CORREDOR COR, ACTPP.TT_ROTA RTA 
-                                    WHERE COR.TTC_ID_COR = RTA.TTR_ID_TRC ${TTC_ID_COR} ORDER BY DESCRICAO");
+                                    WHERE COR.TTC_ID_COR = RTA.TTR_ID_TRC ${TTC_ID_COR} ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
 
                     if (corredor_id.Count > 0)
@@ -1568,7 +1568,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TTR_ID_RTA AS ID, TRIM(TTR_NM_RTA) AS DESCRICAO FROM ACTPP.TT_ROTA ${TTR_ID_RTA} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT TTR_ID_RTA AS ID, TRIM(TTR_NM_RTA) AS DESCRICAO FROM ACTPP.TT_ROTA ${TTR_ID_RTA} ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
 
                     if (trecho_id.Count > 0)
@@ -1620,7 +1620,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TTR_ID_RTA AS ID, TRIM(TTR_NM_RTA) AS DESCRICAO FROM ACTPP.TT_ROTA ${TTS_ID_SUB} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT TTR_ID_RTA AS ID, TRIM(TTR_NM_RTA) AS DESCRICAO FROM ACTPP.TT_ROTA ${TTS_ID_SUB} ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
 
                     if (subrotas_id.Count > 0)
@@ -1673,7 +1673,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT SUB.TTS_ID_SUB AS ID, TRIM(SUB.TTS_NM_SUB) AS DESCRICAO FROM ACTPP.TT_SUBROTA SUB ${TTT_ID_COR} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT SUB.TTS_ID_SUB AS ID, TRIM(SUB.TTS_NM_SUB) AS DESCRICAO FROM ACTPP.TT_SUBROTA SUB ${TTT_ID_COR} ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
 
                     if (corredor_id.Count > 0)
@@ -1725,7 +1725,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TTS_ID_SUB AS SUBROTA_ID, TRIM(TTS_NM_SUB) AS DESCRICAO FROM ACTPP.TT_SUBROTA ${TTT_ID_TRC} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT TTS_ID_SUB AS SUBROTA_ID, TRIM(TTS_NM_SUB) AS DESCRICAO FROM ACTPP.TT_SUBROTA ${TTT_ID_TRC} ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
 
                     if (trecho_id.Count > 0)
@@ -1777,7 +1777,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TTS_ID_SUB AS ID, TTS_NM_SUB AS DESCRICAO FROM ACTPP.TT_SUBROTA ${TTR_ID_RTA} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT TTS_ID_SUB AS ID, TTS_NM_SUB AS DESCRICAO FROM ACTPP.TT_SUBROTA ${TTR_ID_RTA} ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
 
                     if (rotas_id.Count > 0)
@@ -1830,7 +1830,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT MOT_AUTO_TRAC AS ID, MOT_NOME AS DESCRICAO FROM MOTIVO_PARADA ${GRU_ID_GRU} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT MOT_AUTO_TRAC AS ID, MOT_NOME AS DESCRICAO FROM MOTIVO_PARADA ${GRU_ID_GRU} ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
 
                     if (grupos_id.Count > 0)
@@ -1882,7 +1882,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT MOT_ID_MOT AS ID, MOT_NOME AS DESCRICAO FROM MOTIVO_PARADA ${GRU_ID_GRU} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT MOT_ID_MOT AS ID, MOT_NOME AS DESCRICAO FROM MOTIVO_PARADA ${GRU_ID_GRU} ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
 
                     if (!string.IsNullOrEmpty(grupo_id))
@@ -1934,7 +1934,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT GRU_ID_GRU AS ID, TRIM(GRU_NOME) AS DESCRICAO FROM GRUPOS ${GRU_ID_GRU} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT GRU_ID_GRU AS ID, TRIM(GRU_NOME) AS DESCRICAO FROM GRUPOS ${GRU_ID_GRU} ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
 
                     if (motivos_id.Count > 0)
@@ -1986,7 +1986,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT GRU_ID_GRU AS ID, GRU_NOME AS DESCRICAO FROM GRUPOS ${MOT_ID_MOT} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT GRU_ID_GRU AS ID, GRU_NOME AS DESCRICAO FROM GRUPOS ${MOT_ID_MOT} ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
 
                     if (!string.IsNullOrEmpty(motivo_id))
@@ -2038,7 +2038,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT MOT_AUTO_TRAC AS ID, MOT_NOME AS DESCRICAO FROM MOTIVO_PARADA ${MOT_ID_MOT} ORDER BY DESCRICAO");
+                    query.Append(@"SELECT MOT_AUTO_TRAC AS ID, MOT_NOME AS DESCRICAO FROM MOTIVO_PARADA ${MOT_ID_MOT} ORDER BY DESCRICAO");//C1225 - Sem modificação!
 
 
                     if (!string.IsNullOrEmpty(motivo_id))
@@ -2091,7 +2091,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT ES_ID_NUM_EFE, ES_ID_EFE FROM ACTPP.ESTACOES ORDER BY ES_ID_EFE");
+                    query.Append(@"SELECT ES_ID_NUM_EFE, ES_ID_EFE FROM ACTPP.ESTACOES ORDER BY ES_ID_EFE");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -2137,7 +2137,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT TA_ID_TA FROM ACTPP.TIPOS_ALARMES");
+                    query.Append(@"SELECT TA_ID_TA FROM ACTPP.TIPOS_ALARMES");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -2192,7 +2192,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                            END
                                               AS DESCRICAO
                                       FROM (SELECT DISTINCT AL_SIT
-                                              FROM ACTPP.ALARMES)");
+                                              FROM ACTPP.ALARMES)");//C1225 - Sem modificação!
 
                     #endregion
 
@@ -2268,7 +2268,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT CAB_ID, CAB_NOME FROM CABINES");
+                    query.Append(@"SELECT CAB_ID, CAB_NOME FROM CABINES");//C1225 - Sem modificação!
 
                     #endregion
 

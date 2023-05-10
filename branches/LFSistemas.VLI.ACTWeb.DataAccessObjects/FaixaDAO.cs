@@ -544,7 +544,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ${ADE_EXECUCAO}
                                         ${STATUS}
                                         ${CORREDOR}
-                                        ${ORDER}");
+                                        ${ORDER}");//C1225 - Sem modificação!
 
                     #endregion
 

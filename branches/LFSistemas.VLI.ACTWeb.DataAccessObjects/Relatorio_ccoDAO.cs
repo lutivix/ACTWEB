@@ -65,7 +65,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                 AND oo.OP_SENHA != 'offline'
                                 ${DT_INI_PARADA}
                                 ${OP_MAT}
-                            ORDER BY un.NM_USUARIO_LOG, un.DT_INI_PARADA DESC");
+                            ORDER BY un.NM_USUARIO_LOG, un.DT_INI_PARADA DESC");//C1225 - Sem modificação!
 
                 if (!string.IsNullOrEmpty(filtro.DataInicial.ToString()) || !string.IsNullOrEmpty(filtro.DataFinal.ToString()))
                 {
@@ -96,7 +96,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                 AND ME_MAC_NUM = 31
                                 ${MR_MSG_TIME}
                                  ${OP_MAT}
-                                ${ME_MSG_TIME}");
+                                ${ME_MSG_TIME}");//C1225 - Sem modificação!
 
                 if (!string.IsNullOrEmpty(filtro.DataInicial.ToString()) || !string.IsNullOrEmpty(filtro.DataFinal.ToString()))
                 {
@@ -126,7 +126,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                     ${OP_MAT}
                                     ${ME_MSG_TIME}
                                     GROUP BY ME.ME_MSG_TIME
-                                    ORDER BY ME.ME_MSG_TIME DESC");
+                                    ORDER BY ME.ME_MSG_TIME DESC");//C1225 - Sem modificação!
 
                 if (!string.IsNullOrEmpty(filtro.DataInicial.ToString()) || !string.IsNullOrEmpty(filtro.DataFinal.ToString()))
                     query4.Replace("${ME_MSG_TIME}", string.Format(" AND me.ME_MSG_TIME  BETWEEN to_date('{0}','DD/MM/YYYY HH24:MI:SS') AND to_date('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicial, filtro.DataFinal));
@@ -300,7 +300,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                 ${DT_INI_PARADA}
                                 ${OP_MAT}
                                 ${PO_ID_PS_TRB}
-                            ORDER BY un.NM_USUARIO_LOG, un.DT_INI_PARADA DESC");
+                            ORDER BY un.NM_USUARIO_LOG, un.DT_INI_PARADA DESC");//C1225 - Sem modificação!
 
                 if (!string.IsNullOrEmpty(filtro.DataInicial.ToString()) || !string.IsNullOrEmpty(filtro.DataFinal.ToString()))
                 {

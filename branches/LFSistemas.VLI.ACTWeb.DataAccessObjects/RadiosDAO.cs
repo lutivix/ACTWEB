@@ -41,7 +41,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                  ${RAD_LOCO}
                                                  ${SIT_ID_SIT}
                                                  ${COR_ID_COR}
-                                                 ${RAD_ATIVO_SN}");
+                                                 ${RAD_ATIVO_SN}");//C1225 - Sem modificação!
                     else
                         query.Append(@"SELECT CR.RAD_ID_RAD AS ID, CR.RAD_ATUALIZACAO AS DATA_MODIFICACAO, CR.RAD_CONSIDERA_SN AS CONSIDERA, CO.COR_ID_COR AS CORREDOR_ID, CO.COR_DESCRICAO AS CORREDOR, 
                                         CR.RAD_LOCO AS LOCO, CR.TIP_ID_TIP AS TIPO_LOCO_ID, TL.TIP_DESCRICAO AS TIPO_LOCO, SR.SIT_ID_SIT AS SITUACAO_ID, SR.SIT_DESCRICAO AS SITUACAO, CR.RAD_RADIO_ID AS RADIO_ID, CR.RAD_MODELO_AC AS MODELO_AC, 
@@ -56,7 +56,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                  ${RAD_LOCO}
                                                  ${SIT_ID_SIT}
                                                  ${COR_ID_COR}
-                                                 ${RAD_ATIVO_SN}");
+                                                 ${RAD_ATIVO_SN}");//C1225 - Sem modificação!
 
                     if (filtro.Trem != null && filtro.Loco != null)
                     {
@@ -145,7 +145,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         WHERE CR.COR_ID_COR = CO.COR_ID_COR
                                             AND CR.SIT_ID_SIT = SR.SIT_ID_SIT
                                             AND CR.TIP_ID_TIP = TL.TIP_ID_TIP
-                                            ${RAD_ID_RAD}");
+                                            ${RAD_ID_RAD}");//C1225 - Sem modificação!
 
                     query.Replace("${RAD_ID_RAD}", string.Format("AND RAD_ID_RAD = {0}", id));
 
@@ -191,9 +191,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA AS FUNCIONALIDADES ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT TM_PRF_ACT FROM ACTPP.TRENS WHERE ST_ID_SIT_TREM = 4 AND LOC_ID_NUM_LOCO = ${LOC_ID_NUM_LOCO}");
+                    query.Append(@"SELECT TM_PRF_ACT FROM ACTPP.TRENS WHERE ST_ID_SIT_TREM = 4 AND LOC_ID_NUM_LOCO = :LOC_ID_NUM_LOCO");
 
-                    query.Replace("${LOC_ID_NUM_LOCO}", string.Format("{0}", loco));
+                    //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                    command.Parameters.Add("LOC_ID_NUM_LOCO", loco);
+                    //query.Replace("${LOC_ID_NUM_LOCO}", string.Format("{0}", loco));
 
                     #endregion
 
@@ -237,7 +239,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT COR_ID_COR AS CORREDOR_ID, COR_ATUALIZACAO AS ATUALIZACAO, COR_DESCRICAO AS DESCRICAO, COR_ATIVO_SN AS ATIVO FROM CORREDORES ${COR_DESCRICAO}");
+                    query.Append(@"SELECT COR_ID_COR AS CORREDOR_ID, COR_ATUALIZACAO AS ATUALIZACAO, COR_DESCRICAO AS DESCRICAO, COR_ATIVO_SN AS ATIVO FROM CORREDORES ${COR_DESCRICAO}");//C1225 - Sem modificação!
 
                     query.Replace("${COR_DESCRICAO}", string.Format("WHERE UPPER(COR_DESCRICAO) LIKE '{0}'", descricao.ToUpper()));
 
@@ -283,7 +285,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT SIT_ID_SIT AS SITUACAO_ID, SIT_ATUALIZACAO AS ATUALIZACAO, SIT_DESCRICAO AS DESCRICAO, SIT_ATIVO_SN AS ATIVO FROM SITUACAO_RADIOS ${SIT_DESCRICAO}");
+                    query.Append(@"SELECT SIT_ID_SIT AS SITUACAO_ID, SIT_ATUALIZACAO AS ATUALIZACAO, SIT_DESCRICAO AS DESCRICAO, SIT_ATIVO_SN AS ATIVO FROM SITUACAO_RADIOS ${SIT_DESCRICAO}");//C1225 - Sem modificação!
 
                     query.Replace("${SIT_DESCRICAO}", string.Format("WHERE UPPER(SIT_DESCRICAO) LIKE '{0}'", descricao.ToUpper()));
 
@@ -337,88 +339,140 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     // ALTERANDO UM REGISTRO EXISTENTE
                     if (dados.Radios_ID > 0)
                         query.Append(@"UPDATE RADIOS SET 
-                                        SIT_ID_SIT          = ${SIT_ID_SIT}, 
-                                        COR_ID_COR          = ${COR_ID_COR}, 
-                                        RAD_ATUALIZACAO     = ${RAD_ATUALIZACAO}, 
-                                        RAD_CONSIDERA_SN    = ${RAD_CONSIDERA_SN}, 
-                                        RAD_RADIO_ID        = ${RAD_RADIO_ID}, 
-                                        RAD_MODELO_AC       = ${RAD_MODELO_AC}, 
-                                        RAD_MODELO_AB       = ${RAD_MODELO_AB}, 
-                                        RAD_SERIAL_AC       = ${RAD_SERIAL_AC}, 
-                                        RAD_SERIAL_AB       = ${RAD_SERIAL_AB}, 
-                                        RAD_ATIVO_SN        = ${RAD_ATIVO_SN} 
-                                        WHERE RAD_ID_RAD    = ${RAD_ID_RAD}");
+                                        SIT_ID_SIT          = :SIT_ID_SIT, 
+                                        COR_ID_COR          = :COR_ID_COR, 
+                                        RAD_ATUALIZACAO     = :RAD_ATUALIZACAO, 
+                                        RAD_CONSIDERA_SN    = :RAD_CONSIDERA_SN, 
+                                        RAD_RADIO_ID        = :RAD_RADIO_ID, 
+                                        RAD_MODELO_AC       = :RAD_MODELO_AC, 
+                                        RAD_MODELO_AB       = :RAD_MODELO_AB, 
+                                        RAD_SERIAL_AC       = :RAD_SERIAL_AC, 
+                                        RAD_SERIAL_AB       = :RAD_SERIAL_AB, 
+                                        RAD_ATIVO_SN        = :RAD_ATIVO_SN 
+                                        WHERE RAD_ID_RAD    = :RAD_ID_RAD");
                     else
                     {
                         query.Append(@"INSERT INTO ACTWEB.RADIOS (RAD_ID_RAD, RAD_ATUALIZACAO, RAD_CONSIDERA_SN, COR_ID_COR, RAD_LOCO, TIP_ID_TIP, 
                                         SIT_ID_SIT, RAD_RADIO_ID, RAD_MODELO_AC, RAD_MODELO_AB, RAD_SERIAL_AC, RAD_SERIAL_AB, RAD_ATIVO_SN)
-                                        VALUES (CONTROLE_RADIOS_ID.NEXTVAL, SYSDATE, ${RAD_CONSIDERA_SN}, ${COR_ID_COR}, ${RAD_LOCO}, ${TIP_ID_TIP}, 
-                                        ${SIT_ID_SIT}, ${RAD_RADIO_ID}, ${RAD_MODELO_AC}, ${RAD_MODELO_AB}, ${RAD_SERIAL_AC}, ${RAD_SERIAL_AB}, ${RAD_ATIVO_SN})");
+                                        VALUES (CONTROLE_RADIOS_ID.NEXTVAL, SYSDATE, :RAD_CONSIDERA_SN, :COR_ID_COR, :RAD_LOCO, :TIP_ID_TIP, 
+                                        :SIT_ID_SIT, :RAD_RADIO_ID, RAD_MODELO_AC, :RAD_MODELO_AB, :RAD_SERIAL_AC, :RAD_SERIAL_AB, :RAD_ATIVO_SN)");
 
                         if (dados.Situacao_ID != null)
-                            query.Replace("${RAD_LOCO}", string.Format("{0}", dados.Loco));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("RAD_LOCO", dados.Loco);
+                            //query.Replace("${RAD_LOCO}", string.Format("{0}", dados.Loco));
                         else
-                            query.Replace("${RAD_LOCO}", string.Format("{0}", "NULL"));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("RAD_LOCO", dados.Ativo_SN);
+                            //query.Replace("${RAD_LOCO}", string.Format("{0}", "NULL"));
 
                         if (dados.Tipo_Loco_ID != null)
-                            query.Replace("${TIP_ID_TIP}", string.Format("{0}", dados.Tipo_Loco_ID));
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("TIP_ID_TIP", dados.Tipo_Loco_ID);
+                            //query.Replace("${TIP_ID_TIP}", string.Format("{0}", dados.Tipo_Loco_ID));
                         else
-                            query.Replace("${TIP_ID_TIP}", string.Format("{0}", "NULL")); 
+                            //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                            command.Parameters.Add("TIP_ID_TIP", "NULL");
+                            //query.Replace("${TIP_ID_TIP}", string.Format("{0}", "NULL")); 
                     }
 
                     if (dados.Situacao_ID != null) 
-                        query.Replace("${SIT_ID_SIT}", string.Format("{0}", dados.Situacao_ID)); 
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SIT_ID_SIT", dados.Situacao_ID);
+                        //query.Replace("${SIT_ID_SIT}", string.Format("{0}", dados.Situacao_ID)); 
                     else 
-                        query.Replace("${SIT_ID_SIT}", string.Format("{0}", "NULL"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("SIT_ID_SIT", "NULL");
+                        //query.Replace("${SIT_ID_SIT}", string.Format("{0}", "NULL"));
 
                     if (dados.Corredor_ID != null)
-                        query.Replace("${COR_ID_COR}", string.Format("{0}", dados.Corredor_ID));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("COR_ID_COR", dados.Corredor_ID);
+                        //query.Replace("${COR_ID_COR}", string.Format("{0}", dados.Corredor_ID));
                     else
-                        query.Replace("${COR_ID_COR}", string.Format("{0}", "NULL"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("COR_ID_COR", "NULL");
+                        //query.Replace("${COR_ID_COR}", string.Format("{0}", "NULL"));
 
                     if (dados.Atualizacao != null)
-                        query.Replace("${RAD_ATUALIZACAO}", string.Format("TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS')", dados.Atualizacao));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_ATUALIZACAO", dados.Atualizacao);
+                        //query.Replace("${RAD_ATUALIZACAO}", string.Format("TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS')", dados.Atualizacao));
                     else
-                        query.Replace("${RAD_ATUALIZACAO}", string.Format("{0}", "SYSDATE"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_ATUALIZACAO", "NULL");
+                        //query.Replace("${RAD_ATUALIZACAO}", string.Format("{0}", "SYSDATE"));
 
                     if (dados.Considera_SN != null)
-                        query.Replace("${RAD_CONSIDERA_SN}", string.Format("'{0}'", dados.Considera_SN));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_CONSIDERA_SN", dados.Considera_SN);
+                        //query.Replace("${RAD_CONSIDERA_SN}", string.Format("'{0}'", dados.Considera_SN));
                     else
-                        query.Replace("${RAD_CONSIDERA_SN}", string.Format("{0}", "NULL"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_CONSIDERA_SN", "NULL");
+                        //query.Replace("${RAD_CONSIDERA_SN}", string.Format("{0}", "NULL"));
 
                     if (dados.Radio_ID != null)
-                        query.Replace("${RAD_RADIO_ID}", string.Format("{0}", dados.Radio_ID));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_RADIO_ID", dados.Radio_ID);
+                        //query.Replace("${RAD_RADIO_ID}", string.Format("{0}", dados.Radio_ID));
                     else
-                        query.Replace("${RAD_RADIO_ID}", string.Format("{0}", "NULL"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_RADIO_ID", "NULL");
+                        //query.Replace("${RAD_RADIO_ID}", string.Format("{0}", "NULL"));
 
                     if (dados.Modelo_Radio_Acima != null)
-                        query.Replace("${RAD_MODELO_AC}", string.Format("'{0}'", dados.Modelo_Radio_Acima));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_MODELO_AC", dados.Modelo_Radio_Acima);
+                        //query.Replace("${RAD_MODELO_AC}", string.Format("'{0}'", dados.Modelo_Radio_Acima));
                     else
-                        query.Replace("${RAD_MODELO_AC}", string.Format("{0}", "NULL"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_MODELO_AC", "NULL");
+                        //query.Replace("${RAD_MODELO_AC}", string.Format("{0}", "NULL"));
 
                     if (dados.Modelo_Radio_Abaixo != null)
-                        query.Replace("${RAD_MODELO_AB}", string.Format("'{0}'", dados.Modelo_Radio_Abaixo));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_MODELO_AB", dados.Modelo_Radio_Abaixo);
+                        //query.Replace("${RAD_MODELO_AB}", string.Format("'{0}'", dados.Modelo_Radio_Abaixo));
                     else
-                        query.Replace("${RAD_MODELO_AB}", string.Format("{0}", "NULL"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_MODELO_AB", "NULL");
+                        //query.Replace("${RAD_MODELO_AB}", string.Format("{0}", "NULL"));
 
                     if (dados.Serial_Radio_Acima != null)
-                        query.Replace("${RAD_SERIAL_AC}", string.Format("'{0}'", dados.Serial_Radio_Acima));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_SERIAL_AC", dados.Serial_Radio_Acima);
+                        //query.Replace("${RAD_SERIAL_AC}", string.Format("'{0}'", dados.Serial_Radio_Acima));
                     else
-                        query.Replace("${RAD_SERIAL_AC}", string.Format("{0}", "NULL"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_SERIAL_AC", "NULL");
+                        //query.Replace("${RAD_SERIAL_AC}", string.Format("{0}", "NULL"));
 
                     if (dados.Serial_Radio_Abaixo != null)
-                        query.Replace("${RAD_SERIAL_AB}", string.Format("'{0}'", dados.Serial_Radio_Abaixo));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_SERIAL_AB", dados.Serial_Radio_Abaixo);
+                        //query.Replace("${RAD_SERIAL_AB}", string.Format("'{0}'", dados.Serial_Radio_Abaixo));
                     else
-                        query.Replace("${RAD_SERIAL_AB}", string.Format("{0}", "NULL"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_SERIAL_AB", "NULL");
+                        //query.Replace("${RAD_SERIAL_AB}", string.Format("{0}", "NULL"));
 
                     if (dados.Ativo_SN != null)
-                        query.Replace("${RAD_ATIVO_SN}", string.Format("'{0}'", dados.Ativo_SN));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_ATIVO_SN", dados.Ativo_SN);
+                        //query.Replace("${RAD_ATIVO_SN}", string.Format("'{0}'", dados.Ativo_SN));
                     else
-                        query.Replace("${RAD_ATIVO_SN}", string.Format("{0}", "NULL"));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_ATIVO_SN", "NULL");
+                        //query.Replace("${RAD_ATIVO_SN}", string.Format("{0}", "NULL"));
 
                     if (dados.Radios_ID != null)
-                        query.Replace("${RAD_ID_RAD}", string.Format("{0}", dados.Radios_ID));
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_ID_RAD", dados.Radios_ID);
+                        //query.Replace("${RAD_ID_RAD}", string.Format("{0}", dados.Radios_ID));
                     else
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_ID_RAD", "NULL");
                         query.Replace("${RAD_ID_RAD}", string.Format("{0}", "NULL"));
 
                     #endregion
@@ -466,8 +520,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     // [ EXCLUINDO UM REGISTRO EXISTENTE ]
                     if (id != null)
                     {
-                        query.Append(@"DELETE RADIOS WHERE RAD_ID_RAD = ${RAD_ID_RAD} ");
-                        query.Replace("${RAD_ID_RAD}", string.Format("{0}", id));
+                        query.Append(@"DELETE RADIOS WHERE RAD_ID_RAD = :RAD_ID_RAD ");
+
+                        //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
+                        command.Parameters.Add("RAD_ID_RAD", id);
+                        //query.Replace("${RAD_ID_RAD}", string.Format("{0}", id));
 
 
                         #region [ ATUALIZA BANCO ]

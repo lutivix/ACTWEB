@@ -41,7 +41,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         ${MUDULO}
                                         ${USUARIO}
                                         ${OPERACAO}
-                                        ${TEXTO}");
+                                        ${TEXTO}");//C1225 - Sem modificação!
 
                     if (filtro.DataInicial != null && filtro.DataFinal != null)
                         query.Replace("${PUBLICACAO}", string.Format(" AND L.LOG_DATA_HORA BETWEEN TO_DATE('{0}','DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}','DD/MM/YYYY HH24:MI:SS')", filtro.DataInicial, filtro.DataFinal));
