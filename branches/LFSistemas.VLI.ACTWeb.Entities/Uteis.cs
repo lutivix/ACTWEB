@@ -115,6 +115,11 @@ namespace LFSistemas.VLI.ACTWeb.Entities
                 macro = macro.Substring(posicao, macro.Length + 1 - posicao);
                 return macro.Trim();
             }
+            else if (macro.IndexOf(SEPARADOR) < 0)
+            {
+                macro = macro.Substring(posicao, macro.Length - posicao);
+                return macro.Trim();
+            }
             else
             {
                 macro = macro.Substring(posicao, macro.IndexOf(SEPARADOR) - posicao);
