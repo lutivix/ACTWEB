@@ -1671,7 +1671,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"SELECT TR_ID_TP AS ID, TR_COD_TP AS CODIGO, UPPER(TR_DSC_TP_RT) AS DESCRICAO 
                                         FROM ACTPP.TIPOS_RESTRICAO Tipos_restricao     
-                                        WHERE TR_ID_TP not in (1, 2, 3, 4, 17, 25, 27, 30, 32, 34, 37, 38, 44)
+                                        WHERE TR_ID_TP not in (1, 2, 3, 4, 17, 27, 30, 32, 34, 37, 38, 44)
                                         ORDER BY TR_DSC_TP_RT");//C1226 - retirada do tipo de temperatura (25) -  21/03/2023  //C1225 - Sem modificação!
 
                     #endregion
