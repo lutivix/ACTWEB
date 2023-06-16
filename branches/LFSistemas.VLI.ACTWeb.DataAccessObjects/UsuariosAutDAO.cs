@@ -384,14 +384,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             SELECT ACTPP.BS_OPERADOR_ID.NEXTVAL,OPBS.OP_BS_ID, PBS_ID, SYSDATE,PBS_ID, PBS_VALOR, OPBS.OP_BS_MAT , ULT_SOL,'S' 
                                                 FROM ACTPP.PARAMETROS_BS PBS, ACTPP.OPERADORES_BS OPBS, (select max(bs_op_DT) AS ULT_SOL 
                                                                                                 FROM ACTPP.BS_OPERADOR WHERE OP_BS_ID = :ID 
-                                                                                                    AND SR_ID_STR = :SUBTIPOS) TESTE 
-                                                    WHERE PBS_ID = :SUBTIPOS AND OPBS.OP_BS_ID = :ID");
+                                                                                                    AND SR_ID_STR = ${SUBTIPOS}) TESTE 
+                                                    WHERE PBS_ID = ${SUBTIPOS} AND OPBS.OP_BS_ID = :ID");
 
                             //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
                             command.Parameters.Add("ID", usuario.Usuario_ID);
                             //query.Replace("${ID}", usuario.Usuario_ID);
-                            command.Parameters.Add("SUBTIPOS", usuario.Subtipos_BS);
-                            //query.Replace("${SUBTIPOS}", usuario.Subtipos_BS);
+                            //command.Parameters.Add("SUBTIPOS", int.Parse(usuario.Subtipos_BS));
+                            query.Replace("${SUBTIPOS}", usuario.Subtipos_BS);
 
                             #endregion
 
