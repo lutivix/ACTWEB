@@ -705,8 +705,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         }*/
         protected void lnkAtualizarCPF_Click(object sender, EventArgs e)//P707
         {
+            retirando = true;
+
             //Quando clicar em atualizar, vai mandar mensagem pro bloqueio pra fazer o que precisa.
             var restricaoController = new RestricaoController();
+            
 
             if (txtDadosKm.Text != string.Empty && ddlDadosSecao.SelectedItem.Value != "0")
                 verificaKm = restricaoController.VerificaKM(double.Parse(txtDadosKm.Text), double.Parse(ddlDadosSecao.SelectedItem.Value));
@@ -724,10 +727,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             else
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Km " + verificaKm + "' });", true);
 
-
-
-            /**
-            retirando = true;
+            
+            /**            
             id_aut = txtAutorizacao.Text;
             sb = ddlDadosSecao.SelectedItem.Text;
             lblCanalCom.Text = "Canal de comunicação de Atualização";

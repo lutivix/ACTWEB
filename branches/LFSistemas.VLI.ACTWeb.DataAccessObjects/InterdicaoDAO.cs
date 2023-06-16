@@ -219,7 +219,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             WHERE     OLDL.LDL_ID = IM.OL_ID_OL
                                                       AND RC.AI_ID_AI = IM.AI_ID_AI
                                                       AND im.IM_TP = 1
-                                                      AND RC.EV_ID_ELM IN (${SB})");
+                                                      AND RC.EV_ID_ELM IN (:SB)");
 
                     if (SB != null)
                         //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
@@ -227,7 +227,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         //query.Replace("${SB}", string.Format("{0}", SB));
                     else
                         //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
-                        command.Parameters.Add("ID", " ");
+                        command.Parameters.Add("SB", " ");
                         //query.Replace("${SB}", " ");
 
                     #endregion
@@ -659,16 +659,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT EV.EV_NOM_MAC 
                                     FROM SOLICITACAO_INTERDICAO SL, ACTPP.ELEM_VIA EV 
                                         WHERE SL.SLT_ID_SECAO = EV.EV_ID_ELM 
-                                          AND SL.SLT_ID_SLT_ACT = ${SLT_ID_SLT_ACT}");
+                                          AND SL.SLT_ID_SLT_ACT = :ID");
 
 
                     if (id != null)
                         //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
-                        command.Parameters.Add("SLT_ID_SLT_ACT", id);
+                        command.Parameters.Add("ID", id);
                         //query.Replace("${SLT_ID_SLT_ACT}", string.Format("{0}", id));
                     else
                         //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
-                        command.Parameters.Add("SLT_ID_SLT_ACT", "NULL");
+                        command.Parameters.Add("ID", "NULL");
                         //query.Replace("${SLT_ID_SLT_ACT}", " ");
 
                     #endregion
@@ -1342,8 +1342,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                     /*SLT_ID_MOTIVO*/ :SLT_ID_MOTIVO,
                                               /*SLT_MAT_RESPONSAVEL*/ :SLT_MAT_RESPONSAVEL,
                                                          /*SLT_DATA*/ ${SLT_DATA},
-                                           /*SLT_DURACAO_SOLICITADA*/ :SLT_DURACAO_SOLICITADA,
-                                                           /*SLT_KM*/ :SLT_KM, 
+                                           /*SLT_DURACAO_SOLICITADA*/ ${SLT_DURACAO_SOLICITADA},
+                                                           /*SLT_KM*/ ${SLT_KM}, 
                                                   /*SLT_TELEFONE_SN*/ :SLT_TELEFONE_SN,
                                               /*SLT_TELEFONE_NUMERO*/ :SLT_TELEFONE_NUMERO,
                                                      /*SLT_RADIO_SN*/ :SLT_RADIO_SN,
@@ -1406,13 +1406,13 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
 					if (interdicao.Duracao_Solicitada != null) 
                         //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
-                        command.Parameters.Add("SLT_DURACAO_SOLICITADA", interdicao.Km.ToString());
-                        //query.Replace("${SLT_DURACAO_SOLICITADA}", string.Format("{0}", Uteis.TocarVirgulaPorPonto(interdicao.Duracao_Solicitada.ToString())));
+                        //command.Parameters.Add("SLT_DURACAO_SOLICITADA", interdicao.Km.ToString());
+                        query.Replace("${SLT_DURACAO_SOLICITADA}", string.Format("{0}", Uteis.TocarVirgulaPorPonto(interdicao.Duracao_Solicitada.ToString())));
 
 					if (interdicao.Km != null) 
                         //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
-                        command.Parameters.Add("SLT_KM", interdicao.Km.ToString());
-                        //query.Replace("${SLT_KM}", string.Format("{0}", Uteis.TocarVirgulaPorPonto(interdicao.Km.ToString())));
+                        //command.Parameters.Add("SLT_KM", interdicao.Km.ToString());
+                        query.Replace("${SLT_KM}", string.Format("{0}", Uteis.TocarVirgulaPorPonto(interdicao.Km.ToString())));
 
 					if (interdicao.Telefone_SN != null || interdicao.Telefone_SN != "") 
                         //C1225 - prevenção de SQL Injection na Lib do ODP.net  Cont.
