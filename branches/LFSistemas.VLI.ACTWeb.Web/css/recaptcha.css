@@ -4,12 +4,20 @@
 }
 
 .container-recaptcha {
+    align-content: center;
 	max-width: 217.2px;
 }
 
 .g-recaptcha {
-  transform-origin: left top;
-  -webkit-transform-origin: left top;
+    align-content: center ;
+  transform-origin: left;
+  -webkit-transform-origin: center;
+  //visibility:collapse;
+}
+
+.grecaptcha-badge { 
+    //display:none;
+    visibility: hidden;
 }
 
 #lblResult {

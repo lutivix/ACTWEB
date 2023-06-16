@@ -1868,7 +1868,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                         AND MR.MR_ID_ZQ2 = ZQ2.ZQ_ID
                                                                         and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                                                                         and t.es_id_Num_efe_dest = ed.es_id_num_efe  
-                                and mr.ME_MSG_NUM = :id ";
+                                and mr.MR_GRMN = :id ";
                                         comando.Parameters.Add("id", id);
                                     }
                                     else
@@ -1877,7 +1877,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                                             t.TM_TON_BRT,m.MCT_OBC_VERSAO,m.MCT_MAP_VERSAO,t.TM_CMP_TR, ZQ1.ZQ_COD, ZQ1.ZQ_DESC, ZQ2.ZQ_COD, ZQ2.ZQ_DESC, m.MCT_TP_COM
                                                                         from ACTPP.mensagens_enviadas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m, ACTPP.ZONAS_QUENTES ZQ1, ACTPP.ZONAS_QUENTES ZQ2
                                                                         where mr.Me_MCT_ADDR = m.MCT_ID_MCT 
-                                                                        AND MR.ME_ID_ZQ = ZQ.ZQ_ID
+                                                                        AND MR.ME_ID_ZQ = ZQ1.ZQ_ID
                                                                         AND MR.ME_ID_ZQ2 = ZQ2.ZQ_ID
                                                                         and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                                                                         and t.es_id_Num_efe_dest = ed.es_id_num_efe

@@ -33,24 +33,44 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
                     query.Append(@"SELECT COUNT(*) FROM ACESSOS " +
-                                  "WHERE DATA_ACESSO between to_date(${DATA_INI},'DD/MM/YYYY HH24:MI:SS') AND to_date(${DATA_FIM},'DD/MM/YYYY HH24:MI:SS')" +
-                                  "  AND MATRICULA = ${MATRICULA}");
+                                  "WHERE DATA_ACESSO between to_date(:DATA_INI,'DD/MM/YYYY HH24:MI:SS') AND to_date(:DATA_FIM,'DD/MM/YYYY HH24:MI:SS')" +
+                                  "  AND MATRICULA = :MATRICULA");
 
+
+                    //C1169 - prevenção de SQL Injection na Lib do ODP.net
                     if (dtInicio != null && dtFinal != null)
                     {
-                        query.Replace("${DATA_INI}", string.Format("'{0}'", dtInicio));
-                        query.Replace("${DATA_FIM}", string.Format("'{0}'", dtFinal));
-                    }
+                        command.Parameters.Add("DATA_INI", string.Format("{0}", dtInicio));
+                        command.Parameters.Add("DATA_FIM", string.Format("{0}", dtFinal));
+                    }                    
                     else
                     {
-                        query.Replace("${DATA_INI}", string.Format(" "));
-                        query.Replace("${DATA_FIM}", string.Format(" "));
-                    }
+                        command.Parameters.Add("DATA_INI", string.Format("{0}", " "));
+                        command.Parameters.Add("DATA_FIM", string.Format("{0}", " "));
+                    }                        
 
                     if (matricula != string.Empty)
-                        query.Replace("${MATRICULA}", string.Format("'{0}'", matricula));
+                        command.Parameters.Add("MATRICULA", matricula.ToUpper());
                     else
-                        query.Replace("${MATRICULA}", string.Format(" "));
+                        command.Parameters.Add("MATRICULA", " ");
+
+
+
+                    //if (dtInicio != null && dtFinal != null)
+                    //{
+                    //    query.Replace("${DATA_INI}", string.Format("'{0}'", dtInicio));
+                    //    query.Replace("${DATA_FIM}", string.Format("'{0}'", dtFinal));
+                    //}
+                    //else
+                    //{
+                    //    query.Replace("${DATA_INI}", string.Format(" "));
+                    //    query.Replace("${DATA_FIM}", string.Format(" "));
+                    //}
+
+                    //if (matricula != string.Empty)
+                    //    query.Replace("${MATRICULA}", string.Format("'{0}'", matricula));
+                    //else
+                    //    query.Replace("${MATRICULA}", string.Format(" "));
 
                     #endregion
 
@@ -271,13 +291,16 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT U.ID, U.MATRICULA, U.NOME, U.NIVEL, U.MALETA, U.EMAIL, U.SENHA, P.PER_ABREVIADO, U.ATIVO_SN 
                                     FROM USUARIOS U, PERFIS P
                                         WHERE U.NIVEL = P.PER_ID_PER 
-                                            AND UPPER(U.MATRICULA) = ${MATRICULA}");
+                                            AND UPPER(U.MATRICULA) = :MATRICULA");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${MATRICULA}", string.Format("'{0}'", matricula.ToUpper()));
+                    //C1169 - prevenção de SQL Injection na Lib do ODP.net                    
+                    command.Parameters.Add("MATRICULA", matricula.ToUpper());
+
+                    //query.Replace("${MATRICULA}", string.Format("'{0}'", matricula.ToUpper()));
 
                     #endregion
 
@@ -333,6 +356,17 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #endregion
 
                     #region [ PARÂMETROS ]
+
+                    ////C1169 - prevenção de SQL Injection na Lib do ODP.net
+                    //if (matricula != null)
+                    //    command.Parameters.Add("OP_MAT", matricula.ToUpper());
+                    //else
+                    //    command.Parameters.Add("OP_MAT", " ");
+
+                    //if (cargo != null)
+                    //    command.Parameters.Add("OP_CGO", cargo);
+                    //else
+                    //    command.Parameters.Add("OP_CGO", " ");
 
                     if (matricula != null)
                         query.Replace("${MATRICULA}", string.Format(" AND U.MATRICULA = '{0}'", matricula.ToUpper()));
@@ -392,21 +426,32 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA USUÁRIO PELO ID ]
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT OP_ID_OP, OP_MAT, OP_NM, OP_CGO FROM ACTPP.OPERADORES WHERE OP_MAT = ${OP_MAT} AND OP_CGO = ${OP_CGO}");
+                    query.Append(@"SELECT OP_ID_OP, OP_MAT, OP_NM, OP_CGO FROM ACTPP.OPERADORES WHERE OP_MAT = :OP_MAT AND OP_CGO = :OP_CGO");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
+                    //C1169 - prevenção de SQL Injection na Lib do ODP.net
                     if (matricula != null)
-                        query.Replace("${OP_MAT}", string.Format("'{0}'", matricula.ToUpper()));
+                        command.Parameters.Add("OP_MAT", matricula.ToUpper());
                     else
-                        query.Replace("${OP_MAT}", " ");
+                        command.Parameters.Add("OP_MAT", " ");
 
                     if (cargo != null)
-                        query.Replace("${OP_CGO}", string.Format("'{0}'", cargo));
+                        command.Parameters.Add("OP_CGO", cargo);
                     else
-                        query.Replace("${OP_CGO}", " ");
+                        command.Parameters.Add("OP_CGO", " ");
+
+                    //if (matricula != null)
+                    //    query.Replace("${OP_MAT}", string.Format("'{0}'", matricula.ToUpper()));
+                    //else
+                    //    query.Replace("${OP_MAT}", " ");
+
+                    //if (cargo != null)
+                    //    query.Replace("${OP_CGO}", string.Format("'{0}'", cargo));
+                    //else
+                    //    query.Replace("${OP_CGO}", " ");
 
                     #endregion
 
@@ -459,7 +504,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                    
                                     FROM USUARIOS U, PERFIS P 
                                         WHERE U.NIVEL = P.PER_ID_PER 
-                                            AND UPPER(U.MATRICULA) = ${MATRICULA}");
+                                            AND UPPER(U.MATRICULA) = :MATRICULA");
                     //, P.PER_QTDE_MC61 - retirei pq tava dando erro no banco.
 
 
@@ -467,7 +512,9 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${MATRICULA}", string.Format("'{0}'", login.ToUpper()));
+                    //C1169 - prevenção de SQL Injection na Lib do ODP.net                    
+                    command.Parameters.Add("MATRICULA", login.ToUpper());
+                    //query.Replace("${MATRICULA}", string.Format("'{0}'", login.ToUpper()));
 
                     #endregion
 
@@ -520,15 +567,19 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     query.Append(@"SELECT U.ID, U.NOME, U.MATRICULA, U.SENHA, U.NIVEL, P.PER_ABREVIADO, U.MALETA, P.PER_QTDE_MC61, U.ATIVO_SN
                                     FROM USUARIOS U, PERFIS P 
                                         WHERE U.NIVEL = P.PER_ID_PER 
-                                          AND UPPER(MATRICULA) = ${MATRICULA} 
-                                          AND UPPER(SENHA) = ${SENHA}");
+                                          AND UPPER(MATRICULA) = :MATRICULA 
+                                          AND UPPER(SENHA) = :SENHA");
 
                     #endregion
 
                     #region [ PARÂMETROS ]
 
-                    query.Replace("${MATRICULA}", string.Format("'{0}'", login.ToUpper()));
-                    query.Replace("${SENHA}", string.Format("'{0}'", senha.ToUpper()));
+                    //C1169 - prevenção de SQL Injection na Lib do ODP.net
+                    command.Parameters.Add("MATRICULA", login.ToUpper());
+                    command.Parameters.Add("SENHA", senha.ToUpper());
+
+                    //query.Replace("${MATRICULA}", string.Format("'{0}'", login.ToUpper()));
+                    //query.Replace("${SENHA}", string.Format("'{0}'", senha.ToUpper()));
 
                     #endregion
 

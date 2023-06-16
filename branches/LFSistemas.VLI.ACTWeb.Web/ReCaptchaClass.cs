@@ -13,7 +13,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
         {
             var client = new System.Net.WebClient();
 
-            string PrivateKey = "6LdyPlQaAAAAAPo5WsfsT5dV-4pWEfqISv0IuYk-";
+            string PrivateKey = "6LcxEb8kAAAAAFxnj76rM6JF9IsFs00ZUecnSBDS";
 
             var GoogleReply = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", PrivateKey, EncodedResponse));
 
