@@ -15,7 +15,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2022 11:40:38</publishTime>
     </File>
     <File Include="ACTWEB.Master">
-      <publishTime>06/16/2023 14:12:33</publishTime>
+      <publishTime>07/24/2023 17:27:48</publishTime>
     </File>
     <File Include="Ajuda/Erro.aspx">
       <publishTime>09/21/2022 11:40:38</publishTime>
@@ -162,25 +162,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>06/16/2023 14:13:11</publishTime>
+      <publishTime>07/24/2023 17:28:37</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
       <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>06/16/2023 14:13:10</publishTime>
+      <publishTime>07/24/2023 17:28:36</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
       <publishTime>09/08/2016 12:55:17</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>06/16/2023 14:13:10</publishTime>
+      <publishTime>07/24/2023 17:28:35</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>06/16/2023 14:13:13</publishTime>
+      <publishTime>07/24/2023 17:28:38</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>

@@ -169,7 +169,7 @@ namespace LFSistemas.VLI.ACTWeb.Web
         }
         protected void lnkEgraph_Click(object sender, EventArgs e)
         {
-            Response.Write("<script> window.open('http://172.21.26.44:8080/e-graph-server/webGraphics/index', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); </script>");
+            Response.Write("<script> window.open('http://172.21.26.51:8090/e-graph-server/webGraphics/index', 'scrollbars=yes, resizable=yes, status=no, toolbar=no, location=no, durectirues=no, top=0, left=0' ); </script>");//CXXX - Hel MA Novo link Gráfico 24/07/2023
 
         }
 
