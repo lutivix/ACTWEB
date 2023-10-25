@@ -48,6 +48,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP.Abas
 
                 CarregaCombos();
                 ControlarBarraComandos(status);
+
+                if (ulPerfil == "THP")
+                {
+                    rdMotivo.Enabled = false;
+                    rdParada.Enabled = false;
+                    ddlMotivoNovo.Enabled = false;
+                    txtParadaSenha.Enabled = false;
+                    //lnkSalvar.Enabled = false;
+                    //lnkCalncelar.Enabled = false;
+                }
             }
         }
 

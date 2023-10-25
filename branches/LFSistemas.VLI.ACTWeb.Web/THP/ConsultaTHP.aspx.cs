@@ -41,6 +41,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
             if (Request.QueryString["pu"] != null) ViewState["uPerfil"] = Uteis.Descriptografar(Request.QueryString["pu"].ToString(), "a#3G6**@").ToUpper();
             if (Request.QueryString["mm"] != null) ViewState["ulMaleta"] = Uteis.Descriptografar(Request.QueryString["mm"].ToString(), "a#3G6**@").ToUpper();
 
+
             if (!Page.IsPostBack)
             {
                 ulNome = ViewState["ulNome"].ToString();
@@ -54,10 +55,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 lblUsuarioPerfil.Text = ulPerfil.ToUpper();
                 lblUsuarioMaleta.Text = ulMaleta.ToUpper();
 
+                abaDados.ulPerfil = lblUsuarioPerfil.Text;
+
                 CarregaCombos();
                 Pesquisar(null);
             }
         }
+
+        #endregion
 
         #region [ MÉTODOS DE CLICK DOS BOTÕES ]
 
@@ -176,11 +181,20 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 tpPesquisa.Enabled = false;
                 pnlFiltros.Enabled = false;
             }
+            if (lblUsuarioPerfil.Text == "THP")
+            {
+                LinkButton btn = (LinkButton)(sender);
+                double id = double.Parse(btn.CommandArgument);
+
+                abaDados.CarregaDados(id);
+                tabAbas.ActiveTabIndex = 1;
+                tpAcao.Enabled = true;
+                tpPesquisa.Enabled = false;
+                pnlFiltros.Enabled = false;                
+            }
             else
                 Response.Write("<script>alert('Usuário não tem permissão para acessar esta opção, se necessário comunique ao Supervisor do CCO.'); </script>");
         }
-
-        #endregion
 
         #endregion
 
