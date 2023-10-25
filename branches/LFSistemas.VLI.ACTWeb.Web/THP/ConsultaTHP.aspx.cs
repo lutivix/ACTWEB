@@ -170,7 +170,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
         }
         protected void lnkAcao_Click(object sender, EventArgs e)
         {
-            if (lblUsuarioPerfil.Text == "SUP" || lblUsuarioPerfil.Text == "ADM")
+            if (lblUsuarioPerfil.Text == "SUP" || lblUsuarioPerfil.Text == "ADM" || lblUsuarioPerfil.Text == "THP")
             {
                 LinkButton btn = (LinkButton)(sender);
                 double id = double.Parse(btn.CommandArgument);
