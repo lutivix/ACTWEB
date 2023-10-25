@@ -180,18 +180,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.THP
                 tpAcao.Enabled = true;
                 tpPesquisa.Enabled = false;
                 pnlFiltros.Enabled = false;
-            }
-            if (lblUsuarioPerfil.Text == "THP")
-            {
-                LinkButton btn = (LinkButton)(sender);
-                double id = double.Parse(btn.CommandArgument);
-
-                abaDados.CarregaDados(id);
-                tabAbas.ActiveTabIndex = 1;
-                tpAcao.Enabled = true;
-                tpPesquisa.Enabled = false;
-                pnlFiltros.Enabled = false;                
-            }
+            }            
             else
                 Response.Write("<script>alert('Usuário não tem permissão para acessar esta opção, se necessário comunique ao Supervisor do CCO.'); </script>");
         }
