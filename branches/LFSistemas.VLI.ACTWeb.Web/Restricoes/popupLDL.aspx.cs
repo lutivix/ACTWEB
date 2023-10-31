@@ -1237,7 +1237,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     ComboDadosTipoInterdicao();
                     ComboDadosTipoManutencao();
                     ComboDadosTipoCirculacao();
-                    ComboDadosMotivo();
+                    //ComboDadosMotivo();
                     ComboFiltroSecoes();
                     ComboFiltroTipoSituacao();
 
@@ -1255,9 +1255,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     ddlDadosTipoDaSituacao.SelectedItem.Text = "S - Solicitada";
                     ddlDadosTipoDaSituacao.SelectedItem.Value = "1";
                     ddlDadosTipoDaInterdicao.SelectedItem.Text = "Interdição de LDL";
-                    ddlDadosTipoDaInterdicao.SelectedItem.Value = "1";
-                    //ddlDadosTipoDaManutencao.SelectedItem.Text = "Selecione";
-                    //ddlDadosTipoDaManutencao.SelectedItem.Value = "0";
+                    ddlDadosTipoDaInterdicao.SelectedItem.Value = "1";                    
                     ddlDadosTipoDaCirculacao.SelectedItem.Text = "Selecione";
                     ddlDadosTipoDaCirculacao.SelectedItem.Value = "0";
                     ddlDadosMotivo.SelectedItem.Text = "Selecione";
@@ -1268,6 +1266,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     ddlFiltroTipoDaSituacao.SelectedItem.Value = "0";
 
                     ComboDadosMotivo();
+                    ddlDadosTipoDaManutencao.SelectedItem.Text = "Selecione";
+                    ddlDadosTipoDaManutencao.SelectedItem.Value = "0";
 
                     ddlDadosTipoDaSituacao.Enabled = false;
                     txtDadosDataAtual.Enabled = false;
