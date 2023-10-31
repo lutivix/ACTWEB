@@ -1058,7 +1058,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return itens.ToList();
         }
 
-        public List<ComboBox> ObterCombo_MOTIVO_LDL()
+        public List<ComboBox> ObterCombo_MOTIVO_LDL(double tpManut)
         {
             #region [ PROPRIEDADES ]
 
@@ -1075,7 +1075,14 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT MTV_ID_MTV, MTV_DESCRICAO FROM MOTIVO_LDL WHERE MTV_ATIVO = 'S' ORDER BY MTV_DESCRICAO");
+                    if(tpManut == 0)
+                        query.Append(@"SELECT MTV_ID_MTV, MTV_DESCRICAO FROM MOTIVO_LDL WHERE MTV_ATIVO = 'S' ORDER BY MTV_DESCRICAO");
+                    else if (tpManut == 3)
+                        query.Append(@"SELECT MTV_ID_MTV, MTV_DESCRICAO FROM MOTIVO_LDL WHERE MTV_ATIVO = 'S' and MTV_TP_MANUT = 'Corretivo' ORDER BY MTV_DESCRICAO");
+                    else if (tpManut == 1 || tpManut == 2)
+                        query.Append(@"SELECT MTV_ID_MTV, MTV_DESCRICAO FROM MOTIVO_LDL WHERE MTV_ATIVO = 'S' and MTV_TP_MANUT = 'Programado' ORDER BY MTV_DESCRICAO");
+                    else
+                        query.Append(@"SELECT MTV_ID_MTV, MTV_DESCRICAO FROM MOTIVO_LDL WHERE MTV_ATIVO = 'S' ORDER BY MTV_DESCRICAO");
 
                     #endregion
 

@@ -118,9 +118,9 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         /// Obtem todas as seções
         /// </summary>
         /// <returns>Retorna uma lista com todos as seções</returns>
-        public List<ComboBox> ObterCombo_MOTIVO_LDL()
+        public List<ComboBox> ObterCombo_MOTIVO_LDL(double tpManut)
         {
-            return dao.ObterCombo_MOTIVO_LDL();
+            return dao.ObterCombo_MOTIVO_LDL(tpManut);
         }
 
         public bool Inserir(Interdicao interdicao, string usuarioLogado)

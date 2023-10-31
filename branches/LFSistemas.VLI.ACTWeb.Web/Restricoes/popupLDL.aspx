@@ -377,7 +377,7 @@
                         <td style="vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" class="auto-style5"></td>
                         <td style="vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" class="auto-style3">Tipo da Manutenção:&nbsp;&nbsp;</td>
                         <td style="vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" class="auto-style4">
-                            <asp:DropDownList ID="ddlDadosTipoDaManutencao" runat="server" CssClass="form-control" />
+                            <asp:DropDownList ID="ddlDadosTipoDaManutencao" runat="server" CssClass="form-control"  OnSelectedIndexChanged="ddlDadosTipoDaManutencao_SelectedIndexChanged" AutoPostBack="true"/>
                         </td>
                         <td style="vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" class="auto-style3">&nbsp;&nbsp;</td>
                     </tr>

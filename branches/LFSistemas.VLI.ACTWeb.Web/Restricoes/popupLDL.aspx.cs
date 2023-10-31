@@ -210,7 +210,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             var interdicaoController = new InterdicaoController();
             ddlDadosMotivo.DataValueField = "Id";
             ddlDadosMotivo.DataTextField = "Descricao";
-            ddlDadosMotivo.DataSource = interdicaoController.ObterCombo_MOTIVO_LDL();
+            double manut = 0;
+            if (ddlDadosTipoDaManutencao.SelectedItem.Value.Length > 0)
+                manut = double.Parse(ddlDadosTipoDaManutencao.SelectedItem.Value);               
+            ddlDadosMotivo.DataSource = interdicaoController.ObterCombo_MOTIVO_LDL(manut);
             ddlDadosMotivo.DataBind();
         }
         public void ComboFiltroSecoes()
@@ -1204,7 +1207,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         protected void clbCorredorLDL_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboFiltroSecoes();
-        }
+        }    
 
         [System.Web.Services.WebMethod]
         public static void DeleteRestriction(string id)
@@ -1253,8 +1256,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     ddlDadosTipoDaSituacao.SelectedItem.Value = "1";
                     ddlDadosTipoDaInterdicao.SelectedItem.Text = "Interdição de LDL";
                     ddlDadosTipoDaInterdicao.SelectedItem.Value = "1";
-                    ddlDadosTipoDaManutencao.SelectedItem.Text = "Selecione";
-                    ddlDadosTipoDaManutencao.SelectedItem.Value = "0";
+                    //ddlDadosTipoDaManutencao.SelectedItem.Text = "Selecione";
+                    //ddlDadosTipoDaManutencao.SelectedItem.Value = "0";
                     ddlDadosTipoDaCirculacao.SelectedItem.Text = "Selecione";
                     ddlDadosTipoDaCirculacao.SelectedItem.Value = "0";
                     ddlDadosMotivo.SelectedItem.Text = "Selecione";
@@ -1263,6 +1266,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     ddlFiltroSecao.SelectedItem.Value = "0";
                     ddlFiltroTipoDaSituacao.SelectedItem.Text = "Selecione";
                     ddlFiltroTipoDaSituacao.SelectedItem.Value = "0";
+
+                    ComboDadosMotivo();
 
                     ddlDadosTipoDaSituacao.Enabled = false;
                     txtDadosDataAtual.Enabled = false;
@@ -1386,6 +1391,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         }
 
         #endregion
+
+        protected void ddlDadosTipoDaManutencao_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboDadosMotivo();
+        }
+
+
 
         
 
