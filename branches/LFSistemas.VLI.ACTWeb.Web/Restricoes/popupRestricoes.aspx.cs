@@ -1172,7 +1172,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                             }
                             else
                             {
-                                var tuple = Tuple.Create("Tipo: " + item[2].ToString(), "  Seção: " + item[1].ToString(), "  Restrição nº: " + item[0].ToString());
+                                var tuple = Tuple.Create("Tipo: " + item[0].ToString() + " - " + item[4], "  Seção: " + item[3].ToString(), "  Restrição nº: " + item[2].ToString() );
                                 selecionados.Add(tuple);
                             }
                         }
@@ -1199,7 +1199,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         sb.Replace("(", "");
                         sb.Replace(")", "");
 
-                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'As restrições: " + sb.ToString() + " não pode(m) ser enviada(s) para avaliação de exclusão pelo ACTWEB.' });", true);
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'As restrições: " + sb.ToString() + " não pode(m) ser enviada(s) para avaliação de exclusão pelo ACTWEB. Restrições 038 e 055 só podem ser retiradas pelo Controlador no CCO!' });", true);
                     }
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Foram enviadas " + contador.ToString() + " para avaliação de exclusão.' });", true);
                 }
