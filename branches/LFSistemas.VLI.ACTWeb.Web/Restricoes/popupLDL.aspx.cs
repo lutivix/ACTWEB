@@ -1254,8 +1254,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     ddlDadosSecao.SelectedItem.Value = "0";
                     ddlDadosTipoDaSituacao.SelectedItem.Text = "S - Solicitada";
                     ddlDadosTipoDaSituacao.SelectedItem.Value = "1";
-                    ddlDadosTipoDaInterdicao.SelectedItem.Text = "Interdição de LDL";
-                    ddlDadosTipoDaInterdicao.SelectedItem.Value = "1";                    
+                    ddlDadosTipoDaInterdicao.SelectedItem.Text = "Selecione";
+                    ddlDadosTipoDaInterdicao.SelectedItem.Value = "0";                    
                     ddlDadosTipoDaCirculacao.SelectedItem.Text = "Selecione";
                     ddlDadosTipoDaCirculacao.SelectedItem.Value = "0";
                     ddlDadosMotivo.SelectedItem.Text = "Selecione";
@@ -1272,7 +1272,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     ddlDadosTipoDaSituacao.Enabled = false;
                     txtDadosDataAtual.Enabled = false;
                     ddlDadosSecao.Enabled = true;
-                    ddlDadosTipoDaInterdicao.Enabled = false;
+                    //ddlDadosTipoDaInterdicao.Enabled = false;
                     txtDadosDuracaoSolicitada.Enabled = true;
                     ddlDadosTipoDaManutencao.Enabled = true;
                     ddlDadosTipoDaCirculacao.Enabled = false;
@@ -1340,7 +1340,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     ddlDadosTipoDaSituacao.Enabled = false;
                     txtDadosDataAtual.Enabled = false;
                     ddlDadosSecao.Enabled = false;
-                    ddlDadosTipoDaInterdicao.Enabled = false;
+                    //ddlDadosTipoDaInterdicao.Enabled = false;
                     txtDadosDuracaoSolicitada.Enabled = false;
                     ddlDadosTipoDaManutencao.Enabled = false;
                     ddlDadosTipoDaCirculacao.Enabled = true;
