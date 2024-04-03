@@ -27,6 +27,7 @@
     <link rel="grupo vli" href="logo-vli.ico">
 
     <script type="text/javascript">
+
         function tecla() {
             if (window.event.keyCode == 120) {
                 document.getElementById('link1').click();
@@ -149,6 +150,7 @@
                 document.getElementById('<%=ddlDadosSubTipoVR.ClientID %>').textContent = '';
             }
         }
+
         function editaRestricao(invoker) {
             var inputElements = document.getElementsByTagName('input');
             for (var i = 0; i < inputElements.length; i++) {
@@ -157,6 +159,29 @@
                     myElement.checked = invoker.checked;
                 }
             }
+        }
+
+        function ConverteStringParaDateTime(data, hora)
+        {
+            var retorno;
+
+            try
+            {
+                var mes = Number.parseInvariant(data.substr(3, 2));
+                mes = mes - 1;
+                //alert(mes);
+             
+                //retorno = new Date(teste, 03, 03, 11, 40, 0);
+                retorno = new Date(data.substr(6, 4), mes, data.substr(0, 2), hora.substr(0, 2), hora.substr(3, 2), hora.substr(6, 2));
+                //alert("retorno: " + retorno.toString())
+            }
+            catch (error)
+            {
+
+                alert('Erro em Conversão de Data: ' + error);
+            }
+
+            return retorno;
         }
 
         function validaFormulario() {
@@ -231,16 +256,68 @@
                     if (item.length > 0) item += ":ddlDadosSubTipoVR"; else item += "ddlDadosSubTipoVR";
                     retorno = false;
                 }
+
+                //C1336 - Impedimento para BS futuro (Programação)
+                //Não pode mais programar BS no ACTWEB - Luciano 03/04/2024
+                var dateString = txtDadosDataInicial; 
+                var dateParts = dateString.split("/");
+                var timeparts = dateString.split(":");
+                // month is 0-based, that's why we need dataParts[1] - 1
+                var dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+                //alert(txtDadosDataInicial);
+                //alert(dateObject.toString());
+
+
                 if (txtDadosDataInicial == '') {
                     msg += "DATA INICIAL; \n";
                     if (item.length > 0) item += ":txtDadosDataInicial"; else item += "txtDadosDataInicial";
                     retorno = false;
                 }
+
+                //C1336 - Impedimento para BS futuro (Programação)
+                //Não pode mais programar BS no ACTWEB - Luciano 03/04/2024
+                var mydateObject = ConverteStringParaDateTime(txtDadosDataInicial, txtDadosHoraInicial);
+                //alert(Date.parse(txtDadosDataInicial).toString() );
+                //alert(txtDadosHoraInicial);                
+                var agora = new Date() ;
+               
+                
                 if (txtDadosHoraInicial == '') {
                     msg += "HORA INICIAL; \n";
                     if (item.length > 0) item += ":txtDadosHoraInicial"; else item += "txtDadosHoraInicial";
                     retorno = false;
                 }
+
+                //alert("antes");
+                //C1336
+                try
+                {
+                    //alert("dentro")
+                    if ( (txtDadosDataInicial != '') && (txtDadosHoraInicial != '')  )
+                    {
+                        var d1 = mydateObject.getTime() ;
+                        var d2 = agora.getTime();
+                        //alert(mydateObject.toString() + ' vs ' + agora.toString());
+                        if (d1 > d2)
+                        {
+                            msg += "DATETIME inicial não pode ser futuro!; \n";
+                        }
+
+                        if (item.length > 0) {
+                            item += ":txtDadosDataInicial:txtDadosHoraInicial";
+                        }
+                        else
+                        {
+                            item += "txtDadosDataInicial:txtDadosHoraInicial";
+                        }
+                        retorno = false;
+                    }
+                }
+                catch(error)
+                {
+                    alert(error);
+                }               
+
                 if (txtDadosDataFinal == '') {
                     msg += "DATA FINAL; \n";
                     if (item.length > 0) item += ":txtDadosDataFinal"; else item += "txtDadosDataFinal";
