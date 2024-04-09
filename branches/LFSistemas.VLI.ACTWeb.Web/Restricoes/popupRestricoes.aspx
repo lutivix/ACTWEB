@@ -301,16 +301,13 @@
                         if (d1 > d2)
                         {
                             msg += "DATETIME inicial não pode ser futuro!; \n";
+							retorno = false;
                         }
 
                         if (item.length > 0) {
                             item += ":txtDadosDataInicial:txtDadosHoraInicial";
-                        }
-                        else
-                        {
-                            item += "txtDadosDataInicial:txtDadosHoraInicial";
-                        }
-                        retorno = false;
+							retorno = false;
+                        }                                               
                     }
                 }
                 catch(error)
