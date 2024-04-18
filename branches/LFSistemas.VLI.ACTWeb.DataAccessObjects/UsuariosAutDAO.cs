@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LFSistemas.VLI.ACTWeb.Entities;
 using System.Data.OleDb;
 using Oracle.ManagedDataAccess.Client;
+using System.Threading;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 {
@@ -748,8 +749,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     }   
                     
                     #endregion
-                    
-                    
+                                        
 
                     #region [ ATUALIZA BS_OPERADOR (Inativando) NO BANCO ]
                     try
@@ -859,7 +859,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         command.CommandText = query3.ToString();
                         command.ExecuteNonQuery();
                         retorno3 = true;
-                        command.Connection.Close();
+                        //command.Connection.Close();
                         LogDAO.GravaLogBanco(DateTime.Now, "0", "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado BS_OPERADOR_HIST (HISTORICO)!", Uteis.OPERACAO.Atualizou.ToString());
                         #endregion
                         
@@ -872,18 +872,20 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     }
                     #endregion                    
 
+
                     #region Limpa BS_OPERADOR para todos os registros inativos
                     try
                     {
                         //C1143 - Ajuste limpeza de tabela -- Texto: LIMPEZA ExecuteNonQuery requires an open and available Connection. The connection's current state is closed.    
-                        //command.Dispose();
+                        command.Dispose();
                         //command.Connection.Open();
-                        var command2 = connection.CreateCommand();
+                        //Thread.Sleep(500);
+                        command = connection.CreateCommand();
                         query4.Append(@"DELETE FROM actpp.BS_OPERADOR WHERE BS_OP_ATIVO = 'N'");
 
                         #region [ RODA A QUERY NO BANCO ]
-                        command2.CommandText = query4.ToString();
-                        command2.ExecuteNonQuery();
+                        command.CommandText = query4.ToString();
+                        command.ExecuteNonQuery();
                         retorno4 = true;
                         LogDAO.GravaLogBanco(DateTime.Now, "0", "Usuários", usuarioID, null, "Usuário : " + usuarioID + ", atualizado BS_OPERADOR (LIMPEZA)", Uteis.OPERACAO.Atualizou.ToString());
                         #endregion

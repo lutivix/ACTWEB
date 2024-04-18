@@ -426,6 +426,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         return;
                     }
 
+                    // Restrição de tempo anterior a data atual
+                    if (DateTime.Compare(tempData1, DateTime.Now) > 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não é possivel programar uma restrição do Tipo BS.' });", true);
+                        return;
+                    }
+
                     // Data final inferior a data inicial ou a data atual
                     if (DateTime.Compare(tempData1, tempData2) > 0
                         || DateTime.Compare(tempData2, DateTime.Now) < 0)
