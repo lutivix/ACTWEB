@@ -67,6 +67,32 @@
             //lbCauda.disabled = true;
             //tbCauda.disabled = true;
         }
+        function getRadioButtonSelectedOcpTremSim() {
+            txtPrefixo = document.getElementById('<%=txtPrefixo.ClientID %>');
+            tbCauda = document.getElementById('<%=tbCauda.ClientID %>');
+
+            document.getElementById('<%=txtPrefixo.ClientID %>').value = '';
+            document.getElementById('<%=tbCauda.ClientID %>').value = '';            
+            txtPrefixo.disabled = false;
+            tbCauda.disabled = false;
+            //lblPrefixo.disabled = true;
+            //txtPrefixo.disabled = true;
+            //lbCauda.disabled = true;
+            //tbCauda.disabled = true;
+        }
+        function getRadioButtonSelectedOcpTremNao() {
+            txtPrefixo = document.getElementById('<%=txtPrefixo.ClientID %>');
+            tbCauda = document.getElementById('<%=tbCauda.ClientID %>');
+
+            document.getElementById('<%=txtPrefixo.ClientID %>').value = '';
+            document.getElementById('<%=tbCauda.ClientID %>').value = '';
+            txtPrefixo.disabled = true;
+            tbCauda.disabled = true;
+            //lblPrefixo.disabled = true;
+            //txtPrefixo.disabled = true;
+            //lbCauda.disabled = true;
+            //tbCauda.disabled = true;
+        }
         function getRadioButtonSelectedMacro() {
             txtDadosTelefone = document.getElementById('<%=txtDadosTelefone.ClientID %>');
             txtDadosMacro = document.getElementById('<%=txtDadosMacro.ClientID %>');
@@ -480,6 +506,21 @@
                         <td style="width: 15%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
                         <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px; padding-left:20px; ">
                             <asp:RadioButton ID="rdDadosRadio" runat="server" Text="Rádio:" GroupName="rdContato" TextAlign="Left" onchange="getRadioButtonSelectedRadio();" />&nbsp;&nbsp;
+                        </td>
+                                              
+                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
+                    </tr>
+
+                    <!--Linha de pergunta sobre prefixo e existência de trem na linha-->
+                    <tr>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
+                        <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+                            <!--<asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" />-->
+                        </td>
+                        <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">SB Ocupada com Trem?&nbsp;&nbsp</td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px; padding-left:20px; ">
+                            <asp:RadioButton ID="rdSimTrem" runat="server" Text="Sim:" GroupName="rdContato" TextAlign="Left" onchange="getRadioButtonSelectedOcpTremSim();" />&nbsp;&nbsp;
+                            <asp:RadioButton ID="rdNaoTrem" runat="server" Text="Não:" GroupName="rdContato" TextAlign="Left" onchange="getRadioButtonSelectedOcpTremNao();" />&nbsp;&nbsp;
                         </td>
                                               
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
