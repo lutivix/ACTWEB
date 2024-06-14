@@ -108,10 +108,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
             if( 
                     (usuario.Perfil_ID != "1") 
-                    && (usuario.Perfil_ID != "5")
+                    //&& (usuario.Perfil_ID != "5") //C1365
               )
             {
-                lblAviso.Text = "----  Apenas Administradores ou Inspetores podem editar os usuários!   ----";
+                ///C1365 - Inspetores não poderão mais alterar usuários autorizados, apenas ADM's
+                lblAviso.Text = "----  Apenas Administradores podem editar os usuários!   ----"; //C1365
             }
             else
             {
