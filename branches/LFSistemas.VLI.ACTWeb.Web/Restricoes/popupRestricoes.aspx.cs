@@ -147,6 +147,27 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 LimpaCampos();
 
                 ListaRestricoes = ObterListaDeRestricoes();
+
+                //C1362 - Apenas CCV poder retirar ou criar algumas restrições (036, 037 e 055)
+                //if (lblUsuarioPerfil.Text != "CCV" && lblUsuarioPerfil.Text != "ADM")
+                //{
+                //    Restricao rest = null;
+                //    for (int i = 0; i < ListaRestricoes.Count ; i++)
+                //    {
+                //        rest = ListaRestricoes[i];
+                //        if(rest.Tipo_Restricao == "036" ||
+                //            rest.Tipo_Restricao == "037" ||
+                //            rest.Tipo_Restricao == "054" ||
+                //            rest.Tipo_Restricao == "055"
+                //            )
+                //        {
+                //            ListaRestricoes.Remove(rest);
+                //        }
+                //    }
+                //} 
+                
+
+
                 rptListaRestricoes.DataSource = ListaRestricoes;
                 rptListaRestricoes.DataBind();
 
@@ -207,6 +228,19 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             ddlFiltroTipo.DataSource = restricaoController.ObterFiltroTipo();
             ddlFiltroTipo.DataBind();
             ddlFiltroTipo.Items.Insert(0, new ListItem("Selecione", ""));
+
+            ////C1362 - Apenas CCV poder retirar ou criar algumas restrições (036, 037 e 055)
+            //if (lblUsuarioPerfil.Text != "CCV" && lblUsuarioPerfil.Text != "ADM")
+            //{
+            //    ListItem item = ddlFiltroTipo.Items.FindByValue("036");// Retira a 036 - ANTT
+            //    ddlFiltroTipo.Items.Remove(item);
+            //    item = ddlFiltroTipo.Items.FindByValue("037");// Retira a 037 - ANTT - PERIMETRO URBANO
+            //    ddlFiltroTipo.Items.Remove(item);
+            //    item = ddlFiltroTipo.Items.FindByValue("055");// Retira a 055 - RESTRIÇÃO DE ENGENHARIA
+            //    ddlFiltroTipo.Items.Remove(item);
+            //    item = ddlFiltroTipo.Items.FindByValue("054");// Retira a 055 - RESTRIÇÃO DE ENGENHARIA
+            //    ddlFiltroTipo.Items.Remove(item);
+            //} 
         }
 
         public void ComboFiltroSubtipo()
@@ -235,6 +269,17 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             ddlDadosTipoRestricao.DataSource = restricaoController.ObterComboRestricao_ListaTodosTipoRestricao();
             ddlDadosTipoRestricao.DataBind();
             ddlDadosTipoRestricao.Items.Insert(0, new ListItem("Selecione", "0"));
+
+            //C1362 - Apenas CCV poder retirar ou criar algumas restrições (036, 037 e 055)
+            if (lblUsuarioPerfil.Text != "CCV" && lblUsuarioPerfil.Text != "ADM")
+            {
+                ListItem item = ddlDadosTipoRestricao.Items.FindByValue("42");// Retira a 036 - ANTT
+                ddlDadosTipoRestricao.Items.Remove(item);
+                item = ddlDadosTipoRestricao.Items.FindByValue("43");// Retira a 037 - ANTT - PERIMETRO URBANO
+                ddlDadosTipoRestricao.Items.Remove(item);
+                item = ddlDadosTipoRestricao.Items.FindByValue("55");// Retira a 055 - RESTRIÇÃO DE ENGENHARIA
+                ddlDadosTipoRestricao.Items.Remove(item); 
+            }           
         }
 
         protected void HabilitaDesabilitaCombos(bool habilita)
@@ -805,6 +850,22 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                             {
                                 lblAviso.Text = "----  Esse perfil de usuário só tem permissão pra retirar restrições do tipo BS!   ----";
                                 podeSolRetirada = false;
+                                retirando = false;
+                                return;
+                            }
+                        }
+
+                        if (item[4] == "054" ||
+                            item[4] == "055" || 
+                            item[4] == "036" ||
+                            item[4] == "037" 
+                            )
+                        {
+                            if (lblUsuarioPerfil.Text != "CCV" && lblUsuarioPerfil.Text != "ADM") 
+                            {
+                                lblAviso.Text = "----  Apenas perfil CCV tem permissão pra retirar restrições dos tipos 036, 037, 054 e 055!   ----";
+                                podeSolRetirada = false;
+                                retirando = false;
                                 return;
                             }
                         }
@@ -1156,7 +1217,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         {
                             string[] item = HiddenField1.Value.Split(':');
 
-                            if ((item[4] != "038") && (item[4] != "055") && (item[4] != "054"))
+                            if ((item[4] != "038") && (item[4] != "054"))//C1362
                             {
                                 string tipo = item[0].ToString();
                                 int id = 0;
@@ -1216,6 +1277,25 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         protected void AtualizarListaDeRestricoes()
         {
             ListaRestricoes = ObterListaDeRestricoes();
+
+            //C1362 - Apenas CCV poder retirar ou criar algumas restrições (036, 037 e 055)
+            //if (lblUsuarioPerfil.Text != "CCV" && lblUsuarioPerfil.Text != "ADM")
+            //{
+            //    Restricao rest = null;
+            //    for (int i = 0; i < ListaRestricoes.Count; i++)
+            //    {
+            //        rest = ListaRestricoes[i];
+            //        if (rest.Tipo_Restricao == "036" ||
+            //            rest.Tipo_Restricao == "037" ||
+            //            rest.Tipo_Restricao == "054" ||
+            //            rest.Tipo_Restricao == "055"
+            //            )
+            //        {
+            //            ListaRestricoes.Remove(rest);
+            //        }
+            //    }
+            //} 
+
             rptListaRestricoes.DataSource = ListaRestricoes;
             rptListaRestricoes.DataBind();
 
