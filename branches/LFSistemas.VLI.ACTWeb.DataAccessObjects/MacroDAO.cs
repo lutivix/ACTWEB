@@ -520,7 +520,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                         FROM REL_CAB_EST
                                                                         WHERE CAB_ID IN (${CABINES_R}))) NE
                                     WHERE     MC.MCT_ID_MCT(+) = MR.MR_MCT_ADDR
-                                        AND PF.MFP_ID_MSG(+) = MR.MR_GRMN
+                                        AND PF.MFP_ID_MSG(+) = MR.MR_ID
                                         --AND MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (NE.EST_NOME, '%'))
                                         AND MR.MR_ESTACAO = NE.EST_NOME-- C859
                                         ${INTERVALO_R}
