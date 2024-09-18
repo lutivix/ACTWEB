@@ -1560,7 +1560,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"SELECT COUNT(*) QTDE 
                                     FROM ACTPP.MENSAGENS_RECEBIDAS MR
-                                       INNER JOIN ACTPP.MSG_PF PF ON PF.MFP_ID_MSG = MR.MR_GRMN
+                                       INNER JOIN ACTPP.MSG_PF PF ON PF.MFP_ID_MSG = MR.MR_ID
                                     INNER JOIN (SELECT EST_NOME
                                   FROM ESTACOES
                                             WHERE EST_ID IN (SELECT EST_ID
@@ -1568,7 +1568,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                             WHERE CAB_ID IN (${CABINES_R}))) B
                                 --ON MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (B.EST_NOME, '%'))
                                 ON MR.MR_ESTACAO = B.EST_NOME-- C859
-                                        AND PF.MFP_ID_MSG = MR.MR_GRMN 
+                                        AND PF.MFP_ID_MSG = MR.MR_ID
                                           ${INTERVALO_R}
                                           AND PF.MFP_LEITURA = 'F' 
                                           AND MR.MR_MC_NUM = 50 

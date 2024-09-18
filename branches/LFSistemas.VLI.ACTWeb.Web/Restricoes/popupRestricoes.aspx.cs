@@ -864,9 +864,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                             if (lblUsuarioPerfil.Text != "CCV" && lblUsuarioPerfil.Text != "ADM") 
                             {
                                 lblAviso.Text = "----  Apenas perfil CCV tem permissão pra retirar restrições dos tipos 036, 037, 054 e 055!   ----";
-                                podeSolRetirada = false;
-                                retirando = false;
-                                return;
+                                //podeSolRetirada = false;
+                                //retirando = false;
+                                //return;
                             }
                         }
                     }
@@ -1226,10 +1226,32 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                 if (tipo == "CC") id = int.Parse(item[2].ToString());
                                 if (tipo == "PC") id = int.Parse(item[2].ToString());
 
-                                DLLSendRRE(id, usuario);
-                                LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Restrições", null, item[1].ToString(), "Foi enviado " + item[1].ToString() + " para avaliação de exclusão.", Uteis.OPERACAO.Removeu.ToString());
+                                if (item[4] == "054" ||
+                                    item[4] == "055" ||
+                                    item[4] == "036" ||
+                                    item[4] == "037"
+                                    )
+                                {
+                                    if (lblUsuarioPerfil.Text != "CCV" && lblUsuarioPerfil.Text != "ADM")
+                                    {
+                                        var tuple = Tuple.Create("Tipo: " + item[0].ToString() + " - " + item[4], "  Seção: " + item[3].ToString(), "  Restrição nº: " + item[2].ToString());
+                                        selecionados.Add(tuple);
+                                    }
+                                    else
+                                    {
+                                        DLLSendRRE(id, usuario);
+                                        LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Restrições", null, item[1].ToString(), "Foi enviado " + item[1].ToString() + " para avaliação de exclusão.", Uteis.OPERACAO.Removeu.ToString());
 
-                                contador++;
+                                        contador++;
+                                    }
+                                }
+                                else
+                                {
+                                    DLLSendRRE(id, usuario);
+                                    LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "Restrições", null, item[1].ToString(), "Foi enviado " + item[1].ToString() + " para avaliação de exclusão.", Uteis.OPERACAO.Removeu.ToString());
+
+                                    contador++;
+                                }                                
                             }
                             else
                             {
