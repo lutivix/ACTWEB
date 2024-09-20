@@ -65,6 +65,33 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         }
                     }
 
+                    //C1394 - Alteração para exibição das permissões ao invés de ativo - Luara 19/09/2024
+                    List<string> subtipos = new List<string>();
+                    string subaux = string.Empty;
+
+                    for (int j = 0; j < itens.Count; j++)
+                    {
+                        UsuarioAutorizado usuarioAux = ObterPorMatricula(itens[j].Matricula);
+
+                        subtipos = ObterSubtiposAut(usuarioAux.Usuario_ID);
+                        if(subtipos.Count > 0)
+                        {
+                            for (int i = 0; i < subtipos.Count; i++)
+                            {
+                                subtipos[i] = VerificaSubtipo(subtipos[i]);
+                            }
+
+                            subaux = string.Join(",", subtipos);
+                        }
+                        else
+                            subaux = "Inativo";
+                        
+
+                        
+
+                        itens[j].Subtipos_BS = subaux;
+                    }
+
                     #endregion
                 }
             }
@@ -240,6 +267,26 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             var item = PreencherPropriedadesFiltro(reader);
                             itens.Add(item);
                         }
+                    }
+
+                    //C1394 - Alteração para exibição das permissões ao invés de ativo - Luara 19/09/2024
+                    List<string> subtipos = new List<string>();
+                    string subaux = string.Empty; 
+
+                    for (int j = 0; j < itens.Count; j++)
+                    {
+                        UsuarioAutorizado usuarioAux = ObterPorMatricula(itens[j].Matricula);
+
+                        subtipos = ObterSubtiposAut(usuarioAux.Usuario_ID);
+
+                        for (int i = 0; i < subtipos.Count; i++)
+                        {
+                            subtipos[i] = VerificaSubtipo(subtipos[i]);
+                        }
+
+                        subaux = string.Join(",", subtipos);
+
+                        itens[j].Subtipos_BS = subaux;
                     }
 
                     #endregion

@@ -188,7 +188,7 @@
 
                                         <!--Ativo-->
                                         <th style="width: 2%; text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                            <asp:LinkButton runat="server" ID="lnkAtivo" OnClick="lnkAtivo_Click1" Text="Ativo" /></th>
+                                            <asp:LinkButton runat="server" ID="lnkAtivo" OnClick="lnkAtivo_Click1" Text="Permissões" /></th>
 
                                         
                                     </tr>
@@ -222,7 +222,7 @@
 
                                 <td style="width: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); " title="<%# Eval("UltSolicitacao")%>"><%# Eval("UltSolicitacao")%> </td>-->
 
-                                <td style="width: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); " title="<%# Eval("Ativo_SN")%>"><%# Eval("Ativo_SN")%> </td>
+                                <td style="width: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); " title="<%# Eval("Subtipos_BS")%>"><%# Eval("Subtipos_BS")%> </td>
                             </tr>
                         </ItemTemplate>
                         <FooterTemplate>
