@@ -421,9 +421,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                 txtPrefixo.Text = dados.Prefixo != null ? dados.Prefixo : string.Empty;
                 tbCauda.Text = string.Empty;
-                if(dados.Cauda != 0)
+                if (dados.Cauda != string.Empty)
                 {
-                    tbCauda.Text = dados.Cauda.ToString("f0");
+                    tbCauda.Text = dados.Cauda;
                 }
                 
                 
@@ -934,7 +934,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     inter.Ativo_SN = "S";
                     inter.Telefone_responsavel = txtTelefoneResponsavel.Text.Length > 0 ? txtTelefoneResponsavel.Text : string.Empty;
                     inter.Prefixo = txtPrefixo.Text.Length > 0 ? txtPrefixo.Text : string.Empty;
-                    inter.Cauda = double.Parse( tbCauda.Text.Length > 0 ? tbCauda.Text : "0");
+                    inter.Cauda = tbCauda.Text.Length > 0 ? tbCauda.Text : "0";
 
                     char[] usuariologado = new char[10];
                     char[] responsavel = new char[12];

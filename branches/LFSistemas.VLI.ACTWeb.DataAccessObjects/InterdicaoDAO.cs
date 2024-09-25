@@ -1205,7 +1205,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(32)) item.Motivo_Desc = reader.GetString(32);
             if (!reader.IsDBNull(33)) item.Interdicao_Motivo = reader.GetDouble(33);
             if (!reader.IsDBNull(34)) item.Cod_Interdicao = reader.GetString(34);
-            if (!reader.IsDBNull(35)) item.Cauda = reader.GetDouble(35);
+            if (!reader.IsDBNull(35)) item.Cauda = reader.GetString(35);
 
 
             return item;
