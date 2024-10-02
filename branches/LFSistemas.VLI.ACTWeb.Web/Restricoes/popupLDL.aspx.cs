@@ -70,7 +70,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                       char prmTpUser,
                                       char[]prmTelefone_responsavel,
                                       char[]prmPrefixo,
-                                      int prmCauda);
+                                      char[] prmCauda);
 
         [DllImport(@"DLLMQWeb.dll")]
         /// <summary>
@@ -941,7 +941,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     char[] observacao = new char[38];
                     char[] Telefone_responsavel = new char[11];
                     char[] Prefixo = new char[4];
-                    int Cauda = Convert.ToInt32(inter.Cauda);
+                    char[] Cauda = new char[8];//C1393
 
 
                     for (int i = 0; i <= 35; i++)
@@ -984,13 +984,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                             Prefixo[i] = char.MinValue;
                     }
 
-                    //for (int i = 0; i <= 5; i++)
-                    //{
-                    //    if (i < inter.Cauda.Length)
-                    //        Cauda[i] = inter.Cauda[i];
-                    //    else
-                    //        Cauda[i] = char.MinValue;
-                    //}
+                    //C1393
+                    for (int i = 0; i <= 6 ; i++)
+                    {
+                        if (i < inter.Cauda.Length)
+                            Cauda[i] = inter.Cauda[i];
+                        else
+                            Cauda[i] = char.MinValue;
+                    }
 
                         inter.Usuario_Logado_Nome = lblUsuarioLogado.Text;
 
