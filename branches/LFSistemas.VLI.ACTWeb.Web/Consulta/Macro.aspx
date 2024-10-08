@@ -211,9 +211,7 @@
                                 </table>
                             </div>
                         </div>
-                    </asp:TableCell>
-                    <asp:TableCell>&nbsp;&nbsp;&nbsp;</asp:TableCell>
-                    <asp:TableCell>
+                    </asp:TableCell><asp:TableCell>&nbsp;&nbsp;&nbsp;</asp:TableCell><asp:TableCell>
                         <div id="Div4" class="form-group" runat="server" visible="false">
                             <div class="page-header sub-content-header">
                                 <a data-toggle="collapse" title="Avançado" data-parent="#macros" href="#avancado" style="margin-left: 3px; font-size: 15px" accesskey="9"><b>Avançado</b> <i class="fa fa-bars"></i></a>
@@ -230,16 +228,9 @@
                                 </div>
                             </div>
                         </div>
-                    </asp:TableCell>
-                </asp:TableRow>
-            </asp:Table>
-        </asp:Panel>
-    </div>
-    <asp:RadioButton ID="rdJuntas" runat="server" GroupName="Filtro" Text="&nbsp; Macros Juntas" OnCheckedChanged="rdJuntas_CheckedChanged" Checked="true" AutoPostBack="true" />
-    &nbsp;&nbsp;
-            <asp:RadioButton ID="rdEnviadas" runat="server" GroupName="Filtro" Text="&nbsp; Macros Enviadas" OnCheckedChanged="rdEnviadas_CheckedChanged" AutoPostBack="true" />
-    &nbsp;&nbsp;
-            <asp:RadioButton ID="rdRecebidas" runat="server" GroupName="Filtro" Text="&nbsp; Macros Recebidas" OnCheckedChanged="rdRecebidas_CheckedChanged" AutoPostBack="true" />
+                    </asp:TableCell></asp:TableRow></asp:Table></asp:Panel></div><asp:RadioButton ID="rdJuntas" runat="server" GroupName="Filtro" Text="&nbsp; Macros Juntas" OnCheckedChanged="rdJuntas_CheckedChanged" Checked="true" AutoPostBack="true" />
+    &nbsp;&nbsp; <asp:RadioButton ID="rdEnviadas" runat="server" GroupName="Filtro" Text="&nbsp; Macros Enviadas" OnCheckedChanged="rdEnviadas_CheckedChanged" AutoPostBack="true" />
+    &nbsp;&nbsp; <asp:RadioButton ID="rdRecebidas" runat="server" GroupName="Filtro" Text="&nbsp; Macros Recebidas" OnCheckedChanged="rdRecebidas_CheckedChanged" AutoPostBack="true" />
     <ul class="nav nav-tabs" role="tablist" id="myTab">
     </ul>
     <div class="tab-content">
@@ -248,11 +239,7 @@
             <div class="tab-pane active" id="Div1">
                 <div class="form-group">
                     <div class="page-header sub-content-header">
-                        <h3>Resultados da Pesquisa</h3>
-                        <%--<a data-toggle="modal" data-target="#modal_macros" data-backdrop="static" style="margin-left: 3px;" href=""><i class="fa fa-question-circle"></i></a>--%>
-                    </div>
-                </div>
-                <asp:UpdatePanel runat="server" ID="upRegistros">
+                        <h3>Resultados da Pesquisa</h3><%--<a data-toggle="modal" data-target="#modal_macros" data-backdrop="static" style="margin-left: 3px;" href=""><i class="fa fa-question-circle"></i></a>--%></div></div><asp:UpdatePanel runat="server" ID="upRegistros">
                     <ContentTemplate>
                         <div class="row">
                             <div class="form-group col-xs-12 table-responsive">
@@ -267,42 +254,18 @@
                                                                 <% if (this.chkER.Checked)
                                                                    {%>
                                                                 <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasRE" runat="server" OnClick="lnkJuntasRE_Click">R/E</asp:LinkButton>
-                                                                </th>
-                                                                <%} %>
-                                                                <% if (this.chkLocomotiva.Checked)
-                                                                   {%>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasLoco" runat="server" OnClick="lnkJuntasLoco_Click">Loco</asp:LinkButton>
-                                                                </th>
-                                                                <%} %>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasTrem" runat="server" OnClick="lnkJuntasTrem_Click">Prefixo</asp:LinkButton>
-                                                                </th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasPrefixo7D" runat="server" OnClick="lnkJuntasPrefixo7D_OnClick">Prefixo 7D</asp:LinkButton>
-                                                                </th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasCodOS" runat="server" OnClick="lnkJuntasCodOS_Click">Cod. OS</asp:LinkButton>
-                                                                </th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasHorario" runat="server" OnClick="lnkJuntasHorario_Click">Horário</asp:LinkButton>
-                                                                </th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasMacro" runat="server" OnClick="lnkJuntasMacro_Click">Macro</asp:LinkButton>
-                                                                </th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasTexto" runat="server" OnClick="lnkJuntasTexto_Click">Texto</asp:LinkButton>
-                                                                </th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkJuntasTratado" runat="server" OnClick="lnkJuntasTratado_Click">Tratado</asp:LinkButton>
-                                                                </th>
-                                                                <th style="text-align: center; font-size: 12pt;">
-                                                                    <asp:LinkButton ID="lnkJuntasCorredor" runat="server" OnClick="lnkJuntasCorredor_Click">Corredor</asp:LinkButton>
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
+                                                                    <asp:LinkButton ID="lnkJuntasRE" runat="server" OnClick="lnkJuntasRE_Click">R/E</asp:LinkButton></th><%} %><% if (this.chkLocomotiva.Checked)
+                                                                   {%><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasLoco" runat="server" OnClick="lnkJuntasLoco_Click">Loco</asp:LinkButton></th><%} %><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasTrem" runat="server" OnClick="lnkJuntasTrem_Click">Prefixo</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasPrefixo7D" runat="server" OnClick="lnkJuntasPrefixo7D_OnClick">Prefixo 7D</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasCodOS" runat="server" OnClick="lnkJuntasCodOS_Click">Cod. OS</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasHorario" runat="server" OnClick="lnkJuntasHorario_Click">Horário</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasMacro" runat="server" OnClick="lnkJuntasMacro_Click">Macro</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasTexto" runat="server" OnClick="lnkJuntasTexto_Click">Texto</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasTratado" runat="server" OnClick="lnkJuntasTratado_Click">Tratado</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkJuntasCorredor" runat="server" OnClick="lnkJuntasCorredor_Click">Corredor</asp:LinkButton></th><th style="text-align: center; font-size: 12pt;">
+                                                                    <asp:LinkButton ID="lnkCanal" runat="server" OnClick="lnkCanal_Click" >Canal</asp:LinkButton></th></tr></thead><tbody>
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
                                                     <tr style="cursor: pointer" class="macro-<%# Eval ("NumeroMacro")%> tipo-<%# Eval("Tipo")%>" onclick="javascript:window.open('/Consulta/MacroPopUp.aspx?tipo=<%# Eval("Tipo")%>&id=<%# Eval("ID")%>', '<%# Eval("ID")%>', 'width=710, height=600, resizable=yes top=00 scrollbars=yes')">
@@ -323,7 +286,8 @@
                                                             <div onclick="<%--$(this).css('text-overflow', 'inherit'); $(this).css('width', '100%');--%>" style="width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="<%# Eval ("Texto")%>"><%# Eval ("Texto")%></div>
                                                         </td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Tratado")%>"><%# Eval ("Tratado")%></td>
-                                                        <td style="text-align: left;" title="<%# Eval ("Corredor")%>"><%# Eval ("Corredor")%></td>
+                                                        <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Corredor")%>"><%# Eval ("Corredor")%></td>
+                                                        <td style="text-align: left;" title="<%# Eval ("Canal")%>"><%# Eval ("Canal")%></td>
                                                     </tr>
                                                 </ItemTemplate>
                                                 <FooterTemplate>
@@ -338,16 +302,10 @@
                                             <table style="padding-top: 10px;">
                                                 <tr>
                                                     <td>
-                                                        <asp:Label ID="lblJ_PaginaAte" runat="server"></asp:Label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
+                                                        <asp:Label ID="lblJ_PaginaAte" runat="server"></asp:Label></td></tr><tr>
                                                     <td>
-                                                        <asp:LinkButton ID="lnkJ_PrimeiraPagina" runat="server" OnClick="lnkJ_PrimeiraPagina_Click" ToolTip="Primeira página"><i class="fa fa-fast-backward"></i></asp:LinkButton>
-                                                        &nbsp; 
-                                                        <asp:LinkButton ID="lnkJ_PaginaAnterior" runat="server" OnClick="lnkJ_PaginaAnterior_Click" ToolTip="Página anterior"><i class="fa fa-backward"></i></asp:LinkButton>&nbsp;
-                                                        &nbsp; Itens por página: &nbsp;
-                                                        <asp:DropDownList ID="ddlJ_ItensPorPagina" runat="server" AutoPostBack="true" Width="80" CssClass="form-control-single">
+                                                        <asp:LinkButton ID="lnkJ_PrimeiraPagina" runat="server" OnClick="lnkJ_PrimeiraPagina_Click" ToolTip="Primeira página"><i class="fa fa-fast-backward"></i></asp:LinkButton>&nbsp; <asp:LinkButton ID="lnkJ_PaginaAnterior" runat="server" OnClick="lnkJ_PaginaAnterior_Click" ToolTip="Página anterior"><i class="fa fa-backward"></i></asp:LinkButton>&nbsp;
+                                                        &nbsp; Itens por página: &nbsp; <asp:DropDownList ID="ddlJ_ItensPorPagina" runat="server" AutoPostBack="true" Width="80" CssClass="form-control-single">
                                                             <asp:ListItem Text="10" Value="10" />
                                                             <asp:ListItem Text="20" Value="20" />
                                                             <asp:ListItem Text="30" Value="30" />
@@ -360,16 +318,7 @@
                                                             <asp:ListItem Text="500" Value="500" />
                                                             <asp:ListItem Text="1000" Value="1000" />
                                                         </asp:DropDownList>
-                                                        &nbsp;
-                                                        <asp:LinkButton ID="lnkJ_ProximaPagina" runat="server" OnClick="lnkJ_ProximaPagina_Click" ToolTip="Próxima página"><i class="fa fa-forward"></i></asp:LinkButton>
-                                                        &nbsp; 
-                                                        <asp:LinkButton ID="lnkJ_UltimaPagina" runat="server" OnClick="lnkJ_UltimaPagina_Click" ToolTip="Última página"><i class="fa fa-fast-forward"></i></asp:LinkButton>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
+                                                        &nbsp; <asp:LinkButton ID="lnkJ_ProximaPagina" runat="server" OnClick="lnkJ_ProximaPagina_Click" ToolTip="Próxima página"><i class="fa fa-forward"></i></asp:LinkButton>&nbsp; <asp:LinkButton ID="lnkJ_UltimaPagina" runat="server" OnClick="lnkJ_UltimaPagina_Click" ToolTip="Última página"><i class="fa fa-fast-forward"></i></asp:LinkButton></td></tr></table></td></tr><tr>
                                         <td colspan="14" style="text-align: left;">
                                             <hr style="color: rgb(0, 72, 89); padding: 0px 5px 0px 5px;" />
                                             <asp:Label runat="server" Text="Registros: " Font-Bold="true" Font-Size="12" Style="color: rgb(153, 153, 153);" />
@@ -404,11 +353,7 @@
             <div class="tab-pane" id="Div2">
                 <div class="form-group">
                     <div class="page-header sub-content-header">
-                        <h3>Resultados da Pesquisa</h3>
-                        <%--<a data-toggle="modal" data-target="#modal_macros" data-backdrop="static" style="margin-left: 3px;" href=""><i class="fa fa-question-circle"></i></a>--%>
-                    </div>
-                </div>
-                <asp:UpdatePanel runat="server" ID="UpdatePanel1">
+                        <h3>Resultados da Pesquisa</h3><%--<a data-toggle="modal" data-target="#modal_macros" data-backdrop="static" style="margin-left: 3px;" href=""><i class="fa fa-question-circle"></i></a>--%></div></div><asp:UpdatePanel runat="server" ID="UpdatePanel1">
                     <ContentTemplate>
                         <div class="row">
                             <div class="form-group col-xs-12 table-responsive">
@@ -423,36 +368,20 @@
                                                                 <% if (this.chkER.Checked)
                                                                    {%>
                                                                 <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkEnviadasRE" runat="server" OnClick="lnkEnviadasRE_Click">E/R</asp:LinkButton></th>
-                                                                <%} %><% if (this.chkLocomotiva.Checked)
-                                                                         {%>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkEnviadasLoco" runat="server" OnClick="lnkEnviadasLoco_Click">Loco</asp:LinkButton></th>
-                                                                <%} %>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkEnviadasTrem" runat="server" OnClick="lnkEnviadasTrem_Click">Prefixo</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkEnviadasPrefixo7D" runat="server" OnClick="lnkEnviadasPrefixo7D_OnClick">Prefixo 7D</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkEnviadasCodOS" runat="server" OnClick="lnkEnviadasCodOS_Click">Cod. OS</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkEnviadasHorario" runat="server" OnClick="lnkEnviadasHorario_Click">Horário</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkEnviadasMacro" runat="server" OnClick="lnkEnviadasMacro_Click">Macro</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkEnviadasTexto" runat="server" OnClick="lnkEnviadasTexto_Click">Texto</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkEnviadasTempoEnvio" runat="server" OnClick="lnkEnviadasTempoEnvio_Click">Temp. Envio</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkEnviadasTratado" runat="server" OnClick="lnkEnviadasTratado_Click">Tratado</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkEnviadasSituacao" runat="server" OnClick="lnkEnviadasSituacao_Click">Situação</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt;">
-                                                                    <asp:LinkButton ID="lnkEnviadasCorredor" runat="server" OnClick="lnkEnviadasCorredor_Click">Corredor</asp:LinkButton>
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
+                                                                    <asp:LinkButton ID="lnkEnviadasRE" runat="server" OnClick="lnkEnviadasRE_Click">E/R</asp:LinkButton></th><%} %><% if (this.chkLocomotiva.Checked)
+                                                                         {%><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkEnviadasLoco" runat="server" OnClick="lnkEnviadasLoco_Click">Loco</asp:LinkButton></th><%} %><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkEnviadasTrem" runat="server" OnClick="lnkEnviadasTrem_Click">Prefixo</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkEnviadasPrefixo7D" runat="server" OnClick="lnkEnviadasPrefixo7D_OnClick">Prefixo 7D</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkEnviadasCodOS" runat="server" OnClick="lnkEnviadasCodOS_Click">Cod. OS</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkEnviadasHorario" runat="server" OnClick="lnkEnviadasHorario_Click">Horário</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkEnviadasMacro" runat="server" OnClick="lnkEnviadasMacro_Click">Macro</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkEnviadasTexto" runat="server" OnClick="lnkEnviadasTexto_Click">Texto</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkEnviadasTempoEnvio" runat="server" OnClick="lnkEnviadasTempoEnvio_Click">Temp. Envio</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkEnviadasTratado" runat="server" OnClick="lnkEnviadasTratado_Click">Tratado</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkEnviadasSituacao" runat="server" OnClick="lnkEnviadasSituacao_Click">Situação</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkEnviadasCorredor" runat="server" OnClick="lnkEnviadasCorredor_Click">Corredor</asp:LinkButton></th><th style="text-align: center; font-size: 12pt;">
+                                                                       <asp:LinkButton ID="lnkEnviadasCanal" runat="server" OnClick="lnkEnviadasCanal_Click">Canal</asp:LinkButton></th></tr></thead><tbody>
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
                                                     <tr style="cursor: pointer" class="macro-<%# Eval ("NumeroMacro")%> tipo-<%# Eval("Tipo")%>" onclick="javascript:window.open('/Consulta/MacroPopUp.aspx?tipo=<%# Eval("Tipo")%>&id=<%# Eval("ID")%>', '<%# Eval("ID")%>', 'width=710, height=600, resizable=yes top=00 scrollbars=yes')">
@@ -475,7 +404,8 @@
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Tempo_Decorrido")%>"><%# Eval ("Tempo_Decorrido")%></td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Tratado")%>"><%# Eval ("Tratado")%></td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Status")%>"><%# Eval ("Status")%></td>
-                                                        <td style="text-align: left;" title="<%# Eval ("Corredor")%>"><%# Eval ("Corredor")%></td>
+                                                        <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Corredor")%>"><%# Eval ("Corredor")%></td>
+                                                        <td style="text-align: left;" title="<%# Eval ("Canal")%>"><%# Eval ("Canal")%></td>
                                                     </tr>
                                                 </ItemTemplate>
                                                 <FooterTemplate>
@@ -490,16 +420,10 @@
                                             <table style="padding-top: 10px;">
                                                 <tr>
                                                     <td>
-                                                        <asp:Label ID="lblE_PaginaAte" runat="server"></asp:Label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
+                                                        <asp:Label ID="lblE_PaginaAte" runat="server"></asp:Label></td></tr><tr>
                                                     <td>
-                                                        <asp:LinkButton ID="lnkE_PrimeiraPagina" runat="server" OnClick="lnkE_PrimeiraPagina_Click" ToolTip="Primeira página"><i class="fa fa-fast-backward"></i></asp:LinkButton>
-                                                        &nbsp; 
-                                                        <asp:LinkButton ID="lnkE_PaginaAnterior" runat="server" OnClick="lnkE_PaginaAnterior_Click" ToolTip="Página anterior"><i class="fa fa-backward"></i></asp:LinkButton>&nbsp;
-                                                        &nbsp; Itens por página: &nbsp;
-                                                        <asp:DropDownList ID="ddlE_ItensPorPagina" runat="server" AutoPostBack="true" Width="80" CssClass="form-control-single">
+                                                        <asp:LinkButton ID="lnkE_PrimeiraPagina" runat="server" OnClick="lnkE_PrimeiraPagina_Click" ToolTip="Primeira página"><i class="fa fa-fast-backward"></i></asp:LinkButton>&nbsp; <asp:LinkButton ID="lnkE_PaginaAnterior" runat="server" OnClick="lnkE_PaginaAnterior_Click" ToolTip="Página anterior"><i class="fa fa-backward"></i></asp:LinkButton>&nbsp;
+                                                        &nbsp; Itens por página: &nbsp; <asp:DropDownList ID="ddlE_ItensPorPagina" runat="server" AutoPostBack="true" Width="80" CssClass="form-control-single">
                                                             <asp:ListItem Text="10" Value="10" />
                                                             <asp:ListItem Text="20" Value="20" />
                                                             <asp:ListItem Text="30" Value="30" />
@@ -512,16 +436,7 @@
                                                             <asp:ListItem Text="500" Value="500" />
                                                             <asp:ListItem Text="1000" Value="1000" />
                                                         </asp:DropDownList>
-                                                        &nbsp;
-                                                        <asp:LinkButton ID="lnkE_ProximaPagina" runat="server" OnClick="lnkE_ProximaPagina_Click" ToolTip="Próxima página"><i class="fa fa-forward"></i></asp:LinkButton>
-                                                        &nbsp; 
-                                                        <asp:LinkButton ID="lnkE_UltimaPagina" runat="server" OnClick="lnkE_UltimaPagia_Click" ToolTip="Última página"><i class="fa fa-fast-forward"></i></asp:LinkButton>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
+                                                        &nbsp; <asp:LinkButton ID="lnkE_ProximaPagina" runat="server" OnClick="lnkE_ProximaPagina_Click" ToolTip="Próxima página"><i class="fa fa-forward"></i></asp:LinkButton>&nbsp; <asp:LinkButton ID="lnkE_UltimaPagina" runat="server" OnClick="lnkE_UltimaPagia_Click" ToolTip="Última página"><i class="fa fa-fast-forward"></i></asp:LinkButton></td></tr></table></td></tr><tr>
                                         <td colspan="14" style="text-align: left;">
                                             <hr style="color: rgb(0, 72, 89); padding: 0px 5px 0px 5px;" />
                                             <asp:Label runat="server" Text="Registros: " Font-Bold="true" Font-Size="12" Style="color: rgb(153, 153, 153);" />
@@ -555,11 +470,7 @@
             <div class="tab-pane" id="Div3">
                 <div class="form-group">
                     <div class="page-header sub-content-header">
-                        <h3>Resultados da Pesquisa</h3>
-                        <%--<a data-toggle="modal" data-target="#modal_macros" data-backdrop="static" style="margin-left: 3px;" href=""><i class="fa fa-question-circle"></i></a>--%>
-                    </div>
-                </div>
-                <asp:UpdatePanel runat="server" ID="UpdatePanel2">
+                        <h3>Resultados da Pesquisa</h3><%--<a data-toggle="modal" data-target="#modal_macros" data-backdrop="static" style="margin-left: 3px;" href=""><i class="fa fa-question-circle"></i></a>--%></div></div><asp:UpdatePanel runat="server" ID="UpdatePanel2">
                     <ContentTemplate>
                         <div class="row">
                             <div class="form-group col-xs-12 table-responsive">
@@ -574,39 +485,22 @@
                                                                 <% if (this.chkER.Checked)
                                                                    {%>
                                                                 <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkRecebidasRE" runat="server" OnClick="lnkRecebidasRE_Click">R/E</asp:LinkButton></th>
-                                                                <%} %><% if (this.chkLocomotiva.Checked)
-                                                                         {%>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkRecebidasLoco" runat="server" OnClick="lnkRecebidasLoco_Click">Loco</asp:LinkButton></th>
-                                                                <%} %>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkRecebidasTrem" runat="server" OnClick="lnkRecebidasTrem_Click">Prefixo</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkRecebidasPrefixo7D" runat="server" OnClick="lnkRecebidasPrefixo7D_OnClick">Prefixo 7D</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkRecebidasCodOS" runat="server" OnClick="lnkRecebidasCodOS_Click">Cod. OS</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkRecebidasHorario" runat="server" OnClick="lnkRecebidasHorario_Click">Horário</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkRecebidasMacro" runat="server" OnClick="lnkRecebidasMacro_Click">Macro</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkRecebidasTexto" runat="server" OnClick="lnkRecebidasTexto_Click">Texto</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkRecebidasLocalizacao" runat="server" OnClick="lnkRecebidasLocalizacao_Click">Localização</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkRecebidasMCT" runat="server" OnClick="lnkRecebidasMCT_Click">MCT</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkRecebidasLatitude" runat="server" OnClick="lnkRecebidasLatitude_Click">Latitude</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkRecebidasLongitude" runat="server" OnClick="lnkRecebidasLongitude_Click">Longitude</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
-                                                                    <asp:LinkButton ID="lnkRecebidasTratado" runat="server" OnClick="lnkRecebidasTratado_Click">Tratado</asp:LinkButton></th>
-                                                                <th style="text-align: center; font-size: 12pt;">
-                                                                    <asp:LinkButton ID="lnkRecebidasCorredor" runat="server" OnClick="lnkRecebidasCorredor_Click">Corredor</asp:LinkButton></th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
+                                                                    <asp:LinkButton ID="lnkRecebidasRE" runat="server" OnClick="lnkRecebidasRE_Click">R/E</asp:LinkButton></th><%} %><% if (this.chkLocomotiva.Checked)
+                                                                         {%><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkRecebidasLoco" runat="server" OnClick="lnkRecebidasLoco_Click">Loco</asp:LinkButton></th><%} %><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkRecebidasTrem" runat="server" OnClick="lnkRecebidasTrem_Click">Prefixo</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkRecebidasPrefixo7D" runat="server" OnClick="lnkRecebidasPrefixo7D_OnClick">Prefixo 7D</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkRecebidasCodOS" runat="server" OnClick="lnkRecebidasCodOS_Click">Cod. OS</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkRecebidasHorario" runat="server" OnClick="lnkRecebidasHorario_Click">Horário</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkRecebidasMacro" runat="server" OnClick="lnkRecebidasMacro_Click">Macro</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkRecebidasTexto" runat="server" OnClick="lnkRecebidasTexto_Click">Texto</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkRecebidasLocalizacao" runat="server" OnClick="lnkRecebidasLocalizacao_Click">Localização</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkRecebidasMCT" runat="server" OnClick="lnkRecebidasMCT_Click">MCT</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkRecebidasLatitude" runat="server" OnClick="lnkRecebidasLatitude_Click">Latitude</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkRecebidasLongitude" runat="server" OnClick="lnkRecebidasLongitude_Click">Longitude</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkRecebidasTratado" runat="server" OnClick="lnkRecebidasTratado_Click">Tratado</asp:LinkButton></th><th style="text-align: center; font-size: 12pt; border-right: 1px solid rgb(0, 72, 89);">
+                                                                    <asp:LinkButton ID="lnkRecebidasCorredor" runat="server" OnClick="lnkRecebidasCorredor_Click">Corredor</asp:LinkButton></th><th style="text-align: center; font-size: 12pt;">
+                                                                    <asp:LinkButton ID="lnkRecebidasCanal" runat="server" OnClick="lnkRecebidasCanal_Click">Canal</asp:LinkButton></th></tr></thead><tbody>
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
                                                     <tr style="cursor: pointer" class="macro-<%# Eval ("NumeroMacro")%> tipo-<%# Eval("Tipo")%>" onclick="javascript:window.open('/Consulta/MacroPopUp.aspx?tipo=<%# Eval("Tipo")%>&id=<%# Eval("ID")%>', '<%# Eval("ID")%>', 'width=710, height=600, resizable=yes top=00 scrollbars=yes')">
@@ -631,7 +525,8 @@
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Latitude")%>"><%# Eval ("Latitude")%></td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Longitude")%>"><%# Eval ("Longitude")%></td>
                                                         <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Tratado")%>"><%# Eval ("Tratado")%></td>
-                                                        <td style="text-align: left;" title="<%# Eval ("Corredor")%>"><%# Eval ("Corredor")%></td>
+                                                        <td style="text-align: center; border-right: 1px solid rgb(0, 72, 89);" title="<%# Eval ("Corredor")%>"><%# Eval ("Corredor")%></td>
+                                                        <td style="text-align: left;" title="<%# Eval ("Canal")%>"><%# Eval ("Canal")%></td>
                                                     </tr>
                                                 </ItemTemplate>
                                                 <FooterTemplate>
@@ -646,16 +541,10 @@
                                             <table style="padding-top: 10px;">
                                                 <tr>
                                                     <td>
-                                                        <asp:Label ID="lblR_PaginaAte" runat="server"></asp:Label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
+                                                        <asp:Label ID="lblR_PaginaAte" runat="server"></asp:Label></td></tr><tr>
                                                     <td>
-                                                        <asp:LinkButton ID="lnkR_PrimeiraPagina" runat="server" OnClick="lnkR_PrimeiraPagina_Click" ToolTip="Primeira página"><i class="fa fa-fast-backward"></i></asp:LinkButton>
-                                                        &nbsp; 
-                                                        <asp:LinkButton ID="lnkR_PaginaAnterior" runat="server" OnClick="lnkR_PaginaAnterior_Click" ToolTip="Página anterior"><i class="fa fa-backward"></i></asp:LinkButton>&nbsp;
-                                                        &nbsp; Itens por página: &nbsp;
-                                                        <asp:DropDownList ID="ddlR_ItensPorPagina" runat="server" AutoPostBack="true" Width="80" CssClass="form-control-single">
+                                                        <asp:LinkButton ID="lnkR_PrimeiraPagina" runat="server" OnClick="lnkR_PrimeiraPagina_Click" ToolTip="Primeira página"><i class="fa fa-fast-backward"></i></asp:LinkButton>&nbsp; <asp:LinkButton ID="lnkR_PaginaAnterior" runat="server" OnClick="lnkR_PaginaAnterior_Click" ToolTip="Página anterior"><i class="fa fa-backward"></i></asp:LinkButton>&nbsp;
+                                                        &nbsp; Itens por página: &nbsp; <asp:DropDownList ID="ddlR_ItensPorPagina" runat="server" AutoPostBack="true" Width="80" CssClass="form-control-single">
                                                             <asp:ListItem Text="10" Value="10" />
                                                             <asp:ListItem Text="20" Value="20" />
                                                             <asp:ListItem Text="30" Value="30" />
@@ -668,16 +557,7 @@
                                                             <asp:ListItem Text="500" Value="500" />
                                                             <asp:ListItem Text="1000" Value="1000" />
                                                         </asp:DropDownList>
-                                                        &nbsp;
-                                                        <asp:LinkButton ID="lnkR_ProximaPagina" runat="server" OnClick="lnkR_ProximaPagina_Click" ToolTip="Próxima página"><i class="fa fa-forward"></i></asp:LinkButton>
-                                                        &nbsp; 
-                                                        <asp:LinkButton ID="lnkR_UltimaPagina" runat="server" OnClick="lnkR_UltimaPagia_Click" ToolTip="Última página"><i class="fa fa-fast-forward"></i></asp:LinkButton>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
+                                                        &nbsp; <asp:LinkButton ID="lnkR_ProximaPagina" runat="server" OnClick="lnkR_ProximaPagina_Click" ToolTip="Próxima página"><i class="fa fa-forward"></i></asp:LinkButton>&nbsp; <asp:LinkButton ID="lnkR_UltimaPagina" runat="server" OnClick="lnkR_UltimaPagia_Click" ToolTip="Última página"><i class="fa fa-fast-forward"></i></asp:LinkButton></td></tr></table></td></tr><tr>
                                         <td colspan="14" style="text-align: left;">
                                             <hr style="color: rgb(0, 72, 89); padding: 0px 5px 0px 5px;" />
                                             <asp:Label runat="server" Text="Registros: " Font-Bold="true" Font-Size="12" Style="color: rgb(153, 153, 153);" />

@@ -52,6 +52,8 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string descZQ2 { get; set; }
         public string TpCOM { get; set; }
 
+        public string Canal { get; set; } //C1396
+
         #endregion
     }
 }

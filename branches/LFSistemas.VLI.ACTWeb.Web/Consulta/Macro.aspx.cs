@@ -2033,5 +2033,20 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
         }
 
         #endregion
+
+        protected void lnkCanal_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void lnkEnviadasCanal_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void lnkRecebidasCanal_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
