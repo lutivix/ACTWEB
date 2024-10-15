@@ -1224,7 +1224,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                         {
                             string[] item = HiddenField1.Value.Split(':');
 
-                            if ((item[4] != "038") && (item[4] != "055"))//C1362
+                            if ( item[4] != "038" )//C1362
                             {
                                 string tipo = item[0].ToString();
                                 int id = 0;
