@@ -71,8 +71,7 @@
 <body onkeydown="tecla()">
 
     <form id="form1" runat="server">
-        <asp:Timer ID="Temporizador" runat="server" OnTick="Temporizador_Tick" Interval="60000" />
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <asp:Timer ID="Temporizador" runat="server" OnTick="Temporizador_Tick" Interval="60000" />        
 
 
         <script>
@@ -105,6 +104,12 @@
             });
         </script>
         <style>
+            .modal-bottom {
+                  position: absolute;
+                  left: 50%;
+                  top: 85%;
+                  transform: translate(-50%, -50%);
+                }
             .tipo-E {
                 color: green;
                 background-color: white;
@@ -371,6 +376,9 @@
                     </td>
                 </tr>
                 <tr>
+                    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+                </tr>
+                <tr>
                     <td colspan="14" style="text-align: left;">
                         <hr style="color: rgb(0, 72, 89); padding: 0px 5px 0px 5px;" />
                         <asp:Label runat="server" Text="Registros: " Font-Bold="true" Font-Size="12" Style="color: rgb(153, 153, 153);" />
@@ -386,6 +394,7 @@
             <span>desenvolvido por </span>
             <a href="http://lfsolutions.net.br/" target="_blank" class="lfslogo-popup"></a>
         </div>
+        
     </form>
 </body>
 </html>

@@ -542,7 +542,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
                 //    ViewState["corredor"] = corredores;
                 //}
-
                 DateTime horaInicio = txtDataInicial.Text.Length > 0 ? DateTime.Parse(txtDataInicial.Text + " " + FormataHora(txtHoraInicio.Text)) : DateTime.Now;
                 DateTime horaFim = DateTime.Now.AddHours(-6);
 
@@ -559,13 +558,17 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     if (Request.Browser.Browser == "Firefox")
                     {
 
-                        Response.Write("<script>window.open('/popup_Mensagem.aspx?ico=" + Uteis.Criptografar("!", "a#3G6**@") + "&tit=" + Uteis.Criptografar("ATENÇÃO", "a#3G6**@") + "&men=" + Uteis.Criptografar("Existe(m) " + qtde.ToString() +
-                                        "   mensagem(ns) não lida(s)!", "a#3G6**@") + "','','width=500, height=180, scrollbars=yes, resizable=no, status=no, toolbar=no, location=no, durectirues=no,, left='+(screen.availWidth/2-235.5)+',top='+(screen.availHeight/2-136.5)+'');</script>");
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Existe(m) " + qtde.ToString() + "   mensagem(ns) não lida(s)!', cssClass: 'modal-bottom', });", true); //C1395
+                        //RegisterClientScriptBlock  modal-dialog modal-dialog-centered
+
+                        //Response.Write("<script>window.open('/popup_Mensagem.aspx?ico=" + Uteis.Criptografar("!", "a#3G6**@") + "&tit=" + Uteis.Criptografar("ATENÇÃO", "a#3G6**@") + "&men=" + Uteis.Criptografar("Existe(m) " + qtde.ToString() +
+                        //                "   mensagem(ns) não lida(s)!", "a#3G6**@") + "','','width=500, height=180, scrollbars=yes, resizable=no, status=no, toolbar=no, location=no, durectirues=no,, left='+(screen.availWidth/2-235.5)+',top='+(screen.availHeight/2-136.5)+'');</script>");
                         
 
                     }
                     else
-                        Response.Write("<script>alert('Existe(m) " + qtde.ToString() + " mensagem(ns) não lida(s)!');</script>");
+                        //Response.Write("<script>alert('Existe(m) " + qtde.ToString() + " mensagem(ns) não lida(s)!');</script>");
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Existe(m) " + qtde.ToString() + "   mensagem(ns) não lida(s)!', cssClass: 'modal-bottom', });", true);//C1395
                 }
                 else
                     PesquisarComHoras(null, Navigation.None);
@@ -625,13 +628,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                     if (Request.Browser.Browser == "Firefox")
                     {
 
-                        Response.Write("<script>window.open('/popup_Mensagem.aspx?ico=" + Uteis.Criptografar("!", "a#3G6**@") + "&tit=" + Uteis.Criptografar("ATENÇÃO", "a#3G6**@") + "&men=" + Uteis.Criptografar("Existe(m) " + qtde.ToString() +
-                                        "   mensagem(ns) não lida(s)!", "a#3G6**@") + "','','width=500, height=180, scrollbars=yes, resizable=no, status=no, toolbar=no, location=no, durectirues=no,, left='+(screen.availWidth/2-235.5)+',top='+(screen.availHeight/2-136.5)+'');</script>");
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Existe(m) " + qtde.ToString() + "   mensagem(ns) não lida(s)!', cssClass: 'modal-bottom', });", true);
+                        //Response.Write("<script>window.open('/popup_Mensagem.aspx?ico=" + Uteis.Criptografar("!", "a#3G6**@") + "&tit=" + Uteis.Criptografar("ATENÇÃO", "a#3G6**@") + "&men=" + Uteis.Criptografar("Existe(m) " + qtde.ToString() +
+                        //                "   mensagem(ns) não lida(s)!", "a#3G6**@") + "','','width=500, height=180, scrollbars=yes, resizable=no, status=no, toolbar=no, location=no, durectirues=no,, left='+(screen.availWidth/2-235.5)+',top='+(screen.availHeight/2-136.5)+'');</script>");
 
 
                     }
                     else
-                        Response.Write("<script>alert('Existe(m) " + qtde.ToString() + " mensagem(ns) não lida(s)!');</script>");
+                        //Response.Write("<script>alert('Existe(m) " + qtde.ToString() + " mensagem(ns) não lida(s)!');</script>");
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Existe(m) " + qtde.ToString() + "   mensagem(ns) não lida(s)!', cssClass: 'modal-bottom', });", true);
                 }
                 else
                     PesquisarComHoras(null, Navigation.None);
