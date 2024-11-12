@@ -16,7 +16,11 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             IMacro macroUserControl = null;
 
             var tipo = Request.QueryString["tipo"];
-            var id = Convert.ToInt32(Request.QueryString["id"]);
+
+            //string teste = Request.QueryString["id"];
+            //teste = "2161992497";
+            //Int32 vai = Convert.ToInt32(teste);
+            var id = Convert.ToInt64(Request.QueryString["id"]);
             var macroController = new MacroController();
 
             var macro = macroController.ObterPorId(id, tipo);

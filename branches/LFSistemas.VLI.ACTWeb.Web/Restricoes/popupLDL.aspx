@@ -454,21 +454,18 @@
                         <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>                                                
                     </tr>
 
-                    <!--LINHA DO CPF RESPONSÁVEL-->
+                    <!--LINHA DO CPF RESPONSÁVEL 1 P1414 -->
                     <tr>
-                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">CPF Responsável:&nbsp;&nbsp;</td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">CPF Responsável 1: &nbsp;&nbsp; </td>
                         <td style="width: 15%; padding: 1px;">
                             <asp:TextBox ID="txtDadosResponsavel" runat="server" CssClass="form-control" OnTextChanged="txtDadosResponsavel_TextChanged" AutoPostBack="true" />
                         </td>
+                       
 
                         <td style="width: 15%; vertical-align: bottom; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" ><!--</td>                           
                         <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">-->
                             <table style="width: 100%;">
                                 <tr>
-                                    <td style="width: 5%; vertical-align: middle; text-align: left;" >Telefone Responsável:&nbsp;&nbsp;</td>
-                                    <td style="width: 20%; vertical-align: middle; text-align: left;" >
-                                        <asp:TextBox ID="txtTelefoneResponsavel" runat="server" MaxLength="11" CssClass="form-control" />
-                                    </td>
                                     <td style="width: 35%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" >
                                         <asp:UpdatePanel runat="server">
                                             <ContentTemplate>
@@ -480,7 +477,12 @@
                                                 </table>
                                             </ContentTemplate>
                                         </asp:UpdatePanel>
-                                    </td>  
+                                    </td> 
+                                    <td style="width: 5%; vertical-align: middle; text-align: left;" >Telefone Responsável:&nbsp;&nbsp;</td>
+                                    <td style="width: 20%; vertical-align: middle; text-align: left;" >
+                                        <asp:TextBox ID="txtTelefoneResponsavel" runat="server" MaxLength="11" CssClass="form-control" />
+                                    </td>
+                                     
                                 </tr>
                             </table>
                         </td>
@@ -495,6 +497,28 @@
 
                         <td style="width: 15%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
                         <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>                          
+                    </tr>
+
+                    <!--LINHA DO CPF RESPONSÁVEL 2 P1414-->
+                    <tr>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">CPF Responsável 2:&nbsp; </td>
+                        <td style="width: 15%; padding: 1px;">
+                            <asp:TextBox ID="txbCPF2" runat="server" CssClass="form-control" OnTextChanged="txbCPF2_TextChanged" AutoPostBack="true" />
+                           
+                        </td>
+
+                        <td style="width: 35%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" >
+                                        <asp:UpdatePanel runat="server">
+                                            <ContentTemplate>
+                                                <table style="width: 100%;">
+                                                    <tr>                                            
+                                                        <td style="width: 20%; vertical-align: middle; text-align: left; padding: 1px; color: rgb(0, 72, 89);">&nbsp;&nbsp;<asp:Label runat="server" ID="lResponsavel2" Font-Size="12" Font-Bold="true" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </td> 
                     </tr>
 
                     <!--LINHA DOS EQUIPAMENTOS-->
@@ -786,10 +810,10 @@
             </table>
         </div>
         <br />
-        <div class="footer-lf-popup">
+       <%-- <div class="footer-lf-popup">
             <span>desenvolvido por </span>
             <a href="http://lfsolutions.net.br/" target="_blank" class="lfslogo-popup"></a>
-        </div>
+        </div>--%>
         <%--        </asp:Panel>--%>            
     </form>
 
