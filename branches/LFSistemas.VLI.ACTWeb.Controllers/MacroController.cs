@@ -199,7 +199,7 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         /// <param name="id">Identificados da macro</param>
         /// <param name="tipo">Tipo da macro [ E = enviadas | R = recebidas ]</param>
         /// <returns>Retorna uma macro de acordo com os parâmetros informados</returns>
-        public Macro ObterPorId(int id, string tipo)
+        public Macro ObterPorId(Int64 id, string tipo)
         {
             return dao.ObterPorId(id, tipo);
         }  

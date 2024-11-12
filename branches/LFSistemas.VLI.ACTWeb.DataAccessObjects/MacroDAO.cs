@@ -1765,7 +1765,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return item;
         }
 
-        public Macro ObterPorId(int id, string tipo)
+        public Macro ObterPorId(Int64 id, string tipo)
         {
             Macro macro = null;
 
@@ -1782,7 +1782,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         }
                         else
                         {
-                            command.CommandText = @"select MR_LOCO from ACTPP.MENSAGENS_RECEBIDAS where mr_grmn = :id";
+                            command.CommandText = @"select MR_LOCO from ACTPP.MENSAGENS_RECEBIDAS where mr_ID = :id";
                             command.Parameters.Add("id", id);
                         }
 
@@ -1831,7 +1831,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                    AND MR.MR_ID_TRM = T.TM_ID_TRM(+)
                                                                    AND T.ES_ID_NUM_EFE_ORIG = EO.ES_ID_NUM_EFE(+)
                                                                    AND T.ES_ID_NUM_EFE_DEST = ED.ES_ID_NUM_EFE(+)
-                                                                   AND MR.MR_GRMN = :id";
+                                                                   AND MR.MR_ID = :id";
                                         comando.Parameters.Add("id", id);
                                     }
                                     else
