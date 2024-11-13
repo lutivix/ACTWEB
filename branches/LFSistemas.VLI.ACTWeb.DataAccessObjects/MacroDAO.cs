@@ -1662,7 +1662,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             command.CommandText = @"select mr.MR_TEXT from ACTPP.mensagens_recebidas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m
                         where mr.MR_MCT_ADDR = m.MCT_ID_MCT and mr.MR_ID_TRM = t.TM_ID_TRM and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                         and t.es_id_Num_efe_dest = ed.es_id_num_efe  
-                        and mr.MR_GRMN = :GRMN";
+                        and mr.MR_ID = :GRMN";
                             command.Parameters.Add("GRMN", id);
                         }
                         else
@@ -1721,7 +1721,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"SELECT 'R' ""R/E"", MENSAGENS_RECEBIDAS.MR_GRMN ""ID"", MR_MSG_TIME ""Horario"", MCT_NOM_MCT ""Loco"", MR_MC_NUM ""Macro"", MR_TEXT ""Mensagem"", SUBSTR (MR_TEXT, 1, 760) ""Texto"", MR_MCT_ADDR ""MCT"", MR_PRF_ACT ""Trem"", MR_COD_OF ""CodOS"", MSG_PF.MFP_LEITURA ""Leitura"", MSG_PF.MPF_ID ""ID_Leitura"" FROM ACTPP.MENSAGENS_RECEBIDAS, ACTPP.MCTS, ACTPP.MSG_PF 
                                     WHERE MCTS.MCT_ID_MCT = MENSAGENS_RECEBIDAS.MR_MCT_ADDR 
-                                    AND MSG_PF.MFP_ID_MSG = MENSAGENS_RECEBIDAS.MR_GRMN 
+                                    AND MSG_PF.MFP_ID_MSG = MENSAGENS_RECEBIDAS.MR_ID
                                     AND MENSAGENS_RECEBIDAS.MR_MSG_TIME > SYSDATE - 0.5 
                                     AND MENSAGENS_RECEBIDAS.MR_MC_NUM = 50 
                                     AND SUBSTR(MR_TEXT,2,4) = '7000'
@@ -1738,7 +1738,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #endregion
 
-                    query.Replace("${MR_GRMN}", string.Format("AND MENSAGENS_RECEBIDAS.MR_GRMN = {0}", id));
+                    query.Replace("${MR_GRMN}", string.Format("AND MENSAGENS_RECEBIDAS.MR_ID = {0}", id));
                     query.Replace("${ME_GFMN}", string.Format("AND MENSAGENS_ENVIADAS.ME_GFMN = {0}", id));
 
                     #region [BUSCA NO BANCO E ADICIONA NA VARIAVEL ]
@@ -1885,7 +1885,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                                                         AND MR.MR_ID_ZQ2 = ZQ2.ZQ_ID
                                                                         and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                                                                         and t.es_id_Num_efe_dest = ed.es_id_num_efe  
-                                and mr.MR_GRMN = :id ";
+                                and mr.MR_ID = :id ";
                                         comando.Parameters.Add("id", id);
                                     }
                                     else
@@ -1940,7 +1940,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                             command.CommandText = @"select mr.MR_TEXT from ACTPP.mensagens_recebidas mr, ACTPP.estacoes eo, ACTPP.estacoes ed, ACTPP.trens t, ACTPP.mcts m
                         where mr.MR_MCT_ADDR = m.MCT_ID_MCT and mr.MR_ID_TRM = t.TM_ID_TRM and t.ES_ID_NUM_EFE_ORIG = eo.es_id_num_efe
                         and t.es_id_Num_efe_dest = ed.es_id_num_efe  
-                        and mr.MR_GRMN = :id";
+                        and mr.MR_ID = :id";
                             command.Parameters.Add("id", id);
                             //command.Parameters.Add("", tipo);
                         }
@@ -2366,7 +2366,7 @@ where me_mac_num = ${mr_mc_num} and me_loco = ${mr_loco} and me_msg_time >= sysd
                                        MR.MR_TEXT AS texto
                                   FROM ACTPP.MENSAGENS_RECEBIDAS MR
                                        INNER JOIN ACTPP.MCTS MC ON MC.MCT_ID_MCT = MR.MR_MCT_ADDR
-                                       INNER JOIN ACTPP.MSG_PF PF ON PF.MFP_ID_MSG = MR.MR_GRMN
+                                       INNER JOIN ACTPP.MSG_PF PF ON PF.MFP_ID_MSG = MR.MR_ID
                                        INNER JOIN (SELECT EST_NOME
                                   FROM ESTACOES
                                             WHERE EST_ID IN (SELECT EST_ID
