@@ -30,7 +30,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"SELECT M.MCT_ID_MCT,
                                           M.MCT_NOM_MCT,  
-                                          M.MR_GRMN  ,    
+                                          M.MR_ID ,    
                                           M.PB_ID_PB,     
                                           M.ME_MSG_NUM ,  
                                           M.MCT_IND_MCI , 
@@ -147,7 +147,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"SELECT   M.MCT_ID_MCT,
                                             M.MCT_NOM_MCT,  
-                                            M.MR_GRMN  ,    
+                                            M.MR_ID  ,    
                                             M.PB_ID_PB,     
                                             M.ME_MSG_NUM ,  
                                             M.MCT_IND_MCI , 
@@ -359,7 +359,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA MACROS ]
 
                     query.Append(@"SELECT   M.MCT_ID_MCT,       M.MCT_NOM_MCT,  
-                                            M.MR_GRMN,          M.PB_ID_PB,
+                                            M.MR_ID,          M.PB_ID_PB,
                                             M.ME_MSG_NUM,       M.MCT_IND_MCI,
                                             M.MCT_IND_OBC,      M.MCT_IND_MCR_BIN,
                                             M.MCT_CNV_VERSAO,   M.MCT_OBC_VERSAO,
@@ -419,7 +419,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA MACROS ]
 
                     query.Append(@"SELECT   M.MCT_ID_MCT,       M.MCT_NOM_MCT,
-                                            M.MR_GRMN,          M.PB_ID_PB,
+                                            M.MR_ID,          M.PB_ID_PB,
                                             M.ME_MSG_NUM,       M.MCT_IND_MCI,
                                             M.MCT_IND_OBC,      M.MCT_IND_MCR_BIN,
                                             M.MCT_CNV_VERSAO,   M.MCT_OBC_VERSAO,
@@ -480,7 +480,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     #region [ FILTRA MACROS ]
 
                     query.Append(@"SELECT   M.MCT_ID_MCT,       M.MCT_NOM_MCT,
-                                            M.MR_GRMN,          M.PB_ID_PB,
+                                            M.MR_ID,          M.PB_ID_PB,
                                             M.ME_MSG_NUM,       M.MCT_IND_MCI,
                                             M.MCT_IND_OBC,      M.MCT_IND_MCR_BIN,
                                             M.MCT_CNV_VERSAO,   M.MCT_OBC_VERSAO,
