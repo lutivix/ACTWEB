@@ -28,7 +28,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public double? Interdicao_Motivo { get; set; }
         public string Cod_Interdicao { get; set; }
         public string Responsavel_Matricula { get; set; }
-        public string Responsavel_CPF2 { get; set; }
+        public string Responsavel_CPF2 { get; set; }//P1414
         public string Responsavel_Nome { get; set; }
         public DateTime Data { get; set; }
         public double? Duracao_Solicitada { get; set; }

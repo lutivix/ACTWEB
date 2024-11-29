@@ -191,8 +191,13 @@
                 var id = '<%=this.id_aut %>';
                 var id2 = '<%=this.sb %>';
                 var cpf = '<%=this.cpf%>';
-                var person = prompt("CONFIRME O Nº DE AUTORIZAÇÃO (SB EM CAIXA ALTA + Nº AUTORIZACÃO + CPF)", "")
-                if (person == id2 + id + cpf) {
+                var cpf2 = '<%=this.cpf2%>';
+
+                alert("Dados de confirmação para LDL " + id + " em " + id2 + " com  CPF 1 " + cpf + " e CPF 2 " + cpf2 + " ON!");
+                alert("I-" + id + id2 + cpf + cpf2 + "-F");
+
+                var person = prompt("CONFIRME O Nº DE AUTORIZAÇÃO (SB EM CAIXA ALTA + Nº AUTORIZACÃO + CPF + CPF2)", "")
+                if (person == id2 + id + cpf + cpf2) {
                     $.ajax({
                         type: "POST",
                         url: "popupLDL.aspx/DeleteRestriction",
@@ -202,7 +207,7 @@
                             // if you want something to happen after the ajax call then
                             // code it here
                             document.getElementById('lnkRetirar').click();
-                            alert("Dados de confirmação para LDL " + id + " em " + id2 + " com  CPF " +cpf + " aceitos!");
+                            alert("Dados de confirmação para LDL " + id + " em " + id2 + " com  CPF 1 " +cpf + " e CPF 2 " + cpf2 + " aceitos!");
                         }
                     });
                 }

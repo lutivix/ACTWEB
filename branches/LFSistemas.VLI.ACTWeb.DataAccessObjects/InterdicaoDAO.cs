@@ -316,7 +316,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           END
                                        || IMH.IM_ID_IM
                                           CODIGO,
-                                       II.SLT_CAUDA
+                                       II.SLT_CAUDA,
+                                       II.SLT_CPF2
                                   FROM SOLICITACAO_INTERDICAO II,
                                        ACTPP.ELEM_VIA EV,
                                        TIPO_SITUACAO TS,
@@ -376,7 +377,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        NULL AS RD_DSC_RDE,
                                        NULL AS IM_ID_IM,
                                        NULL AS CODIGO,
-                                       II.SLT_CAUDA       
+                                       II.SLT_CAUDA,
+                                       II.SLT_CPF2       
                                   FROM SOLICITACAO_INTERDICAO II,
                                        ACTPP.ELEM_VIA EV,
                                        TIPO_SITUACAO TS,
@@ -438,7 +440,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                           END
                                        || IM.IM_ID_IM
                                           CODIGO,
-                                        II.SLT_CAUDA
+                                        II.SLT_CAUDA,
+                                       II.SLT_CPF2
                                   FROM SOLICITACAO_INTERDICAO II,
                                        ACTPP.ELEM_VIA EV,
                                        TIPO_SITUACAO TS,
@@ -1206,6 +1209,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(33)) item.Interdicao_Motivo = reader.GetDouble(33);
             if (!reader.IsDBNull(34)) item.Cod_Interdicao = reader.GetString(34);
             if (!reader.IsDBNull(35)) item.Cauda = reader.GetString(35);
+            if (!reader.IsDBNull(36)) item.Responsavel_CPF2 = reader.GetString(36);//P1414
 
 
             return item;
