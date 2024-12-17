@@ -244,7 +244,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    if (int.Parse(termometro) < 1000)
+                    //if (int.Parse(termometro) < 1000)
                     {
                         query.Append(@"SELECT TE.TE_ID_TER AS TERMOMETRO_ID, TE.TE_COD_TER AS ESTACAO, TL.TL_TEM_TER AS TEMPERATURA, TL.TL_DAT_LEI AS LEITURA
                                         FROM ACTSCT.TERMOMETRO TE, ACTSCT.TERMOMETRO_LEITURA TL
@@ -258,20 +258,20 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                         else
                             query.Replace("${TL_DAT_LEI}", "");
                     }
-                    else
-                    {
-                        query.Append(@"SELECT TE.TE_ID_TER AS TERMOMETRO_ID, TE.TE_COD_TER AS ESTACAO, TL.NO_TEMPERATURA_SENSOR_1 AS TEMPERATURA_1, TL.NO_TEMPERATURA_SENSOR_2 AS TEMPERATURA_2, TL.DT_LEITURA_TERMOMETRO AS LEITURA
-                                        FROM ACTSCT.TERMOMETRO TE, ACTSCT.TERMOMETRO_LEITURA_ONIX TL
-                                            WHERE TE.TE_ID_TER = TL.ID_TERMOMETRO 
-                                            ${TE_ID_TER}
-                                            ${TL_DAT_LEI}
-                                        ORDER BY ${ORDENACAO}");
+//                    else
+//                    {
+//                        query.Append(@"SELECT TE.TE_ID_TER AS TERMOMETRO_ID, TE.TE_COD_TER AS ESTACAO, TL.NO_TEMPERATURA_SENSOR_1 AS TEMPERATURA_1, TL.NO_TEMPERATURA_SENSOR_2 AS TEMPERATURA_2, TL.DT_LEITURA_TERMOMETRO AS LEITURA
+//                                        FROM ACTSCT.TERMOMETRO TE, ACTSCT.TERMOMETRO_LEITURA_ONIX TL
+//                                            WHERE TE.TE_ID_TER = TL.ID_TERMOMETRO 
+//                                            ${TE_ID_TER}
+//                                            ${TL_DAT_LEI}
+//                                        ORDER BY ${ORDENACAO}");
 
-                        if (dataInicial != null && dataFinal != null)
-                            query.Replace("${TL_DAT_LEI}", string.Format("AND TL.DT_LEITURA_TERMOMETRO BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", dataInicial, dataFinal));
-                        else
-                            query.Replace("${TL_DAT_LEI}", "");
-                    }
+//                        if (dataInicial != null && dataFinal != null)
+//                            query.Replace("${TL_DAT_LEI}", string.Format("AND TL.DT_LEITURA_TERMOMETRO BETWEEN TO_DATE('{0}', 'DD/MM/YYYY HH24:MI:SS') AND TO_DATE('{1}', 'DD/MM/YYYY HH24:MI:SS')", dataInicial, dataFinal));
+//                        else
+//                            query.Replace("${TL_DAT_LEI}", "");
+//                    }
 
                     if (termometro != null)
                         query.Replace("${TE_ID_TER}", string.Format("AND TE.TE_ID_TER IN ({0})", termometro));
@@ -282,20 +282,20 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     #endregion
 
-                    if (int.Parse(termometro) < 1000)
+                    //if (int.Parse(termometro) < 1000)
                     {
                         if (ordenacao != null)
                             query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
                         else
                             query.Replace("${ORDENACAO}", string.Format("TL.TL_DAT_LEI DESC"));
                     }
-                    else
-                    {
-                        if (ordenacao != null)
-                            query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
-                        else
-                            query.Replace("${ORDENACAO}", string.Format("TL.DT_LEITURA_TERMOMETRO DESC"));
-                    }
+                    //else
+                    //{
+                    //    if (ordenacao != null)
+                    //        query.Replace("${ORDENACAO}", string.Format("{0}", ordenacao));
+                    //    else
+                    //        query.Replace("${ORDENACAO}", string.Format("TL.DT_LEITURA_TERMOMETRO DESC"));
+                    //}
 
                     #region [BUSCA NO BANCO ]
 
@@ -630,17 +630,17 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             if (!reader.IsDBNull(0)) item.Termometro_ID = double.Parse(reader.GetValue(0).ToString());
             if (!reader.IsDBNull(1)) item.Estacao = reader.GetValue(1).ToString();
-            if (item.Termometro_ID < 1000)
+            //if (item.Termometro_ID < 1000)
             {
                 if (!reader.IsDBNull(2)) item.Temperatura_1 = double.Parse(reader.GetValue(2).ToString());
                 if (!reader.IsDBNull(3)) item.Leitura = Convert.ToDateTime(reader.GetValue(3));
             }
-            else
-            {
-                if (!reader.IsDBNull(2)) item.Temperatura_1 = double.Parse(reader.GetValue(2).ToString());
-                if (!reader.IsDBNull(3)) item.Temperatura_2 = double.Parse(reader.GetValue(3).ToString());
-                if (!reader.IsDBNull(4)) item.Leitura = Convert.ToDateTime(reader.GetValue(4));
-            }
+            //else
+            //{
+            //    if (!reader.IsDBNull(2)) item.Temperatura_1 = double.Parse(reader.GetValue(2).ToString());
+            //    if (!reader.IsDBNull(3)) item.Temperatura_2 = double.Parse(reader.GetValue(3).ToString());
+            //    if (!reader.IsDBNull(4)) item.Leitura = Convert.ToDateTime(reader.GetValue(4));
+            //}
 
 
             return item;

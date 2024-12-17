@@ -264,15 +264,15 @@
                                                     <table class="table table-hover table-curved pro-table">
                                                         <thead>
                                                             <tr>
-                                                                <% if (this.termometro_id < 1000)
-                                                                   {%>
+                                                                <%--<% if (this.termometro_id < 1000)
+                                                                   {%>--%>
                                                                 <th style="width: 10%; height: 20px; background-color: rgb(153, 153, 183); color: white; font-size: 1.5em; text-align: center; border-right: 1px solid rgb(0, 72, 89);">
                                                                     <asp:LinkButton runat="server" ID="lnkTermometro_1" Text="Termômetro" ForeColor="White" /></th>
                                                                 <th style="width: 10%; height: 20px; background-color: rgb(153, 153, 183); color: white; font-size: 1.5em; text-align: center; border-right: 1px solid rgb(0, 72, 89);">
                                                                     <asp:LinkButton runat="server" ID="lnkTemperatura_1" Text="Temperatura" ForeColor="White" /></th>
                                                                 <th style="width: 20%; height: 20px; background-color: rgb(153, 153, 183); color: white; font-size: 1.5em; text-align: center;">
                                                                     <asp:LinkButton runat="server" ID="lnkUltimaLeitura_1" Text="Ultima Leitura" ForeColor="White" /></th>
-                                                                <%} %>
+                                                                <%--<%} %>
                                                                 <% if (this.termometro_id >= 1000)
                                                                    {%>
                                                                 <th style="width: 10%; height: 20px; background-color: rgb(153, 153, 183); color: white; font-size: 1.5em; text-align: center; border-right: 1px solid rgb(0, 72, 89);">
@@ -283,7 +283,7 @@
                                                                     <asp:LinkButton runat="server" ID="lnkTemperatura_3" Text="Sensor 2" ForeColor="White" /></th>
                                                                 <th style="width: 20%; height: 20px; background-color: rgb(153, 153, 183); color: white; font-size: 1.5em; text-align: center;">
                                                                     <asp:LinkButton runat="server" ID="lnkUltimaLeitura_2" Text="Ultima Leitura" ForeColor="White" /></th>
-                                                                <%} %>
+                                                                <%} %>--%>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -291,38 +291,38 @@
                                                 <ItemTemplate>
                                                     <table class="table table-hover table-curved pro-table " style="width: 100%;">
                                                         <tr>
-                                                            <% if (this.termometro_id < 1000)
-                                                               {%>
+                                                            <%--<% if (this.termometro_id < 1000)
+                                                               {%>--%>
                                                             <td style="width: 10%; height: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); padding: 0px 5px 0px 5px;"><%# Eval("Estacao") %></td>
                                                             <td style="width: 10%; height: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); padding: 0px 5px 0px 5px;"><%# Eval("Temperatura_1") %></td>
                                                             <td style="width: 20%; height: 20px; text-align: center; padding: 0px 5px 0px 5px;"><%# Eval("Leitura") %></td>
-                                                            <%} %>
+                                                            <%--<%} %>
                                                             <% if (this.termometro_id >= 1000)
                                                                {%>
                                                             <td style="width: 10%; height: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); padding: 0px 5px 0px 5px;"><%# Eval("Estacao") %></td>
                                                             <td style="width: 10%; height: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); padding: 0px 5px 0px 5px;"><%# Eval("Temperatura_1") %></td>
                                                             <td style="width: 10%; height: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); padding: 0px 5px 0px 5px;"><%# Eval("Temperatura_2") %></td>
                                                             <td style="width: 20%; height: 20px; text-align: center; padding: 0px 5px 0px 5px;"><%# Eval("Leitura") %></td>
-                                                            <%} %>
+                                                            <%} %>--%>
                                                         </tr>
                                                     </table>
                                                 </ItemTemplate>
                                                 <AlternatingItemTemplate>
                                                     <table class="table table-hover table-curved pro-table " style="width: 100%;">
                                                         <tr>
-                                                            <% if (this.termometro_id < 1000)
-                                                               {%>
+                                                            <%--<% if (this.termometro_id < 1000)
+                                                               {%>--%>
                                                             <td style="width: 10%; height: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); padding: 0px 5px 0px 5px;"><%# Eval("Estacao") %></td>
                                                             <td style="width: 10%; height: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); padding: 0px 5px 0px 5px;"><%# string.Format("{0:0,0.00}", Eval("Temperatura_1")) %></td>
                                                             <td style="width: 20%; height: 20px; text-align: center; padding: 0px 5px 0px 5px;"><%# Eval("Leitura") %></td>
-                                                            <%} %>
+                                                            <%--<%} %>
                                                             <% if (this.termometro_id >= 1000)
                                                                {%>
                                                             <td style="width: 10%; height: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); padding: 0px 5px 0px 5px;"><%# Eval("Estacao") %></td>
                                                             <td style="width: 10%; height: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); padding: 0px 5px 0px 5px;"><%# string.Format("{0:0,0.00}", Eval("Temperatura_1")) %></td>
                                                             <td style="width: 10%; height: 20px; text-align: center; border-right: 1px solid rgb(0, 72, 89); padding: 0px 5px 0px 5px;"><%# string.Format("{0:0,0.00}", Eval("Temperatura_2")) %></td>
                                                             <td style="width: 20%; height: 20px; text-align: center; padding: 0px 5px 0px 5px;"><%# Eval("Leitura") %></td>
-                                                            <%} %>
+                                                            <%} %>--%>
                                                         </tr>
                                                     </table>
                                                 </AlternatingItemTemplate>

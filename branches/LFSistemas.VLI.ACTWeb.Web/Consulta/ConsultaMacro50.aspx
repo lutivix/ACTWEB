@@ -171,6 +171,13 @@
                 margin-top: -50px;
                 margin-left: -50px;
             }
+
+            
+           .login-dialog .modal-dialog {
+                width: 300px;
+                z-index: 1;
+            }
+
         </style>
 
         <div style="margin-top: 1%; margin-left: 4%; margin-right: 4%; margin-bottom: 1%;">
