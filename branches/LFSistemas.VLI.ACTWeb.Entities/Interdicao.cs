@@ -30,6 +30,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Responsavel_Matricula { get; set; }
         public string Responsavel_CPF2 { get; set; }//P1414
         public string Responsavel_Nome { get; set; }
+        public string Responsavel2_Nome { get; set;  }
         public DateTime Data { get; set; }
         public double? Duracao_Solicitada { get; set; }
         public double? Duracao_Autorizada { get; set; }
@@ -47,6 +48,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Ativo_SN { get; set; }
         public string Cod_Ldl { get; set; }
         public string Telefone_responsavel { get; set; }
+        public string Telefone_resp2 { get; set; }//  C1448 - Luara
         public string Prefixo { get; set; }
         public string Cauda { get; set; }
         public string Justificativa { get; set; }

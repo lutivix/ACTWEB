@@ -426,6 +426,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                 txtTelefoneResponsavel.Text = dados.Telefone_responsavel != null ? dados.Telefone_responsavel : string.Empty;
 
+                //  C1448 - Inclusão de novo Telefone - Luara - 24/01/2025
+                txtTelefone2.Text = dados.Telefone_resp2 != null ? dados.Telefone_resp2 : string.Empty;
+
                 txtPrefixo.Text = dados.Prefixo != null ? dados.Prefixo : string.Empty;
                 tbCauda.Text = string.Empty;
                 if (dados.Cauda != string.Empty)
@@ -490,6 +493,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtDadosResponsavel.Text = dados.Responsavel_Matricula != null ? dados.Responsavel_Matricula : string.Empty;
                 txbCPF2.Text = dados.Responsavel_CPF2 != null ? dados.Responsavel_CPF2 : string.Empty;//P1414
                 lblResponsavel_Nome.Text = dados.Responsavel_Nome != null ? dados.Responsavel_Nome : string.Empty;
+                lResponsavel2.Text = dados.Responsavel_CPF2 != null ? dados.Responsavel_CPF2 : string.Empty;
                 txtDadosEquipamentos.Text = dados.Equipamentos != null ? dados.Equipamentos : string.Empty;
                 txtDadosObsercacao.Text = dados.Observacao != null ? dados.Observacao : string.Empty;
             }
@@ -946,6 +950,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     inter.Responsavel_Matricula = txtDadosResponsavel.Text.Length > 0 ? txtDadosResponsavel.Text : string.Empty;
                     inter.Responsavel_CPF2 = txbCPF2.Text.Length > 0 ? txbCPF2.Text : string.Empty;//P1414
                     inter.Responsavel_Nome = lblResponsavel_Nome.Text.Length > 0 ? lblResponsavel_Nome.Text : string.Empty;
+
+                    inter.Responsavel2_Nome = lResponsavel2.Text.Length > 0 ? lResponsavel2.Text : string.Empty;//   C1448
+
                     inter.Equipamentos = txtDadosEquipamentos.Text.Length > 0 ? txtDadosEquipamentos.Text : string.Empty;
                     if (ddlDadosMotivo.SelectedItem.Value.Length > 0)
                         inter.Motivo_ID = double.Parse(ddlDadosMotivo.SelectedItem.Value);
@@ -953,6 +960,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     inter.Usuario_Logado_Matricula = lblUsuarioMatricula.Text.Length > 0 ? inter.Usuario_Logado_Matricula = lblUsuarioMatricula.Text : string.Empty;
                     inter.Ativo_SN = "S";
                     inter.Telefone_responsavel = txtTelefoneResponsavel.Text.Length > 0 ? txtTelefoneResponsavel.Text : string.Empty;
+                    inter.Telefone_resp2 = txtTelefone2.Text.Length > 0 ? txtTelefone2.Text : string.Empty;// C1448
                     inter.Prefixo = txtPrefixo.Text.Length > 0 ? txtPrefixo.Text : string.Empty;
                     inter.Cauda = tbCauda.Text.Length > 0 ? tbCauda.Text : "0";
 
@@ -1267,6 +1275,55 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtDadosResponsavel.Focus();
             }                
         }
+        protected void txbCPF2_TextChanged(object sender, EventArgs e)
+        {
+            //P1414
+            if (txbCPF2.Text.Length > 0)
+            {
+                RestricaoController responsavel = new RestricaoController();
+
+                var dados = responsavel.PermiteLDL(txbCPF2.Text);
+
+                if (dados != null && dados.Matricula != null)
+                {
+                    if (dados.LDL != "Não" && dados.Ativo == true)
+                    {
+                        lResponsavel2.Text = dados.Nome.Trim();
+                        txtTelefone2.Focus();
+                    }
+                    else
+                    {
+                        lResponsavel2.Text =
+                        txbCPF2.Text = string.Empty;
+                        txbCPF2.Focus();
+                        ScriptManager.RegisterStartupScript(base.Page, this.GetType(), ("dialogJavascript" + this.ID), "alert(\"Responsável 2 sem permissão.\");", true);
+
+                        //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Responsável sem permissão.' });", true);
+                    }
+                }
+                else if (txbCPF2.Text.Length != 11)
+                {
+                    lResponsavel2.Text =
+                    txbCPF2.Text = string.Empty;
+                    txbCPF2.Focus();
+                    ScriptManager.RegisterStartupScript(base.Page, this.GetType(), ("dialogJavascript" + this.ID), "alert(\"CPF 2 Inválido.\");", true);
+                }
+                else
+                {
+                    lResponsavel2.Text =
+                    txbCPF2.Text = string.Empty;
+                    txbCPF2.Focus();
+                    ScriptManager.RegisterStartupScript(base.Page, this.GetType(), ("dialogJavascript" + this.ID), "alert(\"Responsável 2 não localizado ou não tem permissão.\");", true);
+                }
+
+            }
+            else
+            {
+                lResponsavel2.Text = string.Empty;
+                txbCPF2.Focus();
+            }
+
+        }
         protected void ddlDadosSecao_SelectedIndexChanged(object sender, EventArgs e)
         {
             var restricaoController = new RestricaoController();
@@ -1276,6 +1333,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             else
                 lblMensagem.Text = string.Format(" ");
             ddlDadosSecao.Focus();
+        }
+        protected void ddlDadosTipoDaManutencao_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboDadosMotivo();
         }
 
         //protected void RadioButton_CheckedChanged(Object sender, EventArgs e)
@@ -1384,6 +1445,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     lblMensagem.Text = string.Empty;
                     txtPrefixo.Text = string.Empty;
                     txtTelefoneResponsavel.Text = string.Empty;
+                    txtTelefone2.Text = string.Empty;//   C1448
                     tbCauda.Text = string.Empty;
                     //tbJustificativa.Text = string.Empty;
 
@@ -1438,6 +1500,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     txtDadosMacro.Enabled = false;
                     txtDadosObsercacao.Enabled = false;
                     txtTelefoneResponsavel.Enabled = true;
+                    txtTelefone2.Enabled = true;
                     //txtAutorizacao.Enabled = true;
 
                     lnkCriar.Enabled = false;
@@ -1476,60 +1539,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
         #endregion
 
-        protected void ddlDadosTipoDaManutencao_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboDadosMotivo();
-        }
+        
 
-        protected void txbCPF2_TextChanged(object sender, EventArgs e)
-        {
-            //P1414
-            if (txbCPF2.Text.Length > 0)
-            {
-                RestricaoController responsavel = new RestricaoController();
-
-                var dados = responsavel.PermiteLDL(txbCPF2.Text);
-
-                if (dados != null && dados.Matricula != null)
-                {
-                    if (dados.LDL != "Não" && dados.Ativo == true)
-                    {
-                        lResponsavel2.Text = dados.Nome.Trim();
-                        txtTelefoneResponsavel.Focus();
-                    }
-                    else
-                    {
-                        lResponsavel2.Text =
-                        txbCPF2.Text = string.Empty;
-                        txbCPF2.Focus();
-                        ScriptManager.RegisterStartupScript(base.Page, this.GetType(), ("dialogJavascript" + this.ID), "alert(\"Responsável 2 sem permissão.\");", true);
-
-                        //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Responsável sem permissão.' });", true);
-                    }
-                }
-                else if (txbCPF2.Text.Length != 11)
-                {
-                    lResponsavel2.Text =
-                    txbCPF2.Text = string.Empty;
-                    txbCPF2.Focus();
-                    ScriptManager.RegisterStartupScript(base.Page, this.GetType(), ("dialogJavascript" + this.ID), "alert(\"CPF 2 Inválido.\");", true);
-                }
-                else
-                {
-                    lResponsavel2.Text =
-                    txbCPF2.Text = string.Empty;
-                    txbCPF2.Focus();
-                    ScriptManager.RegisterStartupScript(base.Page, this.GetType(), ("dialogJavascript" + this.ID), "alert(\"Responsável 2 não localizado ou não tem permissão.\");", true);
-                }
-
-            }
-            else
-            {
-                lResponsavel2.Text = string.Empty;
-                txbCPF2.Focus();
-            }        
-
-        }
+        
 
 
 

@@ -274,6 +274,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         protected global::System.Web.UI.WebControls.Label lResponsavel2;
         
         /// <summary>
+        /// txtTelefone2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTelefone2;
+        
+        /// <summary>
         /// txtDadosEquipamentos control.
         /// </summary>
         /// <remarks>

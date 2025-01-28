@@ -275,7 +275,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                          query.Append(@"SELECT II.SLT_ID_SLT,
+                    query.Append(@"SELECT II.SLT_ID_SLT,
                                        II.SLT_ID_SLT_ACT,
                                        II.SLT_ID_TP_SITUACAO,
                                        TS.TP_SIT_NOME,
@@ -317,7 +317,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        || IMH.IM_ID_IM
                                           CODIGO,
                                        II.SLT_CAUDA,
-                                       II.SLT_CPF2
+                                       II.SLT_CPF2,
+                                       RR2.OP_BS_NM NOME2
                                   FROM SOLICITACAO_INTERDICAO II,
                                        ACTPP.ELEM_VIA EV,
                                        TIPO_SITUACAO TS,
@@ -326,6 +327,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        TIPO_CIRCULACAO TC,
                                        USUARIOS OP,
                                        ACTPP.OPERADORES_BS RR,
+                                       ACTPP.OPERADORES_BS RR2,
                                        ACTPP.RESTRICOES_DESCRICOES RD,
                                        actpp.interdicao_motivo_hist imh,
                                        actpp.solicitacoes_ldl sldl
@@ -336,7 +338,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        AND II.SLT_ID_TP_CIRCULACAO = TC.TP_CIR_CODIGO
                                        AND II.SLT_USUARIO_LOGADO = OP.MATRICULA
                                        AND II.SLT_MAT_RESPONSAVEL = RR.OP_CPF
-                                       ${SLT_ID_SLT}
+                                       AND II.SLT_CPF2 = RR2.OP_CPF(+) 
+                                       --${SLT_ID_SLT}
                                        AND II.SLT_ATIVO_SN = 'S'
                                        AND II.SLT_ID_MOTIVO = RD.RD_ID_RDE
                                        AND SLDL.SO_LDL_ID_WEB = II.SLT_ID_SLT
@@ -378,7 +381,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        NULL AS IM_ID_IM,
                                        NULL AS CODIGO,
                                        II.SLT_CAUDA,
-                                       II.SLT_CPF2       
+                                       II.SLT_CPF2,
+                                       RR2.OP_BS_NM NOME2
                                   FROM SOLICITACAO_INTERDICAO II,
                                        ACTPP.ELEM_VIA EV,
                                        TIPO_SITUACAO TS,
@@ -386,7 +390,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        TIPO_MANUTENCAO TM,
                                        TIPO_CIRCULACAO TC,
                                        USUARIOS OP,
-                                       ACTPP.OPERADORES_BS RR
+                                       ACTPP.OPERADORES_BS RR,
+                                       ACTPP.OPERADORES_BS RR2
                                  WHERE     II.SLT_ID_SECAO = EV.EV_ID_ELM
                                        AND II.SLT_ID_TP_SITUACAO = TS.TP_SIT_CODIGO
                                        AND II.SLT_ID_TP_INTERDICAO = TI.TP_INT_CODIGO
@@ -394,7 +399,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        AND II.SLT_ID_TP_CIRCULACAO = TC.TP_CIR_CODIGO
                                        AND II.SLT_USUARIO_LOGADO = OP.MATRICULA
                                        AND II.SLT_MAT_RESPONSAVEL = RR.OP_CPF
-                                       ${SLT_ID_SLT}
+                                       AND II.SLT_CPF2 = RR2.OP_CPF(+) 
+                                       --${SLT_ID_SLT}
                                        AND II.SLT_ATIVO_SN = 'S'
                                        and not exists (select SI_ID_SI from actpp.interdicao_motivo where SI_ID_SI = II.SLT_ID_SLT_act+1 )--tem que ter mais um por conta da sequence
                                        and not exists (select SI_ID_SI from actpp.interdicao_motivo_hist where SI_ID_SI = II.SLT_ID_SLT_act+1 )--tem que ter mais um por conta da sequence
@@ -441,7 +447,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        || IM.IM_ID_IM
                                           CODIGO,
                                         II.SLT_CAUDA,
-                                       II.SLT_CPF2
+                                       II.SLT_CPF2,
+                                       RR2.OP_BS_NM NOME2
                                   FROM SOLICITACAO_INTERDICAO II,
                                        ACTPP.ELEM_VIA EV,
                                        TIPO_SITUACAO TS,
@@ -450,6 +457,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        TIPO_CIRCULACAO TC,
                                        USUARIOS OP,
                                        ACTPP.OPERADORES_BS RR,
+                                       ACTPP.OPERADORES_BS RR2,
                                        ACTPP.RESTRICOES_DESCRICOES RD,
                                        actpp.interdicao_motivo im,
                                        actpp.solicitacoes_ldl sldl
@@ -460,7 +468,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                        AND II.SLT_ID_TP_CIRCULACAO = TC.TP_CIR_CODIGO
                                        AND II.SLT_USUARIO_LOGADO = OP.MATRICULA
                                        AND II.SLT_MAT_RESPONSAVEL = RR.OP_CPF
-                                       ${SLT_ID_SLT}
+                                       AND II.SLT_CPF2 = RR2.OP_CPF(+) 
+                                       --${SLT_ID_SLT}
                                        AND II.SLT_ATIVO_SN = 'S'
                                        AND II.SLT_ID_MOTIVO = RD.RD_ID_RDE
                                        AND SLDL.SO_LDL_ID_WEB = II.SLT_ID_SLT
@@ -1164,7 +1173,6 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                 if (!reader.IsDBNull(32)) item.Cod_Interdicao = reader.GetString(32);
                 if (!reader.IsDBNull(33)) item.Justificativa = reader.GetString(33);
             
-
             return item;
         }
 
@@ -1210,6 +1218,7 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(34)) item.Cod_Interdicao = reader.GetString(34);
             if (!reader.IsDBNull(35)) item.Cauda = reader.GetString(35);
             if (!reader.IsDBNull(36)) item.Responsavel_CPF2 = reader.GetString(36);//P1414
+            if (!reader.IsDBNull(36)) item.Responsavel2_Nome = reader.GetString(37);//C1448
 
 
             return item;
