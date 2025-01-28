@@ -2330,16 +2330,22 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             if (!reader.IsDBNull(01))
             {
                 item.ProgramadaID = reader.GetValue(01).ToString();
-                item.RestricaoID = item.ProgramadaID;
+                //item.RestricaoID = item.ProgramadaID;
+                //P1414 - Sem id de programada agora, só restrição vigente:
+                item.Restricao_id = 0;
             }
             if (!reader.IsDBNull(02))
             {
                 item.CirculacaoID = reader.GetValue(02).ToString();
 
+                //P1414 - Só id da vigente agora
+                /**
                 if (!string.IsNullOrEmpty(item.ProgramadaID) && !string.IsNullOrEmpty(item.CirculacaoID))
                     item.RestricaoID = item.ProgramadaID;
                 else
                     item.RestricaoID = item.CirculacaoID;
+                **/
+                item.RestricaoID = item.CirculacaoID;
             }
             if (!reader.IsDBNull(03)) item.Secao_Elemento = reader.GetString(03) != string.Empty ? reader.GetString(03).Trim() : string.Empty;
             if (!reader.IsDBNull(04)) item.Secao_ElementoID = reader.GetDouble(04) != 0 ? reader.GetDouble(04) : 0;
