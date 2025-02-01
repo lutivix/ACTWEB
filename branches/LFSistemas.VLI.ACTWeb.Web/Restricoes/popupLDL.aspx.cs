@@ -99,7 +99,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                         char prmTpUser,
                                         char[] prmCPF_Responsavel,
                                         char[] prmJustificativa,
-                                        char[] prmCPF2);
+                                        char[] prmCPF2,
+                                        char[] prmTelResp1,
+                                        char[] prmTelResp2);
 
         #endregion
 
@@ -1200,6 +1202,26 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                return false;
            }
            /**/
+
+            //  C1448 - Inclusão de alteração de telefones, tanto para os responsáveis do CPF 1
+            //  ou do CPF 2 - 28/01/2025    -   Luara
+            char[] tel2 = new char[12];
+            for (int i = 0; i <=11; i++)
+            {
+                if (i < lblUsuarioMatricula.Text.Length)
+                    tel2[i] = lblUsuarioMatricula.Text[i];
+                else
+                    tel2[i] = char.MinValue;
+            }
+
+            char[] tel2 = new char[12];
+            for (int i = 0; i <= 11; i++)
+            {
+                if (i < lblUsuarioMatricula.Text.Length)
+                    tel2[i] = lblUsuarioMatricula.Text[i];
+                else
+                    tel2[i] = char.MinValue;
+            }
                 
 
             if (ddlDadosTipoDaSituacao.SelectedItem.Text == "C - Confirmada")
@@ -1207,7 +1229,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 if (lblIdentificador.Text.Length > 0)
                 {
                        
-                        DLLSendSAR(int.Parse(lblIdentificador.Text), Interdicao_ID, int.Parse(ddlDadosTipoDaCirculacao.SelectedItem.Value), usuario, 'W', cpf, just, cpf2);
+                        DLLSendSAR(int.Parse(lblIdentificador.Text), Interdicao_ID, int.Parse(ddlDadosTipoDaCirculacao.SelectedItem.Value), usuario, 'W', cpf, just, cpf2, te1, tel2);
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Solicitação de alteraçãop de CPF de: " + ddlDadosTipoDaInterdicao.SelectedItem.Text + " foi enviada ao ACT pelo usuário " + ulMatricula + " - " + ulPerfil + "' });", true);
                         LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "LDL", null, Interdicao_ID.ToString(), "Solicitação de Alteração de CPF de interdição enviada ao ACT. SB: " + secao + "", Uteis.OPERACAO.Solicitou.ToString());
 
