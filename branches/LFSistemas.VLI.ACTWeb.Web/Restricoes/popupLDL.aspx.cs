@@ -74,7 +74,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                       char[]prmTelefone_responsavel,
                                       char[]prmPrefixo,
                                       char[] prmCauda,
-                                      char[] prmCPF2  );
+                                      char[] prmCPF2,
+                                      char[] prmTelResp2);
 
         [DllImport(@"DLLMQWeb.dll")]
         /// <summary>
@@ -495,7 +496,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtDadosResponsavel.Text = dados.Responsavel_Matricula != null ? dados.Responsavel_Matricula : string.Empty;
                 txbCPF2.Text = dados.Responsavel_CPF2 != null ? dados.Responsavel_CPF2 : string.Empty;//P1414
                 lblResponsavel_Nome.Text = dados.Responsavel_Nome != null ? dados.Responsavel_Nome : string.Empty;
-                lResponsavel2.Text = dados.Responsavel_CPF2 != null ? dados.Responsavel_CPF2 : string.Empty;
+                lResponsavel2.Text = dados.Responsavel2_Nome != null ? dados.Responsavel2_Nome : string.Empty;
                 txtDadosEquipamentos.Text = dados.Equipamentos != null ? dados.Equipamentos : string.Empty;
                 txtDadosObsercacao.Text = dados.Observacao != null ? dados.Observacao : string.Empty;
             }
@@ -1035,6 +1036,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                             Cauda[i] = char.MinValue;
                     }
 
+                    //C1448
+                    char[] tel2 = new char[12];
+                    for (int i = 0; i <= 11; i++)
+                    {
+                        if (i < txtTelefone2.Text.Length)
+                            tel2[i] = txtTelefone2.Text[i];
+                        else
+                            tel2[i] = char.MinValue;
+                    }
+
                         inter.Usuario_Logado_Nome = lblUsuarioLogado.Text;
 
                     inter.Solicitacao_ID_ACT = (int)interdicaoController.ObterIdInterdicao();   // Pega o ID na tabela SOLICITACOES_LDL no ACT
@@ -1042,7 +1053,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                     DLLSendSOI((int)inter.Solicitacao_ID_ACTWEB, (int)inter.Tipo_Situacao_ID, inter.Data.ToOADate(), (int)inter.Secao_ID,
                                 (int)inter.Tipo_Interdicao_ID, (int)inter.Duracao_Solicitada, (int)inter.Tipo_Manutencao_ID, (double)inter.Km, responsavel,
-                                observacao, usuariologado, 'W', Telefone_responsavel, Prefixo, Cauda, respCPF2);
+                                observacao, usuariologado, 'W', Telefone_responsavel, Prefixo, Cauda, respCPF2, tel2);
 
                     if (interdicaoController.Inserir(inter, ulMatricula))
                     {
@@ -1205,20 +1216,20 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             //  C1448 - Inclusão de alteração de telefones, tanto para os responsáveis do CPF 1
             //  ou do CPF 2 - 28/01/2025    -   Luara
-            char[] tel2 = new char[12];
+            char[] tel1 = new char[12];
             for (int i = 0; i <=11; i++)
             {
-                if (i < lblUsuarioMatricula.Text.Length)
-                    tel2[i] = lblUsuarioMatricula.Text[i];
+                if (i < txtTelefoneResponsavel.Text.Length)
+                    tel1[i] = txtTelefoneResponsavel.Text[i];
                 else
-                    tel2[i] = char.MinValue;
+                    tel1[i] = char.MinValue;
             }
 
             char[] tel2 = new char[12];
             for (int i = 0; i <= 11; i++)
             {
-                if (i < lblUsuarioMatricula.Text.Length)
-                    tel2[i] = lblUsuarioMatricula.Text[i];
+                if (i < txtTelefone2.Text.Length)
+                    tel2[i] = txtTelefone2.Text[i];
                 else
                     tel2[i] = char.MinValue;
             }
@@ -1229,7 +1240,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 if (lblIdentificador.Text.Length > 0)
                 {
                        
-                        DLLSendSAR(int.Parse(lblIdentificador.Text), Interdicao_ID, int.Parse(ddlDadosTipoDaCirculacao.SelectedItem.Value), usuario, 'W', cpf, just, cpf2, te1, tel2);
+                        DLLSendSAR(int.Parse(lblIdentificador.Text), Interdicao_ID, int.Parse(ddlDadosTipoDaCirculacao.SelectedItem.Value), usuario, 'W', cpf, just, cpf2, tel1, tel2);// C1448
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Solicitação de alteraçãop de CPF de: " + ddlDadosTipoDaInterdicao.SelectedItem.Text + " foi enviada ao ACT pelo usuário " + ulMatricula + " - " + ulPerfil + "' });", true);
                         LogDAO.GravaLogBanco(DateTime.Now, lblUsuarioMatricula.Text, "LDL", null, Interdicao_ID.ToString(), "Solicitação de Alteração de CPF de interdição enviada ao ACT. SB: " + secao + "", Uteis.OPERACAO.Solicitou.ToString());
 
@@ -1560,17 +1571,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
         }
 
         #endregion
-
-        
-
-        
-
-
-
-        
-
-       
-
         
     }
 }
