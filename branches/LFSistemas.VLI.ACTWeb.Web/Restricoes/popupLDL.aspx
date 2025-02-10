@@ -161,6 +161,12 @@
                 retorno = false;
             }
 
+            if (document.getElementById("<%=txtDadosResponsavel.ClientID%>").value == document.getElementById("<%=txbCPF2.ClientID%>").value) {
+                msg += " CPF 2 diferente. \n";
+                if (item.length > 0) item += ":<%=txbCPF2.ClientID%>"; else item += "<%=txbCPF2.ClientID%>";
+                retorno = false;
+            }
+
             if (retorno == false) {
                 BootstrapDialog.show({ title: 'ATENÇÃO!', message: msg });
                 var ind = item.split(":");
