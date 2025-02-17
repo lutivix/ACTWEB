@@ -15,7 +15,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2022 11:40:38</publishTime>
     </File>
     <File Include="ACTWEB.Master">
-      <publishTime>12/17/2024 14:30:13</publishTime>
+      <publishTime>02/17/2025 11:06:45</publishTime>
     </File>
     <File Include="Ajuda/Erro.aspx">
       <publishTime>09/21/2022 11:40:38</publishTime>
@@ -162,25 +162,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
-      <publishTime>12/17/2024 14:34:08</publishTime>
+      <publishTime>02/17/2025 11:09:53</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
       <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
-      <publishTime>12/17/2024 14:34:07</publishTime>
+      <publishTime>02/17/2025 11:09:52</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
       <publishTime>09/08/2016 12:55:17</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
-      <publishTime>12/17/2024 14:31:24</publishTime>
+      <publishTime>02/03/2025 13:57:23</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
-      <publishTime>12/17/2024 14:34:10</publishTime>
+      <publishTime>02/17/2025 11:09:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>
@@ -366,7 +366,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/02/2016 08:31:14</publishTime>
     </File>
     <File Include="Consulta/Cabines.aspx">
-      <publishTime>09/21/2022 11:43:16</publishTime>
+      <publishTime>02/17/2025 11:05:41</publishTime>
     </File>
     <File Include="Consulta/Consulta OBC.aspx">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -390,7 +390,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2022 11:40:38</publishTime>
     </File>
     <File Include="Consulta/ConsultaMacro50.aspx">
-      <publishTime>03/12/2024 16:27:39</publishTime>
+      <publishTime>01/02/2025 16:42:57</publishTime>
     </File>
     <File Include="Consulta/ConsultaMaquinistas.aspx">
       <publishTime>09/21/2022 11:40:38</publishTime>
@@ -528,7 +528,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2022 11:40:38</publishTime>
     </File>
     <File Include="css/main.css">
-      <publishTime>11/16/2024 17:58:48</publishTime>
+      <publishTime>01/28/2025 17:17:48</publishTime>
     </File>
     <File Include="css/processando.css">
       <publishTime>09/21/2022 11:40:38</publishTime>
@@ -1668,7 +1668,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2022 11:40:38</publishTime>
     </File>
     <File Include="Relatorios/frmTermometros.aspx">
-      <publishTime>12/17/2024 14:17:26</publishTime>
+      <publishTime>01/02/2025 16:42:57</publishTime>
     </File>
     <File Include="Relatorios/frmTHP_Relatorios.aspx">
       <publishTime>09/21/2022 11:40:38</publishTime>
@@ -1698,7 +1698,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2022 11:43:16</publishTime>
     </File>
     <File Include="Restricoes/popupLDL.aspx">
-      <publishTime>11/29/2024 10:57:11</publishTime>
+      <publishTime>02/10/2025 15:16:43</publishTime>
     </File>
     <File Include="Restricoes/popupRelatorioRestricoesPorData.aspx">
       <publishTime>09/21/2022 11:43:16</publishTime>
@@ -1752,7 +1752,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2022 11:43:16</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/17/2024 14:31:29</publishTime>
+      <publishTime>01/02/2025 16:53:33</publishTime>
     </File>
   </ItemGroup>
 </Project>

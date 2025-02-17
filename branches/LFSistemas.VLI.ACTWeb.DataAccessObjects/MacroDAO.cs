@@ -514,15 +514,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                         PF.MPF_ID AS Leitura_ID,
                                         MR.MR_CORREDOR
                                     FROM ACTPP.MENSAGENS_RECEBIDAS MR, ACTPP.MCTS MC, ACTPP.MSG_PF PF,
-                                    (SELECT TRIM(EST_NOME) EST_NOME
-                                                        FROM ESTACOES
-                                                    WHERE EST_ID IN (SELECT EST_ID
-                                                                        FROM REL_CAB_EST
-                                                                        WHERE CAB_ID IN (${CABINES_R}))) NE
+                                                ACTPP.NOME_CORREDOR        NC
                                     WHERE     MC.MCT_ID_MCT(+) = MR.MR_MCT_ADDR
                                         AND PF.MFP_ID_MSG(+) = MR.MR_ID
-                                        --AND MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (NE.EST_NOME, '%'))
-                                        AND MR.MR_ESTACAO = NE.EST_NOME-- C859
+                                        --AND MR.MR_LAND_MARK LIKE CONCAT ('%', CONCAT (NE.EST_NOME, '%'))                                        
+                                        AND NC.NM_COR_ID IN (${CABINES_R}) 
+                                        AND MR.MR_CORREDOR = NC.NM_COR_NOME
                                         ${INTERVALO_R}
                                         AND MR.MR_MC_NUM = 50                                        
                                         ${EXPRESSAO_R}
