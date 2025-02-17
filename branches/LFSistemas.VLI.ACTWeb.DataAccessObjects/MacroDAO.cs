@@ -541,9 +541,12 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                                            'T' AS Leitura,
                                            0 AS Leitura_ID,
                                            ME.ME_CORREDOR
-                                      FROM ACTPP.MENSAGENS_ENVIADAS ME, ACTPP.MCTS MC
+                                      FROM ACTPP.MENSAGENS_ENVIADAS ME, ACTPP.MCTS MC,
+                                            ACTPP.NOME_CORREDOR        NC
                                       WHERE
                                         MC.MCT_ID_MCT(+) = ME.ME_MCT_ADDR
+                                        AND NC.NM_COR_ID IN (${CABINES_E}) 
+                                        AND ME.ME_CORREDOR = NC.NM_COR_NOME
                                         ${INTERVALO_E}
                                         AND ME.ME_MAC_NUM = 50                                     
                                         ${EXPRESSAO_E}
@@ -578,8 +581,8 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     //FIltro de Locomotivas
                     if (!string.IsNullOrEmpty(filtro.NumeroLocomotiva))
                     {
-                        query.Replace("${LOCO_R}",  string.Format("AND MR.MR_TEXT LIKE '%{0}%'", filtro.NumeroLocomotiva));
-                        query.Replace("${LOCO_E}", string.Format("AND ME.ME_TEXT LIKE '%{0}%'", filtro.NumeroLocomotiva));
+                        query.Replace("${LOCO_R}",  string.Format("AND MR.MR_LOCO LIKE '%{0}%'", filtro.NumeroLocomotiva));
+                        query.Replace("${LOCO_E}", string.Format("AND ME.ME_LOCO LIKE '%{0}%'", filtro.NumeroLocomotiva));
                     }
                     else
                     {
