@@ -2268,7 +2268,11 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     var command = connection.CreateCommand();
 
-                    query.Append(@"SELECT CAB_ID, CAB_NOME FROM CABINES");
+                    //  C1395 - Foi solicitado alteração das cabines por corredores
+                    //  Será realizado filtro agora apenas pelos corredores - Luara
+                    //  14/02/2025
+                    //query.Append(@"SELECT CAB_ID, CAB_NOME FROM CABINES");
+                    query.Append(@"SELECT NM_COR_ID, NM_COR_NOME FROM ACTPP.NOME_CORREDOR");
 
                     #endregion
 

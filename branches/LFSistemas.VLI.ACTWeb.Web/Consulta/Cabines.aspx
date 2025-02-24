@@ -110,9 +110,9 @@
             <tr style="display: inline-block;">
                 <td>
                   
-                    <label for="perfil" style="font-weight: bold; font-size: 24px; text-align: center">Cabines</label>
+                    <label for="perfil" style="font-weight: bold; font-size: 24px; text-align: center">Corredores</label>
 
-                    <asp:CheckBoxList runat="server" ID="cblCabines" CssClass="form-control" selectionmode="multiple" Width="250" Height="480" AutoPostBack="true" style="text-align: left">
+                    <asp:CheckBoxList runat="server" ID="cblCabines" CssClass="form-control" selectionmode="multiple" Width="250" Height="380" AutoPostBack="true" style="text-align: left">
                     </asp:CheckBoxList>
 
                 </td>
@@ -147,7 +147,7 @@
                 </td>
                 <td style="padding-left: 2px;">
                    
-                    <asp:LinkButton runat="server" ID="lnkTodasCabines" CssClass="btn btn-success" OnClick="lnkTodasAsCabines_Click" ToolTip="Marca ou desmarca todas as Cabines." Width="300"><i class="fa fa-search"></i>&nbsp;Marcar/Desmarcar Todas as Cabines</asp:LinkButton>
+                    <asp:LinkButton runat="server" ID="lnkTodasCabines" CssClass="btn btn-success" OnClick="lnkTodasAsCabines_Click" ToolTip="Marca ou desmarca todos as Corredores." Width="300"><i class="fa fa-search"></i>&nbsp;Marcar/Desmarcar Todas as Cabines</asp:LinkButton>
                     <br />
                 </td>
             </tr>
