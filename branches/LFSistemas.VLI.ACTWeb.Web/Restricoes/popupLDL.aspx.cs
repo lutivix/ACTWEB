@@ -307,26 +307,28 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             {
                 duracao = 0;
             }
-            if(!rdSimTrem.Checked && !rdNaoTrem.Checked)
-            {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Favor informar ocupação em SB!' });", true);
-                return;
-            }
 
-            if(rdSimTrem.Checked)
-            {
-                if (txtPrefixo.Text.Length != 4)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'SB ocupada sem Prefixo informado!' });", true);
-                    return;
-                }
+            //  C1459 - Retirada da Necessidade de confirmação de trem na Linha - Luara - 02/03/2025
+            //if(!rdSimTrem.Checked && !rdNaoTrem.Checked)
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Favor informar ocupação em SB!' });", true);
+            //    return;
+            //}
 
-                if (tbCauda.Text == string.Empty)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Trem informado sem cauda!' });", true);
-                    return;
-                }
-            }
+            //if(rdSimTrem.Checked)
+            //{
+            //    if (txtPrefixo.Text.Length != 4)
+            //    {
+            //        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'SB ocupada sem Prefixo informado!' });", true);
+            //        return;
+            //    }
+
+            //    if (tbCauda.Text == string.Empty)
+            //    {
+            //        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Trem informado sem cauda!' });", true);
+            //        return;
+            //    }
+            //}
             
             
 

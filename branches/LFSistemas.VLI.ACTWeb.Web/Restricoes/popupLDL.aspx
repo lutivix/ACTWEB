@@ -559,7 +559,9 @@
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                     </tr>
 
-                    <!--Linha de pergunta sobre prefixo e existência de trem na linha-->
+
+                    <!--    C1459 - Retirada da Necessidade de confirmação de trem na Linha - Luara - 02/03/2025    -->
+                    <%--<!--Linha de pergunta sobre prefixo e existência de trem na linha-->
                     <tr>
                         <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;"></td>
                         <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
@@ -572,7 +574,7 @@
                         </td>
                                               
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
-                    </tr>
+                    </tr>--%>
 
                     <!--LINHA DO MOTIVO-->
                     <tr>

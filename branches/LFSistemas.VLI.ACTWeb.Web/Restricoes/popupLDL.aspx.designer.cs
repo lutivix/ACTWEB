@@ -301,33 +301,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         protected global::System.Web.UI.WebControls.RadioButton rdDadosRadio;
         
         /// <summary>
-        /// TextBox1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
-        
-        /// <summary>
-        /// rdSimTrem control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdSimTrem;
-        
-        /// <summary>
-        /// rdNaoTrem control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdNaoTrem;
-        
-        /// <summary>
         /// ddlDadosMotivo control.
         /// </summary>
         /// <remarks>
