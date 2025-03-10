@@ -510,8 +510,9 @@
                         <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>                          
                     </tr>
 
-                    <!--LINHA DO CPF RESPONSÁVEL 2 P1414-->
-                    <tr>
+                    <!-- C1459 - Retirada do 2º CPF junto do prefixo e Cauda -->
+                    <!--LINHA DO CPF RESPONSÁVEL 2 P1414-->                    
+                    <!--<tr>
                         <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">CPF Responsável 2:&nbsp; </td>
                         <td style="width: 15%; padding: 1px;">
                             <asp:TextBox ID="txbCPF2" runat="server" CssClass="form-control" OnTextChanged="txbCPF2_TextChanged" AutoPostBack="true" />
@@ -519,7 +520,7 @@
                         </td>
 
                         <td style="width: 15%; vertical-align: bottom; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" ><!--</td>                           
-                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">-->
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;" colspan="2">--><!--
                             <table style="width: 100%;">
                                 <tr>
                                     <td style="width: 35%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;" >
@@ -543,7 +544,7 @@
                                 </tr>
                             </table>
                         </td>
-                    </tr>
+                    </tr>-->
 
                     <!--LINHA DOS EQUIPAMENTOS-->
                     <tr>
