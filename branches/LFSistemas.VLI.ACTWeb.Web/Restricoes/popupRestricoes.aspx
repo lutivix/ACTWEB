@@ -456,6 +456,40 @@
                 //alert("Saindo...");
             }
         }
+
+
+        function validarDecimalComUmaCasa(e, el) {
+            var charCode = (e.which) ? e.which : e.keyCode;
+            var valor = el.value;
+
+            // Permitir backspace, tab, delete, seta esquerda/direita
+            if ([8, 9, 46, 37, 39].indexOf(charCode) !== -1) {
+                return true;
+            }
+
+            var charStr = String.fromCharCode(charCode);
+
+            // Permitir apenas número e vírgula
+            if (!charStr.match(/[0-9,]/)) {
+                return false;
+            }
+
+            // Impede mais de uma vírgula
+            if (charStr === "," && valor.indexOf(",") !== -1) {
+                return false;
+            }
+
+            // Permite no máximo uma casa decimal
+            if (valor.indexOf(",") !== -1) {
+                var partes = valor.split(",");
+                if (partes[1].length >= 1) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
     </script>
 </head>
 <body onkeydown="tecla()">
@@ -619,12 +653,12 @@
                         <tr>
                             <td style="width: 10%; text-align: right; vertical-align: top; padding-top: 10px;">Km Inicio&nbsp;&nbsp;</td>
                             <td style="width: 15%; text-align: left; vertical-align: central;">
-                                <asp:TextBox runat="server" ID="txtDadosKm_Inicio" Width="100%" CssClass="form-control" onkeypress="return fnValidaNroVirgula(event);" MaxLength="8" ToolTip="Informe o KM inicial da restrição." /></td>
+                                <asp:TextBox runat="server" ID="txtDadosKm_Inicio" Width="100%" CssClass="form-control" onkeypress="return validarDecimalComUmaCasa(event,this);" MaxLength="8" ToolTip="Informe o KM inicial da restrição." /></td>
                             <td style="width: 07%; text-align: right; vertical-align: central;">&nbsp;</td>
                             <td style="width: 10%; text-align: left; vertical-align: central;"></td>
                             <td style="width: 10%; text-align: right; vertical-align: top; padding-top: 10px;">Km Final&nbsp;&nbsp;</td>
                             <td style="width: 15%; text-align: left; vertical-align: central;">
-                                <asp:TextBox runat="server" ID="txtDadosKm_Final" Width="100%" CssClass="form-control" onkeypress="return fnValidaNroVirgula(event);" MaxLength="8" ToolTip="Informe o KM final da restrição." /></td>
+                                <asp:TextBox runat="server" ID="txtDadosKm_Final" Width="100%" CssClass="form-control" onkeypress="return validarDecimalComUmaCasa(event,this);" MaxLength="8" ToolTip="Informe o KM final da restrição." /></td>
                             <td style="width: 07%; text-align: right; vertical-align: central;">&nbsp;</td>
                             <td style="width: 10%; text-align: left; vertical-align: central;"></td>
                         </tr>
