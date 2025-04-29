@@ -490,6 +490,13 @@
             return true;
         }
 
+        function bloquearColar(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'v') {
+                e.preventDefault();
+                alert("Colar não é permitido.");
+            }
+        }
+
     </script>
 </head>
 <body onkeydown="tecla()">
@@ -653,12 +660,12 @@
                         <tr>
                             <td style="width: 10%; text-align: right; vertical-align: top; padding-top: 10px;">Km Inicio&nbsp;&nbsp;</td>
                             <td style="width: 15%; text-align: left; vertical-align: central;">
-                                <asp:TextBox runat="server" ID="txtDadosKm_Inicio" Width="100%" CssClass="form-control" onkeypress="return validarDecimalComUmaCasa(event,this);" MaxLength="8" ToolTip="Informe o KM inicial da restrição." /></td>
+                                <asp:TextBox runat="server" ID="txtDadosKm_Inicio" Width="100%" CssClass="form-control" onkeydown="bloquearColar(event);" onpaste="return false;" oncontextmenu="return false;" onkeypress="return validarDecimalComUmaCasa(event,this);" MaxLength="8" ToolTip="Informe o KM inicial da restrição." /></td>
                             <td style="width: 07%; text-align: right; vertical-align: central;">&nbsp;</td>
                             <td style="width: 10%; text-align: left; vertical-align: central;"></td>
                             <td style="width: 10%; text-align: right; vertical-align: top; padding-top: 10px;">Km Final&nbsp;&nbsp;</td>
                             <td style="width: 15%; text-align: left; vertical-align: central;">
-                                <asp:TextBox runat="server" ID="txtDadosKm_Final" Width="100%" CssClass="form-control" onkeypress="return validarDecimalComUmaCasa(event,this);" MaxLength="8" ToolTip="Informe o KM final da restrição." /></td>
+                                <asp:TextBox runat="server" ID="txtDadosKm_Final" Width="100%" CssClass="form-control"  onkeydown="bloquearColar(event);" onpaste="return false;" oncontextmenu="return false;" onkeypress="return validarDecimalComUmaCasa(event,this);" MaxLength="8" ToolTip="Informe o KM final da restrição." /></td>
                             <td style="width: 07%; text-align: right; vertical-align: central;">&nbsp;</td>
                             <td style="width: 10%; text-align: left; vertical-align: central;"></td>
                         </tr>
