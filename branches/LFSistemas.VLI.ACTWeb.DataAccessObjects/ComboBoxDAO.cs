@@ -298,6 +298,70 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return itens.ToList();
         }
+        //P1461 - Luara - 25/04/2025
+        public List<ComboBox> ComboBoxSupervisoes(string corredores)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+            var itens = new List<ComboBox>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA AS RESTRIÇÕES ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT DISTINCT 
+                                        sldl.ID_SUP_LDL AS Id, 
+                                        sldl.NM_SUP_LDL AS Nome
+                                    FROM 
+                                        ACTPP.SUPERVISAO_LDL sldl
+                                    INNER JOIN 
+                                        ACTPP.NOME_CORREDOR nc ON nc.NM_COR_ID = sldl.NM_COR_ID                                     
+                                        ${CORREDORES}
+                                    ORDER BY 
+                                        sldl.NM_SUP_LDL");
+
+                    #endregion
+
+                    #region [ PARAMETROS ]
+
+                    if (!string.IsNullOrEmpty(corredores))
+                        query.Replace("${CORREDORES}", string.Format(" WHERE sldl.NM_COR_ID IN ({0})", corredores));
+                    else
+                        query.Replace("${CORREDORES}", string.Format(" "));
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NA LISTA DE ITENS ]
+
+                    command.CommandText = query.ToString();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var item = PreencherPropriedadesComboBox(reader);
+                            itens.Add(item);
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Combo Supervisão Corredor: ", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return itens.ToList();
+        }
         public List<ComboBox> ComboBoxCorredoresACTPP()
         {
             #region [ PROPRIEDADES ]

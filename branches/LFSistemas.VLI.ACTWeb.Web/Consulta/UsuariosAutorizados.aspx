@@ -91,23 +91,32 @@
                 </div>
             <div class="row">
 
-                            <div class="form-group col-sm-1">
-               <td style="width: 30%" rowspan="2">
-                            <label for="subtipos">Subtipos e LDL:</label><br />
-                            <asp:Panel runat="server" Width="80px" Height="137px" ScrollBars="Vertical" CssClass="form-control" >
-                                <asp:CheckBoxList runat="server" ID="cblSubtipos" />
-                            </asp:Panel>
-                        </td>   
-        </div>
+                <div class="form-group col-sm-1">
+                    <td style="width: 30%" rowspan="2">
+                        <label for="subtipos">Subtipos e LDL:</label><br />
+                        <asp:Panel runat="server" Width="80px" Height="137px" ScrollBars="Vertical" CssClass="form-control">
+                            <asp:CheckBoxList runat="server" ID="cblSubtipos" />
+                        </asp:Panel>
+                    </td>
+                </div>
 
-                 <div class="form-group col-sm-2">
-               <td style="width: 30%" rowspan="2">
-                            <label for="subtipos">Corredores:</label><br />
-                            <asp:Panel runat="server" Width="170px" Height="137px"  ScrollBars="Vertical" CssClass="form-control">
-                                <asp:CheckBoxList runat="server" ID="cblCorredores" />
-                            </asp:Panel>
-                        </td>   
-        </div>
+                <div class="form-group col-sm-2">
+                    <td style="width: 30%" rowspan="2">
+                        <label for="subtipos">Corredores:</label><br />
+                        <asp:Panel runat="server" Width="170px" Height="137px" ScrollBars="Vertical" CssClass="form-control">
+                            <asp:CheckBoxList runat="server" ID="cblCorredores" OnSelectedIndexChanged="cblCorredores_SelectedIndexChanged" AutoPostBack="true" />
+                        </asp:Panel>
+                    </td>
+                </div>
+
+                <div class="form-group col-sm-2">
+                    <td style="width: 30%" rowspan="2">
+                        <label for="subtipos">Supervisões:</label><br />
+                        <asp:Panel runat="server" Width="200px" Height="137px" ScrollBars="Vertical" CssClass="form-control">
+                            <asp:CheckBoxList runat="server" ID="cblSupervisoes" OnSelectedIndexChanged="cblSupervisoes_SelectedIndexChanged"  AutoPostBack="true" />
+                        </asp:Panel>
+                    </td>
+                </div>
 
             <!-- <div class="form-group col-sm-2">
             <label for="permiteldl">Permite:</label><br />

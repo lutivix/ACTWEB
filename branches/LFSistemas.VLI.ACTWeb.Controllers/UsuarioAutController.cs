@@ -22,6 +22,11 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.AssociarSubtipos(grupos, usuario, usuarioLogado, origem);
         }
 
+        public bool AssociarSupervisoes(List<SupervisaoLDL> sups, UsuarioAutorizado usuario, string usuarioLogado)
+        {
+            return dao.AssociarSupervisoes(sups, usuario, usuarioLogado);
+        }
+
         public UsuarioAutorizado ObterPorMatricula(string matricula)
         {
             return dao.ObterPorMatricula(matricula);
@@ -59,6 +64,11 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         public List<string> ObterSubtiposAut(string usuario_id)
         {
             return dao.ObterSubtiposAut(usuario_id);
+        }
+
+        public List<string> ObterSupsLDLAut(string usuario_id)
+        {
+            return dao.ObterSupsLDLAut(usuario_id);
         }
     }
 }

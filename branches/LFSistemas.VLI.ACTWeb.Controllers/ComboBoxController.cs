@@ -34,6 +34,10 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
         {
             return dao.ComboBoxCorredores();
         }
+        public List<ComboBox> ComboBoxSupervisoes(string corredores)
+        {
+            return dao.ComboBoxSupervisoes(corredores);
+        }
         public List<ComboBox> ComboBoxCorredoresACTPP()
         {
             return dao.ComboBoxCorredoresACTPP();

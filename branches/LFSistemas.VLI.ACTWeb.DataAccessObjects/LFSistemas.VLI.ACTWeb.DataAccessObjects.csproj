@@ -124,6 +124,7 @@
     <Compile Include="RotasDAO.cs" />
     <Compile Include="SequenceDAO.cs" />
     <Compile Include="ServiceLocator.cs" />
+    <Compile Include="SupervisaoLDLDAO.cs" />
     <Compile Include="TempoConfiabDAO.cs" />
     <Compile Include="TempoParadaConfirmacaoDAO.cs" />
     <Compile Include="TempoParadaSubParadasDAO.cs" />

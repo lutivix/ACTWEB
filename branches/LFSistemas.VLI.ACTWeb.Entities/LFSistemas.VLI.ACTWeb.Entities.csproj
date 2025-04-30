@@ -87,6 +87,7 @@
     <Compile Include="AlarmesTelecomandadas.cs" />
     <Compile Include="Banner.cs" />
     <Compile Include="CirculacaoTrens.cs" />
+    <Compile Include="SupervisãoLDL.cs" />
     <Compile Include="UsuarioAutorizado.cs" />
     <Compile Include="ComboBox.cs" />
     <Compile Include="ComboInterdicao_Secao.cs" />
