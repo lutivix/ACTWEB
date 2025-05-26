@@ -148,13 +148,22 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro {
         protected global::System.Web.UI.WebControls.DropDownList ddlPermissoes;
         
         /// <summary>
-        /// ddlCorredores control.
+        /// cblCorredores control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCorredores;
+        protected global::System.Web.UI.WebControls.CheckBoxList cblCorredores;
+        
+        /// <summary>
+        /// cblSupervisoes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList cblSupervisoes;
         
         /// <summary>
         /// ButtonSalvar control.

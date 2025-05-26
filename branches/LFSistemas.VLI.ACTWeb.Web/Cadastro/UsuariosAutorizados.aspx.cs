@@ -4,6 +4,7 @@ using System;
 using System.Web.UI;
 using System.Collections.Generic;
 using LFSistemas.VLI.ACTWeb.DataAccessObjects;
+using System.Web.UI.WebControls;
 
 namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 {
@@ -22,14 +23,23 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
         static string nome;
         static string cpf;
         static string matricula;
-        static string sup;
+        static int sup;
         static string gerencia;
         static int corredor;
-        static int[] subs = new int [7];
+        
         static bool ativo;
-        static bool subiu = false;
+        static bool subiu = false;        
 
         bool subtiposVazio = false;
+        static int[] subs = new int[7];
+
+        //  P1461 - Corredores em checkboxes - Luara
+        bool corredoresVazio = false;
+        static int[] corres =  new int [7];
+
+        List<SupervisaoLDL> ListaSupLDLs = new SupervisaoLDLController().BuscarTodas() ;
+        bool supsVazio = false;
+        static int[] sups;
 
         #endregion
 
@@ -57,6 +67,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
                 var nivelAcessoController = new NivelAcessoController();
 
+               
+                sups = new int[ListaSupLDLs.Count];
+
+
                 CarregaCombos(null);
                 //CarregarTipoOperadores();
                 Controle(Flag);
@@ -66,14 +80,32 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                 cpf = txtCPF.Text;
                 matricula = txtMatriculaACT.Text;
                 gerencia = txtGerencia.Text;
-                corredor = ddlCorredores.SelectedIndex;
+                //corredor = ddlCorredores.SelectedIndex;
+                corredor = 0; //P1461
                 ativo = chkAtivo.Checked;
-                sup = txtSupervisao.Text;
+                //sup = txtSupervisao.Text;
+                sup = 0;
                 if (!subtiposVazio)
                 {
                     for (int i = 0; i < 7; i++)
                     {
                         subs[i] = cblSubtipos.Items[i].Selected ? 1:0 ;
+                    }
+                }
+
+                if (!corredoresVazio)
+                {
+                    for (int i = 0; i < 7; i++)
+                    {
+                        corres[i] = cblCorredores.Items[i].Selected ? 1 : 0;
+                    }
+                }
+
+                if (!supsVazio)
+                {
+                    for (int i = 0; i < cblSupervisoes.Items.Count; i++)
+                    {
+                        sups[i] = cblSupervisoes.Items[i].Selected ? 1 : 0;
                     }
                 }
 
@@ -92,9 +124,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             var usuarioController = new UsuarioAutController();
             var usuario = usuarioController.ObterPorMatricula(matricula);
             List<string> subtipos = new List<string>();
+            List<string> supervisoes = new List<string>();
             subtiposVazio = false;
 
             subtipos = usuarioController.ObterSubtiposAut(usuario.Usuario_ID);
+            supervisoes = usuarioController.ObterSupsLDLAut(usuario.Usuario_ID);
+
 
             txtNomeACT.Text = usuario.Nome.Trim();
             txtMatriculaACT.Text = usuario.Matricula.Trim().ToUpper();
@@ -102,7 +137,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             txtEmpresa.Text = usuario.Empresa.Trim();
             txtCPF.Text = usuario.CPF != null ? usuario.CPF.Trim() : string.Empty;
             txtSupervisao.Text = usuario.Supervisao.Trim();
-            ddlCorredores.SelectedIndex = ddlCorredores.Items.IndexOf(ddlCorredores.Items.FindByText(usuario.Nome_Corredor));
+            cblCorredores.SelectedIndex = cblCorredores.Items.IndexOf(cblCorredores.Items.FindByText(usuario.Nome_Corredor)); //P1461
             //chkAtivo.Checked = usuario.Ativo_SN == "Sim" ? true : false;
             if (usuario.PermissaoLDL.Equals("Sim"))
             {
@@ -122,6 +157,24 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
                     cblSubtipos.Items[index].Selected = true;
                 }
+            }
+
+            CarregarSupervisoes(cblCorredores.SelectedIndex.ToString());
+
+
+            //  P1461
+            for (int i = 0; i < supervisoes.Count; i++)
+            {
+                int index = cblSupervisoes.Items.IndexOf(cblSupervisoes.Items.FindByValue(supervisoes[i]));
+
+                cblSupervisoes.Items[index].Selected = true;
+
+                int corr = int.Parse(cblSupervisoes.Items[index].Attributes["data-corredor-id"]);
+
+                cblCorredores.Items[corr].Selected = true;
+
+                //break;//    P1461 - Por enquanto só pode uma supervisão por operador
+                
             }
 
             chkAtivo.Checked = subtipos.Count > 0 ? true : false;
@@ -148,16 +201,33 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
         protected void ButtonSalvar_Click(object sender, EventArgs e)
         {
+            List<SupervisaoLDL> listEnvioSups = new List<SupervisaoLDL>();
+            foreach(SupervisaoLDL item in ListaSupLDLs)
+            {
+                foreach(ListItem box in cblSupervisoes.Items)
+                {
+                    if(box.Selected)
+                    {
+                        if (box.Value == item.Id.ToString())
+                            listEnvioSups.Add(item);
+                    }                    
+                }
+            }
+
             //C1126
             if ((nome == txtNomeACT.Text) &&
                  (cpf == txtCPF.Text) &&
                  (matricula == txtMatriculaACT.Text) &&
                  (gerencia == txtGerencia.Text) &&
-                 (corredor == ddlCorredores.SelectedIndex) &&
+                 (corredor == int.Parse(cblCorredores.Items[cblCorredores.SelectedIndex].Value)) &&
                  (ativo == chkAtivo.Checked) &&
-                 (sup == txtSupervisao.Text)  )
+                 (sup == int.Parse(cblSupervisoes.Items[cblSupervisoes.SelectedIndex].Value))  )
+                //true)
             {
                 bool lsubs = true;
+                bool lcorres = true;//P1461
+                bool lsups = true;//P1461
+
                 int teste = -1;
                 for (int i = 0; i < 7; i++)
                 {
@@ -169,7 +239,27 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                     }                        
                 }
 
-                if(lsubs)
+                for (int i = 0; i < 7; i++)
+                {
+                    teste = cblCorredores.Items[i].Selected ? 1 : 0;
+                    if (teste != corres[i])
+                    {
+                        lcorres = false;
+                        break;
+                    }
+                }
+
+                for (int i = 0; i < cblSupervisoes.Items.Count; i++)
+                {
+                    teste = cblSupervisoes.Items[i].Selected ? 1 : 0;
+                    if (teste != sups[i])
+                    {
+                        lsups = false;
+                        break;
+                    }
+                }
+
+                if(lsubs && lcorres && lsups)
                 {
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Não houve nenhuma alteração na página!' });", true);
                     return;
@@ -183,7 +273,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                 gerencia = string.Empty;
                 corredor = 0;
                 ativo = false;
-                sup = string.Empty;
+                sup = 0;
 
                 for (int i = 0; i < 7; i++)
                 {
@@ -214,16 +304,16 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                 return;
             }
 
-            if (ddlCorredores.Items[0].Selected)
+            if (cblCorredores.SelectedItem == null)
             {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Selecione um corredor.' });", true);
                 return;
             }
             else
             {
-                usuario.ID_Corredor = int.Parse(ddlCorredores.SelectedValue);
-            }           
-            usuario.Supervisao = txtSupervisao.Text.Trim();
+                usuario.ID_Corredor = int.Parse(cblCorredores.SelectedValue);//P1461
+            }
+            usuario.Supervisao = cblSupervisoes.Items[cblSupervisoes.SelectedIndex].Text.Trim();//P1461
             usuario.Gerencia = txtGerencia.Text.Trim();
             usuario.Empresa = txtEmpresa.Text.Trim();
             usuario.Ativo_SN = chkAtivo.Checked ? "S" : "N";
@@ -252,7 +342,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
             //C1126 - logar os subtipos atuais.
             List<string> subtipos = new List<string>();
-            string subaux = string.Empty;            
+            string subaux = string.Empty;          
+  
+
+
 
             if (Matricula == "NOVO")
             {
@@ -282,6 +375,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                         usuarioAutController.AssociarSubtipos(grupoSubtiposVR, usuarioAux, ulMatricula, "Inserir");
                         usuarioAutController.AtualizarDataUltSol(txtCPF.Text, txtMatriculaACT.Text, usuarioAux.Usuario_ID.ToString(), "Atualização");
                         usuarioAutController.AtualizarDataUltSolBSOP(txtCPF.Text, usuarioAux.Usuario_ID.ToString(), "0");
+
+                        //  P1461 - Associação das novas supervisões - Luara - 25/04/2025
+                        usuarioAutController.AssociarSupervisoes(listEnvioSups, usuarioAux, ulMatricula);
 
                         LabelMensagem.Visible = true;
                         limparCampos();
@@ -322,6 +418,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                     usuarioAutController.AtualizarDataUltSol(txtCPF.Text, txtMatriculaACT.Text, usuarioAux.Usuario_ID.ToString(), "Atualização");
                     usuarioAutController.AtualizarDataUltSolBSOP(txtCPF.Text, usuarioAux.Usuario_ID.ToString(), "0");
 
+                    //  P1461 - Associação das novas supervisões - Luara - 25/04/2025
+                    usuarioAutController.AssociarSupervisoes(listEnvioSups, usuarioAux, ulMatricula);
+
                     limparCampos();
                     if (Flag == "alterasenha")
                         Response.Write("<script>alert('Usuário salvo com sucesso, por " + ulMatricula + " - " + ulTipoOperador + "'); window.location='/Default.aspx?lu=" + Uteis.Criptografar(ulNome.ToLower(), "a#3G6**@") + "&mu=" + Uteis.Criptografar(ulMatricula.ToLower(), "a#3G6**@") + "&pu=" + Uteis.Criptografar(ulTipoOperador.ToLower(), "a#3G6**@") + "&mm=" + Uteis.Criptografar(ulMaleta.ToLower(), "a#3G6**@") + "'</script>");
@@ -340,9 +439,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                  (cpf == txtCPF.Text) &&
                  (matricula == txtMatriculaACT.Text) &&
                  (gerencia == txtGerencia.Text) &&
-                 (corredor == ddlCorredores.SelectedIndex) &&
+                 (corredor == cblCorredores.SelectedIndex) &&
                  (ativo == chkAtivo.Checked) &&
-                 (sup == txtSupervisao.Text))
+                 (sup == cblSupervisoes.SelectedIndex)  )
+                //true)
             {
                 bool lsubs = false;
                 int teste = -1;
@@ -370,7 +470,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                 gerencia = string.Empty;
                 corredor = 0;
                 ativo = false;
-                sup = string.Empty;
+                sup = 0;
 
                 for (int i = 0; i < 7; i++)
                 {
@@ -401,14 +501,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                 return;
             }
 
-            if (ddlCorredores.Items[0].Selected)
+            if (cblCorredores.SelectedItem == null)
             {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Selecione um corredor.' });", true);
                 return;
             }
             else
             {
-                usuario.ID_Corredor = int.Parse(ddlCorredores.SelectedValue);
+                usuario.ID_Corredor = int.Parse(cblCorredores.SelectedValue);//P1461
             }
             usuario.Supervisao = txtSupervisao.Text.Trim();
             usuario.Gerencia = txtGerencia.Text.Trim();
@@ -545,11 +645,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
             txtCPF.Text = string.Empty;            
             //txtSenhaACT.Text = string.Empty;
 
-            ddlCorredores.SelectedIndex = 0;
+            cblCorredores.SelectedIndex = 0;
+            //P1461
+            for (int i = 0; i < 7; i++)
+            {
+                cblCorredores.Items[i].Selected = false;
+            }
 
             for (int i = 0; i < 7; i++)
             {                
                 cblSubtipos.Items[i].Selected = false;
+            }
+
+            for (int i = 0; i < cblSupervisoes.Items.Count; i++)
+            {
+                cblSupervisoes.Items[i].Selected = false;
             }
 
             chkAtivo.Checked = false;
@@ -643,14 +753,102 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
 
             var corredores = pesquisa.ComboBoxCorredores();
 
+            //  P1461 - Luara - Nova regra de supervisões par ausuários autorizados
+            //  25/04/2025
             if (corredores.Count > 0)
             {
-                ddlCorredores.DataValueField = "ID";
-                ddlCorredores.DataTextField = "DESCRICAO";
-                ddlCorredores.DataSource = corredores;
-                ddlCorredores.DataBind();
-                ddlCorredores.Items.Insert(0, "Selecione um Corredor");
+                //ddlCorredores.DataValueField = "ID";
+                //ddlCorredores.DataTextField = "DESCRICAO";
+                //ddlCorredores.DataSource = corredores;
+                //ddlCorredores.DataBind();
+                //ddlCorredores.Items.Insert(0, "Selecione um Corredor");
+
+                //P1461
+                cblCorredores.DataValueField = "ID";
+                cblCorredores.DataTextField = "DESCRICAO";
+                cblCorredores.DataSource = corredores;
+                cblCorredores.DataBind();
+
+                string corAtivos = string.Empty;
+
+                for (int i = 0; i < cblCorredores.Items.Count; i++)
+                {
+                    if (cblCorredores.Items[i].Selected)
+                    {
+                        // Aqui você trabalha com o item selecionado
+                        if(i>0)
+                            corAtivos += "," + cblCorredores.Items[i].Value;
+                        else
+                            corAtivos += cblCorredores.Items[i].Value; ;
+                        //string nomeCorredor = item.Text;
+                    }
+                }
+
+
+                CarregarSupervisoes(corAtivos);
             }
+           
+        }
+
+        private void CarregarSupervisoes(string corredoresSelecionados)
+        {
+            var pesquisa = new ComboBoxController();
+            var supervisoes = pesquisa.ComboBoxSupervisoes(corredoresSelecionados);
+
+            cblSupervisoes.Items.Clear(); // Limpa antes, para não duplicar
+
+            
+
+            if(corredoresSelecionados == string.Empty)
+            {
+                foreach (var sup in ListaSupLDLs)
+                {
+                    ListItem item = new ListItem();
+                    item.Text = sup.Nome;        // Nome visível
+                    item.Value = sup.Id.ToString();  // ID da supervisão
+                    item.Attributes["data-corredor-id"] = sup.IdCorredor.ToString(); // <<< Corredor associado
+                    string teste = item.Attributes["data-corredor-id"];
+                    cblSupervisoes.Items.Add(item);                    
+                }
+            }
+            else
+            {
+                foreach (var sup in ListaSupLDLs)
+                {
+                    if ( corredoresSelecionados.Contains(sup.IdCorredor.ToString()) )
+                    {
+                        ListItem item = new ListItem();
+                        item.Text = sup.Nome;        // Nome visível
+                        item.Value = sup.Id.ToString();  // ID da supervisão
+                        item.Attributes["data-corredor-id"] = sup.IdCorredor.ToString(); // <<< Corredor associado
+                        string teste = item.Attributes["data-corredor-id"];
+                        cblSupervisoes.Items.Add(item);
+                    }
+                    
+                }
+            }
+
+            if(matricula != null)
+            {
+                var usuariocont = new UsuarioAutController();
+                var usuario = usuariocont.ObterPorMatricula(matricula);
+                var sups = usuariocont.ObterSupsLDLAut(usuario.Usuario_ID);
+
+                foreach (ListItem item in cblSupervisoes.Items)
+                {
+                    if (sups.Find(p => p == item.Value) != null)
+                    {
+                        item.Selected = true;
+                    }
+                }
+            }
+            
+                     
+            //cblSupervisoes.DataTextField = "DESCRICAO";
+            //cblSupervisoes.DataValueField = "ID";
+            //cblSupervisoes.DataSource = supervisoes;
+            //cblSupervisoes.Attributes
+            //cblSupervisoes.DataBind();
         }
 
         protected void HabilitaDesabilitaCombos()
@@ -715,6 +913,76 @@ namespace LFSistemas.VLI.ACTWeb.Web.Cadastro
                 return "";
             }
 
+        }
+
+        protected void cblCorredores_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string corAtivos = string.Empty;
+
+
+            foreach (ListItem item in cblCorredores.Items)
+            {
+                if (item.Selected)
+                {
+                    corredor = int.Parse(item.Value);
+
+                    if(corAtivos == string.Empty)
+                        corAtivos += item.Value; 
+                    else
+                        corAtivos += "," + item.Value; 
+                }
+            }
+
+
+            CarregarSupervisoes(corAtivos);
+        }
+
+        protected void cblSupervisoes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // 1. Collect all unique corredor IDs associated with selected supervisoes
+            HashSet<string> selectedCorredorIds = new HashSet<string>();
+
+            // Ensure ListaSupLDLs is populated and available (declared as class member)
+            if (ListaSupLDLs != null)
+            {
+                foreach (ListItem supervisaoItem in cblSupervisoes.Items)
+                {
+                    if (supervisaoItem.Selected)
+                    {
+                        // Find the SupervisaoLDL object for the selected item
+                        SupervisaoLDL selectedSupervisao = ListaSupLDLs.Find(s => s.Id.ToString() == supervisaoItem.Value);
+                        if (selectedSupervisao != null)
+                        {
+                            // Add the associated corredor ID to the set
+                            selectedCorredorIds.Add(selectedSupervisao.IdCorredor.ToString());
+                        }
+                    }
+                }
+            }
+
+            // 2. Update cblCorredores based on the collected corredor IDs
+            foreach (ListItem corredorItem in cblCorredores.Items)
+            {
+                // Select if the corredor ID is in the set, deselect otherwise
+                corredorItem.Selected = selectedCorredorIds.Contains(corredorItem.Value);
+            }
+
+            // Update the 'sup' variable based on the first selected item (maintaining original behavior if needed)
+            ListItem firstSelectedSupervisao = null;
+            foreach (ListItem item in cblSupervisoes.Items) {
+                if (item.Selected) {
+                    firstSelectedSupervisao = item;
+                    break;
+                }
+            }
+            if (firstSelectedSupervisao != null) {
+                sup = int.Parse(firstSelectedSupervisao.Value);
+            } else {
+                // If nothing is selected in cblSupervisoes, set sup to 0 (or appropriate default)
+                sup = 0;
+                // Also ensure cblCorredores is cleared if no supervisao is selected
+                // The loop above already handles this by deselecting all corredores if selectedCorredorIds is empty.
+            }
         }
 
     }

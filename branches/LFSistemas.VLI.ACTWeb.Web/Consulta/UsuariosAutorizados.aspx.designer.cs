@@ -103,6 +103,15 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta {
         protected global::System.Web.UI.WebControls.CheckBoxList cblCorredores;
         
         /// <summary>
+        /// cblSupervisoes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList cblSupervisoes;
+        
+        /// <summary>
         /// ddlPermissoes control.
         /// </summary>
         /// <remarks>

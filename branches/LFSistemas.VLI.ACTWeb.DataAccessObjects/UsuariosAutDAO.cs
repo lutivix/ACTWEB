@@ -123,14 +123,18 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     bool inicial = false;
 
                     var command = connection.CreateCommand();
-                    query.Append(@"SELECT * FROM ACTPP.OPERADORES_BS
+                    query.Append(@"SELECT * FROM ACTPP.OPERADORES_BS OPBS, ACTPP.OPERADOR_SUPERVISAO_LDL AOPSUP
+                                     WHERE OPBS.OP_BS_ID = AOPSUP.OP_BS_ID(+)
                                      ${MATRICULA}
                                      ${NOME}
                                      ${CPF}
                                      ${SUBTIPOS}
                                      ${CORREDORES}
                                      ${PERMITE_LDL}
+                                     ${SUPERVISOES}
                                      ORDER BY 1");
+
+                    inicial = true;
 
                     if (!string.IsNullOrEmpty(filtro.Matricula))
                     {
@@ -253,6 +257,23 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
                     }
                     /**/
                     query.Replace("${PERMITE_LDL}", string.Format(" "));
+
+                    if (!string.IsNullOrEmpty(filtro.Supervisoes_LDL))
+                    {
+                        if (inicial == true)
+                        {
+                            query.Replace("${SUPERVISOES}", string.Format(" AND ID_SUP_LDL IN ( {0} )", filtro.Supervisoes_LDL));
+                        }
+                        else
+                        {
+                            query.Replace("${SUPERVISOES}", string.Format(" WHERE ID_SUP_LDL IN ( {0} )", filtro.Supervisoes_LDL));
+                            inicial = true;
+                        }
+                    }
+                    else
+                    {
+                        query.Replace("${SUPERVISOES}", string.Format(" "));
+                    }
                         
 
                     #endregion
@@ -481,6 +502,96 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return true;
         }
 
+        //  P1461 - Associação de Supervisões ao operador
+        public bool AssociarSupervisoes(List<SupervisaoLDL> sups, UsuarioAutorizado usuario, string usuarioLogado)
+        {
+            using (var connection = ServiceLocator.ObterConexaoACTWEB())
+            {
+                StringBuilder query4 = new StringBuilder();
+                var command = connection.CreateCommand();
+
+                #region [ Limpa supervisões anteriores ]
+                try
+                {
+                    command = connection.CreateCommand();
+                    query4.Append(@"DELETE FROM actpp.OPERADOR_SUPERVISAO_LDL WHERE OP_BS_ID = ${ID}");
+
+                    query4.Replace("${ID}", usuario.Usuario_ID);
+
+                    #region [ RODA A QUERY NO BANCO ]
+                    command.CommandText = query4.ToString();
+                    command.ExecuteNonQuery();
+
+
+                    #endregion
+                }
+                catch (Exception ex)
+                {
+                    LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", "SUPS DEL: " + ex.Message.Trim());
+                    //if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                    //throw new Exception(ex.Message);
+                }
+                #endregion
+            }
+
+
+            try
+            {
+                List<string> supsLog = new List<string>();
+
+                for (int i = 0; i < sups.Count; i++)
+                {
+
+                    StringBuilder query = new StringBuilder();
+
+                    if (i == 0 && sups[i] != null)
+                    {
+                        usuario.Supervisao = sups[i].Id.ToString();                        
+                    }
+
+                    using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                    {
+                        #region [ FILTRA OS USUÁRIOS ]
+
+                        var command = connection.CreateCommand();
+                        query.Append(@"INSERT INTO ACTPP.OPERADOR_SUPERVISAO_LDL (ID_OP_SUP_LDL, OP_BS_ID, ID_SUP_LDL) VALUES (ACTPP.SEQ_OPERADOR_SUPERVISAO_LDL.NEXTVAL, ${ID}, ${SUP})");
+                         
+                        query.Replace("${ID}", usuario.Usuario_ID);
+                        query.Replace("${SUP}", sups[i].Id.ToString());
+
+                        #endregion
+
+                        command.CommandText = query.ToString();
+                        var reader = command.ExecuteNonQuery();
+
+                        if (reader == 1)
+                        {
+                            supsLog.Add(sups[i].Nome);                            
+                        }
+                    }
+                }
+
+                string listaSups = string.Join(",", supsLog);
+
+
+                if (listaSups != string.Empty)
+                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Novas supervisões: " + listaSups, Uteis.OPERACAO.Inseriu.ToString());
+                else
+                    LogDAO.GravaLogBanco(DateTime.Now, usuarioLogado, "Usuários", null, null, "Usuário: " + usuario.Nome + " Perfil: " + usuario.Perfil + " - CPF: " + usuario.CPF + " - Sem novas supervisões!", Uteis.OPERACAO.Inseriu.ToString());
+                
+
+
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return true;
+        }
+
         public UsuarioAutorizado ObterPorMatricula(string matricula)
         {
             #region [ PROPRIEDADES ]
@@ -604,6 +715,59 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
                     query.Append(@"SELECT * FROM ACTPP.BS_OPERADOR
                                     WHERE OP_BS_ID = ${ID} AND BS_OP_ATIVO = 'S'");
+                    #endregion
+
+                    #region [ PARÂMETROS ]
+
+                    query.Replace("${ID}", string.Format("{0}", usuario_id));
+
+                    #endregion
+
+                    #region [BUSCA NO BANCO E ADICIONA NO OBJETO ]
+
+                    command.CommandText = query.ToString();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            item.Add(PreencherPropriedadesSubtipos(reader));
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Usuários", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return item;
+        }
+
+        public List<string> ObterSupsLDLAut(string usuario_id)
+        {
+            #region [ PROPRIEDADES ]
+
+            StringBuilder query = new StringBuilder();
+
+            List<string> item = new List<string>();
+
+            #endregion
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    #region [ FILTRA SUBTIPOS PELO ID ]
+
+                    var command = connection.CreateCommand();
+
+                    query.Append(@"SELECT * FROM ACTPP.OPERADOR_SUPERVISAO_LDL
+                                    WHERE OP_BS_ID = ${ID}");
                     #endregion
 
                     #region [ PARÂMETROS ]

@@ -580,6 +580,7 @@
     <Compile Include="Cadastro\Importa_OBC.aspx.designer.cs">
       <DependentUpon>Importa_OBC.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Cadastro\item.cs" />
     <Compile Include="Cadastro\Responsavel_LDL.aspx.cs">
       <DependentUpon>Responsavel_LDL.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -2566,5 +2566,110 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
         }
 
         #endregion
+
+        #region [ MÉTODOS DE VALIDAÇÃO LDL POR SUPERVISÃO ]
+
+        /// <summary>
+        /// Obtem o ID e o Nome da Supervisão LDL associada a um Elemento de Via (SB).
+        /// </summary>
+        /// <param name="evIdElm">ID do Elemento de Via (ELEM_VIA.EV_ID_ELM)</param>
+        /// <returns>Um Tuple contendo ID (int) e Nome (string) da Supervisão LDL, ou (0, null) se não encontrada ou erro.</returns>
+        public Tuple<int, string> GetSupervisaoInfoPorElementoVia(int evIdElm)
+        {
+            StringBuilder query = new StringBuilder();
+            int idSupLdl = 0;
+            string nomeSupLdl = null;
+
+            // Query ajustada para buscar ID e NOME (assumindo nome da coluna como NOME_SUPERVISAO)
+            query.Append(@"SELECT sldl.ID_SUP_LDL, sldl.NM_SUP_LDL -- Ajuste NOME_SUPERVISAO se o nome da coluna for diferente
+                            FROM ACTPP.SUPERVISAO_LDL sldl
+                            JOIN ACTPP.ASSOC_SUP_LDL_ESTACAO asssest ON sldl.ID_SUP_LDL = asssest.ID_SUP_LDL
+                            JOIN ACTPP.ESTACOES est ON est.ES_ID_NUM_EFE = asssest.ES_ID_NUM_EFE
+                            JOIN ACTPP.ELEM_VIA_ESTACOES eve ON eve.ES_ID_NUM_EFE = est.ES_ID_NUM_EFE
+                            JOIN ACTPP.ELEM_VIA ev ON eve.EV_ID_ELM = ev.EV_ID_ELM
+                            WHERE eve.EE_IND_ES_CON = 'T'
+                              AND ev.TE_ID_TP = 3
+                              AND ev.EV_ID_ELM = :evIdElm");
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.CommandText = query.ToString();
+                        command.Parameters.Add(new OracleParameter("evIdElm", evIdElm));
+
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                if (!reader.IsDBNull(0)) idSupLdl = reader.GetInt32(0);
+                                if (!reader.IsDBNull(1)) nomeSupLdl = reader.GetString(1);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "RestricaoDAO.GetSupervisaoInfoPorElementoVia", ex.Message.Trim());
+                return new Tuple<int, string>(0, null); // Retorna (0, null) em caso de erro
+            }
+
+            return new Tuple<int, string>(idSupLdl, nomeSupLdl);
+        }
+
+        /// <summary>
+        /// Verifica se um operador (por CPF) está associado a uma Supervisão LDL específica.
+        /// </summary>
+        /// <param name="cpf">CPF do operador (OPERADORES_BS.OP_CPF)</param>
+        /// <param name="idSupLdl">ID da Supervisão LDL (SUPERVISAO_LDL.ID_SUP_LDL)</param>
+        /// <returns>True se o operador está ligado à supervisão, False caso contrário.</returns>
+        public bool VerificaLigacaoOperadorSupervisao(string cpf, int idSupLdl)
+        {
+            StringBuilder query = new StringBuilder();
+            bool ligado = false;
+
+            // Query baseada na estrutura fornecida pelo usuário
+            query.Append(@"SELECT COUNT(*)
+                            FROM ACTPP.OPERADORES_BS obs
+                            JOIN ACTPP.OPERADOR_SUPERVISAO_LDL osldl ON obs.OP_BS_ID = osldl.OP_BS_ID
+                            WHERE obs.OP_CPF = :cpf
+                              AND osldl.ID_SUP_LDL = :idSupLdl");
+
+            // Adicionar verificação de status ativo se necessário (ex: obs.OP_BS_ATIVO = 'S')
+            // query.Append(" AND obs.OP_BS_ATIVO = 'S'"); 
+
+            try
+            {
+                using (var connection = ServiceLocator.ObterConexaoACTWEB())
+                {
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.CommandText = query.ToString();
+                        command.Parameters.Add(new OracleParameter("cpf", cpf));
+                        command.Parameters.Add(new OracleParameter("idSupLdl", idSupLdl));
+
+                        object result = command.ExecuteScalar();
+                        if (result != null && Convert.ToInt32(result) > 0)
+                        {
+                            ligado = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "RestricaoDAO.VerificaLigacaoOperadorSupervisao", ex.Message.Trim());
+                // Considerar relançar a exceção
+                // throw new Exception("Erro ao verificar ligação Operador-Supervisão LDL: " + ex.Message, ex);
+                return false; // Retorna false em caso de erro
+            }
+
+            return ligado;
+        }
+
+        #endregion
     }
-}
+}        

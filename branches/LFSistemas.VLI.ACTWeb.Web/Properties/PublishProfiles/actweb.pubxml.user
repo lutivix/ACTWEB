@@ -15,7 +15,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2022 11:40:38</publishTime>
     </File>
     <File Include="ACTWEB.Master">
+<<<<<<< HEAD
       <publishTime>03/05/2025 16:37:30</publishTime>
+=======
+      <publishTime>02/24/2025 15:38:35</publishTime>
+>>>>>>> C1470
     </File>
     <File Include="Ajuda/Erro.aspx">
       <publishTime>09/21/2022 11:40:38</publishTime>
@@ -162,25 +166,41 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.dll">
+<<<<<<< HEAD
       <publishTime>03/05/2025 16:40:09</publishTime>
+=======
+      <publishTime>02/24/2025 15:44:01</publishTime>
+>>>>>>> C1470
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Controllers.pdb">
       <publishTime>09/08/2016 12:54:55</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.dll">
+<<<<<<< HEAD
       <publishTime>03/05/2025 16:40:08</publishTime>
+=======
+      <publishTime>01/01/0001 00:00:00</publishTime>
+>>>>>>> C1470
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.DataAccessObjects.pdb">
       <publishTime>09/08/2016 12:55:17</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.dll">
+<<<<<<< HEAD
       <publishTime>03/05/2025 16:40:07</publishTime>
+=======
+      <publishTime>02/24/2025 15:43:59</publishTime>
+>>>>>>> C1470
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Entities.pdb">
       <publishTime>09/08/2016 12:55:16</publishTime>
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.dll">
+<<<<<<< HEAD
       <publishTime>03/05/2025 16:40:11</publishTime>
+=======
+      <publishTime>02/24/2025 15:44:03</publishTime>
+>>>>>>> C1470
     </File>
     <File Include="bin/LFSistemas.VLI.ACTWeb.Web.pdb">
       <publishTime>09/08/2016 12:55:19</publishTime>
@@ -390,7 +410,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2022 11:40:38</publishTime>
     </File>
     <File Include="Consulta/ConsultaMacro50.aspx">
+<<<<<<< HEAD
       <publishTime>03/05/2025 15:19:23</publishTime>
+=======
+      <publishTime>02/24/2025 15:30:47</publishTime>
+>>>>>>> C1470
     </File>
     <File Include="Consulta/ConsultaMaquinistas.aspx">
       <publishTime>09/21/2022 11:40:38</publishTime>
@@ -1668,7 +1692,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2022 11:40:38</publishTime>
     </File>
     <File Include="Relatorios/frmTermometros.aspx">
+<<<<<<< HEAD
       <publishTime>03/05/2025 15:19:23</publishTime>
+=======
+      <publishTime>02/24/2025 15:30:47</publishTime>
+>>>>>>> C1470
     </File>
     <File Include="Relatorios/frmTHP_Relatorios.aspx">
       <publishTime>09/21/2022 11:40:38</publishTime>
@@ -1698,7 +1726,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2022 11:43:16</publishTime>
     </File>
     <File Include="Restricoes/popupLDL.aspx">
+<<<<<<< HEAD
       <publishTime>03/05/2025 16:29:43</publishTime>
+=======
+      <publishTime>02/24/2025 15:30:47</publishTime>
+>>>>>>> C1470
     </File>
     <File Include="Restricoes/popupRelatorioRestricoesPorData.aspx">
       <publishTime>09/21/2022 11:43:16</publishTime>
@@ -1752,7 +1784,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2022 11:43:16</publishTime>
     </File>
     <File Include="Web.config">
+<<<<<<< HEAD
       <publishTime>02/24/2025 15:41:03</publishTime>
+=======
+      <publishTime>02/24/2025 15:44:03</publishTime>
+>>>>>>> C1470
     </File>
   </ItemGroup>
 </Project>

@@ -343,6 +343,64 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             //C1047 - 01/2022 - fim
 
 
+
+            string cpfResponsavel = txtDadosResponsavel.Text.Trim();
+            int evIdElm = 0;
+            if (ddlDadosSecao.SelectedItem != null && ddlDadosSecao.SelectedItem.Value != "0")
+            {
+                int.TryParse(ddlDadosSecao.SelectedItem.Value, out evIdElm);
+            }
+
+            if (string.IsNullOrEmpty(cpfResponsavel))
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'CPF do Responsável não informado!' });", true);
+                return;
+            }
+
+            if (evIdElm == 0)
+            {
+                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Seção (SB) inválida selecionada!' });", true);
+                 return;
+            }
+
+
+            // *** INÍCIO DA NOVA VALIDAÇÃO ***
+
+            // Verificação 1: Permissão Genérica LDL (SR_ID_STR = 7) e Ativo
+            Responsavel respLDL = restricaoController.PermiteLDL(cpfResponsavel);
+            if (respLDL == null) // Assumindo que PermiteLDL retorna null se não permitido/ativo
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Responsável não possui permissão ativa para LDL (SR_ID_STR=7)!' });", true);
+                return;
+            }
+
+            // Verificação 2: Ligação com Supervisão Específica
+            Tuple<int, string> supervisaoInfo = restricaoController.GetSupervisaoInfoPorElementoVia(evIdElm);
+            int idSupLdl = supervisaoInfo.Item1;
+            string nomeSupLdl = supervisaoInfo.Item2;
+
+            if (idSupLdl <= 0)
+            {
+                // Log ou mensagem indicando que a supervisão não foi encontrada para o SB.
+                // Pode ser um erro de configuração no banco ou a query precisa de ajuste.
+                // Por segurança, impedir a criação.
+                // LogDAO.GravaLogSistema(DateTime.Now, ulMatricula, "popupLDL.lnkCriar_Click", string.Format("ID Supervisão LDL não encontrado para EV_ID_ELM: {0}", evIdElm)); // Descomentar se LogDAO estiver acessível
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Erro ao determinar a supervisão associada à Seção (SB). Verifique a configuração.' });", true);
+                return;
+            }
+
+            bool ligadoSupervisao = restricaoController.VerificaLigacaoOperadorSupervisao(cpfResponsavel, idSupLdl);
+            if (!ligadoSupervisao)
+            {
+                // Usando o nome da supervisão na mensagem de erro
+                string nomeSupervisaoDisplay = string.IsNullOrEmpty(nomeSupLdl) ? "ID " + idSupLdl : nomeSupLdl; // Fallback para ID se nome for nulo/vazio
+                string errorMessage = string.Format("Responsável (CPF: {0}) não está associado à supervisão específica desta Seção (SB): {1}!", cpfResponsavel, nomeSupervisaoDisplay);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: '" + errorMessage.Replace("\"", "\\\"").Replace("\r", "").Replace("\n", "\\n") + "' });", true); // Escapa aspas e newlines para JS
+                return;
+            }
+
+            // *** FIM DA NOVA VALIDAÇÃO ***
+
             if (duracao != 0)
             {
 

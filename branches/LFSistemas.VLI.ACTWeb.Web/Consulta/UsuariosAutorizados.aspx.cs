@@ -46,6 +46,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
             Sorting
         }
 
+        List<SupervisaoLDL> ListaSupLDLs = new SupervisaoLDLController().BuscarTodas();
+        static int sup;
+        string matricula;
+        static int corredor;
+        
+
         #endregion
 
         #region [ EVENTOS DE PÁGINA ]
@@ -556,6 +562,21 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 usuarioFiltro.PermissaoLDL = "N";
             }
 
+            //P1461 - Luara - inclusão de supervisões no Filtro
+            //Pegar todos os itens do repeater
+            List<string> selecionados = new List<string>();
+
+            foreach(ListItem item in cblSupervisoes.Items)
+            {
+                if(item.Selected)
+                {
+                    selecionados.Add(item.Value);
+                }
+                
+            }
+
+            var supervisoes = string.Join(",", selecionados);
+
             itens = usuarioController.ObterTodosfiltro(new UsuarioAutorizado()
             {
                 Matricula = txtMatricula.Text.Length > 0 ? txtMatricula.Text.Trim() : string.Empty,
@@ -563,7 +584,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 Subtipos_BS = usuarioFiltro.Subtipos_BS,
                 corredores_id = usuarioFiltro.corredores_id,
                 CPF = usuarioFiltro.CPF,
-                PermissaoLDL = usuarioFiltro.PermissaoLDL
+                PermissaoLDL = usuarioFiltro.PermissaoLDL,
+                Supervisoes_LDL = supervisoes
             });
 
             if (itens.Count > 0)
@@ -766,7 +788,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
                 cblCorredores.DataTextField = "DESCRICAO";
                 cblCorredores.DataSource = corredores;
                 cblCorredores.DataBind();
+
             }
+
+            CarregarSupervisoes(string.Empty);
         }
 
         public UsuarioAutorizado PreencherFiltro()
@@ -846,6 +871,141 @@ namespace LFSistemas.VLI.ACTWeb.Web.Consulta
 
         #endregion
 
+        #region [ VERIFICAÇÃO DE SUPERVISÃO LDL ]
+        private void CarregarSupervisoes(string corredoresSelecionados)
+        {
+            var pesquisa = new ComboBoxController();
+            var supervisoes = pesquisa.ComboBoxSupervisoes(corredoresSelecionados);
+
+            cblSupervisoes.Items.Clear(); // Limpa antes, para não duplicar
+
+            
+
+            if(corredoresSelecionados == string.Empty)
+            {
+                foreach (var sup in ListaSupLDLs)
+                {
+                    ListItem item = new ListItem();
+                    item.Text = sup.Nome;        // Nome visível
+                    item.Value = sup.Id.ToString();  // ID da supervisão
+                    item.Attributes["data-corredor-id"] = sup.IdCorredor.ToString(); // <<< Corredor associado
+                    string teste = item.Attributes["data-corredor-id"];
+                    cblSupervisoes.Items.Add(item);                    
+                }
+            }
+            else
+            {
+                foreach (var sup in ListaSupLDLs)
+                {
+                    if ( corredoresSelecionados.Contains(sup.IdCorredor.ToString()) )
+                    {
+                        ListItem item = new ListItem();
+                        item.Text = sup.Nome;        // Nome visível
+                        item.Value = sup.Id.ToString();  // ID da supervisão
+                        item.Attributes["data-corredor-id"] = sup.IdCorredor.ToString(); // <<< Corredor associado
+                        string teste = item.Attributes["data-corredor-id"];
+                        cblSupervisoes.Items.Add(item);
+                    }
+                    
+                }
+            }
+
+            if(matricula != null)
+            {
+                var usuariocont = new UsuarioAutController();
+                var usuario = usuariocont.ObterPorMatricula(matricula);
+                var sups = usuariocont.ObterSupsLDLAut(usuario.Usuario_ID);
+
+                foreach (ListItem item in cblSupervisoes.Items)
+                {
+                    if (sups.Find(p => p == item.Value) != null)
+                    {
+                        item.Selected = true;
+                    }
+                }
+            }
+            
+                     
+            //cblSupervisoes.DataTextField = "DESCRICAO";
+            //cblSupervisoes.DataValueField = "ID";
+            //cblSupervisoes.DataSource = supervisoes;
+            //cblSupervisoes.Attributes
+            //cblSupervisoes.DataBind();
+        }
+
+        protected void cblCorredores_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //P1461
+            string corAtivos = string.Empty;
+
+
+            foreach (ListItem item in cblCorredores.Items)
+            {
+                if (item.Selected)
+                {
+                    corredor = int.Parse(item.Value);
+
+                    if(corAtivos == string.Empty)
+                        corAtivos += item.Value; 
+                    else
+                        corAtivos += "," + item.Value; 
+                }
+            }
+
+
+            CarregarSupervisoes(corAtivos);
+        }
+
+        protected void cblSupervisoes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //P1461
+            // 1. Collect all unique corredor IDs associated with selected supervisoes
+            HashSet<string> selectedCorredorIds = new HashSet<string>();
+
+            // Ensure ListaSupLDLs is populated and available (declared as class member)
+            if (ListaSupLDLs != null)
+            {
+                foreach (ListItem supervisaoItem in cblSupervisoes.Items)
+                {
+                    if (supervisaoItem.Selected)
+                    {
+                        // Find the SupervisaoLDL object for the selected item
+                        SupervisaoLDL selectedSupervisao = ListaSupLDLs.Find(s => s.Id.ToString() == supervisaoItem.Value);
+                        if (selectedSupervisao != null)
+                        {
+                            // Add the associated corredor ID to the set
+                            selectedCorredorIds.Add(selectedSupervisao.IdCorredor.ToString());
+                        }
+                    }
+                }
+            }
+
+            // 2. Update cblCorredores based on the collected corredor IDs
+            foreach (ListItem corredorItem in cblCorredores.Items)
+            {
+                // Select if the corredor ID is in the set, deselect otherwise
+                corredorItem.Selected = selectedCorredorIds.Contains(corredorItem.Value);
+            }
+
+            // Update the 'sup' variable based on the first selected item (maintaining original behavior if needed)
+            ListItem firstSelectedSupervisao = null;
+            foreach (ListItem item in cblSupervisoes.Items) {
+                if (item.Selected) {
+                    firstSelectedSupervisao = item;
+                    break;
+                }
+            }
+            if (firstSelectedSupervisao != null) {
+                sup = int.Parse(firstSelectedSupervisao.Value);
+            } else {
+                // If nothing is selected in cblSupervisoes, set sup to 0 (or appropriate default)
+                sup = 0;
+                // Also ensure cblCorredores is cleared if no supervisao is selected
+                // The loop above already handles this by deselecting all corredores if selectedCorredorIds is empty.
+            }
+        }
+
+        #endregion
 
         #region [ MÉTODOS DE ACESSO A DADOS ]
 

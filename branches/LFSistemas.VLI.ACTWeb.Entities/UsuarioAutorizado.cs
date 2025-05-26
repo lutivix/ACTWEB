@@ -29,6 +29,7 @@ namespace LFSistemas.VLI.ACTWeb.Entities
         public string Ativo_SN { get; set; }
         //lista de corredores por string
         public string corredores_id { get; set; }
+        public string Supervisoes_LDL { get; set; }
 
     }
 }

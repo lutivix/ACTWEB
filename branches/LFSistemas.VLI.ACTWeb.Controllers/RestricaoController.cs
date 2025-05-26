@@ -228,6 +228,33 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ObterLimiteTempoRestricao();
         }
 
+        #endregion
+
+        #region [ MÉTODOS DE VALIDAÇÃO LDL POR SUPERVISÃO ]
+
+        /// <summary>
+        /// Obtem o ID e o Nome da Supervisão LDL associada a um Elemento de Via (SB).
+        /// </summary>
+        /// <param name="evIdElm">ID do Elemento de Via (ELEM_VIA.EV_ID_ELM)</param>
+        /// <returns>Um Tuple contendo ID (int) e Nome (string) da Supervisão LDL, ou (0, null) se não encontrada ou erro.</returns>
+        public Tuple<int, string> GetSupervisaoInfoPorElementoVia(int evIdElm)
+        {
+            return dao.GetSupervisaoInfoPorElementoVia(evIdElm);
+        }
+
+        /// <summary>
+        /// Verifica se um operador (por CPF) está associado a uma Supervisão LDL específica.
+        /// </summary>
+        /// <param name="cpf">CPF do operador (OPERADORES_BS.OP_CPF)</param>
+        /// <param name="idSupLdl">ID da Supervisão LDL (SUPERVISAO_LDL.ID_SUP_LDL)</param>
+        /// <returns>True se o operador está ligado à supervisão, False caso contrário.</returns>
+        public bool VerificaLigacaoOperadorSupervisao(string cpf, int idSupLdl)
+        {
+            return dao.VerificaLigacaoOperadorSupervisao(cpf, idSupLdl);
+        }
+
+        #endregion
+
         #region [ MÉTODOS DE CRUD ]
 
         /// <summary>
@@ -242,11 +269,8 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.SendMessageCRE(rr, aux_Usuario_Logado);
         }
 
-
-
-        #endregion
-
         #endregion
 
     }
 }
+
