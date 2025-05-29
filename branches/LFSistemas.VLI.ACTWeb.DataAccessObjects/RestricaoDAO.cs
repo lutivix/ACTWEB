@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Data;
 using Oracle.ManagedDataAccess.Client;
 
 namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
@@ -252,6 +253,98 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
 
             return itens.ToList();
         }
+
+        // P1460 - LDL na mesma SB - Luara - 19/05/2025
+        public bool ExecutaScalar(string query, Dictionary<string, object> parametros)
+        {
+            try
+            {
+                using (var conexao = ServiceLocator.ObterConexaoACTWEB())
+                using (var comando = conexao.CreateCommand())
+                {
+                    comando.CommandText = query;
+                    comando.CommandType = CommandType.Text;
+
+                    foreach (var par in parametros)
+                    {
+                        var p = comando.CreateParameter();
+                        p.ParameterName = par.Key.StartsWith(":") ? par.Key : ":" + par.Key;
+                        p.Value = par.Value ?? DBNull.Value;
+                        comando.Parameters.Add(p);
+                    }
+
+                    if (conexao.State != ConnectionState.Open)
+                        conexao.Open();
+                    var result = comando.ExecuteScalar();
+                    return result != null && result != DBNull.Value;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogDAO.GravaLogSistema(DateTime.Now, Uteis.usuario_Matricula, "Salar", ex.Message.Trim());
+                if (Uteis.mensagemErroOrigem != null) Uteis.mensagemErroOrigem = null; Uteis.mensagemErroOrigem = ex.Message;
+                throw new Exception(ex.Message);
+            }              
+        }
+
+        // P1460 - LDL na mesma SB - Luara - 19/05/2025
+        public bool ExisteLDLVeicularNaSB(int idSb)
+        {
+            string query = @"
+                            SELECT 1
+                            FROM actpp.interdicao_motivo im
+                            JOIN actpp.restricoes_circulacao rc ON im.RC_ID_RC = rc.RC_ID_RC
+                            WHERE im.IM_TP = 1 AND im.IM_SUBTIPO = 1 AND rc.EV_ID_ELM = :idSb";
+
+            var resultado =  ExecutaScalar(query, new Dictionary<string, object> { { "idSb", idSb } });
+            return resultado;
+        }
+
+        // P1460 - LDL na mesma SB - Luara - 19/05/2025
+        public bool ExisteCPFEmLDLFixa(int idSb, string cpf)
+        {
+            string query = @"
+                            SELECT 1
+                            FROM actpp.interdicao_motivo im
+                            JOIN actpp.restricoes_circulacao rc ON im.RC_ID_RC = rc.RC_ID_RC
+                            WHERE im.IM_TP = 1 AND im.IM_SUBTIPO = 2
+                            AND rc.EV_ID_ELM = :idSb AND im.IM_RESP = :cpf";
+
+            var resultado = ExecutaScalar(query, new Dictionary<string, object> { { "idSb", idSb }, {"cpf", cpf} });
+            return resultado;
+        }
+
+        public bool ExisteLDLFixaSobrepostaOuProxima(int idSb, double kmIniNovo, double kmFimNovo)
+        {
+            string query = @"
+                            SELECT 1
+                            FROM actpp.interdicao_motivo im
+                            JOIN actpp.restricoes_circulacao rc ON im.RC_ID_RC = rc.RC_ID_RC
+                            WHERE im.IM_TP = 1 AND im.IM_SUBTIPO = 2 AND rc.EV_ID_ELM = :idSb
+                            AND (
+                                (:kmIni BETWEEN im.IM_KM_INI AND im.IM_KM_FIM)
+                                OR (:kmFim BETWEEN im.IM_KM_INI AND im.IM_KM_FIM)
+                                OR (ABS(im.IM_KM_FIM - :kmIni) < 2.0)
+                                OR (ABS(im.IM_KM_INI - :kmFim) < 2.0)
+                            )";
+
+            var resultado = ExecutaScalar(query, new Dictionary<string, object> { { "idSb", idSb }, { "kmIni", kmIniNovo }, { "kmFim", kmFimNovo } });
+            return resultado;
+        }
+
+        public bool ExisteLDLNaSB(int idSb)
+        {
+            string query = @"
+                            SELECT 1
+                            FROM actpp.interdicao_motivo im
+                            JOIN actpp.restricoes_circulacao rc ON im.RC_ID_RC = rc.RC_ID_RC
+                            WHERE im.IM_TP = 1 AND rc.EV_ID_ELM = :idSb";
+
+            var resultado = ExecutaScalar(query, new Dictionary<string, object> { { "idSb", idSb } });
+            return resultado;
+        }
+
+
 
         public bool ExisteRestricao(double IdElementoVia, double IdTipoRestricao, double IdSubtipoRestricao, DateTime? DataInicio,
                                     DateTime? DataFim, double? VelocidadeMaxima, decimal? KmInicio, decimal? KmFim)

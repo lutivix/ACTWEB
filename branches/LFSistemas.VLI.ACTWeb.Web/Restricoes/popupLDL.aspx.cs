@@ -75,7 +75,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                                       char[]prmPrefixo,
                                       char[] prmCauda,
                                       char[] prmCPF2,
-                                      char[] prmTelResp2);
+                                      char[] prmTelResp2,
+                                      int subtipo);
 
         [DllImport(@"DLLMQWeb.dll")]
         /// <summary>
@@ -401,12 +402,37 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             // *** FIM DA NOVA VALIDAÇÃO ***
 
+            // P1460 - LDL na mesma SB - Luciano - 19/05/2025
+            var controller = new RestricaoController();
+
+            //int subtipo = 2; // ou 1 se for _LDLSubV (isso precisa vir da UI ou do motivo selecionado)
+            // P1460 - LDL na mesma SB - Luciano - 19/05/2025
+            int subtipoLDL = int.Parse(ddlSubtipoLDL.SelectedValue);
+            int idSb = evIdElm;
+            string cpf = txtDadosResponsavel.Text.Trim();
+
+            double kmIni = 0;
+            double kmFim = 0;
+            try
+            {
+                kmIni = Convert.ToDouble(txtDadosKm.Text.Replace(",", "."));
+                kmFim = Convert.ToDouble(txtDadosKm.Text.Replace(",", "."));
+            }
+            catch(Exception ) { }
+            
+
+            if (!controller.PodeLDLNaMesmaSB(idSb, subtipoLDL, cpf, kmIni, kmFim))
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alerta", "alert('Não é possível criar essa LDL nesta SB. Verifique as regras.')", true);
+                return;
+            }
+
             if (duracao != 0)
             {
 
                 if (verificaKm == "ok")
                 {
-                    if (DLLSendSOI())
+                    if (DLLSendSOI(subtipoLDL))
                     {
                         UsuarioAutController usuario = new UsuarioAutController();
                         string CPF = txtDadosResponsavel.Text.Trim();
@@ -822,6 +848,17 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             if (verificaKm == "ok")
             {
+
+                // P1460 - LDL na mesma SB - Luciano - 19/05/2025
+                int idSb = int.Parse(ddlDadosSecao.SelectedItem.Value);
+                string cpf = txtDadosResponsavel.Text.Trim();
+
+                if (!restricaoController.PodeCPFLDLMesmaSB(idSb, cpf))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alerta", "alert('Não é atualizar CPF para esta LDL. Verifique as regras.')", true);
+                    return;
+                }
+
                 //if (podeSolRetirada)
                 {
                     //podeSolRetirada = false;
@@ -963,7 +1000,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             return dados;
         }
-        protected unsafe bool DLLSendSOI() // Solicitação de Criação de Interdição
+        protected unsafe bool DLLSendSOI(int subtipo) // Solicitação de Criação de Interdição
         {
             #region [ PROPRIEDADES ]
 
@@ -975,12 +1012,14 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
             try
             {
-                
+                //P1460 - Agora é lá no PodeCriarLDL as verificações! E se for fixa pode ter mais de uma na SB
+                /*
                 if (interdicaoController.ExisteLDLAtivaNaSecao(double.Parse(ddlDadosSecao.SelectedItem.Value)))
                 {
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Atenção!", " BootstrapDialog.show({ title: 'ATENÇÃO!', message: 'Já existe uma LDL vigente na SB!' });", true);
                     return false;
                 }
+                /**/
 
                 var existeInterdicaoNaSecao = interdicaoController.ExisteInterdicaoNaSecao(double.Parse(ddlDadosSecao.SelectedItem.Value));
                 if (existeInterdicaoNaSecao.Tipo_Situacao_ID != 1 && existeInterdicaoNaSecao.Tipo_Situacao_ID != 2 && existeInterdicaoNaSecao.Tipo_Situacao_ID != 6)
@@ -1113,7 +1152,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
 
                     DLLSendSOI((int)inter.Solicitacao_ID_ACTWEB, (int)inter.Tipo_Situacao_ID, inter.Data.ToOADate(), (int)inter.Secao_ID,
                                 (int)inter.Tipo_Interdicao_ID, (int)inter.Duracao_Solicitada, (int)inter.Tipo_Manutencao_ID, (double)inter.Km, responsavel,
-                                observacao, usuariologado, 'W', Telefone_responsavel, Prefixo, Cauda, respCPF2, tel2);
+                                observacao, usuariologado, 'W', Telefone_responsavel, Prefixo, Cauda, respCPF2, tel2, subtipo);
 
                     if (interdicaoController.Inserir(inter, ulMatricula))
                     {
@@ -1489,7 +1528,9 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     ddlDadosTipoDaSituacao.SelectedItem.Text = "S - Solicitada";
                     ddlDadosTipoDaSituacao.SelectedItem.Value = "1";
                     ddlDadosTipoDaInterdicao.SelectedItem.Text = "Selecione";
-                    ddlDadosTipoDaInterdicao.SelectedItem.Value = "0";                    
+                    ddlDadosTipoDaInterdicao.SelectedItem.Value = "0";      
+                    ddlSubtipoLDL.SelectedItem.Text = "Selecione";
+                    ddlSubtipoLDL.SelectedItem.Value = "1";      
                     ddlDadosTipoDaCirculacao.SelectedItem.Text = "Selecione";
                     ddlDadosTipoDaCirculacao.SelectedItem.Value = "0";
                     ddlDadosMotivo.SelectedItem.Text = "Selecione";

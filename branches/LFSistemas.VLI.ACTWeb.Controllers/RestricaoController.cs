@@ -27,6 +27,45 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return dao.ObterListaRestricoes(filtro);
         }
 
+        // P1460 - LDL na mesma SB - Luara - 19/05/2025
+        public bool PodeLDLNaMesmaSB(int idSb, int subtipo, string cpf, double kmIni, double kmFim)
+        {
+            var dao = new RestricaoDAO();
+
+            //Se tiver veicular, só pode uma na SB, mesmo se a seguinte for fixa
+            //if (subtipo == 1) // _LDLSubV
+            {
+                if (dao.ExisteLDLVeicularNaSB(idSb))
+                    return false;
+            }
+
+            if (subtipo == 2) // _LDLSubF
+            {
+                if (dao.ExisteCPFEmLDLFixa(idSb, cpf))
+                    return false;
+
+                if (dao.ExisteLDLFixaSobrepostaOuProxima(idSb, kmIni, kmFim))
+                    return false;
+
+                if (dao.ESerraPerigosa(idSb) && dao.ExisteLDLNaSB(idSb))
+                    return false;                
+            }
+
+            return true;
+        }
+
+        // P1460 - LDL na mesma SB - Luara - 19/05/2025
+        public bool PodeCPFLDLMesmaSB(int idSb, string cpf)
+        {
+            var dao = new RestricaoDAO();
+
+            if (dao.ExisteCPFEmLDLFixa(idSb, cpf))
+                    return false;
+
+            return true;
+        }
+
+
         /// <summary>
         /// 
         /// </summary>

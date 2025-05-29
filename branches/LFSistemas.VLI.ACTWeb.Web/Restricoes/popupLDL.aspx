@@ -399,8 +399,18 @@
                         </td>
                         <td style="width: 20%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label runat="server" ID="lblMensagem" Text="&nbsp;&nbsp;" Font-Size="14.5px" ForeColor="Red" /></td>
                         <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Tipo da Interdição:&nbsp;&nbsp;</td>
-                        <td style="width: 15%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-                            <asp:DropDownList ID="ddlDadosTipoDaInterdicao" runat="server" CssClass="form-control" />
+                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+                            <asp:DropDownList ID="ddlDadosTipoDaInterdicao" runat="server" CssClass="form-control" />                            
+                        </td>
+                        <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">Subipo da Interdição:&nbsp;&nbsp;</td>
+                        <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
+                            <!-- P1460 - LDL na mesma SB - Luciano - 19/05/2025 -->
+                            <asp:DropDownList ID="ddlSubtipoLDL" runat="server" CssClass="form-control">
+                                <asp:ListItem Text="Selecione" Value="1" />
+                                <asp:ListItem Text="LDL de veículo" Value="1" />
+                                <asp:ListItem Text="LDL fixa" Value="2" />
+                            </asp:DropDownList>
+
                         </td>
                         <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                     </tr>
