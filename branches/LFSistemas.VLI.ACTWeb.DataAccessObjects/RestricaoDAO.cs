@@ -332,6 +332,23 @@ namespace LFSistemas.VLI.ACTWeb.DataAccessObjects
             return resultado;
         }
 
+        // P1487 - RF02 - Verifica se há trem em movimento na SB - Luciano - 29/05/2025
+        public bool ExisteTremEmMovimentoNaSB(int idSB)
+        {
+            string query = @"
+                            SELECT 1
+                                FROM TRENS t, OCUPACOES ocp
+                                WHERE t.TM_ID_TRM = ocp.TM_ID_TRM
+                                  AND ocp.EV_ID_ELM = :idSB
+                                  AND t.TM_SIT_PAR_VIA = 'M'";
+
+            return ExecutaScalar(query, new Dictionary<string, object>
+            {
+                { "idSB", idSB }
+            });
+        }
+
+
         public bool ExisteLDLNaSB(int idSb)
         {
             string query = @"

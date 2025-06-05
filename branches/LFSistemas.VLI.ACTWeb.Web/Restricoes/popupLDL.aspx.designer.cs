@@ -346,42 +346,6 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes {
         protected global::System.Web.UI.WebControls.TextBox txtDadosObsercacao;
         
         /// <summary>
-        /// lblPrefixo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPrefixo;
-        
-        /// <summary>
-        /// txtPrefixo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPrefixo;
-        
-        /// <summary>
-        /// lbCauda control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbCauda;
-        
-        /// <summary>
-        /// tbCauda control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbCauda;
-        
-        /// <summary>
         /// lnkCriar control.
         /// </summary>
         /// <remarks>

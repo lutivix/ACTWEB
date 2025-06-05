@@ -65,6 +65,13 @@ namespace LFSistemas.VLI.ACTWeb.Controllers
             return true;
         }
 
+        // P1487 - RF02 - Controller de status de trem - Luciano - 29/05/2025
+        public bool TremEmMovimento(int idSb)
+        {
+            RestricaoDAO dao = new RestricaoDAO();
+            return dao.ExisteTremEmMovimentoNaSB(idSb);
+        }
+
 
         /// <summary>
         /// 

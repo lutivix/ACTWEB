@@ -44,7 +44,7 @@
 
             document.getElementById('<%=txtDadosTelefone.ClientID %>').value = '';
             document.getElementById('<%=txtDadosMacro.ClientID %>').value = '';
-            document.getElementById('<%=txtPrefixo.ClientID %>').value = '';
+            <%--document.getElementById('<%=txtPrefixo.ClientID %>').value = '';--%>
             txtDadosTelefone.disabled = false;
             txtDadosMacro.disabled = true;
             //lblPrefixo.disabled = true;
@@ -59,7 +59,7 @@
 
             document.getElementById('<%=txtDadosTelefone.ClientID %>').value = '';
             document.getElementById('<%=txtDadosMacro.ClientID %>').value = '';
-            document.getElementById('<%=txtPrefixo.ClientID %>').value = '';
+            <%--document.getElementById('<%=txtPrefixo.ClientID %>').value = '';--%>
             txtDadosTelefone.disabled = true;
             txtDadosMacro.disabled = true;
             //lblPrefixo.disabled = true;
@@ -68,11 +68,11 @@
             //tbCauda.disabled = true;
         }
         function getRadioButtonSelectedOcpTremSim() {
-            txtPrefixo = document.getElementById('<%=txtPrefixo.ClientID %>');
-            tbCauda = document.getElementById('<%=tbCauda.ClientID %>');
+            <%--txtPrefixo = document.getElementById('<%=txtPrefixo.ClientID %>');
+            tbCauda = document.getElementById('<%=tbCauda.ClientID %>');--%>
 
-            document.getElementById('<%=txtPrefixo.ClientID %>').value = '';
-            document.getElementById('<%=tbCauda.ClientID %>').value = '';            
+            <%--document.getElementById('<%=txtPrefixo.ClientID %>').value = '';
+            document.getElementById('<%=tbCauda.ClientID %>').value = '';  --%>          
             txtPrefixo.disabled = false;
             tbCauda.disabled = false;
             //lblPrefixo.disabled = true;
@@ -81,11 +81,11 @@
             //tbCauda.disabled = true;
         }
         function getRadioButtonSelectedOcpTremNao() {
-            txtPrefixo = document.getElementById('<%=txtPrefixo.ClientID %>');
+            <%--txtPrefixo = document.getElementById('<%=txtPrefixo.ClientID %>');
             tbCauda = document.getElementById('<%=tbCauda.ClientID %>');
 
             document.getElementById('<%=txtPrefixo.ClientID %>').value = '';
-            document.getElementById('<%=tbCauda.ClientID %>').value = '';
+            document.getElementById('<%=tbCauda.ClientID %>').value = '';--%>
             txtPrefixo.disabled = true;
             tbCauda.disabled = true;
             //lblPrefixo.disabled = true;
@@ -96,14 +96,14 @@
         function getRadioButtonSelectedMacro() {
             txtDadosTelefone = document.getElementById('<%=txtDadosTelefone.ClientID %>');
             txtDadosMacro = document.getElementById('<%=txtDadosMacro.ClientID %>');
-            txtPrefixo = document.getElementById('<%=txtPrefixo.ClientID %>');
+            <%--txtPrefixo = document.getElementById('<%=txtPrefixo.ClientID %>');
             lblPrefixo = document.getElementById('<%=lblPrefixo.ClientID %>');
             lbCauda.disabled = document.getElementById('<%=lbCauda.ClientID %>');;
-            tbCauda.disabled = document.getElementById('<%=tbCauda.ClientID %>');;
+            tbCauda.disabled = document.getElementById('<%=tbCauda.ClientID %>');;--%>
 
             document.getElementById('<%=txtDadosTelefone.ClientID %>').value = '';
             document.getElementById('<%=txtDadosMacro.ClientID %>').value = '';
-            document.getElementById('<%=txtPrefixo.ClientID %>').value = '';
+            <%--document.getElementById('<%=txtPrefixo.ClientID %>').value = '';--%>
                 
             txtDadosMacro.disabled = false;
             txtDadosTelefone.disabled = true;
@@ -199,11 +199,11 @@
                 var cpf = '<%=this.cpf%>';
                 var cpf2 = '<%=this.cpf2%>';
 
-                alert("Dados de confirmação para LDL " + id + " em " + id2 + " com  CPF 1 " + cpf + " e CPF 2 " + cpf2 + " ON!");
-                alert("I-" + id + id2 + cpf + cpf2 + "-F");
+                //alert("Dados de confirmação para LDL " + id + " em " + id2 + " com  CPF 1 " + cpf + " e CPF 2 " + cpf2 + " ON!");
+                //alert("I-" + id + id2 + cpf + "-F");
 
-                var person = prompt("CONFIRME O Nº DE AUTORIZAÇÃO (SB EM CAIXA ALTA + Nº AUTORIZACÃO + CPF + CPF2)", "")
-                if (person == id2 + id + cpf + cpf2) {
+                var person = prompt("CONFIRME O Nº DE AUTORIZAÇÃO (SB EM CAIXA ALTA + Nº AUTORIZACÃO + CPF)", "")
+                if (person == id2 + id + cpf) {
                     $.ajax({
                         type: "POST",
                         url: "popupLDL.aspx/DeleteRestriction",
@@ -612,10 +612,10 @@
                         </td>
 
                         <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;  padding-left:20px; ">
-                                <asp:Label runat="server" ID="lblPrefixo" Font-Size="9" Font-Bold="true" /></td>
+                               <%-- <asp:Label runat="server" ID="lblPrefixo" Font-Size="9" Font-Bold="true" /></td>--%>
                         	
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-                            <asp:TextBox ID="txtPrefixo" MaxLength="4" runat="server" CssClass="form-control" />
+                            <%--<asp:TextBox ID="txtPrefixo" MaxLength="4" runat="server" CssClass="form-control" />--%>
                         </td>  
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                     </tr>
@@ -629,11 +629,11 @@
                         </td>
 
                         <td style="width: 10%; vertical-align: middle; text-align: left; margin-top: 10px; margin-bottom: 10px; padding: 1px;  padding-left:20px; ">
-                            <asp:Label runat="server" ID="lbCauda" Font-Size="9" Font-Bold="true" />
+                            <%--<asp:Label runat="server" ID="lbCauda" Font-Size="9" Font-Bold="true" />--%>
                         </td>
                         	
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">
-                            <asp:TextBox ID="tbCauda" MaxLength="6" runat="server" CssClass="form-control" />
+                            <%--<asp:TextBox ID="tbCauda" MaxLength="6" runat="server" CssClass="form-control" />--%>
                         </td>  
                         <td style="width: 10%; vertical-align: middle; text-align: right; margin-top: 10px; margin-bottom: 10px; padding: 1px;">&nbsp;&nbsp;</td>
                     </tr>

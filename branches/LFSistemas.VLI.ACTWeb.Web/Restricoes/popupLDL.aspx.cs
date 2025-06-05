@@ -137,12 +137,12 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 txtDataInicial.Text = dataIni.ToShortDateString();
                 txtDataFinal.Text = dataFim.ToShortDateString();
                 lblCanalCom.Text = "Canal de comunicação de Entrada";
-                lblPrefixo.Enabled = true;
-                lblPrefixo.Visible = true;
-                lblPrefixo.Text = "Prefixo:";
-                lbCauda.Enabled = true;
-                lbCauda.Visible = true;
-                lbCauda.Text = "Cauda:";
+                //lblPrefixo.Enabled = true;
+                //lblPrefixo.Visible = true;
+                //lblPrefixo.Text = "Prefixo:";
+                //lbCauda.Enabled = true;
+                //lbCauda.Visible = true;
+                //lbCauda.Text = "Cauda:";
 
                 ControleFormulario(StatusBarraComandos.Novo);
                 txtDadosDataAtual.Text = DateTime.Now.ToShortDateString();
@@ -408,7 +408,7 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
             //int subtipo = 2; // ou 1 se for _LDLSubV (isso precisa vir da UI ou do motivo selecionado)
             // P1460 - LDL na mesma SB - Luciano - 19/05/2025
             int subtipoLDL = int.Parse(ddlSubtipoLDL.SelectedValue);
-            int idSb = evIdElm;
+            int idSb = evIdElm;/* valor vindo do formulário/contexto */
             string cpf = txtDadosResponsavel.Text.Trim();
 
             double kmIni = 0;
@@ -418,12 +418,20 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 kmIni = Convert.ToDouble(txtDadosKm.Text.Replace(",", "."));
                 kmFim = Convert.ToDouble(txtDadosKm.Text.Replace(",", "."));
             }
-            catch(Exception ) { }
+            catch(Exception ) { }           
             
-
             if (!controller.PodeLDLNaMesmaSB(idSb, subtipoLDL, cpf, kmIni, kmFim))
             {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alerta", "alert('Não é possível criar essa LDL nesta SB. Verifique as regras.')", true);
+                return;
+            }
+
+            // P1487 - RF02 - Validação de trem circulando - Luciano - 29/05/2025                       
+            bool emMovimento = controller.TremEmMovimento(idSb);
+
+            if (emMovimento)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alerta", "alert('A LDL não pode ser criada: há trem circulando na SB selecionada.')", true);
                 return;
             }
 
@@ -518,12 +526,13 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                 //  C1448 - Inclusão de novo Telefone - Luara - 24/01/2025
                 txtTelefone2.Text = dados.Telefone_resp2 != null ? dados.Telefone_resp2 : string.Empty;
 
-                txtPrefixo.Text = dados.Prefixo != null ? dados.Prefixo : string.Empty;
-                tbCauda.Text = string.Empty;
-                if (dados.Cauda != string.Empty)
-                {
-                    tbCauda.Text = dados.Cauda;
-                }
+                //P1487 - Luciano - Não tem mais prefixo e cauda (LDL de cauda) - 02/06/2025
+                //txtPrefixo.Text = dados.Prefixo != null ? dados.Prefixo : string.Empty;
+                //tbCauda.Text = string.Empty;
+                //if (dados.Cauda != string.Empty)
+                //{
+                //    tbCauda.Text = dados.Cauda;
+                //}
                 
                 
                 
@@ -1063,8 +1072,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     inter.Ativo_SN = "S";
                     inter.Telefone_responsavel = txtTelefoneResponsavel.Text.Length > 0 ? txtTelefoneResponsavel.Text : string.Empty;
                     inter.Telefone_resp2 = txtTelefone2.Text.Length > 0 ? txtTelefone2.Text : string.Empty;// C1448
-                    inter.Prefixo = txtPrefixo.Text.Length > 0 ? txtPrefixo.Text : string.Empty;
-                    inter.Cauda = tbCauda.Text.Length > 0 ? tbCauda.Text : "0";
+                    //inter.Prefixo = txtPrefixo.Text.Length > 0 ? txtPrefixo.Text : string.Empty;
+                    //inter.Cauda = tbCauda.Text.Length > 0 ? tbCauda.Text : "0";
 
                     char[] usuariologado = new char[10];
                     char[] responsavel = new char[12];
@@ -1577,10 +1586,10 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     txtDadosMacro.Text = string.Empty;
                     txtDadosObsercacao.Text = string.Empty;
                     lblMensagem.Text = string.Empty;
-                    txtPrefixo.Text = string.Empty;
+                    //txtPrefixo.Text = string.Empty;
                     txtTelefoneResponsavel.Text = string.Empty;
                     txtTelefone2.Text = string.Empty;//   C1448
-                    tbCauda.Text = string.Empty;
+                    //tbCauda.Text = string.Empty;
                     //tbJustificativa.Text = string.Empty;
 
 
@@ -1649,8 +1658,8 @@ namespace LFSistemas.VLI.ACTWeb.Web.Restricoes
                     lnkLImpar.CssClass = "btn btn-primary disabled";
                     lnkNovoResponsavel.Enabled = false;
                     lnkNovoResponsavel.CssClass = "btn btn-info disabled";
-                    txtPrefixo.Text = string.Empty;
-                    tbCauda.Text = string.Empty;
+                    //txtPrefixo.Text = string.Empty;
+                    //tbCauda.Text = string.Empty;
                     //tbJustificativa.Text = string.Empty;
                     //txtTelefoneResponsavel.Text = string.Empty;
                     //txtDadosResponsavel.Text = string.Empty;
